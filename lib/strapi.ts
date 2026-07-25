@@ -183,7 +183,11 @@ const SECTIONS_POPULATE =
   "&populate[sections][on][shared.editorial-section][populate][paragraphs]=true" +
   "&populate[sections][on][research-and-development.hero][populate]=backgroundImage" +
   "&populate[sections][on][research-and-development.energy-solutions-section][populate][items][populate]=image" +
-  "&populate[sections][on][research-and-development.core-achievements-section][populate][items][populate]=image";
+  "&populate[sections][on][research-and-development.core-achievements-section][populate][items][populate]=image" +
+  "&populate[sections][on][reviews.hero][populate]=backgroundImage" +
+  "&populate[sections][on][reviews.intro-section]=true" +
+  "&populate[sections][on][reviews.testimonials-section][populate][cards][populate]=image" ;
+
 
 export const getSolarPage = () => getSingleType("solar-page", SECTIONS_POPULATE);
 export const getOffGridSolutionsPage = () =>

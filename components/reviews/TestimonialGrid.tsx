@@ -12,7 +12,7 @@ export interface Testimonial {
 
 export interface ImageRow {
     type: 'image';
-    image: StaticImageData;
+    image: StaticImageData | string;
     alt: string;
 }
 
