@@ -180,3 +180,29 @@ export {
   PressMediaLatestNewsSectionSchema,
   PressMediaNewsSectionSchema,
 } from "./press-media";
+export type {
+  OffGridHeroData,
+  SolutionsPortfolioData,
+  ThreeSolutionsSectionData,
+  IconCardGridData,
+  HybridGenDetailData,
+  WorldMapData,
+  MicrogridSpecTableData,
+  AcquaSmartSectionData,
+  OffGridStoryData,
+  OverlayCardGridData,
+  OffGridFormData,
+} from "./off-grid";
+export {
+  OffGridHeroSchema,
+  SolutionsPortfolioSchema,
+  ThreeSolutionsSectionSchema,
+  IconCardGridSchema,
+  HybridGenDetailSchema,
+  WorldMapSchema,
+  MicrogridSpecTableSchema,
+  AcquaSmartSectionSchema,
+  OffGridStorySchema,
+  OverlayCardGridSchema,
+  OffGridFormSchema,
+} from "./off-grid";

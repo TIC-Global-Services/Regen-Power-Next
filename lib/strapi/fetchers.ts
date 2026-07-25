@@ -14,6 +14,7 @@ import * as contact from "./populate/contact";
 import * as blog from "./populate/blog";
 import * as portfolio from "./populate/portfolio";
 import * as pressMedia from "./populate/press-media";
+import * as offGrid from "./populate/off-grid";
 
 const PAGE_SLUGS = {
   solar: "solar-page",
@@ -169,7 +170,25 @@ export const getReviewsPage = () =>
 
 // Not yet migrated — minimal populate for future use
 export const getOffGridSolutionsPage = () =>
-  getSingleType(PAGE_SLUGS.offGridSolutions);
+  getSingleType(
+    PAGE_SLUGS.offGridSolutions,
+    populate(
+      offGrid.hero,
+      offGrid.statsCardGrid,
+      offGrid.solutionsPortfolio,
+      offGrid.threeSolutionsSection,
+      offGrid.iconCardGrid,
+      offGrid.hybridGenDetail,
+      shared.editorialSection,
+      offGrid.worldMap,
+      offGrid.microgridSpecTable,
+      offGrid.acquaSmartSection,
+      offGrid.offGridStory,
+      offGrid.overlayCardGrid,
+      shared.faq,
+      offGrid.offGridForm
+    )
+  );
 export const getBlogPage = () =>
   getSingleType(
     PAGE_SLUGS.blog,

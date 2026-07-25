@@ -170,3 +170,31 @@ export type {
   ResolvedPressMediaLatestNewsSection,
   ResolvedPressMediaNewsSection,
 } from "./press-media";
+export {
+  resolveOffGridHero,
+  resolveStatsCardGrid,
+  resolveSolutionsPortfolio,
+  resolveThreeSolutionsSection,
+  resolveIconCardGrid,
+  resolveHybridGenDetail,
+  resolveWorldMap,
+  resolveMicrogridSpecTable,
+  resolveAcquaSmartSection,
+  resolveOffGridStory,
+  resolveOverlayCardGrid,
+  resolveOffGridForm,
+} from "./off-grid";
+export type {
+  ResolvedOffGridHero,
+  ResolvedStatsCardGrid,
+  ResolvedSolutionsPortfolio,
+  ResolvedThreeSolutionsSection,
+  ResolvedIconCardGrid,
+  ResolvedHybridGenDetail,
+  ResolvedWorldMap,
+  ResolvedMicrogridSpecTable,
+  ResolvedAcquaSmartSection,
+  ResolvedOffGridStory,
+  ResolvedOverlayCardGrid,
+  ResolvedOffGridForm,
+} from "./off-grid";
