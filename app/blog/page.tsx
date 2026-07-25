@@ -5,15 +5,18 @@ import {
   resolveBlogHero,
   resolveBlogCategoryFilter,
   resolveSharedCtaBanner,
+  resolveSharedCategorySection,
 } from '@/lib/strapi/resolvers';
 import type {
   BlogHeroData,
   BlogCategoryFilterData,
   BlogCtaBannerData,
+  SharedCategorySectionData,
 } from '@/lib/strapi/schemas';
 import BlogHero from '@/components/blog/BlogHero';
 import BlogGrid from '@/components/blog/BlogGrid';
 import GetSolar from '@/reuseables/getsolar';
+import CategorySection from '@/reuseables/CategorySection';
 
 export const revalidate = 60;
 
@@ -23,10 +26,12 @@ const BlogPage = async () => {
 
   const hero = findSection<BlogHeroData>(sections, 'blog.hero');
   const categoryFilter = findSection<BlogCategoryFilterData>(sections, 'blog.category-filter');
+  const categorySection = findSection<SharedCategorySectionData>(sections, 'shared.category-section');
   const ctaBanner = findSection<BlogCtaBannerData>(sections, 'shared.cta-banner');
 
   const heroProps = resolveBlogHero(hero);
   const gridProps = resolveBlogCategoryFilter(categoryFilter);
+  const categorySectionProps = resolveSharedCategorySection(categorySection);
   const ctaBannerProps = resolveSharedCtaBanner(ctaBanner);
 
   return (
@@ -49,6 +54,8 @@ const BlogPage = async () => {
           cards={gridProps.cards}
         />
       )}
+
+      {categorySectionProps && <CategorySection resolved={categorySectionProps} />}
 
       {ctaBannerProps && (
         <GetSolar

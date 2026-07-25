@@ -10,6 +10,9 @@ import {
   resolveBrandsInvertersSlider,
   resolveBrandsCriteriaList,
   resolveBrandsSpecsTable,
+  resolveSharedFaq,
+  resolveSharedFormSection,
+  resolveSharedCtaBanner,
 } from "@/lib/strapi/resolvers";
 import type {
   BrandsHeroData,
@@ -20,6 +23,9 @@ import type {
   BrandsInvertersSliderData,
   BrandsCriteriaListData,
   BrandsSpecsTableData,
+  SharedFaqData,
+  SharedFormSectionData,
+  SharedCtaBannerData,
 } from "@/lib/strapi/schemas";
 
 import BrandsHeroSection from "@/components/solar/brands/BrandsHeroSection";
@@ -31,10 +37,9 @@ import InvertersSliderSection from "@/components/solar/brands/InvertersSliderSec
 import CriteriaListSection from "@/components/solar/brands/CriteriaListSection";
 import SpecsTableSection from "@/components/solar/brands/SpecsTableSection";
 
-import FAQ from "@/components/solar/brands/FAQ";
-import LeadCaptureForm from "@/components/solar/LeadCaptureForm";
+import FAQ from "@/reuseables/faq";
 import GetSolar from "@/reuseables/getsolar";
-import getSolarBg from "@/assets/solar/footer.png";
+import LeadCaptureForm from "@/components/solar/LeadCaptureForm";
 
 export const revalidate = 60;
 
@@ -50,6 +55,9 @@ const SolarBrandsPage = async () => {
   const inverters = findSection<BrandsInvertersSliderData>(sections, "brands.inverters-slider");
   const criteria = findSection<BrandsCriteriaListData>(sections, "brands.criteria-list");
   const specsTable = findSection<BrandsSpecsTableData>(sections, "brands.specs-table");
+  const faq = findSection<SharedFaqData>(sections, "shared.faq");
+  const form = findSection<SharedFormSectionData>(sections, "shared.form-section");
+  const ctaBanner = findSection<SharedCtaBannerData>(sections, "shared.cta-banner");
 
   const heroProps = resolveBrandsHero(hero);
   const philosophyProps = resolveBrandsPhilosophy(philosophy);
@@ -59,6 +67,9 @@ const SolarBrandsPage = async () => {
   const invertersProps = resolveBrandsInvertersSlider(inverters);
   const criteriaProps = resolveBrandsCriteriaList(criteria);
   const specsTableProps = resolveBrandsSpecsTable(specsTable);
+  const faqProps = resolveSharedFaq(faq);
+  const formProps = resolveSharedFormSection(form);
+  const ctaBannerProps = resolveSharedCtaBanner(ctaBanner);
 
   return (
     <div className="bg-white min-h-screen text-black">
@@ -73,19 +84,37 @@ const SolarBrandsPage = async () => {
       {invertersProps && <InvertersSliderSection resolved={invertersProps} />}
       {criteriaProps && <CriteriaListSection resolved={criteriaProps} />}
 
-      <FAQ />
+      {faqProps && (
+        <FAQ
+          topTitle={faqProps.title}
+          title={faqProps.sectionTitle}
+          listTitle={faqProps.listTitle}
+          image={faqProps.image?.src ?? undefined}
+          items={faqProps.items}
+        />
+      )}
 
-      <div id="quote-form">
-        <LeadCaptureForm />
-      </div>
+      {formProps && (
+        <div id="quote-form">
+          <LeadCaptureForm
+            subtitle={formProps.subtitle}
+            title={formProps.title}
+            description={formProps.description}
+            image={formProps.image}
+          />
+        </div>
+      )}
 
-      <GetSolar
-        subtitle="Get A Solar System Designed"
-        mainTitle="For Your Home"
-        description="Tell us a few details about your home and power use, and one of our Perth-based CEC-accredited designers will build a system tailored to your roof, your household, and your budget. Free, no-obligation, and no high-pressure sales calls \u2014 just a proper engineering recommendation."
-        buttonText="Get My Free Quote"
-        bgImage={getSolarBg}
-      />
+      {ctaBannerProps && (
+        <GetSolar
+          subtitle={ctaBannerProps.subtitle}
+          mainTitle={ctaBannerProps.mainTitle}
+          description={ctaBannerProps.description}
+          buttonText={ctaBannerProps.buttonText}
+          buttonHref={ctaBannerProps.buttonHref}
+          bgImage={ctaBannerProps.bgImage || undefined}
+        />
+      )}
     </div>
   );
 };

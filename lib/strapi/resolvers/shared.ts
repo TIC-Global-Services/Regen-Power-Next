@@ -5,6 +5,8 @@ import type {
   SharedFaqData,
   SharedEditorialSectionData,
   DealsSplitSectionData,
+  SharedFormSectionData,
+  SharedCategorySectionData,
 } from "../schemas";
 
 export interface ResolvedSharedCtaBanner {
@@ -97,5 +99,56 @@ export function resolveSharedSplitSection(
     image: data.image ? strapiImageData(data.image) : null,
     imagePosition: data.imagePosition ?? "left",
     badge: data.badge ?? "",
+  };
+}
+
+export interface ResolvedSharedFormSection {
+  subtitle: string;
+  title: string;
+  description: string;
+  image: string | undefined;
+}
+export function resolveSharedFormSection(
+  data: SharedFormSectionData | undefined | null
+): ResolvedSharedFormSection | null {
+  if (!data) return null;
+  const img = data.image ? strapiImageData(data.image) : null;
+  return {
+    subtitle: data.subtitle ?? "",
+    title: data.title ?? "",
+    description: data.description ?? "",
+    image: img?.src,
+  };
+}
+
+export interface ResolvedSharedCategoryItem {
+  title: string;
+  description: string;
+  image: string | undefined;
+}
+export interface ResolvedSharedCategory {
+  label: string;
+  items: ResolvedSharedCategoryItem[];
+}
+export interface ResolvedSharedCategorySection {
+  subtitle: string;
+  title: string;
+  categories: ResolvedSharedCategory[];
+}
+export function resolveSharedCategorySection(
+  data: SharedCategorySectionData | undefined | null
+): ResolvedSharedCategorySection | null {
+  if (!data) return null;
+  return {
+    subtitle: data.subtitle ?? "",
+    title: data.title ?? "",
+    categories: (data.categories ?? []).map((cat) => ({
+      label: cat.label,
+      items: (cat.items ?? []).map((item) => ({
+        title: item.title ?? "",
+        description: item.description ?? "",
+        image: item.image ? strapiImageData(item.image)?.src : undefined,
+      })),
+    })),
   };
 }

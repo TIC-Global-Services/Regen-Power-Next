@@ -144,7 +144,7 @@ export function resolveRebatesLoanBenefits(
 }
 
 export interface ResolvedRebatesEligibilityQuestion {
-  questionId: string;
+  id: number;
   question: string;
   helperText: string;
   loanOnly: boolean;
@@ -170,7 +170,7 @@ export function resolveRebatesEligibilityChecker(
     title: data.title ?? "",
     description: data.description ?? "",
     questions: (data.questions ?? []).map((q) => ({
-      questionId: q.questionId,
+      id: q.id,
       question: q.question,
       helperText: q.helperText,
       loanOnly: q.loanOnly,

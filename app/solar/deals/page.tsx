@@ -10,6 +10,7 @@ import {
   resolveDealsWhyMatters,
   resolveSharedSplitSection,
   resolveSharedFaq,
+  resolveSharedFormSection,
   resolveSharedCtaBanner,
 } from "@/lib/strapi/resolvers";
 import type {
@@ -22,6 +23,7 @@ import type {
   DealsFaqData,
   DealsCtaBannerData,
   SolarPackagesData,
+  SharedFormSectionData,
 } from "@/lib/strapi/schemas";
 
 import DealsHeroSection from "@/components/solar/deals/DealsHeroSection";
@@ -49,6 +51,7 @@ export default async function SolarDealsPage() {
   const waysToPay = findSection<DealsWaysToPayData>(sections, "deals.ways-to-pay");
   const whyMatters = findSection<DealsWhyMattersData>(sections, "deals.why-matters");
   const faq = findSection<DealsFaqData>(sections, "shared.faq");
+  const form = findSection<SharedFormSectionData>(sections, "shared.form-section");
   const ctaBanner = findSection<DealsCtaBannerData>(sections, "shared.cta-banner");
 
   const heroProps = resolveDealsHero(hero);
@@ -59,6 +62,7 @@ export default async function SolarDealsPage() {
   const waysToPayProps = resolveDealsWaysToPay(waysToPay);
   const whyMattersProps = resolveDealsWhyMatters(whyMatters);
   const faqProps = resolveSharedFaq(faq);
+  const formProps = resolveSharedFormSection(form);
   const ctaBannerProps = resolveSharedCtaBanner(ctaBanner);
 
   return (
@@ -80,9 +84,16 @@ export default async function SolarDealsPage() {
 
       {faqProps && <FaqSection resolved={faqProps} />}
 
-      <div id="quote-form">
-        <LeadCaptureForm />
-      </div>
+      {formProps && (
+        <div id="quote-form">
+          <LeadCaptureForm
+            subtitle={formProps.subtitle}
+            title={formProps.title}
+            description={formProps.description}
+            image={formProps.image}
+          />
+        </div>
+      )}
 
       {ctaBannerProps && <CtaBannerSection resolved={ctaBannerProps} />}
 

@@ -75,7 +75,6 @@ export type RebatesLoanBenefitsData = z.infer<typeof RebatesLoanBenefitsSchema>;
 
 export const RebatesEligibilityQuestionSchema = z.object({
   id: z.number(),
-  questionId: z.string(),
   question: z.string(),
   helperText: z.string(),
   loanOnly: z.boolean(),

@@ -40,3 +40,35 @@ export const FaqItemSchema = z.object({
   question: z.string(),
   answer: z.string(),
 });
+
+export const SharedFormSectionSchema = z.object({
+  __component: z.literal("shared.form-section"),
+  subtitle: z.string().nullable(),
+  title: z.string().nullable(),
+  description: z.string().nullable(),
+  image: MediaSchema.nullable(),
+});
+export type SharedFormSectionData = z.infer<typeof SharedFormSectionSchema>;
+
+export const SharedCategoryItemSchema = z.object({
+  id: z.number(),
+  title: z.string().nullable(),
+  description: z.string().nullable(),
+  image: MediaSchema.nullable(),
+});
+export type SharedCategoryItemData = z.infer<typeof SharedCategoryItemSchema>;
+
+export const SharedCategorySchema = z.object({
+  id: z.number(),
+  label: z.string(),
+  items: z.array(SharedCategoryItemSchema),
+});
+export type SharedCategoryData = z.infer<typeof SharedCategorySchema>;
+
+export const SharedCategorySectionSchema = z.object({
+  __component: z.literal("shared.category-section"),
+  subtitle: z.string().nullable(),
+  title: z.string().nullable(),
+  categories: z.array(SharedCategorySchema),
+});
+export type SharedCategorySectionData = z.infer<typeof SharedCategorySectionSchema>;

@@ -28,12 +28,18 @@ export {
   resolveSharedFaq,
   resolveSharedEditorialSection,
   resolveSharedSplitSection,
+  resolveSharedFormSection,
+  resolveSharedCategorySection,
 } from "./shared";
 export type {
   ResolvedSharedCtaBanner,
   ResolvedSharedFaq,
   ResolvedSharedEditorialSection,
   ResolvedSharedSplitSection,
+  ResolvedSharedFormSection,
+  ResolvedSharedCategorySection,
+  ResolvedSharedCategory,
+  ResolvedSharedCategoryItem,
 } from "./shared";
 
 export {

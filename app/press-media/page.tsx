@@ -7,6 +7,7 @@ import {
   resolvePressMediaLatestNewsSection,
   resolvePressMediaNewsSection,
   resolveSharedCtaBanner,
+  resolveSharedCategorySection,
 } from '@/lib/strapi/resolvers';
 import type {
   PressMediaHeroData,
@@ -14,12 +15,14 @@ import type {
   PressMediaLatestNewsSectionData,
   PressMediaNewsSectionData,
   BlogCtaBannerData,
+  SharedCategorySectionData,
 } from '@/lib/strapi/schemas';
 import PressHero from '@/components/press-and-media/PressHero';
 import FeaturedArticle from '@/components/press-and-media/FeaturedArticle';
 import LatestNews from '@/components/press-and-media/LatestNews';
 import NewsGrid from '@/components/press-and-media/NewsGrid';
 import GetSolar from '@/reuseables/getsolar';
+import CategorySection from '@/reuseables/CategorySection';
 
 export const revalidate = 60;
 
@@ -31,12 +34,14 @@ const PressMediaPage = async () => {
   const featuredSection = findSection<PressMediaFeaturedArticleData>(sections, 'press-and-media.featured-article');
   const latestNewsSection = findSection<PressMediaLatestNewsSectionData>(sections, 'press-and-media.latest-news-section');
   const newsSection = findSection<PressMediaNewsSectionData>(sections, 'press-and-media.news-section');
+  const categorySection = findSection<SharedCategorySectionData>(sections, 'shared.category-section');
   const ctaSection = findSection<BlogCtaBannerData>(sections, 'shared.cta-banner');
 
   const heroProps = resolvePressMediaHero(heroSection);
   const featuredProps = resolvePressMediaFeaturedArticle(featuredSection);
   const latestNewsProps = resolvePressMediaLatestNewsSection(latestNewsSection);
   const newsProps = resolvePressMediaNewsSection(newsSection);
+  const categorySectionProps = resolveSharedCategorySection(categorySection);
   const ctaProps = resolveSharedCtaBanner(ctaSection);
 
   return (
@@ -78,6 +83,8 @@ const PressMediaPage = async () => {
           cards={newsProps.cards}
         />
       )}
+
+      {categorySectionProps && <CategorySection resolved={categorySectionProps} />}
 
       {ctaProps && (
         <GetSolar

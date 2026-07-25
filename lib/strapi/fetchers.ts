@@ -57,7 +57,10 @@ export const getSolarPage = () =>
       solar.sizingGuide,
       solar.packages,
       solar.timeline,
-      solar.engineeringItems
+      solar.engineeringItems,
+      shared.faq,
+      shared.formSection,
+      shared.ctaBanner
     )
   );
 
@@ -72,7 +75,10 @@ export const getBrandsPage = () =>
       brands.hybridSpecialty,
       brands.invertersSlider,
       brands.criteriaList,
-      brands.specsTable
+      brands.specsTable,
+      shared.faq,
+      shared.formSection,
+      shared.ctaBanner
     )
   );
 
@@ -88,6 +94,7 @@ export const getDealsPage = () =>
       deals.waysToPay,
       deals.whyMatters,
       shared.faq,
+      shared.formSection,
       shared.ctaBanner
     )
   );
@@ -192,17 +199,17 @@ export const getOffGridSolutionsPage = () =>
 export const getBlogPage = () =>
   getSingleType(
     PAGE_SLUGS.blog,
-    populate(blog.hero, blog.categoryFilter, shared.ctaBanner)
+    populate(blog.hero, blog.categoryFilter, shared.categorySection, shared.ctaBanner)
   );
 export const getPressMediaPage = () =>
   getSingleType(
     PAGE_SLUGS.pressMedia,
-    populate(pressMedia.hero, pressMedia.featuredArticle, pressMedia.latestNewsSection, pressMedia.newsSection, shared.ctaBanner)
+    populate(pressMedia.hero, pressMedia.featuredArticle, pressMedia.latestNewsSection, pressMedia.newsSection, shared.categorySection, shared.ctaBanner)
   );
 export const getPortfolioPage = () =>
   getSingleType(
     PAGE_SLUGS.portfolio,
-    populate(portfolio.hero, portfolio.filters, shared.ctaBanner)
+    populate(portfolio.hero, portfolio.filters, shared.categorySection, shared.ctaBanner)
   );
 export const getContactPage = () =>
   getSingleType(

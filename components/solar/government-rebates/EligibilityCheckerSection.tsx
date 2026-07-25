@@ -17,7 +17,7 @@ export default function EligibilityCheckerSection({ resolved }: Props) {
   const [result, setResult] = useState<string | null>(null);
 
   const unanswered = useMemo(
-    () => resolved.questions.filter((q) => !answers[q.questionId]),
+    () => resolved.questions.filter((q) => !answers[String(q.id)]),
     [answers, resolved.questions]
   );
 
@@ -40,9 +40,11 @@ export default function EligibilityCheckerSection({ resolved }: Props) {
 
     const stackPass = resolved.questions
       .filter((q) => !q.loanOnly)
-      .every((q) => answers[q.questionId] === "yes");
+      .every((q) => answers[String(q.id)] === "yes");
 
-    const incomePass = answers["income"] === "yes";
+    const incomePass = resolved.questions
+      .filter((q) => q.loanOnly)
+      .every((q) => answers[String(q.id)] === "yes");
 
     if (stackPass && incomePass) {
       setResult("eligible-stack");
@@ -70,11 +72,11 @@ export default function EligibilityCheckerSection({ resolved }: Props) {
 
         <div className="space-y-4">
           {resolved.questions.map((question) => {
-            const value = answers[question.questionId];
+            const value = answers[String(question.id)];
 
             return (
               <div
-                key={question.questionId}
+                key={String(question.id)}
                 className="flex flex-col gap-5 rounded-[28px] bg-[#F1F8EC] px-6 py-6 md:flex-row md:items-center md:justify-between md:px-9"
               >
                 <div className="max-w-4xl">
@@ -95,7 +97,7 @@ export default function EligibilityCheckerSection({ resolved }: Props) {
                         key={option}
                         type="button"
                         onClick={() => {
-                          setAnswers((prev) => ({ ...prev, [question.questionId]: option }));
+                          setAnswers((prev) => ({ ...prev, [String(question.id)]: option }));
                           setValidationError("");
                         }}
                         aria-pressed={active}

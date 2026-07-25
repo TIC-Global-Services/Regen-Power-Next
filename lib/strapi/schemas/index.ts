@@ -1,4 +1,18 @@
-export { MediaSchema, ParagraphSchema, FaqItemSchema } from "./common";
+export {
+  MediaSchema,
+  ParagraphSchema,
+  FaqItemSchema,
+  SharedFormSectionSchema,
+  SharedCategorySectionSchema,
+  SharedCategorySchema,
+  SharedCategoryItemSchema,
+} from "./common";
+export type {
+  SharedFormSectionData,
+  SharedCategorySectionData,
+  SharedCategoryData,
+  SharedCategoryItemData,
+} from "./common";
 export type {
   SolarHeroData,
   SolarStatsAndIntroData,

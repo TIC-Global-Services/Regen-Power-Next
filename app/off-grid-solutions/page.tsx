@@ -45,8 +45,8 @@ import MicrogridSpecTable from '@/components/off-grid/MicrogridSpecTable';
 import AcquaSmartSection from '@/components/off-grid/AcquaSmartSection';
 import OffGridStory from '@/components/off-grid/OffGridStory';
 import OverlayCardGrid from '@/reuseables/OverlayCardGrid';
-import OffGridFAQ from '@/components/off-grid/OffGridFAQ';
 import OffGridForm from '@/components/off-grid/OffGridForm';
+import FAQ from '@/reuseables/faq';
 
 export const revalidate = 60;
 
@@ -212,9 +212,18 @@ const OffGridSolutionsPage = async () => {
         />
       )}
 
-      <div id="quote-form">
-        <OffGridFAQ />
-      </div>
+      {faq && (
+        <div id="quote-form">
+          <FAQ
+            topTitle={faq.title}
+            title={faq.sectionTitle}
+            listTitle={faq.listTitle}
+            image={faq.image?.src ?? undefined}
+            items={faq.items}
+            defaultOpenIndex={1}
+          />
+        </div>
+      )}
 
       {form && (
         <OffGridForm

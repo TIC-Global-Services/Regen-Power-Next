@@ -12,7 +12,10 @@ import {
   resolveSolarPackages,
   resolveSolarTimeline,
   resolveSolarEngineeringItems,
-} from "@/lib/strapi/resolvers/solar";
+  resolveSharedFaq,
+  resolveSharedFormSection,
+  resolveSharedCtaBanner,
+} from "@/lib/strapi/resolvers";
 import type {
   SolarHeroData,
   SolarStatsAndIntroData,
@@ -24,6 +27,9 @@ import type {
   SolarPackagesData,
   SolarTimelineData,
   SolarEngineeringItemsData,
+  SharedFaqData,
+  SharedFormSectionData,
+  SharedCtaBannerData,
 } from "@/lib/strapi/schemas";
 
 import HeroSection from "@/components/solar/Hero";
@@ -57,6 +63,9 @@ const SolarPage = async () => {
   const packages = findSection<SolarPackagesData>(sections, "solar.packages");
   const timeline = findSection<SolarTimelineData>(sections, "solar.timeline");
   const engineering = findSection<SolarEngineeringItemsData>(sections, "solar.engineering-items");
+  const faq = findSection<SharedFaqData>(sections, "shared.faq");
+  const form = findSection<SharedFormSectionData>(sections, "shared.form-section");
+  const ctaBanner = findSection<SharedCtaBannerData>(sections, "shared.cta-banner");
 
   const heroProps = resolveSolarHero(hero);
   const statsProps = resolveSolarStatsAndIntro(stats);
@@ -68,6 +77,9 @@ const SolarPage = async () => {
   const packagesProps = resolveSolarPackages(packages);
   const timelineProps = resolveSolarTimeline(timeline);
   const engineeringProps = resolveSolarEngineeringItems(engineering);
+  const faqProps = resolveSharedFaq(faq);
+  const formProps = resolveSharedFormSection(form);
+  const ctaBannerProps = resolveSharedCtaBanner(ctaBanner);
 
   return (
     <div className="bg-white min-h-screen text-black">
@@ -82,16 +94,37 @@ const SolarPage = async () => {
       {timelineProps && <TimelineSection resolved={timelineProps} />}
       {engineeringProps && <EngineeringCustomizations resolved={engineeringProps} />}
 
-      <FAQ topTitle="Solar System" />
+      {faqProps && (
+        <FAQ
+          topTitle={faqProps.title}
+          title={faqProps.sectionTitle}
+          listTitle={faqProps.listTitle}
+          image={faqProps.image?.src ?? undefined}
+          items={faqProps.items}
+        />
+      )}
 
-      <LeadCaptureForm />
+      {formProps && (
+        <div id="quote-form">
+          <LeadCaptureForm
+            subtitle={formProps.subtitle}
+            title={formProps.title}
+            description={formProps.description}
+            image={formProps.image}
+          />
+        </div>
+      )}
 
-      <GetSolar
-        subtitle="Get A Solar System Designed"
-        mainTitle="For Your Home"
-        description="Tell us a few details about your home and power use, and one of our Perth-based CEC-accredited designers will build a system tailored to your roof, your household, and your budget. Free, no-obligation, and no high-pressure sales calls \u2014 just a proper engineering recommendation."
-        buttonText="Get My Free Quote"
-      />
+      {ctaBannerProps && (
+        <GetSolar
+          subtitle={ctaBannerProps.subtitle}
+          mainTitle={ctaBannerProps.mainTitle}
+          description={ctaBannerProps.description}
+          buttonText={ctaBannerProps.buttonText}
+          buttonHref={ctaBannerProps.buttonHref}
+          bgImage={ctaBannerProps.bgImage || undefined}
+        />
+      )}
     </div>
   );
 };

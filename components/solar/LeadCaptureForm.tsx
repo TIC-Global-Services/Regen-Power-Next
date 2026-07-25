@@ -1,14 +1,21 @@
 "use client";
 
 import React from "react";
-import Image from "next/image";
+import Image, { StaticImageData } from "next/image";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { ArrowRight } from "lucide-react";
 import SectionHeader from '@/reuseables/SectionHeader';
 
-import quoteImg from '@/assets/solar/batteryquote.png';
+import defaultQuoteImg from '@/assets/solar/batteryquote.png';
+
+interface LeadCaptureFormProps {
+  subtitle?: string;
+  title?: string;
+  description?: string;
+  image?: string | StaticImageData;
+}
 
 const quoteSchema = z.object({
     fullName: z
@@ -81,7 +88,12 @@ const RadioOption: React.FC<RadioOptionProps> = ({
     </label>
 );
 
-const LeadCaptureForm: React.FC = () => {
+const LeadCaptureForm: React.FC<LeadCaptureFormProps> = ({
+    subtitle = "Get Your Free Solar &",
+    title = "Battery Quote",
+    description = "Our Technical Sales Team Will Design A System Tailored To Your Home, Usage, And Budget. Most Quotes Delivered Within 24 Hours.",
+    image = defaultQuoteImg,
+}) => {
     const {
         register,
         handleSubmit,
@@ -115,20 +127,20 @@ const LeadCaptureForm: React.FC = () => {
                     {/* Left Column: Heading and 3D Graphic */}
                     <div className="lg:col-span-5 flex flex-col justify-center h-full">
                         <SectionHeader
-                            subtitle="Get Your Free Solar &"
-                            title="Battery Quote"
-                            description="Our Technical Sales Team Will Design A System Tailored To Your Home, Usage, And Budget. Most Quotes Delivered Within 24 Hours."
+                            subtitle={subtitle}
+                            title={title}
+                            description={description}
                             align="left"
                             descClass="mb-8"
                         />
 
                         <div className="relative w-full aspect-square max-w-[360px] mx-auto lg:mx-0 rounded-2xl overflow-hidden flex items-center justify-center">
                             <Image
-                                src={quoteImg}
+                                src={image}
                                 alt="Intake Graphic"
                                 fill
                                 className="object-contain p-2"
-                                placeholder="blur"
+                                placeholder={typeof image === 'object' ? 'blur' : undefined}
                             />
                         </div>
                     </div>
