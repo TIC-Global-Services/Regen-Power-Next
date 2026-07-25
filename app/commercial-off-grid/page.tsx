@@ -1,11 +1,18 @@
 import React from "react";
 import { getCommercialOffGridPage } from "@/lib/strapi";
+import { findSection } from "@/lib/strapi/section-utils";
+import {
+  resolveCommercialOffGridHero,
+  resolveCommercialOffGridSolutionsPortfolio,
+  resolveSharedEditorialSection,
+  resolveSharedCtaBanner,
+} from "@/lib/strapi/resolvers";
 import type {
   CommercialOffGridHeroData,
   SharedEditorialSectionData,
   CommercialOffGridSolutionsPortfolioData,
   SharedCtaBannerData,
-} from "@/lib/strapi-schemas/commercial";
+} from "@/lib/strapi/schemas";
 
 import HeroSection from "@/components/commercial/off-grid/HeroSection";
 import EditorialSection from "@/components/commercial/off-grid/EditorialSectionSection";
@@ -18,28 +25,25 @@ export default async function CommercialOffGridPage() {
   const { data } = await getCommercialOffGridPage();
   const sections = data.sections ?? [];
 
-  const hero = sections.find(
-    (s) => s.__component === "commercial-off-grid.hero"
-  ) as CommercialOffGridHeroData | undefined;
-  const editorial = sections.find(
-    (s) => s.__component === "shared.editorial-section"
-  ) as SharedEditorialSectionData | undefined;
-  const portfolio = sections.find(
-    (s) => s.__component === "commercial-off-grid.solutions-portfolio"
-  ) as CommercialOffGridSolutionsPortfolioData | undefined;
-  const ctaBanner = sections.find(
-    (s) => s.__component === "shared.cta-banner"
-  ) as SharedCtaBannerData | undefined;
+  const hero = findSection<CommercialOffGridHeroData>(sections, "commercial-off-grid.hero");
+  const editorial = findSection<SharedEditorialSectionData>(sections, "shared.editorial-section");
+  const portfolio = findSection<CommercialOffGridSolutionsPortfolioData>(sections, "commercial-off-grid.solutions-portfolio");
+  const ctaBanner = findSection<SharedCtaBannerData>(sections, "shared.cta-banner");
+
+  const heroProps = resolveCommercialOffGridHero(hero);
+  const editorialProps = resolveSharedEditorialSection(editorial);
+  const portfolioProps = resolveCommercialOffGridSolutionsPortfolio(portfolio);
+  const ctaBannerProps = resolveSharedCtaBanner(ctaBanner);
 
   return (
     <div className="bg-white min-h-screen text-black">
-      {hero && <HeroSection data={hero} />}
+      {heroProps && <HeroSection resolved={heroProps} />}
 
-      {editorial && <EditorialSection data={editorial} />}
+      {editorialProps && <EditorialSection resolved={editorialProps} />}
 
-      {portfolio && <SolutionsPortfolioSection data={portfolio} />}
+      {portfolioProps && <SolutionsPortfolioSection resolved={portfolioProps} />}
 
-      {ctaBanner && <CtaBannerSection data={ctaBanner} />}
+      {ctaBannerProps && <CtaBannerSection resolved={ctaBannerProps} />}
     </div>
   );
 }

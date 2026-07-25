@@ -2,10 +2,10 @@ import React from "react";
 import StaggeredCardsGrid, {
   type ColumnConfig,
 } from "@/reuseables/StaggeredCardsGrid";
-import type { SolarEngineeringItemsData } from "@/lib/strapi-schemas/solar";
+import type { ResolvedSolarEngineeringItems } from "@/lib/strapi/resolvers/solar";
 
 interface EngineeringCustomizationsProps {
-  data: SolarEngineeringItemsData;
+  resolved: ResolvedSolarEngineeringItems;
 }
 
 const COL_LAYOUTS = [
@@ -15,9 +15,9 @@ const COL_LAYOUTS = [
 ];
 
 const EngineeringCustomizations: React.FC<EngineeringCustomizationsProps> = ({
-  data,
+  resolved,
 }) => {
-  const items = data.items ?? [];
+  const items = resolved.items;
 
   const columns: ColumnConfig[] = COL_LAYOUTS.map((layout, colIdx) => {
     const start = colIdx * 2;
@@ -40,9 +40,9 @@ const EngineeringCustomizations: React.FC<EngineeringCustomizationsProps> = ({
 
   return (
     <StaggeredCardsGrid
-      subtitle={data.subtitle ?? ""}
-      title={data.title ?? ""}
-      description={data.description ?? ""}
+      subtitle={resolved.subtitle}
+      title={resolved.title}
+      description={resolved.description}
       columns={columns}
       align="left"
       className="border-t border-gray-50"

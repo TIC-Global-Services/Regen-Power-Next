@@ -1,26 +1,25 @@
 import React from "react";
 import FeatureCardGrid from "@/reuseables/FeatureCardGrid";
-import { strapiImage } from "@/lib/strapi";
-import type { DealsWaysToPayData } from "@/lib/strapi-schemas/deals";
+import type { ResolvedDealsWaysToPay } from "@/lib/strapi/resolvers/deals";
 
 interface Props {
-  data: DealsWaysToPayData;
+  resolved: ResolvedDealsWaysToPay;
 }
 
-export default function WaysToPaySection({ data }: Props) {
-  const cards = data.cards.map((card) => ({
+export default function WaysToPaySection({ resolved }: Props) {
+  const cards = resolved.cards.map((card) => ({
     title: card.title,
     description: card.description,
-    image: strapiImage(card.image) || "",
+    image: card.image,
     footerTitle: card.footerTitle || "",
     footerDescription: card.footerDescription || "",
   }));
 
   return (
     <FeatureCardGrid
-      topSubtitle={data.topSubtitle || ""}
-      title={data.title || ""}
-      bottomSubtitle={data.bottomSubtitle || ""}
+      topSubtitle={resolved.topSubtitle || ""}
+      title={resolved.title || ""}
+      bottomSubtitle={resolved.bottomSubtitle || ""}
       cards={cards}
       showReadMore={false}
     />

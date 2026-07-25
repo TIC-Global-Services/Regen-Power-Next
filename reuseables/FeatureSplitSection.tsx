@@ -15,7 +15,7 @@ import SectionHeader from '@/reuseables/SectionHeader';
 export interface FeatureItem {
     title: string;
     description: string;
-    image: StaticImageData | string;
+    image: StaticImageData | { src: string; alt?: string } | string | null;
 }
 
 export interface FeatureSplitSectionProps {
@@ -145,8 +145,8 @@ const FeatureSplitSection: React.FC<FeatureSplitSectionProps> = ({
                             style={{ zIndex: activeIndex === index ? 2 : 1 }}
                         >
                             <Image
-                                src={feature.image}
-                                alt={feature.title}
+                                src={feature.image && typeof feature.image === 'object' && 'src' in feature.image ? feature.image.src : typeof feature.image === 'string' ? feature.image : ''}
+                                alt={feature.image && typeof feature.image === 'object' && 'alt' in feature.image ? (feature.image.alt || feature.title) : feature.title}
                                 fill
                                 className="object-cover"
                                 sizes="50vw"
@@ -194,8 +194,8 @@ const FeatureSplitSection: React.FC<FeatureSplitSectionProps> = ({
                                 </p>
                                 <div className="relative w-full aspect-[4/3] rounded-2xl overflow-hidden shadow-lg mt-2 bg-gray-50">
                                     <Image
-                                        src={feature.image}
-                                        alt={feature.title}
+                                        src={feature.image && typeof feature.image === 'object' && 'src' in feature.image ? feature.image.src : typeof feature.image === 'string' ? feature.image : ''}
+                                        alt={feature.image && typeof feature.image === 'object' && 'alt' in feature.image ? (feature.image.alt || feature.title) : feature.title}
                                         fill
                                         className="object-cover"
                                         sizes="100vw"

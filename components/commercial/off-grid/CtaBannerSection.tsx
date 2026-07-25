@@ -1,23 +1,20 @@
 import React from "react";
 import CtaSection from "@/reuseables/CtaSection";
-import { strapiImage } from "@/lib/strapi";
-import type { SharedCtaBannerData } from "@/lib/strapi-schemas/commercial";
+import type { ResolvedSharedCtaBanner } from "@/lib/strapi/resolvers/shared";
 
 interface Props {
-  data: SharedCtaBannerData;
+  resolved: ResolvedSharedCtaBanner;
 }
 
-export default function CtaBannerSection({ data }: Props) {
-  const bg = strapiImage(data.backgroundImage);
-
+export default function CtaBannerSection({ resolved }: Props) {
   return (
     <CtaSection
-      subtitle={data.subtitle || ""}
-      title={data.mainTitle || ""}
-      description={data.description || ""}
-      buttonText={data.buttonText || "Get Started"}
-      buttonHref={data.buttonHref || "#quote-form"}
-      bgImage={bg || undefined}
+      subtitle={resolved.subtitle}
+      title={resolved.mainTitle}
+      description={resolved.description}
+      buttonText={resolved.buttonText}
+      buttonHref={resolved.buttonHref}
+      bgImage={resolved.bgImage || undefined}
     />
   );
 }

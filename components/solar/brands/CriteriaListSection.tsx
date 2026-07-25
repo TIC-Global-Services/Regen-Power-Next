@@ -1,14 +1,14 @@
 import React from "react";
 import FeatureSplitSection from "@/reuseables/FeatureSplitSection";
-import type { BrandsCriteriaListData } from "@/lib/strapi-schemas/brands";
+import type { ResolvedBrandsCriteriaList } from "@/lib/strapi/resolvers/brands";
 import fallbackImg from "@/assets/solar/brands-tech/howitgoaway.png";
 
 interface CriteriaListSectionProps {
-  data: BrandsCriteriaListData;
+  resolved: ResolvedBrandsCriteriaList;
 }
 
-const CriteriaListSection: React.FC<CriteriaListSectionProps> = ({ data }) => {
-  const features = (data.items ?? []).map((item) => ({
+const CriteriaListSection: React.FC<CriteriaListSectionProps> = ({ resolved }) => {
+  const features = (resolved.items ?? []).map((item) => ({
     title: item.title,
     description: item.description,
     image: fallbackImg,
@@ -18,9 +18,9 @@ const CriteriaListSection: React.FC<CriteriaListSectionProps> = ({ data }) => {
 
   return (
     <FeatureSplitSection
-      subtitle={data.subtitle ?? ""}
-      heading={data.title ?? ""}
-      introText={data.introText ?? ""}
+      subtitle={resolved.subtitle ?? ""}
+      heading={resolved.title ?? ""}
+      introText={resolved.introText ?? ""}
       features={features}
     />
   );

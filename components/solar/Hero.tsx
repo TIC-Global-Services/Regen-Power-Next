@@ -1,31 +1,17 @@
 import React from "react";
 import Hero from "@/reuseables/Hero";
 import MissingImage from "@/reuseables/MissingImage";
-import { strapiImage } from "@/lib/strapi";
-import type { SolarHeroData } from "@/lib/strapi-schemas/solar";
+import type { ResolvedSolarHero } from "@/lib/strapi/resolvers/solar";
 
 interface SolarHeroProps {
-  data: SolarHeroData;
+  heroProps: ResolvedSolarHero;
 }
 
-const HeroSection: React.FC<SolarHeroProps> = ({ data }) => {
-  const imageUrl = data.backgroundImage ? strapiImage(data.backgroundImage) : "";
-
+const HeroSection: React.FC<SolarHeroProps> = ({ heroProps }) => {
   return (
     <div>
-      {imageUrl ? (
-        <Hero
-          mediaSrc={imageUrl}
-          mediaType="image"
-          topSubtitle={data.subtitle ?? ""}
-          mainTitle={data.title ?? ""}
-          description={data.description ?? ""}
-          ctaText={data.ctaText ?? ""}
-          ctaLink={data.ctaLink ?? "#quote-form"}
-          subtitleColor="text-white"
-          descriptionColor="text-white"
-          showOverlay={true}
-        />
+      {heroProps.mediaSrc ? (
+        <Hero {...heroProps} />
       ) : (
         <MissingImage
           label="Hero background image"

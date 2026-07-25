@@ -1,18 +1,18 @@
 import React from "react";
 import EditorialTextSection from "@/reuseables/EditorialTextSection";
-import type { DealsPhilosophyData } from "@/lib/strapi-schemas/deals";
+import type { ResolvedDealsPhilosophy } from "@/lib/strapi/resolvers/deals";
 
 interface Props {
-  data: DealsPhilosophyData;
+  resolved: ResolvedDealsPhilosophy;
 }
 
-export default function DealsPhilosophySection({ data }: Props) {
+export default function DealsPhilosophySection({ resolved }: Props) {
   return (
     <EditorialTextSection
-      badge={data.badge || ""}
-      subtitle={data.subtitle || ""}
-      title={data.title || ""}
-      paragraphs={data.paragraphs.map((p) => ({
+      badge={resolved.badge || ""}
+      subtitle={resolved.subtitle || ""}
+      title={resolved.title || ""}
+      paragraphs={resolved.paragraphs.map((p) => ({
         text: p.text,
         isSecondary: p.isSecondary,
       }))}

@@ -1,5 +1,21 @@
 import React from "react";
 import { getCommercialSystemsPage } from "@/lib/strapi";
+import { findSection } from "@/lib/strapi/section-utils";
+import {
+  resolveCommercialSystemsHero,
+  resolveCommercialSystemsStatsCardGrid,
+  resolveCommercialSystemsTiersSection,
+  resolveCommercialSystemsComponentsSection,
+  resolveCommercialSystemsIndustriesSection,
+  resolveCommercialSystemsFeatureCardGrid,
+  resolveCommercialSystemsWatchSystemSection,
+  resolveCommercialSystemsPackagesGrid,
+  resolveCommercialSystemsProcessFlow,
+  resolveCommercialSystemsFiveThingsSection,
+  resolveCommercialSystemsCommercialForm,
+  resolveSharedFaq,
+  resolveSharedCtaBanner,
+} from "@/lib/strapi/resolvers";
 import type {
   CommercialSystemsHeroData,
   CommercialSystemsStatsCardGridData,
@@ -14,7 +30,7 @@ import type {
   SharedFaqData,
   CommercialSystemsCommercialFormData,
   SharedCtaBannerData,
-} from "@/lib/strapi-schemas/commercial";
+} from "@/lib/strapi/schemas";
 
 import HeroSection from "@/components/commercial/systems/HeroSection";
 import StatsCardGridSection from "@/components/commercial/systems/StatsCardGridSection";
@@ -36,73 +52,61 @@ export default async function CommercialSystemsPage() {
   const { data } = await getCommercialSystemsPage();
   const sections = data.sections ?? [];
 
-  const hero = sections.find(
-    (s) => s.__component === "commercial-systems.hero"
-  ) as CommercialSystemsHeroData | undefined;
-  const stats = sections.find(
-    (s) => s.__component === "commercial-systems.stats-card-grid"
-  ) as CommercialSystemsStatsCardGridData | undefined;
-  const tiers = sections.find(
-    (s) => s.__component === "commercial-systems.tiers-section"
-  ) as CommercialSystemsTiersSectionData | undefined;
-  const components = sections.find(
-    (s) => s.__component === "commercial-systems.components-section"
-  ) as CommercialSystemsComponentsSectionData | undefined;
-  const industries = sections.find(
-    (s) => s.__component === "commercial-systems.industries-section"
-  ) as CommercialSystemsIndustriesSectionData | undefined;
-  const featureCards = sections.find(
-    (s) => s.__component === "commercial-systems.feature-card-grid"
-  ) as CommercialSystemsFeatureCardGridData | undefined;
-  const watchSystem = sections.find(
-    (s) => s.__component === "commercial-systems.watch-system-section"
-  ) as CommercialSystemsWatchSystemSectionData | undefined;
-  const packages = sections.find(
-    (s) => s.__component === "commercial-systems.packages-grid"
-  ) as CommercialSystemsPackagesGridData | undefined;
-  const processFlow = sections.find(
-    (s) => s.__component === "commercial-systems.process-flow"
-  ) as CommercialSystemsProcessFlowData | undefined;
-  const fiveThings = sections.find(
-    (s) => s.__component === "commercial-systems.five-things-section"
-  ) as CommercialSystemsFiveThingsSectionData | undefined;
-  const faq = sections.find(
-    (s) => s.__component === "shared.faq"
-  ) as SharedFaqData | undefined;
-  const commercialForm = sections.find(
-    (s) => s.__component === "commercial-systems.commercial-form"
-  ) as CommercialSystemsCommercialFormData | undefined;
-  const ctaBanner = sections.find(
-    (s) => s.__component === "shared.cta-banner"
-  ) as SharedCtaBannerData | undefined;
+  const hero = findSection<CommercialSystemsHeroData>(sections, "commercial-systems.hero");
+  const stats = findSection<CommercialSystemsStatsCardGridData>(sections, "commercial-systems.stats-card-grid");
+  const tiers = findSection<CommercialSystemsTiersSectionData>(sections, "commercial-systems.tiers-section");
+  const components = findSection<CommercialSystemsComponentsSectionData>(sections, "commercial-systems.components-section");
+  const industries = findSection<CommercialSystemsIndustriesSectionData>(sections, "commercial-systems.industries-section");
+  const featureCards = findSection<CommercialSystemsFeatureCardGridData>(sections, "commercial-systems.feature-card-grid");
+  const watchSystem = findSection<CommercialSystemsWatchSystemSectionData>(sections, "commercial-systems.watch-system-section");
+  const packages = findSection<CommercialSystemsPackagesGridData>(sections, "commercial-systems.packages-grid");
+  const processFlow = findSection<CommercialSystemsProcessFlowData>(sections, "commercial-systems.process-flow");
+  const fiveThings = findSection<CommercialSystemsFiveThingsSectionData>(sections, "commercial-systems.five-things-section");
+  const faq = findSection<SharedFaqData>(sections, "shared.faq");
+  const commercialForm = findSection<CommercialSystemsCommercialFormData>(sections, "commercial-systems.commercial-form");
+  const ctaBanner = findSection<SharedCtaBannerData>(sections, "shared.cta-banner");
+
+  const heroProps = resolveCommercialSystemsHero(hero);
+  const statsProps = resolveCommercialSystemsStatsCardGrid(stats);
+  const tiersProps = resolveCommercialSystemsTiersSection(tiers);
+  const componentsProps = resolveCommercialSystemsComponentsSection(components);
+  const industriesProps = resolveCommercialSystemsIndustriesSection(industries);
+  const featureCardsProps = resolveCommercialSystemsFeatureCardGrid(featureCards);
+  const watchSystemProps = resolveCommercialSystemsWatchSystemSection(watchSystem);
+  const packagesProps = resolveCommercialSystemsPackagesGrid(packages);
+  const processFlowProps = resolveCommercialSystemsProcessFlow(processFlow);
+  const fiveThingsProps = resolveCommercialSystemsFiveThingsSection(fiveThings);
+  const faqProps = resolveSharedFaq(faq);
+  const commercialFormProps = resolveCommercialSystemsCommercialForm(commercialForm);
+  const ctaBannerProps = resolveSharedCtaBanner(ctaBanner);
 
   return (
     <div className="bg-white min-h-screen text-black">
-      {hero && <HeroSection data={hero} />}
+      {heroProps && <HeroSection resolved={heroProps} />}
 
-      {stats && <StatsCardGridSection data={stats} />}
+      {statsProps && <StatsCardGridSection resolved={statsProps} />}
 
-      {tiers && <TiersSection data={tiers} />}
+      {tiersProps && <TiersSection resolved={tiersProps} />}
 
-      {components && <ComponentsSection data={components} />}
+      {componentsProps && <ComponentsSection resolved={componentsProps} />}
 
-      {industries && <IndustriesSection data={industries} />}
+      {industriesProps && <IndustriesSection resolved={industriesProps} />}
 
-      {featureCards && <FeatureCardGridSection data={featureCards} />}
+      {featureCardsProps && <FeatureCardGridSection resolved={featureCardsProps} />}
 
-      {watchSystem && <WatchSystemSection data={watchSystem} />}
+      {watchSystemProps && <WatchSystemSection resolved={watchSystemProps} />}
 
-      {packages && <PackagesGridSection data={packages} />}
+      {packagesProps && <PackagesGridSection resolved={packagesProps} />}
 
-      {processFlow && <ProcessFlowSection data={processFlow} />}
+      {processFlowProps && <ProcessFlowSection resolved={processFlowProps} />}
 
-      {fiveThings && <FiveThingsSection data={fiveThings} />}
+      {fiveThingsProps && <FiveThingsSection resolved={fiveThingsProps} />}
 
-      {faq && <FaqSection data={faq} />}
+      {faqProps && <FaqSection resolved={faqProps} />}
 
-      {commercialForm && <CommercialFormSection data={commercialForm} />}
+      {commercialFormProps && <CommercialFormSection resolved={commercialFormProps} />}
 
-      {ctaBanner && <CtaBannerSection data={ctaBanner} />}
+      {ctaBannerProps && <CtaBannerSection resolved={ctaBannerProps} />}
     </div>
   );
 }

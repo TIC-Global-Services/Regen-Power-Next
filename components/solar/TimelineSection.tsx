@@ -5,16 +5,13 @@ import Fade from "@/reuseables/fade";
 import CtaButton from "@/reuseables/CtaButton";
 import SectionHeader from "@/reuseables/SectionHeader";
 import MissingImage from "@/reuseables/MissingImage";
-import { strapiImage } from "@/lib/strapi";
-import type { SolarTimelineData } from "@/lib/strapi-schemas/solar";
+import type { ResolvedSolarTimeline } from "@/lib/strapi/resolvers/solar";
 
 interface TimelineSectionProps {
-  data: SolarTimelineData;
+  resolved: ResolvedSolarTimeline;
 }
 
-const TimelineSection: React.FC<TimelineSectionProps> = ({ data }) => {
-  const imgSrc = data.image ? strapiImage(data.image) : "";
-
+const TimelineSection: React.FC<TimelineSectionProps> = ({ resolved }) => {
   return (
     <section className="py-16 md:py-24 bg-white border-t border-gray-50">
       <div className="px-[5%] mx-auto">
@@ -22,9 +19,9 @@ const TimelineSection: React.FC<TimelineSectionProps> = ({ data }) => {
           <div className="flex flex-col justify-between h-full">
             <div>
               <SectionHeader
-                subtitle={data.subtitle ?? ""}
-                title={data.title ?? ""}
-                description={data.description ?? ""}
+                subtitle={resolved.subtitle}
+                title={resolved.title}
+                description={resolved.description}
                 align="left"
               />
 
@@ -40,10 +37,10 @@ const TimelineSection: React.FC<TimelineSectionProps> = ({ data }) => {
             <Fade delay={0.3}>
               <div className="mt-16 lg:mt-24">
                 <h3 className="text-2xl md:text-[2rem] font-normal text-black mb-3 tracking-tight">
-                  {data.consultationTitle ?? ""}
+                  {resolved.consultationTitle}
                 </h3>
                 <p className="text-sm md:text-xl leading-tight tracking-tight max-w-md">
-                  {data.consultationText ?? ""}
+                  {resolved.consultationText}
                 </p>
               </div>
             </Fade>
@@ -51,10 +48,10 @@ const TimelineSection: React.FC<TimelineSectionProps> = ({ data }) => {
 
           <div className="lg:sticky lg:top-28 flex justify-center">
             <div className="relative w-full aspect-[4/6] max-h-[770px] max-w-[660px] rounded-[20px] overflow-hidden shadow-md">
-              {imgSrc ? (
+              {resolved.image ? (
                 <Image
-                  src={imgSrc}
-                  alt="Consultation"
+                  src={resolved.image.src}
+                  alt={resolved.image.alt}
                   fill
                   className="object-cover"
                 />

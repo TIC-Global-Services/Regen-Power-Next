@@ -1,17 +1,17 @@
 import React from "react";
 import EditorialTextSection from "@/reuseables/EditorialTextSection";
-import type { RebatesStcExplainerData } from "@/lib/strapi-schemas/rebates";
+import type { ResolvedRebatesStcExplainer } from "@/lib/strapi/resolvers/rebates";
 
 interface Props {
-  data: RebatesStcExplainerData;
+  resolved: ResolvedRebatesStcExplainer;
 }
 
-export default function StcExplainerSection({ data }: Props) {
+export default function StcExplainerSection({ resolved }: Props) {
   return (
     <EditorialTextSection
-      subtitle={data.subtitle || ""}
-      title={data.title || ""}
-      paragraphs={data.paragraphs.map((p) => ({
+      subtitle={resolved.subtitle}
+      title={resolved.title}
+      paragraphs={resolved.paragraphs.map((p) => ({
         text: p.text,
         isSecondary: p.isSecondary,
       }))}

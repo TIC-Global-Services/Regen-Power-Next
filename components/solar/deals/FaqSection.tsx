@@ -1,25 +1,19 @@
 import React from "react";
 import ReusableFAQ from "@/reuseables/faq";
-import { strapiImage } from "@/lib/strapi";
-import type { DealsFaqData } from "@/lib/strapi-schemas/deals";
+import type { ResolvedSharedFaq } from "@/lib/strapi/resolvers/shared";
 
 interface Props {
-  data: DealsFaqData;
+  resolved: ResolvedSharedFaq;
 }
 
-export default function FaqSection({ data }: Props) {
-  const img = strapiImage(data.image);
-
+export default function FaqSection({ resolved }: Props) {
   return (
     <ReusableFAQ
-      topTitle={data.title || ""}
-      title={data.sectionTitle || ""}
-      listTitle={data.listTitle || ""}
-      image={img || undefined}
-      items={data.items.map((item) => ({
-        question: item.question,
-        answer: item.answer,
-      }))}
+      topTitle={resolved.title}
+      title={resolved.sectionTitle}
+      listTitle={resolved.listTitle}
+      image={resolved.image?.src || undefined}
+      items={resolved.items}
     />
   );
 }

@@ -3,30 +3,30 @@
 import React, { useMemo, useState } from "react";
 import CtaButton from "@/reuseables/CtaButton";
 import SectionHeader from "@/reuseables/SectionHeader";
-import type { RebatesEligibilityCheckerData } from "@/lib/strapi-schemas/rebates";
+import type { ResolvedRebatesEligibilityChecker } from "@/lib/strapi/resolvers/rebates";
 
 interface Props {
-  data: RebatesEligibilityCheckerData;
+  resolved: ResolvedRebatesEligibilityChecker;
 }
 
 type AnswerValue = "yes" | "no";
 
-export default function EligibilityCheckerSection({ data }: Props) {
+export default function EligibilityCheckerSection({ resolved }: Props) {
   const [answers, setAnswers] = useState<Record<string, AnswerValue | undefined>>({});
   const [validationError, setValidationError] = useState("");
   const [result, setResult] = useState<string | null>(null);
 
   const unanswered = useMemo(
-    () => data.questions.filter((q) => !answers[q.questionId]),
-    [answers, data.questions]
+    () => resolved.questions.filter((q) => !answers[q.questionId]),
+    [answers, resolved.questions]
   );
 
   const resultMap = useMemo(
     () =>
       Object.fromEntries(
-        data.results.map((r) => [r.key, { title: r.title, description: r.description }])
+        resolved.results.map((r) => [r.key, { title: r.title, description: r.description }])
       ),
-    [data.results]
+    [resolved.results]
   );
 
   const onSubmit = () => {
@@ -38,7 +38,7 @@ export default function EligibilityCheckerSection({ data }: Props) {
 
     setValidationError("");
 
-    const stackPass = data.questions
+    const stackPass = resolved.questions
       .filter((q) => !q.loanOnly)
       .every((q) => answers[q.questionId] === "yes");
 
@@ -59,9 +59,9 @@ export default function EligibilityCheckerSection({ data }: Props) {
     <section className="bg-white px-[5%] py-16 md:py-24">
       <div>
         <SectionHeader
-          badge={data.badge || ""}
-          title={data.title || ""}
-          description={data.description || ""}
+          badge={resolved.badge}
+          title={resolved.title}
+          description={resolved.description}
           align="left"
           className="mb-10 max-w-4xl"
           titleClass="text-5xl md:text-[3.75rem] font-light leading-none text-black"
@@ -69,7 +69,7 @@ export default function EligibilityCheckerSection({ data }: Props) {
         />
 
         <div className="space-y-4">
-          {data.questions.map((question) => {
+          {resolved.questions.map((question) => {
             const value = answers[question.questionId];
 
             return (

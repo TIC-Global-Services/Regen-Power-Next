@@ -4,18 +4,17 @@ import Reveal from "@/reuseables/Reveal";
 import Fade from "@/reuseables/fade";
 import SectionHeader from "@/reuseables/SectionHeader";
 import MissingImage from "@/reuseables/MissingImage";
-import { strapiImage } from "@/lib/strapi";
-import type { BrandsTier1MeansData } from "@/lib/strapi-schemas/brands";
+import type { ResolvedBrandsTier1Means } from "@/lib/strapi/resolvers/brands";
 
 interface Tier1MeansSectionProps {
-  data: BrandsTier1MeansData;
+  resolved: ResolvedBrandsTier1Means;
 }
 
-const Tier1MeansSection: React.FC<Tier1MeansSectionProps> = ({ data }) => {
-  const imgUrl = data.image ? strapiImage(data.image) : "";
-  const isImageLeft = (data.imagePosition ?? "left") === "left";
+const Tier1MeansSection: React.FC<Tier1MeansSectionProps> = ({ resolved }) => {
+  const imgUrl = resolved.image?.src;
+  const isImageLeft = (resolved.imagePosition ?? "left") === "left";
 
-  const titleParts = (data.title ?? "").split(/\s*\u2014\s*/);
+  const titleParts = (resolved.title ?? "").split(/\s*\u2014\s*/);
   const firstPart = titleParts[0] ?? "";
   const secondPart = titleParts.length > 1 ? titleParts.slice(1).join(" \u2014 ") : "";
 
@@ -46,7 +45,7 @@ const Tier1MeansSection: React.FC<Tier1MeansSectionProps> = ({ data }) => {
         >
           <div>
             <SectionHeader
-              subtitle={data.subtitle ?? ""}
+              subtitle={resolved.subtitle ?? ""}
               subtitleClass="text-base md:text-xl lg:text-2xl normal-case mb-4 block text-black font-medium"
               title={
                 <>
@@ -67,7 +66,7 @@ const Tier1MeansSection: React.FC<Tier1MeansSectionProps> = ({ data }) => {
           <div className="mt-12 lg:mt-24">
             <Fade delay={0.2}>
               <div className="text-sm md:text-xl leading-tight">
-                {data.description ?? ""}
+                {resolved.description ?? ""}
               </div>
             </Fade>
           </div>

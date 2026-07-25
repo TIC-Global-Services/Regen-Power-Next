@@ -2,14 +2,14 @@ import React from "react";
 import StaggeredCardsGrid, {
   type ColumnConfig,
 } from "@/reuseables/StaggeredCardsGrid";
-import type { BrandsGridData } from "@/lib/strapi-schemas/brands";
+import type { ResolvedBrandsGrid } from "@/lib/strapi/resolvers/brands";
 
 interface BrandsGridSectionProps {
-  data: BrandsGridData;
+  resolved: ResolvedBrandsGrid;
 }
 
-const BrandsGridSection: React.FC<BrandsGridSectionProps> = ({ data }) => {
-  const cards = data.cards ?? [];
+const BrandsGridSection: React.FC<BrandsGridSectionProps> = ({ resolved }) => {
+  const cards = resolved.cards ?? [];
 
   if (cards.length === 0) return null;
 
@@ -49,9 +49,9 @@ const BrandsGridSection: React.FC<BrandsGridSectionProps> = ({ data }) => {
 
   return (
     <StaggeredCardsGrid
-      subtitle={data.subtitle ?? ""}
-      title={data.title ?? ""}
-      badge={data.badge ?? undefined}
+      subtitle={resolved.subtitle ?? ""}
+      title={resolved.title ?? ""}
+      badge={resolved.badge ?? undefined}
       columns={columns}
       align="center"
       className="border-t border-gray-50"

@@ -1,10 +1,10 @@
 import React from "react";
 import Marquee from "@/reuseables/Marquee";
 import EditorialTextSection from "@/reuseables/EditorialTextSection";
-import type { SolarStatsAndIntroData } from "@/lib/strapi-schemas/solar";
+import type { ResolvedSolarStatsAndIntro } from "@/lib/strapi/resolvers/solar";
 
 interface SolarStatsAndIntroProps {
-  data: SolarStatsAndIntroData;
+  resolved: ResolvedSolarStatsAndIntro;
 }
 
 const SpacerIcon = () => (
@@ -23,19 +23,13 @@ const SpacerIcon = () => (
   </svg>
 );
 
-const SolarStatsAndIntro: React.FC<SolarStatsAndIntroProps> = ({ data }) => {
-  const tickerTexts = (data.tickerItems ?? []).map((t) => t.text);
-  const paragraphs = (data.introParagraphs ?? []).map((p) => ({
-    text: p.text,
-    isSecondary: p.isSecondary,
-  }));
-
+const SolarStatsAndIntro: React.FC<SolarStatsAndIntroProps> = ({ resolved }) => {
   return (
     <section className="bg-white overflow-hidden py-10 md:py-16">
-      {tickerTexts.length > 0 && (
+      {resolved.tickerTexts.length > 0 && (
         <div className="relative w-full bg-white py-4 overflow-hidden select-none">
           <Marquee speed={30} gap={32} pauseOnHover={false}>
-            {tickerTexts.map((item, index) => (
+            {resolved.tickerTexts.map((item, index) => (
               <React.Fragment key={index}>
                 <div className="flex items-center gap-3 text-black text-xl md:text-3xl font-normal tracking-tight">
                   <span className="text-[#63B846] font-normal">
@@ -53,9 +47,9 @@ const SolarStatsAndIntro: React.FC<SolarStatsAndIntroProps> = ({ data }) => {
       )}
 
       <EditorialTextSection
-        subtitle={data.introSubtitle ?? ""}
-        title={data.introTitle ?? ""}
-        paragraphs={paragraphs}
+        subtitle={resolved.subtitle}
+        title={resolved.title}
+        paragraphs={resolved.paragraphs}
         align="left"
         className="mt-6 md:mt-12"
         subtitleClass="text-xl md:text-2xl font-light text-black mb-2 block normal-case pl-24"

@@ -1,26 +1,40 @@
 import React from 'react';
+import { getContactPage } from '@/lib/strapi';
+import { findSection } from '@/lib/strapi/section-utils';
+import { resolveContactHero } from '@/lib/strapi/resolvers';
+import type { ContactHeroData } from '@/lib/strapi/schemas';
+
 import ContactHero from '@/components/contact/ContactHero';
 import ContactForm from '@/components/contact/ContactForm';
 import LocationMap from '@/components/contact/LocationMap';
-import heroImg from '@/assets/contact/hero.png';
 
-const ContactPage = () => {
-    return (
-        <div className="bg-white min-h-screen text-black">
-            <ContactHero
-                subtitle="Get In Touch With"
-                mainTitle="Regen Power"
-                description="From Your First Enquiry To Final Installation, Our Specialists Are Here To Guide You Every Step Of The Way. Contact Us Today For A Personalised Energy Solution."
-                ctaText="Get Your Free Quote"
-                ctaLink="#quote-form"
-                backgroundImage={heroImg}
-            />
+export const revalidate = 60;
 
-            <ContactForm />
+const ContactPage = async () => {
+  const { data } = await getContactPage();
+  const sections = data.sections ?? [];
 
-            <LocationMap />
-        </div>
-    );
+  const hero = findSection<ContactHeroData>(sections, 'contact.hero');
+  const heroProps = resolveContactHero(hero);
+
+  return (
+    <div className="bg-white min-h-screen text-black">
+      {heroProps && (
+        <ContactHero
+          subtitle={heroProps.subtitle}
+          mainTitle={heroProps.mainTitle}
+          description={heroProps.description}
+          ctaText={heroProps.ctaText}
+          ctaLink={heroProps.ctaLink}
+          backgroundImage={heroProps.backgroundImage}
+        />
+      )}
+
+      <ContactForm />
+
+      <LocationMap />
+    </div>
+  );
 };
 
 export default ContactPage;

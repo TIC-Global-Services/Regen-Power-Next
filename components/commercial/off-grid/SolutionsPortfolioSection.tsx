@@ -1,20 +1,19 @@
 import React from "react";
 import SolutionsPortfolio from "@/reuseables/SolutionsPortfolio";
-import { strapiImage } from "@/lib/strapi";
-import type { CommercialOffGridSolutionsPortfolioData } from "@/lib/strapi-schemas/commercial";
+import type { ResolvedCommercialOffGridSolutionsPortfolio } from "@/lib/strapi/resolvers/commercial";
 import type { PortfolioCard } from "@/reuseables/SolutionsPortfolio";
 
 interface Props {
-  data: CommercialOffGridSolutionsPortfolioData;
+  resolved: ResolvedCommercialOffGridSolutionsPortfolio;
 }
 
-export default function SolutionsPortfolioSection({ data }: Props) {
-  const cards: PortfolioCard[] = data.cards.map((c) => {
+export default function SolutionsPortfolioSection({ resolved }: Props) {
+  const cards: PortfolioCard[] = resolved.cards.map((c) => {
     if (c.type === "image") {
       return {
         type: "image" as const,
         variant: c.variant as "light-gray" | "light-green" | "dark",
-        image: strapiImage(c.image) || undefined,
+        image: c.image,
       };
     }
     return {
@@ -28,11 +27,11 @@ export default function SolutionsPortfolioSection({ data }: Props) {
 
   return (
     <SolutionsPortfolio
-      subtitle={data.subtitle || ""}
-      title={data.title || ""}
-      description={data.description || ""}
+      subtitle={resolved.subtitle}
+      title={resolved.title}
+      description={resolved.description}
       cards={cards}
-      layout={(data.layout as 3 | 4 | 6) || 6}
+      layout={resolved.layout}
     />
   );
 }

@@ -1,21 +1,18 @@
 import React from "react";
 import CommercialForm from "@/components/commercial/CommercialForm";
-import { strapiImage } from "@/lib/strapi";
-import type { CommercialSystemsCommercialFormData } from "@/lib/strapi-schemas/commercial";
+import type { ResolvedCommercialSystemsCommercialForm } from "@/lib/strapi/resolvers/commercial";
 
 interface Props {
-  data: CommercialSystemsCommercialFormData;
+  resolved: ResolvedCommercialSystemsCommercialForm;
 }
 
-export default function CommercialFormSection({ data }: Props) {
-  const img = strapiImage(data.image);
-
+export default function CommercialFormSection({ resolved }: Props) {
   return (
     <CommercialForm
-      subtitle={data.subtitle || ""}
-      title={data.title || ""}
-      description={data.description || ""}
-      image={img || ""}
+      subtitle={resolved.subtitle}
+      title={resolved.title}
+      description={resolved.description}
+      image={resolved.image?.src ?? ''}
     />
   );
 }

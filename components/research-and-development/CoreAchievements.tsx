@@ -6,25 +6,24 @@ import Link from 'next/link';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { EffectCoverflow, Autoplay, Navigation } from 'swiper/modules';
 import { ArrowRight } from 'lucide-react';
-import { strapiImage } from '@/lib/strapi';
 import 'swiper/css';
 import 'swiper/css/effect-coverflow';
-import type { CoreAchievementsSectionData } from '@/lib/strapi-schemas/research-development';
+import type { ResolvedCoreAchievementsSection } from '@/lib/strapi/resolvers/research';
 
 interface Props {
-  data: CoreAchievementsSectionData;
+  resolved: ResolvedCoreAchievementsSection;
 }
 
-const CoreAchievements = ({ data }: Props) => {
+const CoreAchievements = ({ resolved }: Props) => {
   return (
     <section className="w-full px-[5%] py-12 md:py-20 overflow-hidden">
       <div className="max-w-7xl mx-auto">
         <div className="text-center mb-10 md:mb-14">
           <p className="text-2xl md:text-3xl font-light tracking-tight text-black mb-1">
-            {data.subtitle}
+            {resolved.subtitle}
           </p>
           <h2 className="text-5xl md:text-6xl lg:text-7xl font-normal tracking-tight text-[#63B846]">
-            {data.title}
+            {resolved.title}
           </h2>
         </div>
 
@@ -58,7 +57,7 @@ const CoreAchievements = ({ data }: Props) => {
             navigation
             className="!py-6"
           >
-            {(data.items || []).map((item, index) => (
+            {resolved.items.map((item, index) => (
               <SwiperSlide
                 key={index}
                 className="!w-[280px] md:!w-[640px] !h-[380px] md:!h-[440px]"
@@ -68,8 +67,8 @@ const CoreAchievements = ({ data }: Props) => {
                   className="group relative block w-full h-full rounded-2xl overflow-hidden"
                 >
                   <Image
-                    src={strapiImage(item.image)}
-                    alt={item.title}
+                    src={item.image?.src ?? ''}
+                    alt={item.image?.alt ?? item.title}
                     fill
                     className="object-cover transition-transform duration-700 group-hover:scale-105"
                     sizes="(min-width: 768px) 640px, 280px"

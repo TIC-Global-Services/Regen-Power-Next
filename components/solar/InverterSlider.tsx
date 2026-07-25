@@ -5,41 +5,14 @@ import Image from "next/image";
 import Fade from "@/reuseables/fade";
 import SectionHeader from "@/reuseables/SectionHeader";
 import MissingImage from "@/reuseables/MissingImage";
-import { strapiImage } from "@/lib/strapi";
-import type {
-  SolarInverterSliderData,
-  SolarInverterCard,
-} from "@/lib/strapi-schemas/solar";
+import type { ResolvedSolarInverterSlider } from "@/lib/strapi/resolvers/solar";
 
 interface InverterSliderProps {
-  data: SolarInverterSliderData;
+  resolved: ResolvedSolarInverterSlider;
 }
 
-interface InverterSlide {
-  id: string;
-  name: string;
-  title: string;
-  bg: string | null;
-  cards: SolarInverterCard[];
-}
-
-const InverterSlider: React.FC<InverterSliderProps> = ({ data }) => {
-  const inverters = data.inverters ?? [];
-
-  const slides: InverterSlide[] = inverters.map((inv) => {
-    const bgMedia = inv.backgroundImage;
-    const bgSrc = bgMedia ? strapiImage(bgMedia) : null;
-    const cards = inv.cards ?? [];
-
-    return {
-      id: inv.name.toLowerCase().replace(/\s+/g, "-"),
-      name: inv.name,
-      title: inv.title,
-      bg: bgSrc,
-      cards,
-    };
-  });
-
+const InverterSlider: React.FC<InverterSliderProps> = ({ resolved }) => {
+  const slides = resolved.inverters;
   const [activeTab, setActiveTab] = useState(0);
 
   useEffect(() => {
@@ -55,8 +28,8 @@ const InverterSlider: React.FC<InverterSliderProps> = ({ data }) => {
       <section className="py-16 md:py-24 bg-white">
         <div className="px-[5%]">
           <SectionHeader
-            subtitle={data.subtitle ?? ""}
-            title={data.title ?? ""}
+            subtitle={resolved.subtitle}
+            title={resolved.title}
             align="left"
           />
           <MissingImage label="Inverter slides" aspect="aspect-[16/9] mt-8" />
@@ -71,8 +44,8 @@ const InverterSlider: React.FC<InverterSliderProps> = ({ data }) => {
         <div className="flex flex-col lg:flex-row items-start justify-between gap-6 mb-12">
           <div className="lg:max-w-2xl">
             <SectionHeader
-              subtitle={data.subtitle ?? ""}
-              title={data.title ?? ""}
+              subtitle={resolved.subtitle}
+              title={resolved.title}
               align="left"
               className="mb-0"
               subtitleClass="text-2xl"
@@ -81,17 +54,17 @@ const InverterSlider: React.FC<InverterSliderProps> = ({ data }) => {
           </div>
           <div className="lg:max-w-xl">
             <Fade delay={0.2}>
-              <p className="text-sm leading-tight">{data.description ?? ""}</p>
+              <p className="text-sm leading-tight">{resolved.description}</p>
             </Fade>
           </div>
         </div>
 
         <div className="relative rounded-[20px] overflow-hidden min-h-[550px] md:h-[580px] flex flex-col justify-between p-6 md:p-10 z-10">
           <div className="absolute inset-0 z-0">
-            {slides[activeTab].bg ? (
+            {slides[activeTab].background ? (
               <Image
-                src={slides[activeTab].bg ?? ""}
-                alt={slides[activeTab].name}
+                src={slides[activeTab].background.src}
+                alt={slides[activeTab].background.alt}
                 fill
                 className="object-cover transition-all duration-700 ease-in-out"
               />
@@ -106,9 +79,7 @@ const InverterSlider: React.FC<InverterSliderProps> = ({ data }) => {
 
           <div className="relative z-10 mt-4">
             <h3
-              className={`text-5xl md:text-7xl lg:text-[6rem] tracking-tight ${
-                slides[activeTab].id === "string" ? "text-white" : "text-[#63B846]"
-              }`}
+              className="text-5xl md:text-7xl lg:text-[6rem] tracking-tight text-[#63B846]"
             >
               {slides[activeTab].title}
             </h3>

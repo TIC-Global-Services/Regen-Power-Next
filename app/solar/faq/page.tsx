@@ -1,11 +1,17 @@
 import React from "react";
 import type { Metadata } from "next";
 import { getFaqPage } from "@/lib/strapi";
+import { findSection } from "@/lib/strapi/section-utils";
+import {
+  resolveFaqHero,
+  resolveFaqCategorizedFaq,
+  resolveSharedCtaBanner,
+} from "@/lib/strapi/resolvers";
 import type {
   FaqHeroData,
   FaqCategorizedFaqData,
   FaqCtaBannerData,
-} from "@/lib/strapi-schemas/faq";
+} from "@/lib/strapi/schemas";
 
 import FaqHeroSection from "@/components/solar/faq/FaqHeroSection";
 import CategorizedFaqSection from "@/components/solar/faq/CategorizedFaqSection";
@@ -23,26 +29,22 @@ export default async function SolarFaqPage() {
   const { data } = await getFaqPage();
   const sections = data.sections ?? [];
 
-  const hero = sections.find(
-    (s) => s.__component === "faq.hero"
-  ) as FaqHeroData | undefined;
+  const hero = findSection<FaqHeroData>(sections, "faq.hero");
+  const categorizedFaq = findSection<FaqCategorizedFaqData>(sections, "faq.categorized-faq");
+  const ctaBanner = findSection<FaqCtaBannerData>(sections, "shared.cta-banner");
 
-  const categorizedFaq = sections.find(
-    (s) => s.__component === "faq.categorized-faq"
-  ) as FaqCategorizedFaqData | undefined;
-
-  const ctaBanner = sections.find(
-    (s) => s.__component === "shared.cta-banner"
-  ) as FaqCtaBannerData | undefined;
+  const heroProps = resolveFaqHero(hero);
+  const categorizedFaqProps = resolveFaqCategorizedFaq(categorizedFaq);
+  const ctaBannerProps = resolveSharedCtaBanner(ctaBanner);
 
   return (
     <div className="min-h-screen bg-white text-black">
 
-      {hero && <FaqHeroSection data={hero} />}
+      {heroProps && <FaqHeroSection resolved={heroProps} />}
 
-      {categorizedFaq && <CategorizedFaqSection data={categorizedFaq} />}
+      {categorizedFaqProps && <CategorizedFaqSection resolved={categorizedFaqProps} />}
 
-      {ctaBanner && <CtaBannerSection data={ctaBanner} />}
+      {ctaBannerProps && <CtaBannerSection resolved={ctaBannerProps} />}
 
     </div>
   );

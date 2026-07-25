@@ -1,25 +1,23 @@
 import React from "react";
 import Hero from "@/reuseables/Hero";
-import { strapiImage } from "@/lib/strapi";
-import type { FaqHeroData } from "@/lib/strapi-schemas/faq";
+import type { ResolvedFaqHero } from "@/lib/strapi/resolvers/faq";
 
 interface Props {
-  data: FaqHeroData;
+  resolved: ResolvedFaqHero;
 }
 
-export default function FaqHeroSection({ data }: Props) {
-  const img = strapiImage(data.backgroundImage);
-  if (!img) return null;
+export default function FaqHeroSection({ resolved }: Props) {
+  if (!resolved.mediaSrc) return null;
 
   return (
     <Hero
-      mediaSrc={img}
+      mediaSrc={resolved.mediaSrc}
       mediaType="image"
-      topSubtitle={data.subtitle || ""}
-      mainTitle={data.title || ""}
-      description={data.description || ""}
-      ctaText={data.ctaText || "Get Your Free Quote"}
-      ctaLink={data.ctaLink || "#quote-form"}
+      topSubtitle={resolved.subtitle}
+      mainTitle={resolved.title}
+      description={resolved.description}
+      ctaText={resolved.ctaText}
+      ctaLink={resolved.ctaLink}
       subtitleColor="text-white"
       titleColor="text-[#63B846]"
       descriptionColor="text-white/95"

@@ -1,26 +1,24 @@
 import React from "react";
 import PackagesGrid from "@/reuseables/PackagesGrid";
-import type { SolarPackagesData } from "@/lib/strapi-schemas/solar";
+import type { ResolvedSolarPackages } from "@/lib/strapi/resolvers/solar";
 
 interface SolarPackagesProps {
-  data: SolarPackagesData;
+  resolved: ResolvedSolarPackages;
 }
 
-const SolarPackages: React.FC<SolarPackagesProps> = ({ data }) => {
-  const bgColors = ["bg-[#EEF6EB]", "bg-[#A0CF44]", "bg-[#EEF6EB]"];
-
-  const packages = (data.packages ?? []).map((p, idx) => ({
+const SolarPackages: React.FC<SolarPackagesProps> = ({ resolved }) => {
+  const packages = resolved.packages.map((p) => ({
     title: p.title,
     desc: p.description,
-    bgClass: bgColors[idx] ?? "",
-    items: p.features ?? [],
+    bgClass: p.bgClass,
+    items: p.items,
   }));
 
   return (
     <PackagesGrid
-      subtitle={data.subtitle ?? ""}
-      title={data.title ?? ""}
-      description={data.description ?? ""}
+      subtitle={resolved.subtitle}
+      title={resolved.title}
+      description={resolved.description}
       packages={packages}
     />
   );

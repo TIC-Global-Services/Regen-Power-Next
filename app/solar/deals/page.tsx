@@ -1,5 +1,17 @@
 import React from "react";
 import { getDealsPage } from "@/lib/strapi";
+import { findSection } from "@/lib/strapi/section-utils";
+import {
+  resolveSolarPackages,
+  resolveDealsHero,
+  resolveDealsPhilosophy,
+  resolveDealsGrid,
+  resolveDealsWaysToPay,
+  resolveDealsWhyMatters,
+  resolveSharedSplitSection,
+  resolveSharedFaq,
+  resolveSharedCtaBanner,
+} from "@/lib/strapi/resolvers";
 import type {
   DealsHeroData,
   DealsPhilosophyData,
@@ -9,8 +21,8 @@ import type {
   DealsWhyMattersData,
   DealsFaqData,
   DealsCtaBannerData,
-} from "@/lib/strapi-schemas/deals";
-import type { SolarPackagesData } from "@/lib/strapi-schemas/solar";
+  SolarPackagesData,
+} from "@/lib/strapi/schemas";
 
 import DealsHeroSection from "@/components/solar/deals/DealsHeroSection";
 import DealsPhilosophySection from "@/components/solar/deals/DealsPhilosophySection";
@@ -29,58 +41,50 @@ export default async function SolarDealsPage() {
   const { data } = await getDealsPage();
   const sections = data.sections ?? [];
 
-  const hero = sections.find(
-    (s) => s.__component === "deals.hero"
-  ) as DealsHeroData | undefined;
-  const philosophy = sections.find(
-    (s) => s.__component === "deals.philosophy"
-  ) as DealsPhilosophyData | undefined;
-  const dealsGrid = sections.find(
-    (s) => s.__component === "deals.deals-grid"
-  ) as DealsGridData | undefined;
-  const splitSection = sections.find(
-    (s) => s.__component === "shared.split-section"
-  ) as DealsSplitSectionData | undefined;
-  const packages = sections.find(
-    (s) => s.__component === "solar.packages"
-  ) as SolarPackagesData | undefined;
-  const waysToPay = sections.find(
-    (s) => s.__component === "deals.ways-to-pay"
-  ) as DealsWaysToPayData | undefined;
-  const whyMatters = sections.find(
-    (s) => s.__component === "deals.why-matters"
-  ) as DealsWhyMattersData | undefined;
-  const faq = sections.find(
-    (s) => s.__component === "shared.faq"
-  ) as DealsFaqData | undefined;
-  const ctaBanner = sections.find(
-    (s) => s.__component === "shared.cta-banner"
-  ) as DealsCtaBannerData | undefined;
+  const hero = findSection<DealsHeroData>(sections, "deals.hero");
+  const philosophy = findSection<DealsPhilosophyData>(sections, "deals.philosophy");
+  const dealsGrid = findSection<DealsGridData>(sections, "deals.deals-grid");
+  const splitSection = findSection<DealsSplitSectionData>(sections, "shared.split-section");
+  const packages = findSection<SolarPackagesData>(sections, "solar.packages");
+  const waysToPay = findSection<DealsWaysToPayData>(sections, "deals.ways-to-pay");
+  const whyMatters = findSection<DealsWhyMattersData>(sections, "deals.why-matters");
+  const faq = findSection<DealsFaqData>(sections, "shared.faq");
+  const ctaBanner = findSection<DealsCtaBannerData>(sections, "shared.cta-banner");
+
+  const heroProps = resolveDealsHero(hero);
+  const philosophyProps = resolveDealsPhilosophy(philosophy);
+  const dealsGridProps = resolveDealsGrid(dealsGrid);
+  const splitSectionProps = resolveSharedSplitSection(splitSection);
+  const packagesProps = resolveSolarPackages(packages);
+  const waysToPayProps = resolveDealsWaysToPay(waysToPay);
+  const whyMattersProps = resolveDealsWhyMatters(whyMatters);
+  const faqProps = resolveSharedFaq(faq);
+  const ctaBannerProps = resolveSharedCtaBanner(ctaBanner);
 
   return (
     <div className="bg-white min-h-screen text-black">
 
-      {hero && <DealsHeroSection data={hero} />}
+      {heroProps && <DealsHeroSection resolved={heroProps} />}
 
-      {philosophy && <DealsPhilosophySection data={philosophy} />}
+      {philosophyProps && <DealsPhilosophySection resolved={philosophyProps} />}
 
-      {dealsGrid && <DealsGridSection data={dealsGrid} />}
+      {dealsGridProps && <DealsGridSection resolved={dealsGridProps} />}
 
-      {splitSection && <SplitSectionSection data={splitSection} />}
+      {splitSectionProps && <SplitSectionSection resolved={splitSectionProps} />}
 
-      {packages && <SolarPackages data={packages} />}
+      {packagesProps && <SolarPackages resolved={packagesProps} />}
 
-      {waysToPay && <WaysToPaySection data={waysToPay} />}
+      {waysToPayProps && <WaysToPaySection resolved={waysToPayProps} />}
 
-      {whyMatters && <WhyMattersSection data={whyMatters} />}
+      {whyMattersProps && <WhyMattersSection resolved={whyMattersProps} />}
 
-      {faq && <FaqSection data={faq} />}
+      {faqProps && <FaqSection resolved={faqProps} />}
 
       <div id="quote-form">
         <LeadCaptureForm />
       </div>
 
-      {ctaBanner && <CtaBannerSection data={ctaBanner} />}
+      {ctaBannerProps && <CtaBannerSection resolved={ctaBannerProps} />}
 
     </div>
   );

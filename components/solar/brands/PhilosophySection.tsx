@@ -1,22 +1,22 @@
 import React from "react";
 import EditorialTextSection from "@/reuseables/EditorialTextSection";
-import type { BrandsPhilosophyData } from "@/lib/strapi-schemas/brands";
+import type { ResolvedBrandsPhilosophy } from "@/lib/strapi/resolvers/brands";
 
 interface PhilosophySectionProps {
-  data: BrandsPhilosophyData;
+  resolved: ResolvedBrandsPhilosophy;
 }
 
-const PhilosophySection: React.FC<PhilosophySectionProps> = ({ data }) => {
-  const paragraphs = (data.paragraphs ?? []).map((p) => ({
+const PhilosophySection: React.FC<PhilosophySectionProps> = ({ resolved }) => {
+  const paragraphs = (resolved.paragraphs ?? []).map((p) => ({
     text: p.text,
     isSecondary: p.isSecondary,
   }));
 
   return (
     <EditorialTextSection
-      badge={data.badge ?? undefined}
-      subtitle={data.subtitle ?? ""}
-      title={data.title ?? ""}
+      badge={resolved.badge ?? undefined}
+      subtitle={resolved.subtitle ?? ""}
+      title={resolved.title ?? ""}
       paragraphs={paragraphs}
       align="left"
       subtitleClass="text-lg md:text-2xl text-black font-normal"

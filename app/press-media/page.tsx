@@ -1,103 +1,96 @@
 import React from 'react';
+import { getPressMediaPage } from '@/lib/strapi';
+import { findSection } from '@/lib/strapi/section-utils';
+import {
+  resolvePressMediaHero,
+  resolvePressMediaFeaturedArticle,
+  resolvePressMediaLatestNewsSection,
+  resolvePressMediaNewsSection,
+  resolveSharedCtaBanner,
+} from '@/lib/strapi/resolvers';
+import type {
+  PressMediaHeroData,
+  PressMediaFeaturedArticleData,
+  PressMediaLatestNewsSectionData,
+  PressMediaNewsSectionData,
+  BlogCtaBannerData,
+} from '@/lib/strapi/schemas';
 import PressHero from '@/components/press-and-media/PressHero';
 import FeaturedArticle from '@/components/press-and-media/FeaturedArticle';
 import LatestNews from '@/components/press-and-media/LatestNews';
 import NewsGrid from '@/components/press-and-media/NewsGrid';
 import GetSolar from '@/reuseables/getsolar';
-import type { CategoryOption } from '@/components/press-and-media/NewsFilter';
-import type { PressCard } from '@/components/press-and-media/NewsGrid';
-import ctaBg from '@/assets/for_your_home.png';
-import adoptionImg from '@/assets/press-and-media/adoption.png';
-import howMuchImg from '@/assets/blog/howmuch.png';
-import homeEvImg from '@/assets/blog/homeEV.png';
-import explainedImg from '@/assets/blog/explained.png';
-import heroImg from '@/assets/press-and-media/hero.png';
 
-const categories: CategoryOption[] = [
-    { label: 'All', value: 'All' },
-    { label: 'Company News', value: 'Company News' },
-    { label: 'Projects', value: 'Projects' },
-    { label: 'Awards', value: 'Awards' },
-    { label: 'Media Coverage', value: 'Media Coverage' },
-    { label: 'Technology', value: 'Technology' },
-    { label: 'Events', value: 'Events' },
-    { label: 'Partnerships', value: 'Partnerships' },
-];
+export const revalidate = 60;
 
-const cards: PressCard[] = [
-    { title: 'Best-Rated Solar Installer 2025', description: 'Recognised By SolarQuotes For Outstanding Customer Satisfaction.', image: howMuchImg },
-    { title: '$1.93M ARC Research Grant', description: 'Partnering With Curtin University To Advance Household Battery Adoption.', image: homeEvImg },
-    { title: 'From Research To Rooftops', description: "Accelerating Australia's Transition To Smarter Renewable Energy.", image: explainedImg },
-    { title: 'Five Years Of ProductReview Success', description: 'Recognised For Consistent Customer Satisfaction And Installation Quality.', image: explainedImg },
-    { title: '22+ Years Of Renewable Innovation', description: 'Celebrating Two Decades Of Engineering Excellence And Industry Leadership.', image: heroImg },
-    { title: 'Sustainable Power For Pulau Ubin', description: 'Delivering Hybrid Microgrid Technology For Remote Communities In Singapore.', image: homeEvImg },
-    { title: 'Executive Of The Year Finalist', description: 'Dr. Nikhil Jayaraj Recognised For Leadership In Renewable Energy.', image: homeEvImg },
-    { title: 'Top Brand PV Installer 2024', description: 'Honoured With The EUPD Research Installer Award For Excellence.', image: howMuchImg },
-    { title: '45,000 Solar Installations Milestone', description: 'Delivering Trusted Renewable Energy Solutions Across Australia.', image: heroImg },
-];
+const PressMediaPage = async () => {
+  const { data } = await getPressMediaPage();
+  const sections = data.sections ?? [];
 
-const PressMediaPage = () => {
-    return (
-        <div className="bg-white min-h-screen text-black">
-            <PressHero
-                subtitle="In The"
-                mainTitle="News & Media"
-                description="Explore How Regen Power Is Shaping The Future Of Energy Through Innovation, Impact, And Industry Leadership."
-                ctaText="Get Your Free Quote"
-                ctaLink="#quote-form"
-                backgroundImage={heroImg}
-            />
+  const heroSection = findSection<PressMediaHeroData>(sections, 'press-and-media.hero');
+  const featuredSection = findSection<PressMediaFeaturedArticleData>(sections, 'press-and-media.featured-article');
+  const latestNewsSection = findSection<PressMediaLatestNewsSectionData>(sections, 'press-and-media.latest-news-section');
+  const newsSection = findSection<PressMediaNewsSectionData>(sections, 'press-and-media.news-section');
+  const ctaSection = findSection<BlogCtaBannerData>(sections, 'shared.cta-banner');
 
-            <FeaturedArticle
-                image={adoptionImg}
-                title="Regen Power Leads Solar Adoption In Western Australia"
-                description="Regen Power Continues To Expand Its Footprint With Large-Scale Residential And Commercial Solar Installations Across WA."
-                href="/press-media/regen-power-leads-solar-adoption"
-            />
+  const heroProps = resolvePressMediaHero(heroSection);
+  const featuredProps = resolvePressMediaFeaturedArticle(featuredSection);
+  const latestNewsProps = resolvePressMediaLatestNewsSection(latestNewsSection);
+  const newsProps = resolvePressMediaNewsSection(newsSection);
+  const ctaProps = resolveSharedCtaBanner(ctaSection);
 
-            <LatestNews
-                items={[
-                    {
-                        title: 'How Solar + Battery Systems Are Changing Homes',
-                        description:
-                            'An In-Depth Look At How Integrated Energy Systems Are Transforming Energy Consumption Across Australia.',
-                        image: howMuchImg,
-                        href: '/press-media/solar-battery-changing-homes',
-                    },
-                    {
-                        title: 'The Role Of Smart Batteries In Future Grids',
-                        description:
-                            'Regen Power Highlights The Importance Of Battery Storage And VPP Integration In Modern Energy Systems.',
-                        image: homeEvImg,
-                        href: '/press-media/smart-batteries-future-grids',
-                    },
-                    {
-                        title: "Regen Power's Contribution To The Greener Future",
-                        description:
-                            'Exploring How Innovative Solar Solutions Are Helping Reduce Carbon Footprints Nationwide.',
-                        image: explainedImg,
-                        href: '/press-media/greener-future',
-                    },
-                ]}
-            />
+  return (
+    <div className="bg-white min-h-screen text-black">
+      {heroProps && (
+        <PressHero
+          subtitle={heroProps.subtitle}
+          mainTitle={heroProps.mainTitle}
+          description={heroProps.description}
+          ctaText={heroProps.ctaText}
+          ctaLink={heroProps.ctaLink}
+          backgroundImage={heroProps.backgroundImage}
+        />
+      )}
 
-            <NewsGrid
-                subtitle="Browse"
-                title="All News"
-                categories={categories}
-                defaultCategory="All"
-                cards={cards}
-            />
+      {featuredProps && (
+        <FeaturedArticle
+          image={featuredProps.image}
+          title={featuredProps.title}
+          description={featuredProps.description}
+          href={featuredProps.href}
+        />
+      )}
 
-            <GetSolar
-                subtitle="Get A Solar System Designed"
-                mainTitle="For Your Home"
-                description="Tell Us A Few Details About Your Home And Power Use, And One Of Our Perth-Based CEC-Accredited Designers Will Build A System Tailored To Your Roof, Your Household, And Your Budget. Free, No-Obligation, And No High-Pressure Sales Calls — Just A Proper Engineering Recommendation."
-                buttonText="Get My Free Quote"
-                bgImage={ctaBg}
-            />
-        </div>
-    );
+      {latestNewsProps && (
+        <LatestNews
+          subtitle={latestNewsProps.subtitle}
+          title={latestNewsProps.title}
+          items={latestNewsProps.items}
+        />
+      )}
+
+      {newsProps && (
+        <NewsGrid
+          subtitle={newsProps.subtitle}
+          title={newsProps.title}
+          categories={newsProps.categories}
+          defaultCategory={newsProps.defaultCategory}
+          cards={newsProps.cards}
+        />
+      )}
+
+      {ctaProps && (
+        <GetSolar
+          subtitle={ctaProps.subtitle}
+          mainTitle={ctaProps.mainTitle}
+          description={ctaProps.description}
+          buttonText={ctaProps.buttonText}
+          buttonHref={ctaProps.buttonHref}
+          bgImage={ctaProps.bgImage || undefined}
+        />
+      )}
+    </div>
+  );
 };
 
 export default PressMediaPage;

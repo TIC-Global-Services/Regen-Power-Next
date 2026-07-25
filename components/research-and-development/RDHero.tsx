@@ -1,25 +1,23 @@
 import React from 'react';
 import Hero from '@/reuseables/Hero';
-import { strapiImage } from '@/lib/strapi';
-import type { ResearchDevelopmentHeroData } from '@/lib/strapi-schemas/research-development';
+import type { ResolvedResearchDevelopmentHero } from '@/lib/strapi/resolvers/research';
 
 interface Props {
-  data: ResearchDevelopmentHeroData;
+  resolved: ResolvedResearchDevelopmentHero;
 }
 
-const RDHero = ({ data }: Props) => {
-  const bg = strapiImage(data.backgroundImage);
-  if (!bg) return null;
+const RDHero = ({ resolved }: Props) => {
+  if (!resolved.mediaSrc) return null;
 
   return (
     <Hero
-      mediaSrc={bg}
+      mediaSrc={resolved.mediaSrc}
       mediaType="image"
-      topSubtitle={data.subtitle || ''}
-      mainTitle={data.mainTitle || ''}
-      description={data.description || ''}
-      ctaText={data.ctaText || 'Get Your Free Quote'}
-      ctaLink={data.ctaLink || '#quote-form'}
+      topSubtitle={resolved.subtitle}
+      mainTitle={resolved.mainTitle}
+      description={resolved.description}
+      ctaText={resolved.ctaText || 'Get Your Free Quote'}
+      ctaLink={resolved.ctaLink || '#quote-form'}
       subtitleColor="text-white"
       descriptionColor="text-white"
       showOverlay={true}

@@ -1,5 +1,16 @@
 import React from "react";
 import { getBrandsPage } from "@/lib/strapi";
+import { findSection } from "@/lib/strapi/section-utils";
+import {
+  resolveBrandsHero,
+  resolveBrandsPhilosophy,
+  resolveBrandsTier1Means,
+  resolveBrandsGrid,
+  resolveBrandsHybridSpecialty,
+  resolveBrandsInvertersSlider,
+  resolveBrandsCriteriaList,
+  resolveBrandsSpecsTable,
+} from "@/lib/strapi/resolvers";
 import type {
   BrandsHeroData,
   BrandsPhilosophyData,
@@ -8,8 +19,8 @@ import type {
   BrandsHybridSpecialtyData,
   BrandsInvertersSliderData,
   BrandsCriteriaListData,
-} from "@/lib/strapi-schemas/brands";
-import type { BrandsSpecsTableData } from "@/lib/strapi-schemas/brands";
+  BrandsSpecsTableData,
+} from "@/lib/strapi/schemas";
 
 import BrandsHeroSection from "@/components/solar/brands/BrandsHeroSection";
 import PhilosophySection from "@/components/solar/brands/PhilosophySection";
@@ -31,43 +42,36 @@ const SolarBrandsPage = async () => {
   const { data } = await getBrandsPage();
   const sections = data.sections ?? [];
 
-  const hero = sections.find(
-    (s) => s.__component === "brands.hero"
-  ) as BrandsHeroData | undefined;
-  const philosophy = sections.find(
-    (s) => s.__component === "brands.philosophy"
-  ) as BrandsPhilosophyData | undefined;
-  const tier1 = sections.find(
-    (s) => s.__component === "brands.tier1-means"
-  ) as BrandsTier1MeansData | undefined;
-  const brandsGrid = sections.find(
-    (s) => s.__component === "brands.brands-grid"
-  ) as BrandsGridData | undefined;
-  const hybrid = sections.find(
-    (s) => s.__component === "brands.hybrid-specialty"
-  ) as BrandsHybridSpecialtyData | undefined;
-  const inverters = sections.find(
-    (s) => s.__component === "brands.inverters-slider"
-  ) as BrandsInvertersSliderData | undefined;
-  const criteria = sections.find(
-    (s) => s.__component === "brands.criteria-list"
-  ) as BrandsCriteriaListData | undefined;
-  const specsTable = sections.find(
-    (s) => s.__component === "brands.specs-table"
-  ) as BrandsSpecsTableData | undefined;
+  const hero = findSection<BrandsHeroData>(sections, "brands.hero");
+  const philosophy = findSection<BrandsPhilosophyData>(sections, "brands.philosophy");
+  const tier1 = findSection<BrandsTier1MeansData>(sections, "brands.tier1-means");
+  const brandsGrid = findSection<BrandsGridData>(sections, "brands.brands-grid");
+  const hybrid = findSection<BrandsHybridSpecialtyData>(sections, "brands.hybrid-specialty");
+  const inverters = findSection<BrandsInvertersSliderData>(sections, "brands.inverters-slider");
+  const criteria = findSection<BrandsCriteriaListData>(sections, "brands.criteria-list");
+  const specsTable = findSection<BrandsSpecsTableData>(sections, "brands.specs-table");
+
+  const heroProps = resolveBrandsHero(hero);
+  const philosophyProps = resolveBrandsPhilosophy(philosophy);
+  const tier1Props = resolveBrandsTier1Means(tier1);
+  const brandsGridProps = resolveBrandsGrid(brandsGrid);
+  const hybridProps = resolveBrandsHybridSpecialty(hybrid);
+  const invertersProps = resolveBrandsInvertersSlider(inverters);
+  const criteriaProps = resolveBrandsCriteriaList(criteria);
+  const specsTableProps = resolveBrandsSpecsTable(specsTable);
 
   return (
     <div className="bg-white min-h-screen text-black">
-      {hero && <BrandsHeroSection data={hero} />}
-      {philosophy && <PhilosophySection data={philosophy} />}
-      {tier1 && <Tier1MeansSection data={tier1} />}
-      {brandsGrid && <BrandsGridSection data={brandsGrid} />}
+      {heroProps && <BrandsHeroSection resolved={heroProps} />}
+      {philosophyProps && <PhilosophySection resolved={philosophyProps} />}
+      {tier1Props && <Tier1MeansSection resolved={tier1Props} />}
+      {brandsGridProps && <BrandsGridSection resolved={brandsGridProps} />}
 
-      {specsTable && <SpecsTableSection data={specsTable} />}
+      {specsTableProps && <SpecsTableSection resolved={specsTableProps} />}
 
-      {hybrid && <HybridSpecialtySection data={hybrid} />}
-      {inverters && <InvertersSliderSection data={inverters} />}
-      {criteria && <CriteriaListSection data={criteria} />}
+      {hybridProps && <HybridSpecialtySection resolved={hybridProps} />}
+      {invertersProps && <InvertersSliderSection resolved={invertersProps} />}
+      {criteriaProps && <CriteriaListSection resolved={criteriaProps} />}
 
       <FAQ />
 

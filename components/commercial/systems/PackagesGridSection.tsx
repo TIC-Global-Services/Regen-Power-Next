@@ -1,18 +1,18 @@
 import React from "react";
 import PackagesGrid from "@/reuseables/PackagesGrid";
-import type { CommercialSystemsPackagesGridData } from "@/lib/strapi-schemas/commercial";
+import type { ResolvedCommercialSystemsPackagesGrid } from "@/lib/strapi/resolvers/commercial";
 
 interface Props {
-  data: CommercialSystemsPackagesGridData;
+  resolved: ResolvedCommercialSystemsPackagesGrid;
 }
 
-export default function PackagesGridSection({ data }: Props) {
+export default function PackagesGridSection({ resolved }: Props) {
   return (
     <PackagesGrid
-      subtitle={data.subtitle || ""}
-      title={data.title || ""}
-      description={data.description || ""}
-      packages={data.packages.map((pkg) => ({
+      subtitle={resolved.subtitle}
+      title={resolved.title}
+      description={resolved.description}
+      packages={resolved.packages.map((pkg) => ({
         title: pkg.title,
         desc: pkg.desc,
         bgClass: pkg.bgClass,

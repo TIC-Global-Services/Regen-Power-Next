@@ -1,40 +1,27 @@
 import React from "react";
 import Hero from "@/reuseables/Hero";
-import MissingImage from "@/reuseables/MissingImage";
-import { strapiImage } from "@/lib/strapi";
-import type { BrandsHeroData } from "@/lib/strapi-schemas/brands";
+import type { ResolvedBrandsHero } from "@/lib/strapi/resolvers/brands";
 
 interface BrandsHeroSectionProps {
-  data: BrandsHeroData;
+  resolved: ResolvedBrandsHero;
 }
 
-const BrandsHeroSection: React.FC<BrandsHeroSectionProps> = ({ data }) => {
-  const imageUrl = data.backgroundImage
-    ? strapiImage(data.backgroundImage)
-    : "";
-
+const BrandsHeroSection: React.FC<BrandsHeroSectionProps> = ({ resolved }) => {
   return (
     <div>
-      {imageUrl ? (
-        <Hero
-          mediaSrc={imageUrl}
-          mediaType="image"
-          topSubtitle={data.subtitle ?? ""}
-          mainTitle={data.title ?? ""}
-          description={data.description ?? ""}
-          ctaText={data.ctaText ?? ""}
-          ctaLink={data.ctaLink ?? "#quote-form"}
-          subtitleColor="text-white"
-          titleColor="text-[#63B846]"
-          descriptionColor="text-white/90"
-          showOverlay={true}
-        />
-      ) : (
-        <MissingImage
-          label="Brands hero background image"
-          aspect="aspect-[16/9] md:aspect-[21/9]"
-        />
-      )}
+      <Hero
+        mediaSrc={resolved.mediaSrc}
+        mediaType="image"
+        topSubtitle={resolved.subtitle ?? ""}
+        mainTitle={resolved.title ?? ""}
+        description={resolved.description ?? ""}
+        ctaText={resolved.ctaText ?? ""}
+        ctaLink={resolved.ctaLink ?? "#quote-form"}
+        subtitleColor="text-white"
+        titleColor="text-[#63B846]"
+        descriptionColor="text-white/90"
+        showOverlay={true}
+      />
     </div>
   );
 };

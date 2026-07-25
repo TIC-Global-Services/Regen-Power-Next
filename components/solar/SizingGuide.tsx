@@ -4,24 +4,23 @@ import Reveal from "@/reuseables/Reveal";
 import CtaButton from "@/reuseables/CtaButton";
 import SectionHeader from "@/reuseables/SectionHeader";
 import MissingImage from "@/reuseables/MissingImage";
-import { strapiImage } from "@/lib/strapi";
-import type { SolarSizingGuideData } from "@/lib/strapi-schemas/solar";
+import type { ResolvedSolarSizingGuide } from "@/lib/strapi/resolvers/solar";
 
 interface SizingGuideProps {
-  data: SolarSizingGuideData;
+  resolved: ResolvedSolarSizingGuide;
 }
 
-const SizingGuide: React.FC<SizingGuideProps> = ({ data }) => {
-  const tableRows = data.tableRows ?? [];
-  const sizingCards = data.sizingCards ?? [];
+const SizingGuide: React.FC<SizingGuideProps> = ({ resolved }) => {
+  const tableRows = resolved.tableRows;
+  const sizingCards = resolved.sizingCards;
 
   return (
     <section className="py-16 md:py-24 bg-white border-t border-gray-50">
       <div className="px-[5%] mx-auto">
         <SectionHeader
-          subtitle={data.subtitle ?? ""}
-          title={data.title ?? ""}
-          description={data.description ?? ""}
+          subtitle={resolved.subtitle}
+          title={resolved.title}
+          description={resolved.description}
           align="center"
           className="mx-auto mb-8"
         />
@@ -51,7 +50,7 @@ const SizingGuide: React.FC<SizingGuideProps> = ({ data }) => {
                 {tableRows.map((row, idx) => {
                   const isLastRow = idx === tableRows.length - 1;
                   return (
-                    <tr key={row.id} className="bg-[#EEF6EB]">
+                    <tr key={idx} className="bg-[#EEF6EB]">
                       <td className={`p-5 text-xl text-black border-r border-black ${isLastRow ? "" : "border-b"}`}>{row.dailyUse}</td>
                       <td className={`p-5 text-xl text-black border-r border-black ${isLastRow ? "" : "border-b"}`}>{row.recommendedSize}</td>
                       <td className={`p-5 text-xl text-black font-light border-r border-black ${isLastRow ? "" : "border-b"}`}>{row.typicalHousehold}</td>
@@ -68,42 +67,39 @@ const SizingGuide: React.FC<SizingGuideProps> = ({ data }) => {
 
         {sizingCards.length > 0 ? (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {sizingCards.map((card, idx) => {
-              const imgSrc = card.image ? strapiImage(card.image) : "";
-              return (
-                <Reveal
-                  key={card.id}
-                  delay={idx * 0.15}
-                  className="relative flex flex-col justify-end rounded-[24px] overflow-hidden group min-h-[380px]"
-                >
-                  <div className="absolute inset-0 z-0">
-                    {imgSrc ? (
-                      <Image
-                        src={imgSrc}
-                        alt={card.title}
-                        fill
-                        className="object-cover group-hover:scale-105 transition-transform duration-500"
-                      />
-                    ) : (
-                      <MissingImage
-                        label="Sizing card image"
-                        aspect="aspect-auto h-full"
-                      />
-                    )}
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/25 to-transparent" />
-                  </div>
+            {sizingCards.map((card, idx) => (
+              <Reveal
+                key={idx}
+                delay={idx * 0.15}
+                className="relative flex flex-col justify-end rounded-[24px] overflow-hidden group min-h-[380px]"
+              >
+                <div className="absolute inset-0 z-0">
+                  {card.image ? (
+                    <Image
+                      src={card.image.src}
+                      alt={card.image.alt}
+                      fill
+                      className="object-cover group-hover:scale-105 transition-transform duration-500"
+                    />
+                  ) : (
+                    <MissingImage
+                      label="Sizing card image"
+                      aspect="aspect-auto h-full"
+                    />
+                  )}
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/25 to-transparent" />
+                </div>
 
-                  <div className="relative z-10 w-full bg-black/5 backdrop-blur-md p-5 mt-auto text-left">
-                    <h4 className="text-white text-xl leading-tight mb-2">
-                      {card.title}
-                    </h4>
-                    <p className="text-base text-white leading-tight font-light">
-                      {card.description}
-                    </p>
-                  </div>
-                </Reveal>
-              );
-            })}
+                <div className="relative z-10 w-full bg-black/5 backdrop-blur-md p-5 mt-auto text-left">
+                  <h4 className="text-white text-xl leading-tight mb-2">
+                    {card.title}
+                  </h4>
+                  <p className="text-base text-white leading-tight font-light">
+                    {card.description}
+                  </p>
+                </div>
+              </Reveal>
+            ))}
           </div>
         ) : (
           <MissingImage label="Sizing cards" aspect="aspect-[3/1]" />

@@ -1,5 +1,18 @@
 import React from "react";
 import { getSolarPage } from "@/lib/strapi";
+import { findSection } from "@/lib/strapi/section-utils";
+import {
+  resolveSolarHero,
+  resolveSolarStatsAndIntro,
+  resolveSolarProcessSteps,
+  resolveSolarBrandsGrid,
+  resolveSolarInverterSlider,
+  resolveSolarSpecsTable,
+  resolveSolarSizingGuide,
+  resolveSolarPackages,
+  resolveSolarTimeline,
+  resolveSolarEngineeringItems,
+} from "@/lib/strapi/resolvers/solar";
 import type {
   SolarHeroData,
   SolarStatsAndIntroData,
@@ -11,7 +24,7 @@ import type {
   SolarPackagesData,
   SolarTimelineData,
   SolarEngineeringItemsData,
-} from "@/lib/strapi-schemas/solar";
+} from "@/lib/strapi/schemas";
 
 import HeroSection from "@/components/solar/Hero";
 import SolarStatsAndIntro from "@/components/solar/SolarStatsAndIntro";
@@ -34,49 +47,40 @@ const SolarPage = async () => {
   const { data } = await getSolarPage();
   const sections = data.sections ?? [];
 
-  const hero = sections.find(
-    (s) => s.__component === "solar.hero"
-  ) as SolarHeroData | undefined;
-  const stats = sections.find(
-    (s) => s.__component === "solar.stats-and-intro"
-  ) as SolarStatsAndIntroData | undefined;
-  const process = sections.find(
-    (s) => s.__component === "solar.process-steps"
-  ) as SolarProcessStepsData | undefined;
-  const brands = sections.find(
-    (s) => s.__component === "solar.brands-grid"
-  ) as SolarBrandsGridData | undefined;
-  const inverters = sections.find(
-    (s) => s.__component === "solar.inverter-slider"
-  ) as SolarInverterSliderData | undefined;
-  const specs = sections.find(
-    (s) => s.__component === "solar.specs-table"
-  ) as SolarSpecsTableData | undefined;
-  const sizing = sections.find(
-    (s) => s.__component === "solar.sizing-guide"
-  ) as SolarSizingGuideData | undefined;
-  const packages = sections.find(
-    (s) => s.__component === "solar.packages"
-  ) as SolarPackagesData | undefined;
-  const timeline = sections.find(
-    (s) => s.__component === "solar.timeline"
-  ) as SolarTimelineData | undefined;
-  const engineering = sections.find(
-    (s) => s.__component === "solar.engineering-items"
-  ) as SolarEngineeringItemsData | undefined;
+  const hero = findSection<SolarHeroData>(sections, "solar.hero");
+  const stats = findSection<SolarStatsAndIntroData>(sections, "solar.stats-and-intro");
+  const process = findSection<SolarProcessStepsData>(sections, "solar.process-steps");
+  const brands = findSection<SolarBrandsGridData>(sections, "solar.brands-grid");
+  const inverters = findSection<SolarInverterSliderData>(sections, "solar.inverter-slider");
+  const specs = findSection<SolarSpecsTableData>(sections, "solar.specs-table");
+  const sizing = findSection<SolarSizingGuideData>(sections, "solar.sizing-guide");
+  const packages = findSection<SolarPackagesData>(sections, "solar.packages");
+  const timeline = findSection<SolarTimelineData>(sections, "solar.timeline");
+  const engineering = findSection<SolarEngineeringItemsData>(sections, "solar.engineering-items");
+
+  const heroProps = resolveSolarHero(hero);
+  const statsProps = resolveSolarStatsAndIntro(stats);
+  const processProps = resolveSolarProcessSteps(process);
+  const brandsProps = resolveSolarBrandsGrid(brands);
+  const invertersProps = resolveSolarInverterSlider(inverters);
+  const specsProps = resolveSolarSpecsTable(specs);
+  const sizingProps = resolveSolarSizingGuide(sizing);
+  const packagesProps = resolveSolarPackages(packages);
+  const timelineProps = resolveSolarTimeline(timeline);
+  const engineeringProps = resolveSolarEngineeringItems(engineering);
 
   return (
     <div className="bg-white min-h-screen text-black">
-      {hero && <HeroSection data={hero} />}
-      {stats && <SolarStatsAndIntro data={stats} />}
-      {process && <SolarProcessFlow data={process} />}
-      {brands && <SolarBrandsGrid data={brands} />}
-      {inverters && <InverterSlider data={inverters} />}
-      {specs && <SpecsAccordion data={specs} />}
-      {sizing && <SizingGuide data={sizing} />}
-      {packages && <SolarPackages data={packages} />}
-      {timeline && <TimelineSection data={timeline} />}
-      {engineering && <EngineeringCustomizations data={engineering} />}
+      {heroProps && <HeroSection heroProps={heroProps} />}
+      {statsProps && <SolarStatsAndIntro resolved={statsProps} />}
+      {processProps && <SolarProcessFlow resolved={processProps} />}
+      {brandsProps && <SolarBrandsGrid resolved={brandsProps} />}
+      {invertersProps && <InverterSlider resolved={invertersProps} />}
+      {specsProps && <SpecsAccordion resolved={specsProps} />}
+      {sizingProps && <SizingGuide resolved={sizingProps} />}
+      {packagesProps && <SolarPackages resolved={packagesProps} />}
+      {timelineProps && <TimelineSection resolved={timelineProps} />}
+      {engineeringProps && <EngineeringCustomizations resolved={engineeringProps} />}
 
       <FAQ topTitle="Solar System" />
 

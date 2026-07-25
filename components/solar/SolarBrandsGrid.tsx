@@ -4,34 +4,33 @@ import Reveal from "@/reuseables/Reveal";
 import CtaButton from "@/reuseables/CtaButton";
 import SectionHeader from "@/reuseables/SectionHeader";
 import MissingImage from "@/reuseables/MissingImage";
-import { strapiImage } from "@/lib/strapi";
-import type { SolarBrandsGridData } from "@/lib/strapi-schemas/solar";
+import type { ResolvedSolarBrandsGrid } from "@/lib/strapi/resolvers/solar";
 
 interface SolarBrandsGridProps {
-  data: SolarBrandsGridData;
+  resolved: ResolvedSolarBrandsGrid;
 }
 
-const SolarBrandsGrid: React.FC<SolarBrandsGridProps> = ({ data }) => {
-  const brands = data.brands ?? [];
+const SolarBrandsGrid: React.FC<SolarBrandsGridProps> = ({ resolved }) => {
+  const brands = resolved.brands;
 
   return (
     <section className="py-16 md:py-24 bg-white border-t border-gray-100">
       <div className="px-[5%] mx-auto">
         <SectionHeader
-          subtitle={data.subtitle ?? ""}
-          title={data.title ?? ""}
-          description={data.description ?? ""}
+          subtitle={resolved.subtitle}
+          title={resolved.title}
+          description={resolved.description}
           align="center"
           subtitleClass="font-normal text-[1.875rem] leading-[1.2]"
           className="mx-auto mb-12"
         />
 
-        {data.ctaText && (
+        {resolved.ctaText && (
           <div className="text-center">
             <Reveal delay={0.3} className="inline-block">
               <CtaButton
-                href={data.ctaHref ?? "#quote-form"}
-                text={data.ctaText}
+                href={resolved.ctaHref || "#quote-form"}
+                text={resolved.ctaText}
                 textColor="text-black"
               />
             </Reveal>
@@ -43,11 +42,10 @@ const SolarBrandsGrid: React.FC<SolarBrandsGridProps> = ({ data }) => {
             const showBorderBottomMobile = index < brands.length - 1;
             const showBorderRightDesktop = (index + 1) % 3 !== 0;
             const showBorderBottomDesktop = index < 3;
-            const imgSrc = brand.logo ? strapiImage(brand.logo) : "";
 
             return (
               <Reveal
-                key={brand.id}
+                key={index}
                 delay={index * 0.1}
                 className={`flex items-center justify-center p-8 md:p-12 hover:bg-gray-50 transition-colors h-[180px] md:h-[220px] relative
                   ${showBorderBottomMobile ? "border-b border-gray-100" : "border-b-0"}
@@ -56,10 +54,10 @@ const SolarBrandsGrid: React.FC<SolarBrandsGridProps> = ({ data }) => {
                 `}
               >
                 <div className="relative w-full h-[60px] md:h-[80px]">
-                  {imgSrc ? (
+                  {brand.logo ? (
                     <Image
-                      src={imgSrc}
-                      alt={brand.name}
+                      src={brand.logo.src}
+                      alt={brand.logo.alt}
                       fill
                       className="object-contain"
                     />

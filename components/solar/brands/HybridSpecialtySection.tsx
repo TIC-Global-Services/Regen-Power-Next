@@ -4,17 +4,16 @@ import Reveal from "@/reuseables/Reveal";
 import Fade from "@/reuseables/fade";
 import SectionHeader from "@/reuseables/SectionHeader";
 import MissingImage from "@/reuseables/MissingImage";
-import { strapiImage } from "@/lib/strapi";
-import type { BrandsHybridSpecialtyData } from "@/lib/strapi-schemas/brands";
+import type { ResolvedBrandsHybridSpecialty } from "@/lib/strapi/resolvers/brands";
 
 interface HybridSpecialtySectionProps {
-  data: BrandsHybridSpecialtyData;
+  resolved: ResolvedBrandsHybridSpecialty;
 }
 
 const HybridSpecialtySection: React.FC<HybridSpecialtySectionProps> = ({
-  data,
+  resolved,
 }) => {
-  const imgUrl = data.image ? strapiImage(data.image) : "";
+  const imgUrl = resolved.image?.src;
 
   return (
     <section className="py-16 md:py-24 bg-white border-t border-gray-50">
@@ -22,15 +21,15 @@ const HybridSpecialtySection: React.FC<HybridSpecialtySectionProps> = ({
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
           <div className="flex flex-col justify-center text-left">
             <SectionHeader
-              subtitle={data.subtitle ?? ""}
-              title={data.title ?? ""}
+              subtitle={resolved.subtitle ?? ""}
+              title={resolved.title ?? ""}
               align="left"
               subtitleClass="text-base md:text-2xl font-medium normal-case"
               titleClass="text-4xl md:text-5xl lg:text-[4.5rem] font-normal leading-none tracking-tight mb-6 text-[#63B846]"
             />
             <Fade delay={0.2}>
               <p className="text-sm md:text-xl leading-tight">
-                {data.description ?? ""}
+                {resolved.description ?? ""}
               </p>
             </Fade>
           </div>
@@ -39,7 +38,7 @@ const HybridSpecialtySection: React.FC<HybridSpecialtySectionProps> = ({
             {imgUrl ? (
               <Image
                 src={imgUrl}
-                alt={data.title ?? "Hybrid Inverters"}
+                alt={resolved.title ?? "Hybrid Inverters"}
                 fill
                 className="object-cover"
               />

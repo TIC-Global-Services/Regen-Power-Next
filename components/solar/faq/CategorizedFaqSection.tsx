@@ -2,25 +2,25 @@
 
 import React, { useId, useState } from "react";
 import { Plus, X } from "lucide-react";
-import type { FaqCategorizedFaqData, FaqCategory } from "@/lib/strapi-schemas/faq";
+import type { ResolvedFaqCategorizedFaq } from "@/lib/strapi/resolvers/faq";
 
 interface Props {
-  data: FaqCategorizedFaqData;
+  resolved: ResolvedFaqCategorizedFaq;
 }
 
-function categoryKey(cat: FaqCategory): string {
-  return cat.categoryId || `cat-${cat.id}`;
+function categoryKey(cat: ResolvedFaqCategorizedFaq["categories"][number]): string {
+  return cat.categoryId;
 }
 
-export default function CategorizedFaqSection({ data }: Props) {
+export default function CategorizedFaqSection({ resolved }: Props) {
   const [activeKey, setActiveKey] = useState(
-    data.categories.length > 0 ? categoryKey(data.categories[0]) : ""
+    resolved.categories.length > 0 ? categoryKey(resolved.categories[0]) : ""
   );
   const [openIndex, setOpenIndex] = useState(0);
   const accordionId = useId();
 
   const activeCategory =
-    data.categories.find((c) => categoryKey(c) === activeKey) ?? data.categories[0];
+    resolved.categories.find((c) => categoryKey(c) === activeKey) ?? resolved.categories[0];
 
   if (!activeCategory) return null;
 
@@ -29,7 +29,7 @@ export default function CategorizedFaqSection({ data }: Props) {
       <div className="mx-auto max-w-7xl">
         <div className="overflow-x-auto pb-3">
           <div className="flex min-w-max gap-4">
-            {data.categories.map((category) => {
+            {resolved.categories.map((category) => {
               const key = categoryKey(category);
               const active = key === activeKey;
 
@@ -67,7 +67,7 @@ export default function CategorizedFaqSection({ data }: Props) {
               const isOpen = openIndex === index;
 
               return (
-                <div key={item.id} className="border-b-2 border-[#EEF6EB]">
+                <div key={index} className="border-b-2 border-[#EEF6EB]">
                   <button
                     type="button"
                     aria-expanded={isOpen}

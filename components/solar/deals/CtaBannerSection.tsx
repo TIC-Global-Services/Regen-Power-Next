@@ -1,23 +1,20 @@
 import React from "react";
 import GetSolar from "@/reuseables/getsolar";
-import { strapiImage } from "@/lib/strapi";
-import type { DealsCtaBannerData } from "@/lib/strapi-schemas/deals";
+import type { ResolvedSharedCtaBanner } from "@/lib/strapi/resolvers/shared";
 
 interface Props {
-  data: DealsCtaBannerData;
+  resolved: ResolvedSharedCtaBanner;
 }
 
-export default function CtaBannerSection({ data }: Props) {
-  const bg = strapiImage(data.backgroundImage);
-
+export default function CtaBannerSection({ resolved }: Props) {
   return (
     <GetSolar
-      subtitle={data.subtitle || ""}
-      mainTitle={data.mainTitle || ""}
-      description={data.description || ""}
-      buttonText={data.buttonText || "Get My Free Quote"}
-      buttonHref={data.buttonHref || "#quote-form"}
-      bgImage={bg || undefined}
+      subtitle={resolved.subtitle}
+      mainTitle={resolved.mainTitle}
+      description={resolved.description}
+      buttonText={resolved.buttonText}
+      buttonHref={resolved.buttonHref}
+      bgImage={resolved.bgImage || undefined}
     />
   );
 }

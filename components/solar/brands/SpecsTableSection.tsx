@@ -1,14 +1,14 @@
 import React from "react";
 import SectionHeader from "@/reuseables/SectionHeader";
 import Reveal from "@/reuseables/Reveal";
-import type { BrandsSpecsTableData } from "@/lib/strapi-schemas/brands";
+import type { ResolvedBrandsSpecsTable } from "@/lib/strapi/resolvers/brands";
 
 interface SpecsTableSectionProps {
-  data: BrandsSpecsTableData;
+  resolved: ResolvedBrandsSpecsTable;
 }
 
-const SpecsTableSection: React.FC<SpecsTableSectionProps> = ({ data }) => {
-  const columns = data.columns ?? [];
+const SpecsTableSection: React.FC<SpecsTableSectionProps> = ({ resolved }) => {
+  const columns = resolved.columns ?? [];
 
   if (columns.length === 0) return null;
 
@@ -16,9 +16,9 @@ const SpecsTableSection: React.FC<SpecsTableSectionProps> = ({ data }) => {
     <section className="py-16 md:py-24 bg-white border-t border-gray-50">
       <div className="px-[5%] mx-auto">
         <SectionHeader
-          subtitle={data.subtitle ?? ""}
-          title={data.title ?? ""}
-          description={data.description ?? ""}
+          subtitle={resolved.subtitle ?? ""}
+          title={resolved.title ?? ""}
+          description={resolved.description ?? ""}
           align="left"
           className="mb-8"
           subtitleClass="text-base md:text-xl lg:text-2xl normal-case block text-black"
@@ -37,7 +37,7 @@ const SpecsTableSection: React.FC<SpecsTableSectionProps> = ({ data }) => {
                   const isLastCol = idx === columns.length - 1;
                   return (
                     <th
-                      key={col.id}
+                      key={idx}
                       className={`bg-[#EEF6EB]/60 p-4 text-black font-normal text-xl border-b border-black ${
                         isLastCol ? "" : "border-r"
                       } overflow-hidden truncate`}
@@ -57,7 +57,7 @@ const SpecsTableSection: React.FC<SpecsTableSectionProps> = ({ data }) => {
                   const isLastCol = idx === columns.length - 1;
                   return (
                     <td
-                      key={col.id}
+                      key={`e-${idx}`}
                       className={`bg-[#EEF6EB]/30 p-4 text-black font-normal text-xl border-b border-black ${
                         isLastCol ? "" : "border-r"
                       }`}
@@ -76,7 +76,7 @@ const SpecsTableSection: React.FC<SpecsTableSectionProps> = ({ data }) => {
                   const isLastCol = idx === columns.length - 1;
                   return (
                     <td
-                      key={col.id}
+                      key={idx}
                       className={`bg-[#EEF6EB]/30 p-4 text-black font-normal text-xl border-b border-black ${
                         isLastCol ? "" : "border-r"
                       }`}
@@ -95,7 +95,7 @@ const SpecsTableSection: React.FC<SpecsTableSectionProps> = ({ data }) => {
                   const isLastCol = idx === columns.length - 1;
                   return (
                     <td
-                      key={col.id}
+                      key={idx}
                       className={`bg-[#EEF6EB]/30 p-4 text-black font-normal text-xl border-b border-black ${
                         isLastCol ? "" : "border-r"
                       }`}
@@ -114,7 +114,7 @@ const SpecsTableSection: React.FC<SpecsTableSectionProps> = ({ data }) => {
                   const isLastCol = idx === columns.length - 1;
                   return (
                     <td
-                      key={col.id}
+                      key={idx}
                       className={`bg-[#EEF6EB]/30 p-4 text-black font-normal text-xl border-black ${
                         isLastCol ? "" : "border-r"
                       }`}

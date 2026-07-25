@@ -1,18 +1,26 @@
 import React from 'react';
 import { getResearchDevelopmentPage } from '@/lib/strapi';
+import { findSection } from '@/lib/strapi/section-utils';
+import {
+  resolveResearchDevelopmentHero,
+  resolveEnergySolutionsSection,
+  resolveCoreAchievementsSection,
+  resolveSharedEditorialSection,
+  resolveSharedCtaBanner,
+} from '@/lib/strapi/resolvers';
 import type {
   ResearchDevelopmentHeroData,
   EnergySolutionsSectionData,
   CoreAchievementsSectionData,
-} from '@/lib/strapi-schemas/research-development';
-import type { SharedEditorialSectionData, SharedCtaBannerData } from '@/lib/strapi-schemas/commercial';
+  SharedEditorialSectionData,
+  SharedCtaBannerData,
+} from '@/lib/strapi/schemas';
 
 import RDHero from '@/components/research-and-development/RDHero';
 import DrivenByInnovation from '@/components/research-and-development/DrivenByInnovation';
 import EnergySolutions from '@/components/research-and-development/EnergySolutions';
 import CoreAchievements from '@/components/research-and-development/CoreAchievements';
 import CtaSection from '@/reuseables/CtaSection';
-import { strapiImage } from '@/lib/strapi';
 
 export const revalidate = 60;
 
@@ -20,40 +28,36 @@ export default async function ResearchAndDevelopmentPage() {
   const { data } = await getResearchDevelopmentPage();
   const sections = data.sections ?? [];
 
-  const hero = sections.find(
-    (s) => s.__component === 'research-and-development.hero'
-  ) as ResearchDevelopmentHeroData | undefined;
-  const editorial = sections.find(
-    (s) => s.__component === 'shared.editorial-section'
-  ) as SharedEditorialSectionData | undefined;
-  const energySolutions = sections.find(
-    (s) => s.__component === 'research-and-development.energy-solutions-section'
-  ) as EnergySolutionsSectionData | undefined;
-  const coreAchievements = sections.find(
-    (s) => s.__component === 'research-and-development.core-achievements-section'
-  ) as CoreAchievementsSectionData | undefined;
-  const ctaBanner = sections.find(
-    (s) => s.__component === 'shared.cta-banner'
-  ) as SharedCtaBannerData | undefined;
+  const hero = findSection<ResearchDevelopmentHeroData>(sections, 'research-and-development.hero');
+  const editorial = findSection<SharedEditorialSectionData>(sections, 'shared.editorial-section');
+  const energySolutions = findSection<EnergySolutionsSectionData>(sections, 'research-and-development.energy-solutions-section');
+  const coreAchievements = findSection<CoreAchievementsSectionData>(sections, 'research-and-development.core-achievements-section');
+  const ctaBanner = findSection<SharedCtaBannerData>(sections, 'shared.cta-banner');
+
+  const heroProps = resolveResearchDevelopmentHero(hero);
+  const editorialProps = resolveSharedEditorialSection(editorial);
+  const energySolutionsProps = resolveEnergySolutionsSection(energySolutions);
+  const coreAchievementsProps = resolveCoreAchievementsSection(coreAchievements);
+  const ctaBannerProps = resolveSharedCtaBanner(ctaBanner);
 
   return (
     <div className="bg-white min-h-screen text-black">
-      {hero && <RDHero data={hero} />}
+      {heroProps && <RDHero resolved={heroProps} />}
 
-      {editorial && <DrivenByInnovation data={editorial} />}
+      {editorialProps && <DrivenByInnovation resolved={editorialProps} />}
 
-      {energySolutions && <EnergySolutions data={energySolutions} />}
+      {energySolutionsProps && <EnergySolutions resolved={energySolutionsProps} />}
 
-      {coreAchievements && <CoreAchievements data={coreAchievements} />}
+      {coreAchievementsProps && <CoreAchievements resolved={coreAchievementsProps} />}
 
-      {ctaBanner && (
+      {ctaBannerProps && (
         <CtaSection
-          subtitle={ctaBanner.subtitle || ''}
-          title={ctaBanner.mainTitle || ''}
-          description={ctaBanner.description || ''}
-          buttonText={ctaBanner.buttonText || 'Get Started'}
-          buttonHref={ctaBanner.buttonHref || '#quote-form'}
-          bgImage={strapiImage(ctaBanner.backgroundImage) || undefined}
+          subtitle={ctaBannerProps.subtitle}
+          title={ctaBannerProps.mainTitle}
+          description={ctaBannerProps.description}
+          buttonText={ctaBannerProps.buttonText}
+          buttonHref={ctaBannerProps.buttonHref}
+          bgImage={ctaBannerProps.bgImage}
         />
       )}
     </div>

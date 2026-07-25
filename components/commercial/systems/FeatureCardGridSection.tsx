@@ -1,23 +1,22 @@
 import React from "react";
 import FeatureCardGrid from "@/reuseables/FeatureCardGrid";
-import { strapiImage } from "@/lib/strapi";
-import type { CommercialSystemsFeatureCardGridData } from "@/lib/strapi-schemas/commercial";
+import type { ResolvedCommercialSystemsFeatureCardGrid } from "@/lib/strapi/resolvers/commercial";
 
 interface Props {
-  data: CommercialSystemsFeatureCardGridData;
+  resolved: ResolvedCommercialSystemsFeatureCardGrid;
 }
 
-export default function FeatureCardGridSection({ data }: Props) {
+export default function FeatureCardGridSection({ resolved }: Props) {
   return (
     <FeatureCardGrid
-      topSubtitle={data.topSubtitle || ""}
-      title={data.title || ""}
-      bottomSubtitle={data.bottomSubtitle || ""}
+      topSubtitle={resolved.topSubtitle}
+      title={resolved.title}
+      bottomSubtitle={resolved.bottomSubtitle}
       showReadMore={true}
-      cards={data.cards.map((c) => ({
+      cards={resolved.cards.map((c) => ({
         title: c.title,
         description: c.description,
-        image: strapiImage(c.image) || "",
+        image: c.image?.src ?? '',
         textPosition: (c.textPosition as "top" | "bottom") || "top",
         footerTitle: c.footerTitle || undefined,
         footerDescription: c.footerDescription || undefined,

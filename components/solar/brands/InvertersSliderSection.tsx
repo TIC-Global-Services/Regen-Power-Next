@@ -6,7 +6,7 @@ import Reveal from "@/reuseables/Reveal";
 import SectionHeader from "@/reuseables/SectionHeader";
 import MissingImage from "@/reuseables/MissingImage";
 import { ArrowLeft, ArrowRight } from "lucide-react";
-import type { BrandsInvertersSliderData } from "@/lib/strapi-schemas/brands";
+import type { ResolvedBrandsInvertersSlider } from "@/lib/strapi/resolvers/brands";
 
 import froniusLogo from "@/assets/solar/brands-tech/fronius.png";
 import sungrowLogo from "@/assets/solar/brands-tech/sungrow.png";
@@ -21,13 +21,13 @@ const logoMap: Record<string, any> = {
 };
 
 interface InvertersSliderSectionProps {
-  data: BrandsInvertersSliderData;
+  resolved: ResolvedBrandsInvertersSlider;
 }
 
 const InvertersSliderSection: React.FC<InvertersSliderSectionProps> = ({
-  data,
+  resolved,
 }) => {
-  const inverters = data.inverters ?? [];
+  const inverters = resolved.inverters ?? [];
   const [index, setIndex] = useState(0);
   const [isDesktop, setIsDesktop] = useState(false);
 
@@ -56,8 +56,8 @@ const InvertersSliderSection: React.FC<InvertersSliderSectionProps> = ({
         <div className="flex flex-col lg:flex-row gap-8 lg:gap-12 items-start lg:items-center">
           <div className="w-full lg:w-[22%] shrink-0 pr-8 lg:pr-0">
             <SectionHeader
-              subtitle={data.subtitle ?? ""}
-              title={data.title ?? ""}
+              subtitle={resolved.subtitle ?? ""}
+              title={resolved.title ?? ""}
               align="left"
               className="mb-0"
               subtitleClass="text-sm md:text-2xl uppercase tracking-tight font-medium text-black"
@@ -77,7 +77,7 @@ const InvertersSliderSection: React.FC<InvertersSliderSectionProps> = ({
               >
                 {inverters.map((item, idx) => (
                   <Reveal
-                    key={item.id}
+                    key={idx}
                     delay={idx * 0.1}
                     className="bg-[#EEF6EB]/50 rounded-[24px] p-8 flex flex-col justify-between h-[520px] w-[380px] shrink-0 shadow-sm hover:shadow-md transition-shadow"
                   >

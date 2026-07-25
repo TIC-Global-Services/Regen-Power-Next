@@ -1,22 +1,21 @@
 import React from "react";
 import SixIndustriesSection from "@/components/commercial/SixIndustriesSection";
-import { strapiImage } from "@/lib/strapi";
-import type { CommercialSystemsIndustriesSectionData } from "@/lib/strapi-schemas/commercial";
+import type { ResolvedCommercialSystemsIndustriesSection } from "@/lib/strapi/resolvers/commercial";
 
 interface Props {
-  data: CommercialSystemsIndustriesSectionData;
+  resolved: ResolvedCommercialSystemsIndustriesSection;
 }
 
-export default function IndustriesSection({ data }: Props) {
+export default function IndustriesSection({ resolved }: Props) {
   return (
     <SixIndustriesSection
-      subtitle={data.subtitle || ""}
-      title={data.title || ""}
-      industries={data.industries.map((ind) => ({
+      subtitle={resolved.subtitle}
+      title={resolved.title}
+      industries={resolved.industries.map((ind) => ({
         title: ind.title,
         description: ind.description,
         caseStudy: ind.caseStudy,
-        icon: strapiImage(ind.icon) || "",
+        icon: ind.icon?.src ?? '',
       }))}
     />
   );

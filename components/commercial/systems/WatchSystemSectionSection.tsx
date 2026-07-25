@@ -1,23 +1,20 @@
 import React from "react";
 import WatchSystemSection from "@/components/commercial/WatchSystemSection";
-import { strapiImage } from "@/lib/strapi";
-import type { CommercialSystemsWatchSystemSectionData } from "@/lib/strapi-schemas/commercial";
+import type { ResolvedCommercialSystemsWatchSystemSection } from "@/lib/strapi/resolvers/commercial";
 
 interface Props {
-  data: CommercialSystemsWatchSystemSectionData;
+  resolved: ResolvedCommercialSystemsWatchSystemSection;
 }
 
-export default function WatchSystemSectionSection({ data }: Props) {
-  const img = strapiImage(data.image);
-
+export default function WatchSystemSectionSection({ resolved }: Props) {
   return (
     <WatchSystemSection
-      subtitle={data.subtitle || ""}
-      title={data.title || ""}
-      paragraphs={data.paragraphs.map((p) => p.text)}
-      ctaText={data.ctaText || ""}
-      ctaHref={data.ctaHref || "#"}
-      image={img || ""}
+      subtitle={resolved.subtitle}
+      title={resolved.title}
+      paragraphs={resolved.paragraphs}
+      ctaText={resolved.ctaText || ""}
+      ctaHref={resolved.ctaHref || "#"}
+      image={resolved.image?.src ?? ''}
     />
   );
 }

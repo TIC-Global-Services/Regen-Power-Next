@@ -1,6 +1,18 @@
 import React from "react";
 import type { Metadata } from "next";
 import { getRebatesPage } from "@/lib/strapi";
+import { findSection, findSections } from "@/lib/strapi/section-utils";
+import {
+  resolveRebatesHero,
+  resolveRebatesRebatePrograms,
+  resolveRebatesStcExplainer,
+  resolveRebatesUtilityCards,
+  resolveRebatesLoanBenefits,
+  resolveRebatesEligibilityChecker,
+  resolveSharedSplitSection,
+  resolveSharedFaq,
+  resolveSharedCtaBanner,
+} from "@/lib/strapi/resolvers";
 import type {
   RebatesHeroData,
   RebatesRebateProgramsData,
@@ -11,7 +23,7 @@ import type {
   RebatesEligibilityCheckerData,
   RebatesFaqData,
   RebatesCtaBannerData,
-} from "@/lib/strapi-schemas/rebates";
+} from "@/lib/strapi/schemas";
 
 import RebatesHeroSection from "@/components/solar/government-rebates/RebatesHeroSection";
 import RebateProgramsSection from "@/components/solar/government-rebates/RebateProgramsSection";
@@ -35,66 +47,53 @@ export default async function GovernmentRebatesPage() {
   const { data } = await getRebatesPage();
   const sections = data.sections ?? [];
 
-  const hero = sections.find(
-    (s) => s.__component === "rebates.hero"
-  ) as RebatesHeroData | undefined;
+  const hero = findSection<RebatesHeroData>(sections, "rebates.hero");
+  const rebatePrograms = findSection<RebatesRebateProgramsData>(sections, "rebates.rebate-programs");
+  const stcExplainer = findSection<RebatesStcExplainerData>(sections, "rebates.stc-explainer");
 
-  const rebatePrograms = sections.find(
-    (s) => s.__component === "rebates.rebate-programs"
-  ) as RebatesRebateProgramsData | undefined;
-
-  const stcExplainer = sections.find(
-    (s) => s.__component === "rebates.stc-explainer"
-  ) as RebatesStcExplainerData | undefined;
-
-  const splitSections = sections.filter(
-    (s) => s.__component === "shared.split-section"
-  ) as unknown as RebatesSplitSectionData[];
+  const splitSections = findSections<RebatesSplitSectionData>(sections, "shared.split-section");
   const federalBatteryRebate = splitSections[0];
   const paperworkSection = splitSections[1];
 
-  const utilityCards = sections.find(
-    (s) => s.__component === "rebates.utility-cards"
-  ) as RebatesUtilityCardsData | undefined;
+  const utilityCards = findSection<RebatesUtilityCardsData>(sections, "rebates.utility-cards");
+  const loanBenefits = findSection<RebatesLoanBenefitsData>(sections, "rebates.loan-benefits");
+  const eligibilityChecker = findSection<RebatesEligibilityCheckerData>(sections, "rebates.eligibility-checker");
+  const faq = findSection<RebatesFaqData>(sections, "shared.faq");
+  const ctaBanner = findSection<RebatesCtaBannerData>(sections, "shared.cta-banner");
 
-  const loanBenefits = sections.find(
-    (s) => s.__component === "rebates.loan-benefits"
-  ) as RebatesLoanBenefitsData | undefined;
-
-  const eligibilityChecker = sections.find(
-    (s) => s.__component === "rebates.eligibility-checker"
-  ) as RebatesEligibilityCheckerData | undefined;
-
-  const faq = sections.find(
-    (s) => s.__component === "shared.faq"
-  ) as RebatesFaqData | undefined;
-
-  const ctaBanner = sections.find(
-    (s) => s.__component === "shared.cta-banner"
-  ) as RebatesCtaBannerData | undefined;
+  const heroProps = resolveRebatesHero(hero);
+  const rebateProgramsProps = resolveRebatesRebatePrograms(rebatePrograms);
+  const stcExplainerProps = resolveRebatesStcExplainer(stcExplainer);
+  const federalBatteryRebateProps = resolveSharedSplitSection(federalBatteryRebate);
+  const utilityCardsProps = resolveRebatesUtilityCards(utilityCards);
+  const loanBenefitsProps = resolveRebatesLoanBenefits(loanBenefits);
+  const eligibilityCheckerProps = resolveRebatesEligibilityChecker(eligibilityChecker);
+  const paperworkSectionProps = resolveSharedSplitSection(paperworkSection);
+  const faqProps = resolveSharedFaq(faq);
+  const ctaBannerProps = resolveSharedCtaBanner(ctaBanner);
 
   return (
     <div className="min-h-screen bg-white text-black">
 
-      {hero && <RebatesHeroSection data={hero} />}
+      {heroProps && <RebatesHeroSection resolved={heroProps} />}
 
-      {rebatePrograms && <RebateProgramsSection data={rebatePrograms} />}
+      {rebateProgramsProps && <RebateProgramsSection resolved={rebateProgramsProps} />}
 
-      {stcExplainer && <StcExplainerSection data={stcExplainer} />}
+      {stcExplainerProps && <StcExplainerSection resolved={stcExplainerProps} />}
 
-      {federalBatteryRebate && <SplitSectionSection data={federalBatteryRebate} />}
+      {federalBatteryRebateProps && <SplitSectionSection resolved={federalBatteryRebateProps} />}
 
-      {utilityCards && <UtilityCardsSection data={utilityCards} />}
+      {utilityCardsProps && <UtilityCardsSection resolved={utilityCardsProps} />}
 
-      {loanBenefits && <LoanBenefitsSection data={loanBenefits} />}
+      {loanBenefitsProps && <LoanBenefitsSection resolved={loanBenefitsProps} />}
 
-      {eligibilityChecker && <EligibilityCheckerSection data={eligibilityChecker} />}
+      {eligibilityCheckerProps && <EligibilityCheckerSection resolved={eligibilityCheckerProps} />}
 
-      {paperworkSection && <SplitSectionSection data={paperworkSection} />}
+      {paperworkSectionProps && <SplitSectionSection resolved={paperworkSectionProps} />}
 
-      {faq && <FaqSection data={faq} />}
+      {faqProps && <FaqSection resolved={faqProps} />}
 
-      {ctaBanner && <CtaBannerSection data={ctaBanner} />}
+      {ctaBannerProps && <CtaBannerSection resolved={ctaBannerProps} />}
 
     </div>
   );

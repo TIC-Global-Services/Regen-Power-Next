@@ -3,23 +3,22 @@
 import React, { useState } from "react";
 import Image from "next/image";
 import SectionHeader from "@/reuseables/SectionHeader";
-import { strapiImage } from "@/lib/strapi";
-import type { RebatesRebateProgramsData } from "@/lib/strapi-schemas/rebates";
+import type { ResolvedRebatesRebatePrograms } from "@/lib/strapi/resolvers/rebates";
 
 interface Props {
-  data: RebatesRebateProgramsData;
+  resolved: ResolvedRebatesRebatePrograms;
 }
 
-export default function RebateProgramsSection({ data }: Props) {
-  const [activeId, setActiveId] = useState(data.programs[0]?.label ?? "");
+export default function RebateProgramsSection({ resolved }: Props) {
+  const [activeId, setActiveId] = useState(resolved.programs[0]?.label ?? "");
 
   return (
     <section className="bg-white py-16 md:py-24">
       <div className="mx-auto max-w-7xl px-[5%]">
         <SectionHeader
-          subtitle={data.subtitle || ""}
-          title={data.title || ""}
-          description={data.description || ""}
+          subtitle={resolved.subtitle}
+          title={resolved.title}
+          description={resolved.description}
           align="center"
           className="mb-16"
           subtitleClass="text-xl md:text-[1.75rem] text-black"
@@ -29,10 +28,10 @@ export default function RebateProgramsSection({ data }: Props) {
       </div>
 
       <div className="hidden lg:flex items-end">
-        {data.programs.map((program, index) => {
+        {resolved.programs.map((program, index) => {
           const isActive = program.label === activeId;
-          const isLast = index === data.programs.length - 1;
-          const img = strapiImage(program.image);
+          const isLast = index === resolved.programs.length - 1;
+          const img = program.image;
 
           return (
             <button
@@ -51,7 +50,7 @@ export default function RebateProgramsSection({ data }: Props) {
                   </h3>
                   {img && (
                     <div className="relative mt-6 w-[393px] h-[215px] overflow-hidden rounded-[20px]">
-                      <Image src={img} alt={program.title} fill className="object-cover" />
+                      <Image src={img.src} alt={img.alt} fill className="object-cover" />
                     </div>
                   )}
                   <p className="mt-5 text-base leading-tight text-black/90">
@@ -72,9 +71,9 @@ export default function RebateProgramsSection({ data }: Props) {
       </div>
 
       <div className="space-y-4 lg:hidden px-[5%]">
-        {data.programs.map((program) => {
+        {resolved.programs.map((program) => {
           const isActive = program.label === activeId;
-          const img = strapiImage(program.image);
+          const img = program.image;
 
           return (
             <div
@@ -99,7 +98,7 @@ export default function RebateProgramsSection({ data }: Props) {
                 <div className="px-5 pb-5">
                   {img && (
                     <div className="relative aspect-[4/3] overflow-hidden rounded-[24px]">
-                      <Image src={img} alt={program.title} fill className="object-cover" />
+                      <Image src={img.src} alt={img.alt} fill className="object-cover" />
                     </div>
                   )}
                   <p className="mt-4 text-base leading-tight text-black/90">{program.summary}</p>

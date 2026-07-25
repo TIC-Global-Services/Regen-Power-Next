@@ -1,0 +1,192 @@
+import { strapiFetch } from "./client";
+import type { StrapiResponse, StrapiSingleTypePage } from "./types";
+import { populate } from "./populate/index";
+import * as solar from "./populate/solar";
+import * as brands from "./populate/brands";
+import * as deals from "./populate/deals";
+import * as shared from "./populate/shared";
+import * as rebates from "./populate/rebates";
+import * as faq from "./populate/faq";
+import * as commercial from "./populate/commercial";
+import * as research from "./populate/research";
+import * as reviews from "./populate/reviews";
+import * as contact from "./populate/contact";
+import * as blog from "./populate/blog";
+import * as portfolio from "./populate/portfolio";
+import * as pressMedia from "./populate/press-media";
+
+const PAGE_SLUGS = {
+  solar: "solar-page",
+  offGridSolutions: "off-grid-solutions-page",
+  commercialSystems: "commercial-systems-page",
+  commercialOffGrid: "commercial-off-grid-page",
+  brands: "brands-page",
+  deals: "deals-page",
+  rebates: "rebates-page",
+  blog: "blog-page",
+  pressMedia: "press-media-page",
+  researchDevelopment: "research-development-page",
+  portfolio: "portfolio-page",
+  reviews: "reviews-page",
+  contact: "contact-page",
+  faq: "faq-page",
+} as const;
+
+async function getSingleType(
+  slug: string,
+  populateQuery?: string
+): Promise<StrapiResponse<StrapiSingleTypePage>> {
+  const query = populateQuery ? `?${populateQuery}` : "";
+  return strapiFetch<StrapiResponse<StrapiSingleTypePage>>(
+    `/${slug}${query}`
+  );
+}
+
+// Per-page populate compositions — each component owns its fragment
+export const getSolarPage = () =>
+  getSingleType(
+    PAGE_SLUGS.solar,
+    populate(
+      solar.hero,
+      solar.statsAndIntro,
+      solar.processSteps,
+      solar.brandsGrid,
+      solar.inverterSlider,
+      solar.specsTable,
+      solar.sizingGuide,
+      solar.packages,
+      solar.timeline,
+      solar.engineeringItems
+    )
+  );
+
+export const getBrandsPage = () =>
+  getSingleType(
+    PAGE_SLUGS.brands,
+    populate(
+      brands.hero,
+      brands.philosophy,
+      brands.tier1Means,
+      brands.brandsGrid,
+      brands.hybridSpecialty,
+      brands.invertersSlider,
+      brands.criteriaList,
+      brands.specsTable
+    )
+  );
+
+export const getDealsPage = () =>
+  getSingleType(
+    PAGE_SLUGS.deals,
+    populate(
+      deals.hero,
+      deals.philosophy,
+      deals.dealsGrid,
+      shared.splitSection,
+      solar.packages,
+      deals.waysToPay,
+      deals.whyMatters,
+      shared.faq,
+      shared.ctaBanner
+    )
+  );
+
+export const getRebatesPage = () =>
+  getSingleType(
+    PAGE_SLUGS.rebates,
+    populate(
+      rebates.hero,
+      rebates.rebatePrograms,
+      rebates.stcExplainer,
+      shared.splitSection,
+      rebates.utilityCards,
+      rebates.loanBenefits,
+      rebates.eligibilityChecker,
+      shared.faq,
+      shared.ctaBanner
+    )
+  );
+
+export const getFaqPage = () =>
+  getSingleType(
+    PAGE_SLUGS.faq,
+    populate(faq.hero, faq.categorizedFaq, shared.ctaBanner)
+  );
+
+export const getCommercialSystemsPage = () =>
+  getSingleType(
+    PAGE_SLUGS.commercialSystems,
+    populate(
+      commercial.systemsHero,
+      commercial.systemsStatsCardGrid,
+      commercial.systemsTiersSection,
+      commercial.systemsComponentsSection,
+      commercial.systemsIndustriesSection,
+      commercial.systemsFeatureCardGrid,
+      commercial.systemsWatchSystemSection,
+      commercial.systemsPackagesGrid,
+      commercial.systemsProcessFlow,
+      commercial.systemsFiveThingsSection,
+      shared.faq,
+      commercial.systemsCommercialForm,
+      shared.ctaBanner
+    )
+  );
+
+export const getCommercialOffGridPage = () =>
+  getSingleType(
+    PAGE_SLUGS.commercialOffGrid,
+    populate(
+      commercial.offGridHero,
+      shared.editorialSection,
+      commercial.offGridSolutionsPortfolio,
+      shared.ctaBanner
+    )
+  );
+
+export const getResearchDevelopmentPage = () =>
+  getSingleType(
+    PAGE_SLUGS.researchDevelopment,
+    populate(
+      research.hero,
+      shared.editorialSection,
+      research.energySolutionsSection,
+      research.coreAchievementsSection,
+      shared.ctaBanner
+    )
+  );
+
+export const getReviewsPage = () =>
+  getSingleType(
+    PAGE_SLUGS.reviews,
+    populate(
+      reviews.hero,
+      reviews.introSection,
+      reviews.testimonialsSection,
+      shared.ctaBanner
+    )
+  );
+
+// Not yet migrated — minimal populate for future use
+export const getOffGridSolutionsPage = () =>
+  getSingleType(PAGE_SLUGS.offGridSolutions);
+export const getBlogPage = () =>
+  getSingleType(
+    PAGE_SLUGS.blog,
+    populate(blog.hero, blog.categoryFilter, shared.ctaBanner)
+  );
+export const getPressMediaPage = () =>
+  getSingleType(
+    PAGE_SLUGS.pressMedia,
+    populate(pressMedia.hero, pressMedia.featuredArticle, pressMedia.latestNewsSection, pressMedia.newsSection, shared.ctaBanner)
+  );
+export const getPortfolioPage = () =>
+  getSingleType(
+    PAGE_SLUGS.portfolio,
+    populate(portfolio.hero, portfolio.filters, shared.ctaBanner)
+  );
+export const getContactPage = () =>
+  getSingleType(
+    PAGE_SLUGS.contact,
+    populate(contact.hero)
+  );

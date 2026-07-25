@@ -1,24 +1,23 @@
 import React from "react";
 import FeatureSplitSection from "@/reuseables/FeatureSplitSection";
-import { strapiImage } from "@/lib/strapi";
-import type { DealsWhyMattersData } from "@/lib/strapi-schemas/deals";
+import type { ResolvedDealsWhyMatters } from "@/lib/strapi/resolvers/deals";
 
 interface Props {
-  data: DealsWhyMattersData;
+  resolved: ResolvedDealsWhyMatters;
 }
 
-export default function WhyMattersSection({ data }: Props) {
-  const features = data.items.map((item) => ({
+export default function WhyMattersSection({ resolved }: Props) {
+  const features = resolved.items.map((item) => ({
     title: item.title,
     description: item.description,
-    image: strapiImage(item.image) || "",
+    image: item.image,
   }));
 
   return (
     <FeatureSplitSection
-      subtitle={data.subtitle || ""}
-      heading={data.heading || ""}
-      introText={data.introText || ""}
+      subtitle={resolved.subtitle || ""}
+      heading={resolved.heading || ""}
+      introText={resolved.introText || ""}
       features={features}
     />
   );

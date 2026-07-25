@@ -1,24 +1,21 @@
 import React from "react";
 import Hero from "@/reuseables/Hero";
-import { strapiImage } from "@/lib/strapi";
-import type { DealsHeroData } from "@/lib/strapi-schemas/deals";
+import type { ResolvedDealsHero } from "@/lib/strapi/resolvers/deals";
 
 interface Props {
-  data: DealsHeroData;
+  resolved: ResolvedDealsHero;
 }
 
-export default function DealsHeroSection({ data }: Props) {
-  const img = strapiImage(data.backgroundImage);
-
+export default function DealsHeroSection({ resolved }: Props) {
   return (
     <Hero
-      mediaSrc={img || ""}
+      mediaSrc={resolved.mediaSrc}
       mediaType="image"
-      topSubtitle={data.subtitle || ""}
-      mainTitle={data.title || ""}
-      description={data.description || ""}
-      ctaText={data.ctaText || "Get My Tailored Quote"}
-      ctaLink={data.ctaLink || "#quote-form"}
+      topSubtitle={resolved.subtitle || ""}
+      mainTitle={resolved.title || ""}
+      description={resolved.description || ""}
+      ctaText={resolved.ctaText || "Get My Tailored Quote"}
+      ctaLink={resolved.ctaLink || "#quote-form"}
       subtitleColor="text-white"
       titleColor="text-[#63B846]"
       descriptionColor="text-white/90"

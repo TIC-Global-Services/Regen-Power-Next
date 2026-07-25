@@ -1,22 +1,19 @@
 import React from "react";
 import StatsCardGrid from "@/reuseables/StatsCardGrid";
-import { strapiImage } from "@/lib/strapi";
-import type { CommercialSystemsStatsCardGridData } from "@/lib/strapi-schemas/commercial";
+import type { ResolvedCommercialSystemsStatsCardGrid } from "@/lib/strapi/resolvers/commercial";
 
 interface Props {
-  data: CommercialSystemsStatsCardGridData;
+  resolved: ResolvedCommercialSystemsStatsCardGrid;
 }
 
-export default function StatsCardGridSection({ data }: Props) {
-  const bg = strapiImage(data.cardBackground);
-
+export default function StatsCardGridSection({ resolved }: Props) {
   return (
     <StatsCardGrid
-      subtitle={data.subtitle || ""}
-      title={data.title || ""}
-      description={data.description || ""}
-      stats={data.stats.map((s) => ({ value: s.value, label: s.label }))}
-      cardBackground={bg || ""}
+      subtitle={resolved.subtitle}
+      title={resolved.title}
+      description={resolved.description}
+      stats={resolved.stats.map((s) => ({ value: s.value, label: s.label }))}
+      cardBackground={resolved.cardBackground?.src ?? ''}
       headerAlign="center"
     />
   );

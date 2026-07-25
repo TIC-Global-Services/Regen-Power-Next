@@ -1,18 +1,18 @@
 import React from "react";
 import FiveThingsSection from "@/components/commercial/FiveThingsSection";
-import type { CommercialSystemsFiveThingsSectionData } from "@/lib/strapi-schemas/commercial";
+import type { ResolvedCommercialSystemsFiveThingsSection } from "@/lib/strapi/resolvers/commercial";
 
 interface Props {
-  data: CommercialSystemsFiveThingsSectionData;
+  resolved: ResolvedCommercialSystemsFiveThingsSection;
 }
 
-export default function FiveThingsSectionSection({ data }: Props) {
+export default function FiveThingsSectionSection({ resolved }: Props) {
   return (
     <FiveThingsSection
-      subtitle={data.subtitle || ""}
-      title={data.title || ""}
-      description={data.description || ""}
-      items={data.items.map((item) => ({
+      subtitle={resolved.subtitle}
+      title={resolved.title}
+      description={resolved.description}
+      items={resolved.items.map((item) => ({
         number: item.number,
         title: item.title,
         description: item.description,

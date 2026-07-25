@@ -13,7 +13,7 @@ import CtaButton from './CtaButton';
 export interface FeatureCardItem {
   title: string;
   description: string;
-  image: StaticImageData | string;
+  image: StaticImageData | { src: string; alt?: string } | string | null;
   colSpan?: number; // Kept for backwards compatibility but we now use flex scaling
   textPosition?: 'top' | 'bottom';
   footerTitle?: string;
@@ -119,8 +119,8 @@ const FeatureCardGrid: React.FC<FeatureCardGridProps> = ({
                 {/* Background Image */}
                 <div className="absolute inset-0 z-0 w-full h-full">
                   <Image
-                    src={card.image}
-                    alt={card.title}
+                    src={card.image && typeof card.image === 'object' && 'src' in card.image ? card.image.src : typeof card.image === 'string' ? card.image : ''}
+                    alt={card.image && typeof card.image === 'object' && 'alt' in card.image ? (card.image.alt || card.title) : card.title}
                     fill
                     className={`object-cover transition-transform duration-700 ${isActive ? 'scale-105' : 'scale-100'} group-hover:scale-105`}
                   />

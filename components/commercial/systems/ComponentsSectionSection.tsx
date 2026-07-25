@@ -1,22 +1,19 @@
 import React from "react";
 import SixComponentsSection from "@/components/commercial/SixComponentsSection";
-import { strapiImage } from "@/lib/strapi";
-import type { CommercialSystemsComponentsSectionData } from "@/lib/strapi-schemas/commercial";
+import type { ResolvedCommercialSystemsComponentsSection } from "@/lib/strapi/resolvers/commercial";
 
 interface Props {
-  data: CommercialSystemsComponentsSectionData;
+  resolved: ResolvedCommercialSystemsComponentsSection;
 }
 
-export default function ComponentsSectionSection({ data }: Props) {
-  const bg = strapiImage(data.backgroundImage);
-
+export default function ComponentsSectionSection({ resolved }: Props) {
   return (
     <SixComponentsSection
-      subtitle={data.subtitle || "Six Components"}
-      title={data.title || ""}
-      description={data.description || ""}
-      backgroundImage={bg || ""}
-      items={data.items.map((item) => ({
+      subtitle={resolved.subtitle || "Six Components"}
+      title={resolved.title}
+      description={resolved.description}
+      backgroundImage={resolved.backgroundImage?.src ?? ''}
+      items={resolved.items.map((item) => ({
         letter: item.letter,
         title: item.title,
       }))}

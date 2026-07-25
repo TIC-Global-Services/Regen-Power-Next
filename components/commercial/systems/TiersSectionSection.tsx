@@ -1,23 +1,22 @@
 import React from "react";
 import ThreeTiersSection from "@/components/commercial/ThreeTiersSection";
-import { strapiImage } from "@/lib/strapi";
-import type { CommercialSystemsTiersSectionData } from "@/lib/strapi-schemas/commercial";
+import type { ResolvedCommercialSystemsTiersSection } from "@/lib/strapi/resolvers/commercial";
 
 interface Props {
-  data: CommercialSystemsTiersSectionData;
+  resolved: ResolvedCommercialSystemsTiersSection;
 }
 
-export default function TiersSection({ data }: Props) {
+export default function TiersSection({ resolved }: Props) {
   return (
     <ThreeTiersSection
-      subtitle={data.subtitle || ""}
-      title={data.title || ""}
-      description={data.description || ""}
-      tiers={data.tiers.map((t) => ({
+      subtitle={resolved.subtitle}
+      title={resolved.title}
+      description={resolved.description}
+      tiers={resolved.tiers.map((t) => ({
         title: t.title,
         subtitle: t.subtitle,
         description: t.description,
-        image: strapiImage(t.image) || "",
+        image: t.image?.src ?? '',
         details: t.details.map((d) => ({ label: d.label, value: d.value })),
         ctaText: t.ctaText,
         ctaHref: t.ctaHref,
