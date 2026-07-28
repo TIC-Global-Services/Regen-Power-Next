@@ -18,7 +18,7 @@ const batteryMaque = () => {
         </svg>
     );
     return (
-        <div className="relative w-full bg-white py-4 overflow-hidden select-none">
+        <div className="relative w-full bg-white py-10 overflow-hidden select-none">
             <Marquee speed={30} gap={32} pauseOnHover={false}>
                 {tickerItems.map((item, index) => (
                     <React.Fragment key={index}>

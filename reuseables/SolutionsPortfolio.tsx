@@ -90,7 +90,7 @@ const TextCardView: React.FC<{ card: TextCard }> = ({ card }) => {
 };
 
 const ImageCardView: React.FC<{ card: ImageCard }> = ({ card }) => (
-    <div className={`${variantClass[card.variant]} rounded-2xl p-6 md:p-8 flex items-center justify-center min-h-[280px] md:min-h-[340px]`}>
+    <div className={`${variantClass[card.variant]} rounded-2xl p-6 md:p-8 flex items-center justify-center min-h-[280px] md:min-h-[300px]`}>
         <div className="relative w-32 h-32 md:w-40 md:h-40">
             <Image
                 src={card.image || gridDots}
@@ -130,7 +130,7 @@ const SolutionsPortfolio: React.FC<SolutionsPortfolioProps> = ({
 }) => {
     return (
         <section className={`w-full px-[5%] py-12 md:py-20 ${className}`}>
-            <div className="max-w-7xl mx-auto">
+            <div className="">
                 {showHeader && (subtitle || title) && (
                     <div className="text-center mb-10 md:mb-14">
                         {subtitle && (

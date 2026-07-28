@@ -36,10 +36,7 @@ const CtaSection: React.FC<CtaSectionProps> = ({
                         className="object-cover object-bottom"
                     />
                     <div
-                        className={
-                            overlayClass ||
-                            'bg-gradient-to-r from-black/55 via-black/15 to-transparent'
-                        }
+                        className='bg-gradient-to-r h-full w-full from-black/5 via-black/15 to-transparent'
                     />
                 </div>
             )}

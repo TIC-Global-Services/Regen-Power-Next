@@ -12,9 +12,9 @@ const navItems = [
     name: 'Solar System',
     href: '/solar',
     subItems: [
-      { name: 'Brand we carry', href: '/brands' },
-      { name: 'Solar Deals', href: '/deals' },
-      { name: 'Government rebates', href: '/government-rebates' },
+      { name: 'Brand we carry', href: '/solar/brands' },
+      { name: 'Solar Deals', href: '/solar/deals' },
+      { name: 'Government rebates', href: '/solar/government-rebates' },
     ],
   },
   {
@@ -23,6 +23,8 @@ const navItems = [
     subItems: [
       { name: 'Battery Storage', href: '/battery-storage' },
       { name: 'Smart home battery system', href: '/smart-home-battery-system' },
+      { name: 'government rebates', href: '/government-rebates' },
+      { name: 'Brands we carry', href: '/brands' },
     ],
   },
   { name: 'EV Charging', href: '/ev-charging' },

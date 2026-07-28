@@ -3,7 +3,7 @@ import React from 'react';
 // Reusable Components
 import Hero from '@/reuseables/Hero';
 import GreatFit, { GreatFitData } from '@/components/battery/smarthome-battery-system/greatfit';
-import FourPillars, { FourPillarsData } from '@/components/battery/smarthome-battery-system/fourPillars';
+import BatteryRangeGrid, { BatteryRangeGridData } from '@/components/battery/battery-storage/BatteryRangeGrid';
 import BatterySplitSection, { BatterySplitData } from '@/components/battery/smarthome-battery-system/BatterySplitSection';
 import BatteryTimeline, { BatteryTimelineData } from '@/components/battery/smarthome-battery-system/BatteryTimeline';
 import BatteryBrandsGrid, { BatteryBrandsGridData } from '@/components/battery/smarthome-battery-system/BatteryBrandsGrid';
@@ -38,11 +38,11 @@ const greatFitData: GreatFitData = {
   ]
 };
 
-const fourPillarsData: FourPillarsData = {
+const fourPillarsData: BatteryRangeGridData = {
   topSubtitle: 'The Four',
   title: 'Pillars',
   description: 'A smart home battery earns its name by doing four things exceptionally well. Each of these has a dedicated section \nbelow.',
-  pillars: [
+  batteries: [
     {
       title: 'VPP Ready',
       description: 'Trade energy on the open market when prices spike. Some batteries pay for themselves years faster.',
@@ -258,7 +258,7 @@ const SmartBatterySystemPage = () => {
       <GreatFit data={greatFitData} />
 
       {/* 3. The Four Pillars (Grid) */}
-      <FourPillars data={fourPillarsData} />
+      {/* <BatteryRangeGrid data={fourPillarsData} /> */}
 
       {/* 4. Power Perth Split Section */}
       <BatterySplitSection data={powerPerthData} />
