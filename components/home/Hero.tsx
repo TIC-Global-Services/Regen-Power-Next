@@ -1,20 +1,17 @@
-import Hero from '@/reuseables/Hero';
-import bgimage from '../../assets/home/home_hero_bg.png'
+import Hero, { HeroProps } from '@/reuseables/Hero';
 import React from 'react';
 
-const HeroSection = () => {
+// Re-export HeroProps as the data interface for this component
+export type HeroSectionData = HeroProps;
+
+interface HeroSectionProps {
+    data: HeroSectionData;
+}
+
+const HeroSection = ({ data }: HeroSectionProps) => {
     return (
         <div>
-            <Hero
-                mediaSrc={bgimage}
-                mediaType='image'
-                topSubtitle="Step Into the"
-                mainTitle="Future of Energy"
-                description="WA’s #1 rated solar installer with 45,000+ installations since 2003.
-CEC-approved. ProductReview Award Winner 2021–2026."
-                ctaText="Get Started"
-                ctaLink="/contact"
-            />
+            <Hero {...data} />
         </div>
     );
 };

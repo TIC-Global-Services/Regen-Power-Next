@@ -6,14 +6,7 @@ import Image, { StaticImageData } from "next/image";
 import Marquee from "@/reuseables/Marquee";
 import SectionHeader from "@/reuseables/SectionHeader";
 
-import googleRating from "@/assets/home/realstories/google_rating.png";
-import bestRatedBatch from "@/assets/home/realstories/best_rated_batch.png";
-import topPanelInstallers from "@/assets/home/realstories/top_panel_installers.png";
-import topRated from "@/assets/home/realstories/top_rated.jpg";
-import googleLogo from "@/assets/home/realstories/google_logo.svg";
-
-
-interface ReviewItem {
+export interface ReviewItem {
     id: string;
     systemTitle: string;
     quote: string;
@@ -23,72 +16,23 @@ interface ReviewItem {
     source: "google";
 }
 
-interface BadgeItem {
+export interface BadgeItem {
     id: string;
     src: StaticImageData | string;
     alt: string;
 }
 
+export interface RealStoriesData {
+    subtitle: string;
+    title: React.ReactNode;
+    badges: BadgeItem[];
+    reviews: ReviewItem[];
+    googleLogo: StaticImageData | string;
+}
 
-const BADGES: BadgeItem[] = [
-    { id: "google-rating", src: googleRating, alt: "Google Rating 4.9 stars based on 1,385+ reviews" },
-    { id: "best-rated", src: bestRatedBatch, alt: "Best Rated Solar Installer — #1 Most Popular Western Australia 2026" },
-    { id: "top-installers", src: topPanelInstallers, alt: "Top Rated Solar Panel Installers" },
-    { id: "top-rated", src: topRated, alt: "Top Rated Installers — Western Australia" },
-];
-
-const REVIEWS: ReviewItem[] = [
-    {
-        id: "review-1",
-        systemTitle: "10kW Solar + Battery System",
-        quote:
-            "The Entire Process Was Smooth From Consultation To Installation. Our Power Bills Dropped Almost Immediately, And The Team Kept Us Informed Every Step Of The Way.",
-        author: "Sarah",
-        location: "Perth",
-        rating: 5,
-        source: "google",
-    },
-    {
-        id: "review-2",
-        systemTitle: "10kW Solar + Battery System",
-        quote:
-            "The Entire Process Was Smooth From Consultation To Installation. Our Power Bills Dropped Almost Immediately, And The Team Kept Us Informed Every Step Of The Way.",
-        author: "Sarah",
-        location: "Perth",
-        rating: 5,
-        source: "google",
-    },
-    {
-        id: "review-3",
-        systemTitle: "10kW Solar + Battery System",
-        quote:
-            "The Entire Process Was Smooth From Consultation To Installation. Our Power Bills Dropped Almost Immediately, And The Team Kept Us Informed Every Step Of The Way.",
-        author: "Sarah",
-        location: "Perth",
-        rating: 5,
-        source: "google",
-    },
-    {
-        id: "review-4",
-        systemTitle: "6.6kW Solar Panel System",
-        quote:
-            "Outstanding service from start to finish. The team was professional, punctual and the quality of the installation exceeded our expectations. Highly recommend!",
-        author: "James",
-        location: "Joondalup",
-        rating: 5,
-        source: "google",
-    },
-    {
-        id: "review-5",
-        systemTitle: "13.2kW Commercial Solar",
-        quote:
-            "Best decision we made for our business. Energy costs cut in half and the ROI was faster than projected. Regen Power made it effortless.",
-        author: "Michelle",
-        location: "Fremantle",
-        rating: 5,
-        source: "google",
-    },
-];
+interface RealStoriesProps {
+    data: RealStoriesData;
+}
 
 
 const StarRating: React.FC<{ count: number }> = ({ count }) => (
@@ -107,8 +51,7 @@ const StarRating: React.FC<{ count: number }> = ({ count }) => (
 );
 
 
-
-const ReviewCard: React.FC<{ review: ReviewItem }> = ({ review }) => (
+const ReviewCard: React.FC<{ review: ReviewItem; googleLogo: StaticImageData | string }> = ({ review, googleLogo }) => (
     <div className="flex-shrink-0 w-[340px] md:w-[380px] bg-[#F0F6EC] rounded-2xl p-6 md:p-8 flex flex-col justify-between">
         {/* Header */}
         <div>
@@ -141,32 +84,38 @@ const ReviewCard: React.FC<{ review: ReviewItem }> = ({ review }) => (
 
 
 
-const RealStories: React.FC = () => {
+const RealStories = ({ data }: RealStoriesProps) => {
     return (
-        <section className="py-16 md:py-24 bg-white overflow-hidden">
-
+        <section className="py-16 md:py-20 bg-white overflow-hidden">
+            {/* 
             <SectionHeader
-              subtitle="Real Stories."
-              title={<span className="text-[#63B846]">Real Results.</span>}
-              align="center"
-              subtitleClass="text-xl md:text-2xl text-gray-500 font-normal italic tracking-tight mb-1 block normal-case"
-              titleClass="text-4xl md:text-5xl lg:text-6xl font-medium tracking-tight mt-1"
-              className="mb-10 md:mb-14 mx-auto"
-            />
+                subtitle={data.subtitle}
+                title={data.title}
+                align="center"
+                subtitleClass="text-xl md:text-2xl text-gray-500 font-normal italic tracking-tight mb-1 block normal-case"
+                titleClass="text-4xl md:text-5xl lg:text-6xl font-medium tracking-tight mt-1"
+                className="mb-10 md:mb-14 mx-auto"
+            /> */}
+            <div className="flex flex-col justify-center items-center mb-20">
+                <h1>
+                    <span className="text-xl md:text-[2rem] leading-[0.5] font-normal text-center  tracking-tight mb-1 block normal-case">{data.subtitle}</span>
+                    <span className="text-4xl md:text-5xl lg:text-[5rem] leading-none tracking-tight mt-1">{data.title}</span>
+                </h1>
+            </div>
 
 
-            <div className="px-[5%] mb-12 md:mb-16">
+            <div className="px-[5%] mb-12 md:mb-20">
                 <div className="flex flex-wrap items-center justify-center gap-6 md:gap-10">
-                    {BADGES.map((badge) => (
+                    {data.badges.map((badge) => (
                         <div
                             key={badge.id}
-                            className="relative h-16 md:h-20 w-auto flex items-center"
+                            className="relative h-16 md:h-30 w-auto flex items-center"
                         >
                             <Image
                                 src={badge.src}
                                 alt={badge.alt}
-                                className="h-full w-auto object-contain"
-                                height={80}
+                                className="h-full w-auto object-cover"
+                                height={200}
                                 width={200}
                             />
                         </div>
@@ -175,8 +124,8 @@ const RealStories: React.FC = () => {
             </div>
 
             <Marquee direction="left" speed={40} gap={20} pauseOnHover>
-                {REVIEWS.map((review) => (
-                    <ReviewCard key={review.id} review={review} />
+                {data.reviews.map((review) => (
+                    <ReviewCard key={review.id} review={review} googleLogo={data.googleLogo} />
                 ))}
             </Marquee>
         </section>

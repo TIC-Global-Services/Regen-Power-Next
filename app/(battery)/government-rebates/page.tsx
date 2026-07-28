@@ -11,6 +11,7 @@ import ResidentialBattery, { SchemeDataItem } from '@/components/battery/governm
 import FederalRebates, { FederalRebateData } from '@/components/battery/government-rebates/fedrealRebates';
 import FinanceOption, { FinanceOptionData } from '@/components/battery/government-rebates/financeOption';
 import WhatChanges, { WhatChangesData } from '@/components/battery/government-rebates/whatchanges';
+import WhatSigningUp, { WhatSigningUpData } from '@/components/battery/government-rebates/whatsigningup';
 
 import heroBanner from '@/assets/evcharging/hero_banner.png';
 import businessBg from '@/assets/home/zerointrest/businessBg.jpg';
@@ -219,6 +220,35 @@ const whatChangesData: WhatChangesData = {
   },
 };
 
+const whatSigningUpData: WhatSigningUpData = {
+  title: "What Signing Up To A VPP Actually Means",
+  subtitle: "VPP Participation Is A Requirement Of The WA Residential Battery Scheme — But It's Also A Revenue Stream. Here's What You're Agreeing To And What You Get In Return.",
+  vppCardsLeft: [
+    {
+      title: "Synergy",
+      subtitle: "(SWIS — Most Of Perth And The South West):",
+      text: "Join The Synergy Battery Rewards Program With A Simple 2-Year Agreement And Earn Rewards By Exporting Stored Battery Energy During Activation Events, Typically Held Up To 30 Times A Year Between 3 Pm And 9 Pm On High-Demand Days. Each Event Lasts Only A Few Hours, And You'll Receive $0.70 Per KWh For The Energy You Export. Any Electricity You Draw From The Grid During These Events Is Offset With Energy Credits, Ensuring You're Never Out Of Pocket, With Credits Applied To Your Synergy Bill Each Quarter.",
+    },
+    {
+      title: "Horizon Power",
+      subtitle: "(Regional WA Customers):",
+      text: "Horizon Power customers sign a 2-year VPP agreement tailored for regional microgrids. Earn premium export rewards up to $380/kWh capacity rebate, helping balance local network demand during peak periods while generating direct quarterly bill credits for your account.",
+    },
+  ],
+  vppCardsRight: [
+    {
+      title: "Alternative VPP Products",
+      subtitle: "(Synergy Customers Only):",
+      text: "You Can Also Choose An Alternative Virtual Power Plant (VPP) Program Instead Of Synergy Battery Rewards, Provided It Is Offered By Your Battery Supplier, Compatible With Your System, Delivers Value Through Credits Or Payments, And Is Supported By Genuine Grid Market Revenue Streams.",
+    },
+    {
+      title: "Key Program Guarantees",
+      subtitle: "(What You Retain & Protect):",
+      text: "Participating in a VPP does not sacrifice your home's blackout backup. Your battery always reserves energy for outages, and event dispatches are capped and managed intelligently so you never draw high-peak power unneeded.",
+    },
+  ],
+};
+
 const areyoueligible: areyoueligibleData = {
   title: 'We don\'t install every battery on the market. The brands below cleared a specific bar:',
   subtitle: 'What it takes to be on this page',
@@ -244,7 +274,7 @@ const areyoueligible: areyoueligibleData = {
     },
   ],
 };
-// ─── Page Component ─────────────────────────────────────────────────────
+
 
 const GovernmentRebatesPage = () => {
     return (
@@ -268,6 +298,7 @@ const GovernmentRebatesPage = () => {
             <FederalRebates data={federalRebatesData} />
             <FinanceOption data={financeOptionData} />
             <WhatChanges data={whatChangesData} />
+            <WhatSigningUp data={whatSigningUpData} />
             <Areyoueligible data={areyoueligible} />
             <RebateDetailSplit data={waSchemeData} />
             <FAQ

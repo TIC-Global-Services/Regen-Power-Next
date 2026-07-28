@@ -1,104 +1,73 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import Image, { StaticImageData } from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import Marquee from "@/reuseables/Marquee";
 import SectionHeader from "@/reuseables/SectionHeader";
 
-import aikoLogo from "@/assets/panels/aiko_logo.png";
-import canadianSolarLogo from "@/assets/panels/canadiansolar_logo.png";
-import jaSolarLogo from "@/assets/panels/jasolar_logo.png";
-import jinkoSolarLogo from "@/assets/panels/jinkosolar_logo.png";
-import longiLogo from "@/assets/panels/longi_logo.png";
-import risenLogo from "@/assets/panels/risen_logo.png";
-import trinaSolarLogo from "@/assets/panels/trinasolar_logo.png";
-
-
-interface BrandLogo {
+export interface BrandLogo {
   id: string;
   name: string;
-  src: StaticImageData;
+  src: StaticImageData | string;
 }
 
-interface BrandCategory {
+export interface BrandCategory {
   id: string;
   label: string;
   logos: BrandLogo[];
 }
 
+export interface CraftsmanshipData {
+  subtitle: string;
+  title: string;
+  categories: BrandCategory[];
+  defaultTabId?: string;
+}
 
+interface CraftsmanshipProps {
+  data: CraftsmanshipData;
+}
 
-const CATEGORIES: BrandCategory[] = [
-  {
-    id: "inverters",
-    label: "Inverters",
-    logos: [
-      { id: "aiko-inv", name: "AIKO", src: aikoLogo },
-      { id: "canadian-inv", name: "Canadian Solar", src: canadianSolarLogo },
-      { id: "ja-inv", name: "JA Solar", src: jaSolarLogo },
-      { id: "jinko-inv", name: "Jinko Solar", src: jinkoSolarLogo },
-      { id: "longi-inv", name: "LONGi", src: longiLogo },
-    ],
-  },
-  {
-    id: "panels",
-    label: "Panels",
-    logos: [
-      { id: "aiko-pnl", name: "AIKO", src: aikoLogo },
-      { id: "canadian-pnl", name: "Canadian Solar", src: canadianSolarLogo },
-      { id: "ja-pnl", name: "JA Solar", src: jaSolarLogo },
-      { id: "jinko-pnl", name: "Jinko Solar", src: jinkoSolarLogo },
-      { id: "canadian2-pnl", name: "Canadian Solar", src: canadianSolarLogo },
-      { id: "longi-pnl", name: "LONGi", src: longiLogo },
-      { id: "trina-pnl", name: "Trina Solar", src: trinaSolarLogo },
-      { id: "risen-pnl", name: "Risen", src: risenLogo },
-    ],
-  },
-  {
-    id: "battery-storage",
-    label: "Battery Storage",
-    logos: [
-      { id: "canadian-bat", name: "Canadian Solar", src: canadianSolarLogo },
-      { id: "ja-bat", name: "JA Solar", src: jaSolarLogo },
-      { id: "longi-bat", name: "LONGi", src: longiLogo },
-      { id: "trina-bat", name: "Trina Solar", src: trinaSolarLogo },
-    ],
-  },
-  {
-    id: "ev-charger",
-    label: "EV Charger",
-    logos: [
-      { id: "jinko-ev", name: "Jinko Solar", src: jinkoSolarLogo },
-      { id: "risen-ev", name: "Risen", src: risenLogo },
-      { id: "longi-ev", name: "LONGi", src: longiLogo },
-    ],
-  },
-];
+const Craftsmanship = ({ data }: CraftsmanshipProps) => {
+  const TABS = data.categories.map(({ id, label }) => ({ id, label }));
+  const [activeTabId, setActiveTabId] = useState(TABS[0]?.id);
+  const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
 
-const TABS = CATEGORIES.map(({ id, label }) => ({ id, label }));
+  const goToNextTab = () => {
+    const currentIdx = TABS.findIndex((t) => t.id === activeTabId);
+    const nextIdx = (currentIdx + 1) % TABS.length;
+    setActiveTabId(TABS[nextIdx].id);
+  };
 
-
-
-const Craftsmanship: React.FC = () => {
-  const [activeTabId, setActiveTabId] = useState(TABS[1].id); 
+  useEffect(() => {
+    if (intervalRef.current) clearInterval(intervalRef.current);
+    intervalRef.current = setInterval(goToNextTab, 5000);
+    return () => {
+      if (intervalRef.current) clearInterval(intervalRef.current);
+    };
+  }, [activeTabId]);
 
   const activeCategory =
-    CATEGORIES.find((c) => c.id === activeTabId) ?? CATEGORIES[0];
+    data.categories.find((c) => c.id === activeTabId) ?? data.categories[0];
 
   return (
-    <section className="py-16 md:py-24 bg-white overflow-hidden">
+    <section className="py-16 md:py-20 bg-white overflow-hidden">
       <div className="px-[5%]">
-        <SectionHeader
-          subtitle="Industry-Leading Brands &"
-          title="Craftsmanship"
+        {/* <SectionHeader
+          subtitle={data.subtitle}
+          title={data.title}
           align="center"
           subtitleClass="md:text-[2rem] font-normal tracking-tight text-black"
           titleClass="lg:text-[5rem] font-normal text-[#63B846] tracking-tight"
           className="mb-10 md:mb-14 lg:-space-y-4"
-        />
+        /> */}
+        <div className="flex justify-center flex-col items-center mb-10">
+          <p className="text-[1rem] md:text-[2rem] leading-none tracking-tighter font-normal text-black">{data.subtitle}</p>
+          <h1 className="text-4xl md:text-5xl lg:text-[5rem] leading-none tracking-tighter font-normal text-[#63B846] tracking-tight">{data.title}</h1>
+        </div>
 
-      
+
         <div className="flex justify-center mb-10 md:mb-14">
           <div className="inline-flex items-center bg-[#63B8461A] rounded-full p-1 py-2 gap-1">
             {TABS.map((tab) => {
@@ -107,13 +76,12 @@ const Craftsmanship: React.FC = () => {
                 <button
                   key={tab.id}
                   onClick={() => setActiveTabId(tab.id)}
-                  className={`relative px-4 lg:px-8 py-2 text-xs md:text-base font-medium rounded-full transition-colors duration-200 cursor-pointer whitespace-nowrap ${
-                    isActive
+                  className={`relative px-4 lg:px-8 py-2 text-xs md:text-base font-medium rounded-full transition-colors duration-200 cursor-pointer whitespace-nowrap ${isActive
                       ? "text-[#63B846]"
                       : "text-gray-600 hover:text-black"
-                  }`}
+                    }`}
                 >
-                 
+
                   {isActive && (
                     <motion.div
                       layoutId="craftsmanship-tab-pill"
@@ -170,9 +138,8 @@ const Craftsmanship: React.FC = () => {
                         <div
                           key={logo.id}
                           style={style}
-                          className={`flex items-center justify-center py-8 md:py-10 hover:-translate-y-0.5 transition-all duration-300 ${
-                            colInRow > 0 ? "border-l border-gray-200" : ""
-                          } ${rowIdx > 0 ? "border-t border-gray-200" : ""}`}
+                          className={`flex items-center justify-center py-8 md:py-10 hover:-translate-y-0.5 transition-all duration-300 ${colInRow > 0 ? "border-l border-gray-200" : ""
+                            } ${rowIdx > 0 ? "border-t border-gray-200" : ""}`}
                         >
                           <Image
                             src={logo.src}

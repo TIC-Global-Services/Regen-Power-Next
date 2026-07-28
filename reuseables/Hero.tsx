@@ -16,6 +16,7 @@ export interface HeroProps {
     subtitleColor?: string;
     descriptionColor?: string;
     imageClass?: string;
+    CtatextColor?: string;
     showOverlay?: boolean;
     titleColor?: string;
     heightClass?: string;
@@ -30,6 +31,7 @@ const Hero: React.FC<HeroProps> = ({
     description,
     ctaText,
     ctaLink,
+    CtatextColor='text-white',
     imageClass='object-cover',
     isFullScreen = true,
     subtitleColor = 'text-black',
@@ -86,7 +88,7 @@ const Hero: React.FC<HeroProps> = ({
                     <CtaButton
                         href={ctaLink}
                         text={ctaText}
-                        textColor="text-white"
+                        textColor={CtatextColor}
                         icon={icon}
                     />
                 </div>

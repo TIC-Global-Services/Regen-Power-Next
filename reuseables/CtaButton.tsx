@@ -6,7 +6,7 @@ interface CtaButtonProps {
   href?: string;
   type?: 'button' | 'submit' | 'reset';
   text: string;
-  textColor?: 'text-white' | 'text-black';
+  textColor?: string | 'text-white' | 'text-black';
   bgClass?: string;
   borderClass?: string;
   hoverClass?: string;
@@ -32,7 +32,7 @@ const CtaButton: React.FC<CtaButtonProps> = ({
       <span className="pl-4 text-sm md:text-base tracking-tight whitespace-nowrap">
         {text}
       </span>
-      <div className="bg-[#63B846] text-black p-2 rounded-full group-hover:scale-105 group-hover:bg-[#63B846]/80 transition-all duration-300 flex items-center justify-center">
+      <div className="bg-[#63B846] text-black p-2 rounded-full group-hover:scale-105 group-hover:rotate-45 group-hover:bg-[#63B846]/80 transition-all duration-300 flex items-center justify-center">
         <Icon size={16} strokeWidth={2.5} />
       </div>
     </>

@@ -1,14 +1,23 @@
 "use client";
 
 import React from "react";
-import Image from "next/image";
+import Image, { StaticImageData } from "next/image";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import SectionHeader from "@/reuseables/SectionHeader";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { ArrowRight } from "lucide-react";
 
-import batteryQuoteImg from "@/assets/home/batteryquote/battery_quote_temp.png";
+export interface BatteryQuoteData {
+    subtitle: string;
+    title: string;
+    description: string;
+    image: StaticImageData | string;
+}
+
+interface BatteryQuoteProps {
+    data: BatteryQuoteData;
+}
 
 /* ── Zod Schema ── */
 const quoteSchema = z.object({
@@ -64,8 +73,8 @@ const RadioOption: React.FC<RadioOptionProps> = ({
     >
         <span
             className={`w-4 h-4 rounded-full border-2 flex items-center justify-center transition-colors duration-200 ${checked
-                    ? "border-black border-[0.5px] bg-[#63B8461A]"
-                    : "border-gray-300 group-hover:border-gray-400"
+                ? "border-black border-[0.5px] bg-[#63B8461A]"
+                : "border-gray-300 group-hover:border-gray-400"
                 }`}
         >
             {checked && <span className="w-1.5 h-1.5 rounded-full bg-black" />}
@@ -83,7 +92,7 @@ const RadioOption: React.FC<RadioOptionProps> = ({
     </label>
 );
 
-const BatteryQuote: React.FC = () => {
+const BatteryQuote = ({ data }: BatteryQuoteProps) => {
     const {
         register,
         handleSubmit,
@@ -104,9 +113,9 @@ const BatteryQuote: React.FC = () => {
     const enquiryType = watch("enquiryType");
     const contactTime = watch("contactTime");
 
-    const onSubmit = async (data: QuoteFormData) => {
+    const onSubmit = async (formData: QuoteFormData) => {
         // In production, this would send to an API endpoint
-        console.log("Quote request submitted:", data);
+        console.log("Quote request submitted:", formData);
         alert("Thank you! Your quote request has been submitted. We'll be in touch within 24 hours.");
     };
 
@@ -116,9 +125,9 @@ const BatteryQuote: React.FC = () => {
                 <div className="flex flex-col lg:flex-row items-start gap-10 lg:gap-16">
                     <div className="w-full lg:w-[45%] flex flex-col">
                         <SectionHeader
-                            subtitle="Get Your Free Solar &"
-                            title="Battery Quote"
-                            description="Our technical sales team will design a system tailored to your home, usage, and budget. Most quotes delivered within 24 hours."
+                            subtitle={data.subtitle}
+                            title={data.title}
+                            description={data.description}
                             align="left"
                             subtitleClass="md:text-[1.6rem] font-normal tracking-tight text-gray-900"
                             titleClass="lg:text-[4.5rem] font-normal text-[#63B846] tracking-tight leading-tight"
@@ -128,10 +137,12 @@ const BatteryQuote: React.FC = () => {
 
                         <div className="relative w-full max-w-lg">
                             <Image
-                                src={batteryQuoteImg}
+                                src={data.image}
                                 alt="Solar powered city illustration"
                                 className="w-full h-auto object-contain"
                                 priority
+                                width={600}
+                                height={400}
                             />
                         </div>
                     </div>

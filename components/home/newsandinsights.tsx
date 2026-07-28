@@ -1,4 +1,4 @@
-import FeatureCardGrid, { FeatureCardItem } from '@/reuseables/FeatureCardGrid'
+import FeatureCardGrid, { FeatureCardGridProps, FeatureCardItem } from '@/reuseables/FeatureCardGrid'
 import React from 'react'
 
 
@@ -32,10 +32,10 @@ const data: FeatureCardItem[] = [
 //   },
 ];
 
-const newsandinsights = () => {
+const newsandinsights = ({data}: {data:FeatureCardGridProps[]}) => {
   return (
     <div>
-        <FeatureCardGrid topSubtitle='Explore Our' title='Latest news & insights' cards={data}/>
+        <FeatureCardGrid topSubtitle='Explore Our' title='Latest news & insights' cards={data[0].cards}/>
     </div>
   )
 }
