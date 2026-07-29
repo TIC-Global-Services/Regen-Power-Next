@@ -21,7 +21,7 @@ export const BatteryBillImpactCarousel = ({ cards }: { cards: BillImpactCard[] }
   };
 
   return (
-    <div className="w-full lg:w-2/3 relative mt-8 lg:mt-0">
+    <div className="w-full relative mt-8 lg:mt-0">
       <div 
         ref={scrollContainerRef}
         className="flex gap-4 overflow-x-auto snap-x snap-mandatory pb-4 [&::-webkit-scrollbar]:hidden"
@@ -53,7 +53,7 @@ export const BatteryBillImpactCarousel = ({ cards }: { cards: BillImpactCard[] }
       </div>
 
       {/* Navigation Buttons */}
-      <div className="flex justify-end gap-3 mt-4 pr-[5%]">
+      <div className="flex justify-end gap-3 mt-4 mr-[5%]">
         <button 
           onClick={scrollLeft}
           className="w-12 h-12 rounded-full bg-black flex items-center justify-center text-white hover:bg-black/80 transition-colors"

@@ -34,7 +34,7 @@ const WallConnector = () => {
                 </div>
 
                 {/* Description */}
-                <p className="text-sm md:text-base text-black/70 leading-relaxed max-w-[540px]">
+                <p className="text-sm md:text-lg text-black leading-[1.2] max-w-[540px]">
                   We&apos;re A Tesla Certified Partner. So When We Install Tesla, You&apos;re Buying
                   It From The Source. The Tesla Wall Connector Gen 3 Is The Most Popular Home
                   EV Charger In Australia — And For Good Reason. It Charges At Up To 22kW On

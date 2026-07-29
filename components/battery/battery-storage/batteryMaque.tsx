@@ -25,8 +25,9 @@ const batteryMaque = () => {
                         <div className="flex items-center gap-3 text-black text-xl md:text-3xl font-normal tracking-tight">
                             <span className="text-[#63B846] font-normal">{item.split(" ")[0]}</span>
                             <span className="text-black font-normal">{item.split(" ").slice(1).join(" ")}</span>
+                            <SpacerIcon />
                         </div>
-                        <SpacerIcon />
+
                     </React.Fragment>
                 ))}
             </Marquee>

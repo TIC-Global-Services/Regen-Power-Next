@@ -21,7 +21,7 @@ const SolarBrandsGrid: React.FC<SolarBrandsGridProps> = ({ resolved }) => {
           title={resolved.title}
           description={resolved.description}
           align="center"
-          subtitleClass="font-normal text-[1.875rem] leading-[1.2]"
+          subtitleClass="font-normal text-[1.875rem] leading-[1.1]"
           className="mx-auto mb-12"
         />
 

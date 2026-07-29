@@ -34,28 +34,28 @@ export default function LoanBenefitsSection({ resolved }: Props) {
             </span>
           )}
 
-          <h2 className="text-2xl md:text-3xl lg:text-[2.125rem] tracking-tighter leading-tight text-white">
+          <h2 className="text-2xl md:text-3xl lg:text-[1.750rem] tracking-tighter leading-tight text-white">
             {resolved.subtitle && (
               <>{resolved.subtitle}<br /></>
             )}
             {resolved.title && (
-              <span className="text-[#63B846] font-medium text-4xl md:text-[5rem] tracking-tighter">
+              <span className="text-[#63B846] font-medium text-4xl md:text-[3.75rem] tracking-tighter">
                 {resolved.title}
               </span>
             )}
           </h2>
 
           {resolved.description && (
-            <p className="text-sm md:text-sm leading-snug tracking-tight mt-3 mb-5 text-white/90 max-w-3xl">
+            <p className="text-sm md:text-xl leading-snug tracking-tight mt-3 mb-5 text-white/90 max-w-3xl">
               {resolved.description}
             </p>
           )}
 
-          <div className="mt-12 flex flex-wrap justify-center gap-4 max-w-5xl mx-auto">
+          <div className="mt-12 flex flex-wrap justify-center items-center gap-4 max-w-5xl mx-auto">
             {resolved.benefits.map((benefit, idx) => (
               <article
                 key={idx}
-                className="w-[240px] h-[140px] rounded-[8px] border border-white/20 bg-white/12 p-4 backdrop-blur-md flex flex-col text-left"
+                className="w-[240px] h-[20dvh] rounded-[8px] border border-white/20 bg-white/12 p-4 backdrop-blur-md flex flex-col text-left"
               >
                 <h3 className="text-[1.375rem] tracking-tight text-white">{benefit.title}</h3>
                 <p className="text-sm leading-tight text-white">{benefit.description}</p>

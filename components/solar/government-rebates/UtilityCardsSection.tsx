@@ -28,7 +28,7 @@ export default function UtilityCardsSection({ resolved }: Props) {
             return (
               <article
                 key={idx}
-                className="w-[350px] h-[420px] rounded-[20px] bg-[#F1F8EC] p-10"
+                className="w-[350px] h-[420px] flex flex-col justify-between rounded-[20px] bg-[#F1F8EC] p-10"
               >
                 {logo && (
                   <div className="relative h-24 w-full">
@@ -36,18 +36,18 @@ export default function UtilityCardsSection({ resolved }: Props) {
                   </div>
                 )}
 
-                <dl className="space-y-6">
+                <dl className="">
                   <div>
-                    <dt className="text-2xl tracking-tight text-black md:text-3xl">Per kWh</dt>
-                    <dd className="mt-1 text-base text-black md:text-2xl">{card.perKwh}</dd>
+                    <dt className="text-2xl tracking-tight text-black md:text-2xl">Per kWh</dt>
+                    <dd className="mt-1 text-base text-black md:text-base">{card.perKwh}</dd>
                   </div>
                   <div>
-                    <dt className="text-2xl tracking-tight text-black md:text-3xl">Cap</dt>
-                    <dd className="mt-1 text-base text-black md:text-2xl">{card.cap}</dd>
+                    <dt className="text-2xl tracking-tight text-black md:text-2xl">Cap</dt>
+                    <dd className="mt-1 text-base text-black md:text-base">{card.cap}</dd>
                   </div>
                   <div>
-                    <dt className="text-2xl tracking-tight text-black md:text-3xl">Maximum Rebate</dt>
-                    <dd className="mt-1 text-base text-black md:text-2xl">{card.maximumRebate}</dd>
+                    <dt className="text-2xl tracking-tight text-black md:text-2xl">Maximum Rebate</dt>
+                    <dd className="mt-1 text-base text-black md:text-base">{card.maximumRebate}</dd>
                   </div>
                 </dl>
               </article>

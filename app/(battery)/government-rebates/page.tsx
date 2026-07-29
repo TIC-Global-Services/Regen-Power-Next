@@ -56,7 +56,7 @@ const rebatesStackData: RebatesStackGridData = {
 };
 
 const waSchemeData: RebateDetailSplitData = {
-    topSubtitle: 'WA Residential Battery Scheme',
+    topSubtitle: 'Vendor-led',
     title: 'You don\'t fill out forms, we do',
     description: "The WA Residential Battery Scheme is a vendor-led process. That means the battery vendor submits the rebate application on your behalf, through the WA Government portal. It's designed to reduce paperwork friction for homeowners.",
     image: heroBanner,
@@ -250,27 +250,28 @@ const whatSigningUpData: WhatSigningUpData = {
 };
 
 const areyoueligible: areyoueligibleData = {
-  title: 'We don\'t install every battery on the market. The brands below cleared a specific bar:',
-  subtitle: 'What it takes to be on this page',
-  description: 'Brands we have specifically chosen not to install (for reference): older NMC chemistry products, single-source imports without Australian distribution, brands without genuine VPP compatibility, batteries under 5 kWh (too small to clear WA rebate minimum).',
+  title: 'Check these five items',
+  subtitle: 'Are you eligible?',
+  bottomSubtitle:"If all five apply to you, you qualify for the full WA + federal rebate stack. Most Perth homeowners do.",
+  description: 'Answered yes to 1–5? Book a free quote and we handle the rest. Unsure about any? Call us on 08 9456 3491 and we\'ll talk it through.',
   image: solarBatteryCharging,
   imageAlt: 'Solar panels on a roof at sunset',
   items: [
     {
-      title: 'CEC Approved Battery List — included and current',
+      title: 'You\'re an owner-occupier (or a renter with landlord consent)',
     },
     {
-      title: 'Synergy or Horizon Power Supported Solutions List — qualified for WA Residential Battery Scheme',
+      title: 'Your property is in Western Australia on the Synergy or Horizon Power network',
 
     },
     {
-      title: 'LFP chemistry — safer, longer-lasting, better in WA heat',
+      title: 'You haven\'t previously received a rebate under the WA Residential Battery Scheme on this property (one per property)',
     },
     {
-      title: 'Australian distribution presence — warranty support that survives the retailer',
+      title: 'Your property has a reliable internet connection (required for VPP)',
     },
     {
-      title: 'Verifiable field performance — either through our own install base or through independent industry review',
+      title: 'You\'re willing to join a Virtual Power Plant (2-year agreement)',
     },
   ],
 };
@@ -298,8 +299,8 @@ const GovernmentRebatesPage = () => {
             <FederalRebates data={federalRebatesData} />
             <FinanceOption data={financeOptionData} />
             <WhatChanges data={whatChangesData} />
-            <WhatSigningUp data={whatSigningUpData} />
             <Areyoueligible data={areyoueligible} />
+            <WhatSigningUp data={whatSigningUpData} />
             <RebateDetailSplit data={waSchemeData} />
             <FAQ
                 topTitle="FAQ"

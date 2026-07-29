@@ -72,9 +72,9 @@ const StaggeredCardsGrid: React.FC<StaggeredCardsGridProps> = ({
         />
 
         {/* Layout Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 auto-rows-fr mx-auto">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 auto-rows-fr mx-auto max-w-7xl">
           {columns.map((column, colIdx) => (
-            <div key={colIdx} className="flex flex-col gap-6 h-full justify-between">
+            <div key={colIdx} className="flex flex-col gap-4 h-full justify-between">
               {column.items.map((item, itemIdx) => {
                 if (item === 'spacer') {
                   return (

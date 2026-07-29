@@ -165,7 +165,7 @@ export default function TextReveal({
         </div>
 
         {/* Scroll Reveal Text Block */}
-        <div className="w-full max-w-7xl mx-auto px-6 sm:px-8 md:px-12 lg:px-16 flex-1 flex flex-col justify-center items-center text-center py-6 md:py-5">
+        <div className="w-full max-w-7xl mx-auto px-6 sm:px-8 md:px-12 lg:px-16 flex-1 flex flex-col justify-start items-start text-center py-6 md:py-5">
           <div className="flex flex-col gap-6 md:gap-10 w-full">
             {paragraphsArray.map((para, idx) => (
               <p

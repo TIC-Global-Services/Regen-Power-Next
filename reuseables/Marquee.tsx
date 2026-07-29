@@ -44,7 +44,7 @@ const Marquee: React.FC<MarqueeProps> = ({
       className={`overflow-hidden ${className}`}
       style={{
         WebkitMaskImage:
-          "linear-gradient(to right, transparent 0%, black 5%, black 95%, transparent 100%)",
+          "linear-gradient(to right, transparent 0%, black 20%, black 98%, transparent 100%)",
       }}
     >
       <div

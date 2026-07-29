@@ -94,7 +94,7 @@ const FeatureCardGrid: React.FC<FeatureCardGridProps> = ({
             </h2>
           )}
           {bottomSubtitle && (
-            <p className="text-xs md:text-xl text-black max-w-5xl mx-auto leading-[1.1] font-medium">
+            <p className="text-xs md:text-xl text-black max-w-5xl mx-auto leading-[1.2] font-medium">
               {bottomSubtitle}
             </p>
           )}

@@ -32,13 +32,13 @@ const DebsRebateBanner = ({ data }: { data: DebsRebateData }) => {
         </div>
 
         {/* Right — Image */}
-        <div className="relative w-full aspect-[4/5] md:aspect-[3/4] lg:aspect-[4/5] rounded-[20px] overflow-hidden">
+        <div className="relative w-full aspect-[4/5] md:aspect-[3/4] lg:aspect-[4/4] rounded-[20px] overflow-hidden">
           <Image
             src={data.image}
             alt={data.title}
             fill
             className="object-cover"
-            sizes="(max-width: 1024px) 100vw, 50vw"
+           
           />
         </div>
       </div>

@@ -8,6 +8,7 @@ export interface areyoueligibleItem {
 export interface areyoueligibleData {
     title: string;
     subtitle?: string;
+    bottomSubtitle?: string;
     description?: string;
     items: areyoueligibleItem[];
     image: string | StaticImageData;
@@ -35,22 +36,22 @@ const Areyoueligible = ({ data }: areyoueligibleProps) => {
                     />
                 </div>
                 {/* Text Column */}
-                <div className="w-full  flex flex-col justify-between py-20 max-w-2xl">
+                <div className="w-full  flex flex-col justify-center py-20 max-w-2xl">
                     <div>
-                        <h3 className="text-xl md:text-2xl font-normal text-black tracking-tight mb-2">
+                        <h3 className="text-xl md:text-2xl font-normal text-black tracking-tight mb-1">
                             {data.subtitle}
                         </h3>
 
                         <h2 className="text-3xl md:text-[3.125rem] lg:text-[3.125rem] font-light text-[#63B846] leading-[1.1] tracking-tight mb-6">
                             {data.title}
                         </h2>
-
+                        <p className='text-sm tracking-tight leading-[1.2] mb-4  md:text-lg lg:text-xl'>{data.bottomSubtitle}</p>
 
 
                         <ol className="flex flex-col gap-1 mb-8">
                             {data.items.map((item, i) => (
                                 <li key={i} className="flex items-start text-sm md:text-xl text-black font-normal leading-[1.2]">
-                                    <span className="mr-2 font-bold text-black">•</span>
+                                    <span className="mr-2  text-black">{i + 1}.</span>
                                     <span>{item.title}</span>
                                 </li>
                             ))}

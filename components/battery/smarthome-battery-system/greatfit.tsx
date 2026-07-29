@@ -20,10 +20,10 @@ const GreatFit = ({ data }: GreatFitProps) => {
     <section className="bg-white py-16 md:py-24 px-[5%]">
       <div className="max-w-5xl mx-auto">
         <div className="text-center mb-12 md:mb-16">
-          <h3 className="text-2xl md:text-[2.125rem] text-black font-norml">
+          <h3 className="text-2xl md:text-[2.125rem] leading-none text-black font-norml">
             {data.topSubtitle}
           </h3>
-          <h2 className="text-4xl md:text-[5rem] text-[#63B846] font-normal tracking-tight">
+          <h2 className="text-4xl md:text-[5rem] leading-none text-[#63B846] font-normal tracking-tight">
             {data.title}
           </h2>
           <p className='text-sm leading-[1.2] md:text-lg tracking-tight mt-1'>{data.description}</p>

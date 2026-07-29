@@ -31,10 +31,10 @@ const FederalRebates: React.FC<FederalRebatesProps> = ({ data = [] }) => {
         <section key={index} className="w-full bg-white px-[5%] py-12 md:py-20">
           {/* Header Section */}
           <div className="max-w-4xl mx-auto text-center flex flex-col items-center mb-12 md:mb-10">
-            <h3 className="text-lg md:text-xl font-medium text-black tracking-tight">
+            <h3 className="text-lg md:text-xl font-medium text-black tracking-tight leading-none">
               {item.sectionSubtitle}
             </h3>
-            <h2 className="text-3xl md:text-4xl lg:text-[3.125rem] font-light text-[#63B846] leading-tight tracking-tight mb-2">
+            <h2 className="text-3xl md:text-4xl lg:text-[3.125rem] font-light text-[#63B846] leading-none tracking-tight">
               {item.sectionTitle}
             </h2>
             <p className="text-sm md:text-base text-black font-medium leading-[1.2] max-w-3xl">
@@ -78,14 +78,14 @@ const FederalRebates: React.FC<FederalRebatesProps> = ({ data = [] }) => {
                 <h4 className="text-lg md:text-xl font-normal text-black mb-3">
                   {item.eligibleCapacityTitle}
                 </h4>
-                <p className="text-sm md:text-base text-black font-medium mb-6 leading-snug">
+                <p className="text-sm md:text-base text-black font-medium mb-6 leading-[1.2]">
                   {item.eligibleCapacityText}
                 </p>
                 
                 <h4 className="text-lg md:text-xl font-normal text-black mb-3">
                   {item.importantNoteTitle}
                 </h4>
-                <p className="text-sm md:text-base text-black font-medium leading-snug">
+                <p className="text-sm md:text-base text-black font-medium leading-[1.2]">
                   {item.importantNoteText}
                 </p>
               </div>

@@ -81,7 +81,7 @@ const FAQ = ({
 
     return (
         <Fade>
-            <section className="py-16 md:py-24 bg-white px-[5%]">
+            <section className="py-16 md:py-20 bg-white px-[5%]">
                 {faqSchema ? (
                     <script
                         type="application/ld+json"
@@ -89,8 +89,8 @@ const FAQ = ({
                     />
                 ) : null}
                 {/* Top Titles */}
-                <div className="mb-8 lg:mb-10">
-                    <h3 className="text-xl md:text-2xl text-black font-normal tracking-tighter mb-1">
+                <div className="mb-8 lg:mb-10 -space-y-3">
+                    <h3 className="text-xl md:text-2xl text-black font-normal tracking-tighter">
                         {topTitle}
                     </h3>
                     <h2 className="text-5xl md:text-[5.5rem] text-[#63B846] font-light leading-none tracking-tighter">

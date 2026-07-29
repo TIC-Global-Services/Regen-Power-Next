@@ -38,8 +38,9 @@ const SolarStatsAndIntro: React.FC<SolarStatsAndIntroProps> = ({ resolved }) => 
                   <span className="text-black font-normal">
                     {item.split(" ").slice(1).join(" ")}
                   </span>
+                  <SpacerIcon />
                 </div>
-                <SpacerIcon />
+                
               </React.Fragment>
             ))}
           </Marquee>
@@ -51,10 +52,10 @@ const SolarStatsAndIntro: React.FC<SolarStatsAndIntroProps> = ({ resolved }) => 
         title={resolved.title}
         paragraphs={resolved.paragraphs}
         align="left"
-        className="mt-6 md:mt-12"
-        subtitleClass="text-xl md:text-2xl font-light text-black mb-2 block normal-case pl-24"
-        titleClass="text-5xl md:text-7xl lg:text-[5.5rem] leading-[1.05] tracking-tighter mb-4 pl-24"
-        paragraphsClass="text-center"
+        // className="mt-6 md:mt-12 px-[5%]"
+        subtitleClass="text-xl md:text-2xl font-light text-black  block normal-case "
+        titleClass="text-5xl md:text-7xl lg:text-[5.5rem] leading-[1.05] tracking-tighter mb-4"
+        paragraphsClass="text-left"
         revealEffect
       />
     </section>

@@ -24,47 +24,44 @@ const SolarProcessFlow: React.FC<SolarProcessFlowProps> = ({ resolved }) => {
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12">
           {steps.map((step, index) => (
-            <Reveal
-              key={index}
-              delay={index * 0.15}
-              className="flex flex-col h-full"
-            >
-              <div className="mb-6">
-                {step.image ? (
-                  <div className="relative w-full aspect-[4/3] rounded-2xl overflow-hidden flex items-center justify-center">
-                    <Image
-                      src={step.image.src}
-                      alt={step.image.alt}
-                      fill
-                      className="object-contain"
+            <div key={index} className="flex flex-col">
+              <Reveal
+                delay={index * 0.15}
+                className="flex flex-col"
+              >
+                <div className="mb-6">
+                  {step.image ? (
+                    <div className="relative w-full aspect-[4/3] rounded-2xl overflow-hidden flex items-center justify-center">
+                      <Image
+                        src={step.image.src}
+                        alt={step.image.alt}
+                        fill
+                        className="object-contain"
+                      />
+                    </div>
+                  ) : (
+                    <MissingImage
+                      label={`Step ${step.stepNumber} image`}
+                      aspect="aspect-[4/3]"
                     />
-                  </div>
-                ) : (
-                  <MissingImage
-                    label={`Step ${step.stepNumber} image`}
-                    aspect="aspect-[4/3]"
-                  />
-                )}
-              </div>
-
-              <div className="grid grid-cols-[auto_1fr] gap-x-3 flex-grow">
-                <div className="text-2xl text-[#63B846] font-semibold leading-none self-baseline">
-                  {step.stepNumber}
-                </div>
-                <h3 className="text-lg md:text-2xl font-medium text-black leading-tight self-baseline">
-                  <span>{step.title}</span>
-                  {index < steps.length - 1 && (
-                    <span className="hidden lg:inline text-black font-bold tracking-tighter text-3xl ml-2">
-                      &raquo;
-                    </span>
                   )}
-                </h3>
-                <div />
-                <p className="text-base text-black leading-tight font-normal">
-                  {step.description}
-                </p>
-              </div>
-            </Reveal>
+                </div>
+                <div className="grid grid-cols-[auto_1fr] gap-x-3">
+                  <h3 className="text-lg md:text-2xl font-medium text-black leading-tight self-baseline">
+                    <span>{step.title}</span>
+                    {index < steps.length - 1 && (
+                      <span className="hidden lg:inline text-black font-bold tracking-tighter text-3xl ml-2">
+                        &raquo;
+                      </span>
+                    )}
+                  </h3>
+                  <div />
+                  <p className="text-base text-black leading-tight font-normal">
+                    {step.description}
+                  </p>
+                </div>
+              </Reveal>
+            </div>
           ))}
         </div>
       </div>

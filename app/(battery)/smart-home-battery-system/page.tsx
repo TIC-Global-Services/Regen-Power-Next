@@ -16,6 +16,7 @@ import businessBg from '@/assets/home/zerointrest/businessBg.jpg';
 import productReviewBg from '@/assets/home/zerointrest/productReviewBg.png';
 import forYourHome from '@/assets/for_your_home.png';
 import teslaLogo from '@/assets/home/patners/tesla_powerwall.png';
+import BatteryMaque from '@/components/battery/battery-storage/batteryMaque';
 
 // --- Data ---
 
@@ -253,7 +254,7 @@ const SmartBatterySystemPage = () => {
         descriptionColor="text-white"
         showOverlay={true}
       />
-
+      <BatteryMaque />
       {/* 2. Great Fit / Not Every Smart Battery */}
       <GreatFit data={greatFitData} />
 

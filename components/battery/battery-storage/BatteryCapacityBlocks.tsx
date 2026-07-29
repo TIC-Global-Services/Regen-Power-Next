@@ -24,7 +24,7 @@ const BatteryCapacityBlocks = ({ data }: { data: BatteryCapacityData }) => {
       <section className="bg-white py-16 md:py-24 px-[5%]">
         <div className="">
           {/* Section Header */}
-          <div className="text-center mb-10 md:mb-14">
+          <div className="text-center mb-10 md:mb-14 -space-y-2">
             <h3 className="text-xl md:text-[2rem] text-black font-normal tracking-tight leading-[1.1]">
               {data.topSubtitle}
             </h3>

@@ -102,7 +102,7 @@ const OneCharger = () => {
                       <h3 className="text-3xl md:text-[2rem] font-medium text-black tracking-tight leading-tight">
                         {product.name}
                       </h3>
-                      <p className="text-sm tracking-tight text-black/70 leading-snug font-normal">
+                      <p className="text-sm tracking-tight text-black leading-[1.2] font-normal">
                         {product.description}
                       </p>
                     </div>

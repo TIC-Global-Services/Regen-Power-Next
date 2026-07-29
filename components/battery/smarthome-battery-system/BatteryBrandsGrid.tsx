@@ -40,10 +40,10 @@ const BatteryBrandsGrid = ({ data }: { data: BatteryBrandsGridData }) => {
     <section className="bg-white py-16 md:py-24 px-[5%] min-h-screen">
       <div className="">
         <div className="text-center mb-16">
-          <h3 className="text-xl md:text-[2rem] text-black font-normal mb-2">
+          <h3 className="text-xl md:text-[2rem] text-black font-normal leading-none">
             {data.topSubtitle}
           </h3>
-          <h2 className="text-4xl md:text-5xl lg:text-[5rem] text-[#63B846] font-normal tracking-tight mb-4">
+          <h2 className="text-4xl md:text-5xl lg:text-[5rem] text-[#63B846] font-normal tracking-tight">
             {data.title}
           </h2>
           <p className="text-base md:text-[1.375rem] text-black/80 font-medium">

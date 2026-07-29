@@ -15,7 +15,7 @@ const SpecsAccordion: React.FC<SpecsAccordionProps> = ({ resolved }) => {
   );
 
   return (
-    <section className="py-16 md:py-24 bg-white border-t border-gray-300">
+    <section className="py-16 md:py-24 bg-white">
       <div className="px-[5%] mx-auto">
         <SectionHeader
           subtitle={resolved.subtitle}

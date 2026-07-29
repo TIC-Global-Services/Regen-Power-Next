@@ -51,7 +51,7 @@ const RebateDetailSplit: React.FC<{ data?: RebateDetailSplitData }> = ({ data })
                             </h2>
                         )}
                         {data.description && (
-                            <p className="text-sm md:text-xl text-black leading-relaxed font-medium ">
+                            <p className="text-sm md:text-xl text-black leading-[1.2] font-medium ">
                                 {data.description}
                             </p>
                         )}

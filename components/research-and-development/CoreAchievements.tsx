@@ -54,7 +54,7 @@ const CoreAchievements = ({ resolved }: Props) => {
               delay: 4500,
               disableOnInteraction: false,
             }}
-            navigation
+            
             className="!py-6"
           >
             {resolved.items.map((item, index) => (

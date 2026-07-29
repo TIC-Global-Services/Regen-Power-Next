@@ -26,9 +26,9 @@ export default function CategorizedFaqSection({ resolved }: Props) {
 
   return (
     <section className="bg-white px-[5%] py-16 md:py-24">
-      <div className="mx-auto max-w-7xl">
+      <div className="">
         <div className="overflow-x-auto pb-3">
-          <div className="flex min-w-max gap-4">
+          <div className="flex  gap-4">
             {resolved.categories.map((category) => {
               const key = categoryKey(category);
               const active = key === activeKey;
@@ -44,7 +44,7 @@ export default function CategorizedFaqSection({ resolved }: Props) {
                     setActiveKey(key);
                     setOpenIndex(0);
                   }}
-                  className={`rounded-full px-7 py-4 text-2xl tracking-tight transition-colors ${
+                  className={`rounded-full text-xl px-7 py-4 text-2xl tracking-tight transition-colors ${
                     active
                       ? "bg-[#CBEFB8] text-black"
                       : "bg-transparent text-black/90 hover:bg-[#EEF6EB]"

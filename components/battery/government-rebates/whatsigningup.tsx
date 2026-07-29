@@ -57,7 +57,7 @@ const defaultCardsRight: VppCardItem[] = [
 ];
 
 const VppCard = ({ card }: { card: VppCardItem }) => (
-  <div className="relative overflow-hidden bg-white/90 backdrop-blur-md border border-neutral-200/80 rounded-2xl lg:rounded-[2rem] p-6 lg:p-8 shadow-[0_15px_40px_-15px_rgba(0,0,0,0.06)] w-[280px] sm:w-[360px] md:w-[460px] lg:w-full lg:max-w-[480px] pointer-events-auto">
+  <div className="relative overflow-hidden bg-white/10 backdrop-blur-sm border border-neutral-200/80 rounded-2xl lg:rounded-[2rem] p-6 lg:p-8 shadow-[0_15px_40px_-15px_rgba(0,0,0,0.06)] w-[280px] sm:w-[360px] md:w-[460px] lg:w-full lg:max-w-[480px] pointer-events-auto">
     <div className="relative z-10">
       <h3 className="text-xl sm:text-2xl lg:text-3xl font-medium text-neutral-900 leading-tight">
         {card.title}
@@ -67,7 +67,7 @@ const VppCard = ({ card }: { card: VppCardItem }) => (
           {card.subtitle}
         </h4>
       )}
-      <p className="text-xs sm:text-sm lg:text-base text-neutral-700 leading-relaxed font-normal">
+      <p className="text-xs sm:text-sm lg:text-base text-neutral-700 leading-[1.2] font-normal">
         {card.text}
       </p>
     </div>

@@ -36,22 +36,22 @@ const CtaSection: React.FC<CtaSectionProps> = ({
                         className="object-cover object-bottom"
                     />
                     <div
-                        className='bg-gradient-to-r h-full w-full from-black/5 via-black/15 to-transparent'
+                        className='bg-gradient-to-r h-full w-full from-black/5 via-black/10 to-transparent'
                     />
                 </div>
             )}
 
             <div className="relative z-10 w-full px-[5%] mt-12 md:mt-16">
-                <div className="max-w-3xl text-white">
-                    <p className="text-2xl md:text-3xl font-light tracking-tighter leading-tight mb-1">
+                <div className="max-w-4xl text-white">
+                    <p className="text-2xl md:text-3xl font-light tracking-tighter leading-none">
                         {subtitle}
                     </p>
-                    <h2 className="text-5xl md:text-6xl lg:text-7xl text-[#63B846] font-normal tracking-tighter leading-none mb-5">
+                    <h2 className="text-5xl md:text-6xl lg:text-7xl text-[#63B846] font-normal tracking-tighter leading-none mb-2">
                         {title}
                     </h2>
 
                     {description && (
-                        <p className="text-sm md:text-[15px] leading-snug tracking-tight text-white/90 mb-6 max-w-2xl">
+                        <p className="text-sm md:text-lg leading-[1.3] tracking-tight text-white/90 mb-6 max-w-2xl">
                             {description}
                         </p>
                     )}

@@ -41,7 +41,7 @@ const InverterSlider: React.FC<InverterSliderProps> = ({ resolved }) => {
   return (
     <section className="py-16 md:py-24 bg-white">
       <div className="px-[5%]">
-        <div className="flex flex-col lg:flex-row items-start justify-between gap-6 mb-12">
+        <div className="flex flex-col lg:flex-row items-end justify-between gap-6 mb-12">
           <div className="lg:max-w-2xl">
             <SectionHeader
               subtitle={resolved.subtitle}

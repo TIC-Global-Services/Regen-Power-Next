@@ -39,25 +39,25 @@ const SectionHeader: React.FC<SectionHeaderProps> = ({
   const defaultTitleSize = hasSizeClass(titleClass) ? '' : 'text-3xl md:text-4xl lg:text-[5rem]';
 
   return (
-    <div className={`w-full flex flex-col  ${containerAlign} ${alignClass} ${className}`}>
+    <div className={`w-full flex flex-col ${containerAlign} ${alignClass} ${className}`}>
       <Reveal>
         {badge && (
-          <span className="mb-4 inline-flex rounded-full bg-[#E5DDD8] px-5 py-2 text-xs font-medium uppercase tracking-wide text-black">
+          <span className="mb-2 inline-flex rounded-full bg-[#E5DDD8] px-5 py-2 text-xs font-medium uppercase tracking-wide text-black">
             {badge}
           </span>
         )}
         {subtitle && (
-          <p className={`${defaultSubtitleSize} tracking-tight font-normal block ${subtitleClass}`}>
+          <p className={`${defaultSubtitleSize} leading-[0.5] tracking-tight font-normal block ${subtitleClass}`}>
             {subtitle}
           </p>
         )}
-        <h2 className={`text-3xl ${defaultTitleSize} text-[#63B846] tracking-tight font-normal ${titleClass}`}>
+        <h2 className={`text-[2.5rem] ${defaultTitleSize} text-[#63B846] tracking-tight leading-[1.2] font-normal ${titleClass}`}>
           {title}
         </h2>
       </Reveal>
       {description && (
         <Fade delay={0.2}>
-          <p className={`text-sm leading-tight tracking-tight mt-4 max-w-3xl ${descClass}`}>
+          <p className={`text-lg leading-tight tracking-tight mt-4 max-w-3xl ${descClass}`}>
             {description}
           </p>
         </Fade>

@@ -51,7 +51,7 @@ const InvertersSliderSection: React.FC<InvertersSliderSectionProps> = ({
   if (inverters.length === 0) return null;
 
   return (
-    <section className="py-16 md:py-24 bg-white overflow-hidden border-t border-gray-50">
+    <section className="py-16 md:py-20 bg-white overflow-hidden border-t border-gray-50">
       <div className="pl-[5%] pr-0 mx-auto">
         <div className="flex flex-col lg:flex-row gap-8 lg:gap-12 items-start lg:items-center">
           <div className="w-full lg:w-[22%] shrink-0 pr-8 lg:pr-0">
@@ -60,8 +60,8 @@ const InvertersSliderSection: React.FC<InvertersSliderSectionProps> = ({
               title={resolved.title ?? ""}
               align="left"
               className="mb-0"
-              subtitleClass="text-sm md:text-2xl uppercase tracking-tight font-medium text-black"
-              titleClass="text-5xl md:text-6xl lg:text-[5.5rem] font-normal leading-none tracking-tight text-[#63B846]"
+              subtitleClass="text-sm md:text-2xl  tracking-tight font-medium text-black"
+              titleClass="text-5xl md:text-6xl lg:text-[3.125rem] font-normal leading-none tracking-tight text-[#63B846]"
             />
           </div>
 
@@ -82,7 +82,7 @@ const InvertersSliderSection: React.FC<InvertersSliderSectionProps> = ({
                     className="bg-[#EEF6EB]/50 rounded-[24px] p-8 flex flex-col justify-between h-[520px] w-[380px] shrink-0 shadow-sm hover:shadow-md transition-shadow"
                   >
                     <div className="flex flex-col">
-                      <div className="relative w-[150px] h-[60px] mb-6 flex items-center">
+                      <div className="relative w-[150px] h-[80px] mb-10 flex items-center">
                         {logoMap[item.name] ? (
                           <Image
                             src={logoMap[item.name]}
@@ -92,6 +92,7 @@ const InvertersSliderSection: React.FC<InvertersSliderSectionProps> = ({
                               width: "auto",
                               height: "100%",
                             }}
+                            className="object-cover"
                           />
                         ) : (
                           <span className="text-lg font-bold text-black">
@@ -100,9 +101,9 @@ const InvertersSliderSection: React.FC<InvertersSliderSectionProps> = ({
                         )}
                       </div>
 
-                      <div className="space-y-4">
-                        <div>
-                          <h4 className="text-xs uppercase tracking-wider text-black/50 font-bold mb-1">
+                      <div className="">
+                        <div className="pb-4">
+                          <h4 className="text-xl  tracking-tight text-black font-bold mb-1">
                             Origin
                           </h4>
                           <p className="text-base text-black font-medium normal-case">
@@ -111,31 +112,31 @@ const InvertersSliderSection: React.FC<InvertersSliderSectionProps> = ({
                         </div>
 
                         <div>
-                          <h4 className="text-xs uppercase tracking-wider text-black/50 font-bold mb-1">
+                          <h4 className="text-xl tracking-tight text-black font-bold mb-1">
                             Positioning
                           </h4>
-                          <p className="text-sm md:text-base text-gray-700 leading-relaxed font-light">
+                          <p className="text-sm md:text-base text-black leading-[1.2] font-light">
                             {item.positioning ?? ""}
                           </p>
                         </div>
                       </div>
                     </div>
 
-                    <div className="space-y-4 border-t border-gray-200/50 pt-6">
+                    <div className="border-t border-gray-200/50">
                       <div>
-                        <h4 className="text-xs uppercase tracking-wider text-black/50 font-bold mb-1">
+                        <h4 className="text-xl tracking-tight text-black font-bold mb-1">
                           Range
                         </h4>
-                        <p className="text-sm md:text-base text-black font-medium">
+                        <p className="text-sm md:text-base tracking-tight text-black font-medium">
                           {item.range ?? ""}
                         </p>
                       </div>
 
                       <div>
-                        <h4 className="text-xs uppercase tracking-wider text-black/50 font-bold mb-1">
+                        <h4 className="text-xl tracking-tight text-black font-bold mb-1">
                           Warranty
                         </h4>
-                        <p className="text-sm md:text-base text-black font-medium">
+                        <p className="text-sm md:text-base tracking-tight text-black font-medium">
                           {item.warranty ?? ""}
                         </p>
                       </div>
@@ -151,12 +152,7 @@ const InvertersSliderSection: React.FC<InvertersSliderSectionProps> = ({
           <button
             onClick={handlePrev}
             disabled={index === 0}
-            className={`p-4 rounded-full border border-gray-200 transition-colors cursor-pointer ${
-              index === 0
-                ? "text-gray-300 bg-gray-50 border-gray-100 cursor-not-allowed"
-                : "text-black bg-white hover:bg-gray-50"
-            }`}
-          >
+            className={`p-4 rounded-full border border-gray-200 transition-colors cursor-pointer text-white bg-black border-gray-100 cursor-not-allowed hover:bg-black/60`}>
             <ArrowLeft size={20} />
           </button>
           <button
@@ -164,8 +160,8 @@ const InvertersSliderSection: React.FC<InvertersSliderSectionProps> = ({
             disabled={index >= inverters.length - 2}
             className={`p-4 rounded-full border border-gray-200 transition-colors cursor-pointer ${
               index >= inverters.length - 2
-                ? "text-gray-300 bg-gray-50 border-gray-100 cursor-not-allowed"
-                : "text-black bg-white hover:bg-gray-50"
+                ? "text-white bg-black border-gray-100 cursor-not-allowed"
+                : "text-white bg-black hover:bg-black/60"
             }`}
           >
             <ArrowRight size={20} />

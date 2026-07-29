@@ -22,10 +22,10 @@ const SolarBatteryMeaning = ({ data }: { data: SolarBatteryMeaningData }) => {
   return (
     <section className="bg-white py-16 md:py-24 px-[5%]">
       <div className="max-w-7xl mx-auto text-center mb-12 leading-[1.1]">
-        <h3 className="text-xl md:text-[2.125rem] text-black font-normal leading-[1.2] mb-2">
+        <h3 className="text-xl md:text-[2.125rem] text-black font-normal leading-none">
           {data.topSubtitle}
         </h3>
-        <h2 className="text-4xl md:text-[5rem] text-[#63B846] font-medium leading-tight tracking-tight mb-6">
+        <h2 className="text-4xl md:text-[5rem] text-[#63B846] font-medium leading-none tracking-tight mb-2">
           {data.title}
         </h2>
         <p className="text-base md:text-xl text-black max-w-4xl mx-auto leading-[1.1] font-medium">

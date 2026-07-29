@@ -164,11 +164,11 @@ const EditorialTextSection: React.FC<EditorialTextSectionProps> = ({
     return (
       <section
         ref={sectionRef}
-        className={`w-full bg-white relative overflow-hidden min-h-screen flex flex-col justify-center ${className}`}
+        className={`w-full bg-white relative overflow-hidden min-h-screen flex flex-col justify-center px-[5%]`}
       >
-        <div className="px-[5%] mx-auto w-full">
+        <div className="w-full">
           {headerSection}
-          <div className={`max-w-5xl mx-auto text-lg md:text-3xl font-light leading-tight tracking-tight mt-8 ${paragraphsClass || (align === 'left' ? 'text-left' : align === 'right' ? 'text-right' : 'text-center')}`}>
+          <div className={`text-lg md:text-3xl font-light leading-tight tracking-tight mt-8 ${paragraphsClass || (align === 'left' ? 'text-left' : align === 'right' ? 'text-right' : 'text-center')}`}>
             {paragraphs.map(renderParagraph)}
           </div>
         </div>
@@ -176,11 +176,10 @@ const EditorialTextSection: React.FC<EditorialTextSectionProps> = ({
     );
   }
 
-  return (
-    <div className={`px-[5%] mx-auto ${className}`}>
+  return (    <div className={``}>
       {headerSection}
       <Fade delay={0.2} duration={0.8}>
-        <div className={`max-w-5xl mx-auto text-lg md:text-3xl font-light leading-tight tracking-tight mt-8 ${paragraphsClass || (align === 'left' ? 'text-left' : align === 'right' ? 'text-right' : 'text-center')}`}>
+        <div className={`mx-auto text-lg md:text-3xl font-light leading-tight tracking-tight mt-8 ${paragraphsClass || (align === 'left' ? 'text-left' : align === 'right' ? 'text-right' : 'text-center')}`}>
           {paragraphs.map((para, idx) => (
             <p key={idx} className={para.isSecondary ? 'text-gray-400' : 'text-black'}>
               {para.text}

@@ -93,14 +93,14 @@ const IconCardGrid: React.FC<IconCardGridProps> = ({
                                         )}
                                     </div>
                                 )}
-                            <h3 className="text-xl md:text-[1.35rem] text-black font-bold tracking-tight leading-snug mb-2">
+                            <h3 className="text-xl md:text-[1.35rem] text-black font-normal tracking-tight leading-snug mb-2">
                                 {card.title}
                             </h3>
-                            <p className="text-sm md:text-[15px] text-black/80 leading-snug tracking-tight font-light">
+                            <p className="text-sm md:text-xl text-black leading-snug tracking-tight font-light">
                                 {card.description}
                             </p>
                             {card.specs && (
-                                <p className="text-xs md:text-[13px] text-black/80 leading-snug tracking-tight font-medium mt-2">
+                                <p className="text-xs md:text-sm text-black leading-snug tracking-tight font-bold mt-2">
                                     {card.specs}
                                 </p>
                             )}

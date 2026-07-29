@@ -14,6 +14,7 @@ export default function SplitSectionSection({ resolved }: Props) {
       description={resolved.description}
       image={resolved.image?.src ?? ""}
       imageAlt=""
+      textArrangement="center"
       imagePosition={resolved.imagePosition}
       badge={resolved.badge}
     />

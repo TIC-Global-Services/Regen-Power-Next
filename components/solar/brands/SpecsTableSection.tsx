@@ -26,7 +26,7 @@ const SpecsTableSection: React.FC<SpecsTableSectionProps> = ({ resolved }) => {
           descClass="text-xl leading-tight"
         />
 
-        <Reveal className="rounded-[24px] mt-12 mb-16 max-w-7xl mx-auto overflow-hidden">
+        <Reveal className="rounded-[24px] mt-12 mb-16  overflow-hidden">
           <table className="w-full h-[500px] border-collapse text-center bg-white table-fixed">
             <thead>
               <tr className="h-[100px]">
@@ -38,9 +38,9 @@ const SpecsTableSection: React.FC<SpecsTableSectionProps> = ({ resolved }) => {
                   return (
                     <th
                       key={idx}
-                      className={`bg-[#EEF6EB]/60 p-4 text-black font-normal text-xl border-b border-black ${
+                      className={`bg-[#EEF6EB]/60 p-2 text-black font-normal text-base border-b border-black ${
                         isLastCol ? "" : "border-r"
-                      } overflow-hidden truncate`}
+                      } overflow-hidden `}
                     >
                       {col.brand}
                     </th>

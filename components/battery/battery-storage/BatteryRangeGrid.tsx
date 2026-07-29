@@ -32,7 +32,7 @@ const BatteryRangeGrid = ({ data }: { data: BatteryRangeGridData }) => {
   return (
     <section className="bg-white py-16 md:py-24 px-[5%]">
       {/* Section Header */}
-      <div className="text-center mb-10 md:mb-14">
+      <div className="text-center mb-10 md:mb-14 -space-y-4">
         <h3 className="text-2xl md:text-[2.125rem] text-black font-normal tracking-tight">
           {data.topSubtitle}
         </h3>

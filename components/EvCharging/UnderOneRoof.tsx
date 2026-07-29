@@ -67,7 +67,7 @@ const UnderOneRoof = () => {
                   <h3 className="text-xl md:text-2xl font-medium text-black tracking-tight leading-snug">
                     Battery Boost
                   </h3>
-                  <p className="text-sm text-black/60 leading-relaxed">
+                  <p className="text-sm text-black/60 leading-[1.2]">
                     When The Sun Goes Down, Your Battery Keeps Charging The Car. When The Grid Goes Down, Your Car Keeps Your Home Running.
                   </p>
                 </div>
@@ -91,7 +91,7 @@ const UnderOneRoof = () => {
                   <h3 className="text-xl md:text-2xl font-medium text-black tracking-tight leading-snug">
                     One App
                   </h3>
-                  <p className="text-sm text-black/60 leading-relaxed">
+                  <p className="text-sm text-black/60 leading-[1.2]">
                     Live Monitoring Of Generation, Storage, And EV Charging In A Single Dashboard, Tesla, Sigen, Solar.Web, Or SEMS Depending On The Brand You Choose.
                   </p>
                 </div>

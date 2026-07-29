@@ -38,10 +38,10 @@ const socialLinks = [
 const Footer = () => {
   return (
     <footer 
-      className="relative w-full bg-[#0a0a0a] text-white pt-16 pb-8 px-4 md:px-8 lg:px-16 bg-cover bg-center"
+      className="relative w-full bg-[#0a0a0a] text-white pt-16 pb-8 px-4 md:px-8 lg:px-[5%] bg-cover bg-center"
       style={{ backgroundImage: "url('/footer_bg.svg')" }}
     >
-      <div className="max-w-7xl mx-auto">
+      <div className="">
         {/* Logo Section */}
         <div className="flex justify-center mb-16">
           <Image 

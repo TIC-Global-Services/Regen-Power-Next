@@ -30,7 +30,7 @@ const PackagesGrid: React.FC<PackagesGridProps> = ({
   className = ''
 }) => {
   return (
-    <section className={`py-16 md:py-24 bg-white border-t border-gray-50 ${className}`}>
+    <section className={`py-16 md:py-20 bg-white border-t border-gray-50 ${className}`}>
       <div className="px-[5%] mx-auto">
 
         {/* Header Section */}
@@ -43,7 +43,7 @@ const PackagesGrid: React.FC<PackagesGridProps> = ({
         />
 
         {/* 3-Column Card Layout */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 justify-center items-start mx-auto">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 justify-center items-start max-w-7xl mx-auto">
           {packages.map((pkg, idx) => (
             <Reveal
               key={idx}
