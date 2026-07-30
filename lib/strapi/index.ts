@@ -30,6 +30,7 @@ export {
   getBatteryProductPage,
   getBatteryStoragePage,
   getSmartHomeBatteryPage,
+  getBatteryBrandsPage,
 } from "./fetchers";
 
 export { populate } from "./populate/index";

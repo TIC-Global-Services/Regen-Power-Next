@@ -341,3 +341,22 @@ export {
   SmartHomeBatteryBrandsGridSchema,
   SmartHomeBatteryInstallBentoSchema,
 } from "./smart-home-battery";
+
+export type {
+  BatteryBrandsHeroData,
+  BatteryBrandsBrandLongTermBetData,
+  BatteryBrandsWhatItTakesData,
+  BatteryBrandsSevenBrandData,
+  BatteryBrandsQuickWayData,
+  BatteryBrandsCecApprovedData,
+  BatteryBrandsWhyOurInstallerData,
+} from "./battery-brands";
+export {
+  BatteryBrandsHeroSchema,
+  BatteryBrandsBrandLongTermBetSchema,
+  BatteryBrandsWhatItTakesSchema,
+  BatteryBrandsSevenBrandSchema,
+  BatteryBrandsQuickWaySchema,
+  BatteryBrandsCecApprovedSchema,
+  BatteryBrandsWhyOurInstallerSchema,
+} from "./battery-brands";

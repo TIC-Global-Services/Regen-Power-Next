@@ -325,3 +325,22 @@ export type {
   ResolvedSmartHomeBatteryInstallBento,
   ResolvedSmartHomeBatteryMarquee,
 } from "./smart-home-battery";
+
+export {
+  resolveBatteryBrandsHero,
+  resolveBatteryBrandsBrandLongTermBet,
+  resolveBatteryBrandsWhatItTakes,
+  resolveBatteryBrandsSevenBrand,
+  resolveBatteryBrandsQuickWay,
+  resolveBatteryBrandsCecApproved,
+  resolveBatteryBrandsWhyOurInstaller,
+} from "./battery-brands";
+export type {
+  ResolvedBatteryBrandsHero,
+  ResolvedBatteryBrandsBrandLongTermBet,
+  ResolvedBatteryBrandsWhatItTakes,
+  ResolvedBatteryBrandsSevenBrand,
+  ResolvedBatteryBrandsQuickWay,
+  ResolvedBatteryBrandsCecApproved,
+  ResolvedBatteryBrandsWhyOurInstaller,
+} from "./battery-brands";
