@@ -208,6 +208,35 @@ export type {
 } from "./ev-charging";
 
 export {
+  resolveBatteryStorageHero,
+  resolveBatteryStorageMarquee,
+  resolveBatteryStorageDebsRebate,
+  resolveBatteryStorageJargon,
+  resolveBatteryStorageBillImpact,
+  resolveBatteryStorageRangeGrid,
+  resolveBatteryStorageCapacityBlocks,
+  resolveBatteryStorageGreatFit,
+  resolveBatteryStorageSolarMeaning,
+  resolveBatteryStorageInstallationTimeline,
+  resolveBatteryStorageTeam,
+  resolveBatteryStorageCustomerStories,
+} from "./battery-storage";
+export type {
+  ResolvedBatteryStorageHero,
+  ResolvedBatteryStorageMarquee,
+  ResolvedDebsRebate,
+  ResolvedBatteryStorageJargon,
+  ResolvedBatteryStorageBillImpact,
+  ResolvedBatteryStorageRangeGrid,
+  ResolvedBatteryStorageCapacityBlocks,
+  ResolvedBatteryStorageGreatFit,
+  ResolvedBatteryStorageSolarMeaning,
+  ResolvedBatteryStorageInstallationTimeline,
+  ResolvedBatteryStorageTeam,
+  ResolvedBatteryStorageCustomerStories,
+} from "./battery-storage";
+
+export {
   resolveBatteryProductHero,
   resolveBatteryProductBrandMatters,
   resolveBatteryProductOurBrands,

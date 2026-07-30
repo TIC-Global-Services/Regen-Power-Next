@@ -18,6 +18,7 @@ import * as offGrid from "./populate/off-grid";
 import * as home from "./populate/home";
 import * as evCharging from "./populate/ev-charging";
 import * as batteryProduct from "./populate/battery-product";
+import * as batteryStorage from "./populate/battery-storage";
 
 const PAGE_SLUGS = {
   solar: "solar-page",
@@ -37,6 +38,7 @@ const PAGE_SLUGS = {
   home: "home-page",
   evCharging: "ev-charging-page",
   batteryProduct: "battery-product-page",
+  batteryStorage: "battery-storage-page",
 } as const;
 
 async function getSingleType(
@@ -253,6 +255,23 @@ export const getBatteryProductPage = () =>
       batteryProduct.whatWeCheck,
       batteryProduct.homeowners,
       shared.ctaBanner,
+    )
+  );
+
+export const getBatteryStoragePage = () =>
+  getSingleType(
+    PAGE_SLUGS.batteryStorage,
+    populate(
+      batteryStorage.hero,
+      batteryStorage.debsRebate,
+      batteryStorage.jargon,
+      batteryStorage.billImpact,
+      batteryStorage.rangeGrid,
+      batteryStorage.installationTimeline,
+      batteryStorage.team,
+      batteryStorage.customerStories,
+      shared.faq,
+      shared.ctaBanner
     )
   );
 
