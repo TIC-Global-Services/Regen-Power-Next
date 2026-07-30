@@ -17,6 +17,7 @@ import * as pressMedia from "./populate/press-media";
 import * as offGrid from "./populate/off-grid";
 import * as home from "./populate/home";
 import * as evCharging from "./populate/ev-charging";
+import * as batteryProduct from "./populate/battery-product";
 
 const PAGE_SLUGS = {
   solar: "solar-page",
@@ -35,6 +36,7 @@ const PAGE_SLUGS = {
   faq: "faq-page",
   home: "home-page",
   evCharging: "ev-charging-page",
+  batteryProduct: "battery-product-page",
 } as const;
 
 async function getSingleType(
@@ -236,6 +238,21 @@ export const getEvChargingPage = () =>
       evCharging.stats,
       shared.faq,
       shared.ctaBanner
+    )
+  );
+
+export const getBatteryProductPage = () =>
+  getSingleType(
+    PAGE_SLUGS.batteryProduct,
+    populate(
+      batteryProduct.hero,
+      batteryProduct.brandMatters,
+      batteryProduct.ourBrands,
+      batteryProduct.zeroInterest,
+      batteryProduct.keyTerms,
+      batteryProduct.whatWeCheck,
+      batteryProduct.homeowners,
+      shared.ctaBanner,
     )
   );
 

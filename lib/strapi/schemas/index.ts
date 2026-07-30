@@ -227,6 +227,29 @@ export {
   EvChargingStatsSchema,
 } from "./ev-charging";
 
+export type {
+  BatteryProductHeroData,
+  BatteryProductBrandMattersData,
+  BatteryProductOurBrandsData,
+  BatteryProductZeroInterestData,
+  BatteryProductKeyTermsData,
+  BatteryProductWhatWeCheckData,
+  BatteryProductCompatibleProductsData,
+  BatteryProductHomeownersData,
+  BatteryProductComparisonTableData,
+} from "./battery-product";
+export {
+  BatteryProductHeroSchema,
+  BatteryProductBrandMattersSchema,
+  BatteryProductOurBrandsSchema,
+  BatteryProductZeroInterestSchema,
+  BatteryProductKeyTermsSchema,
+  BatteryProductWhatWeCheckSchema,
+  BatteryProductCompatibleProductsSchema,
+  BatteryProductHomeownersSchema,
+  BatteryProductComparisonTableSchema,
+} from "./battery-product";
+
 export type { ContactHeroData } from "./contact";
 export { ContactHeroSchema } from "./contact";
 

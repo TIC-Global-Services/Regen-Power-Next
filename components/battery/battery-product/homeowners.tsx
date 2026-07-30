@@ -1,41 +1,35 @@
 import React from 'react';
-import FeatureCardGrid, { FeatureCardItem } from '@/reuseables/FeatureCardGrid';
-import businessBg from '@/assets/home/zerointrest/businessBg.jpg';
-import productReviewBg from '@/assets/home/zerointrest/productReviewBg.png';
-import productReviewRating from '@/assets/home/zerointrest/productReviewRating.png';
+import FeatureCardGrid from '@/reuseables/FeatureCardGrid';
 
-const homeownersCards: FeatureCardItem[] = [
-  {
-    title: 'How Solar Batteries\nAre Changing Modern Homes',
-    description: '',
-    image: businessBg,
-    textPosition: 'top',
-    footerTitle: 'May 7, 2026',
-    footerDescription: 'Discover How Battery Storage Helps Homeowners Reduce Grid Dependence, Lower Electricity Bills, And Access Reliable Power Day And Night.',
-  },
-  {
-    title: '5 Ways EV Charging\nWorks Better With Solar',
-    description: '',
-    image: productReviewBg,
-    textPosition: 'top',
-  },
-  {
-    title: 'Why More Australians Are\nSwitching To Renewable\nEnergy',
-    description: '',
-    image: productReviewRating,
-    textPosition: 'top',
-  },
-];
+interface HomeownerCard {
+  title: string;
+  description: string;
+  image: string;
+  textPosition: "top" | "bottom";
+  footerTitle: string;
+  footerDescription: string;
+}
 
-const Homeowners = () => {
+interface HomeownersProps {
+  data: {
+    topSubtitle: string;
+    title: string;
+    cards: HomeownerCard[];
+    showReadMore: boolean;
+    centerButton: boolean;
+    centerButtonText: string;
+  };
+}
+
+const Homeowners = ({ data }: HomeownersProps) => {
   return (
     <FeatureCardGrid
-      topSubtitle="Perth Homeowners."
-      title="Real Bills. Real Savings"
-      cards={homeownersCards}
-      showReadMore={true}
-      centerButton={true}
-      centerButtonText="See 2,000+ Verified Reviews On ProductReview.com.au"
+      topSubtitle={data.topSubtitle}
+      title={data.title}
+      cards={data.cards}
+      showReadMore={data.showReadMore}
+      centerButton={data.centerButton}
+      centerButtonText={data.centerButtonText}
     />
   );
 };

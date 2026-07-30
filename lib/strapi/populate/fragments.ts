@@ -11,3 +11,4 @@ export * as research from "./research";
 export * as reviews from "./reviews";
 export * as home from "./home";
 export * as evCharging from "./ev-charging";
+export * as batteryProduct from "./battery-product";
