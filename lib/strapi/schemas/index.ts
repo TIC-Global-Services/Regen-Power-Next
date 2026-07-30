@@ -360,3 +360,26 @@ export {
   BatteryBrandsCecApprovedSchema,
   BatteryBrandsWhyOurInstallerSchema,
 } from "./battery-brands";
+
+export type {
+  BatteryRebatesHeroData,
+  BatteryRebatesRebatesStackGridData,
+  BatteryRebatesResidentialBatteryData,
+  BatteryRebatesFederalRebateData,
+  BatteryRebatesFinanceOptionData,
+  BatteryRebatesWhatChangesData,
+  BatteryRebatesAreYouEligibleData,
+  BatteryRebatesWhatSigningUpData,
+  BatteryRebatesRebateDetailSplitData,
+} from "./battery-rebates";
+export {
+  BatteryRebatesHeroSchema,
+  BatteryRebatesRebatesStackGridSchema,
+  BatteryRebatesResidentialBatterySchema,
+  BatteryRebatesFederalRebateSchema,
+  BatteryRebatesFinanceOptionSchema,
+  BatteryRebatesWhatChangesSchema,
+  BatteryRebatesAreYouEligibleSchema,
+  BatteryRebatesWhatSigningUpSchema,
+  BatteryRebatesRebateDetailSplitSchema,
+} from "./battery-rebates";

@@ -344,3 +344,26 @@ export type {
   ResolvedBatteryBrandsCecApproved,
   ResolvedBatteryBrandsWhyOurInstaller,
 } from "./battery-brands";
+
+export {
+  resolveBatteryRebatesHero,
+  resolveBatteryRebatesRebatesStackGrid,
+  resolveBatteryRebatesResidentialBattery,
+  resolveBatteryRebatesFederalRebate,
+  resolveBatteryRebatesFinanceOption,
+  resolveBatteryRebatesWhatChanges,
+  resolveBatteryRebatesAreYouEligible,
+  resolveBatteryRebatesWhatSigningUp,
+  resolveBatteryRebatesRebateDetailSplit,
+} from "./battery-rebates";
+export type {
+  ResolvedBatteryRebatesHero,
+  ResolvedBatteryRebatesRebatesStackGrid,
+  ResolvedBatteryRebatesResidentialBattery,
+  ResolvedBatteryRebatesFederalRebate,
+  ResolvedBatteryRebatesFinanceOption,
+  ResolvedBatteryRebatesWhatChanges,
+  ResolvedBatteryRebatesAreYouEligible,
+  ResolvedBatteryRebatesWhatSigningUp,
+  ResolvedBatteryRebatesRebateDetailSplit,
+} from "./battery-rebates";

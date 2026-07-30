@@ -1,324 +1,76 @@
 import React from 'react';
+import { getBatteryRebatesPage } from '@/lib/strapi';
+import { findSection } from '@/lib/strapi/section-utils';
+import {
+  resolveBatteryRebatesHero,
+  resolveBatteryRebatesRebatesStackGrid,
+  resolveBatteryRebatesResidentialBattery,
+  resolveBatteryRebatesFederalRebate,
+  resolveBatteryRebatesFinanceOption,
+  resolveBatteryRebatesWhatChanges,
+  resolveBatteryRebatesAreYouEligible,
+  resolveBatteryRebatesWhatSigningUp,
+  resolveBatteryRebatesRebateDetailSplit,
+  resolveSharedFaq,
+  resolveSharedCtaBanner,
+} from '@/lib/strapi/resolvers';
+import type {
+  BatteryRebatesHeroData,
+  BatteryRebatesRebatesStackGridData,
+  BatteryRebatesResidentialBatteryData,
+  BatteryRebatesFederalRebateData,
+  BatteryRebatesFinanceOptionData,
+  BatteryRebatesWhatChangesData,
+  BatteryRebatesAreYouEligibleData,
+  BatteryRebatesWhatSigningUpData,
+  BatteryRebatesRebateDetailSplitData,
+  SharedFaqData,
+  SharedCtaBannerData,
+} from '@/lib/strapi/schemas';
 
-import Hero from '@/reuseables/Hero';
-import FAQ, { FAQItem } from '@/reuseables/faq';
+import HeroSection from '@/components/battery/government-rebates/Hero';
+import RebatesStackGrid from '@/components/battery/government-rebates/RebatesStackGrid';
+import ResidentialBattery from '@/components/battery/government-rebates/ResidentialBattery';
+import FederalRebates from '@/components/battery/government-rebates/fedrealRebates';
+import FinanceOption from '@/components/battery/government-rebates/financeOption';
+import WhatChanges from '@/components/battery/government-rebates/whatchanges';
+import Areyoueligible from '@/components/battery/government-rebates/areyoueligible';
+import WhatSigningUp from '@/components/battery/government-rebates/whatsigningup';
+import RebateDetailSplit from '@/components/battery/government-rebates/RebateDetailSplit';
+import BatteryFAQ from '@/components/battery/battery-storage/BatteryFAQ';
 import GetSolar from '@/reuseables/getsolar';
 
-import RebatesStackGrid, { RebatesStackGridData } from '@/components/battery/government-rebates/RebatesStackGrid';
-import RebateDetailSplit, { RebateDetailSplitData } from '@/components/battery/government-rebates/RebateDetailSplit';
-import TextCardsGrid, { TextCardsGridData } from '@/components/battery/government-rebates/TextCardsGrid';
-import ResidentialBattery, { SchemeDataItem } from '@/components/battery/government-rebates/ResidentialBattery';
-import FederalRebates, { FederalRebateData } from '@/components/battery/government-rebates/fedrealRebates';
-import FinanceOption, { FinanceOptionData } from '@/components/battery/government-rebates/financeOption';
-import WhatChanges, { WhatChangesData } from '@/components/battery/government-rebates/whatchanges';
-import WhatSigningUp, { WhatSigningUpData } from '@/components/battery/government-rebates/whatsigningup';
+export const revalidate = 60;
 
-import heroBanner from '@/assets/evcharging/hero_banner.png';
-import businessBg from '@/assets/home/zerointrest/businessBg.jpg';
-import productReviewBg from '@/assets/home/zerointrest/productReviewBg.png';
-import forYourHome from '@/assets/for_your_home.png';
-import solarBatteryCharging from '@/assets/solar_battery_charging.png';
-import Areyoueligible,{ areyoueligibleData } from '@/components/battery/government-rebates/areyoueligible';
+export default async function GovernmentRebatesPage() {
+  const { data: pageData } = await getBatteryRebatesPage();
+  const sections = pageData.sections ?? [];
 
+  const hero = resolveBatteryRebatesHero(findSection<BatteryRebatesHeroData>(sections, "battery-rebates.hero"));
+  const rebatesStackGrid = resolveBatteryRebatesRebatesStackGrid(findSection<BatteryRebatesRebatesStackGridData>(sections, "battery-rebates.rebates-stack-grid"));
+  const residentialBattery = resolveBatteryRebatesResidentialBattery(findSection<BatteryRebatesResidentialBatteryData>(sections, "battery-rebates.residential-battery"));
+  const federalRebate = resolveBatteryRebatesFederalRebate(findSection<BatteryRebatesFederalRebateData>(sections, "battery-rebates.federal-rebate"));
+  const financeOption = resolveBatteryRebatesFinanceOption(findSection<BatteryRebatesFinanceOptionData>(sections, "battery-rebates.finance-option"));
+  const whatChanges = resolveBatteryRebatesWhatChanges(findSection<BatteryRebatesWhatChangesData>(sections, "battery-rebates.what-changes"));
+  const areYouEligible = resolveBatteryRebatesAreYouEligible(findSection<BatteryRebatesAreYouEligibleData>(sections, "battery-rebates.are-you-eligible"));
+  const whatSigningUp = resolveBatteryRebatesWhatSigningUp(findSection<BatteryRebatesWhatSigningUpData>(sections, "battery-rebates.what-signing-up"));
+  const rebateDetailSplit = resolveBatteryRebatesRebateDetailSplit(findSection<BatteryRebatesRebateDetailSplitData>(sections, "battery-rebates.rebate-detail-split"));
+  const faq = resolveSharedFaq(findSection<SharedFaqData>(sections, "shared.faq"));
+  const cta = resolveSharedCtaBanner(findSection<SharedCtaBannerData>(sections, "shared.cta-banner"));
 
-
-const rebatesStackData: RebatesStackGridData = {
-    title: 'Three Rebates That Stack',
-    subtitle: "Unlike most rebate programs, WA's battery incentives don't force you to choose between them — you claim all three that apply.",
-    cards: [
-        {
-            title: 'WA Residential Battery Scheme (state)',
-            items: [
-                'Synergy customers: $130 per usable kWh, capped at $1,300 (10 kWh cap)',
-                'Horizon Power customers: $380 per usable kWh, capped at $3,800',
-                'Requirement: VPP participation, approved product, approved installer'
-            ]
-        },
-        {
-            title: 'Cheaper Home Batteries Program (federal)',
-            items: [
-                'Delivered via Small-scale Technology Certificates (STCs), generated by your installer and applied as an upfront discount',
-                'Approximately $311–$372 per usable kWh in 2026 (before 1 May tiering)',
-                'On a 10 kWh battery: roughly $3,720 off at current STC prices',
-                'Requirement: Battery must be VPP-compatible (participation not required for federal rebate alone)'
-            ]
-        },
-        {
-            title: 'Interest-free loan (Plenti, via WA Government)',
-            items: [
-                'Up to $10,000 at 0% interest over 3–10 years',
-                'Requirement: Combined household income under $210,000',
-                'Synergy: up to $5,000 combined rebate + up to $10,000 interest-free loan',
-                'Horizon: up to $7,500 combined rebate + up to $10,000 interest-free loan'
-            ]
-        }
-    ]
-};
-
-const waSchemeData: RebateDetailSplitData = {
-    topSubtitle: 'Vendor-led',
-    title: 'You don\'t fill out forms, we do',
-    description: "The WA Residential Battery Scheme is a vendor-led process. That means the battery vendor submits the rebate application on your behalf, through the WA Government portal. It's designed to reduce paperwork friction for homeowners.",
-    image: heroBanner,
-    topBoxTitle:"What we do:",
-    topBoxItems: [
-        'Home assessment and sizing (tell us what you want)',
-        'Quote with rebate pre-applied',
-        'Rebate and loan application lodged via the Plenti approved vendor portal (you sign consent forms',
-        'If loan selected: Plenti contacts you for credit check and documents',
-        'Battery install (typically 1 day on site)',
-        'VPP enrolment with Synergy or Horizon Power',
-        'Rebate processed and discount already applied to your invoice',
-    ],
-    bottomBoxTitle: 'What you do:',
-    bottomBoxItems: [
-        'Approve the quote',
-        'Be home on install day',
-        'Sign consent forms',
-        'Enjoy lower bills starting that week'
-    ]
-};
-
-const rebateFaqs: FAQItem[] = [
-    {
-        question: 'Q1: Is the rebate taxable?',
-        answer: 'No. The rebate is applied as an upfront discount at installation; there\'s no ongoing obligation tied to the property. If you sell, the battery stays, the savings continue for the new owner.'
-    },
-    {
-        question: 'Q2: Do I need to pay the rebate back if I sell my home?',
-        answer: 'No. The rebate is applied as an upfront discount at installation; there\'s no ongoing obligation tied to the property. If you sell, the battery stays, the savings continue for the new owner.'
-    },
-    {
-        question: 'Q3: Can I claim both the WA and federal battery rebates on the same battery?',
-        answer: 'Yes, both rebates stack for eligible households, providing a significantly lower upfront cost.'
-    },
-    {
-        question: 'Q4: What happens if I don\'t join a VPP?',
-        answer: 'VPP participation is mandatory for the WA Residential Battery Scheme. If you do not join a VPP, you will not be eligible for the state-level rebate, but you may still qualify for the federal rebate.'
-    },
-    {
-        question: 'Q5: Can renters apply?',
-        answer: 'Yes, renters can apply provided they have the landlord\'s consent.'
-    },
-    {
-        question: 'Q6: What if my battery isn\'t on the Supported Solutions List?',
-        answer: 'If the battery is not on the Supported Solutions List, it will not be eligible for the WA Residential Battery Scheme rebate. All batteries we install meet this criteria.'
-    }
-];
-
-const residentialBatteryData: SchemeDataItem[] = [
-  {
-    subtitle: "WA Residential Battery Scheme",
-    title: "We Don't Install Every Battery On The Market. The Brands Below Cleared A Specific Bar:",
-    description: "The WA Government's State-Level Rebate, Open For Applications Since 1 July 2025. Administered Through Approved Vendors — You Don't Apply Directly; We Do It For You.",
-    listItems: [
-      "Launch Date: 1 July 2025",
-      "Total Rebates Allocated: 100,000 (Expected To Last Into 2027)",
-      "Rebate Amount: $130/KWh (Synergy, Capped At $1,300) Or $380/KWh (Horizon Power, Capped At $3,800)",
-      "Eligible Battery Size: 5 KWh Minimum; Rebate Capped At First 10 KWh Of Usable Capacity",
-      "Owner-Occupier Only (Renters With Landlord Consent Are Eligible)",
-      "One Rebate Per Property",
-      "Battery Must Be On The Synergy Or Horizon Power Supported Solutions List",
-      "Installer Must Be SAA-Accredited And Listed On The Plenti Vendor Directory (We Are)",
-      "VPP Participation Is MANDATORY (2-Year Agreement)",
-    ],
-    timingText: "Timing: The Scheme Is Vendor-Led And Processed Through The WA Government Portal. Typical Timeline From Application To Installation Is 4–6 Weeks.",
-    taxText: "Tax Treatment: Government Rebates Under This Scheme Are Not Assessable Income. You Don't Declare Them On Your Tax Return.",
-    image: forYourHome,
-  }
-];
-
-const federalRebatesData: FederalRebateData[] = [
-  {
-    sectionSubtitle: "Cheaper Home Batteries Program",
-    sectionTitle: "The Federal Rebate",
-    sectionDescription: "The Australian Government's Federal Rebate, Delivered Through The Small-Scale Renewable Energy Scheme (SRES) — The Same Mechanism That Has Funded Solar Rebates For Over A Decade.",
-    keySpecsTitle: "Key Specs:",
-    keySpecsBulletPoints: [
-      "Rebate Value: Approximately $311–$372 Per Usable KWh In 2026 (STC-Market-Dependent)",
-      "Applied Upfront As A Discount On Your Invoice — Your Installer Generates The Small-Scale Technology Certificates And Passes The Value To You",
-      "No Paperwork For You; We Handle STC Generation"
-    ],
-    firstImage: forYourHome,
-    eligibleCapacityTitle: "Eligible Capacity:",
-    eligibleCapacityText: "Up To 50 KWh Of Usable Battery Capacity (Federal).",
-    importantNoteTitle: "Important:",
-    importantNoteText: "From 1 May 2026, The Federal Rebate Tiers Down On Larger Systems. See Section 6 For Deadline Detail.",
-    secondImage: forYourHome,
-    combinedSchemeText: "Combined With WA Scheme: The Two Rebates Stack. On A 10 KWh Battery, You Receive Both The State Rebate (Up To $1,300 Or $3,800) AND The Federal Rebate (Approximately $3,720) As Upfront Discounts.",
-    eligibilityTitle: "Eligibility:",
-    eligibilityBulletPoints: [
-      "Australian Residential Property",
-      "Battery Must Be VPP-Compatible (Participation Not Required)",
-      "Battery Must Be CEC-Approved",
-      "Installer Must Be CEC-Accredited (We Are)"
-    ]
-  }
-];
-
-const financeOptionData: FinanceOptionData[] = [
-  {
-    sectionTitle: "The Zero-Interest Finance Option",
-    sectionSubtitle: "The WA Government Provides A No-Interest Loan — Administered By Plenti — For Eligible Households Who Want To Finance A Battery Without The Out-Of-Pocket Cost.",
-    sections: [
-      {
-        title: "Who's Eligible:",
-        listItems: [
-          "WA Resident Aged 18+ (Australian Permanent Resident)",
-          "Synergy Or Horizon Power Customer",
-          "Combined Household Gross Income Under $210,000",
-          "Standard Credit Checks Apply"
-        ],
-        image: forYourHome
-      },
-      {
-        title: "What It Can Fund:",
-        listItems: [
-          "The Battery Itself",
-          "Inverter Upgrades Needed To Support The Battery",
-          "New Or Upgraded Solar Installed At The Same Time As The Battery"
-        ],
-        image: forYourHome
-      },
-      {
-        title: "How It Works:",
-        listItems: [
-          "You Select The Loan Amount At The Quote Stage",
-          "Plenti Runs A Credit Check And Processes Documents",
-          "The Loan Covers The Balance After Rebates",
-          "Repayments Start Once The System Is Installed And Commissioned"
-        ],
-        image: forYourHome
-      }
-    ]
-  }
-];
-
-const whatChangesData: WhatChangesData = {
-  title: 'What Changes On 1 May 2026',
-  subtitle: 'Two Significant Changes Land On The Same Day. Both Affect Customers Installing From That Date Onwards.',
-  card1: {
-    title: 'Federal Rebate Tiers Down On Larger Systems',
-    description: 'The Cheaper Home Batteries Program Reduces Its Per-KWh Rate On Larger Battery Capacities. The Rebate On A Standard 10 KWh Residential Battery Is The Most Affected Category For The Typical Perth Household. Rough Indicative Impact: $500–$800 Less Out Of Pocket On The Same Battery Installed 30 April Vs 2 May.',
-  },
-  card2: {
-    title: 'New WA SWIS Technical Connection Rules',
-    description: 'From 1 May 2026, All New And Upgraded Rooftop Solar And Battery Systems In The SWIS (Perth, South West, Great Southern) Must Meet Updated Connection And Commissioning Requirements Set By Western Power And Energy Policy WA:',
-    bullets: [
-      'Emergency Solar Management (ESM) Compliance — Remote Disconnect/Reconnect Capability OR A Fixed 1.5 KW Export Limit',
-      'Increased Inverter Capacity Allowance Up To 30 KVA (From Previous Limits), With ESM Conditions',
-      'New Western Power WEM Procedure For Standard Small User Facilities Applies',
-    ],
-  },
-  card3: {
-    title: 'What Existing Customers Should Know:',
-    description: 'Systems Installed Before 1 May 2026 Are NOT Retroactively Required To Meet The New Rules. Your Existing System Keeps Its Current Connection Arrangement.',
-  },
-  card4: {
-    title: 'What This Means For You:',
-    description: 'If You\'re Considering A Battery, Every Week Of Delay Past 1 May 2026 Costs Money. Our Recommendation: Get A Quote In April And Confirm Install Before The Deadline.',
-  },
-};
-
-const whatSigningUpData: WhatSigningUpData = {
-  title: "What Signing Up To A VPP Actually Means",
-  subtitle: "VPP Participation Is A Requirement Of The WA Residential Battery Scheme — But It's Also A Revenue Stream. Here's What You're Agreeing To And What You Get In Return.",
-  vppCardsLeft: [
-    {
-      title: "Synergy",
-      subtitle: "(SWIS — Most Of Perth And The South West):",
-      text: "Join The Synergy Battery Rewards Program With A Simple 2-Year Agreement And Earn Rewards By Exporting Stored Battery Energy During Activation Events, Typically Held Up To 30 Times A Year Between 3 Pm And 9 Pm On High-Demand Days. Each Event Lasts Only A Few Hours, And You'll Receive $0.70 Per KWh For The Energy You Export. Any Electricity You Draw From The Grid During These Events Is Offset With Energy Credits, Ensuring You're Never Out Of Pocket, With Credits Applied To Your Synergy Bill Each Quarter.",
-    },
-    {
-      title: "Horizon Power",
-      subtitle: "(Regional WA Customers):",
-      text: "Horizon Power customers sign a 2-year VPP agreement tailored for regional microgrids. Earn premium export rewards up to $380/kWh capacity rebate, helping balance local network demand during peak periods while generating direct quarterly bill credits for your account.",
-    },
-  ],
-  vppCardsRight: [
-    {
-      title: "Alternative VPP Products",
-      subtitle: "(Synergy Customers Only):",
-      text: "You Can Also Choose An Alternative Virtual Power Plant (VPP) Program Instead Of Synergy Battery Rewards, Provided It Is Offered By Your Battery Supplier, Compatible With Your System, Delivers Value Through Credits Or Payments, And Is Supported By Genuine Grid Market Revenue Streams.",
-    },
-    {
-      title: "Key Program Guarantees",
-      subtitle: "(What You Retain & Protect):",
-      text: "Participating in a VPP does not sacrifice your home's blackout backup. Your battery always reserves energy for outages, and event dispatches are capped and managed intelligently so you never draw high-peak power unneeded.",
-    },
-  ],
-};
-
-const areyoueligible: areyoueligibleData = {
-  title: 'Check these five items',
-  subtitle: 'Are you eligible?',
-  bottomSubtitle:"If all five apply to you, you qualify for the full WA + federal rebate stack. Most Perth homeowners do.",
-  description: 'Answered yes to 1–5? Book a free quote and we handle the rest. Unsure about any? Call us on 08 9456 3491 and we\'ll talk it through.',
-  image: solarBatteryCharging,
-  imageAlt: 'Solar panels on a roof at sunset',
-  items: [
-    {
-      title: 'You\'re an owner-occupier (or a renter with landlord consent)',
-    },
-    {
-      title: 'Your property is in Western Australia on the Synergy or Horizon Power network',
-
-    },
-    {
-      title: 'You haven\'t previously received a rebate under the WA Residential Battery Scheme on this property (one per property)',
-    },
-    {
-      title: 'Your property has a reliable internet connection (required for VPP)',
-    },
-    {
-      title: 'You\'re willing to join a Virtual Power Plant (2-year agreement)',
-    },
-  ],
-};
-
-
-const GovernmentRebatesPage = () => {
-    return (
-        <main className="w-full min-h-screen">
-            <Hero
-                mediaSrc={heroBanner}
-                mediaType="image"
-                imageClass="object-cover"
-                topSubtitle="WA Battery Rebates 2026"
-                mainTitle="Claim Up To $7,500 Off Your Battery"
-                description="Three rebates stack on a 10 kWh battery in WA: up to $1,300 (Synergy) or $3,800 (Horizon) from the state, ~$3,720 from the federal Cheaper Home Batteries Program, and a $10,000 interest-free loan if you qualify. This guide walks you through all three."
-                ctaText="Get Your Free Quote"
-                ctaLink="#quote"
-                subtitleColor="text-white"
-                descriptionColor="text-white"
-                showOverlay={true}
-            />
-
-            <RebatesStackGrid data={rebatesStackData} />
-            <ResidentialBattery data={residentialBatteryData} />
-            <FederalRebates data={federalRebatesData} />
-            <FinanceOption data={financeOptionData} />
-            <WhatChanges data={whatChangesData} />
-            <Areyoueligible data={areyoueligible} />
-            <WhatSigningUp data={whatSigningUpData} />
-            <RebateDetailSplit data={waSchemeData} />
-            <FAQ
-                topTitle="FAQ"
-                title="Entries"
-                listTitle="Frequently Asked Questions"
-                items={rebateFaqs}
-                image={businessBg}
-            />
-
-            <GetSolar
-                subtitle="Check your rebate eligibility"
-                mainTitle="In 30 Seconds"
-                description="Three questions. You'll know immediately whether you qualify for the full combined rebate stack, and we'll follow up with a personalised quote that pre-applies your rebate value."
-                buttonText="Check My Rebate Eligibility"
-                bgImage={forYourHome}
-            />
-        </main>
-    );
-};
-
-export default GovernmentRebatesPage;
+  return (
+    <main className="w-full min-h-screen">
+      {hero && <HeroSection data={hero} />}
+      {rebatesStackGrid && <RebatesStackGrid data={rebatesStackGrid} />}
+      {residentialBattery && <ResidentialBattery data={[residentialBattery]} />}
+      {federalRebate && <FederalRebates data={[federalRebate]} />}
+      {financeOption && <FinanceOption data={[financeOption]} />}
+      {whatChanges && <WhatChanges data={whatChanges} />}
+      {areYouEligible && <Areyoueligible data={areYouEligible} />}
+      {whatSigningUp && <WhatSigningUp data={whatSigningUp} />}
+      {rebateDetailSplit && <RebateDetailSplit data={rebateDetailSplit} />}
+      {faq && <BatteryFAQ data={{ topTitle: faq.sectionTitle, title: faq.title, listTitle: faq.listTitle, image: faq.image?.src ?? "", items: faq.items }} />}
+      {cta && <GetSolar subtitle={cta.subtitle} mainTitle={cta.mainTitle} description={cta.description} buttonText={cta.buttonText} bgImage={cta.bgImage ?? ""} />}
+    </main>
+  );
+}

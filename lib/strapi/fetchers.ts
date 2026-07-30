@@ -21,6 +21,7 @@ import * as batteryProduct from "./populate/battery-product";
 import * as batteryStorage from "./populate/battery-storage";
 import * as smartHomeBattery from "./populate/smart-home-battery";
 import * as batteryBrands from "./populate/battery-brands";
+import * as batteryRebates from "./populate/battery-rebates";
 
 const PAGE_SLUGS = {
   solar: "solar-page",
@@ -43,6 +44,7 @@ const PAGE_SLUGS = {
   batteryStorage: "battery-storage-page",
   smartHomeBattery: "smart-home-battery-page",
   batteryBrands: "battery-brands-page",
+  batteryRebates: "government-rebates-page",
 } as const;
 
 async function getSingleType(
@@ -300,6 +302,24 @@ export const getBatteryBrandsPage = () =>
       batteryBrands.whatItTakes,
       batteryBrands.quickWay,
       batteryBrands.whyOurInstaller,
+      shared.faq,
+      shared.ctaBanner
+    )
+  );
+
+export const getBatteryRebatesPage = () =>
+  getSingleType(
+    PAGE_SLUGS.batteryRebates,
+    populate(
+      batteryRebates.hero,
+      batteryRebates.rebatesStackGrid,
+      batteryRebates.residentialBattery,
+      batteryRebates.federalRebate,
+      batteryRebates.financeOption,
+      batteryRebates.whatChanges,
+      batteryRebates.areYouEligible,
+      batteryRebates.whatSigningUp,
+      batteryRebates.rebateDetailSplit,
       shared.faq,
       shared.ctaBanner
     )
