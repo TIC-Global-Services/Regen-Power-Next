@@ -324,3 +324,20 @@ export {
   OverlayCardGridSchema,
   OffGridFormSchema,
 } from "./off-grid";
+
+export type {
+  SmartHomeBatteryHeroData,
+  SmartHomeBatteryGreatFitData,
+  SmartHomeBatterySplitSectionData,
+  SmartHomeBatteryTimelineData,
+  SmartHomeBatteryBrandsGridData,
+  SmartHomeBatteryInstallBentoData,
+} from "./smart-home-battery";
+export {
+  SmartHomeBatteryHeroSchema,
+  SmartHomeBatteryGreatFitSchema,
+  SmartHomeBatterySplitSectionSchema,
+  SmartHomeBatteryTimelineSchema,
+  SmartHomeBatteryBrandsGridSchema,
+  SmartHomeBatteryInstallBentoSchema,
+} from "./smart-home-battery";

@@ -19,6 +19,7 @@ import * as home from "./populate/home";
 import * as evCharging from "./populate/ev-charging";
 import * as batteryProduct from "./populate/battery-product";
 import * as batteryStorage from "./populate/battery-storage";
+import * as smartHomeBattery from "./populate/smart-home-battery";
 
 const PAGE_SLUGS = {
   solar: "solar-page",
@@ -39,6 +40,7 @@ const PAGE_SLUGS = {
   evCharging: "ev-charging-page",
   batteryProduct: "battery-product-page",
   batteryStorage: "battery-storage-page",
+  smartHomeBattery: "smart-home-battery-page",
 } as const;
 
 async function getSingleType(
@@ -270,6 +272,18 @@ export const getBatteryStoragePage = () =>
       batteryStorage.installationTimeline,
       batteryStorage.team,
       batteryStorage.customerStories,
+      shared.faq,
+      shared.ctaBanner
+    )
+  );
+
+export const getSmartHomeBatteryPage = () =>
+  getSingleType(
+    PAGE_SLUGS.smartHomeBattery,
+    populate(
+      smartHomeBattery.hero,
+      smartHomeBattery.splitSection,
+      smartHomeBattery.brandsGrid,
       shared.faq,
       shared.ctaBanner
     )

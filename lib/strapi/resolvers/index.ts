@@ -306,3 +306,22 @@ export type {
   ResolvedOverlayCardGrid,
   ResolvedOffGridForm,
 } from "./off-grid";
+
+export {
+  resolveSmartHomeBatteryHero,
+  resolveSmartHomeBatteryGreatFit,
+  resolveSmartHomeBatterySplitSection,
+  resolveSmartHomeBatteryTimeline,
+  resolveSmartHomeBatteryBrandsGrid,
+  resolveSmartHomeBatteryInstallBento,
+  resolveSmartHomeBatteryMarquee,
+} from "./smart-home-battery";
+export type {
+  ResolvedSmartHomeBatteryHero,
+  ResolvedSmartHomeBatteryGreatFit,
+  ResolvedSmartHomeBatterySplitSection,
+  ResolvedSmartHomeBatteryTimeline,
+  ResolvedSmartHomeBatteryBrandsGrid,
+  ResolvedSmartHomeBatteryInstallBento,
+  ResolvedSmartHomeBatteryMarquee,
+} from "./smart-home-battery";

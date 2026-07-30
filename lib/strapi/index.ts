@@ -29,6 +29,7 @@ export {
   getEvChargingPage,
   getBatteryProductPage,
   getBatteryStoragePage,
+  getSmartHomeBatteryPage,
 } from "./fetchers";
 
 export { populate } from "./populate/index";
