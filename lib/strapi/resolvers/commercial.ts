@@ -29,9 +29,8 @@ export function resolveCommercialSystemsHero(
 ): ResolvedCommercialSystemsHero | null {
   if (!data) return null;
   const img = data.backgroundImage ? strapiImageData(data.backgroundImage) : null;
-  if (!img) return null;
   return {
-    mediaSrc: img.src,
+    mediaSrc: img?.src ?? "",
     topSubtitle: data.subtitle ?? "",
     mainTitle: data.mainTitle ?? "",
     description: data.description ?? "",
@@ -336,9 +335,8 @@ export function resolveCommercialOffGridHero(
 ): ResolvedCommercialOffGridHero | null {
   if (!data) return null;
   const img = data.backgroundImage ? strapiImageData(data.backgroundImage) : null;
-  if (!img) return null;
   return {
-    mediaSrc: img.src,
+    mediaSrc: img?.src ?? "",
     topSubtitle: data.subtitle ?? "",
     mainTitle: data.mainTitle ?? "",
     description: data.description ?? "",

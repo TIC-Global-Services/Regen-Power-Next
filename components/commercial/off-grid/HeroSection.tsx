@@ -8,8 +8,6 @@ interface Props {
 }
 
 export default function HeroSection({ resolved }: Props) {
-  if (!resolved.mediaSrc) return null;
-
   return (
     <Hero
       mediaSrc={resolved.mediaSrc}

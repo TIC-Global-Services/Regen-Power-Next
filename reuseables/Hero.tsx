@@ -44,30 +44,31 @@ const Hero: React.FC<HeroProps> = ({
     const height = heightClass || (isFullScreen ? 'h-screen min-h-[600px]' : 'md:h-[600px]');
     return (
         <section className={`relative w-full flex flex-col justify-end pb-12 md:pb-10 ${height}`}>
-            <div className="absolute inset-0 z-0">
-                {mediaType === 'video' ? (
-                    <video
-                        src={videoFile}
-                        className="w-full h-full object-cover"
-                        autoPlay
-                        loop
-                        muted
-                        playsInline
-                    />
-                ) : (
-                    <Image
-                        src={mediaSrc}
-                        alt="Hero Background"
-                        fill
-                        className={imageClass}
-                        priority
-                    />
-                )}
-                {/* Gradient Overlay for text readability at the bottom */}
-                {showOverlay && (
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
-                )}
-            </div>
+            {mediaSrc && (
+                <div className="absolute inset-0 z-0">
+                    {mediaType === 'video' ? (
+                        <video
+                            src={videoFile}
+                            className="w-full h-full object-cover"
+                            autoPlay
+                            loop
+                            muted
+                            playsInline
+                        />
+                    ) : (
+                        <Image
+                            src={mediaSrc}
+                            alt="Hero Background"
+                            fill
+                            className={imageClass}
+                            priority
+                        />
+                    )}
+                    {showOverlay && (
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
+                    )}
+                </div>
+            )}
 
             {/* Content Area */}
             <div className="relative z-10 w-full px-[5%] flex flex-col md:flex-row md:items-end justify-between gap-8 pt-32">

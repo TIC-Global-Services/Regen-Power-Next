@@ -7,8 +7,6 @@ interface Props {
 }
 
 const RDHero = ({ resolved }: Props) => {
-  if (!resolved.mediaSrc) return null;
-
   return (
     <Hero
       mediaSrc={resolved.mediaSrc}

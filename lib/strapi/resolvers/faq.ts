@@ -14,9 +14,8 @@ export function resolveFaqHero(
 ): ResolvedFaqHero | null {
   if (!data) return null;
   const img = data.backgroundImage ? strapiImageData(data.backgroundImage) : null;
-  if (!img) return null;
   return {
-    mediaSrc: img.src,
+    mediaSrc: img?.src ?? "",
     subtitle: data.subtitle ?? "",
     title: data.title ?? "",
     description: data.description ?? "",
