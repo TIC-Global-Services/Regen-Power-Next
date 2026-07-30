@@ -175,6 +175,58 @@ export {
   ReviewsCtaBannerSchema,
 } from "./reviews";
 
+export type {
+  HomeHeroData,
+  HomeAwardsData,
+  HomeWhyChooseUsData,
+  HomeExpertiseData,
+  HomeSolarAndStorageData,
+  HomePartnersAndMembershipData,
+  HomeThreeWaysToPayData,
+  HomeCraftsmanshipData,
+  HomeRealStoriesData,
+  HomeSmartSolarData,
+  HomeBatteryQuoteData,
+} from "./home";
+export {
+  HomeHeroSchema,
+  HomeAwardsSchema,
+  HomeWhyChooseUsSchema,
+  HomeExpertiseSchema,
+  HomeSolarAndStorageSchema,
+  HomePartnersAndMembershipSchema,
+  HomeThreeWaysToPaySchema,
+  HomeCraftsmanshipSchema,
+  HomeRealStoriesSchema,
+  HomeSmartSolarSchema,
+  HomeBatteryQuoteSchema,
+} from "./home";
+
+export type {
+  EvChargingHeroData,
+  EvChargingWallConnectorData,
+  EvChargingChargerProductsData,
+  EvChargingInstallerBrandsData,
+  EvChargingBenefitCardsData,
+  EvChargingHomeBatteryData,
+  EvChargingFeatureCardsData,
+  EvChargingInstallationStepsData,
+  EvChargingStatsData,
+  EvChargingFaqData,
+  EvChargingCtaBannerData,
+} from "./ev-charging";
+export {
+  EvChargingHeroSchema,
+  EvChargingWallConnectorSchema,
+  EvChargingChargerProductsSchema,
+  EvChargingInstallerBrandsSchema,
+  EvChargingBenefitCardsSchema,
+  EvChargingHomeBatterySchema,
+  EvChargingFeatureCardsSchema,
+  EvChargingInstallationStepsSchema,
+  EvChargingStatsSchema,
+} from "./ev-charging";
+
 export type { ContactHeroData } from "./contact";
 export { ContactHeroSchema } from "./contact";
 

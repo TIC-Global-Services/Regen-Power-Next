@@ -10,7 +10,8 @@ export interface StrapiSingleTypePage {
   createdAt: string;
   updatedAt: string;
   publishedAt: string | null;
-  sections: StrapiSection[];
+  sections?: StrapiSection[];
+  data?: StrapiSection[];
 }
 
 export interface StrapiResponse<T> {

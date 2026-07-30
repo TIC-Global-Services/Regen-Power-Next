@@ -25,6 +25,8 @@ export {
   getReviewsPage,
   getContactPage,
   getFaqPage,
+  getHomePage,
+  getEvChargingPage,
 } from "./fetchers";
 
 export { populate } from "./populate/index";

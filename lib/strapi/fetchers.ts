@@ -15,6 +15,8 @@ import * as blog from "./populate/blog";
 import * as portfolio from "./populate/portfolio";
 import * as pressMedia from "./populate/press-media";
 import * as offGrid from "./populate/off-grid";
+import * as home from "./populate/home";
+import * as evCharging from "./populate/ev-charging";
 
 const PAGE_SLUGS = {
   solar: "solar-page",
@@ -31,6 +33,8 @@ const PAGE_SLUGS = {
   reviews: "reviews-page",
   contact: "contact-page",
   faq: "faq-page",
+  home: "home-page",
+  evCharging: "ev-charging-page",
 } as const;
 
 async function getSingleType(
@@ -215,4 +219,40 @@ export const getContactPage = () =>
   getSingleType(
     PAGE_SLUGS.contact,
     populate(contact.hero)
+  );
+
+export const getEvChargingPage = () =>
+  getSingleType(
+    PAGE_SLUGS.evCharging,
+    populate(
+      evCharging.hero,
+      evCharging.wallConnector,
+      evCharging.chargerProducts,
+      evCharging.installerBrands,
+      evCharging.benefitCards,
+      evCharging.homeBattery,
+      evCharging.featureCards,
+      evCharging.installationSteps,
+      evCharging.stats,
+      shared.faq,
+      shared.ctaBanner
+    )
+  );
+
+export const getHomePage = () =>
+  getSingleType(
+    PAGE_SLUGS.home,
+    populate(
+      home.hero,
+      home.awards,
+      home.whyChooseUs,
+      home.expertise,
+      home.solarAndStorage,
+      home.partnersAndMembership,
+      home.threeWaysToPay,
+      home.craftmanship,
+      home.realStories,
+      home.smartSolar,
+      home.batteryQuote
+    )
   );

@@ -157,6 +157,56 @@ export type {
   ResolvedReviewsIntroSection,
 } from "./reviews";
 
+export {
+  resolveHomeHero,
+  resolveHomeAwards,
+  resolveHomeWhyChooseUs,
+  resolveHomeExpertise,
+  resolveHomeSolarAndStorage,
+  resolveHomePartnersAndMembership,
+  resolveHomeThreeWaysToPay,
+  resolveHomeCraftsmanship,
+  resolveHomeRealStories,
+  resolveHomeSmartSolar,
+  resolveHomeBatteryQuote,
+} from "./home";
+export type {
+  ResolvedHomeHero,
+  ResolvedHomeAwards,
+  ResolvedHomeWhyChooseUs,
+  ResolvedHomeExpertise,
+  ResolvedHomeSolarAndStorage,
+  ResolvedHomePartnersAndMembership,
+  ResolvedHomeThreeWaysToPay,
+  ResolvedHomeCraftsmanship,
+  ResolvedHomeRealStories,
+  ResolvedHomeSmartSolar,
+  ResolvedHomeBatteryQuote,
+} from "./home";
+
+export {
+  resolveEvChargingHero,
+  resolveEvChargingWallConnector,
+  resolveEvChargingChargerProducts,
+  resolveEvChargingInstallerBrands,
+  resolveEvChargingBenefitCards,
+  resolveEvChargingHomeBattery,
+  resolveEvChargingFeatureCards,
+  resolveEvChargingInstallationSteps,
+  resolveEvChargingStats,
+} from "./ev-charging";
+export type {
+  ResolvedEvChargingHero,
+  ResolvedEvChargingWallConnector,
+  ResolvedEvChargingChargerProducts,
+  ResolvedEvChargingInstallerBrands,
+  ResolvedEvChargingBenefitCards,
+  ResolvedEvChargingHomeBattery,
+  ResolvedEvChargingFeatureCards,
+  ResolvedEvChargingInstallationSteps,
+  ResolvedEvChargingStats,
+} from "./ev-charging";
+
 export { resolveContactHero } from "./contact";
 export type { ResolvedContactHero } from "./contact";
 
