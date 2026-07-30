@@ -16,19 +16,19 @@ interface GetSolarProps {
 }
 
 const GetSolar = ({
-    subtitle = 'Get A Solar System Designed',
-    mainTitle = 'For Your Home',
-    description = 'Tell us a few details about your home and power use, and one of our Perth-based CEC-accredited designers will build a system tailored to your roof, your household, and your budget. Free, no-obligation, and no high-pressure sales calls — just a proper engineering recommendation.',
-    buttonText = 'Get My Free Quote',
-    buttonHref = '#quote-form',
-    bgImage = getSolarBg,
+    subtitle,
+    mainTitle,
+    description,
+    buttonText,
+    buttonHref,
+    bgImage,
     overlayClass,
     children,
 }: GetSolarProps) => {
     return (
         <CtaSection
-            subtitle={subtitle}
-            title={mainTitle}
+            subtitle={subtitle ?? ''}
+            title={mainTitle ?? ''}
             description={description}
             buttonText={buttonText}
             buttonHref={buttonHref}

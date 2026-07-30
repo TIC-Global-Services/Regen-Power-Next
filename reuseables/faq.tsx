@@ -4,7 +4,6 @@ import React, { useMemo, useState } from 'react';
 import Image, { StaticImageData } from 'next/image';
 import { Plus, X } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
-import defaultImage from '@/assets/for_your_home.png'; // Fallback image
 import Fade from './fade';
 
 export interface FAQItem {
@@ -17,40 +16,17 @@ interface FAQProps {
     title?: string;
     listTitle?: string;
     image?: string | StaticImageData;
-    items?: FAQItem[];
+    items: FAQItem[];
     defaultOpenIndex?: number | null;
     enableSchema?: boolean;
 }
 
-const defaultItems: FAQItem[] = [
-    {
-        question: "Q1. How Much Will A Solar System Save Me In Perth?",
-        answer: "Savings depend on your usage and system size, but the average Perth home with a 6.6 kW system saves $1,800–$2,400 per year on electricity — enough to pay back the system in around 4–5 years. A tailored estimate based on your Synergy bill takes about 10 minutes on a call."
-    },
-    {
-        question: "Q2. What Size Solar System Do I Need?",
-        answer: "The ideal size depends on your electricity usage profile and future plans (e.g., adding a battery or EV). Our experts can help size a system tailored to your specific needs."
-    },
-    {
-        question: "Q3. What's The Difference Between A Hybrid And A String Inverter?",
-        answer: "A string inverter converts solar power for immediate use or grid export. A hybrid inverter can additionally manage a battery system, allowing you to store power for later."
-    },
-    {
-        question: "Q4. Do I Need A Battery?",
-        answer: "Not necessarily. If you use most of your electricity during the day, solar panels alone will save you a lot. A battery helps if you use more power at night."
-    },
-    {
-        question: "Q5. What Warranty Do I Get?",
-        answer: "We offer industry-leading warranties on all panels, inverters, and workmanship to ensure your system performs flawlessly for years to come."
-    }
-];
-
 const FAQ = ({
-    topTitle = "FAQ",
-    title = "Entries",
-    listTitle = "Frequently Asked Questions",
-    image = defaultImage,
-    items = defaultItems,
+    topTitle,
+    title,
+    listTitle,
+    image,
+    items,
     defaultOpenIndex = 0,
     enableSchema = false,
 }: FAQProps) => {
@@ -101,6 +77,7 @@ const FAQ = ({
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-20 items-start">
                     {/* Left Column - Image */}
                     <div className="w-full">
+                        {image && (
                         <div className="relative w-full aspect-3/3 max-h-[540px] rounded-[24px] overflow-hidden shadow-sm">
                             <Image
                                 src={image}
@@ -109,6 +86,7 @@ const FAQ = ({
                                 className="object-cover"
                             />
                         </div>
+                    )}
                     </div>
 
                     {/* Right Column - Accordion */}

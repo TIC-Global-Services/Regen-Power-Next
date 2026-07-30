@@ -5,15 +5,23 @@ interface HybridGenDetailSectionProps {
     logo: StaticImageData | string;
     image: StaticImageData | string;
     imageAlt?: string;
+    subtitle?: string;
+    title?: string;
+    description?: string;
     patentText?: string;
 }
 
 const HybridGenDetailSection: React.FC<HybridGenDetailSectionProps> = ({
     logo,
     image,
-    imageAlt = 'HybridGEN Power Pack',
-    patentText = 'International Patent: PCT/AU2011/001068',
+    imageAlt,
+    subtitle,
+    title,
+    description,
+    patentText,
 }) => {
+    const paragraphs = description ? description.split('\n').filter(Boolean) : [];
+
     return (
         <section className="py-16 md:py-24 bg-white">
             <div className="px-[5%] mx-auto">
@@ -27,24 +35,27 @@ const HybridGenDetailSection: React.FC<HybridGenDetailSectionProps> = ({
                                 className="object-contain object-left"
                             />
                         </div>
-                        <p className="text-2xl md:text-3xl text-black font-light tracking-tight mb-1">
-                            HybridGEN - Patented Hybrid
-                        </p>
-                        <h2 className="text-4xl md:text-6xl lg:text-[5rem] text-[#63B846] font-normal tracking-tighter leading-none mb-6">
-                            Power Pack
-                        </h2>
-                        <p className="text-sm md:text-base text-black leading-relaxed tracking-tight">
-                            HybridGEN Is Regen's Own Renewable Hybrid Power Pack — A Factory-Wired Cabinet That Combines Solar PV, Optional Small Wind, Lithium Battery Storage, And Our Patented Variable-Speed Generator. It Replaces A Standard Fixed-Speed Diesel Generator With A System That Runs The Engine Only When It's Needed, Only At Its Most Efficient Speed, And Only After The Renewables Have Done Their Job.
-                        </p>
-                        <p className="text-sm md:text-base text-black leading-relaxed tracking-tight mt-3">
-                            The Result: 30–60% Reduction In Diesel Consumption Versus A Conventional Diesel System, Longer Engine Life From Running At Optimum Load, Stable Voltage And Frequency Across Varying Solar And Wind Input, And A System That Ships In A Fully Wired Enclosure — Drop In, Connect, And Run.
-                        </p>
+                        {subtitle && (
+                            <p className="text-2xl md:text-3xl text-black font-light tracking-tight mb-1">
+                                {subtitle}
+                            </p>
+                        )}
+                        {title && (
+                            <h2 className="text-4xl md:text-6xl lg:text-[5rem] text-[#63B846] font-normal tracking-tighter leading-none mb-6">
+                                {title}
+                            </h2>
+                        )}
+                        {paragraphs.map((text, i) => (
+                            <p key={i} className={`text-sm md:text-base text-black leading-relaxed tracking-tight${i > 0 ? ' mt-3' : ''}`}>
+                                {text}
+                            </p>
+                        ))}
                     </div>
 
                     <div className="relative w-full aspect-square rounded-[24px] overflow-hidden">
                         <Image
                             src={image}
-                            alt={imageAlt}
+                            alt={imageAlt ?? ''}
                             fill
                             className="object-cover"
                         />

@@ -32,8 +32,8 @@ export function resolveOffGridHero(
     subtitle: data.subtitle ?? "",
     mainTitle: data.mainTitle ?? "",
     description: data.description ?? "",
-    ctaText: data.ctaText ?? "Get Your Free Quote",
-    ctaLink: data.ctaLink ?? "#quote-form",
+    ctaText: data.ctaText ?? "",
+    ctaLink: data.ctaLink ?? "",
     backgroundImage: img?.src ?? "",
   };
 }

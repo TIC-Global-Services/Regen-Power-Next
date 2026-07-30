@@ -131,6 +131,10 @@ const OffGridSolutionsPage = async () => {
         <HybridGenDetailSection
           logo={hybridGen.logo}
           image={hybridGen.image}
+          subtitle={hybridGen.subtitle}
+          title={hybridGen.title}
+          description={hybridGen.description}
+          patentText={hybridGen.patentText}
         />
       )}
 
