@@ -34,6 +34,7 @@ export default async function CommercialOffGridPage() {
   const editorialProps = resolveSharedEditorialSection(editorial);
   const portfolioProps = resolveCommercialOffGridSolutionsPortfolio(portfolio);
   const ctaBannerProps = resolveSharedCtaBanner(ctaBanner);
+  console.log("heroPropsheroProps",heroProps);
 
   return (
     <div className="bg-white min-h-screen text-black">

@@ -53,7 +53,7 @@ const KeyFeaturesGrid = ({ data }: { data: KeyFeaturesGridData }) => {
                 <h4 className="text-white text-xl md:text-2xl font-medium tracking-tight leading-tight mb-2">
                   {feature.title}
                 </h4>
-                <p className="text-white/75 text-sm md:text-base leading-relaxed">
+                <p className="text-white/75 text-sm md:text-base leading-[1.2]">
                   {feature.description}
                 </p>
               </div>

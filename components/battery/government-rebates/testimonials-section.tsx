@@ -116,7 +116,7 @@ const ReviewCard = ({ review }: { review: Review }) => (
 
     <div className="relative z-10">
       <div className="text-gold-500 text-[10px] lg:text-lg mb-2 lg:mb-6 tracking-widest">★★★★★</div>
-      <p className="text-dark-900 leading-snug lg:leading-relaxed mb-4 lg:mb-8 font-medium text-[10px] sm:text-xs lg:text-base line-clamp-4 lg:line-clamp-none">
+      <p className="text-dark-900 leading-snug lg:leading-[1.2] mb-4 lg:mb-8 font-medium text-[10px] sm:text-xs lg:text-base line-clamp-4 lg:line-clamp-none">
         "{review.text}"
       </p>
       <div className="flex items-center gap-2 lg:gap-4">

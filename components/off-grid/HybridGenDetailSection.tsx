@@ -1,9 +1,8 @@
 import React from 'react';
-import Image, { StaticImageData } from 'next/image';
 
 interface HybridGenDetailSectionProps {
-    logo: StaticImageData | string;
-    image: StaticImageData | string;
+    logo: string;
+    image: string;
     imageAlt?: string;
     subtitle?: string;
     title?: string;
@@ -28,17 +27,16 @@ const HybridGenDetailSection: React.FC<HybridGenDetailSectionProps> = ({
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-16 items-center max-w-7xl mx-auto">
                     <div>
                         <div className="relative w-[200px] h-[60px] md:w-[240px] md:h-[72px] mb-6">
-                            <Image
-                                src={logo}
+                            <img
+                                src={logo || '/regen_logo_nav.png'}
                                 alt="HybridGEN"
-                                fill
-                                className="object-contain object-left"
+                                className="absolute inset-0 w-full h-full object-contain object-left"
                             />
                         </div>
                         {subtitle && (
-                            <p className="text-2xl md:text-3xl text-black font-light tracking-tight mb-1">
-                                {subtitle}
-                            </p>
+                             <p className="text-2xl md:text-3xl text-black font-light tracking-tight mb-1">
+                                 {subtitle}
+                             </p>
                         )}
                         {title && (
                             <h2 className="text-4xl md:text-6xl lg:text-[5rem] text-[#63B846] font-normal tracking-tighter leading-none mb-6">
@@ -46,18 +44,17 @@ const HybridGenDetailSection: React.FC<HybridGenDetailSectionProps> = ({
                             </h2>
                         )}
                         {paragraphs.map((text, i) => (
-                            <p key={i} className={`text-sm md:text-base text-black leading-relaxed tracking-tight${i > 0 ? ' mt-3' : ''}`}>
+                            <p key={i} className={`text-sm md:text-base text-black leading-[1.2] tracking-tight${i > 0 ? ' mt-3' : ''}`}>
                                 {text}
                             </p>
                         ))}
                     </div>
 
                     <div className="relative w-full aspect-square rounded-[24px] overflow-hidden">
-                        <Image
-                            src={image}
+                        <img
+                            src={image || '/fallback.png'}
                             alt={imageAlt ?? ''}
-                            fill
-                            className="object-cover"
+                            className="absolute inset-0 w-full h-full object-cover"
                         />
                         <div className="absolute top-4 left-4 md:top-6 md:left-6 bg-black/30 backdrop-blur-sm rounded-full px-4 py-2">
                             <p className="text-xs md:text-sm text-white font-medium tracking-tight">

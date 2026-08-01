@@ -134,17 +134,17 @@ const SolutionsPortfolio: React.FC<SolutionsPortfolioProps> = ({
                 {showHeader && (subtitle || title) && (
                     <div className="text-center mb-10 md:mb-14">
                         {subtitle && (
-                            <p className="text-2xl md:text-3xl font-light tracking-tight text-black mb-1">
+                            <p className="text-2xl md:text-3xl font-light tracking-tight text-black leading-none">
                                 {subtitle}
                             </p>
                         )}
                         {title && (
-                            <h2 className="text-5xl md:text-6xl lg:text-7xl font-normal tracking-tight text-[#63B846]">
+                            <h2 className="text-5xl md:text-6xl lg:text-7xl font-normal leading-none tracking-tight text-[#63B846]">
                                 {title}
                             </h2>
                         )}
                         {description && (
-                            <p className="text-sm md:text-base text-black/80 leading-relaxed mt-4 max-w-3xl mx-auto">
+                            <p className="text-sm md:text-base text-black/80 leading-[1.2] mt-4 max-w-3xl mx-auto">
                                 {description}
                             </p>
                         )}

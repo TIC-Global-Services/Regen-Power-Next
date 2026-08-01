@@ -24,7 +24,7 @@ const NarrowLists: React.FC<NarrowListsProps> = ({ data }) => {
     <section className="w-full bg-[#F7FBF5] px-[5%] py-16 md:py-24 font-sans border-t border-b border-[#E5E7EB]">
       <div className="max-w-7xl mx-auto">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-16 items-center">
-          
+
           {/* Left Column: Image */}
           <div className="lg:col-span-5 relative w-full h-[350px] md:h-[500px] lg:h-[600px] rounded-[30px] overflow-hidden shadow-sm">
             <Image
@@ -41,7 +41,7 @@ const NarrowLists: React.FC<NarrowListsProps> = ({ data }) => {
             <h2 className="text-3xl md:text-4xl lg:text-[2.75rem] font-light text-black mb-6 leading-tight tracking-tight">
               {data.title}
             </h2>
-            <p className="text-sm md:text-base text-black/85 font-normal leading-relaxed mb-8 max-w-2xl">
+            <p className="text-sm md:text-base text-black/85 font-normal leading-[1.2] mb-8 max-w-2xl">
               {data.description}
             </p>
 

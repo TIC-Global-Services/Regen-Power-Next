@@ -31,8 +31,8 @@ const TextCardsGrid: React.FC<{ data?: TextCardsGridData }> = ({ data }) => {
         cols === 2
             ? 'md:grid-cols-2'
             : cols === 4
-              ? 'md:grid-cols-4'
-              : 'md:grid-cols-3';
+                ? 'md:grid-cols-4'
+                : 'md:grid-cols-3';
 
     return (
         <section className={`w-full px-[5%] py-12 md:py-20 ${bg}`}>
@@ -51,7 +51,7 @@ const TextCardsGrid: React.FC<{ data?: TextCardsGridData }> = ({ data }) => {
                             </h2>
                         )}
                         {data.description && (
-                            <p className="text-base md:text-lg text-black/80 leading-relaxed max-w-3xl mx-auto">
+                            <p className="text-base md:text-lg text-black/80 leading-[1.2] max-w-3xl mx-auto">
                                 {data.description}
                             </p>
                         )}
@@ -68,7 +68,7 @@ const TextCardsGrid: React.FC<{ data?: TextCardsGridData }> = ({ data }) => {
                             <h3 className="text-xl md:text-2xl font-normal tracking-tight text-black mb-4 leading-tight">
                                 {card.title}
                             </h3>
-                            <p className="text-sm md:text-base text-black/80 leading-relaxed">
+                            <p className="text-sm md:text-base text-black/80 leading-[1.2]">
                                 {card.description}
                             </p>
                         </div>

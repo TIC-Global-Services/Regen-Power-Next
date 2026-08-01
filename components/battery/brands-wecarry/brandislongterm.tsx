@@ -64,7 +64,7 @@ const BrandIsLongTerm: React.FC<BrandIsLongTermProps> = ({ data }) => {
                   <h3 className="text-xl md:text-2xl font-normal text-white mb-3 leading-snug">
                     {card.title}
                   </h3>
-                  <p className="text-white/80 text-sm leading-relaxed">
+                  <p className="text-white/80 text-sm leading-[1.2]">
                     {card.description}
                   </p>
                 </div>

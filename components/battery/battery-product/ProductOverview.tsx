@@ -24,7 +24,7 @@ const ProductOverview = ({ data }: { data: ProductOverviewData }) => {
           <h2 className="text-4xl md:text-[5rem] text-[#63B846] font-normal leading-[1] mb-6 tracking-tight">
             {data.title}
           </h2>
-          <p className="text-base md:text-lg text-black/80 font-normal mb-8 leading-relaxed">
+          <p className="text-base md:text-lg text-black/80 font-normal mb-8 leading-[1.2]">
             {data.description}
           </p>
 
@@ -32,7 +32,7 @@ const ProductOverview = ({ data }: { data: ProductOverviewData }) => {
             {data.highlights.map((item, idx) => (
               <li key={idx} className="flex items-start gap-3">
                 <span className="w-2 h-2 rounded-full bg-[#63B846] mt-2 shrink-0" />
-                <span className="text-sm md:text-base text-black/80 leading-relaxed">{item}</span>
+                <span className="text-sm md:text-base text-black/80 leading-[1.2]">{item}</span>
               </li>
             ))}
           </ul>

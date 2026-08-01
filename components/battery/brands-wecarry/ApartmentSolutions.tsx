@@ -24,7 +24,7 @@ const ApartmentSolutions: React.FC<ApartmentSolutionsProps> = ({ data }) => {
   return (
     <section className="w-full bg-white px-[5%] py-16 md:py-24 font-sans">
       <div className="max-w-7xl mx-auto">
-        
+
         {/* Header */}
         <div className="text-center mb-12 md:mb-16 max-w-4xl mx-auto">
           <h2 className="text-3xl md:text-4xl lg:text-[2.75rem] font-light text-[#63B846] leading-tight tracking-tight mb-4">
@@ -44,26 +44,23 @@ const ApartmentSolutions: React.FC<ApartmentSolutionsProps> = ({ data }) => {
             return (
               <div
                 key={idx}
-                className={`rounded-[30px] p-8 md:p-10 flex flex-col justify-between transition-transform duration-300 hover:-translate-y-1 ${
-                  isHigh 
-                    ? 'bg-[#2E3330] text-white shadow-lg' 
+                className={`rounded-[30px] p-8 md:p-10 flex flex-col justify-between transition-transform duration-300 hover:-translate-y-1 ${isHigh
+                    ? 'bg-[#2E3330] text-white shadow-lg'
                     : 'bg-[#F2F7EC] text-black shadow-sm'
-                }`}
+                  }`}
               >
                 <div>
-                  <span className={`text-xs uppercase font-bold tracking-wider px-3 py-1 rounded-full ${
-                    isHigh ? 'bg-[#63B846]/20 text-[#63B846]' : 'bg-[#63B846]/10 text-[#63B846]'
-                  }`}>
+                  <span className={`text-xs uppercase font-bold tracking-wider px-3 py-1 rounded-full ${isHigh ? 'bg-[#63B846]/20 text-[#63B846]' : 'bg-[#63B846]/10 text-[#63B846]'
+                    }`}>
                     {card.brand}
                   </span>
-                  
+
                   <h3 className="text-xl md:text-2xl font-bold mt-4 mb-3 leading-tight">
                     {card.title}
                   </h3>
-                  
-                  <p className={`text-xs md:text-sm font-normal mb-8 leading-relaxed ${
-                    isHigh ? 'text-white/80' : 'text-black/70'
-                  }`}>
+
+                  <p className={`text-xs md:text-sm font-normal mb-8 leading-[1.2] ${isHigh ? 'text-white/80' : 'text-black/70'
+                    }`}>
                     {card.description}
                   </p>
                 </div>

@@ -53,7 +53,7 @@ const Expertise = ({ data }: ExpertiseProps) => {
         <div className="absolute inset-0 bg-[#0a1c30]/70" />
       </div>
 
-      <div className="lg:px-[5%]  px-2 relative z-10 h-full flex flex-col justify-center">
+      <div className="lg:px-[5%] relative z-10 h-full flex flex-col justify-center">
 
         {/* Header */}
         <div className="mb-12 md:mb-10 flex justify-center">
@@ -67,25 +67,25 @@ const Expertise = ({ data }: ExpertiseProps) => {
         <div className='relative w-full h-full'>
           <div
             ref={carouselRef}
-            className="flex overflow-x-auto items-stretch snap-x snap-mandatory lg:grid lg:grid-cols-4 gap-4 md:gap-6 pt-4 pb-6 lg:pb-0 scrollbar-hide"
+            className="flex overflow-x-auto items-stretch snap-x snap-mandatory lg:grid lg:grid-cols-4 gap-4 md:gap-6 pl-5  pt-4 pb-6 lg:pb-0 scrollbar-hide"
             style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
           >
             {data.items.map((item, index) => (
               <Reveal
                 key={index}
                 delay={index * 0.1}
-                className="min-w-[85vw] sm:min-w-[45vw] lg:min-w-0 snap-center shrink-0 flex flex-col h-auto"
+                className="min-w-[45vw] sm:min-w-[45vw] lg:min-w-0 snap-center shrink-0 flex flex-col h-auto"
               >
                 <div
                   className={`bg-[#f0f6ec] rounded-[20px] p-6 w-full lg:p-8 flex flex-col flex-grow min-h-[400px] hover:bg-[#8dc63f] lg:min-h-[60dvh] shadow-2xl hover:-translate-y-2 transition-transform duration-300 group`}
                 >
                   {/* 3D Image Container */}
-                  <div className="relative w-full h-full min-h-[200px] ml-10 mb-20  flex justify-end items-end">
+                  <div className="relative w-full h-[200px] md:min-h-[200px] md:ml-10 mb-20  flex justify-end items-end overflow-hidden">
                     <Image
                       src={item.image}
                       alt={item.title.replace('\\n', ' ')}
                       fill
-                      className="object-contain drop-shadow-xl group-hover:scale-105 transition-transform duration-500"
+                      className="object-cover md:object-contain drop-shadow-xl group-hover:scale-105 transition-transform duration-500"
                     />
                   </div>
 

@@ -78,15 +78,15 @@ const FAQ = ({
                     {/* Left Column - Image */}
                     <div className="w-full">
                         {image && (
-                        <div className="relative w-full aspect-3/3 max-h-[540px] rounded-[24px] overflow-hidden shadow-sm">
-                            <Image
-                                src={image}
-                                alt="FAQ Context"
-                                fill
-                                className="object-cover"
-                            />
-                        </div>
-                    )}
+                            <div className="relative w-full aspect-3/3 max-h-[540px] rounded-[24px] overflow-hidden shadow-sm">
+                                <Image
+                                    src={image}
+                                    alt="FAQ Context"
+                                    fill
+                                    className="object-cover"
+                                />
+                            </div>
+                        )}
                     </div>
 
                     {/* Right Column - Accordion */}
@@ -125,7 +125,7 @@ const FAQ = ({
                                                     transition={{ duration: 0.3, ease: "easeInOut" }}
                                                     className="overflow-hidden"
                                                 >
-                                                    <p className="pb-6 text-xs md:text-sm text-black/70 leading-relaxed pr-8">
+                                                    <p className="pb-6 text-xs md:text-sm text-black/70 leading-[1.2] pr-8">
                                                         {item.answer}
                                                     </p>
                                                 </motion.div>

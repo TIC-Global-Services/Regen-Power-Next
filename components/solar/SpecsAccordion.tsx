@@ -15,7 +15,7 @@ const SpecsAccordion: React.FC<SpecsAccordionProps> = ({ resolved }) => {
   );
 
   return (
-    <section className="py-16 md:py-24 bg-white">
+    <section className="py-16 md:py-20 bg-white">
       <div className="px-[5%] mx-auto">
         <SectionHeader
           subtitle={resolved.subtitle}
@@ -31,7 +31,7 @@ const SpecsAccordion: React.FC<SpecsAccordionProps> = ({ resolved }) => {
           <div className="flex flex-col border-t border-gray-300">
             {specs.map((spec, idx) => (
               <Reveal key={idx} delay={idx * 0.1}>
-                <div className="border-b border-gray-300 py-8">
+                <div className={`${idx !== 4 ?'border-b':'' } border-gray-300 py-8`}>
                   <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-8">
                     <div className="lg:w-[280px] shrink-0">
                       <h3 className="text-2xl md:text-[2.5rem] text-black leading-tight">

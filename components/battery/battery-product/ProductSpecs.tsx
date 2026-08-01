@@ -39,7 +39,7 @@ const ProductSpecs = ({ data }: { data: ProductSpecsData }) => {
             {data.title}
           </h2>
           {data.description && (
-            <p className="text-base md:text-lg text-black/80 font-normal mb-8 leading-relaxed">
+            <p className="text-base md:text-lg text-black/80 font-normal mb-8 leading-[1.2]">
               {data.description}
             </p>
           )}
@@ -49,9 +49,8 @@ const ProductSpecs = ({ data }: { data: ProductSpecsData }) => {
             {data.specs.map((spec, idx) => (
               <div
                 key={idx}
-                className={`flex justify-between items-center py-4 ${
-                  idx !== data.specs.length - 1 ? 'border-b border-gray-200' : ''
-                }`}
+                className={`flex justify-between items-center py-4 ${idx !== data.specs.length - 1 ? 'border-b border-gray-200' : ''
+                  }`}
               >
                 <span className="text-sm md:text-base text-black/60 font-normal">{spec.label}</span>
                 <span className="text-sm md:text-base text-black font-medium text-right">{spec.value}</span>

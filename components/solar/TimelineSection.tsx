@@ -13,7 +13,7 @@ interface TimelineSectionProps {
 
 const TimelineSection: React.FC<TimelineSectionProps> = ({ resolved }) => {
   return (
-    <section className="py-16 md:py-24 bg-white border-t border-gray-50">
+    <section className="py-16 md:py-24 bg-white border-t border-gray-50 min-h-screen">
       <div className="px-[5%] mx-auto">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-32 items-start">
           <div className="flex flex-col justify-between h-full">
@@ -47,7 +47,7 @@ const TimelineSection: React.FC<TimelineSectionProps> = ({ resolved }) => {
           </div>
 
           <div className="lg:sticky lg:top-28 flex justify-center">
-            <div className="relative w-full aspect-[4/6] max-h-[770px] max-w-[660px] rounded-[20px] overflow-hidden shadow-md">
+            <div className="relative w-full aspect-[4/5]  max-w-[660px] rounded-[20px] overflow-hidden shadow-md">
               {resolved.image ? (
                 <Image
                   src={resolved.image.src}

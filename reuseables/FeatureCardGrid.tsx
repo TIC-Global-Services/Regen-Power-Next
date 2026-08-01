@@ -66,7 +66,7 @@ const FeatureCardGrid: React.FC<FeatureCardGridProps> = ({
   };
 
   // Same ratio as before: active card = 2.5, others = 1
-  const ACTIVE_FLEX = 2.5;
+  const ACTIVE_FLEX = 2;
   const INACTIVE_FLEX = 1;
   const gapPx = 20; // matches md:gap-5 (20px) — adjust if you change the gap class
   const totalGap = gapPx * (cards.length - 1);
@@ -81,7 +81,7 @@ const FeatureCardGrid: React.FC<FeatureCardGridProps> = ({
 
   return (
     <Fade>
-      <section className="py-16 md:py-24 bg-white px-[5%]">
+      <section className="py-16 md:py-20 bg-white px-[5%]">
         <div className="text-center mb-12 md:mb-16 -space-y-4">
           {topSubtitle && (
             <h3 className="text-xl md:text-[2.125rem] text-black font-normal tracking-tight">
@@ -120,7 +120,7 @@ const FeatureCardGrid: React.FC<FeatureCardGridProps> = ({
                   WebkitBackfaceVisibility: 'hidden',
                 }}
                 className={`relative rounded-[24px] overflow-hidden group flex-none cursor-pointer focus-visible:outline-none ${
-                  isActive ? 'min-h-[400px] md:h-[550px]' : 'min-h-[80px] md:min-h-[400px]'
+                  isActive ? 'min-h-[400px] md:h-[460px]' : 'min-h-[80px] md:min-h-[400px]'
                 } w-full`}
               >
                 <div className="absolute inset-0 z-0 w-full h-full" style={{ transform: 'translateZ(0)' }}>

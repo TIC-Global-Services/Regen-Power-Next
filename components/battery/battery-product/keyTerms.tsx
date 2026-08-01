@@ -75,7 +75,7 @@ const KeyTerms: React.FC<{ data?: KeyTermsData }> = ({ data }) => {
                             </h2>
                         )}
                         {data.description && (
-                            <p className="text-sm md:text-base text-black/80 leading-relaxed mt-4 max-w-3xl mx-auto">
+                            <p className="text-sm md:text-base text-black/80 leading-[1.2] mt-4 max-w-3xl mx-auto">
                                 {data.description}
                             </p>
                         )}
@@ -131,13 +131,13 @@ const KeyTerms: React.FC<{ data?: KeyTermsData }> = ({ data }) => {
                     </div>
 
                     <div className="bg-[#EAF2E2] md:col-span-4 rounded-3xl p-8 flex flex-col justify-between min-h-[300px]">
-                        <p className="text-lg md:text-xl lg:text-[1.25rem] font-normal tracking-tight text-black leading-relaxed">
+                        <p className="text-lg md:text-xl lg:text-[1.25rem] font-normal tracking-tight text-black leading-[1.2]">
                             {summaryText}
                         </p>
                     </div>
                 </div>
                 <div className='flex justify-end mt-10'>
-                    <CtaButton text='See if I qualify for the interest-free loan'/>
+                    <CtaButton text='See if I qualify for the interest-free loan' />
                 </div>
             </div>
         </section>

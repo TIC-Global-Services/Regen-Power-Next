@@ -69,9 +69,11 @@ const InverterSlider: React.FC<InverterSliderProps> = ({ resolved }) => {
                 className="object-cover transition-all duration-700 ease-in-out"
               />
             ) : (
-              <MissingImage
-                label="Inverter background"
-                aspect="aspect-auto h-full"
+              <Image
+                src={'/fallback.png'}
+                alt="fallback"
+                fill
+                className="object-cover transition-all duration-700 ease-in-out"
               />
             )}
             <div className="absolute inset-0 bg-gradient-to-t from-black/55 via-black/15 to-black/35" />
@@ -85,7 +87,7 @@ const InverterSlider: React.FC<InverterSliderProps> = ({ resolved }) => {
             </h3>
           </div>
 
-          <div className="relative z-10 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4 mt-auto">
+          <div className="relative z-30 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4 mt-auto">
             {slides[activeTab].cards.length > 0 ? (
               slides[activeTab].cards.map((card, idx) => (
                 <div
@@ -102,7 +104,8 @@ const InverterSlider: React.FC<InverterSliderProps> = ({ resolved }) => {
               <div className="col-span-full text-white/80 text-sm">
                 Add inverter detail cards in Strapi.
               </div>
-            )}
+            )
+            }
           </div>
         </div>
 

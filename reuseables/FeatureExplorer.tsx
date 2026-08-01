@@ -56,18 +56,18 @@ const FeatureExplorer: React.FC<FeatureExplorerProps> = ({
 
 
     return (
-        <section className={`py-12 md:py-0 bg-white overflow-hidden ${className}`}>
+        <section className={`overflow-hidden ${className}`}>
             <div className="">
-                <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
+                <div className="grid grid-cols-1 lg:grid-cols-12 items-center">
 
                     {/* Left Column (Content & Navigation) */}
-                    <div className="lg:col-span-5 flex flex-col justify-around px-10 h-full order-2 lg:order-1">
+                    <div className="lg:col-span-6 flex flex-col justify-around px-[5%] h-full order-2 lg:order-1">
 
                         {/* Header */}
                         <div className="flex flex-col ">
                             {/* {renderTagIcon()} */}
                             <div className="mb-8 leading-[0.9]">
-                                <h2 className="text-3xl md:text-4xl lg:text-[2.125rem] font-medium text-black tracking-tight mb-2">
+                                <h2 className="text-3xl md:text-4xl leading-none lg:text-[2.125rem] font-medium text-black tracking-tight">
                                     {titleNormal}
                                 </h2>
                                 <p
@@ -94,27 +94,27 @@ const FeatureExplorer: React.FC<FeatureExplorerProps> = ({
                                         <span className="text-[4rem] md:text-[5rem] lg:text-[6rem] font-normal text-black/90 leading-none tracking-tighter select-none">
                                             {activeFeature.number}
                                         </span>
-                                        <h3 className="text-xl md:text-2xl whitespace-pre-line lg:text-3xl font-medium text-black leading-tight pt-1 max-w-sm">
+                                        <h3 className="text-xl md:text-2xl whitespace-pre-line lg:text-[2.5rem] font-medium text-black leading-none pt-1 max-w-sm">
                                             {activeFeature.title}
                                         </h3>
                                     </div>
-                                    <p className="text-sm md:text-lgleading-relaxed max-w-sm">
+                                    <p className="text-sm md:text-lg leading-[1.2] max-w-sm">
                                         {activeFeature.description}
                                     </p>
                                 </motion.div>
                             </AnimatePresence>
 
-                            <div className="flex gap-4 mt-6">
+                            <div className="flex gap-2 mt-6">
                                 <button
                                     onClick={handlePrev}
-                                    className="w-12 h-12 rounded-full bg-black text-white flex items-center justify-center transition-all duration-300 hover:scale-105 active:scale-95"
+                                    className="w-12 h-12 rounded-full bg-black text-white flex items-center cursor-pointer justify-center transition-all duration-300 hover:scale-105 active:scale-95"
                                     aria-label="Previous feature"
                                 >
                                     <ArrowLeft size={20} style={{ color: accentColor }} />
                                 </button>
                                 <button
                                     onClick={handleNext}
-                                    className="w-12 h-12 rounded-full bg-black text-white flex items-center justify-center transition-all duration-300 hover:scale-105 active:scale-95"
+                                    className="w-12 h-12 rounded-full bg-black text-white flex items-center cursor-pointer justify-center transition-all duration-300 hover:scale-105 active:scale-95"
                                     aria-label="Next feature"
                                 >
                                     <ArrowRight size={20} style={{ color: accentColor }} />
@@ -125,8 +125,8 @@ const FeatureExplorer: React.FC<FeatureExplorerProps> = ({
                     </div>
 
                     {/* Right Column (Media + Pins) */}
-                    <div className="lg:col-span-7 order-1 lg:order-2">
-                        <div className="relative w-full min-h-screen  bg-gray-50 border border-gray-100">
+                    <div className="lg:col-span-6 order-1 lg:order-2">
+                        <div className="relative w-full min-h-screen">
 
                             {/* Media Content */}
                             {mediaType === 'video' ? (

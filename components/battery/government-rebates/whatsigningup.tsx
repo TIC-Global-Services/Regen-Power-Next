@@ -171,7 +171,7 @@ export default function WhatSigningUp({
               </h2>
             </Reveal>
             <Reveal delay={0.3}>
-              <p className="text-neutral-800 font-medium text-sm sm:text-base md:text-lg max-w-2xl mx-auto leading-relaxed">
+              <p className="text-neutral-800 font-medium text-sm sm:text-base md:text-lg max-w-2xl mx-auto leading-[1.2]">
                 {subtitle}
               </p>
             </Reveal>

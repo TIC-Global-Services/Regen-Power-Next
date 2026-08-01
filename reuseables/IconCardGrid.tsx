@@ -1,6 +1,7 @@
 import React from 'react';
 import Image, { StaticImageData } from 'next/image';
 import SectionHeader from '@/reuseables/SectionHeader';
+import { cachedDataVersionTag } from 'v8';
 
 export type IconCardVariant = 'light' | 'highlighted';
 export type IconCardLayout = 4 | 6 | 8;
@@ -9,7 +10,7 @@ export interface IconCard {
     title: string;
     description: string;
     specs?: string;
-    icon?: StaticImageData | string;
+    icon?: string;
     iconElement?: React.ReactNode;
     variant?: IconCardVariant;
 }
@@ -52,7 +53,7 @@ const IconCardGrid: React.FC<IconCardGridProps> = ({
         <section className={`py-16 md:py-24 bg-white ${className}`}>
             <div className="px-[5%] mx-auto">
                 {showHeader && (subtitle || title || description) && (
-                    <div className="text-center max-w-4xl mx-auto mb-12 md:mb-16">
+                    <div className="text-center max-w-7xl mx-auto mb-12 md:mb-16">
                         {subtitle && (
                             <p className="text-lg md:text-2xl text-black font-light tracking-tight mb-1">
                                 {subtitle}
@@ -64,7 +65,7 @@ const IconCardGrid: React.FC<IconCardGridProps> = ({
                             </h2>
                         )}
                         {description && (
-                            <p className="text-sm md:text-base text-black leading-relaxed mt-4 max-w-3xl mx-auto">
+                            <p className="text-sm md:text-base text-black leading-[1.2] mt-4">
                                 {description}
                             </p>
                         )}
@@ -84,26 +85,28 @@ const IconCardGrid: React.FC<IconCardGridProps> = ({
                                         {card.iconElement ? (
                                             card.iconElement
                                         ) : (
-                                            <Image
-                                                src={card.icon!}
+                                            <img
+                                                src={card.icon || '/fallback_icon.svg'}
                                                 alt={card.title}
-                                                fill
                                                 className="object-contain"
+                                                onError={(e) => {
+                                                    e.currentTarget.src = "/fallback_icon.svg";
+                                                }}
                                             />
                                         )}
                                     </div>
                                 )}
-                            <h3 className="text-xl md:text-[1.35rem] text-black font-normal tracking-tight leading-snug mb-2">
-                                {card.title}
-                            </h3>
-                            <p className="text-sm md:text-xl text-black leading-snug tracking-tight font-light">
-                                {card.description}
-                            </p>
-                            {card.specs && (
-                                <p className="text-xs md:text-sm text-black leading-snug tracking-tight font-bold mt-2">
-                                    {card.specs}
+                                <h3 className="text-xl md:text-[1.35rem] text-black font-normal tracking-tight leading-snug mb-2">
+                                    {card.title}
+                                </h3>
+                                <p className="text-sm md:text-xl text-black leading-snug tracking-tight font-light">
+                                    {card.description}
                                 </p>
-                            )}
+                                {card.specs && (
+                                    <p className="text-xs md:text-sm text-black leading-snug tracking-tight font-bold mt-2">
+                                        {card.specs}
+                                    </p>
+                                )}
                             </div>
                         );
                     })}

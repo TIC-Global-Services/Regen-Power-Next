@@ -1,41 +1,27 @@
 'use client';
 
 import React, { useState } from 'react';
-import Image from 'next/image';
+import Image, { StaticImageData } from 'next/image';
 import Fade from '@/reuseables/fade';
-import Reveal from '@/reuseables/Reveal';
 
-import evImg1 from '@/assets/evcharging/ev-charging-installation-1.png';
-import evImg2 from '@/assets/evcharging/ev-charging-installation-2.png';
-import evImg3 from '@/assets/evcharging/ev-charging-installation-3.png';
-import evImg4 from '@/assets/evcharging/ev-charging-installation-4.png';
+export interface AccordionStep {
+  number: string;
+  title: string;
+  description: string;
+  image: StaticImageData | string;
+}
 
-const stepImages = [evImg1, evImg2, evImg3, evImg4];
+export interface EvAccordionData {
+  subtitle: string;
+  title: string;
+  steps: AccordionStep[];
+}
 
-const steps = [
-  {
-    number: '01',
-    title: 'Online Site Survey',
-    description: "Tell Us About Your Home And EV. We&apos;ll Assess The Job And Provide A Quote, No Obligation.",
-  },
-  {
-    number: '02',
-    title: 'Switchboard & Site Audit',
-    description: 'We review your electrical switchboard capacity, cable pathing, and safety standards to prepare a final custom design.',
-  },
-  {
-    number: '03',
-    title: 'Professional Installation',
-    description: 'Our CEC-accredited electricians mount the unit, run dedicated cabling, configure safety switches, and complete the physical install.',
-  },
-  {
-    number: '04',
-    title: 'App Integration & Testing',
-    description: 'We configure your charger to connect with your home Wi-Fi and solar/battery app, followed by full system commissioning.',
-  },
-];
+interface EvAccordionProps {
+  data: EvAccordionData;
+}
 
-const EvAccordion = () => {
+const EvAccordion = ({ data }: EvAccordionProps) => {
   const [activeIndex, setActiveIndex] = useState(0);
 
   return (
@@ -45,18 +31,18 @@ const EvAccordion = () => {
           {/* Header */}
           <div className="text-center mb-12 md:mb-10">
             <h2 className="text-xl md:text-[2rem] font-medium text-black tracking-tight ">
-              How EV charger installation works at
+              {data.subtitle}
             </h2>
             <p className="text-[#63B846] font-light text-[2.5rem] md:text-[3.5rem] lg:text-[5rem] tracking-tighter leading-none">
-              Regen Power
+              {data.title}
             </p>
           </div>
 
           {/* Steps Accordion */}
           <div className="flex flex-col lg:flex-row gap-6 lg:gap-8 w-full items-stretch">
-            {steps.map((step, index) => {
+            {data.steps.map((step, index) => {
               const isActive = activeIndex === index;
-              const img = stepImages[index];
+              const img = step.image;
 
               return (
                 <div

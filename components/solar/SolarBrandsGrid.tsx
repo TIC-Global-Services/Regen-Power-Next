@@ -21,8 +21,9 @@ const SolarBrandsGrid: React.FC<SolarBrandsGridProps> = ({ resolved }) => {
           title={resolved.title}
           description={resolved.description}
           align="center"
-          subtitleClass="font-normal text-[1.875rem] leading-[1.1]"
-          className="mx-auto mb-12"
+          subtitleClass="font-normal text-[1.875rem] leading-none"
+          descClass="max-w-4xl"
+          className="mb-12"
         />
 
         {resolved.ctaText && (
@@ -48,9 +49,9 @@ const SolarBrandsGrid: React.FC<SolarBrandsGridProps> = ({ resolved }) => {
                 key={index}
                 delay={index * 0.1}
                 className={`flex items-center justify-center p-8 md:p-12 hover:bg-gray-50 transition-colors h-[180px] md:h-[220px] relative
-                  ${showBorderBottomMobile ? "border-b border-gray-100" : "border-b-0"}
-                  ${showBorderBottomDesktop ? "md:border-b border-gray-100" : "md:border-b-0"}
-                  ${showBorderRightDesktop ? "md:border-r border-gray-100" : "md:border-r-0"}
+                  ${showBorderBottomMobile ? "border-b border-[#00000033]" : "border-b-0"}
+                  ${showBorderBottomDesktop ? "md:border-b border-[#00000033]" : "md:border-b-0"}
+                  ${showBorderRightDesktop ? "md:border-r border-[#00000033]" : "md:border-r-0"}
                 `}
               >
                 <div className="relative w-full h-[60px] md:h-[80px]">

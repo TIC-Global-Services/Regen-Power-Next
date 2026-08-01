@@ -1,7 +1,6 @@
 'use client';
 
 import React, { useState } from 'react';
-import Image, { StaticImageData } from 'next/image';
 import { ArrowLeft, ArrowRight } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
@@ -14,7 +13,7 @@ interface AcquaSmartSectionProps {
     subtitle: string;
     title: string;
     description: string;
-    image: StaticImageData | string;
+    image: string;
     imageAlt?: string;
     cards: AcquaSmartCard[];
 }
@@ -45,11 +44,10 @@ const AcquaSmartSection: React.FC<AcquaSmartSectionProps> = ({
             <div className="px-[5%] mx-auto">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-16 items-center max-w-7xl mx-auto mb-12 md:mb-16">
                     <div className="relative w-full aspect-square rounded-[24px] overflow-hidden">
-                        <Image
-                            src={image}
+                        <img
+                            src={image || '/fallback.png'}
                             alt={imageAlt}
-                            fill
-                            className="object-cover"
+                            className="absolute inset-0 w-full h-full object-cover"
                         />
                     </div>
                     <div>
@@ -59,7 +57,7 @@ const AcquaSmartSection: React.FC<AcquaSmartSectionProps> = ({
                         <h2 className="text-4xl md:text-6xl lg:text-[4.5rem] text-[#63B846] font-normal tracking-tighter leading-none mb-6">
                             {title}
                         </h2>
-                        <p className="text-sm md:text-base text-black leading-relaxed tracking-tight">
+                        <p className="text-sm md:text-base text-black leading-[1.2] tracking-tight">
                             {description}
                         </p>
                     </div>

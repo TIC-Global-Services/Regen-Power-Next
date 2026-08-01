@@ -132,7 +132,7 @@ const SevenBrand: React.FC<{ data: SevenBrandData }> = ({ data }) => {
                 <SwiperSlide key={idx} className="h-auto">
                   {/* Main Card Container: Dark Grey */}
                   <div className="brand-card bg-[#2D2E2A] text-white rounded-[32px] p-6 md:p-8 lg:p-10 w-full flex flex-col justify-between select-none transition-all duration-300">
-                    
+
                     {/* 3x2 Grid structure on desktop */}
                     <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 w-full flex-grow">
 
@@ -141,7 +141,7 @@ const SevenBrand: React.FC<{ data: SevenBrandData }> = ({ data }) => {
                         <h3 className="text-3xl md:text-4xl font-medium tracking-tight text-[#63B846] mb-3">
                           {brand.title}
                         </h3>
-                        <p className="text-gray-300 font-light text-sm md:text-base leading-relaxed">
+                        <p className="text-gray-300 font-light text-sm md:text-base leading-[1.2]">
                           {brand.description}
                         </p>
                       </div>

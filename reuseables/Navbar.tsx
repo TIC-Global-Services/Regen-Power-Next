@@ -29,12 +29,18 @@ const navItems = [
     ],
   },
   { name: 'EV Charging', href: '/ev-charging' },
-  { name: 'Commercial & Off Grid', href: '/commercial-off-grid' },
-  { name: 'Off-Grid Solutions', href: '/off-grid-solutions' },
+  {
+    name: 'Commercial & Off Grid',
+    href: '/commercial-off-grid',
+    subItems: [
+    
+      { name: 'Off-Grid Solutions', href: '/off-grid-solutions' },
+      { name: 'Research & Development', href: '/research-and-development' },
+      { name: 'Portfolio', href: '/portfolio' },
+    ]
+  },
   { name: 'About Us', href: '#' },
   { name: 'Reviews', href: '/reviews' },
-  { name: 'Research & Development', href: '/research-and-development' },
-  { name: 'Portfolio', href: '/portfolio' },
   { name: 'Press&Media', href: '/press-media' },
 ];
 
@@ -159,11 +165,11 @@ const Navbar = () => {
 
         {/* Desktop Navigation */}
         <nav className="hidden lg:flex items-center bg-[#63B84666] backdrop-blur-md rounded-full px-2 py-1.5 shadow-sm border-1 border-[#63B846]">
-          <ul className="flex items-center text-[12px] font-medium text-black">
+          <ul className="flex items-center text-sm font-medium text-black">
             {navItems.map((item, index) => (
               <li key={index} className="relative group px-3 py-2">
-                <Link 
-                  href={item.href} 
+                <Link
+                  href={item.href}
                   className="flex items-center gap-1 hover:text-white transition-colors text-black"
                 >
                   {item.name}
@@ -179,7 +185,7 @@ const Navbar = () => {
                       <ul className="flex flex-col">
                         {item.subItems.map((subItem, subIndex) => (
                           <li key={subIndex}>
-                            <Link 
+                            <Link
                               href={subItem.href}
                               className="block px-4 py-2 text-sm text-gray-700 hover:bg-[#8dc63f]/10 hover:text-[#8dc63f] rounded-lg transition-colors"
                             >
@@ -202,7 +208,7 @@ const Navbar = () => {
         </div>
 
         {/* Mobile Menu Toggle */}
-        <button 
+        <button
           className="lg:hidden z-50 text-[#8dc63f] bg-white p-2 rounded-full shadow-md hover:scale-105 transition-transform"
           onClick={toggleMenu}
           aria-label="Toggle menu"
@@ -213,15 +219,15 @@ const Navbar = () => {
         </button>
 
         {/* Mobile Navigation GSAP Overlay */}
-        <div 
+        <div
           ref={overlayRef}
           className="fixed inset-0 bg-[#0a0a0a]/95 backdrop-blur-2xl -z-10 lg:hidden flex flex-col pt-28 px-8"
         >
           <ul ref={menuLinksRef} className="flex flex-col gap-6 overflow-y-auto pb-20">
             {navItems.map((item, index) => (
               <li key={index} className="flex flex-col gap-3">
-                <Link 
-                  href={item.href} 
+                <Link
+                  href={item.href}
                   className="text-3xl font-medium text-white flex justify-between items-center hover:text-[#8dc63f] transition-colors"
                   onClick={() => {
                     if (!item.subItems) toggleMenu();
@@ -233,7 +239,7 @@ const Navbar = () => {
                   <ul className="flex flex-col gap-3 pl-4 border-l border-white/10 mt-2">
                     {item.subItems.map((subItem, subIndex) => (
                       <li key={subIndex}>
-                        <Link 
+                        <Link
                           href={subItem.href}
                           className="text-gray-400 py-1 block text-xl hover:text-white transition-colors"
                           onClick={toggleMenu}

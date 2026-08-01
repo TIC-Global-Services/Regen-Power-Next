@@ -132,7 +132,7 @@ const BatteryQuote = ({ data }: BatteryQuoteProps) => {
                             subtitleClass="md:text-[1.6rem] font-normal tracking-tight text-gray-900"
                             titleClass="lg:text-[4.5rem] font-normal text-[#63B846] tracking-tight leading-tight"
                             className="mb-8 lg:-space-y-4"
-                            descClass="text-gray-500 mb-8 leading-relaxed"
+                            descClass="text-gray-500 mb-8 leading-[1.2]"
                         />
 
                         <div className="relative w-full max-w-lg">

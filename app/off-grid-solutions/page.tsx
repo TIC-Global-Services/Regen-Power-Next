@@ -47,6 +47,7 @@ import OffGridStory from '@/components/off-grid/OffGridStory';
 import OverlayCardGrid from '@/reuseables/OverlayCardGrid';
 import OffGridForm from '@/components/off-grid/OffGridForm';
 import FAQ from '@/reuseables/faq';
+import getValidMediaSrc from '@/utils/getValidsrc';
 
 export const revalidate = 60;
 
@@ -77,6 +78,15 @@ const OffGridSolutionsPage = async () => {
   const faq = resolveSharedFaq(findSection<SharedFaqData>(sections, 'shared.faq'));
   const form = resolveOffGridForm(findSection<OffGridFormData>(sections, 'off-grid.off-grid-form'));
 
+  const validBackgroundImage = await getValidMediaSrc(
+    hero?.backgroundImage ?? '',
+    '/off-grid-solution_banner.png'
+  )
+  const statscardBackgroundImage = await getValidMediaSrc(
+    stats?.cardBackground ?? '',
+    '/product_review_bg.png'
+  )
+
   return (
     <div className="bg-white min-h-screen text-black">
       <OffGridHero
@@ -85,7 +95,7 @@ const OffGridSolutionsPage = async () => {
         description={hero?.description}
         ctaText={hero?.ctaText}
         ctaLink={hero?.ctaLink}
-        backgroundImage={hero?.backgroundImage}
+        backgroundImage={validBackgroundImage}
       />
 
       {stats && (
@@ -93,7 +103,7 @@ const OffGridSolutionsPage = async () => {
           subtitle={stats.subtitle}
           title={stats.title}
           description={stats.description}
-          cardBackground={stats.cardBackground}
+          cardBackground={statscardBackgroundImage}
           stats={stats.stats}
         />
       )}

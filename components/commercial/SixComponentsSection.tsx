@@ -47,7 +47,7 @@ const SixComponentsSection: React.FC<SixComponentsSectionProps> = ({
                         <h2 className="text-4xl md:text-6xl lg:text-[4.5rem] text-[#63B846] font-normal tracking-tighter leading-none mb-5">
                             {title}
                         </h2>
-                        <p className="text-sm md:text-base text-white/85 leading-relaxed tracking-tight max-w-2xl font-light">
+                        <p className="text-sm md:text-base text-white/85 leading-[1.2] tracking-tight max-w-2xl font-light">
                             {description}
                         </p>
                     </Fade>

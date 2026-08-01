@@ -51,13 +51,13 @@ const SectionHeader: React.FC<SectionHeaderProps> = ({
             {subtitle}
           </p>
         )}
-        <h2 className={`text-[2.5rem] ${defaultTitleSize} text-[#63B846] tracking-tight leading-[1.2] font-normal ${titleClass}`}>
+        <h2 className={`${defaultTitleSize} text-[#63B846] tracking-tight leading-[1.2] font-normal ${titleClass}`}>
           {title}
         </h2>
       </Reveal>
       {description && (
         <Fade delay={0.2}>
-          <p className={`text-lg leading-tight tracking-tight mt-4 max-w-3xl ${descClass}`}>
+          <p className={`text-lg leading-tight tracking-tight mt-4  ${descClass}`}>
             {description}
           </p>
         </Fade>

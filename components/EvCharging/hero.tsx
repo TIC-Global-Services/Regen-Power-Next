@@ -1,20 +1,37 @@
 import React from 'react';
 import Hero from '@/reuseables/Hero';
-import evHeroBg from '@/assets/evcharging/hero_banner.png';
+import { StaticImageData } from 'next/image';
 
-const EvHero = () => {
+export interface EvHeroData {
+  mediaSrc: StaticImageData | string;
+  mediaType: "image" | "video";
+  isFullScreen?: boolean;
+  descriptionColor?: string;
+  imageClass?: string;
+  topSubtitle: string;
+  mainTitle: string;
+  description: string;
+  ctaText: string;
+  ctaLink: string;
+}
+
+interface EvHeroProps {
+  data: EvHeroData;
+}
+
+const EvHero = ({ data }: EvHeroProps) => {
   return (
     <Hero
-      mediaSrc={evHeroBg}
-      mediaType="image"
-      isFullScreen={false}
-      descriptionColor='text-white'
-      imageClass='object-cover object-bottom'
-      topSubtitle="Smart EV Charging"
-      mainTitle="Installing The Future Of Home Charging"
-      description="Charge your electric vehicle at home with clean solar energy. Regen Power designs and installs premium EV charging systems integrated with your solar and battery setup — powering your drive with sunshine."
-      ctaText="Get A Free EV Charging Quote"
-      ctaLink="/contact"
+      mediaSrc={data.mediaSrc}
+      mediaType={data.mediaType}
+      isFullScreen={data.isFullScreen}
+      descriptionColor={data.descriptionColor ?? 'text-white'}
+      imageClass={data.imageClass ?? 'object-cover object-bottom'}
+      topSubtitle={data.topSubtitle}
+      mainTitle={data.mainTitle}
+      description={data.description}
+      ctaText={data.ctaText}
+      ctaLink={data.ctaLink}
     />
   );
 };

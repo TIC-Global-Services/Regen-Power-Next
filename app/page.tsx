@@ -180,20 +180,20 @@ const featureExplorerFeatures: FeatureExplorerItem[] = [
     description:
       "Monitor and manage your household energy consumption in real-time, directing power to smart appliances and living areas for maximum efficiency.",
   },
-  {
-    id: 4,
-    number: "04",
-    title: "Fast EV Charging",
-    description:
-      "Charge your electric vehicle directly from your solar panels or stored battery power, driving on pure sunshine with zero emissions.",
-  },
-  {
-    id: 5,
-    number: "05",
-    title: "Intelligent Power Grid Connection",
-    description:
-      "Feed excess energy back to the Perth grid to earn feed-in tariffs, or draw from the grid seamlessly when solar and battery storage are depleted.",
-  },
+  // {
+  //   id: 4,
+  //   number: "04",
+  //   title: "Fast EV Charging",
+  //   description:
+  //     "Charge your electric vehicle directly from your solar panels or stored battery power, driving on pure sunshine with zero emissions.",
+  // },
+  // {
+  //   id: 5,
+  //   number: "05",
+  //   title: "Intelligent Power Grid Connection",
+  //   description:
+  //     "Feed excess energy back to the Perth grid to earn feed-in tariffs, or draw from the grid seamlessly when solar and battery storage are depleted.",
+  // },
 ];
 
 const partnersData: PartnersData = {
@@ -425,7 +425,7 @@ const batteryQuoteData: BatteryQuoteData = {
 
 export default function Home() {
   return (
-    <div>
+    <div className="overflow-hidden">
       <HeroSection data={heroData} />
       <AwardAndRecognations data={awardsData} />
       <WhyChooseUs data={whyChooseUsData} />

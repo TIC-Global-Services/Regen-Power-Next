@@ -8,7 +8,7 @@ export interface OverlayCard {
 }
 
 export interface OverlayCardGridProps {
-    backgroundImage: StaticImageData | string;
+    backgroundImage: string;
     badge?: string;
     subtitle?: string;
     title: React.ReactNode;
@@ -39,11 +39,14 @@ const OverlayCardGrid: React.FC<OverlayCardGridProps> = ({
     return (
         <section className={`relative w-full min-h-screen flex items-center justify-center overflow-hidden ${className}`}>
             <div className="absolute inset-0 z-0">
-                <Image
-                    src={backgroundImage}
+                <img
+                    src={backgroundImage
+                        || '/fallback.png'
+                    }
                     alt=""
-                    fill
-                    className="object-cover object-bottom"
+                    height={1920}
+                    width={1080}
+                    className="object-cover object-bottom w-full h-full"
                 />
                 <div
                     className="absolute inset-0 bg-black"

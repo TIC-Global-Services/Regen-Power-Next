@@ -31,7 +31,7 @@ const BatteryCapacityBlocks = ({ data }: { data: BatteryCapacityData }) => {
             <h2 className="text-4xl md:text-5xl lg:text-[5rem] text-[#63B846] font-light leading-none tracking-tighter ">
               {data.title}
             </h2>
-            <p className="text-xs md:text-xl text-black max-w-4xl mx-auto leading-relaxed font-medium whitespace-pre-line">
+            <p className="text-xs md:text-xl text-black max-w-4xl mx-auto leading-[1.2] font-medium whitespace-pre-line">
               {data.description}
             </p>
           </div>
@@ -41,23 +41,20 @@ const BatteryCapacityBlocks = ({ data }: { data: BatteryCapacityData }) => {
             {data.cards.map((card, idx) => (
               <div
                 key={idx}
-                className={`rounded-[16px] p-7 md:p-8 flex flex-col justify-center items-center  min-h-[280px] transition-shadow duration-300 hover:shadow-md ${
-                  card.isPrimary
+                className={`rounded-[16px] p-7 md:p-8 flex flex-col justify-center items-center  min-h-[280px] transition-shadow duration-300 hover:shadow-md ${card.isPrimary
                     ? 'bg-[#63B846] text-black'
                     : 'bg-[#EEF6EB] border border-[#63B846]/20 text-black'
-                }`}
+                  }`}
               >
                 <h4
-                  className={`text-xl md:text-[2rem] text-center font-normal whitespace-pre-line leading-[1.1] tracking-tight mb-3 ${
-                    card.isPrimary ? 'text-black' : 'text-black'
-                  }`}
+                  className={`text-xl md:text-[2rem] text-center font-normal whitespace-pre-line leading-[1.1] tracking-tight mb-3 ${card.isPrimary ? 'text-black' : 'text-black'
+                    }`}
                 >
                   {card.title}
                 </h4>
                 <p
-                  className={`text-sm md:text-xl text-center leading-relaxed ${
-                    card.isPrimary ? 'text-black' : 'text-black'
-                  }`}
+                  className={`text-sm md:text-xl text-center leading-[1.2] ${card.isPrimary ? 'text-black' : 'text-black'
+                    }`}
                 >
                   {card.description}
                 </p>

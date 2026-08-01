@@ -1,41 +1,29 @@
 'use client';
 
 import React, { useRef, useState } from 'react';
-import Image from 'next/image';
+import Image, { StaticImageData } from 'next/image';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import Fade from '@/reuseables/fade';
-import Reveal from '@/reuseables/Reveal';
 
 import 'swiper/css';
 
-import singlePhase from '@/assets/evcharging/single-phase-7w.png';
-import threePhase from '@/assets/evcharging/three-phase-2.png';
-import sigenergy from '@/assets/evcharging/sigenergy_trustedinstaller-1.png';
-import fronius from '@/assets/evcharging/fronius_trustedinstaller-2.png';
-import goodwe from '@/assets/evcharging/goodwe_trustedinstaller-3.png';
-import alphaess from '@/assets/evcharging/alphaess_trustedinstaller-4.png';
+export interface ChargerProduct {
+  name: string;
+  image: StaticImageData | string;
+  description: string;
+}
 
-const chargerProducts = [
-  {
-    name: 'Single-Phase 7 KW',
-    image: singlePhase,
-    description: 'Adds About 45 Km Of Range Per Hour — Enough To Fully Replenish The Average Daily Commute In Two To Three Hours, Every Night. Works In Nearly Every Perth Home And With Every EV Sold In Australia. The Right Choice For Daily Commuters And Single-EV Households.',
-  },
-  {
-    name: 'Three-Phase 22 KW',
-    image: threePhase,
-    description: 'Adds About 130 Km Of Range Per Hour — Ideal for fast charging, large properties, or households with multiple EVs. Requires a three-phase electrical connection. Fully charges most modern electric vehicles in under two hours.',
-  },
-];
+export interface OneChargerData {
+  subtitle: string;
+  title: string;
+  products: ChargerProduct[];
+}
 
-const trustedBrands = [
-  { name: 'Sigenergy', logo: sigenergy },
-  { name: 'Fronius', logo: fronius },
-  { name: 'Goodwe', logo: goodwe },
-  { name: 'AlphaESS', logo: alphaess },
-];
+interface OneChargerProps {
+  data: OneChargerData;
+}
 
-const OneCharger = () => {
+const OneCharger = ({ data }: OneChargerProps) => {
   const swiperRef = useRef<any>(null);
   const [activeIndex, setActiveIndex] = useState(0);
 
@@ -58,10 +46,10 @@ const OneCharger = () => {
           {/* Header */}
           <div className="text-center mb-12 md:mb-16 pr-[5%]">
             <h2 className="text-xl md:text-[2rem] font-medium text-black tracking-tight mb-1">
-              Single-Phase Or Three-Phase?
+              {data.subtitle}
             </h2>
             <p className="text-[#63B846] font-light text-[2.5rem] md:text-[3.5rem] lg:text-[5rem] tracking-tighter leading-none">
-              Here&apos;s What&apos;s Actually Different
+              {data.title}
             </p>
           </div>
 
@@ -82,10 +70,10 @@ const OneCharger = () => {
               }}
               className="w-full !overflow-visible"
             >
-              {chargerProducts.map((product, index) => (
+              {data.products.map((product, index) => (
                 <SwiperSlide key={index} className="transition-opacity duration-300">
                   <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 items-center">
-                    {/* Left: Image */}
+                     {/* Left: Image */}
                     <div className="relative w-full aspect-[14/10] rounded-[20px] overflow-hidden bg-[#F7F7F5]">
                       <Image
                         src={product.image}
@@ -139,9 +127,9 @@ const OneCharger = () => {
               </button>
               <button
                 onClick={handleNext}
-                disabled={activeIndex === chargerProducts.length - 1}
+                disabled={activeIndex === data.products.length - 1}
                 className={`w-12 h-12 rounded-full bg-black text-white flex items-center justify-center transition-all duration-300 ${
-                  activeIndex === chargerProducts.length - 1
+                  activeIndex === data.products.length - 1
                     ? 'opacity-30 cursor-not-allowed'
                     : 'hover:bg-black/80 hover:scale-105 active:scale-95'
                 }`}

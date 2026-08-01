@@ -1,14 +1,13 @@
 'use client';
 
 import React from 'react';
-import Image, { StaticImageData } from 'next/image';
 import { ArrowUpRight } from 'lucide-react';
 import CtaButton from '@/reuseables/CtaButton';
 
 interface Solution {
     title: string;
     description: string;
-    image: StaticImageData | string;
+    image: string;
     ctaText?: string;
     ctaHref?: string;
 }
@@ -26,17 +25,18 @@ const ThreeSolutionsSection: React.FC<ThreeSolutionsSectionProps> = ({
     description,
     solutions,
 }) => {
+
     return (
         <section className="py-16 md:py-24 bg-white">
             <div className="px-[5%] mx-auto">
-                <div className="text-center max-w-4xl mx-auto mb-12 md:mb-16">
-                    <p className="text-lg md:text-2xl text-black font-light tracking-tight mb-1">
+                <div className="text-center max-w-7xl mx-auto mb-12 md:mb-16">
+                    <p className="text-lg md:text-[2rem] text-black font-light tracking-tight ">
                         {subtitle}
                     </p>
                     <h2 className="text-4xl md:text-6xl lg:text-[5rem] text-[#63B846] font-normal tracking-tighter leading-none">
                         {title}
                     </h2>
-                    <p className="text-sm md:text-base text-black leading-relaxed mt-4 max-w-3xl mx-auto">
+                    <p className="text-sm md:text-lg text-black leading-[1.2] mt-4 ">
                         {description}
                     </p>
                 </div>
@@ -47,11 +47,13 @@ const ThreeSolutionsSection: React.FC<ThreeSolutionsSectionProps> = ({
                             key={idx}
                             className="relative h-[460px] md:h-[540px] rounded-[24px] overflow-hidden group"
                         >
-                            <Image
-                                src={sol.image}
+                            <img
+                                src={sol.image || '/fallback.png'}
                                 alt={sol.title}
-                                fill
-                                className="object-cover group-hover:scale-105 transition-transform duration-700"
+                                className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                                onError={(e) => {
+                                    e.currentTarget.src = "/fallback.png";
+                                }}
                             />
                             <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-black/10" />
                             <div className="absolute inset-0 p-6 md:p-8 flex flex-col">

@@ -98,13 +98,13 @@ const ThreeTiersSection: React.FC<ThreeTiersSectionProps> = ({
                                 <p className="text-xl md:text-2xl text-black/70 font-light tracking-tight mb-6">
                                     {tiers[activeIndex].subtitle}
                                 </p>
-                                <p className="text-sm md:text-base text-black/80 leading-relaxed tracking-tight mb-6 max-w-xl">
+                                <p className="text-sm md:text-base text-black/80 leading-[1.2] tracking-tight mb-6 max-w-xl">
                                     {tiers[activeIndex].description}
                                 </p>
 
                                 <div className="space-y-3 mb-8">
                                     {tiers[activeIndex].details.map((detail, idx) => (
-                                        <p key={idx} className="text-sm md:text-base text-black/85 leading-relaxed tracking-tight">
+                                        <p key={idx} className="text-sm md:text-base text-black/85 leading-[1.2] tracking-tight">
                                             <span className="font-semibold text-black">{detail.label}:</span> {detail.value}
                                         </p>
                                     ))}

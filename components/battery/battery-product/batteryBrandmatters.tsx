@@ -27,7 +27,7 @@ const BatteryBrandMatters = ({ data }: { data: BatteryBrandMattersData }) => {
             {data.title}
           </h2>
           {data.description && (
-            <p className="text-sm md:text-base text-black/75 font-normal max-w-2xl mx-auto leading-relaxed">
+            <p className="text-sm md:text-base text-black/75 font-normal max-w-2xl mx-auto leading-[1.2]">
               {data.description}
             </p>
           )}
@@ -56,7 +56,7 @@ const BatteryBrandMatters = ({ data }: { data: BatteryBrandMattersData }) => {
                 <h4 className="text-white text-xl md:text-2xl font-normal leading-tight mb-3 tracking-tight">
                   {card.title}
                 </h4>
-                <p className="text-white/85 text-xs md:text-sm font-light leading-relaxed">
+                <p className="text-white/85 text-xs md:text-sm font-light leading-[1.2]">
                   {card.description}
                 </p>
               </div>

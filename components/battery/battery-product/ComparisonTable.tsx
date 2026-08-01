@@ -37,7 +37,7 @@ const ComparisonTable = ({ data }: { data: ComparisonTableData }) => {
             {data.title}
           </h2>
           {data.description && (
-            <p className="text-sm md:text-base text-black/70 max-w-2xl mx-auto leading-relaxed">
+            <p className="text-sm md:text-base text-black/70 max-w-2xl mx-auto leading-[1.2]">
               {data.description}
             </p>
           )}
@@ -49,11 +49,10 @@ const ComparisonTable = ({ data }: { data: ComparisonTableData }) => {
             <button
               key={idx}
               onClick={() => setActiveCol(idx)}
-              className={`shrink-0 px-4 py-2 rounded-full text-sm font-medium transition-colors cursor-pointer ${
-                idx === activeCol
+              className={`shrink-0 px-4 py-2 rounded-full text-sm font-medium transition-colors cursor-pointer ${idx === activeCol
                   ? 'bg-[#63B846] text-white'
                   : 'bg-gray-100 text-black/60'
-              }`}
+                }`}
             >
               {col.heading}
             </button>
@@ -73,7 +72,7 @@ const ComparisonTable = ({ data }: { data: ComparisonTableData }) => {
             {data.columns.map((col, idx) => (
               <div
                 key={idx}
-                className={`p-4 lg:p-5 text-center text-sm lg:text-base font-semibold border-l border-[#D4E8CB] text-black ${idx==0 ?'bg-[#63B846] text-white':''}`}
+                className={`p-4 lg:p-5 text-center text-sm lg:text-base font-semibold border-l border-[#D4E8CB] text-black ${idx == 0 ? 'bg-[#63B846] text-white' : ''}`}
               >
                 {col.heading}
               </div>
@@ -84,7 +83,7 @@ const ComparisonTable = ({ data }: { data: ComparisonTableData }) => {
           {data.rows.map((row, rIdx) => (
             <div
               key={rIdx}
-              className={`grid ${rIdx == 0 ? 'bg-[#63B846] text-white':''} ${rIdx % 2 === 0 ? 'bg-white' : 'bg-[#F7FBF5]'}`}
+              className={`grid ${rIdx == 0 ? 'bg-[#63B846] text-white' : ''} ${rIdx % 2 === 0 ? 'bg-white' : 'bg-[#F7FBF5]'}`}
               style={{ gridTemplateColumns: `1.2fr repeat(${data.columns.length}, 1fr)` }}
             >
               <div className="p-4 lg:p-5 text-sm lg:text-base font-semibold border-t border-[#E5E7EB]" style={{ backgroundColor: labelBg, color: labelText }}>
@@ -111,9 +110,8 @@ const ComparisonTable = ({ data }: { data: ComparisonTableData }) => {
           {data.rows.map((row, rIdx) => (
             <div
               key={rIdx}
-              className={`flex justify-between items-center p-4 border-b border-[#E5E7EB] last:border-b-0 ${
-                rIdx % 2 === 0 ? 'bg-white' : 'bg-[#F7FBF5]'
-              }`}
+              className={`flex justify-between items-center p-4 border-b border-[#E5E7EB] last:border-b-0 ${rIdx % 2 === 0 ? 'bg-white' : 'bg-[#F7FBF5]'
+                }`}
             >
               <span className="text-sm font-semibold" style={{ color: labelText }}>{row.label}</span>
               <span className="text-sm text-black/70 text-right max-w-[50%]">{row.values[activeCol]}</span>

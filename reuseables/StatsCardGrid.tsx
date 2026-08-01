@@ -49,7 +49,7 @@ const StatsCardGrid: React.FC<StatsCardGridProps> = ({
                             return (
                                 <div
                                     key={idx}
-                                    className={`relative flex-1 ${heightClass} rounded-[20px] overflow-hidden`}
+                                    className={`relative flex-1 ${heightClass} ${idx != 2 ? 'rounded-t-[20px]' : 'rounded-[20px]'}  overflow-hidden`}
                                 >
                                     <Image
                                         src={cardBackground}
@@ -70,12 +70,18 @@ const StatsCardGrid: React.FC<StatsCardGridProps> = ({
                                 className="flex-1 relative h-full"
                             >
                                 <div
-                                    className="absolute left-5 md:left-7 right-5 md:right-7"
-                                    style={{ bottom: '80px' }}
+                                    className={`absolute left-5 md:left-7 right-5 md:right-7 ${idx == 0 ? 'bottom-45' : idx == 1 ? 'bottom-27' : 'bottom-10'}`}
+
                                 >
-                                    <div className="text-3xl md:text-5xl lg:text-[3.25rem] font-normal tracking-tighter leading-none text-black whitespace-pre-line">
+                                    <div className={`text-3xl md:text-5xl mb-3 lg:text-[2.825rem] font-normal tracking-tighter leading-none ${idx == 0 ? 'text-[#63B846]' : 'text-black'}`}>
                                         {stat.value}
+
                                     </div>
+                                    <p
+                                        className={`text-sm md:text-base tracking-tight font-light w-full ${idx != 2 ? 'text-[#63B846]' : ''}`}
+                                    >
+                                        {stat.label}
+                                    </p>
                                 </div>
                             </div>
                         ))}
@@ -88,12 +94,7 @@ const StatsCardGrid: React.FC<StatsCardGridProps> = ({
                                 key={idx}
                                 className="flex-1 relative h-full"
                             >
-                                <p
-                                    className="absolute left-5 md:left-7 right-5 md:right-7 text-sm md:text-base text-black leading-snug tracking-tight max-w-[200px] font-light"
-                                    style={{ bottom: '30px' }}
-                                >
-                                    {stat.label}
-                                </p>
+
                             </div>
                         ))}
                     </div>

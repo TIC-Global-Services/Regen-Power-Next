@@ -1,5 +1,4 @@
 import React from 'react';
-import Image, { StaticImageData } from 'next/image';
 import Link from 'next/link';
 import { ArrowRight } from 'lucide-react';
 import IconCardGrid, { IconCard } from '@/reuseables/IconCardGrid';
@@ -17,7 +16,7 @@ export interface OffGridStoryProps {
     title: string;
     description: string;
     cards: StoryCard[];
-    featuredImage: StaticImageData | string;
+    featuredImage: string;
     featuredImageAlt?: string;
     featuredTitle: string;
     featuredDescription: string;
@@ -39,12 +38,10 @@ const OffGridStory: React.FC<OffGridStoryProps> = ({
 }) => {
     const featuredContent = (
         <>
-            <Image
-                src={featuredImage}
+            <img
+                src={featuredImage || '/fallback.png'}
                 alt={featuredImageAlt || featuredTitle}
-                fill
-                className={`object-cover ${featuredHref ? 'transition-transform duration-700 group-hover:scale-105' : ''}`}
-                sizes="100vw"
+                className={`absolute inset-0 w-full h-full object-cover ${featuredHref ? 'transition-transform duration-700 group-hover:scale-105' : ''}`}
             />
 
             <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
@@ -69,14 +66,14 @@ const OffGridStory: React.FC<OffGridStoryProps> = ({
     return (
         <section className="py-16 md:py-24 bg-white">
             <div className="px-[5%] mx-auto">
-                <div className="text-center max-w-4xl mx-auto mb-12 md:mb-16">
-                    <p className="text-lg md:text-2xl text-black font-light tracking-tight mb-1">
+                <div className="text-center max-w-4xl mx-auto mb-12 md:mb-16 -space-y-2">
+                    <p className="text-lg md:text-2xl text-black font-light tracking-tight leading-none">
                         {subtitle}
                     </p>
                     <h2 className="text-4xl md:text-6xl lg:text-[5rem] text-[#63B846] font-normal tracking-tighter leading-none">
                         {title}
                     </h2>
-                    <p className="text-sm md:text-base text-black leading-relaxed mt-4 max-w-3xl mx-auto">
+                    <p className="text-sm md:text-base text-black leading-[1.2] mt-4 max-w-3xl mx-auto">
                         {description}
                     </p>
                 </div>

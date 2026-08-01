@@ -40,7 +40,7 @@ const StarRating: React.FC<{ count: number }> = ({ count }) => (
         {Array.from({ length: count }).map((_, i) => (
             <svg
                 key={i}
-                className="w-4 h-4 text-yellow-400"
+                className="w-4 h-4 text-black"
                 fill="currentColor"
                 viewBox="0 0 20 20"
             >
@@ -52,16 +52,16 @@ const StarRating: React.FC<{ count: number }> = ({ count }) => (
 
 
 const ReviewCard: React.FC<{ review: ReviewItem; googleLogo: StaticImageData | string }> = ({ review, googleLogo }) => (
-    <div className="flex-shrink-0 w-[340px] md:w-[380px] bg-[#F0F6EC] rounded-2xl p-6 md:p-8 flex flex-col justify-between">
+    <div className="flex-shrink-0 w-[340px] md:w-[450px] bg-[#F0F6EC] rounded-2xl p-6 md:p-6 flex flex-col justify-between">
         {/* Header */}
         <div>
             <h4 className="text-lg md:text-xl font-semibold text-black mb-3 leading-snug">
                 {review.systemTitle}
             </h4>
-            <p className="text-sm md:text-base text-gray-600 leading-relaxed mb-4">
+            <p className="text-sm md:text-base text-black leading-[1.2] mb-4">
                 &ldquo;{review.quote}&rdquo;
             </p>
-            <p className="text-sm font-medium text-black">
+            <p className="text-sm font-bold text-black">
                 {review.author} · {review.location}
             </p>
         </div>

@@ -27,19 +27,16 @@ const CtaSection: React.FC<CtaSectionProps> = ({
 }) => {
     return (
         <section className={`relative w-full ${minHeightClass} flex items-start overflow-hidden`}>
-            {bgImage && (
-                <div className="absolute inset-0 z-0">
-                    <Image
-                        src={bgImage}
-                        alt=""
-                        fill
-                        className="object-cover object-bottom"
-                    />
-                    <div
-                        className='bg-gradient-to-r h-full w-full from-black/5 via-black/10 to-transparent'
-                    />
-                </div>
-            )}
+            <div className="absolute inset-0 z-0">
+                <img
+                    src={(typeof bgImage === 'string' ? bgImage : (bgImage as any)?.src) || '/fallback.png'}
+                    alt=""
+                    className="absolute inset-0 w-full h-full object-cover object-bottom"
+                />
+                <div
+                    className='bg-gradient-to-r h-full w-full from-black/5 via-black/10 to-transparent'
+                />
+            </div>
 
             <div className="relative z-10 w-full px-[5%] mt-12 md:mt-16">
                 <div className="max-w-4xl text-white">

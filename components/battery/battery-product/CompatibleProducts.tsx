@@ -27,7 +27,7 @@ const CompatibleProducts = ({ data }: CompatibleProductsProps) => {
             {data.title}
           </h2>
           {data.description && (
-             <p className='text-sm leading-[1.2] md:text-lg tracking-tight mt-4'>{data.description}</p>
+            <p className='text-sm leading-[1.2] md:text-lg tracking-tight mt-4'>{data.description}</p>
           )}
         </div>
 
@@ -43,7 +43,7 @@ const CompatibleProducts = ({ data }: CompatibleProductsProps) => {
                   <span className="mt-1 shrink-0">
                     <Minus className="w-5 h-5 text-black" strokeWidth={1.5} />
                   </span>
-                  <span className="text-sm md:text-base leading-relaxed text-black/90 font-medium">
+                  <span className="text-sm md:text-base leading-[1.2] text-black/90 font-medium">
                     {item}
                   </span>
                 </li>
@@ -62,7 +62,7 @@ const CompatibleProducts = ({ data }: CompatibleProductsProps) => {
                   <span className="mt-1 shrink-0">
                     <Minus className="w-5 h-5 text-black" strokeWidth={1.5} />
                   </span>
-                  <span className="text-sm md:text-base leading-relaxed text-black/90 font-medium">
+                  <span className="text-sm md:text-base leading-[1.2] text-black/90 font-medium">
                     {item}
                   </span>
                 </li>

@@ -55,44 +55,44 @@ const BatteryBrandsGrid = ({ data }: { data: BatteryBrandsGridData }) => {
           {data.brands.map((brand, idx) => {
             // Find if any specification has a logo to render at the top
             const logoSpec = brand.specification.find(s => s.logo);
-            
+
             return (
-              <div 
-                key={idx} 
+              <div
+                key={idx}
                 className={`bg-[#EEF6EB] rounded-[20px] p-8 md:p-10 flex-col items-start ${idx === currentSlide ? 'flex' : 'hidden md:flex'}`}
               >
-                
+
                 {logoSpec && logoSpec.logo && (
                   <div className="relative h-14 w-40 mb-6">
-                    <Image 
-                      src={logoSpec.logo} 
-                      alt={brand.title} 
-                      fill 
-                      className="object-contain object-left" 
+                    <Image
+                      src={logoSpec.logo}
+                      alt={brand.title}
+                      fill
+                      className="object-contain object-left"
                     />
                   </div>
                 )}
-                
+
                 <h4 className="text-2xl md:text-[1.75rem] text-black font-normal mb-8 leading-tight tracking-tight">
                   {brand.title}
                 </h4>
-                
+
                 <div className="flex flex-col gap-6 mb-8 flex-1">
                   {brand.specification.map((spec, sIdx) => (
                     <div key={sIdx}>
-                      <p className="text-black text-sm md:text-base leading-relaxed">
+                      <p className="text-black text-sm md:text-base leading-[1.2]">
                         <span className="font-bold">{spec.title} </span>
                         {spec.description}
                       </p>
                     </div>
                   ))}
                 </div>
-                
+
                 {brand.showbutton && (
                   <div className="mt-auto">
-                    <CtaButton 
-                      href={brand.buttonLink} 
-                      text={brand.buttonText} 
+                    <CtaButton
+                      href={brand.buttonLink}
+                      text={brand.buttonText}
                       textColor="text-black"
                       bgClass="bg-[#63B846]/40 hover:bg-[#63B846]/60 transition-colors"
                     />
@@ -106,14 +106,14 @@ const BatteryBrandsGrid = ({ data }: { data: BatteryBrandsGridData }) => {
         {/* Mobile Navigation */}
         {data.brands.length > 1 && (
           <div className="flex md:hidden justify-center items-center gap-4 mt-8">
-            <button 
+            <button
               onClick={prevSlide}
               className="w-12 h-12 rounded-full bg-black flex items-center justify-center hover:bg-black/80 transition-colors cursor-pointer"
               aria-label="Previous slide"
             >
               <ArrowLeft className="w-5 h-5 text-white" />
             </button>
-            <button 
+            <button
               onClick={nextSlide}
               className="w-12 h-12 rounded-full bg-black flex items-center justify-center hover:bg-black/80 transition-colors cursor-pointer"
               aria-label="Next slide"

@@ -4,7 +4,7 @@ import { Check, Minus, X } from 'lucide-react';
 export interface GreatFitData {
   topSubtitle: string;
   title: string;
-  description?:string;
+  description?: string;
   goodFitTitle: string;
   goodFitItems: string[];
   conversationTitle: string;
@@ -41,7 +41,7 @@ const GreatFit = ({ data }: GreatFitProps) => {
                   <span className="mt-1 shrink-0">
                     <Check className="w-5 h-5 text-black" strokeWidth={1.5} />
                   </span>
-                  <span className="text-sm md:text-base leading-relaxed text-black/90">
+                  <span className="text-sm md:text-base leading-[1.2] text-black/90">
                     {item}
                   </span>
                 </li>
@@ -60,7 +60,7 @@ const GreatFit = ({ data }: GreatFitProps) => {
                   <span className="mt-1 shrink-0">
                     <X className="w-5 h-5 text-black" strokeWidth={1.5} />
                   </span>
-                  <span className="text-sm md:text-base leading-relaxed text-black/90">
+                  <span className="text-sm md:text-base leading-[1.2] text-black/90">
                     {item}
                   </span>
                 </li>

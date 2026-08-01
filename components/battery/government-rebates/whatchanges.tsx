@@ -44,7 +44,7 @@ const WhatChanges: React.FC<WhatChangesProps> = ({ data }) => {
             <h3 className="text-xl md:text-2xl font-normal text-black mb-6 leading-tight">
               {card1.title}
             </h3>
-            <p className="text-sm md:text-base text-black font-medium leading-relaxed">
+            <p className="text-sm md:text-base text-black font-medium leading-[1.2]">
               {card1.description}
             </p>
           </div>
@@ -54,7 +54,7 @@ const WhatChanges: React.FC<WhatChangesProps> = ({ data }) => {
             <h3 className="text-xl md:text-2xl font-normal text-black mb-6 leading-tight">
               {card2.title}
             </h3>
-            <p className="text-sm md:text-base text-black font-medium leading-relaxed mb-4">
+            <p className="text-sm md:text-base text-black font-medium leading-[1.2] mb-4">
               {card2.description}
             </p>
             {card2.bullets && card2.bullets.length > 0 && (
@@ -76,7 +76,7 @@ const WhatChanges: React.FC<WhatChangesProps> = ({ data }) => {
               <h3 className="text-xl md:text-2xl font-normal text-black mb-4 leading-tight">
                 {card3.title}
               </h3>
-              <p className="text-sm md:text-base text-black font-medium leading-relaxed">
+              <p className="text-sm md:text-base text-black font-medium leading-[1.2]">
                 {card3.description}
               </p>
             </div>
@@ -86,7 +86,7 @@ const WhatChanges: React.FC<WhatChangesProps> = ({ data }) => {
               <h3 className="text-xl md:text-2xl font-normal text-black mb-4 leading-tight">
                 {card4.title}
               </h3>
-              <p className="text-sm md:text-base text-black font-medium leading-relaxed">
+              <p className="text-sm md:text-base text-black font-medium leading-[1.2]">
                 {card4.description}
               </p>
             </div>

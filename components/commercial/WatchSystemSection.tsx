@@ -37,7 +37,7 @@ const WatchSystemSection: React.FC<WatchSystemSectionProps> = ({
                             {paragraphs.map((p, idx) => (
                                 <p
                                     key={idx}
-                                    className="text-sm md:text-base text-black/80 leading-relaxed tracking-tight"
+                                    className="text-sm md:text-base text-black/80 leading-[1.2] tracking-tight"
                                 >
                                     {p}
                                 </p>

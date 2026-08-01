@@ -45,7 +45,7 @@ const OurBatterybrands: React.FC<{ data?: OurBatteryBrandsData }> = ({ data }) =
                             </h2>
                         )}
                         {data.description && (
-                            <p className="text-sm md:text-base text-black/80 leading-relaxed mt-4 max-w-3xl mx-auto">
+                            <p className="text-sm md:text-base text-black/80 leading-[1.2] mt-4 max-w-3xl mx-auto">
                                 {data.description}
                             </p>
                         )}
@@ -64,9 +64,8 @@ const OurBatterybrands: React.FC<{ data?: OurBatteryBrandsData }> = ({ data }) =
                             >
                                 {/* Text Content Card */}
                                 <div
-                                    className={`bg-[#EAF2E2] rounded-3xl p-6 md:p-8 flex flex-col justify-between relative md:col-span-8 ${
-                                        isEven ? 'order-1 md:order-1' : 'order-1 md:order-2'
-                                    }`}
+                                    className={`bg-[#EAF2E2] rounded-3xl p-6 md:p-8 flex flex-col justify-between relative md:col-span-8 ${isEven ? 'order-1 md:order-1' : 'order-1 md:order-2'
+                                        }`}
                                 >
                                     {/* Arrow icon if link exists */}
                                     {brand.link && (
@@ -128,9 +127,8 @@ const OurBatterybrands: React.FC<{ data?: OurBatteryBrandsData }> = ({ data }) =
 
                                 {/* Image Card */}
                                 <div
-                                    className={`rounded-3xl overflow-hidden relative min-h-[260px] md:min-h-[360px] md:col-span-4 ${
-                                        isEven ? 'order-2 md:order-2' : 'order-2 md:order-1'
-                                    }`}
+                                    className={`rounded-3xl overflow-hidden relative min-h-[260px] md:min-h-[360px] md:col-span-4 ${isEven ? 'order-2 md:order-2' : 'order-2 md:order-1'
+                                        }`}
                                 >
                                     <Image
                                         src={brand.image}

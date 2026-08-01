@@ -49,7 +49,7 @@ const InstallProcess = ({ data }: { data: InstallProcessData }) => {
                   <h4 className="text-lg md:text-xl font-semibold text-black mb-1 tracking-tight">
                     {step.title}
                   </h4>
-                  <p className="text-sm md:text-base text-black/70 leading-relaxed">
+                  <p className="text-sm md:text-base text-black/70 leading-[1.2]">
                     {step.description}
                   </p>
                 </div>

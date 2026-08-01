@@ -1,7 +1,6 @@
 'use client';
 
 import React, { useState } from 'react';
-import Image, { StaticImageData } from 'next/image';
 import { ArrowRight } from 'lucide-react';
 import SectionHeader from '@/reuseables/SectionHeader';
 
@@ -83,7 +82,7 @@ interface OffGridFormProps {
     subtitle: string;
     title: string;
     description: string;
-    image: StaticImageData | string;
+    image: string;
     imageAlt?: string;
 }
 
@@ -119,11 +118,10 @@ const OffGridForm: React.FC<OffGridFormProps> = ({
                         />
 
                         <div className="relative w-full aspect-square max-w-[420px] mt-6 rounded-[20px] overflow-hidden">
-                            <Image
+                            <img
                                 src={image}
                                 alt={imageAlt}
-                                fill
-                                className="object-cover p-2"
+                                className="absolute inset-0 w-full h-full object-cover p-2"
                             />
                         </div>
                     </div>

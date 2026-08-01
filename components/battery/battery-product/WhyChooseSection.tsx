@@ -42,7 +42,7 @@ const WhyChooseSection = ({ data }: { data: WhyChooseData }) => {
             {data.title}
           </h2>
           {data.description && (
-            <p className="text-base md:text-lg text-black/80 font-normal mb-8 leading-relaxed">
+            <p className="text-base md:text-lg text-black/80 font-normal mb-8 leading-[1.2]">
               {data.description}
             </p>
           )}
@@ -53,7 +53,7 @@ const WhyChooseSection = ({ data }: { data: WhyChooseData }) => {
                 <h4 className="text-lg md:text-xl font-semibold text-black mb-2 tracking-tight">
                   {card.title}
                 </h4>
-                <p className="text-sm md:text-base text-black/70 leading-relaxed">
+                <p className="text-sm md:text-base text-black/70 leading-[1.2]">
                   {card.description}
                 </p>
               </div>

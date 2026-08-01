@@ -65,7 +65,7 @@ const itemVariants: Variants = {
 const WhyChooseUs = ({ data }: WhyChooseUsProps) => {
   return (
     <section className="py-10 md:py-20 bg-white overflow-hidden">
-      <div className="px-[5%]">
+      <div className="px-[8%] md:px-[5%]">
         {/* <SectionHeader
           subtitle={data.subtitle}
           title={data.title}
@@ -74,7 +74,7 @@ const WhyChooseUs = ({ data }: WhyChooseUsProps) => {
           titleClass="text-[#63B846] font-light text-[2.5rem] md:text-[3rem] lg:text-[5rem] tracking-tighter leading-none"
           className="mb-10 md:mb-15 lg:-space-y-4"
         /> */}
-        <div className='flex flex-col justify-start items-start mb-20'>
+        <div className='flex flex-col justify-center items-center md:justify-start md:items-start mb-5 md:mb-20'>
           <span className="text-xl md:text-[2rem] leading-[0.5] font-normal text-center  tracking-tight mb-1 block normal-case">{data.subtitle}</span>
           <h1 className="text-4xl md:text-5xl lg:text-[5rem] leading-none text-[#63B846] tracking-tight mt-1">{data.title}</h1>
         </div>
@@ -85,12 +85,12 @@ const WhyChooseUs = ({ data }: WhyChooseUsProps) => {
           initial="hidden"
           whileInView="show"
           viewport={{ once: true, margin: "-100px" }}
-          className="grid grid-cols-1 lg:grid-cols-3 gap-6 auto-rows-fr"
+          className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6 auto-rows-auto md:auto-rows-fr"
         >
 
           {/* Left Card - Award Winner */}
-          <motion.div variants={itemVariants} className="bg-[#EEF6EB] rounded-[20px] p-4 flex flex-col h-full md:min-h-[40dvh]">
-            <div className="w-full relative aspect-2/1 rounded-3xl overflow-hidden mb-4 lg:mb-8 flex items-center justify-center">
+          <motion.div variants={itemVariants} className="bg-[#EEF6EB] rounded-[20px] p-4 flex flex-col md:min-h-[40dvh]">
+            <div className="w-full relative aspect-2/1 rounded-3xl overflow-hidden mb-2 lg:mb-8 flex items-center justify-center">
               <Image
                 src={data.awardWinnerBg}
                 alt="Product Review Awards Logo Background"
@@ -108,7 +108,7 @@ const WhyChooseUs = ({ data }: WhyChooseUsProps) => {
               <h3 className="text-[4rem] lg:text-[6.250rem] font-bold text-black mb-2 tracking-tight leading-none">
                 <AnimatedCounter from={0} to={data.awardWinnerCount} /><span className="text-[3rem] lg:text-[6.250rem]">×</span>
               </h3>
-              <p className="text-2xl text-black leading-tight font-normal">
+              <p className="text-2xl lg:text-4xl text-black leading-[1.2] font-normal whitespace-pre-line">
                 {data.awardWinnerTitle}
               </p>
             </div>
@@ -117,25 +117,25 @@ const WhyChooseUs = ({ data }: WhyChooseUsProps) => {
           {/* Middle Card - Installations */}
           <motion.div
             variants={itemVariants}
-            className="bg-[#A0CF44] rounded-[20px] p-8 relative flex flex-col justify-end h-full min-h-[450px] lg:min-h-[500px] overflow-hidden"
+            className="bg-[#A0CF44] rounded-[20px] p-6 md:p-8 relative flex flex-col justify-end min-h-[280px] md:h-[350px] lg:min-h-[500px] overflow-hidden"
           >
 
             {/* 1. Main White Corner Box (Houses the Button) */}
-            <div className="absolute top-0 right-0 w-[96px] h-[98px] bg-white rounded-bl-[20px] z-10 flex items-center justify-center">
+            <div className="absolute top-0 right-0 w-[60px] h-[62px] md:w-[96px] md:h-[98px] bg-white rounded-bl-[20px] z-10 flex items-center justify-center">
               {/* Floating Plus Button */}
-              <button className="w-18 h-18 z-100 bg-black rounded-full flex items-center justify-center text-white text-6xl pb-3 font-light shadow-lg hover:scale-105 transition-transform">
+              <button className="w-10 h-10 md:w-18 md:h-18 z-100 bg-black rounded-full flex items-center justify-center text-white text-3xl md:text-6xl pb-1 md:pb-3 font-light shadow-lg hover:scale-105 transition-transform">
                 +
               </button>
             </div>
 
             {/* 2. Top-Left Inverse Curve Mask */}
-            <div className="absolute top-0 right-[96px] w-5 h-12 bg-transparent z-1 rounded-tr-[20px] shadow-[16px_-16px_0_16px_#ffffff]" />
+            <div className="absolute top-0 right-[60px] md:right-[96px] w-5 h-12 bg-transparent z-1 rounded-tr-[20px] shadow-[16px_-16px_0_16px_#ffffff]" />
 
             {/* 3. Bottom-Right Inverse Curve Mask */}
-            <div className="absolute top-[98px] right-0 w-4 h-6 bg-transparent z-10 rounded-tr-[20px] shadow-[16px_-16px_0_16px_#ffffff]" />
+            <div className="absolute top-[62px] md:top-[98px] right-0 w-4 h-6 bg-transparent z-10 rounded-tr-[20px] shadow-[16px_-16px_0_16px_#ffffff]" />
 
             {/* Stats Layout */}
-            <div className="relative z-0 flex flex-col mt-16">
+            <div className="relative z-0 flex flex-col mt-8 md:mt-16">
               <div>
                 <h3 className="text-[3.5rem] lg:text-[5.5rem] leading-none font-black text-black tracking-tighter">
                   <AnimatedCounter from={0} to={data.batteryInstallationsCount} />+
@@ -160,7 +160,7 @@ const WhyChooseUs = ({ data }: WhyChooseUsProps) => {
           <div className="flex flex-col gap-6 h-full">
 
             {/* Top Right Card - Years */}
-            <motion.div variants={itemVariants} className="bg-[#f0f6ec] rounded-[20px] p-6 relative overflow-hidden flex-grow flex flex-col justify-end min-h-[250px]">
+            <motion.div variants={itemVariants} className="bg-[#f0f6ec] rounded-[20px] p-6 relative overflow-hidden flex-grow flex flex-col justify-end min-h-[220px] md:min-h-[250px]">
               <div className="absolute right-[-20%] bottom-30 w-full h-full opacity-90 z-0">
                 <Image
                   src={data.yearsInBusinessBg}
@@ -173,25 +173,25 @@ const WhyChooseUs = ({ data }: WhyChooseUsProps) => {
                 <h3 className="text-[3.5rem] lg:text-[5rem] font-bold text-black leading-none  tracking-tight">
                   <AnimatedCounter from={0} to={data.yearsInBusinessCount} /><br />Years
                 </h3>
-                <p className="text-2xl text-black font-medium leading-snug">
+                <p className="text-xl md:text-3xl text-black font-medium leading-[1.2]">
                   {data.yearsInBusinessDescription}
                 </p>
               </div>
             </motion.div>
 
             {/* Bottom Right Card - Rating */}
-            <motion.div variants={itemVariants} className="rounded-[32px] relative overflow-hidden h-[160px] p-8 flex items-center justify-center">
+            <motion.div variants={itemVariants} className="rounded-[20px] md:rounded-[32px] relative overflow-hidden h-[140px] md:h-[160px] p-5 md:p-8 flex items-center justify-center">
               <Image
                 src={data.ratingBg}
                 alt="Green sphere background"
                 fill
                 className="object-cover z-0"
               />
-              <div className="relative z-10 flex items-center gap-4">
-                <h3 className="text-[6.250rem] font-bold text-white flex items-center  gap-3 leading-none tracking-tighter">
-                  <AnimatedCounter from={0} to={data.ratingScore} /> <span className="text-[2.5rem] font-extrabold"><Image src={'/star.svg'} height={80} width={80} alt="Star" /></span>
+              <div className="relative z-10 flex items-center gap-3 md:gap-4">
+                <h3 className="text-[4rem] md:text-[6.250rem] font-bold text-white flex items-center gap-2 md:gap-3 leading-none tracking-tighter">
+                  <AnimatedCounter from={0} to={data.ratingScore} /> <span className="text-[2.5rem] font-extrabold"><Image src={'/star.svg'} height={50} width={50} alt="Star" className="w-[50px] h-[50px] md:w-[80px] md:h-[80px]" /></span>
                 </h3>
-                <p className="text-white text-[2rem] tracking-tight font-medium leading-snug">
+                <p className="text-white text-lg md:text-4xl tracking-tight font-medium leading-[1.2]">
                   {data.ratingPlatformLabel}
                 </p>
               </div>

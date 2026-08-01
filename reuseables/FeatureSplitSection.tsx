@@ -19,10 +19,10 @@ export interface FeatureItem {
 }
 
 export interface FeatureSplitSectionProps {
-    title?:string
-    leftTitle?:string
-    rightTitle?:string
-    leftItems?:string[]
+    title?: string
+    leftTitle?: string
+    rightTitle?: string
+    leftItems?: string[]
     subtitle?: string;
     heading?: string;
     introText?: string;
@@ -119,7 +119,7 @@ const FeatureSplitSection: React.FC<FeatureSplitSectionProps> = ({
                             align="left"
                             subtitleClass="text-base md:text-xl lg:text-2xl normal-case block text-black"
                             titleClass="text-3xl md:text-4xl lg:text-[2.75rem] xl:text-[3.25rem] font-normal leading-[1.1] tracking-tight"
-                            descClass="text-gray-600 leading-relaxed font-light"
+                            descClass="text-gray-600 leading-[1.2] font-light"
                         />
                     </div>
 
@@ -166,7 +166,7 @@ const FeatureSplitSection: React.FC<FeatureSplitSectionProps> = ({
                     align="left"
                     subtitleClass="text-base md:text-xl lg:text-2xl normal-case mb-4 block text-black"
                     titleClass="text-3xl md:text-4xl lg:text-[2.75rem] xl:text-[3.25rem] font-normal leading-[1.1] tracking-tight mb-6"
-                    descClass="mb-6 text-gray-600 leading-relaxed font-light"
+                    descClass="mb-6 text-gray-600 leading-[1.2] font-light"
                 />
 
                 <div
@@ -189,7 +189,7 @@ const FeatureSplitSection: React.FC<FeatureSplitSectionProps> = ({
                                 <h3 className="text-xl font-normal text-gray-900 tracking-tight">
                                     {feature.title}
                                 </h3>
-                                <p className="text-sm md:text-base leading-relaxed text-gray-600">
+                                <p className="text-sm md:text-base leading-[1.2] text-gray-600">
                                     {feature.description}
                                 </p>
                                 <div className="relative w-full aspect-[4/3] rounded-2xl overflow-hidden shadow-lg mt-2 bg-gray-50">

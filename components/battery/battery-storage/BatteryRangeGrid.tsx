@@ -46,8 +46,8 @@ const BatteryRangeGrid = ({ data }: { data: BatteryRangeGridData }) => {
       <div className="flex flex-wrap justify-center gap-4 md:gap-5">
         {data.batteries.map((card, idx) => {
           return (
-            <div 
-              key={idx} 
+            <div
+              key={idx}
               className="w-full sm:w-[calc(50%-0.5rem)] lg:w-[calc(33.333%-0.85rem)] h-[280px] md:h-[500px]"
             >
               <ImageCard card={card} />
@@ -70,7 +70,7 @@ const ImageCard = ({ card }: { card: BatteryRangeCard }) => (
         alt={card.title}
         fill
         className="object-cover transition-transform duration-700 group-hover:scale-105 max-w-[30vw]"
-        // sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+      // sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
       />
     )}
 
@@ -103,7 +103,7 @@ const ImageCard = ({ card }: { card: BatteryRangeCard }) => (
 //     <h4 className="text-2xl md:text-3xl text-black font-medium tracking-tight leading-snug mb-3">
 //       {card.title}
 //     </h4>
-//     <p className="text-black/65 text-sm md:text-[15px] leading-relaxed">
+//     <p className="text-black/65 text-sm md:text-[15px] leading-[1.2]">
 //       {card.description}
 //     </p>
 //     {card.ctaText && card.ctaLink && (
