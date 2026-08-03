@@ -9,8 +9,9 @@ interface SpecsTableSectionProps {
 
 const SpecsTableSection: React.FC<SpecsTableSectionProps> = ({ resolved }) => {
   const columns = resolved.columns ?? [];
+  const rows = resolved.rows ?? [];
 
-  if (columns.length === 0) return null;
+  if (columns.length === 0 || rows.length === 0) return null;
 
   return (
     <section className="py-16 md:py-24 bg-white border-t border-gray-50">
@@ -31,7 +32,7 @@ const SpecsTableSection: React.FC<SpecsTableSectionProps> = ({ resolved }) => {
             <thead>
               <tr className="h-[100px]">
                 <th className="bg-[#A0CF44] text-black font-normal p-4 text-xl tracking-tight border-r border-b border-black w-[15%]">
-                  Brand & Series
+                  {resolved.labelColumnTitle || "Brand & Series"}
                 </th>
                 {columns.map((col, idx) => {
                   const isLastCol = idx === columns.length - 1;
@@ -42,88 +43,40 @@ const SpecsTableSection: React.FC<SpecsTableSectionProps> = ({ resolved }) => {
                         isLastCol ? "" : "border-r"
                       } overflow-hidden `}
                     >
-                      {col.brand}
+                      {col.title}
                     </th>
                   );
                 })}
               </tr>
             </thead>
             <tbody>
-              <tr className="hover:bg-[#EEF6EB]/80 transition-colors h-[100px]">
-                <td className="bg-[#A0CF44] text-black font-normal p-4 text-xl border-r border-b border-black">
-                  Efficiency
-                </td>
-                {columns.map((col, idx) => {
-                  const isLastCol = idx === columns.length - 1;
-                  return (
-                    <td
-                      key={`e-${idx}`}
-                      className={`bg-[#EEF6EB]/30 p-4 text-black font-normal text-xl border-b border-black ${
-                        isLastCol ? "" : "border-r"
-                      }`}
-                    >
-                      {col.efficiency ?? ""}
-                    </td>
-                  );
-                })}
-              </tr>
-
-              <tr className="hover:bg-[#EEF6EB]/80 transition-colors h-[100px]">
-                <td className="bg-[#A0CF44] text-black font-normal p-4 text-xl border-r border-b border-black">
-                  Temp Coeff
-                </td>
-                {columns.map((col, idx) => {
-                  const isLastCol = idx === columns.length - 1;
-                  return (
-                    <td
-                      key={idx}
-                      className={`bg-[#EEF6EB]/30 p-4 text-black font-normal text-xl border-b border-black ${
-                        isLastCol ? "" : "border-r"
-                      }`}
-                    >
-                      {col.tempCoeff ?? ""}
-                    </td>
-                  );
-                })}
-              </tr>
-
-              <tr className="hover:bg-[#EEF6EB]/80 transition-colors h-[100px]">
-                <td className="bg-[#A0CF44] text-black font-normal p-4 text-xl border-r border-b border-black">
-                  Degradation
-                </td>
-                {columns.map((col, idx) => {
-                  const isLastCol = idx === columns.length - 1;
-                  return (
-                    <td
-                      key={idx}
-                      className={`bg-[#EEF6EB]/30 p-4 text-black font-normal text-xl border-b border-black ${
-                        isLastCol ? "" : "border-r"
-                      }`}
-                    >
-                      {col.degradation ?? ""}
-                    </td>
-                  );
-                })}
-              </tr>
-
-              <tr className="hover:bg-[#EEF6EB]/80 transition-colors h-[100px]">
-                <td className="bg-[#A0CF44] text-black font-normal p-4 text-xl border-r border-black">
-                  Warranty
-                </td>
-                {columns.map((col, idx) => {
-                  const isLastCol = idx === columns.length - 1;
-                  return (
-                    <td
-                      key={idx}
-                      className={`bg-[#EEF6EB]/30 p-4 text-black font-normal text-xl border-black ${
-                        isLastCol ? "" : "border-r"
-                      }`}
-                    >
-                      {col.warranty ?? ""}
-                    </td>
-                  );
-                })}
-              </tr>
+              {rows.map((row, rIdx) => {
+                const isLastRow = rIdx === rows.length - 1;
+                return (
+                <tr
+                  key={rIdx}
+                  className="hover:bg-[#EEF6EB]/80 transition-colors h-[100px]"
+                >
+                  <td className={`bg-[#A0CF44] text-black font-normal p-4 text-xl border-r border-black ${isLastRow ? "" : "border-b"}`}>
+                    {row.label}
+                  </td>
+                  {columns.map((col, idx) => {
+                    const isLastCol = idx === columns.length - 1;
+                    const value = row.values[idx]?.text ?? "";
+                    return (
+                      <td
+                        key={idx}
+                        className={`bg-[#EEF6EB]/30 p-4 text-black font-normal text-xl border-black ${
+                          isLastRow ? "" : "border-b"
+                        } ${isLastCol ? "" : "border-r"}`}
+                      >
+                        {value}
+                      </td>
+                    );
+                  })}
+                </tr>
+                );
+              })}
             </tbody>
           </table>
         </Reveal>

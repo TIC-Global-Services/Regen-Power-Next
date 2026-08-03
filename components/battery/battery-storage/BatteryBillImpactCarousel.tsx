@@ -3,9 +3,9 @@
 import React, { useRef } from 'react';
 import Image from 'next/image';
 import { ArrowLeft, ArrowRight } from 'lucide-react';
-import { BillImpactCard } from './BatteryBillImpact';
+import { JargonCard } from './BatteryJargon';
 
-export const BatteryBillImpactCarousel = ({ cards }: { cards: BillImpactCard[] }) => {
+export const BatteryBillImpactCarousel = ({ cards }: { cards: JargonCard[] }) => {
   const scrollContainerRef = useRef<HTMLDivElement>(null);
 
   const scrollLeft = () => {

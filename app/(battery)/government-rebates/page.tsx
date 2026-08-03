@@ -1,24 +1,22 @@
 import React from 'react';
 
-import Hero from '@/reuseables/Hero';
+import HeroSection, { HeroSectionData } from '@/reuseables/HeroSection';
 import FAQ, { FAQItem } from '@/reuseables/faq';
-import GetSolar from '@/reuseables/getsolar';
+import GetSolar, { GetSolarProps } from '@/reuseables/getsolar';
 
 import RebatesStackGrid, { RebatesStackGridData } from '@/components/battery/government-rebates/RebatesStackGrid';
 import RebateDetailSplit, { RebateDetailSplitData } from '@/components/battery/government-rebates/RebateDetailSplit';
-import TextCardsGrid, { TextCardsGridData } from '@/components/battery/government-rebates/TextCardsGrid';
 import ResidentialBattery, { SchemeDataItem } from '@/components/battery/government-rebates/ResidentialBattery';
-import FederalRebates, { FederalRebateData } from '@/components/battery/government-rebates/fedrealRebates';
-import FinanceOption, { FinanceOptionData } from '@/components/battery/government-rebates/financeOption';
-import WhatChanges, { WhatChangesData } from '@/components/battery/government-rebates/whatchanges';
-import WhatSigningUp, { WhatSigningUpData } from '@/components/battery/government-rebates/whatsigningup';
+import FederalRebates, { FederalRebateData } from '@/components/battery/government-rebates/FederalRebates';
+import FinanceOption, { FinanceOptionData } from '@/components/battery/government-rebates/FinanceOption';
+import WhatChanges, { WhatChangesData } from '@/components/battery/government-rebates/WhatChanges';
+import WhatSigningUp, { WhatSigningUpData } from '@/components/battery/government-rebates/WhatSigningUp';
 
 import heroBanner from '@/assets/evcharging/hero_banner.png';
 import businessBg from '@/assets/home/zerointrest/businessBg.jpg';
-import productReviewBg from '@/assets/home/zerointrest/productReviewBg.png';
 import forYourHome from '@/assets/for_your_home.png';
 import solarBatteryCharging from '@/assets/solar_battery_charging.png';
-import Areyoueligible,{ areyoueligibleData } from '@/components/battery/government-rebates/areyoueligible';
+import AreYouEligible,{ areyoueligibleData } from '@/components/battery/government-rebates/AreYouEligible';
 
 
 
@@ -273,35 +271,57 @@ const areyoueligible: areyoueligibleData = {
     {
       title: 'You\'re willing to join a Virtual Power Plant (2-year agreement)',
     },
+    {
+      title: 'For the interest-free loan specifically, ADD:',
+    },
+    {
+      title: 'Combined household income under $210,000',
+    },
+    {
+      title: 'You pass a standard credit check',
+    },
+
   ],
 };
 
 
+const heroData: HeroSectionData = {
+    mediaSrc: heroBanner,
+    mediaType: 'image',
+    imageClass: 'object-cover',
+    topSubtitle: 'WA Battery Rebates 2026',
+    mainTitle: 'Claim Up To $7,500 Off Your Battery',
+    description: "Three rebates stack on a 10 kWh battery in WA: up to $1,300 (Synergy) or $3,800 (Horizon) from the state, ~$3,720 from the federal Cheaper Home Batteries Program, and a $10,000 interest-free loan if you qualify. This guide walks you through all three.",
+    ctaText: 'Get Your Free Quote',
+    ctaLink: '#quote',
+    subtitleColor: 'text-white',
+    descriptionColor: 'text-white',
+    showOverlay: true
+};
+
+const rebateCtaData: GetSolarProps = {
+    subtitle: 'Check your rebate eligibility',
+    mainTitle: 'In 30 Seconds',
+    description: "Three questions. You'll know immediately whether you qualify for the full combined rebate stack, and we'll follow up with a personalised quote that pre-applies your rebate value.",
+    buttonText: 'Check My Rebate Eligibility',
+    buttonHref: '#quote',
+    bgImage: forYourHome
+};
+
 const GovernmentRebatesPage = () => {
     return (
         <main className="w-full min-h-screen">
-            <Hero
-                mediaSrc={heroBanner}
-                mediaType="image"
-                imageClass="object-cover"
-                topSubtitle="WA Battery Rebates 2026"
-                mainTitle="Claim Up To $7,500 Off Your Battery"
-                description="Three rebates stack on a 10 kWh battery in WA: up to $1,300 (Synergy) or $3,800 (Horizon) from the state, ~$3,720 from the federal Cheaper Home Batteries Program, and a $10,000 interest-free loan if you qualify. This guide walks you through all three."
-                ctaText="Get Your Free Quote"
-                ctaLink="#quote"
-                subtitleColor="text-white"
-                descriptionColor="text-white"
-                showOverlay={true}
-            />
+            <HeroSection data={heroData} />
 
             <RebatesStackGrid data={rebatesStackData} />
             <ResidentialBattery data={residentialBatteryData} />
             <FederalRebates data={federalRebatesData} />
             <FinanceOption data={financeOptionData} />
             <WhatChanges data={whatChangesData} />
-            <Areyoueligible data={areyoueligible} />
-            <WhatSigningUp data={whatSigningUpData} />
+            <AreYouEligible data={areyoueligible} />
             <RebateDetailSplit data={waSchemeData} />
+            <WhatSigningUp data={whatSigningUpData} />
+            
             <FAQ
                 topTitle="FAQ"
                 title="Entries"
@@ -310,13 +330,7 @@ const GovernmentRebatesPage = () => {
                 image={businessBg}
             />
 
-            <GetSolar
-                subtitle="Check your rebate eligibility"
-                mainTitle="In 30 Seconds"
-                description="Three questions. You'll know immediately whether you qualify for the full combined rebate stack, and we'll follow up with a personalised quote that pre-applies your rebate value."
-                buttonText="Check My Rebate Eligibility"
-                bgImage={forYourHome}
-            />
+            <GetSolar {...rebateCtaData} />
         </main>
     );
 };

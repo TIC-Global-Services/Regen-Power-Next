@@ -1,9 +1,6 @@
 import React from 'react';
 import Image, { StaticImageData } from 'next/image';
 
-// Assuming you have an image at this path, update if necessary
-import fallbackImg from '@/assets/for_your_home.png';
-
 export interface SchemeDataItem {
   subtitle: string;
   title: string;

@@ -3,7 +3,7 @@ import { StaticImageData } from 'next/image';
 import CtaSection from './CtaSection';
 import getSolarBg from '@/assets/for_your_home.png';
 
-interface GetSolarProps {
+export interface GetSolarProps {
     subtitle?: string;
     mainTitle?: string;
     description?: string;

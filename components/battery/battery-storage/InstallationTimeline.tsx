@@ -3,7 +3,7 @@
 import React, { useState, useCallback } from 'react';
 import Image, { StaticImageData } from 'next/image';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ArrowLeft, ArrowRight, ChevronLeft, ChevronRight } from 'lucide-react';
+import { ArrowLeft, ArrowRight } from 'lucide-react';
 
 export interface TimelineStep {
   title: string;
@@ -19,10 +19,6 @@ export interface InstallationTimelineData {
 
 const InstallationTimeline = ({ data }: { data: InstallationTimelineData }) => {
   const [activeIndex, setActiveIndex] = useState(0);
-
-  const handleDotClick = useCallback((idx: number) => {
-    setActiveIndex(idx);
-  }, []);
 
   const handleNext = useCallback(() => {
     setActiveIndex((prev) => (prev === data.steps.length - 1 ? 0 : prev + 1));

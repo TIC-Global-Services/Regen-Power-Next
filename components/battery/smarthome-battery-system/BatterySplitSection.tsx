@@ -11,6 +11,8 @@ export interface SplitSectionBlock {
 }
 
 export interface BatterySplitSlide {
+  topSubtitle: string;
+  title: string;
   mainDescription: string;
   blocks: SplitSectionBlock[];
   ctaText: string;
@@ -19,8 +21,6 @@ export interface BatterySplitSlide {
 }
 
 export interface BatterySplitData {
-  topSubtitle: string;
-  title: string;
   slides: BatterySplitSlide[];
 }
 
@@ -51,7 +51,7 @@ const BatterySplitSection = ({ data }: { data: BatterySplitData }) => {
           >
             <Image 
               src={slide.image} 
-              alt={data.title} 
+              alt={slide.title}
               fill 
               className="object-cover" 
             />
@@ -86,13 +86,6 @@ const BatterySplitSection = ({ data }: { data: BatterySplitData }) => {
       <div className="flex flex-col lg:flex-row gap-12 lg:gap-16 items-center">
         {/* Left Content */}
         <div className="w-full lg:w-1/2 flex flex-col items-start shrink-0 lg:min-h-[500px]">
-          <h3 className="text-xl md:text-2xl text-black font-normal mb-1">
-            {data.topSubtitle}
-          </h3>
-          <h2 className="text-4xl md:text-[5rem] text-[#63B846] font-normal leading-[1] mb-6 lg:mb-8 tracking-tight">
-            {data.title}
-          </h2>
-
           {/* Mobile Image & Nav (Visible only on small screens) */}
           <div className="w-full block lg:hidden mb-8">
             {renderImageAndNav()}
@@ -108,6 +101,13 @@ const BatterySplitSection = ({ data }: { data: BatterySplitData }) => {
                 transition={{ duration: 0.4, ease: "easeInOut" }}
                 className="flex flex-col items-start w-full"
               >
+                <h3 className="text-xl md:text-2xl text-black font-normal mb-1">
+                  {slide.topSubtitle}
+                </h3>
+                <h2 className="text-4xl md:text-[5rem] text-[#63B846] font-normal leading-[1] mb-6 lg:mb-8 tracking-tight">
+                  {slide.title}
+                </h2>
+
                 <p className="text-base md:text-lg text-black/80 font-normal mb-8">
                   {slide.mainDescription}
                 </p>

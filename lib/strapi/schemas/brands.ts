@@ -92,11 +92,18 @@ export type BrandsCriteriaListData = z.infer<typeof BrandsCriteriaListSchema>;
 
 export const BrandsSpecColumnSchema = z.object({
   id: z.number(),
-  brand: z.string(),
-  efficiency: z.string().nullable(),
-  tempCoeff: z.string().nullable(),
-  degradation: z.string().nullable(),
-  warranty: z.string().nullable(),
+  title: z.string(),
+});
+
+export const BrandsSpecValueSchema = z.object({
+  id: z.number(),
+  text: z.string().nullable(),
+});
+
+export const BrandsSpecRowSchema = z.object({
+  id: z.number(),
+  label: z.string(),
+  values: z.array(BrandsSpecValueSchema),
 });
 
 export const BrandsSpecsTableSchema = z.object({
@@ -104,6 +111,8 @@ export const BrandsSpecsTableSchema = z.object({
   subtitle: z.string().nullable(),
   title: z.string().nullable(),
   description: z.string().nullable(),
+  labelColumnTitle: z.string().nullable(),
   columns: z.array(BrandsSpecColumnSchema),
+  rows: z.array(BrandsSpecRowSchema),
 });
 export type BrandsSpecsTableData = z.infer<typeof BrandsSpecsTableSchema>;

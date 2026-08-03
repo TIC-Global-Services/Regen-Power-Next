@@ -1,52 +1,41 @@
 import React from 'react';
 
 // Reusable Components
-import Hero from '@/reuseables/Hero';
 import FAQ, { FAQItem } from '@/reuseables/faq';
-import GetSolar from '@/reuseables/getsolar';
+import HeroSection, { HeroSectionData } from '@/reuseables/HeroSection';
+import SpecsTableSection from '@/components/solar/brands/SpecsTableSection';
+import type { ResolvedBrandsSpecsTable } from '@/lib/strapi/resolvers/brands';
 
 // Custom Components
 import BrandLongTermBet, { BrandLongTermBetData } from '@/components/battery/brands-wecarry/BrandLongTermBet';
-import BrandRoles, { BrandRolesData } from '@/components/battery/brands-wecarry/BrandRoles';
-import ComparisonTable, { ComparisonTableData } from '@/components/battery/battery-product/ComparisonTable';
-import NarrowLists, { NarrowListsData } from '@/components/battery/brands-wecarry/NarrowLists';
-import ApartmentSolutions, { ApartmentSolutionsData } from '@/components/battery/brands-wecarry/ApartmentSolutions';
-import WhyQualityCostMore, { WhyQualityCostMoreData } from '@/components/battery/brands-wecarry/WhyQualityCostMore';
-import CECApproved from '@/components/battery/brands-wecarry/cecapproved';
-import { HowYouUseItData } from '@/components/battery/battery-product/howyouuseit';
-import WhyOurInstaller, { WhyOurInstallerData } from '@/components/battery/brands-wecarry/whyOurinstaller';
-import QuickWay, { QuickWayData } from '@/components/battery/brands-wecarry/quikway';
-import WhatItTakes, { WhatItTakesData } from '@/components/battery/brands-wecarry/whatittakes';
-import AtAGlance from '@/components/battery/brands-wecarry/aglance';
-import SevenBrand, { SevenBrandData } from '@/components/battery/brands-wecarry/sevenbrand';
+import CECApproved from '@/components/battery/brands-wecarry/CECApproved';
+import { HowYouUseItData } from '@/components/battery/battery-product/HowYouUseIt';
+import WhyOurInstaller, { WhyOurInstallerData } from '@/components/battery/brands-wecarry/WhyOurInstaller';
+import QuickWay, { QuickWayData } from '@/components/battery/brands-wecarry/QuickWay';
+import WhatItTakes, { WhatItTakesData } from '@/components/battery/brands-wecarry/WhatItTakes';
+import SevenBrand, { SevenBrandData } from '@/components/battery/brands-wecarry/SevenBrand';
+import PickYourBrand from '@/components/battery/brands-wecarry/PickYourBrand'
 
 // Assets
 import heroBanner from '@/assets/evcharging/hero_banner.png';
 import businessBg from '@/assets/home/zerointrest/businessBg.jpg';
 import productReviewBg from '@/assets/home/zerointrest/productReviewBg.png';
-import forYourHome from '@/assets/for_your_home.png';
-import whyMore from '@/assets/why_more.png';
 import solarBatteryCharging from '@/assets/solar_battery_charging.png';
-import { HeroData } from '@/components/battery/brands-wecarry/Hero';
-import HeroSection from '@/components/battery/brands-wecarry/Hero';
-import Pickyourbrand from '@/components/battery/brands-wecarry/pickYourBrand'
 
-const heroDetails: HeroData[] = [
-  {
-    mediaSrc: heroBanner,
-    mediaType: "image",
-    imageClass: "object-cover",
-    topSubtitle: "Home / Battery / Brands We Carry",
-    mainTitle: "Brands We Carry In Perth",
-    description:
-      "Regen Power is the leading distributor and installer of batteries in Perth and Western Australia. We carry a wide range of batteries from the world's leading brands.",
-    ctaText: "Get Your Free Quote",
-    ctaLink: "#quote",
-    subtitleColor: "text-white",
-    descriptionColor: "text-white",
-    showOverlay: true,
-  },
-];
+const heroData: HeroSectionData = {
+  mediaSrc: heroBanner,
+  mediaType: "image",
+  imageClass: "object-cover",
+  topSubtitle: "Solar Battery",
+  mainTitle: "Brands We Carry In Perth",
+  description:
+    "The brands we trust, from premium to accessible. Tesla Powerwall 3, BYD Battery-Box, Alpha ESS, iStore, Sigenergy SigenStor, Anker Solix, Goodwe Lynx Home. Every one has been through our technical review and field-tested across our 45,000+ installations.",
+  ctaText: "Get Your Free Quote",
+  ctaLink: "#quote",
+  subtitleColor: "text-white",
+  descriptionColor: "text-white",
+  showOverlay: true,
+};
 
 const brandLongTermBetData: BrandLongTermBetData = {
   subtitle: 'A Battery Lives With You For 10–15 Years.',
@@ -222,41 +211,39 @@ const whatItTakesData: WhatItTakesData = {
   ],
 };
 
-const atAGlanceData: ComparisonTableData = {
-  topSubtitle: 'Side-By-Side',
+const atAGlanceResolved: ResolvedBrandsSpecsTable = {
+  subtitle: 'Side-By-Side',
   title: 'At A Glance',
-  labelColumnBg: '#63B846',
+  description: '',
+  labelColumnTitle: 'Brand & Series',
   columns: [
-    { heading: 'Brand & Series' },
-    { heading: 'Jinko Tiger Neo' },
-    { heading: 'LONGi Hi-MO X10' },
-    { heading: 'Canadian Solar TOPHiku6' },
-    { heading: 'JA Solar DeepBlue 4.0 Pro' },
-    { heading: 'Risen Titan' },
-    { heading: 'Risen Titan' },
+    { title: 'Jinko Tiger Neo' },
+    { title: 'LONGi Hi-MO X10' },
+    { title: 'Canadian Solar TOPHiku6' },
+    { title: 'JA Solar DeepBlue 4.0 Pro' },
+    { title: 'Risen Titan' },
   ],
   rows: [
     {
       label: 'Efficiency',
-      values: ['22.3%', '22.8%', '22.5%', '22.4%', '22.0%', '22.3%'],
+      values: [{ text: '22.3%' }, { text: '22.8%' }, { text: '22.5%' }, { text: '22.4%' }, { text: '22.0%' }],
     },
     {
       label: 'Temp Coeff',
-      values: ['-0.29%/°C', '-0.26%/°C', '-0.28%/°C', '-0.30%/°C', '-0.30%/°C', '-0.30%/°C'],
+      values: [{ text: '-0.29%/°C' }, { text: '-0.26%/°C' }, { text: '-0.28%/°C' }, { text: '-0.30%/°C' }, { text: '-0.30%/°C' }],
     },
     {
       label: 'Degradation',
-      values: ['0.40%/yr', '0.35%/yr', '0.40%/yr', '0.40%/yr', '0.40%/yr', '0.40%/yr'],
+      values: [{ text: '0.40%/yr' }, { text: '0.35%/yr' }, { text: '0.40%/yr' }, { text: '0.40%/yr' }, { text: '0.40%/yr' }],
     },
     {
       label: 'Warranty',
       values: [
-        '25 yr product · 30 yr performance',
-        '25 yr product · 30 yr performance',
-        '25 yr product · 30 yr performance',
-        '25 yr product · 30 yr performance',
-        '25 yr product · 30 yr performance',
-        '25 yr product · 30 yr performance',
+        { text: '25 yr product · 30 yr performance' },
+        { text: '25 yr product · 30 yr performance' },
+        { text: '25 yr product · 30 yr performance' },
+        { text: '25 yr product · 30 yr performance' },
+        { text: '25 yr product · 30 yr performance' },
       ],
     },
   ],
@@ -608,11 +595,11 @@ const pickyourbrand=  {
 const BrandsWeCarryPage = () => {
   return (
     <main className="w-full min-h-screen">
-      <HeroSection data={heroDetails} />
+      <HeroSection data={heroData} />
       <BrandLongTermBet data={brandLongTermBetData} />
       <WhatItTakes data={whatItTakesData} />
       <SevenBrand data={sevenBrandDetails} />
-      <AtAGlance data={atAGlanceData} />
+      <SpecsTableSection resolved={atAGlanceResolved} />
       <QuickWay data={quickWayData} />
       <CECApproved data={cecApprovedData} />
       <WhyOurInstaller data={whyOurInstallerDetails} />
@@ -623,7 +610,7 @@ const BrandsWeCarryPage = () => {
         items={pageFaqs}
         image={businessBg}
       />
-      <Pickyourbrand data={pickyourbrand}/>
+      <PickYourBrand data={pickyourbrand}/>
     </main>
   );
 };

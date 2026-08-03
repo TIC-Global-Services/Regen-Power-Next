@@ -3,9 +3,9 @@ import { StaticImageData } from 'next/image';
 import FeatureCardGrid, { FeatureCardItem } from '@/reuseables/FeatureCardGrid';
 
 export interface StoryCard {
-  quote: string;
-  author: string;
-  location: string;
+  home: string;
+  specs: string;
+  description: string;
   image: StaticImageData | string;
 }
 
@@ -18,8 +18,9 @@ export interface CustomerStoriesData {
 const CustomerStories = ({ data }: { data: CustomerStoriesData }) => {
   // Map the StoryCard structure to the FeatureCardItem structure expected by FeatureCardGrid
   const mappedCards: FeatureCardItem[] = data.stories.map((story) => ({
-    title: `${story.author} — ${story.location}`,
-    description: `"${story.quote}"`,
+    title: story.home,                  // title     = "home"
+    subtitle: story.specs,              // subtitle  = "specs" (renders between title and description)
+    description: `${story.description}`, // description
     image: story.image,
   }));
 

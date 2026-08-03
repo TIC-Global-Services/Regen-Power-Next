@@ -8,6 +8,7 @@ import CtaButton from './CtaButton';
 
 export interface FeatureCardItem {
   title: string;
+  subtitle?: string;
   description: string;
   image: StaticImageData | { src: string; alt?: string } | string | null;
   colSpan?: number;
@@ -140,6 +141,12 @@ const FeatureCardGrid: React.FC<FeatureCardGridProps> = ({
                     {card.title}
                   </h4>
 
+                  {card.subtitle && (
+                    <p className="text-white/90 text-[#63B846] text-sm md:text-base font-medium tracking-tight leading-tight mb-2">
+                      {card.subtitle}
+                    </p>
+                  )}
+
                   <p className={`text-white text-sm md:text-[15px] leading-tight max-w-[85%] font-light transition-all duration-700 ease-[cubic-bezier(0.4,0,0.2,1)] opacity-100`}>
                     {card.description}
                   </p>
@@ -172,7 +179,7 @@ const FeatureCardGrid: React.FC<FeatureCardGridProps> = ({
 
         {showPersonalisedquoteCta && (
           <div className='flex justify-end items-center gap-3 mt-10' >
-            <p className='text-xs tracking-tight lg:text-sm'>Want an estimate for your home? Tell us your address and usage and we'll model it</p>
+            <p className='text-xs tracking-tight lg:text-sm'>Want an estimate for your home? Tell us your address and usage and we&apos;ll model it</p>
             <CtaButton text='Get a personalised quote' />
           </div>
         )}

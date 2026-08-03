@@ -1,17 +1,15 @@
 import React from 'react';
-import Hero from '@/components/battery/battery-storage/Hero';
+import HeroSection, { HeroSectionData } from '@/reuseables/HeroSection';
 import DebsRebateBanner, { DebsRebateData } from '@/components/battery/battery-storage/DebsRebateBanner';
 import BatteryJargon, { BatteryJargonData } from '@/components/battery/battery-storage/BatteryJargon';
 import BatteryBillImpact, { BatteryBillImpactData } from '@/components/battery/battery-storage/BatteryBillImpact';
 import BatteryRangeGrid, { BatteryRangeGridData } from '@/components/battery/battery-storage/BatteryRangeGrid';
 import BatteryCapacityBlocks, { BatteryCapacityData } from '@/components/battery/battery-storage/BatteryCapacityBlocks';
-import BatteryFitCriteria, { BatteryFitData } from '@/components/battery/battery-storage/BatteryFitCriteria';
 import SolarBatteryMeaning, { SolarBatteryMeaningData } from '@/components/battery/battery-storage/SolarBatteryMeaning';
 import InstallationTimeline, { InstallationTimelineData } from '@/components/battery/battery-storage/InstallationTimeline';
 import OneLocalTeam, { OneLocalTeamData } from '@/components/battery/battery-storage/OneLocalTeam';
 import CustomerStories, { CustomerStoriesData } from '@/components/battery/battery-storage/CustomerStories';
 import BatteryFAQ, { BatteryFAQData } from '@/components/battery/battery-storage/BatteryFAQ';
-import FinalCTA, { FinalCTAData } from '@/components/battery/battery-storage/FinalCTA';
 
 // Import placeholder images
 import heroBanner from '@/assets/evcharging/hero_banner.png';
@@ -22,12 +20,20 @@ import approvedseller from '@/assets/home/patners/approved.png'
 import productreview from '@/assets/home/realstories/top_panel_installers.png'
 import australia from '@/assets/home/austalia_map.png'
 import forYourHome from '@/assets/for_your_home.png';
-import SolarStatsAndIntro from '@/components/solar/SolarStatsAndIntro';
-import BatteryMaque from '@/components/battery/battery-storage/batteryMaque';
-import GetSolar from '@/reuseables/getsolar';
-import GreatFit, { GreatFitData } from '@/components/battery/smarthome-battery-system/greatfit';
+import BatteryMarquee, { BatteryMarqueeData } from '@/components/battery/battery-storage/BatteryMarquee';
+import GetSolar, { GetSolarProps } from '@/reuseables/getsolar';
+import GreatFit, { GreatFitData } from '@/components/battery/smarthome-battery-system/GreatFit';
 
 // --- Static Dummy Data ---
+
+const batteryMarqueeData: BatteryMarqueeData = {
+    items: [
+        { text: '45,000+ Solar' },
+        { text: '3000+ Storage Installations' },
+        { text: '23 Years In Perth' },
+        { text: '4.9★ Rating (Google + ProductReview)' }
+    ]
+};
 
 const debsRebateData: DebsRebateData = {
     subtitle: 'The Best Rebate Window WA Homeowners Have Ever Seen',
@@ -39,57 +45,57 @@ const debsRebateData: DebsRebateData = {
 };
 
 const batteryJargonData: BatteryJargonData = {
-    topSubtitle: 'what a battery actually',
-    title: 'Does to your bill',
-    bottomSubtitle: ' Across our 45,000+ installations, Perth households combining solar with battery storage typically see bill reductions of 70–90% — transforming electricity from a major expense into a near-negligible one.',
-    cards: [
-        {
-            title: 'Maximize Your Solar',
-            description: 'Store excess daytime solar power for use at night, drastically reducing your reliance on the grid.',
-            image: businessBg
-        },
-        {
-            title: 'Power Outage Protection',
-            description: 'Keep the lights on and the fridge running even when the grid goes down.',
-            image: productReviewBg
-        },
-        {
-            title: 'Future-Proof Your Home',
-            description: 'Prepare for rising energy costs and the transition to electric vehicles with home battery storage.',
-            image: heroBanner
-        }
-    ]
-};
-
-const batteryBillImpactData: BatteryBillImpactData = {
     topSubtitle: 'How your battery works',
     title: '(Without jargon)',
     description: 'A home battery stores the solar your panels produce during the day so you can use it after sundown, when grid electricity is most expensive.',
     cards: [
         {
-            title: 'Shift Your Usage',
-            description: 'Use stored solar energy during peak evening hours when electricity is most expensive.',
+            title: 'Your panels generate solar all day',
+            description: 'Perth averages 5.8 peak sun hours, one of the highest solar irradiance levels of any capital city. A 6.6kW system makes more than most homes use during daylight hours.',
             image: businessBg
         },
         {
-            title: 'Achieve True Independence',
-            description: 'Many of our customers with appropriately sized solar and battery systems receive bills close to $0.',
+            title: 'Surplus solar charges your battery, not the grid',
+            description: 'Without a battery, that surplus flows to the grid for 2.25–10c per kWh. With a battery, it charges the unit directly, typically fully charging a 10 kWh battery by early afternoon.',
             image: productReviewBg
         },
         {
-            title: 'Seamless Backup Power',
-            description: 'Keep your most important appliances running effortlessly, even when the grid fails during a storm.',
+            title: 'Your home runs on stored solar after sunset',
+            description: 'From dusk through the evening peak (3pm–9pm) when grid electricity is most expensive, your home draws from the battery instead of Synergy. Each kWh used this way saves you around 30 cents.',
             image: heroBanner
         },
         {
-            title: 'Beat Rising Tariffs',
-            description: 'Lock in your energy costs today and protect your household from future electricity price hikes.',
+            title: 'Grid is backup, not default',
+            description: "On the rare day where you run the battery flat, the grid tops you up automatically. You don't notice the handover.",
             image: forYourHome
         },
         {
-            title: 'Maximize Your Investment',
-            description: 'Store every drop of excess solar your panels generate, rather than sending it back for pennies.',
+            title: 'During a blackout, your battery keeps the lights on',
+            description: 'With a backup-ready battery (Tesla Powerwall 3, Sigenergy, BYD with backup box), essential circuits keep running while the grid is down.',
             image: businessBg
+        }
+    ]
+};
+
+const batteryBillImpactData: BatteryBillImpactData = {
+    topSubtitle: 'what a battery actually',
+    title: 'Does to your bill',
+    bottomSubtitle: ' Across our 45,000+ installations, Perth households combining solar with battery storage typically see bill reductions of 70–90% — transforming electricity from a major expense into a near-negligible one.',
+    cards: [
+        {
+            title: 'annual bill savings',
+            description: 'A typical 10 kWh battery cycling daily saves a Perth household $1,000–$1,400 per year on electricity, based on current Synergy A1 tariff and DEBS feed-in rates.',
+            image: businessBg
+        },
+        {
+            title: 'Payback period',
+            description: 'With the WA Residential Battery Scheme, federal Cheaper Home Batteries Program, and interest-free loan, a 10 kWh battery can pay for itself in 3–5 years for most Perth households.',
+            image: productReviewBg
+        },
+        {
+            title: 'Bill Reduction',
+            description: 'Across our 45,000+ installations, Perth households combining solar with battery storage typically see bill reductions of 70–90% — transforming electricity from a major expense into a near-negligible one.',
+            image: heroBanner
         }
     ]
 };
@@ -161,24 +167,6 @@ const batteryCapacityData: BatteryCapacityData = {
     ctaLink: '#rebate-guide'
 };
 
-const batteryFitData: BatteryFitData = {
-    title: 'A Battery Is A Great Fit If...',
-    subtitle: 'Find out if it makes sense for you',
-    leftTitle: 'YES IF...',
-    leftItems: [
-        'You use most of your electricity in the evening',
-        'You want backup power during blackouts',
-        'You have a large solar system that exports a lot',
-        'You want maximum independence from the grid'
-    ],
-    rightTitle: 'NOT A GOOD FIT IF...',
-    rightItems: [
-        'You use almost all your power during the day',
-        'Your roof space is very limited',
-        'You plan to move house in the next 1-2 years'
-    ]
-};
-
 const greatFitData: GreatFitData = {
     topSubtitle: 'A Battery',
     title: 'Is A Great Fit If',
@@ -200,13 +188,13 @@ const greatFitData: GreatFitData = {
 };
 
 const solarBatteryMeaningData: SolarBatteryMeaningData = {
-    topSubtitle: 'What Solar + Battery',
+    topSubtitle: 'what a virtual power plant',
     title: 'Actually Means For You',
-    description: 'It\'s not just about the hardware; it\'s about the lifestyle change.',
+    description: "To claim the WA battery rebate, your system must join a Virtual Power Plant (VPP). Here's what that means in plain English.",
     cards: [
         {
             title: 'Peace of Mind',
-            description: 'Never worry about the next electricity bill or sudden rate hikes.',
+            description: 'A network of home batteries thousands of them that Synergy or Horizon Power can call on during peak grid stress. Instead of firing up a gas peaker, the grid pulls a bit of stored energy from each participating battery.',
             isPrimary: true
         },
         {
@@ -286,32 +274,32 @@ const oneLocalTeamData: OneLocalTeamData = {
 };
 
 const customerStoriesData: CustomerStoriesData = {
-    topSubtitle: 'Customers',
+    topSubtitle: 'Perth Homes',
     title: 'That Made The Switch',
     stories: [
         {
-            quote: 'Our bills went from $600 to essentially zero. The battery was the best investment we made.',
-            author: 'Sarah M.',
-            location: 'Joondalup, WA',
+            home: 'Family home, Canning Vale',
+            specs: '10 kW solar + Tesla Powerwall 3 (13.5 kWh)',
+            description: 'Quarterly bill down from $680 to $90. Battery cycles once per day on average. Enrolled in Synergy VPP, earning ~$280/year in activation credits.',
             image: businessBg
         },
         {
-            quote: 'The team at Regen Power were professional from start to finish. Highly recommend.',
-            author: 'David & Lisa T.',
-            location: 'Mandurah, WA',
+            home: 'Retiree Couple, Mandurah',
+            specs: '6.6 kW solar + BYD B-Box HV (10 kWh)',
+            description: 'Quarterly bill down from $520 to $60. Battery cycles once per day on average. Enrolled in Synergy VPP, earning ~$250/year in activation credits.',
             image: productReviewBg
         },
         {
-            quote: 'We love having backup power. When the grid went down last month, we didn\'t even notice.',
-            author: 'Mark W.',
-            location: 'Fremantle, WA',
-            image: heroBanner
+            home: 'EV Household, Kalamunda',
+            specs: '5 kW solar + Alpha ESS SMILE5 (10 kWh)',
+            description: 'Quarterly bill down from $450 to $50. Battery cycles once per day on average. Enrolled in Synergy VPP, earning ~$200/year in activation credits.',
+            image: forYourHome
         }
     ]
 };
 
 const batteryFAQData: BatteryFAQData = {
-    topTitle: 'Your Battery & Installation Questions Answered',
+    topTitle: 'Straight Answers To The Questions Perth Homeowners',
     title: 'Ask Us Most',
     listTitle: 'Frequently Asked Questions',
     image: forYourHome,
@@ -322,21 +310,35 @@ const batteryFAQData: BatteryFAQData = {
     ]
 };
 
-const finalCTAData: FinalCTAData = {
-    subtitle: 'Don\'t Miss Out Before',
-    title: '1 May 2026',
-    description: 'The DEBS rebate won\'t last forever. Get your custom quote today.',
-    image: heroBanner,
-    ctaText: 'Get A Quote',
-    ctaLink: '#quote-form'
+const finalCTAData: GetSolarProps = {
+    subtitle: 'Claim Your Rebate Before',
+    mainTitle: '1 May 2026',
+    description: 'The federal Cheaper Home Batteries Program is tiered down from 1 May. Installing before that date locks in the full rebate value and avoids the new SWIS connection rules. We handle the paperwork — you just start saving.',
+    bgImage: heroBanner,
+    buttonText: 'Get My Free Battery Quote',
+    buttonHref: '#quote-form'
+};
+
+const heroData: HeroSectionData = {
+    mediaSrc: heroBanner,
+    mediaType: 'image',
+    imageClass: 'object-cover',
+    topSubtitle: 'Solar Batteries Engineered For The',
+    mainTitle: 'Perth Climate',
+    description: "WA's #1 Rated Solar Battery Installer With 45,000+ Installations Since 2003. CEC-Approved. ProductReview Award Winner 2021–2026.",
+    ctaText: 'Get Your Free Battery Quote',
+    ctaLink: '#quote-form',
+    subtitleColor: 'text-white',
+    descriptionColor: 'text-white',
+    showOverlay: true
 };
 
 const BatteryStoragePage = () => {
     return (
         <main className="w-full min-h-screen">
             {/* 1. Hero Section */}
-            <Hero />
-            <BatteryMaque />
+            <HeroSection data={heroData} />
+            <BatteryMarquee data={batteryMarqueeData} />
 
             {/* 2. Debs Rebate Alert/Banner */}
             <DebsRebateBanner data={debsRebateData} />
@@ -355,10 +357,6 @@ const BatteryStoragePage = () => {
 
             <GreatFit data={greatFitData} />
 
-
-            {/* 7. A Battery Is A Great Fit If */}
-            {/* <BatteryFitCriteria data={batteryFitData} /> */}
-
             {/* 8. What Solar + Battery Actually Means For You */}
             <SolarBatteryMeaning data={solarBatteryMeaningData} />
 
@@ -375,8 +373,7 @@ const BatteryStoragePage = () => {
             <BatteryFAQ data={batteryFAQData} />
 
             {/* 13. Final CTA */}
-            {/* <FinalCTA data={finalCTAData} /> */}
-            <GetSolar />
+            <GetSolar {...finalCTAData} />
         </main>
     );
 };

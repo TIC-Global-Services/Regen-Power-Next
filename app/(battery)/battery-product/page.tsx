@@ -1,36 +1,32 @@
 import React from 'react';
 
 // Reusable Components
-import Hero from '@/reuseables/Hero';
-import FAQ from '@/reuseables/faq';
-import GetSolar from '@/reuseables/getsolar';
+import GetSolar, { GetSolarProps } from '@/reuseables/getsolar';
+import HeroSection, { HeroSectionData } from '@/reuseables/HeroSection';
 
 // Battery Product Components
-import ProductGallery, { ProductGalleryData } from '@/components/battery/battery-product/ProductGallery';
-import BatteryBrandMatters, { BatteryBrandMattersData } from '@/components/battery/battery-product/batteryBrandmatters';
-import ProductOverview, { ProductOverviewData } from '@/components/battery/battery-product/ProductOverview';
-import KeyFeaturesGrid, { KeyFeaturesGridData } from '@/components/battery/battery-product/KeyFeaturesGrid';
-import ProductSpecs, { ProductSpecsData } from '@/components/battery/battery-product/ProductSpecs';
-import ComparisonTable, { ComparisonTableData } from '@/components/battery/battery-product/ComparisonTable';
-import WhyChooseSection, { WhyChooseData } from '@/components/battery/battery-product/WhyChooseSection';
-import InstallProcess, { InstallProcessData } from '@/components/battery/battery-product/InstallProcess';
+import BatteryBrandMatters, { BatteryBrandMattersData } from '@/components/battery/battery-product/BatteryBrandMatters';
+import HowYouUseIt, { HowYouUseItData } from '@/components/battery/battery-product/HowYouUseIt';
 import CompatibleProducts, { CompareFitData } from '@/components/battery/battery-product/CompatibleProducts';
+import SpecsTableSection from '@/components/solar/brands/SpecsTableSection';
+import type { ResolvedBrandsSpecsTable } from '@/lib/strapi/resolvers/brands';
 
 // Shared Components
-import BatteryBrandsGrid, { BatteryBrandsGridData } from '@/components/battery/smarthome-battery-system/BatteryBrandsGrid';
-import SmartInstallBento, { SmartInstallBentoData } from '@/components/battery/smarthome-battery-system/SmartInstallBento';
+import BatteryMarquee, { BatteryMarqueeData } from '@/components/battery/battery-storage/BatteryMarquee';
 
 // Placeholder Images
 import heroBanner from '@/assets/evcharging/hero_banner.png';
 import businessBg from '@/assets/home/zerointrest/businessBg.jpg';
 import productReviewBg from '@/assets/home/zerointrest/productReviewBg.png';
+import productReviewRating from '@/assets/home/zerointrest/productReviewRating.png';
 import forYourHome from '@/assets/for_your_home.png';
 import teslaLogo from '@/assets/home/patners/tesla_powerwall.png';
-import ZeroInterest from '@/components/battery/battery-product/zerointrest';
-import KeyTerms, { KeyTermsData } from '@/components/battery/battery-product/keyTerms';
-import WhatWeCheck from '@/components/battery/battery-product/whatwecheck';
-import Homeowners from '@/components/battery/battery-product/homeowners';
+import WarrantyCoverage, { WarrantyCoverageData } from '@/components/battery/battery-product/WarrantyCoverage';
+import ZeroInterest, { ZeroInterestData } from '@/components/battery/battery-product/ZeroInterest';
+import WhatWeCheck, { WhatWeCheckData } from '@/components/battery/battery-product/WhatWeCheck';
+import Homeowners, { HomeownersData } from '@/components/battery/battery-product/Homeowners';
 import OurBatterybrands, { OurBatteryBrandsData } from '@/components/battery/battery-product/OurBatterybrands';
+import RightSizing, { RightSizingData } from '@/components/battery/battery-product/RightSizing';
 import alphaess from '@/assets/battery-brand/alpha_ess_logo.png'
 import ankersolix from '@/assets/battery-brand/anker_solix_logo.png'
 import byd from '@/assets/battery-brand/byd_logo.png'
@@ -38,13 +34,24 @@ import goodwe from '@/assets/battery-brand/goodwe_logo.png'
 import istore from '@/assets/battery-brand/istore_logo.png'
 import sigenergy from '@/assets/battery-brand/sigenergy_logo.png'
 
+
 // ─── Data ───────────────────────────────────────────────────────────────
 
-const productGalleryData: ProductGalleryData = {
-    images: [businessBg, productReviewBg, forYourHome, heroBanner]
+const productHeroData: HeroSectionData = {
+    mediaSrc: heroBanner,
+    mediaType: 'image',
+    imageClass: 'object-cover',
+    topSubtitle: 'Solar Batteries in Perth',
+    mainTitle: 'Our Full Product Range',
+    description: "We don't sell what we don't trust. Every brand on this page has been through our technical review, field-tested across our 45,000+ installations, and is on the Synergy or Horizon Power Supported Solutions List. Pricing is personalised — your quote includes your full rebate value and a sizing recommendation based on your home.",
+    ctaText: 'Get My Free Personalized Quote',
+    ctaLink: '#quote',
+    subtitleColor: 'text-white',
+    descriptionColor: 'text-white',
+    showOverlay: true
 };
 
-const keyTermsData: KeyTermsData = {
+const keyTermsData: ZeroInterestData = {
     topSubtitle: 'Zero Upfront',
     title: 'Zero Interest',
     description: 'The WA Government\'s Interest-Free Loan (Administered By Plenti) Lets Eligible Households Finance A Battery Without Any Out-Of-Pocket Cost.',
@@ -72,6 +79,41 @@ const keyTermsData: KeyTermsData = {
     bottomImage: businessBg,
     ctaText: 'See If I Qualify For The Interest-Free Loan',
     ctaLink: '#contact'
+};
+
+const rightSizingData: RightSizingData = {
+    topSubtitle: 'Right-Sizing',
+    title: 'Your Battery',
+    description: "The Sweet Spot For Most Perth Homes In 2026 Is A 10 KWh Battery — It Aligns With The WA Rebate Cap ($130/KWh × 10 = $1,300 Max) And The Federal Rebate Threshold. Above 10 KWh, You're Paying More Per Stored KWh Than You're Rebating Back.",
+    ctaText: 'Get My Free Battery Quote',
+    ctaHref: '#quote-form',
+    steps: [
+        {
+            iconName: 'zap',
+            title: 'Average Quarterly Bill',
+            placeholder: 'Your Answer (e.g. $450)',
+        },
+        {
+            iconName: 'sun',
+            title: 'Daily Energy Use',
+            placeholder: 'Your Answer (e.g. 25 kWh/day)',
+        },
+        {
+            iconName: 'car',
+            title: 'EV Plans In The Next 2 Years',
+            placeholder: 'Your Answer (Yes / No / 2027)',
+        },
+        {
+            iconName: 'home',
+            title: 'How Important Is Blackout Backup?',
+            placeholder: 'Your Answer (Critical / Nice To Have)',
+        },
+        {
+            iconName: 'paneltop',
+            title: 'Do You Already Have Solar?',
+            placeholder: 'Your Answer (Yes / No)',
+        },
+    ],
 };
 
 const ourBatteryBrandsData: OurBatteryBrandsData = {
@@ -156,6 +198,29 @@ const ourBatteryBrandsData: OurBatteryBrandsData = {
     ]
 };
 
+const howYouUseItData: HowYouUseItData = {
+    title: "Start with how you'll use it",
+    description: 'The right battery for you depends less on brand prestige and more on how your household uses energy. Four questions we walk every customer through:',
+    cards: [
+        {
+            title: 'How much energy do you use — and when?',
+            description: 'Your last four Synergy bills tell us this. Most Perth households land in the 18–35 kWh/day range. Evening-heavy users (families, home workers, EV owners) need bigger batteries than working-couple households who are home only briefly.'
+        },
+        {
+            title: 'what’s your eV plan?',
+            description: 'If you own or plan to own an EV in 2026–2027, your battery sizing changes meaningfully. A 10 kWh battery that would otherwise be perfect is too small to cover evening use plus overnight EV charging. Sigenergy specifically is designed for the EV use case via its integrated DC charger.'
+        },
+        {
+            title: 'How important is blackout backup?',
+            description: 'All the batteries on this page can provide backup, but some (Tesla Powerwall 3, Sigenergy, BYD with backup box) do it seamlessly — zero transition time, full-home coverage. Others require you to pre-select essential circuits.'
+        },
+        {
+            title: 'Do you already have solar, or are we doing both?',
+            description: "If you have solar: we need to match the battery to your existing inverter (AC-coupled or DC-coupled). If we're installing both: we can pair a hybrid inverter with the battery for maximum efficiency."
+        }
+    ]
+};
+
 const brandMattersData: BatteryBrandMattersData = {
     topSubtitle: 'Why The Battery Brand Matters More Than',
     title: 'The Badge Of The Box',
@@ -184,172 +249,83 @@ const brandMattersData: BatteryBrandMattersData = {
     ]
 };
 
-const productOverviewData: ProductOverviewData = {
-    topSubtitle: 'Sigenergy SigenStor',
-    title: 'The Smart Home Battery',
-    description: 'The Sigenergy SigenStor is a five-in-one system that combines a hybrid inverter, battery, EV DC charger, energy management system, and gateway into a single, elegant unit. It is the most advanced residential energy storage system available in Australia in 2026.',
-    highlights: [
-        'Five-In-One design eliminates multiple boxes on your wall',
-        'Stacks from 5 kWh to 48 kWh to match any home',
-        '25 kW bidirectional DC EV charger enables V2H and V2G',
-        'GPT-4 powered MySigen AI assistant for intelligent energy management',
-        'Native Home Assistant, Google Home, and Apple Home integration'
-    ],
-    ctaText: 'Get A Free Quote',
-    ctaLink: '#quote',
-    image: businessBg
-};
-
-const keyFeaturesData: KeyFeaturesGridData = {
-    topSubtitle: 'Built For',
-    title: 'The Modern Home',
-    description: 'Every feature is designed around how Perth homeowners actually use energy — not how engineers think they should.',
-    features: [
-        {
-            title: 'AI-Powered Energy Management',
-            description: 'MySigen uses GPT-4 to learn your patterns and optimise charging, discharging, and EV scheduling automatically.',
-            image: businessBg
-        },
-        {
-            title: 'DC-Coupled EV Charging',
-            description: 'Charge your EV directly from solar with up to 25 kW — no AC conversion losses. Supports V2H and V2G.',
-            image: productReviewBg
-        },
-        {
-            title: 'Whole-Home Backup',
-            description: 'Seamless switchover in under 10ms. Your home stays powered during blackouts without you even noticing.',
-            image: forYourHome
-        },
-        {
-            title: 'Modular & Scalable',
-            description: 'Start with 5 kWh and stack up to 48 kWh. Add capacity as your needs grow — EV, pool, hot water.',
-            image: heroBanner
-        },
-        {
-            title: 'VPP Ready',
-            description: 'Enrolled in Synergy\'s Battery Partners program out of the box. Earn credits while supporting the grid.',
-            image: businessBg
-        },
-        {
-            title: 'Beautiful Design',
-            description: 'Compact, wall-mounted, and designed to look good. No industrial-looking boxes on your garage wall.',
-            image: productReviewBg
-        }
-    ]
-};
-
-const productSpecsData: ProductSpecsData = {
-    topSubtitle: 'Technical',
-    title: 'Specifications',
-    description: 'Full specifications for the Sigenergy SigenStor residential energy storage system.',
-    image: productReviewBg,
-    specs: [
-        { label: 'Usable Capacity', value: '5 – 48 kWh (modular)' },
-        { label: 'Max Continuous Output', value: '10 kW' },
-        { label: 'Peak Output', value: '15 kW (10 seconds)' },
-        { label: 'Round-Trip Efficiency', value: '97.5%' },
-        { label: 'EV Charger Output', value: '25 kW DC (bidirectional)' },
-        { label: 'Battery Chemistry', value: 'LFP (Lithium Iron Phosphate)' },
-        { label: 'Switchover Time', value: '< 10ms' },
-        { label: 'Operating Temperature', value: '-10°C to 50°C' },
-        { label: 'IP Rating', value: 'IP65 (outdoor rated)' },
-        { label: 'Warranty', value: '10 years battery & inverter' },
-        { label: 'Dimensions', value: '680 × 1060 × 280 mm' },
-        { label: 'Weight', value: '65 kg per module' }
-    ]
-};
-
-const comparisonTableData: ComparisonTableData = {
-    topSubtitle: 'Side-By-Side',
+const comparisonTableResolved: ResolvedBrandsSpecsTable = {
+    subtitle: 'Side-By-Side',
     title: 'Every Battery We Install',
     description: 'Spec Sheets Are Easier To Parse Side By Side. Use The Filters To Narrow The Field To What Matters To You.',
+    labelColumnTitle: 'Brand & Model',
 
     columns: [
-        { heading: "Brand \nModel" },
-        { heading: 'Tesla\nPowerwall 3' },
-        { heading: 'BYD HVS' },
-        { heading: 'Alpha ESS\nSMILE5' },
-        { heading: 'iStore' },
-        { heading: 'Sigenergy\nSigenStor' },
-        { heading: 'Anker Solix' },
-        { heading: 'Goodwe\nLynx Home' }
+        { title: 'Tesla\nPowerwall 3' },
+        { title: 'BYD HVS' },
+        { title: 'Alpha ESS\nSMILE5' },
+        { title: 'iStore' },
+        { title: 'Sigenergy\nSigenStor' },
+        { title: 'Anker Solix' },
+        { title: 'Goodwe\nLynx Home' }
     ],
     rows: [
         {
             label: 'Usable kWh',
-            values: ['13.5', '5.1–12.8 per tower', '2.9–80', '5–30', '5–48 per stack', 'Modular', 'Up to 22']
+            values: [
+                { text: '13.5' },
+                { text: '5.1–12.8 per tower' },
+                { text: '2.9–80' },
+                { text: '5–30' },
+                { text: '5–48 per stack' },
+                { text: 'Modular' },
+                { text: 'Up to 22' }
+            ]
         },
         {
             label: 'Chemistry',
-            values: ['LFP', 'LFP', 'LFP', 'LFP', 'LFP', 'LFP', 'LFP']
+            values: [
+                { text: 'LFP' },
+                { text: 'LFP' },
+                { text: 'LFP' },
+                { text: 'LFP' },
+                { text: 'LFP' },
+                { text: 'LFP' },
+                { text: 'LFP' }
+            ]
         },
         {
             label: 'Warranty',
-            values: ['10 yr', '10 yr + 10 yr perf', '10yr', '10yr', '10 yr (battery+inv), 5 yr gateway', '10yr', '10yr']
+            values: [
+                { text: '10 yr' },
+                { text: '10 yr + 10 yr perf' },
+                { text: '10yr' },
+                { text: '10yr' },
+                { text: '10 yr (battery+inv), 5 yr gateway' },
+                { text: '10yr' },
+                { text: '10yr' }
+            ]
         },
         {
             label: 'Backup',
-            values: ['Whole home, 10kW', 'Via backup box', 'yes', 'Optional box', 'UPS 0ms', 'yes', 'yes']
+            values: [
+                { text: 'Whole home, 10kW' },
+                { text: 'Via backup box' },
+                { text: 'yes' },
+                { text: 'Optional box' },
+                { text: 'UPS 0ms' },
+                { text: 'yes' },
+                { text: 'yes' }
+            ]
         },
         {
             label: 'Modular',
-            values: ['Via extra units', 'Yes (modular)', 'yes', 'Yes (5 kWh mods)', 'Yes + EV-ready', 'yes', 'yes']
+            values: [
+                { text: 'Via extra units' },
+                { text: 'Yes (modular)' },
+                { text: 'yes' },
+                { text: 'Yes (5 kWh mods)' },
+                { text: 'Yes + EV-ready' },
+                { text: 'yes' },
+                { text: 'yes' }
+            ]
         }
     ]
-};
-
-const whyChooseData: WhyChooseData = {
-    topSubtitle: 'Why Perth Homeowners',
-    title: 'Choose Sigenergy',
-    description: 'It\'s not just about specs. Here\'s what our customers tell us matters most after living with the system.',
-    image: forYourHome,
-    cards: [
-        {
-            title: 'One Box, Not Five',
-            description: 'Inverter, battery, EV charger, EMS, and gateway in a single unit. Cleaner install, fewer failure points, lower labour cost.'
-        },
-        {
-            title: 'The App Actually Works',
-            description: 'MySigen gives you real-time data, AI recommendations, and natural-language control. It\'s the only battery app that doesn\'t feel like it was designed in 2015.'
-        },
-        {
-            title: 'Future-Proof',
-            description: 'Add battery modules, connect an EV, enroll in VPP — all without replacing hardware or re-wiring. The system grows with your needs.'
-        }
-    ],
-    ctaText: 'Book A Free Assessment',
-    ctaLink: '#assessment'
-};
-
-const installProcessData: InstallProcessData = {
-    topSubtitle: 'From Quote To',
-    title: 'Switched On',
-    description: 'Our in-house team handles everything. No subcontractors, no surprises.',
-    steps: [
-        {
-            step: '1',
-            title: 'Free Home Assessment',
-            description: 'We review your bills, roof, switchboard, and future plans. Remote or on-site — your choice.'
-        },
-        {
-            step: '2',
-            title: 'Custom System Design',
-            description: 'Our engineers size the system to your usage, your roof, and your lifestyle. Not a cookie-cutter template.'
-        },
-        {
-            step: '3',
-            title: 'Western Power Approval',
-            description: 'We handle the full application. You don\'t lift a finger.'
-        },
-        {
-            step: '4',
-            title: 'Installation Day',
-            description: 'Our CEC-accredited electricians install, commission, and test. App setup and handover included.'
-        }
-    ],
-    image: heroBanner,
-    ctaText: 'Start Your Assessment',
-    ctaLink: '#assessment'
 };
 
 const compatibleProductsData: CompareFitData = {
@@ -370,132 +346,104 @@ const compatibleProductsData: CompareFitData = {
     ]
 };
 
-const batteryBrandsData: BatteryBrandsGridData = {
-    topSubtitle: 'Also Consider',
-    title: 'Other Options',
-    subtitle: 'Every system we install is approved for the WA rebate and VPP capable.',
-    brands: [
+const homeownersData: HomeownersData = {
+    topSubtitle: 'Perth Homeowners.',
+    title: 'Real Bills. Real Savings',
+    stories: [
         {
-            title: 'Tesla Powerwall 3 (The Benchmark)',
-            specification: [
-                {
-                    title: 'Best For:',
-                    logo: teslaLogo,
-                    description: 'Tesla EV owners, homes valuing industry-leading app UX'
-                },
-                {
-                    title: 'Why:',
-                    description: '13.5 kWh usable. Integrated solar inverter. Up to 10 kW continuous backup. Tesla app is still the category benchmark.'
-                },
-                {
-                    title: 'Warranty:',
-                    description: '10 years product'
-                }
-            ],
-            showbutton: true,
-            buttonText: 'Explore Powerwall',
-            buttonLink: '#tesla'
+            title: 'How Solar Batteries\nAre Changing Modern Homes',
+            description: '',
+            footerTitle: 'May 7, 2026',
+            footerDescription: 'Discover How Battery Storage Helps Homeowners Reduce Grid Dependence, Lower Electricity Bills, And Access Reliable Power Day And Night.',
+            image: businessBg
         },
         {
-            title: 'BYD Battery-Box (The Flexible Choice)',
-            specification: [
-                {
-                    title: 'Best For:',
-                    logo: teslaLogo,
-                    description: 'Homes wanting modular scalability without ecosystem lock-in'
-                },
-                {
-                    title: 'Why:',
-                    description: '5.1 kWh modules stack to 22.1 kWh per tower. LFP chemistry. IP55 rated. Compatible with most major hybrid inverters.'
-                },
-                {
-                    title: 'Warranty:',
-                    description: '10 years product, 10 years performance'
-                }
-            ],
-            showbutton: true,
-            buttonText: 'Explore BYD',
-            buttonLink: '#byd'
+            title: '5 Ways EV Charging\nWorks Better With Solar',
+            description: '',
+            image: productReviewBg
         },
         {
-            title: 'Alpha ESS SMILE5 (The Value Pick)',
-            specification: [
-                {
-                    title: 'Best For:',
-                    logo: teslaLogo,
-                    description: 'Budget-conscious homes wanting reliable backup and self-consumption'
-                },
-                {
-                    title: 'Why:',
-                    description: 'All-in-one hybrid inverter + battery. 5.7 kWh to 22.8 kWh. Competitive pricing with solid VPP support.'
-                },
-                {
-                    title: 'Warranty:',
-                    description: '10 years product'
-                }
-            ],
-            showbutton: true,
-            buttonText: 'Explore Alpha ESS',
-            buttonLink: '#alpha'
+            title: 'Why More Australians Are\nSwitching To Renewable\nEnergy',
+            description: '',
+            image: productReviewRating
         }
     ]
 };
 
-const installBentoData: SmartInstallBentoData = {
-    title: 'Why Regen Power For Your Sigenergy Install',
-    description: 'We don\'t just sell batteries. We design, install, commission, and support complete energy systems — and we\'ve been doing it for 23 years.',
-    blocks: [
+const batteryMarqueeData: BatteryMarqueeData = {
+    items: [
+        { text: '45,000+ Solar' },
+        { text: '3000+ Storage Installations' },
+        { text: '23 Years In Perth' },
+        { text: '4.9★ Rating (Google + ProductReview)' }
+    ]
+};
+
+const warrantyCoverageData: WarrantyCoverageData = {
+    subtitle: 'What Your Warrant',
+    title: 'Actually Covers',
+    description: 'Every battery brand has a warranty document. Three things worth understanding before you sign:',
+    layout: 6,
+    className: 'bg-white',
+    cards: [
         {
-            theme: 'white',
-            title: 'Sigenergy Certified Installer',
-            description: 'Factory-trained and authorised. Direct access to Sigenergy engineering support and firmware updates.'
+            type: 'text',
+            variant: 'light-gray',
+            title: 'Product Warranty Vs\nPerformance\nWarranty',
+            description: 'Product Warranty Covers Manufacturing Defects (Usually 10 Years). Performance Warranty Guarantees A Minimum Energy Throughput Or Capacity Retention — Typically "60-70% Of Original Capacity After 10 Years" Or "X MWh Minimum Throughput". Both Are Standard Across The Brands We Install.'
         },
         {
-            theme: 'white',
-            title: 'In-House Electricians Only',
-            description: 'We employ our own CEC-accredited installers. No subcontractors, no variability in quality.'
+            type: 'image',
+            variant: 'light-green'
         },
         {
-            theme: 'dark',
-            title: '45,000+ Installations',
-            description: 'From single-roof residential to industrial off-grid. Scale matters when warranty claims arise.'
+            type: 'text',
+            variant: 'light-gray',
+            title: 'Workmanship\nWarranty',
+            description: 'Separate From The Manufacturer Warranty. We Provide A 5-Year Workmanship Warranty On Every Install. If The Install Caused An Issue, We Fix It. If The Product Failed, We Coordinate With The Manufacturer.'
         },
         {
-            theme: 'white',
-            title: 'Full VPP Onboarding',
-            description: 'We handle Synergy enrollment, dispatch testing, and configuration. You start earning from day one.'
+            type: 'text',
+            variant: 'light-gray',
+            title: 'What Voids A Battery\nWarranty',
+            description: 'Common Causes: DIY Electrical Work, Unauthorised Modifications, Installation Outside Temperature Specs, Not Enrolling In Required Firmware Updates. Our Installs Avoid All Of These — That\'s The Point Of A CEC-Accredited Installer.'
         },
         {
-            theme: 'white',
-            title: '90-Day Performance Review',
-            description: 'We check in after 90 days to tune automation rules based on your actual usage data.'
+            type: 'text',
+            variant: 'dark',
+            title: 'Aftercare Across 23\nYears Of Installs',
+            description: 'Many Of Our 45,000+ Installations Are Still Running 10, 15, Even 20 Years After Day One. We Stock Parts, Service Anywhere In WA, And Our Install Team Is The Same Team That Services It Later.'
+        },
+        {
+            type: 'image',
+            variant: 'light-green'
         }
     ]
 };
 
+const whatWeCheckData: WhatWeCheckData = {
+    subtitle: 'What We Check',
+    title: 'Before We Quote You',
+    description: 'We\'ve Walked Away From Quotes That Looked Attractive On Paper Because Something At The Property Made The Install Unwise. Here\'s What We Check:',
+    paragraphs: [
+        'Main Switchboard Capacity — Older Homes May Need A Switchboard Upgrade Before Battery Install',
+        'Solar Inverter Compatibility (Existing Or New) — Which Batteries Work With What You Have',
+        'Installation Location — Ventilation, Ambient Temperature, Protection From Direct Sun',
+        'Network Connection Type — Synergy (SWIS) Or Horizon Power; Export Limits; ESM Requirements Post-1 May 2026',
+        'Internet Reliability — Battery VPP, App And Monitoring All Require Stable Internet',
+        'Roof And Solar Situation — For New Solar Installs Alongside Battery'
+    ]
+};
 
-const faqItems = [
-    {
-        question: 'How long does the Sigenergy SigenStor last?',
-        answer: 'The SigenStor uses LFP (Lithium Iron Phosphate) battery chemistry, which is rated for over 6,000 cycles. With typical daily cycling, this translates to 15–20 years of effective service life. The product comes with a 10-year warranty.'
-    },
-    {
-        question: 'Can I add more battery capacity later?',
-        answer: 'Yes. The SigenStor is modular — you can add 5 kWh battery modules at any time, up to a maximum of 48 kWh, without replacing any existing hardware.'
-    },
-    {
-        question: 'Does the built-in EV charger work with all cars?',
-        answer: 'The 25 kW DC charger uses the CCS2 connector standard, which is compatible with most modern EVs including Tesla (with adapter), BYD, Hyundai, Kia, and more. V2H and V2G features require a compatible vehicle.'
-    },
-    {
-        question: 'Is it eligible for the WA battery rebate?',
-        answer: 'Yes. The Sigenergy SigenStor is on Synergy\'s Supported Solutions List and qualifies for both the WA Residential Battery Scheme (up to $1,300) and the Federal Cheaper Home Batteries Program (approx. $3,720 on a 10 kWh system).'
-    },
-    {
-        question: 'How does the AI energy management work?',
-        answer: 'MySigen uses a GPT-4 based AI assistant that learns your household patterns — when you use power, when solar peaks, and when grid prices spike. It automatically optimises charging, discharging, and EV scheduling to minimise your bill.'
-    }
-];
+const batteryQuoteCtaData: GetSolarProps = {
+    subtitle: 'Get Your Personalized',
+    mainTitle: 'Battery Quote',
+    description: "Our quote process takes just 15 minutes, and you'll receive 2–3 battery options tailored to your home, with all eligible rebates applied upfront, an interest-free loan option (if eligible), a clear installation timeline, and transparent, no-obligation pricing.",
+    bgImage: heroBanner,
+    buttonText: 'Get My Free Battery Quote',
+    buttonHref: '#quote-form'
+};
+
 
 // ─── Page ───────────────────────────────────────────────────────────────
 
@@ -503,30 +451,19 @@ const BatteryProductPage = () => {
     return (
         <main className="w-full min-h-screen">
             {/* 1. Hero */}
-            <Hero
-                mediaSrc={heroBanner}
-                mediaType="image"
-                imageClass="object-cover"
-                topSubtitle="Sigenergy SigenStor"
-                mainTitle="The Smartest Battery In Perth"
-                description="Five systems in one box. Hybrid inverter, battery, EV charger, energy management, and gateway — designed for the modern Australian home."
-                ctaText="Get Your Free Quote"
-                ctaLink="#quote"
-                subtitleColor="text-white"
-                descriptionColor="text-white"
-                showOverlay={true}
-            />
-
-
+            <HeroSection data={productHeroData} />
+            <BatteryMarquee data={batteryMarqueeData} />
             <BatteryBrandMatters data={brandMattersData} />
+            <HowYouUseIt data={howYouUseItData} />
+            <RightSizing data={rightSizingData} />
             <OurBatterybrands data={ourBatteryBrandsData} />
-            <ZeroInterest />
-            <KeyTerms data={keyTermsData} />
-            <WhatWeCheck />
+            <SpecsTableSection resolved={comparisonTableResolved} />
             <CompatibleProducts data={compatibleProductsData} />
-            <Homeowners />
-            <ComparisonTable data={comparisonTableData} />
-            <GetSolar />
+            <WhatWeCheck data={whatWeCheckData} />
+            <WarrantyCoverage data={warrantyCoverageData} />
+            <ZeroInterest data={keyTermsData} />
+            <Homeowners data={homeownersData} />
+            <GetSolar {...batteryQuoteCtaData} />
         </main>
     );
 };
