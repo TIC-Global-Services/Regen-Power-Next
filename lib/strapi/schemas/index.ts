@@ -104,6 +104,33 @@ export {
 } from "./rebates";
 
 export type {
+  BatteryRebatesHeroData,
+  BatteryRebatesListItemData,
+  RebatesStackGridData,
+  ResidentialBatteryData,
+  FederalRebateData,
+  FinanceOptionData,
+  WhatChangesCardData,
+  WhatChangesData,
+  AreYouEligibleData,
+  RebateDetailSplitData,
+  WhatSigningUpData,
+} from "./battery-rebates";
+export {
+  BatteryRebatesHeroSchema,
+  BatteryRebatesListItemSchema,
+  RebatesStackGridSchema,
+  ResidentialBatterySchema,
+  FederalRebateSchema,
+  FinanceOptionSchema,
+  WhatChangesCardSchema,
+  WhatChangesSchema,
+  AreYouEligibleSchema,
+  RebateDetailSplitSchema,
+  WhatSigningUpSchema,
+} from "./battery-rebates";
+
+export type {
   FaqHeroData,
   FaqCategorizedFaqData,
   FaqCtaBannerData,

@@ -96,6 +96,33 @@ export type {
 } from "./rebates";
 
 export {
+  resolveBatteryRebatesHero,
+  resolveRebatesStackGrid,
+  resolveResidentialBattery,
+  resolveFederalRebate,
+  resolveFinanceOption,
+  resolveWhatChanges,
+  resolveAreYouEligible,
+  resolveRebateDetailSplit,
+  resolveWhatSigningUp,
+} from "./battery-rebates";
+export type {
+  ResolvedBatteryRebatesHero,
+  ResolvedRebatesStackGrid,
+  ResolvedRebatesStackCard,
+  ResolvedResidentialBatteryItem,
+  ResolvedFederalRebateItem,
+  ResolvedFinanceOption,
+  ResolvedFinanceSection,
+  ResolvedWhatChanges,
+  ResolvedWhatChangesCard,
+  ResolvedAreYouEligible,
+  ResolvedRebateDetailSplit,
+  ResolvedWhatSigningUp,
+  ResolvedVppCard,
+} from "./battery-rebates";
+
+export {
   resolveFaqHero,
   resolveFaqCategorizedFaq,
 } from "./faq";

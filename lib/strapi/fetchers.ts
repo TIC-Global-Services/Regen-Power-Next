@@ -6,6 +6,7 @@ import * as brands from "./populate/brands";
 import * as deals from "./populate/deals";
 import * as shared from "./populate/shared";
 import * as rebates from "./populate/rebates";
+import * as batteryRebates from "./populate/battery-rebates";
 import * as faq from "./populate/faq";
 import * as commercial from "./populate/commercial";
 import * as research from "./populate/research";
@@ -31,6 +32,7 @@ const PAGE_SLUGS = {
   reviews: "reviews-page",
   contact: "contact-page",
   faq: "faq-page",
+  governmentRebates: "government-rebates-page",
 } as const;
 
 async function getSingleType(
@@ -215,4 +217,22 @@ export const getContactPage = () =>
   getSingleType(
     PAGE_SLUGS.contact,
     populate(contact.hero)
+  );
+
+export const getGovernmentRebatesPage = () =>
+  getSingleType(
+    PAGE_SLUGS.governmentRebates,
+    populate(
+      batteryRebates.hero,
+      batteryRebates.rebatesStackGrid,
+      batteryRebates.residentialBattery,
+      batteryRebates.federalRebate,
+      batteryRebates.financeOption,
+      batteryRebates.whatChanges,
+      batteryRebates.areYouEligible,
+      batteryRebates.rebateDetailSplit,
+      batteryRebates.whatSigningUp,
+      shared.faq,
+      shared.ctaBanner
+    )
   );
