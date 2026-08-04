@@ -199,6 +199,32 @@ export type {
 } from "./battery-storage";
 
 export {
+  resolveSmartHomeHero,
+  resolveSmartHomeGreatFit,
+  resolveFourPillars,
+  resolveBatterySplit,
+  resolveBatteryTimeline,
+  resolveBatteryBrandsGrid,
+  resolveSmartInstallBento,
+} from "./smart-home-battery";
+export type {
+  ResolvedSmartHomeHero,
+  ResolvedSmartHomeGreatFit,
+  ResolvedFourPillars,
+  ResolvedFourPillarsCard,
+  ResolvedBatterySplit,
+  ResolvedSplitSlide,
+  ResolvedSplitBlock,
+  ResolvedBatteryTimeline,
+  ResolvedTimelineEvent,
+  ResolvedBatteryBrandsGrid,
+  ResolvedBatteryBrandCard,
+  ResolvedBrandSpecification,
+  ResolvedSmartInstallBento,
+  ResolvedInstallBentoBlock,
+} from "./smart-home-battery";
+
+export {
   resolveFaqHero,
   resolveFaqCategorizedFaq,
 } from "./faq";

@@ -9,6 +9,7 @@ import * as rebates from "./populate/rebates";
 import * as batteryRebates from "./populate/battery-rebates";
 import * as batteryProduct from "./populate/battery-product";
 import * as batteryStorage from "./populate/battery-storage";
+import * as smartHomeBattery from "./populate/smart-home-battery";
 import * as faq from "./populate/faq";
 import * as commercial from "./populate/commercial";
 import * as research from "./populate/research";
@@ -37,6 +38,7 @@ const PAGE_SLUGS = {
   governmentRebates: "government-rebates-page",
   batteryProduct: "battery-product-page",
   batteryStorage: "battery-storage-page",
+  smartHomeBattery: "smart-home-battery-page",
 } as const;
 
 async function getSingleType(
@@ -279,5 +281,21 @@ export const getBatteryStoragePage = () =>
       batteryStorage.customerStories,
       batteryStorage.faq,
       batteryStorage.ctaBanner
+    )
+  );
+
+export const getSmartHomeBatteryPage = () =>
+  getSingleType(
+    PAGE_SLUGS.smartHomeBattery,
+    populate(
+      smartHomeBattery.hero,
+      smartHomeBattery.marquee,
+      smartHomeBattery.greatFit,
+      smartHomeBattery.fourPillars,
+      smartHomeBattery.splitSection,
+      smartHomeBattery.timeline,
+      smartHomeBattery.brandsGrid,
+      smartHomeBattery.installBento,
+      smartHomeBattery.ctaBanner
     )
   );

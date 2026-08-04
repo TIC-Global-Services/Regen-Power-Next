@@ -209,6 +209,41 @@ export {
 } from "./battery-storage";
 
 export type {
+  SmartHomeHeroData,
+  SmartHomeGreatFitData,
+  SmartHomeFourPillarsData,
+  SmartHomeSplitSectionData,
+  SmartHomeSplitSlideData,
+  SmartHomeSplitBlockData,
+  SmartHomeTimelineData,
+  SmartHomeTimelineEventData,
+  SmartHomeBrandsGridData,
+  SmartHomeBrandCardData,
+  SmartHomeBrandSpecData,
+  SmartHomeInstallBentoData,
+  SmartHomeInstallBlockData,
+  SmartHomeTextItemData,
+  SmartHomePillarCardData,
+} from "./smart-home-battery";
+export {
+  SmartHomeHeroSchema,
+  SmartHomeGreatFitSchema,
+  SmartHomeFourPillarsSchema,
+  SmartHomeSplitSectionSchema,
+  SmartHomeSplitSlideSchema,
+  SmartHomeSplitBlockSchema,
+  SmartHomeTimelineSchema,
+  SmartHomeTimelineEventSchema,
+  SmartHomeBrandsGridSchema,
+  SmartHomeBrandCardSchema,
+  SmartHomeBrandSpecSchema,
+  SmartHomeInstallBentoSchema,
+  SmartHomeInstallBlockSchema,
+  SmartHomeTextItemSchema,
+  SmartHomePillarCardSchema,
+} from "./smart-home-battery";
+
+export type {
   FaqHeroData,
   FaqCategorizedFaqData,
   FaqCtaBannerData,
