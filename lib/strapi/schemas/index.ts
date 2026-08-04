@@ -131,6 +131,43 @@ export {
 } from "./battery-rebates";
 
 export type {
+  BatteryProductHeroData,
+  BatteryMarqueeData,
+  BrandMattersData,
+  HowYouUseItData,
+  RightSizingData,
+  OurBrandsData,
+  ComparisonTableData,
+  CompatibleProductsData,
+  WhatWeCheckData,
+  WarrantyCoverageData,
+  ZeroInterestData,
+  HomeownersData,
+  SharedTextItemData,
+  SpecItemData,
+  SolutionsCardData,
+  TermsBlockData,
+} from "./battery-product";
+export {
+  BatteryProductHeroSchema,
+  BatteryMarqueeSchema,
+  BrandMattersSchema,
+  HowYouUseItSchema,
+  RightSizingSchema,
+  OurBrandsSchema,
+  ComparisonTableSchema,
+  CompatibleProductsSchema,
+  WhatWeCheckSchema,
+  WarrantyCoverageSchema,
+  ZeroInterestSchema,
+  HomeownersSchema,
+  SharedTextItemSchema,
+  SpecItemSchema,
+  SolutionsCardSchema,
+  TermsBlockSchema,
+} from "./battery-product";
+
+export type {
   FaqHeroData,
   FaqCategorizedFaqData,
   FaqCtaBannerData,

@@ -123,6 +123,45 @@ export type {
 } from "./battery-rebates";
 
 export {
+  resolveBatteryProductHero,
+  resolveBatteryMarquee,
+  resolveBrandMatters,
+  resolveHowYouUseIt,
+  resolveRightSizing,
+  resolveOurBrands,
+  resolveComparisonTable,
+  resolveCompatibleProducts,
+  resolveWhatWeCheck,
+  resolveWarrantyCoverage,
+  resolveZeroInterest,
+  resolveHomeowners,
+} from "./battery-product";
+export type {
+  ResolvedBatteryProductHero,
+  ResolvedBatteryMarquee,
+  ResolvedBrandMatters,
+  ResolvedBrandMatterCard,
+  ResolvedHowYouUseIt,
+  ResolvedHowYouUseItCard,
+  ResolvedRightSizing,
+  ResolvedRightSizingStep,
+  ResolvedOurBrands,
+  ResolvedBatteryBrandItem,
+  ResolvedBatteryBrandSpecification,
+  ResolvedComparisonTable,
+  ResolvedCompatibleProducts,
+  ResolvedWhatWeCheck,
+  ResolvedWarrantyCoverage,
+  ResolvedWarrantyCard,
+  ResolvedWarrantyTextCard,
+  ResolvedWarrantyImageCard,
+  ResolvedZeroInterest,
+  ResolvedTermsBlock,
+  ResolvedHomeowners,
+  ResolvedHomeownerStory,
+} from "./battery-product";
+
+export {
   resolveFaqHero,
   resolveFaqCategorizedFaq,
 } from "./faq";

@@ -26,10 +26,11 @@ export {
   getContactPage,
   getFaqPage,
   getGovernmentRebatesPage,
+  getBatteryProductPage,
 } from "./fetchers";
 
 export { populate } from "./populate/index";
-export { solar, brands, deals, shared, rebates, batteryRebates, faq, commercial, research, reviews } from "./populate/fragments";
+export { solar, brands, deals, shared, rebates, batteryRebates, batteryProduct, faq, commercial, research, reviews } from "./populate/fragments";
 
 // Backward-compat type aliases (used by existing schemas)
 export type {

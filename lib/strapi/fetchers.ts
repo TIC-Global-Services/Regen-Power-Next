@@ -7,6 +7,7 @@ import * as deals from "./populate/deals";
 import * as shared from "./populate/shared";
 import * as rebates from "./populate/rebates";
 import * as batteryRebates from "./populate/battery-rebates";
+import * as batteryProduct from "./populate/battery-product";
 import * as faq from "./populate/faq";
 import * as commercial from "./populate/commercial";
 import * as research from "./populate/research";
@@ -33,6 +34,7 @@ const PAGE_SLUGS = {
   contact: "contact-page",
   faq: "faq-page",
   governmentRebates: "government-rebates-page",
+  batteryProduct: "battery-product-page",
 } as const;
 
 async function getSingleType(
@@ -233,6 +235,26 @@ export const getGovernmentRebatesPage = () =>
       batteryRebates.rebateDetailSplit,
       batteryRebates.whatSigningUp,
       shared.faq,
+      shared.ctaBanner
+    )
+  );
+
+export const getBatteryProductPage = () =>
+  getSingleType(
+    PAGE_SLUGS.batteryProduct,
+    populate(
+      batteryProduct.hero,
+      batteryProduct.marquee,
+      batteryProduct.brandMatters,
+      batteryProduct.howYouUseIt,
+      batteryProduct.rightSizing,
+      batteryProduct.ourBrands,
+      batteryProduct.comparisonTable,
+      batteryProduct.compatibleProducts,
+      batteryProduct.whatWeCheck,
+      batteryProduct.warrantyCoverage,
+      batteryProduct.zeroInterest,
+      batteryProduct.homeowners,
       shared.ctaBanner
     )
   );
