@@ -1,7 +1,6 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import Image from "next/image";
 import Fade from "@/reuseables/fade";
 import SectionHeader from "@/reuseables/SectionHeader";
 import MissingImage from "@/reuseables/MissingImage";
@@ -62,18 +61,16 @@ const InverterSlider: React.FC<InverterSliderProps> = ({ resolved }) => {
         <div className="relative rounded-[20px] overflow-hidden min-h-[550px] md:h-[580px] flex flex-col justify-between p-6 md:p-10 z-10">
           <div className="absolute inset-0 z-0">
             {slides[activeTab].background ? (
-              <Image
+              <img
                 src={slides[activeTab].background.src}
                 alt={slides[activeTab].background.alt}
-                fill
-                className="object-cover transition-all duration-700 ease-in-out"
+                className="absolute inset-0 w-full h-full object-cover transition-all duration-700 ease-in-out"
               />
             ) : (
-              <Image
-                src={'/fallback.png'}
+              <img
+                src="/fallback.png"
                 alt="fallback"
-                fill
-                className="object-cover transition-all duration-700 ease-in-out"
+                className="absolute inset-0 w-full h-full object-cover transition-all duration-700 ease-in-out"
               />
             )}
             <div className="absolute inset-0 bg-gradient-to-t from-black/55 via-black/15 to-black/35" />

@@ -13,41 +13,49 @@ export default function UtilityCardsSection({ resolved }: Props) {
       <div className="mx-auto max-w-5xl">
         <SectionHeader
           badge={resolved.badge}
+          subtitle={resolved.subtitle}
           title={resolved.title}
           description={resolved.description}
-          align="center"
-          className="mb-12"
-          titleClass="text-5xl md:text-[3.75rem] font-light leading-none"
-          descClass="mx-auto max-w-2xl text-base md:text-xl text-black tracking-tight"
+          align="left"
+          className="md:items-center md:text-center mb-12 md:mx-auto"
+          subtitleClass="text-xl md:text-xl lg:text-2xl normal-case mb-2 block text-black font-medium"
+          titleClass="text-[2.5rem] md:text-[3.75rem] font-light leading-none text-[#63B846] mb-4"
+          descClass="max-w-2xl text-base md:text-xl text-black tracking-tight font-light leading-tight"
         />
 
-        <div className="flex flex-wrap justify-center gap-6">
+        <div className="flex flex-col md:flex-row flex-wrap justify-center items-center md:items-stretch gap-6">
           {resolved.cards.map((card, idx) => {
             const logo = card.logo;
 
             return (
               <article
                 key={idx}
-                className="w-[350px] h-[420px] flex flex-col justify-between rounded-[20px] bg-[#F1F8EC] p-10"
+                className="w-full max-w-[360px] flex flex-col justify-between rounded-[24px] bg-[#F1F8EC] p-8 md:p-10 min-h-[380px] shadow-sm hover:shadow-md transition-shadow"
               >
-                {logo && (
-                  <div className="relative h-24 w-full">
-                    <Image src={logo.src} alt={logo.alt} fill className="object-contain" />
-                  </div>
-                )}
+                <div className="relative h-16 w-full flex items-center justify-start mb-8">
+                  {logo ? (
+                    <img
+                      src={logo.src}
+                      alt={logo.alt || card.name}
+                      className="object-contain max-h-full max-w-[180px]"
+                    />
+                  ) : (
+                    <span className="text-xl font-bold text-black">{card.name}</span>
+                  )}
+                </div>
 
-                <dl className="">
+                <dl className="space-y-4">
                   <div>
-                    <dt className="text-2xl tracking-tight text-black md:text-2xl">Per kWh</dt>
-                    <dd className="mt-1 text-base text-black md:text-base">{card.perKwh}</dd>
+                    <dt className="text-sm text-gray-500 font-normal">Per KWh</dt>
+                    <dd className="text-[1.25rem] font-medium text-black mt-0.5">{card.perKwh}</dd>
                   </div>
                   <div>
-                    <dt className="text-2xl tracking-tight text-black md:text-2xl">Cap</dt>
-                    <dd className="mt-1 text-base text-black md:text-base">{card.cap}</dd>
+                    <dt className="text-sm text-gray-500 font-normal">Cap</dt>
+                    <dd className="text-[1.25rem] font-medium text-black mt-0.5">{card.cap}</dd>
                   </div>
                   <div>
-                    <dt className="text-2xl tracking-tight text-black md:text-2xl">Maximum Rebate</dt>
-                    <dd className="mt-1 text-base text-black md:text-base">{card.maximumRebate}</dd>
+                    <dt className="text-sm text-gray-500 font-normal">Maximum Rebate</dt>
+                    <dd className="text-[1.25rem] font-medium text-black mt-0.5">{card.maximumRebate}</dd>
                   </div>
                 </dl>
               </article>

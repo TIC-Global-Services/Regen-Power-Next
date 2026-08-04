@@ -40,7 +40,7 @@ const SpecsAccordion: React.FC<SpecsAccordionProps> = ({ resolved }) => {
                     </div>
 
                     <div className="flex-grow max-w-md">
-                      <span className="text-xl md:text-2xl text-black block mb-3 font-[var(--font-aeonik)]">
+                      <span className="text-xl md:text-2xl text-black block mb-1 md:mb-3 font-[var(--font-aeonik)]">
                         {spec.value}
                       </span>
                       <p className="text-sm md:text-base leading-tight">
@@ -48,8 +48,8 @@ const SpecsAccordion: React.FC<SpecsAccordionProps> = ({ resolved }) => {
                       </p>
                     </div>
 
-                    <div className="lg:w-[280px] shrink-0 flex lg:justify-end items-center">
-                      <div className="w-[280px] h-[120px] rounded-[20px] overflow-hidden">
+                    <div className="w-full lg:w-[280px] shrink-0 flex lg:justify-end items-center">
+                      <div className="w-full h-[20dvh] md:w-[280px] md:h-[120px] rounded-[20px] overflow-hidden">
                         {spec.image ? (
                           <Image
                             src={spec.image.src}
@@ -60,6 +60,7 @@ const SpecsAccordion: React.FC<SpecsAccordionProps> = ({ resolved }) => {
                           />
                         ) : (
                           <MissingImage
+                            type="bgimage"
                             label="Spec image"
                             aspect="aspect-auto h-full"
                           />

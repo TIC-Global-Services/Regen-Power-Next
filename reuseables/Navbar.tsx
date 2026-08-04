@@ -54,9 +54,21 @@ const Navbar = () => {
   const lastScrollY = useRef(0);
 
   useEffect(() => {
+    if (isMobileMenuOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, [isMobileMenuOpen]);
+
+  useEffect(() => {
     const handleScroll = () => {
       const currentY = window.scrollY;
-      if (currentY > lastScrollY.current && currentY > 80) {
+      // Don't hide navbar if mobile menu is open
+      if (currentY > lastScrollY.current && currentY > 80 && document.body.style.overflow !== 'hidden') {
         setIsVisible(false);
       } else {
         setIsVisible(true);
@@ -221,7 +233,7 @@ const Navbar = () => {
         {/* Mobile Navigation GSAP Overlay */}
         <div
           ref={overlayRef}
-          className="fixed inset-0 bg-[#0a0a0a]/95 backdrop-blur-2xl -z-10 lg:hidden flex flex-col pt-28 px-8"
+          className="fixed inset-0 bg-[#0a0a0a]/95 backdrop-blur-2xl z-40 lg:hidden flex flex-col pt-28 px-8"
         >
           <ul ref={menuLinksRef} className="flex flex-col gap-6 overflow-y-auto pb-20">
             {navItems.map((item, index) => (
@@ -230,7 +242,7 @@ const Navbar = () => {
                   href={item.href}
                   className="text-3xl font-medium text-white flex justify-between items-center hover:text-[#8dc63f] transition-colors"
                   onClick={() => {
-                    if (!item.subItems) toggleMenu();
+                    toggleMenu();
                   }}
                 >
                   {item.name}

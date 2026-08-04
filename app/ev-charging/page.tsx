@@ -219,19 +219,37 @@ const evAccordionData: EvAccordionData = {
 };
 
 const evWhyChooseUsData: EvWhyChooseUsData = {
-  subtitle: "Why Choose",
-  title: "Regen Power",
-  awardWinnerCount: 6,
-  awardWinnerTitle: "Product Review Award\nWinner",
-  awardWinnerBg: productReviewBg,
-  awardWinnerLogo: productreview,
-  batteryInstallationsCount: 3000,
-  batteryInstallationsLabel: "Battery Installations",
-  solarInstallationsCount: 45000,
-  solarInstallationsLabel: "Solar Installations",
-  yearsInBusinessCount: 23,
-  yearsInBusinessDescription: "In Business, Operating From \n Canning Vale Office",
-  yearsInBusinessBg: businessBg,
+  headerSubtitle: "23 Years Powering Australian",
+  headerTitle: "Homes And Counting",
+  cards: [
+    {
+      variant: 'award',
+      bgColor: '#EEF6EB',
+      logoBg: productReviewBg,
+      logo: productreview,
+      mobileLogo: '/regen_logo_nav.png',
+      count: 500,
+      countSuffix: '+',
+      title: 'EV Chargers',
+      description: 'Installed Across Homes And Businesses.',
+      mobileCount: 6,
+      mobileCountSuffix: '×',
+      mobileTitle: 'Product Review Award Winner',
+    },
+    {
+      variant: 'installations',
+      bgColor: '#A0CF44',
+      combinedText: '45,000+ Solar Systems And 3,000+ Battery Systems Successfully Installed.',
+      productImage: '/home_counting_middle_fallback.png',
+      showPlusButton: true,
+    },
+    {
+      variant: 'years',
+      bgColor: '#F0F6EC',
+      backgroundImage: businessBg,
+      yearsText: '23 Years In Business, Operating From Our Canning Vale Office.',
+    },
+  ],
 };
 
 const evFaqItems = [

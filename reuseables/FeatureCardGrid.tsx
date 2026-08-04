@@ -81,15 +81,15 @@ const FeatureCardGrid: React.FC<FeatureCardGridProps> = ({
 
   return (
     <Fade>
-      <section className="py-16 md:py-20 bg-white px-[5%]">
-        <div className="text-center mb-12 md:mb-16 -space-y-4">
+      <section className="py-10 md:py-20 bg-white md:px-[5%]">
+        <div className="text-center mb-5 md:mb-16 -space-y-4">
           {topSubtitle && (
-            <h3 className="text-xl md:text-[2.125rem] text-black font-normal tracking-tight">
+            <h3 className="text-xl md:text-[2.125rem] text-black font-normal tracking-tight mb-1">
               {topSubtitle}
             </h3>
           )}
           {title && (
-            <h2 className="text-4xl md:text-5xl lg:text-[5rem] text-[#63B846] leading-none font-normal tracking-tighter mb-2">
+            <h2 className="text-[3.125rem] md:text-5xl lg:text-[5rem] text-[#63B846] leading-none font-normal tracking-tighter mb-2">
               {title}
             </h2>
           )}
@@ -100,9 +100,9 @@ const FeatureCardGrid: React.FC<FeatureCardGridProps> = ({
           )}
         </div>
 
-        <div ref={containerRef} className="flex flex-col md:flex-row gap-4 md:gap-5 w-full">
+        <div ref={containerRef} className="flex overflow-x-auto md:overflow-hidden md:flex-row ml-5 gap-4 md:gap-5 w-full snap-x snap-mandatory  md:mx-0 md:px-0 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none] pb-4 md:pb-0">
           {cards.map((card, index) => {
-            const isActive = activeIndex === index;
+            const isActive = !isDesktop || activeIndex === index;
             const widthPx = getCardWidth(index);
 
             return (
@@ -119,9 +119,8 @@ const FeatureCardGrid: React.FC<FeatureCardGridProps> = ({
                   transform: 'translateZ(0)',
                   WebkitBackfaceVisibility: 'hidden',
                 }}
-                className={`relative rounded-[24px] overflow-hidden group flex-none cursor-pointer focus-visible:outline-none ${
-                  isActive ? 'min-h-[400px] md:h-[460px]' : 'min-h-[80px] md:min-h-[400px]'
-                } w-full`}
+                className={`relative rounded-[24px] overflow-hidden group flex-none cursor-pointer focus-visible:outline-none ${isActive ? 'min-h-[400px] md:h-[460px]' : 'min-h-[80px] md:min-h-[400px]'
+                  } w-[75vw] md:w-full shrink-0 snap-start md:snap-align-none`}
               >
                 <div className="absolute inset-0 z-0 w-full h-full" style={{ transform: 'translateZ(0)' }}>
                   <Image
@@ -177,7 +176,7 @@ const FeatureCardGrid: React.FC<FeatureCardGridProps> = ({
           </div>
         )}
         {centerButton && (
-          <div className='flex justify-center items-center gap-3 mt-10' >
+          <div className='flex justify-end md:justify-center items-center gap-3 mt-4 md:mt-10' >
             <CtaButton text={centerButtonText} />
           </div>
         )}

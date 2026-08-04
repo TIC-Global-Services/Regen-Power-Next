@@ -1,5 +1,6 @@
 import React from "react";
-import PackagesGrid from "@/reuseables/PackagesGrid";
+import Reveal from "@/reuseables/Reveal";
+import SectionHeader from "@/reuseables/SectionHeader";
 import type { ResolvedSolarPackages } from "@/lib/strapi/resolvers/solar";
 
 interface SolarPackagesProps {
@@ -15,12 +16,57 @@ const SolarPackages: React.FC<SolarPackagesProps> = ({ resolved }) => {
   }));
 
   return (
-    <PackagesGrid
-      subtitle={resolved.subtitle}
-      title={resolved.title}
-      description={resolved.description}
-      packages={packages}
-    />
+    <section className="py-10 md:py-20 bg-white border-t border-gray-50">
+      <div className="px-[5%] mx-auto">
+
+        {/* Header Section */}
+        <SectionHeader
+          subtitle={resolved.subtitle}
+          title={resolved.title}
+          description={resolved.description}
+          align="center"
+          className="mx-auto mb-16"
+        />
+
+        {/* Card Layout: 2-col on desktop, stacked on mobile */}
+        <div className="md:grid grid-cols-1 md:grid-cols-2 gap-4 justify-center items-start max-w-4xl mx-auto">
+          {packages.map((pkg, idx) => (
+            <Reveal
+              key={idx}
+              delay={idx * 0.1}
+              className={`rounded-[20px] p-8 md:p-10 flex flex-col justify-start shadow-sm transition-all duration-300 hover:shadow-lg w-full h-full lg:h-[540px] overflow-hidden mx-auto
+                ${pkg.bgClass}
+              `}
+            >
+              {/* Title & Desc */}
+              <div className="mb-6">
+                <h3 className="text-3xl md:text-[2.125rem] font-bold mb-1 tracking-tight">
+                  {pkg.title}
+                </h3>
+                <p className="text-sm md:text-base leading-tight text-black max-w-xs">
+                  {pkg.desc}
+                </p>
+              </div>
+
+              {/* Items List */}
+              <div className="space-y-2 flex-grow">
+                {pkg.items.map((item, itemIdx) => (
+                  <div key={itemIdx}>
+                    <h4 className="text-xl font-bold text-black mb-0.5">
+                      {item.label}
+                    </h4>
+                    <p className="text-sm md:text-base leading-snug text-black/80 font-normal">
+                      {item.value}
+                    </p>
+                  </div>
+                ))}
+              </div>
+            </Reveal>
+          ))}
+        </div>
+
+      </div>
+    </section>
   );
 };
 

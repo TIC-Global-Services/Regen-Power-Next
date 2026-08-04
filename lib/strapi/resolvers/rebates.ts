@@ -91,6 +91,7 @@ export interface ResolvedRebatesUtilityCard {
 }
 export interface ResolvedRebatesUtilityCards {
   badge: string;
+  subtitle: string;
   title: string;
   description: string;
   cards: ResolvedRebatesUtilityCard[];
@@ -101,6 +102,7 @@ export function resolveRebatesUtilityCards(
   if (!data) return null;
   return {
     badge: data.badge ?? "",
+    subtitle: data.subtitle ?? "",
     title: data.title ?? "",
     description: data.description ?? "",
     cards: (data.cards ?? []).map((card) => ({

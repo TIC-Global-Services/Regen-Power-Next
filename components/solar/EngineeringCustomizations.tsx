@@ -46,6 +46,7 @@ const EngineeringCustomizations: React.FC<EngineeringCustomizationsProps> = ({
       columns={columns}
       align="left"
       className="border-t border-gray-50"
+      enableMobileSlider={true}
     />
   );
 };

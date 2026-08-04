@@ -1,5 +1,5 @@
 import React from 'react';
-import Image, { StaticImageData } from 'next/image';
+import { type StaticImageData } from 'next/image';
 import Reveal from '@/reuseables/Reveal';
 import Fade from '@/reuseables/fade';
 import SectionHeader from '@/reuseables/SectionHeader';
@@ -27,28 +27,30 @@ const FullscreenSplitSection: React.FC<FullscreenSplitSectionProps> = ({
 }) => {
   const isImageLeft = imagePosition === 'left';
   const isSplit = textArrangement === 'split';
+  const imgSrc = (typeof image === 'object' && image !== null && 'src' in image ? image.src : image) || '/fallback.png';
 
   return (
-    <section className="bg-white border-t border-gray-50 min-h-screen flex items-stretch">
+    <section className="min-h-screen flex items-stretch overflow-hidden">
       <div className="grid grid-cols-1 lg:grid-cols-2 items-stretch w-full min-h-screen">
 
         {/* Image Column */}
         <Reveal
-          className={`relative w-full min-h-[350px] lg:h-screen overflow-hidden ${isImageLeft ? 'lg:order-first' : 'lg:order-last'
-            }`}
+          className={`w-full pt-6 px-5 md:px-16 lg:px-0 lg:py-0 min-h-[350px] lg:h-screen ${
+            isImageLeft ? 'lg:order-first' : 'lg:order-last'
+          }`}
         >
-          <Image
-            src={image}
-            alt={imageAlt}
-            fill
-            className="object-cover"
-            priority
-          />
+          <div className="relative w-full h-full min-h-[350px] rounded-[24px] lg:rounded-none overflow-hidden bg-gray-50">
+            <img
+              src={imgSrc}
+              alt={imageAlt}
+              className="object-cover w-full h-full absolute inset-0"
+            />
+          </div>
         </Reveal>
 
         {/* Text Column */}
         <div
-          className={`flex flex-col py-16 lg:py-24 px-8 md:px-16 ${isImageLeft ? 'lg:pl-12 lg:pr-20' : 'lg:pl-20 lg:pr-12'
+          className={`flex flex-col pt-4 pb-16 lg:py-24 px-5 md:px-16 ${isImageLeft ? 'lg:pl-12 lg:pr-20' : 'lg:pl-20 lg:pr-12'
             } text-left h-full lg:h-screen lg:min-h-screen ${isSplit ? 'justify-between' : 'justify-center'
             }`}
         >
@@ -64,14 +66,14 @@ const FullscreenSplitSection: React.FC<FullscreenSplitSectionProps> = ({
                   subtitle={subtitle}
                   title={title}
                   align="left"
-                  subtitleClass="text-base md:text-xl lg:text-2xl normal-case mb-4 block text-black font-medium"
-                  titleClass="text-4xl md:text-5xl lg:text-[3.125rem] font-normal leading-none tracking-tight mb-6 text-[#63B846]"
+                  subtitleClass="text-xl md:text-xl lg:text-2xl normal-case mb-4 block text-black font-medium"
+                  titleClass="text-[2.5rem] md:text-5xl lg:text-[3.125rem] font-normal leading-none tracking-tight mb-2 text-[#63B846]"
                 />
               </div>
 
-              <div className="mt-12 lg:mt-24">
+              <div className="mt-2 lg:mt-24">
                 <Fade delay={0.2}>
-                  <div className="text-sm md:text-xl leading-tight">
+                  <div className="text-base md:text-xl leading-tight">
                     {description}
                   </div>
                 </Fade>

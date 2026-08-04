@@ -30,7 +30,7 @@ const PackagesGrid: React.FC<PackagesGridProps> = ({
   className = ''
 }) => {
   return (
-    <section className={`py-16 md:py-20 bg-white border-t border-gray-50 ${className}`}>
+    <section className={`py-10 md:py-20 bg-white border-t border-gray-50 ${className}`}>
       <div className="px-[5%] mx-auto">
 
         {/* Header Section */}
@@ -48,7 +48,7 @@ const PackagesGrid: React.FC<PackagesGridProps> = ({
             <Reveal
               key={idx}
               delay={idx * 0.1}
-              className={`rounded-[20px] p-8 md:p-10 flex flex-col justify-start shadow-sm transition-all duration-300 hover:shadow-lg w-full max-w-[434px] min-h-[480px] lg:h-[540px] overflow-hidden mx-auto
+              className={`rounded-[20px] p-8 md:p-10 flex flex-col justify-start shadow-sm transition-all duration-300 hover:shadow-lg w-full max-w-[434px] min-h-[380px] lg:h-[540px] overflow-hidden mx-auto
                 ${pkg.bgClass}
               `}
             >

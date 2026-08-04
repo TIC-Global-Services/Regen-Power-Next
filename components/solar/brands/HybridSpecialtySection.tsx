@@ -36,16 +36,16 @@ const HybridSpecialtySection: React.FC<HybridSpecialtySectionProps> = ({
 
           <Reveal className="relative w-full aspect-[5/5] rounded-[14px] overflow-hidden">
             {imgUrl ? (
-              <Image
+              <img
                 src={imgUrl}
                 alt={resolved.title ?? "Hybrid Inverters"}
-                fill
-                className="object-cover"
+                className="object-cover w-full h-full"
               />
             ) : (
-              <MissingImage
-                label="Hybrid inverters image"
-                aspect="aspect-auto h-full"
+              <img
+                src={'/fallback.png'}
+                alt={resolved.title ?? "Hybrid Inverters"}
+                className="object-cover w-full h-full"
               />
             )}
           </Reveal>

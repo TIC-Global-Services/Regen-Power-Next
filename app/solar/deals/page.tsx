@@ -66,7 +66,7 @@ export default async function SolarDealsPage() {
   const ctaBannerProps = resolveSharedCtaBanner(ctaBanner);
 
   return (
-    <div className="bg-white min-h-screen text-black">
+    <div className="bg-white min-h-screen text-black overflow-x-hidden">
 
       {heroProps && <DealsHeroSection resolved={heroProps} />}
 

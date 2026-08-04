@@ -99,22 +99,22 @@ const RealStories = ({ data }: RealStoriesProps) => {
             <div className="flex flex-col justify-center items-center mb-20">
                 <h1>
                     <span className="text-xl md:text-[2rem] leading-[0.5] font-normal text-center  tracking-tight mb-1 block normal-case">{data.subtitle}</span>
-                    <span className="text-4xl md:text-5xl lg:text-[5rem] leading-none tracking-tight mt-1">{data.title}</span>
+                    <span className="text-[3.125rem] md:text-5xl lg:text-[5rem] leading-none tracking-tight mt-1">{data.title}</span>
                 </h1>
             </div>
 
 
             <div className="px-[5%] mb-12 md:mb-20">
-                <div className="flex flex-wrap items-center justify-center gap-6 md:gap-10">
+                <div className="grid grid-cols-2 md:flex md:flex-wrap items-center justify-center gap-6 md:gap-10">
                     {data.badges.map((badge) => (
                         <div
                             key={badge.id}
-                            className="relative h-16 md:h-30 w-auto flex items-center"
+                            className="relative h-16 md:h-30 w-auto flex items-center justify-center"
                         >
                             <Image
                                 src={badge.src}
                                 alt={badge.alt}
-                                className="h-full w-auto object-cover"
+                                className="h-full w-auto object-contain md:object-cover"
                                 height={200}
                                 width={200}
                             />

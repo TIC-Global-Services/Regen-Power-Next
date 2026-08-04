@@ -50,6 +50,7 @@ export const RebatesUtilityCardSchema = z.object({
 export const RebatesUtilityCardsSchema = z.object({
   __component: z.literal("rebates.utility-cards"),
   badge: z.string().nullable(),
+  subtitle: z.string().nullable(),
   title: z.string().nullable(),
   description: z.string().nullable(),
   cards: z.array(RebatesUtilityCardSchema),
