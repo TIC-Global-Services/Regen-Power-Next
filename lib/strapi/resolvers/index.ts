@@ -162,6 +162,43 @@ export type {
 } from "./battery-product";
 
 export {
+  resolveBatteryStorageHero,
+  resolveBatteryStorageMarquee,
+  resolveDebsRebate,
+  resolveBatteryJargon,
+  resolveBatteryBillImpact,
+  resolveBatteryRangeGrid,
+  resolveBatteryCapacity,
+  resolveGreatFit,
+  resolveSolarBatteryMeaning,
+  resolveInstallationTimeline,
+  resolveOneLocalTeam,
+  resolveCustomerStories,
+} from "./battery-storage";
+export type {
+  ResolvedBatteryStorageHero,
+  ResolvedBatteryStorageMarquee,
+  ResolvedDebsRebate,
+  ResolvedBatteryJargon,
+  ResolvedJargonCard,
+  ResolvedBatteryBillImpact,
+  ResolvedBillImpactCard,
+  ResolvedBatteryRangeGrid,
+  ResolvedRangeCard,
+  ResolvedBatteryCapacity,
+  ResolvedCapacityCard,
+  ResolvedGreatFit,
+  ResolvedSolarBatteryMeaning,
+  ResolvedMeaningCard,
+  ResolvedInstallationTimeline,
+  ResolvedTimelineStep,
+  ResolvedOneLocalTeam,
+  ResolvedTrustCard,
+  ResolvedCustomerStories,
+  ResolvedStoryCard,
+} from "./battery-storage";
+
+export {
   resolveFaqHero,
   resolveFaqCategorizedFaq,
 } from "./faq";

@@ -8,6 +8,7 @@ import * as shared from "./populate/shared";
 import * as rebates from "./populate/rebates";
 import * as batteryRebates from "./populate/battery-rebates";
 import * as batteryProduct from "./populate/battery-product";
+import * as batteryStorage from "./populate/battery-storage";
 import * as faq from "./populate/faq";
 import * as commercial from "./populate/commercial";
 import * as research from "./populate/research";
@@ -35,6 +36,7 @@ const PAGE_SLUGS = {
   faq: "faq-page",
   governmentRebates: "government-rebates-page",
   batteryProduct: "battery-product-page",
+  batteryStorage: "battery-storage-page",
 } as const;
 
 async function getSingleType(
@@ -256,5 +258,26 @@ export const getBatteryProductPage = () =>
       batteryProduct.zeroInterest,
       batteryProduct.homeowners,
       shared.ctaBanner
+    )
+  );
+
+export const getBatteryStoragePage = () =>
+  getSingleType(
+    PAGE_SLUGS.batteryStorage,
+    populate(
+      batteryStorage.hero,
+      batteryStorage.marquee,
+      batteryStorage.debsRebate,
+      batteryStorage.jargon,
+      batteryStorage.billImpact,
+      batteryStorage.rangeGrid,
+      batteryStorage.capacityBlocks,
+      batteryStorage.greatFit,
+      batteryStorage.solarMeaning,
+      batteryStorage.installationTimeline,
+      batteryStorage.team,
+      batteryStorage.customerStories,
+      batteryStorage.faq,
+      batteryStorage.ctaBanner
     )
   );

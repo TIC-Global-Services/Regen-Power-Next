@@ -7,6 +7,7 @@ export * as shared from "./shared";
 export * as rebates from "./rebates";
 export * as batteryRebates from "./battery-rebates";
 export * as batteryProduct from "./battery-product";
+export * as batteryStorage from "./battery-storage";
 export * as faq from "./faq";
 export * as commercial from "./commercial";
 export * as research from "./research";

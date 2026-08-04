@@ -168,6 +168,47 @@ export {
 } from "./battery-product";
 
 export type {
+  BatteryStorageHeroData,
+  BatteryStorageMarqueeData,
+  BatteryStorageDebsRebateData,
+  BatteryStorageJargonData,
+  BatteryStorageBillImpactData,
+  BatteryStorageRangeGridData,
+  BatteryStorageCapacityBlocksData,
+  BatteryStorageGreatFitData,
+  BatteryStorageSolarMeaningData,
+  BatteryStorageInstallationTimelineData,
+  BatteryStorageTeamData,
+  BatteryStorageCustomerStoriesData,
+  BatteryStorageTextItemData,
+  BatteryStorageImageCardData,
+  BatteryStorageSimpleCardData,
+  BatteryStorageRangeCardData,
+  BatteryStorageTimelineStepData,
+  BatteryStorageStoryCardData,
+} from "./battery-storage";
+export {
+  BatteryStorageHeroSchema,
+  BatteryStorageMarqueeSchema,
+  BatteryStorageDebsRebateSchema,
+  BatteryStorageJargonSchema,
+  BatteryStorageBillImpactSchema,
+  BatteryStorageRangeGridSchema,
+  BatteryStorageCapacityBlocksSchema,
+  BatteryStorageGreatFitSchema,
+  BatteryStorageSolarMeaningSchema,
+  BatteryStorageInstallationTimelineSchema,
+  BatteryStorageTeamSchema,
+  BatteryStorageCustomerStoriesSchema,
+  BatteryStorageTextItemSchema,
+  BatteryStorageImageCardSchema,
+  BatteryStorageSimpleCardSchema,
+  BatteryStorageRangeCardSchema,
+  BatteryStorageTimelineStepSchema,
+  BatteryStorageStoryCardSchema,
+} from "./battery-storage";
+
+export type {
   FaqHeroData,
   FaqCategorizedFaqData,
   FaqCtaBannerData,
