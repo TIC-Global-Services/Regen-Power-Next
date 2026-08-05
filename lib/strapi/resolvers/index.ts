@@ -225,6 +225,35 @@ export type {
 } from "./smart-home-battery";
 
 export {
+  resolveBatteryBrandsHero,
+  resolveBrandLongTermBet,
+  resolveWhatItTakes,
+  resolveSevenBrand,
+  resolveBrandsComparisonTable,
+  resolveQuickWay,
+  resolveCecApproved,
+  resolveWhyOurInstaller,
+} from "./battery-brands";
+export type {
+  ResolvedBatteryBrandsHero,
+  ResolvedBrandLongTermBet,
+  ResolvedBrandBetCard,
+  ResolvedWhatItTakes,
+  ResolvedWhatItTakesItem,
+  ResolvedSevenBrand,
+  ResolvedBrandCard,
+  ResolvedSpecBlock,
+  ResolvedSpecDetail,
+  ResolvedBrandsComparisonTable,
+  ResolvedQuickWay,
+  ResolvedRecommendationItem,
+  ResolvedCecApproved,
+  ResolvedCecCard,
+  ResolvedWhyOurInstaller,
+  ResolvedCertItem,
+} from "./battery-brands";
+
+export {
   resolveFaqHero,
   resolveFaqCategorizedFaq,
 } from "./faq";

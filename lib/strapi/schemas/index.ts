@@ -244,6 +244,33 @@ export {
 } from "./smart-home-battery";
 
 export type {
+  BatteryBrandsHeroData,
+  BatteryBrandsLongTermBetData,
+  BatteryBrandsWhatItTakesData,
+  BatteryBrandsSevenBrandData,
+  BatteryBrandsComparisonTableData,
+  BatteryBrandsQuickWayData,
+  BatteryBrandsCecApprovedData,
+  BatteryBrandsWhyOurInstallerData,
+} from "./battery-brands";
+export {
+  BatteryBrandsHeroSchema,
+  BatteryBrandsLongTermBetSchema,
+  BatteryBrandsWhatItTakesSchema,
+  BatteryBrandsSevenBrandSchema,
+  BatteryBrandsQuickWaySchema,
+  BatteryBrandsCecApprovedSchema,
+  BatteryBrandsWhyOurInstallerSchema,
+  BrandBetCardSchema,
+  BrandCardSchema,
+  BrandSpecBlockSchema,
+  BrandSpecDetailSchema,
+  RecommendationItemSchema,
+  CecCardSchema,
+  CertItemSchema,
+} from "./battery-brands";
+
+export type {
   FaqHeroData,
   FaqCategorizedFaqData,
   FaqCtaBannerData,
