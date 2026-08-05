@@ -40,7 +40,7 @@ const PAGE_SLUGS = {
   batteryProduct: "battery-product-page",
   batteryStorage: "battery-storage-page",
   smartHomeBattery: "smart-home-battery-page",
-  brandsWeCarry: "brands-we-carry-page",
+  brandsWeCarry: "battery-brands-page",
 } as const;
 
 async function getSingleType(

@@ -6,7 +6,7 @@ export const brandLongTermBet =
 
 export const whatItTakes =
   "populate[sections][on][battery-brands.what-it-takes][populate][items]=true" +
-  "&populate[sections][on][battery-brands.what-it-takes][populate]=image";
+  "&populate[sections][on][battery-brands.what-it-takes][populate][image]=true";
 
 export const sevenBrand =
   "populate[sections][on][battery-brands.seven-brand][populate][brands][populate][specification][populate][specdetails]=true";
@@ -17,14 +17,14 @@ export const comparisonTable =
 
 export const quickWay =
   "populate[sections][on][battery-brands.quick-way][populate][recommendations]=true" +
-  "&populate[sections][on][battery-brands.quick-way][populate]=image";
+  "&populate[sections][on][battery-brands.quick-way][populate][image]=true";
 
 export const cecApproved =
   "populate[sections][on][battery-brands.cec-approved][populate][cards]=true";
 
 export const whyOurInstaller =
   "populate[sections][on][battery-brands.why-our-installer][populate][certifications]=true" +
-  "&populate[sections][on][battery-brands.why-our-installer][populate]=image";
+  "&populate[sections][on][battery-brands.why-our-installer][populate][image]=true";
 
 export const faq =
   "populate[sections][on][shared.faq][populate][image]=true" +
