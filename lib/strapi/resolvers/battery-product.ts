@@ -368,6 +368,9 @@ export interface ResolvedHomeownerStory {
 export interface ResolvedHomeowners {
   topSubtitle: string;
   title: string;
+  showReadMore: boolean;
+  centerButton: boolean;
+  centerButtonText: string;
   stories: ResolvedHomeownerStory[];
 }
 export function resolveHomeowners(
@@ -377,6 +380,9 @@ export function resolveHomeowners(
   return {
     topSubtitle: data.topSubtitle ?? "",
     title: data.title ?? "",
+    showReadMore: data.showReadMore ?? false,
+    centerButton: data.centerButton ?? false,
+    centerButtonText: data.centerButtonText ?? "",
     stories: (data.cards ?? []).map((card) => ({
       title: card.title,
       ...(card.description ? { description: card.description } : {}),

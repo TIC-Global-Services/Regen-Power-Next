@@ -69,15 +69,15 @@ const RightSizing: React.FC<{ data?: RightSizingData }> = ({ data }) => {
         <section className="w-full px-[5%] py-12 md:py-20 bg-white">
             <div className="max-w-4xl mx-auto">
                 {/* Header */}
-                <div className="text-center">
-                    <p className="text-2xl md:text-3xl font-light tracking-tight text-black">
+                <div className="text-left md:text-center">
+                    <p className="text-base md:text-3xl font-light tracking-tight text-black">
                         {data.topSubtitle}
                     </p>
-                    <h2 className="text-4xl md:text-5xl lg:text-[3.5rem] font-normal tracking-tight text-[#63B846] leading-tight mt-1">
+                    <h2 className="text-[2.5rem] md:text-5xl lg:text-[3.5rem] font-normal tracking-tight text-[#63B846] leading-tight mt-1">
                         {data.title}
                     </h2>
                 </div>
-                <p className="text-sm md:text-base text-black text-center max-w-3xl mx-auto mt-4 leading-[1.3] tracking-tight">
+                <p className="text-base text-black text-left md:text-center max-w-3xl mx-auto mt-4 leading-[1.3] tracking-tight">
                     {data.description}
                 </p>
 
@@ -121,8 +121,8 @@ const RightSizing: React.FC<{ data?: RightSizingData }> = ({ data }) => {
                     </AnimatePresence>
 
                     {/* Action Row */}
-                    <div className="flex items-center justify-between gap-4 md:gap-6 mt-12 md:mt-16">
-                        {/* Back Button */}
+                    <div className="flex flex-wrap items-center justify-between md:justify-between gap-4 md:gap-6 mt-12 md:mt-16">
+                        {/* Back Button — bottom-left on mobile, first on desktop */}
                         <CtaButton
                             text="Back"
                             onClick={handleBack}
@@ -134,34 +134,37 @@ const RightSizing: React.FC<{ data?: RightSizingData }> = ({ data }) => {
                             iconTextColor="text-white"
                             icon={ArrowUpRight}
                             disabled={isFirstStep}
+                            className="order-2 md:order-1"
                         />
 
-                        {/* Input */}
+                        {/* Input — top on mobile, middle on desktop */}
                         <input
                             type="text"
                             value={answers[currentStep] || ''}
                             onChange={handleAnswerChange}
                             placeholder={step.placeholder || 'Your Answer'}
-                            className="flex-1 max-w-md px-6 py-3 rounded-full border border-[#63B846] text-black placeholder:text-[#63B846]/70 text-sm md:text-base text-center focus:outline-none focus:ring-2 focus:ring-[#63B846]/30 bg-white"
+                            className="order-1 md:order-2 w-[85%] md:w-auto md:max-w-md md:flex-1 mx-auto md:mx-0 px-6 py-3 rounded-full border border-[#63B846] text-black placeholder:text-[#63B846]/70 text-sm md:text-base text-left md:text-center focus:outline-none focus:ring-2 focus:ring-[#63B846]/30 bg-white"
                         />
 
-                        {/* Next / Final CTA Button */}
-                        {isLastStep && data.ctaHref ? (
-                            <CtaButton
-                                text={data.ctaText || 'Get My Quote'}
-                                href={data.ctaHref}
-                                iconBgClass="bg-[#3a8a2a]"
-                                iconTextColor="text-white"
-                            />
-                        ) : (
-                            <CtaButton
-                                text="Next"
-                                onClick={handleNext}
-                                disabled={isLastStep}
-                                iconBgClass="bg-[#3a8a2a]"
-                                iconTextColor="text-white"
-                            />
-                        )}
+                        {/* Next / Final CTA Button — bottom-right on mobile, last on desktop */}
+                        <div className="order-3">
+                            {isLastStep && data.ctaHref ? (
+                                <CtaButton
+                                    text={data.ctaText || 'Get My Quote'}
+                                    href={data.ctaHref}
+                                    iconBgClass="bg-[#3a8a2a]"
+                                    iconTextColor="text-white"
+                                />
+                            ) : (
+                                <CtaButton
+                                    text="Next"
+                                    onClick={handleNext}
+                                    disabled={isLastStep}
+                                    iconBgClass="bg-[#3a8a2a]"
+                                    iconTextColor="text-white"
+                                />
+                            )}
+                        </div>
                     </div>
                 </div>
             </div>

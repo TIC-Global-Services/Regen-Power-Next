@@ -235,6 +235,9 @@ export const HomeownersSchema = z.object({
   __component: z.literal("battery-product.homeowners"),
   topSubtitle: z.string().nullable(),
   title: z.string().nullable(),
+  showReadMore: z.boolean().nullable(),
+  centerButton: z.boolean().nullable(),
+  centerButtonText: z.string().nullable(),
   cards: z.array(FeatureCardSchema),
 });
 export type HomeownersData = z.infer<typeof HomeownersSchema>;

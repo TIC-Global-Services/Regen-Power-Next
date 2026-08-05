@@ -29,7 +29,8 @@ const HowYouUseIt: React.FC<{ data?: HowYouUseItData }> = ({ data }) => {
         <section className="w-full px-[5%] py-12 md:py-20 bg-white">
             <div className="">
                 {/* Grid matching design: Header spans 2 cols, cards take 1 col each */}
-                <div className="group grid grid-cols-1 md:grid-cols-3 gap-5 md:gap-6">
+                {/* Desktop: Grid matching design: Header spans 2 cols, cards take 1 col each */}
+                <div className="hidden md:grid md:grid-cols-3 gap-5 md:gap-6">
                     {/* Header Item */}
                     {(data.topSubtitle || data.title || data.description) && (
                         <div className="md:col-span-2 flex flex-col justify-center md:pr-12 mb-6 md:mb-0">
@@ -39,7 +40,7 @@ const HowYouUseIt: React.FC<{ data?: HowYouUseItData }> = ({ data }) => {
                                 </p>
                             )}
                             {data.title && (
-                                <h2 className="text-4xl md:text-5xl lg:text-[3.125rem] font-normal tracking-tight text-[#63B846] mb-4 leading-tight">
+                                <h2 className="text-[2.5rem] md:text-5xl lg:text-[3.125rem] font-normal tracking-tight text-[#63B846] mb-4 leading-tight">
                                     {data.title}
                                 </h2>
                             )}
@@ -69,6 +70,54 @@ const HowYouUseIt: React.FC<{ data?: HowYouUseItData }> = ({ data }) => {
                                         {card.title}
                                     </h3>
                                     <p className="text-xs md:text-[0.9rem] leading-[1.2] tracking-tight text-[#888888]">
+                                        {card.description}
+                                    </p>
+                                </div>
+                            </div>
+                        );
+                    })}
+                </div>
+
+                {/* Mobile: Header */}
+                {(data.topSubtitle || data.title || data.description) && (
+                    <div className="md:hidden flex flex-col justify-center md:pr-12 mb-8">
+                        {data.topSubtitle && (
+                            <p className="text-2xl md:text-3xl font-light tracking-tight text-black mb-1">
+                                {data.topSubtitle}
+                            </p>
+                        )}
+                        {data.title && (
+                            <h2 className="text-[2.5rem] md:text-5xl lg:text-[3.125rem] font-normal tracking-tight text-[#63B846] mb-4 leading-tight">
+                                {data.title}
+                            </h2>
+                        )}
+                        {data.description && (
+                            <p className="text-base md:text-lg lg:text-2xl text-black font-normal leading-snug tracking-tight">
+                                {data.description}
+                            </p>
+                        )}
+                    </div>
+                )}
+
+                {/* Mobile: Horizontal Scroll */}
+                <div className="flex overflow-x-auto md:hidden gap-4 -mx-[5%] px-[5%] [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none] pb-4 mt-6">
+                    {data.cards.map((card, idx) => {
+                        const isInitiallyFeatured = card.isFeatured ?? (idx === featuredIndex);
+
+                        return (
+                            <div
+                                key={card.id || idx}
+                                className={`rounded-3xl p-6 flex flex-col justify-end min-h-[260px] w-[75vw] shrink-0 snap-start transition-all duration-300 ${
+                                    isInitiallyFeatured
+                                        ? 'bg-[#353731] text-white'
+                                        : 'bg-[#EAEAEA] text-black'
+                                }`}
+                            >
+                                <div>
+                                    <h3 className="text-xl font-normal tracking-tight mb-3 leading-snug">
+                                        {card.title}
+                                    </h3>
+                                    <p className="text-xs leading-[1.2] tracking-tight text-[#888888]">
                                         {card.description}
                                     </p>
                                 </div>

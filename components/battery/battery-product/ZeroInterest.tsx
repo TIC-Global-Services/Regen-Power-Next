@@ -29,28 +29,28 @@ const ZeroInterest: React.FC<{ data: ZeroInterestData }> = ({ data }) => {
         <section className="w-full px-[5%] py-12 md:py-20 bg-white">
             <div className="">
                 {/* Header */}
-                <div className="text-center mb-10 md:mb-14">
-                    <p className="text-2xl md:text-3xl font-light tracking-tight text-black mb-1">
+                <div className="text-left md:text-center mb-10 md:mb-14">
+                    <p className="text-base md:text-3xl font-light tracking-tight text-black ">
                         {data.topSubtitle}
                     </p>
-                    <h2 className="text-5xl md:text-6xl lg:text-7xl font-normal tracking-tight text-[#63B846]">
+                    <h2 className="text-[2.5rem] md:text-6xl font-normal tracking-tight text-[#63B846] mb-2">
                         {data.title}
                     </h2>
-                    <p className="text-sm md:text-base text-black/80 leading-[1.2] mt-4 max-w-3xl mx-auto">
+                    <p className="text-base text-black/80 leading-[1.2] max-w-3xl mx-auto">
                         {data.description}
                     </p>
                 </div>
 
-                {/* Grid Layout matching screenshot */}
+                {/* Grid Layout */}
                 <div className="grid grid-cols-1 md:grid-cols-12 gap-5 md:gap-6">
                     {/* Row 1 — Key Terms (5 cols) + Top Image (7 cols) */}
                     <div className="bg-[#EAF2E2] rounded-3xl md:col-span-5 p-8 flex flex-col justify-center min-h-[300px]">
-                        <h3 className="text-3xl md:text-4xl font-normal tracking-tight text-black mb-6">
+                        <h3 className="text-2xl md:text-4xl font-normal tracking-tight text-black mb-6">
                             {data.keyTerms.title}
                         </h3>
                         <ul className="space-y-2">
                             {data.keyTerms.items.map((item, idx) => (
-                                <li key={idx} className="text-sm md:text-base text-black/90 leading-snug">
+                                <li key={idx} className="text-base text-black leading-tight">
                                     • {item}
                                 </li>
                             ))}
@@ -82,7 +82,7 @@ const ZeroInterest: React.FC<{ data: ZeroInterestData }> = ({ data }) => {
                         </h3>
                         <ul className="space-y-2">
                             {data.eligibility.items.map((item, idx) => (
-                                <li key={idx} className="text-sm md:text-base text-black/90 leading-snug">
+                                <li key={idx} className="text-base text-black leading-tight">
                                     • {item}
                                 </li>
                             ))}

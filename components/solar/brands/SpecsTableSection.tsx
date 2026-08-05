@@ -22,13 +22,13 @@ const SpecsTableSection: React.FC<SpecsTableSectionProps> = ({ resolved }) => {
           description={resolved.description ?? ""}
           align="left"
           className="mb-8"
-          subtitleClass="text-base md:text-xl lg:text-2xl normal-case block text-black"
+          subtitleClass="text-base md:text-xl lg:text-2xl normal-case block text-black mb-2"
           titleClass="text-4xl md:text-[5.5rem] font-normal leading-none tracking-tight text-[#63B846]"
           descClass="text-xl leading-tight"
         />
 
-        <Reveal className="rounded-[24px] mt-12 mb-16  overflow-hidden">
-          <table className="w-full h-[500px] border-collapse text-center bg-white table-fixed">
+        <Reveal className="rounded-[24px] mt-12 mb-16  overflow-x-auto">
+          <table className="w-full h-[500px] border-collapse text-center bg-white">
             <thead>
               <tr className="h-[100px]">
                 <th className="bg-[#A0CF44] text-black font-normal p-4 text-xl tracking-tight border-r border-b border-black w-[15%]">

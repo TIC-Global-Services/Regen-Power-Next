@@ -19,6 +19,7 @@ const WarrantyCoverage = ({ data }: { data: WarrantyCoverageData }) => {
             cards={data.cards}
             layout={data.layout ?? 6}
             className={data.className ?? 'bg-white'}
+            mobileScroll
         />
     );
 };

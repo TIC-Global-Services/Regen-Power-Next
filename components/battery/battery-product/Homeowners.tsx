@@ -13,6 +13,9 @@ export interface HomeownerStory {
 export interface HomeownersData {
   topSubtitle: string;
   title: string;
+  showReadMore?: boolean;
+  centerButton?: boolean;
+  centerButtonText?: string;
   stories: HomeownerStory[];
 }
 
@@ -31,9 +34,10 @@ const Homeowners = ({ data }: { data: HomeownersData }) => {
       topSubtitle={data.topSubtitle}
       title={data.title}
       cards={mappedCards}
-      showReadMore={true}
-      centerButton={true}
-      centerButtonText="See 2,000+ Verified Reviews On ProductReview.com.au"
+      showReadMore={data.showReadMore ?? true}
+      centerButton={data.centerButton ?? true}
+      centerButtonText={data.centerButtonText}
+      hideCenterButtonMobile
     />
   );
 };

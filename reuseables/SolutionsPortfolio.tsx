@@ -65,11 +65,11 @@ const variantClass: Record<CardVariant, string> = {
     'dark': 'bg-[#0a0a0a] text-white',
 };
 
-const TextCardView: React.FC<{ card: TextCard }> = ({ card }) => {
+const TextCardView: React.FC<{ card: TextCard; mobileScroll?: boolean }> = ({ card, mobileScroll }) => {
     const isDark = card.variant === 'dark';
     const titleLines = card.title.split('\n');
     return (
-        <div className={`${variantClass[card.variant]} rounded-2xl p-6 md:p-8 flex flex-col justify-between min-h-[280px] md:min-h-[340px]`}>
+        <div className={`${variantClass[card.variant]} rounded-2xl p-6 md:p-8 flex flex-col justify-between min-h-[280px] md:min-h-[340px] ${mobileScroll ? 'shrink-0 w-[75vw] md:w-auto' : ''}`}>
             <h3 className="text-3xl md:text-4xl lg:text-5xl font-normal tracking-tight leading-tight text-[#63B846]">
                 {titleLines.map((line, i) => (
                     <span key={i} className="block">{line}</span>
@@ -89,8 +89,8 @@ const TextCardView: React.FC<{ card: TextCard }> = ({ card }) => {
     );
 };
 
-const ImageCardView: React.FC<{ card: ImageCard }> = ({ card }) => (
-    <div className={`${variantClass[card.variant]} rounded-2xl p-6 md:p-8 flex items-center justify-center min-h-[280px] md:min-h-[300px]`}>
+const ImageCardView: React.FC<{ card: ImageCard; mobileScroll?: boolean }> = ({ card, mobileScroll }) => (
+    <div className={`${variantClass[card.variant]} rounded-2xl p-6 md:p-8 flex items-center justify-center min-h-[280px] md:min-h-[300px] ${mobileScroll ? 'shrink-0 w-[75vw] md:w-auto' : ''}`}>
         <div className="relative w-32 h-32 md:w-40 md:h-40">
             <Image
                 src={card.image || gridDots}
@@ -111,6 +111,8 @@ export interface SolutionsPortfolioProps {
     layout?: CardLayout;
     showHeader?: boolean;
     className?: string;
+    /** When true, render cards as a horizontal swipe scroll on mobile instead of a stacked grid. */
+    mobileScroll?: boolean;
 }
 
 const gridCols: Record<CardLayout, string> = {
@@ -118,6 +120,13 @@ const gridCols: Record<CardLayout, string> = {
     4: 'grid-cols-1 md:grid-cols-2 lg:grid-cols-4',
     6: 'grid-cols-1 md:grid-cols-2 lg:grid-cols-3',
 };
+
+/** Desktop-only grid classes (md:/lg:) — used when mobileScroll renders the mobile row. */
+const desktopGridCols = (layout: CardLayout) =>
+    gridCols[layout]
+        .split(' ')
+        .filter((c) => c.startsWith('md:') || c.startsWith('lg:'))
+        .join(' ');
 
 const SolutionsPortfolio: React.FC<SolutionsPortfolioProps> = ({
     subtitle,
@@ -127,36 +136,40 @@ const SolutionsPortfolio: React.FC<SolutionsPortfolioProps> = ({
     layout = 6,
     showHeader = true,
     className = '',
+    mobileScroll = false,
 }) => {
     return (
         <section className={`w-full px-[5%] py-12 md:py-20 ${className}`}>
             <div className="">
                 {showHeader && (subtitle || title) && (
-                    <div className="text-center mb-10 md:mb-14">
+                    <div className="text-left md:text-center mb-10 md:mb-14">
                         {subtitle && (
-                            <p className="text-2xl md:text-3xl font-light tracking-tight text-black leading-none">
+                            <p className="text-base md:text-3xl font-light tracking-tight text-black leading-none">
                                 {subtitle}
                             </p>
                         )}
                         {title && (
-                            <h2 className="text-5xl md:text-6xl lg:text-7xl font-normal leading-none tracking-tight text-[#63B846]">
+                            <h2 className="text-[2.5rem] md:text-6xl lg:text-7xl font-normal leading-none tracking-tight text-[#63B846]">
                                 {title}
                             </h2>
                         )}
                         {description && (
-                            <p className="text-sm md:text-base text-black/80 leading-[1.2] mt-4 max-w-3xl mx-auto">
+                            <p className="text-base text-black/80 leading-[1.2] mt-4 max-w-3xl mx-auto">
                                 {description}
                             </p>
                         )}
                     </div>
                 )}
 
-                <div className={`grid ${gridCols[layout]} gap-5 md:gap-6`}>
+                <div className={`${mobileScroll
+                        ? `flex overflow-x-auto md:grid ${desktopGridCols(layout)} snap-x snap-mandatory md:snap-none -mx-[5%] px-[5%] md:mx-0 md:px-0 gap-4 md:gap-6 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none] pb-4 md:pb-0`
+                        : `grid ${gridCols[layout]} gap-5 md:gap-6`
+                    }`}>
                     {cards.map((card, index) => {
                         if (card.type === 'image') {
-                            return <ImageCardView key={index} card={card} />;
+                            return <ImageCardView key={index} card={card} mobileScroll={mobileScroll} />;
                         }
-                        return <TextCardView key={index} card={card} />;
+                        return <TextCardView key={index} card={card} mobileScroll={mobileScroll} />;
                     })}
                 </div>
             </div>
