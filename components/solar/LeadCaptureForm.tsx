@@ -131,6 +131,7 @@ const LeadCaptureForm: React.FC<LeadCaptureFormProps> = ({
                             title={title}
                             description={description}
                             align="left"
+                            
                             descClass="mb-8"
                         />
 

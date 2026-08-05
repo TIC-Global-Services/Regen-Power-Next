@@ -73,12 +73,12 @@ const EvAccordion = ({ data }: EvAccordionProps) => {
                           />
                         </div>
                         {/* Text inside active layout */}
-                        <div className="flex flex-col justify-center gap-2 pr-4">
+                        <div className="flex flex-col justify-center md:items-start items-center  gap-2 pr-4">
                           <h3 className="text-xl md:text-2xl font-bold text-black tracking-tight leading-snug">
                             {step.title}
                           </h3>
                           <p
-                            className="text-sm md:text-base leading-[1.2]"
+                            className="text-sm md:text-base text-center md:text-left leading-[1.2]"
                             dangerouslySetInnerHTML={{ __html: step.description }}
                           />
                         </div>

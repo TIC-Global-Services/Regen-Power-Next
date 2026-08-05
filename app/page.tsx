@@ -11,7 +11,7 @@ import type { PartnersData } from "@/components/home/partners";
 import ZeroInterestFinancing from "@/components/home/zerointrestfinancing";
 import type { ZeroInterestFinancingData } from "@/components/home/zerointrestfinancing";
 import FeatureExplorer from "@/reuseables/FeatureExplorer";
-import type { FeatureExplorerItem } from "@/reuseables/FeatureExplorer";
+import type { FeatureExplorerItem, FeatureExplorerProps } from "@/reuseables/FeatureExplorer";
 import FeatureCardGrid from "@/reuseables/FeatureCardGrid";
 import type { FeatureCardGridProps, FeatureCardItem } from "@/reuseables/FeatureCardGrid";
 import Craftsmanship from "@/components/home/craftmanship";
@@ -81,6 +81,7 @@ import googleLogo from "@/assets/home/realstories/google_logo.svg";
 // Battery Quote
 import batteryQuoteImg from "@/assets/home/batteryquote/battery_quote_temp.png";
 import Newsandinsights from "@/components/home/newsandinsights";
+import { details } from "framer-motion/client";
 
 // ─── Data Objects ────────────────────────────────────────────────────────────
 
@@ -158,43 +159,52 @@ const expertiseData: ExpertiseData = {
   ],
 };
 
-const featureExplorerFeatures: FeatureExplorerItem[] = [
-  {
-    id: 1,
-    number: "01",
-    title: "Capture \nEnergy From The Sun",
-    description:
-      "High-Efficiency Solar Panels Installed On Your Roof Absorb Sunlight Throughout The Day And Convert It Into Direct Current (DC) Electricity, Creating Clean And Renewable Energy For Your Home.",
-  },
-  {
-    id: 2,
-    number: "02",
-    title: "Store Excess Power for Night",
-    description:
-      "Premium battery storage systems capture surplus solar generation during the day, giving you reliable power after sunset and complete blackout protection.",
-  },
-  {
-    id: 3,
-    number: "03",
-    title: "Smart Home Integration",
-    description:
-      "Monitor and manage your household energy consumption in real-time, directing power to smart appliances and living areas for maximum efficiency.",
-  },
-  // {
-  //   id: 4,
-  //   number: "04",
-  //   title: "Fast EV Charging",
-  //   description:
-  //     "Charge your electric vehicle directly from your solar panels or stored battery power, driving on pure sunshine with zero emissions.",
-  // },
-  // {
-  //   id: 5,
-  //   number: "05",
-  //   title: "Intelligent Power Grid Connection",
-  //   description:
-  //     "Feed excess energy back to the Perth grid to earn feed-in tariffs, or draw from the grid seamlessly when solar and battery storage are depleted.",
-  // },
-];
+const featureExplorerData: FeatureExplorerProps = {
+    titleNormal: "The Science Of",
+    titleAccent: "Solar & Storage",
+    data: [
+      {
+        id: 1,
+        number: "01",
+        title: "Capture \nEnergy From The Sun",
+        mediaSrc: "/solar_house_render.png",
+        mediaType: "image",
+        description:
+          "High-Efficiency Solar Panels Installed On Your Roof Absorb Sunlight Throughout The Day And Convert It Into Direct Current (DC) Electricity, Creating Clean And Renewable Energy For Your Home.",
+      },
+      {
+        id: 2,
+        number: "02",
+        title: "Store Excess Power for Night",
+        mediaType: "image",
+        mediaSrc: "/solar_house_render.png",
+        description:
+          "Premium battery storage systems capture surplus solar generation during the day, giving you reliable power after sunset and complete blackout protection.",
+      },
+      {
+        id: 3,
+        number: "03",
+        title: "Smart Home Integration",
+        mediaType: "image",
+        mediaSrc: "/solar_house_render.png",
+        description:
+          "Monitor and manage your household energy consumption in real-time, directing power to smart appliances and living areas for maximum efficiency.",
+      },
+    ]
+    // {
+    //   id: 4,
+    //   number: "04",
+    //   title: "Fast EV Charging",
+    //   description:
+    //     "Charge your electric vehicle directly from your solar panels or stored battery power, driving on pure sunshine with zero emissions.",
+    // },
+    // {
+    //   id: 5,
+    //   number: "05",
+    //   title: "Intelligent Power Grid Connection",
+    //   description:
+    // }
+};
 
 const partnersData: PartnersData = {
   subtitle: "Trusted Relationships",
@@ -430,12 +440,7 @@ export default function Home() {
       <AwardAndRecognations data={awardsData} />
       <WhyChooseUs data={whyChooseUsData} />
       <Expertise data={expertiseData} />
-      <FeatureExplorer
-        titleNormal="The Science Of"
-        titleAccent="Solar & Storage"
-        mediaSrc="/solar_house_render.png"
-        features={featureExplorerFeatures}
-      />
+      <FeatureExplorer {...featureExplorerData} />
       <Partners data={partnersData} />
       <ZeroInterestFinancing data={zeroInterestData} />
       {/* <FeatureSplitSection /> */}

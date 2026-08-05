@@ -35,16 +35,17 @@ const Tier1MeansSection: React.FC<Tier1MeansSectionProps> = ({ resolved }) => {
           ) : (
             <MissingImage
               label="Tier-1 image"
+              type="bgimage"
               aspect="aspect-auto h-full"
             />
           )}
         </Reveal>
 
         <div
-          className={`flex flex-col py-16 lg:py-24 px-8 md:px-16 ${isImageLeft ? "lg:pl-12 lg:pr-20" : "lg:pl-20 lg:pr-12"} text-left h-full lg:h-screen lg:min-h-screen justify-between`}
+          className={`flex flex-col py-5 lg:py-24 px-5 md:px-16 ${isImageLeft ? "lg:pl-12 lg:pr-20" : "lg:pl-20 lg:pr-12"} text-left h-full lg:h-screen lg:min-h-screen justify-between`}
         >
           <div>
-            <SectionHeader
+            {/* <SectionHeader
               subtitle={resolved.subtitle ?? ""}
               subtitleClass="text-base md:text-xl lg:text-2xl normal-case mb-4 block text-black font-medium"
               title={
@@ -60,10 +61,13 @@ const Tier1MeansSection: React.FC<Tier1MeansSectionProps> = ({ resolved }) => {
               }
               titleClass="text-4xl md:text-5xl lg:text-[3.125rem] font-normal leading-none tracking-tight mb-6"
               align="left"
-            />
+            /> */}
+            <p className="text-base md:text-xl lg:text-2xl normal-case mb-2 tracking-tight block text-black font-medium">{resolved.subtitle}</p>
+            <h1 className="text-[#63B846] text-4xl md:text-5xl lg:text-[3.125rem] font-normal leading-none tracking-tight">{firstPart}</h1>
+            <h2 className="text-4xl md:text-5xl lg:text-[3.125rem] font-normal leading-none tracking-tight mb-4">{secondPart}</h2>
           </div>
 
-          <div className="mt-12 lg:mt-24">
+          <div className="mt-5 lg:mt-24">
             <Fade delay={0.2}>
               <div className="text-sm md:text-xl leading-tight">
                 {resolved.description ?? ""}

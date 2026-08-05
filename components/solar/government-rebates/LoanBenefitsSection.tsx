@@ -1,7 +1,12 @@
+"use client";
+
 import React from "react";
-import Image from "next/image";
 import CtaButton from "@/reuseables/CtaButton";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Autoplay } from "swiper/modules";
 import type { ResolvedRebatesLoanBenefits } from "@/lib/strapi/resolvers/rebates";
+
+import "swiper/css";
 
 interface Props {
   resolved: ResolvedRebatesLoanBenefits;
@@ -14,11 +19,10 @@ export default function LoanBenefitsSection({ resolved }: Props) {
     <section className="relative w-full min-h-screen flex items-center justify-center overflow-hidden">
       <div className="absolute inset-0 z-0">
         {bgImg ? (
-          <Image
+          <img
             src={bgImg.src}
-            alt={bgImg.alt}
-            fill
-            className="object-cover object-bottom"
+            alt={bgImg.alt}   
+            className="w-full h-full absolute inset-0 object-cover object-bottom"
           />
         ) : (
           <div className="absolute inset-0 bg-gray-900" />
@@ -51,16 +55,43 @@ export default function LoanBenefitsSection({ resolved }: Props) {
             </p>
           )}
 
-          <div className="mt-12 flex flex-wrap justify-center items-center gap-4 max-w-5xl mx-auto">
+          {/* Desktop: grid of benefits */}
+          <div className="hidden md:flex flex-wrap justify-center items-center gap-4 max-w-5xl mx-auto mt-12">
             {resolved.benefits.map((benefit, idx) => (
               <article
                 key={idx}
-                className="w-[240px] h-[20dvh] rounded-[8px] border border-white/20 bg-white/12 p-4 backdrop-blur-md flex flex-col text-left"
+                className="w-[240px] h-[220px] rounded-[8px] border border-white/20 bg-white/12 p-4 backdrop-blur-md flex flex-col text-left"
               >
-                <h3 className="text-[1.375rem] tracking-tight text-white">{benefit.title}</h3>
-                <p className="text-sm leading-tight text-white">{benefit.description}</p>
+                <h3 className="text-[1.375rem] tracking-tight text-white mb-2 font-medium">{benefit.title}</h3>
+                <p className="text-sm leading-snug text-white/95">{benefit.description}</p>
               </article>
             ))}
+          </div>
+
+          {/* Mobile: Autoplay Swiper slider */}
+          <div className="block md:hidden w-full relative mt-8 -mx-[5vw]">
+            <Swiper
+              modules={[Autoplay]}
+              spaceBetween={16}
+              slidesPerView={1.25}
+              autoplay={{
+                delay: 3000,
+                disableOnInteraction: false,
+              }}
+              loop={resolved.benefits.length > 1}
+              className="w-full px-[5vw]"
+            >
+              {resolved.benefits.map((benefit, idx) => (
+                <SwiperSlide key={idx} className="h-auto flex pb-2">
+                  <article
+                    className="w-full rounded-[8px] border border-white/20 bg-white/12 p-5 backdrop-blur-md flex flex-col text-left min-h-[180px] justify-start"
+                  >
+                    <h3 className="text-[1.25rem] tracking-tight text-white mb-2 font-medium">{benefit.title}</h3>
+                    <p className="text-sm leading-snug text-white/90">{benefit.description}</p>
+                  </article>
+                </SwiperSlide>
+              ))}
+            </Swiper>
           </div>
         </div>
       </div>

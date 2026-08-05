@@ -24,6 +24,18 @@ const WallConnector = ({ data }: WallConnectorProps) => {
       <section className="bg-white overflow-hidden max-h-screen">
         <div className="">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-center">
+            <Reveal delay={0.2}>
+              <div className="relative w-full aspect-[4/5] md:aspect-[3/4] overflow-hidden md:hidden mt-5">
+                <Image
+                  src={data.image}
+                  alt={data.imageAlt}
+                  fill
+                  className="object-cover "
+                  sizes="(max-width: 1024px) 100vw, 50vw"
+                  priority
+                />
+              </div>
+            </Reveal> 
             {/* Left Side — Text Content */}
             <Reveal>
               <div className="flex flex-col gap-8 md:gap-10 pl-[5%]">
@@ -58,12 +70,12 @@ const WallConnector = ({ data }: WallConnectorProps) => {
 
             {/* Right Side — Image */}
             <Reveal delay={0.2}>
-              <div className="relative w-full aspect-[4/5] md:aspect-[3/4]  overflow-hidden">
+              <div className="relative w-full aspect-[4/5] md:aspect-[3/4] overflow-hidden hidden md:block">
                 <Image
                   src={data.image}
                   alt={data.imageAlt}
                   fill
-                  className="object-cover"
+                  className="object-cover "
                   sizes="(max-width: 1024px) 100vw, 50vw"
                   priority
                 />

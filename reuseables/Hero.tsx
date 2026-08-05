@@ -1,5 +1,5 @@
 import React from 'react';
-import Image, { StaticImageData } from 'next/image';
+import type { StaticImageData } from 'next/image';
 import { LucideIcon } from 'lucide-react';
 import CtaButton from './CtaButton';
 
@@ -56,12 +56,10 @@ const Hero: React.FC<HeroProps> = ({
                             playsInline
                         />
                     ) : (
-                        <Image
-                            src={mediaSrc}
+                        <img
+                            src={typeof mediaSrc === 'string' ? mediaSrc : mediaSrc.src}
                             alt="Hero Background"
-                            fill
-                            className={imageClass}
-                            priority
+                            className={`absolute inset-0 w-full h-full ${imageClass}`}
                         />
                     )}
                     {showOverlay && (

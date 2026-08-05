@@ -1,8 +1,13 @@
+"use client";
+
 import React from "react";
 import SectionHeader from "@/reuseables/SectionHeader";
 import Reveal from "@/reuseables/Reveal";
 import CtaButton from "@/reuseables/CtaButton";
+import { Swiper, SwiperSlide } from "swiper/react";
 import type { ResolvedDealsGrid } from "@/lib/strapi/resolvers/deals";
+
+import "swiper/css";
 
 interface Props {
   resolved: ResolvedDealsGrid;
@@ -30,7 +35,8 @@ export default function DealsGridSection({ resolved }: Props) {
           </div>
         </div>
 
-        <div className="grid grid-cols-3 gap-5 mb-16 flex-wrap">
+        {/* Desktop: Grid */}
+        <div className="hidden md:grid grid-cols-3 gap-5 mb-16">
           {resolved.promotions.map((promo, idx) => (
             <Reveal
               key={idx}
@@ -47,6 +53,34 @@ export default function DealsGridSection({ resolved }: Props) {
               </div>
             </Reveal>
           ))}
+        </div>
+
+        {/* Mobile: Swiper Carousel */}
+        <div className="block md:hidden w-full relative mb-12 -mx-[5vw]">
+          <Swiper
+            spaceBetween={16}
+            slidesPerView={1.15}
+            breakpoints={{
+              480: { slidesPerView: 1.25 },
+              640: { slidesPerView: 1.8 },
+            }}
+            className="w-full px-[5vw]"
+          >
+            {resolved.promotions.map((promo, idx) => (
+              <SwiperSlide key={idx} className="h-auto flex pb-4">
+                <div className="rounded-[20px] p-8 flex flex-col justify-between shadow-sm bg-[#EEF6EB]/50 border border-gray-100 w-full h-full min-h-[320px]">
+                  <div>
+                    <h3 className="text-2xl mb-4 tracking-tight text-[#63B846] leading-tight font-normal">
+                      {promo.title}
+                    </h3>
+                    <p className="text-sm text-[#888888] leading-tight font-light">
+                      {promo.description}
+                    </p>
+                  </div>
+                </div>
+              </SwiperSlide>
+            ))}
+          </Swiper>
         </div>
 
         <div className="flex justify-center">

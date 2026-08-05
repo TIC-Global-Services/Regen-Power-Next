@@ -13,8 +13,26 @@ interface TimelineSectionProps {
 
 const TimelineSection: React.FC<TimelineSectionProps> = ({ resolved }) => {
   return (
-    <section className="py-16 md:py-24 bg-white border-t border-gray-50 min-h-screen">
+    <section className="py-10 md:py-24 bg-white border-t border-gray-50 min-h-screen">
       <div className="px-[5%] mx-auto">
+        <div className="lg:sticky lg:top-28 md:hidden justify-center mb-5">
+            <div className="relative w-full aspect-[4/5]  max-w-[660px] rounded-[20px] overflow-hidden shadow-md">
+              {resolved.image ? (
+                <Image
+                  src={resolved.image.src}
+                  alt={resolved.image.alt}
+                  fill
+                  className="object-cover"
+                />
+              ) : (
+                <MissingImage
+                  type="bgimage"
+                  label="Timeline image"
+                  aspect="aspect-[4/6]"
+                />
+              )}
+            </div>
+          </div>
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-32 items-start">
           <div className="flex flex-col justify-between h-full">
             <div>
@@ -35,7 +53,7 @@ const TimelineSection: React.FC<TimelineSectionProps> = ({ resolved }) => {
             </div>
 
             <Fade delay={0.3}>
-              <div className="mt-16 lg:mt-24">
+              <div className="mt-10 lg:mt-24">
                 <h3 className="text-2xl md:text-[2rem] font-normal text-black mb-3 tracking-tight">
                   {resolved.consultationTitle}
                 </h3>
@@ -46,7 +64,7 @@ const TimelineSection: React.FC<TimelineSectionProps> = ({ resolved }) => {
             </Fade>
           </div>
 
-          <div className="lg:sticky lg:top-28 flex justify-center">
+          <div className="lg:sticky lg:top-28 md:flex justify-center hidden">
             <div className="relative w-full aspect-[4/5]  max-w-[660px] rounded-[20px] overflow-hidden shadow-md">
               {resolved.image ? (
                 <Image
@@ -57,6 +75,7 @@ const TimelineSection: React.FC<TimelineSectionProps> = ({ resolved }) => {
                 />
               ) : (
                 <MissingImage
+                  type="bgimage"
                   label="Timeline image"
                   aspect="aspect-[4/6]"
                 />

@@ -1,9 +1,9 @@
 import React from "react";
-import Image from "next/image";
 import Reveal from "@/reuseables/Reveal";
 import SectionHeader from "@/reuseables/SectionHeader";
 import MissingImage from "@/reuseables/MissingImage";
 import type { ResolvedSolarProcessSteps } from "@/lib/strapi/resolvers/solar";
+import { span } from "framer-motion/client";
 
 interface SolarProcessFlowProps {
   resolved: ResolvedSolarProcessSteps;
@@ -19,7 +19,9 @@ const SolarProcessFlow: React.FC<SolarProcessFlowProps> = ({ resolved }) => {
           subtitle={resolved.subtitle}
           title={resolved.title}
           align="center"
-          className="mb-32"
+          className="mb-5 md:mb-32"
+          subtitleClass="text-xl"
+          titleClass="text-[3.125rem]"
         />
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12">
@@ -32,11 +34,10 @@ const SolarProcessFlow: React.FC<SolarProcessFlowProps> = ({ resolved }) => {
                 <div className="mb-6">
                   {step.image ? (
                     <div className="relative w-full aspect-[4/3] rounded-2xl overflow-hidden flex items-center justify-center">
-                      <Image
+                      <img
                         src={step.image.src}
                         alt={step.image.alt}
-                        fill
-                        className="object-contain"
+                        className="absolute inset-0 w-full h-full object-contain"
                       />
                     </div>
                   ) : (
@@ -47,7 +48,8 @@ const SolarProcessFlow: React.FC<SolarProcessFlowProps> = ({ resolved }) => {
                   )}
                 </div>
                 <div className="grid grid-cols-[auto_1fr] gap-x-3">
-                  <h3 className="text-lg md:text-2xl font-medium text-black leading-tight self-baseline">
+                  <span className="text-2xl font-semibold text-[#63B846]">0{index+1}</span>
+                  <h3 className="text-lg md:text-2xl font-semibold md:font-medium text-black leading-tight self-baseline">
                     <span>{step.title}</span>
                     {index < steps.length - 1 && (
                       <span className="hidden lg:inline text-black font-bold tracking-tighter text-3xl ml-2">
@@ -60,6 +62,13 @@ const SolarProcessFlow: React.FC<SolarProcessFlowProps> = ({ resolved }) => {
                     {step.description}
                   </p>
                 </div>
+                {index < steps.length - 1 && (
+                  <div className="flex justify-center mt-6 md:mt-8 lg:hidden">
+                    <span className="text-black font-bold tracking-tighter text-4xl rotate-90">
+                      &raquo;
+                    </span>
+                  </div>
+                )}
               </Reveal>
             </div>
           ))}

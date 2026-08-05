@@ -144,13 +144,12 @@ const FeatureSplitSection: React.FC<FeatureSplitSectionProps> = ({
                             className="feature-image-desktop absolute inset-0 transition-all duration-300"
                             style={{ zIndex: activeIndex === index ? 2 : 1 }}
                         >
-                            <Image
+                            <img
                                 src={feature.image && typeof feature.image === 'object' && 'src' in feature.image ? feature.image.src : typeof feature.image === 'string' ? feature.image : ''}
                                 alt={feature.image && typeof feature.image === 'object' && 'alt' in feature.image ? (feature.image.alt || feature.title) : feature.title}
-                                fill
-                                className="object-cover"
+                                className="object-cover w-full h-full"
                                 sizes="50vw"
-                                priority={index === 0}
+
                             />
                         </div>
                     ))}
@@ -159,52 +158,49 @@ const FeatureSplitSection: React.FC<FeatureSplitSectionProps> = ({
 
             {/* Mobile & Tablet */}
             <div className="lg:hidden flex flex-col px-[5%] py-16 md:py-24 gap-8">
+                {features[0]?.image && (
+                    <div className="relative w-full aspect-[4/3] rounded-2xl overflow-hidden shadow-lg bg-gray-50">
+                        <img
+                            src={
+                                typeof features[0].image === 'object' && features[0].image !== null && 'src' in features[0].image
+                                    ? features[0].image.src
+                                    : typeof features[0].image === 'string'
+                                        ? features[0].image
+                                        : ''
+                            }
+                            alt={
+                                typeof features[0].image === 'object' && features[0].image !== null && 'alt' in features[0].image
+                                    ? (features[0].image.alt || features[0].title)
+                                    : features[0].title
+                            }
+                            className="object-cover w-full h-full"
+                        />
+                    </div>
+                )}
                 <SectionHeader
                     subtitle={subtitle}
                     title={<span style={{ color: accentColor }}>{heading}</span>}
                     description={introText}
                     align="left"
-                    subtitleClass="text-base md:text-xl lg:text-2xl normal-case mb-4 block text-black"
-                    titleClass="text-3xl md:text-4xl lg:text-[2.75rem] xl:text-[3.25rem] font-normal leading-[1.1] tracking-tight mb-6"
+                    subtitleClass="text-base md:text-xl lg:text-2xl normal-case block text-black"
+                    titleClass="text-3xl md:text-4xl lg:text-[2.75rem] xl:text-[3.25rem] font-normal leading-none tracking-tight mb-6"
                     descClass="mb-6 text-gray-600 leading-[1.2] font-light"
                 />
 
-                <div
-                    className="w-full relative"
-                    style={{
-                        '--swiper-pagination-color': accentColor,
-                        '--swiper-pagination-bullet-inactive-color': '#d1d5db',
-                        '--swiper-pagination-bullet-inactive-opacity': '1',
-                    } as React.CSSProperties}
-                >
-                    <Swiper
-                        modules={[Pagination]}
-                        spaceBetween={24}
-                        slidesPerView={1}
-                        pagination={{ clickable: true }}
-                        className="w-full pb-12"
-                    >
-                        {features.map((feature, index) => (
-                            <SwiperSlide key={index} className="flex flex-col gap-4 border-l-2 pl-4 border-[#63B846] bg-white">
-                                <h3 className="text-xl font-normal text-gray-900 tracking-tight">
-                                    {feature.title}
-                                </h3>
-                                <p className="text-sm md:text-base leading-[1.2] text-gray-600">
-                                    {feature.description}
-                                </p>
-                                <div className="relative w-full aspect-[4/3] rounded-2xl overflow-hidden shadow-lg mt-2 bg-gray-50">
-                                    <Image
-                                        src={feature.image && typeof feature.image === 'object' && 'src' in feature.image ? feature.image.src : typeof feature.image === 'string' ? feature.image : ''}
-                                        alt={feature.image && typeof feature.image === 'object' && 'alt' in feature.image ? (feature.image.alt || feature.title) : feature.title}
-                                        fill
-                                        className="object-cover"
-                                        sizes="100vw"
-                                    />
-                                </div>
-                            </SwiperSlide>
-                        ))}
-                    </Swiper>
+                <div className="flex flex-col gap-6">
+                    {features.map((feature, index) => (
+                        <div key={index} className="flex flex-col gap-1">
+                            <h3 className="text-lg font-semibold text-black tracking-tight">
+                                {feature.title}
+                            </h3>
+                            <p className="text-sm leading-[1.3] text-gray-600">
+                                {feature.description}
+                            </p>
+                        </div>
+                    ))}
                 </div>
+
+
             </div>
         </section>
     );

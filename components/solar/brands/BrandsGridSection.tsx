@@ -57,6 +57,7 @@ const BrandsGridSection: React.FC<BrandsGridSectionProps> = ({ resolved }) => {
       className="border-t border-gray-50"
       spacerHeightClass="h-[310px]"
       cardHeightClass="h-[310px] md:h-[320px]"
+      enableMobileSlider={true}
     />
   );
 };

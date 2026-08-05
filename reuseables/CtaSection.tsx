@@ -1,5 +1,5 @@
 import React from 'react';
-import Image, { StaticImageData } from 'next/image';
+import type { StaticImageData } from 'next/image';
 import CtaButton from './CtaButton';
 
 export interface CtaSectionProps {

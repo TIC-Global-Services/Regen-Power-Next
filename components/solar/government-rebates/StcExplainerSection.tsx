@@ -16,8 +16,8 @@ export default function StcExplainerSection({ resolved }: Props) {
         isSecondary: p.isSecondary,
       }))}
       align="left"
-      subtitleClass="text-xl md:text-2xl font-light text-black mb-2 block normal-case"
-      titleClass="text-5xl md:text-7xl lg:text-[5.5rem] font-medium leading-[1.05] tracking-tighter mb-4"
+      subtitleClass="text-2xl md:text-2xl font-light text-black mb-2 block normal-case"
+      titleClass="text-[2.5rem] md:text-7xl lg:text-[5.5rem] font-medium leading-[1.05] tracking-tighter mb-4"
       paragraphsClass="text-left"
       revealEffect
     />

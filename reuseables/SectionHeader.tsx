@@ -47,11 +47,11 @@ const SectionHeader: React.FC<SectionHeaderProps> = ({
           </span>
         )}
         {subtitle && (
-          <p className={`${defaultSubtitleSize} leading-[0.5] tracking-tight font-normal block ${subtitleClass}`}>
+          <p className={`${defaultSubtitleSize} text-xl md:text-[2.125rem] leading-[0.5] tracking-tight font-normal block ${subtitleClass}`}>
             {subtitle}
           </p>
         )}
-        <h2 className={`${defaultTitleSize} text-[#63B846] tracking-tight leading-[1.2] font-normal ${titleClass}`}>
+        <h2 className={`${defaultTitleSize} text-[3.125rem] md:text-[5rem] text-[#63B846] tracking-tight leading-[1.2] font-normal ${titleClass}`}>
           {title}
         </h2>
       </Reveal>

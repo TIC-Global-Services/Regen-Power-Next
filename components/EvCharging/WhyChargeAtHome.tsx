@@ -2,8 +2,13 @@
 
 import React from 'react';
 import Image, { StaticImageData } from 'next/image';
+import { Swiper, SwiperSlide } from 'swiper/react';
+import { Pagination } from 'swiper/modules';
 import Fade from '@/reuseables/fade';
 import Reveal from '@/reuseables/Reveal';
+
+import 'swiper/css';
+import 'swiper/css/pagination';
 
 export interface Benefit {
   title: string;
@@ -21,6 +26,8 @@ interface WhyChargeAtHomeProps {
 }
 
 const WhyChargeAtHome = ({ data }: WhyChargeAtHomeProps) => {
+  const [paginationEl, setPaginationEl] = React.useState<HTMLDivElement | null>(null);
+
   return (
     <Fade>
       <section className="py-16 md:py-24 bg-white">
@@ -32,11 +39,11 @@ const WhyChargeAtHome = ({ data }: WhyChargeAtHomeProps) => {
             </h2>
           </div>
 
-          {/* Benefits Grid */}
-          <div className="flex gap-3">
+          {/* Desktop Layout (Flex Grid) */}
+          <div className="hidden md:flex gap-3 items-stretch">
             {data.benefits.map((benefit, index) => (
-              <Reveal key={index} delay={index * 0.1}>
-                <div className="bg-[#EEF6EB] rounded-[24px] overflow-hidden group hover:shadow-lg transition-all duration-500 flex flex-col h-full">
+              <Reveal key={index} delay={index * 0.1} className="flex-1 flex flex-col">
+                <div className="bg-[#EEF6EB] rounded-[24px] overflow-hidden group hover:shadow-lg transition-all duration-500 flex flex-col h-full w-full">
                   {/* Image */}
                   <div className="relative w-full aspect-[16/10] overflow-hidden flex justify-center items-center">
                     <Image
@@ -60,6 +67,62 @@ const WhyChargeAtHome = ({ data }: WhyChargeAtHomeProps) => {
               </Reveal>
             ))}
           </div>
+
+          {/* Mobile Layout (Swiper Slider) */}
+          <div
+            className="md:hidden w-full relative"
+            style={{
+              '--swiper-pagination-color': '#63B846',
+              '--swiper-pagination-bullet-inactive-color': '#d1d5db',
+              '--swiper-pagination-bullet-inactive-opacity': '1',
+            } as React.CSSProperties}
+          >
+            <Swiper
+              modules={[Pagination]}
+              spaceBetween={20}
+              slidesPerView={1}
+              breakpoints={{
+                640: { slidesPerView: 2 },
+              }}
+              pagination={{
+                clickable: true,
+                el: paginationEl,
+              }}
+              className="w-full"
+            >
+              {data.benefits.map((benefit, index) => (
+                <SwiperSlide key={index} className="h-auto flex">
+                  <div className="bg-[#EEF6EB] rounded-[24px] overflow-hidden group hover:shadow-lg transition-all duration-500 flex flex-col w-full h-full">
+                    {/* Image */}
+                    <div className="relative w-full aspect-[16/10] overflow-hidden flex justify-center items-center">
+                      <Image
+                        src={benefit.image}
+                        alt={benefit.title}
+                        fill
+                        className="object-contain group-hover:scale-105 transition-transform duration-700"
+                      />
+                    </div>
+
+                    {/* Text */}
+                    <div className="p-6 flex flex-col gap-2 flex-grow">
+                      <h3 className="text-xl font-medium text-black tracking-tight leading-snug">
+                        {benefit.title}
+                      </h3>
+                      <p className="text-sm tracking-tight leading-snug max-w-sm">
+                        {benefit.description}
+                      </p>
+                    </div>
+                  </div>
+                </SwiperSlide>
+              ))}
+            </Swiper>
+
+            {/* Custom Pagination container placed outside Swiper wrapper to prevent overlapping */}
+            <div
+              ref={setPaginationEl}
+              className="swiper-pagination !relative !bottom-0 !mt-6 flex justify-center gap-1.5"
+            />
+          </div>
         </div>
       </section>
     </Fade>
@@ -67,3 +130,4 @@ const WhyChargeAtHome = ({ data }: WhyChargeAtHomeProps) => {
 };
 
 export default WhyChargeAtHome;
+

@@ -52,7 +52,7 @@ const Craftsmanship = ({ data }: CraftsmanshipProps) => {
     data.categories.find((c) => c.id === activeTabId) ?? data.categories[0];
 
   return (
-    <section className="py-16 md:py-20 bg-white overflow-hidden">
+    <section className="py-10 md:py-20 bg-white overflow-hidden">
       <div className="px-[5%]">
         {/* <SectionHeader
           subtitle={data.subtitle}
@@ -63,8 +63,8 @@ const Craftsmanship = ({ data }: CraftsmanshipProps) => {
           className="mb-10 md:mb-14 lg:-space-y-4"
         /> */}
         <div className="flex justify-center flex-col items-center mb-10">
-          <p className="text-[1rem] md:text-[2rem] leading-none tracking-tighter font-normal text-black">{data.subtitle}</p>
-          <h1 className="text-4xl md:text-5xl lg:text-[5rem] leading-none tracking-tighter font-normal text-[#63B846] tracking-tight">{data.title}</h1>
+          <p className="text-xl md:text-[2rem] leading-none tracking-tighter font-normal text-black">{data.subtitle}</p>
+          <h1 className="text-[3.125rem] md:text-5xl lg:text-[5rem] leading-none tracking-tighter font-normal text-[#63B846] tracking-tight">{data.title}</h1>
         </div>
 
 
@@ -76,7 +76,7 @@ const Craftsmanship = ({ data }: CraftsmanshipProps) => {
                 <button
                   key={tab.id}
                   onClick={() => setActiveTabId(tab.id)}
-                  className={`relative px-4 lg:px-8 py-2 text-xs md:text-base font-medium rounded-full transition-colors duration-200 cursor-pointer whitespace-nowrap ${isActive
+                  className={`relative px-3 lg:px-8 py-1.5 md:py-2 text-xs md:text-base font-medium rounded-full transition-colors duration-200 cursor-pointer whitespace-nowrap ${isActive
                       ? "text-[#63B846]"
                       : "text-gray-600 hover:text-black"
                     }`}
@@ -138,13 +138,13 @@ const Craftsmanship = ({ data }: CraftsmanshipProps) => {
                         <div
                           key={logo.id}
                           style={style}
-                          className={`flex items-center justify-center py-8 md:py-10 hover:-translate-y-0.5 transition-all duration-300 ${colInRow > 0 ? "border-l border-gray-200" : ""
+                          className={`flex items-center justify-center py-5 md:py-10 hover:-translate-y-0.5 transition-all duration-300 ${colInRow > 0 ? "border-l border-gray-200" : ""
                             } ${rowIdx > 0 ? "border-t border-gray-200" : ""}`}
                         >
                           <Image
                             src={logo.src}
                             alt={logo.name}
-                            className="object-contain max-h-12 md:max-h-14 w-auto"
+                            className="object-cover md:object-contain max-h-12 md:max-h-14 w-auto"
                           />
                         </div>
                       );

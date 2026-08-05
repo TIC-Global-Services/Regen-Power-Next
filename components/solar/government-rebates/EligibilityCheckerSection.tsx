@@ -109,9 +109,9 @@ export default function EligibilityCheckerSection({ resolved }: Props) {
                 return (
                   <div
                     key={String(question.id)}
-                    className="flex flex-col gap-5 rounded-[28px] bg-[#F1F8EC] px-6 py-6 md:flex-row md:items-center md:justify-between md:px-9"
+                    className="flex flex-col gap-5 rounded-[28px] bg-[#F1F8EC] px-6 py-6  md:flex-row md:items-center md:justify-between md:px-9"
                   >
-                    <div className="max-w-4xl">
+                    <div className="max-w-4xl ">
                       <h3 className="text-2xl leading-tight tracking-tight text-black md:text-[2rem]">
                         {question.question}
                       </h3>
@@ -133,7 +133,7 @@ export default function EligibilityCheckerSection({ resolved }: Props) {
                               setValidationError("");
                             }}
                             aria-pressed={active}
-                            className={`min-w-28 rounded-[20px] border px-8 py-3 text-xl tracking-tight transition-colors ${
+                            className={`min-w-28 rounded-[20px] border px-3 py-1.5 md:py-3 md:px-8 text-base md:text-xl tracking-tight transition-colors ${
                               active
                                 ? "border-[#63B846] bg-[#63B846] text-white"
                                 : "border-black/25 bg-white/70 text-black hover:border-[#63B846]"

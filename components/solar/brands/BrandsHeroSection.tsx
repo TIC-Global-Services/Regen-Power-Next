@@ -1,6 +1,7 @@
 import React from "react";
 import Hero from "@/reuseables/Hero";
 import type { ResolvedBrandsHero } from "@/lib/strapi/resolvers/brands";
+import fallback from '@/assets/solar/brands/solar_brand_hero.png'
 
 interface BrandsHeroSectionProps {
   resolved: ResolvedBrandsHero;
@@ -10,7 +11,7 @@ const BrandsHeroSection: React.FC<BrandsHeroSectionProps> = ({ resolved }) => {
   return (
     <div>
       <Hero
-        mediaSrc={resolved.mediaSrc}
+        mediaSrc={resolved.mediaSrc || fallback}
         mediaType="image"
         topSubtitle={resolved.subtitle ?? ""}
         mainTitle={resolved.title ?? ""}

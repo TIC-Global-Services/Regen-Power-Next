@@ -1,6 +1,7 @@
 import React from "react";
 import Hero from "@/reuseables/Hero";
 import type { ResolvedDealsHero } from "@/lib/strapi/resolvers/deals";
+import fallback from '@/assets/solar/deals/solar_deals_hero.png'
 
 interface Props {
   resolved: ResolvedDealsHero;
@@ -9,7 +10,7 @@ interface Props {
 export default function DealsHeroSection({ resolved }: Props) {
   return (
     <Hero
-      mediaSrc={resolved.mediaSrc}
+      mediaSrc={resolved.mediaSrc || fallback}
       mediaType="image"
       topSubtitle={resolved.subtitle || ""}
       mainTitle={resolved.title || ""}

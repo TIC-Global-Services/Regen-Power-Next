@@ -14,8 +14,9 @@ export interface FeatureExplorerItem {
     id: string | number;
     number: string;      // e.g. "01"
     title: string;       // e.g. "Capture Energy From The Sun"
-    description: string; // e.g. "High-efficiency solar panels..."
-    image?: string | StaticImageData; // Optional per-feature image (overrides global mediaSrc)
+    description: string;
+    mediaType: 'image' | 'video';
+    mediaSrc?: string | StaticImageData; // e.g. "High-efficiency solar panels...// Optional per-feature image (overrides global mediaSrc)
 }
 
 export interface FeatureExplorerProps {
@@ -23,10 +24,8 @@ export interface FeatureExplorerProps {
     titleAccent?: string;
     tagIcon?: string | React.ReactNode;
     accentColor?: string;
-    mediaType?: 'image' | 'video';
-    mediaSrc: string | StaticImageData;
     mediaPoster?: string;
-    features: FeatureExplorerItem[];
+    data: FeatureExplorerItem[];
     className?: string;
 }
 
@@ -35,10 +34,8 @@ const FeatureExplorer: React.FC<FeatureExplorerProps> = ({
     titleAccent = "Solar & Storage",
     tagIcon,
     accentColor = "#63B846",
-    mediaType = "image",
-    mediaSrc,
     mediaPoster,
-    features,
+    data: features,
     className = "",
 }) => {
     const [activeIndex, setActiveIndex] = useState(0);
@@ -64,7 +61,7 @@ const FeatureExplorer: React.FC<FeatureExplorerProps> = ({
                     <div className="lg:col-span-6 flex flex-col justify-around px-[5%] h-full order-2 lg:order-1">
 
                         {/* Header */}
-                        <div className="flex flex-col ">
+                        <div className="flex flex-col hidden md:block">
                             {/* {renderTagIcon()} */}
                             <div className="mb-8 leading-[0.9]">
                                 <h2 className="text-3xl md:text-4xl leading-none lg:text-[2.125rem] font-medium text-black tracking-tight">
@@ -126,12 +123,26 @@ const FeatureExplorer: React.FC<FeatureExplorerProps> = ({
 
                     {/* Right Column (Media + Pins) */}
                     <div className="lg:col-span-6 order-1 lg:order-2">
-                        <div className="relative w-full min-h-screen">
+                         <div className="flex flex-col md:hidden py-5 px-[5%]">
+                            {/* {renderTagIcon()} */}
+                            <div className="leading-[0.9]">
+                                <h2 className="text-2xl md:text-4xl leading-none lg:text-[2.125rem] font-medium text-black tracking-tight">
+                                    {titleNormal}
+                                </h2>
+                                <p
+                                    className="font-light text-[3.750rem] md:text-[3.5rem] lg:text-[5rem] tracking-tighter leading-none"
+                                    style={{ color: accentColor }}
+                                >
+                                    {titleAccent}
+                                </p>
+                            </div>
+                        </div>
+                        <div className="relative w-full aspect-square md:min-h-screen">
 
                             {/* Media Content */}
-                            {mediaType === 'video' ? (
+                            {activeFeature.mediaType === 'video' ? (
                                 <video
-                                    src={typeof mediaSrc === 'string' ? mediaSrc : mediaSrc?.src}
+                                    src={typeof activeFeature.mediaSrc === 'string' ? activeFeature.mediaSrc : activeFeature.mediaSrc?.src}
                                     poster={mediaPoster}
                                     autoPlay
                                     muted
@@ -150,7 +161,7 @@ const FeatureExplorer: React.FC<FeatureExplorerProps> = ({
                                         className="absolute inset-0 w-full h-full"
                                     >
                                         <Image
-                                            src={activeFeature.image ?? mediaSrc}
+                                            src={activeFeature.mediaSrc || ''}
                                             alt={activeFeature.title || titleAccent || "Feature illustration"}
                                             fill
                                             className="object-cover"

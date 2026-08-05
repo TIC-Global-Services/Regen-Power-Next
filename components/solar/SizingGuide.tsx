@@ -21,7 +21,7 @@ const SizingGuide: React.FC<SizingGuideProps> = ({ resolved }) => {
           subtitle={resolved.subtitle}
           title={resolved.title}
           description={resolved.description}
-          align="center"
+          align="left"
           className="mx-auto mb-8"
         />
 
@@ -66,43 +66,85 @@ const SizingGuide: React.FC<SizingGuideProps> = ({ resolved }) => {
         )}
 
         {sizingCards.length > 0 ? (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {sizingCards.map((card, idx) => (
-              <Reveal
-                key={idx}
-                delay={idx * 0.15}
-                className="relative flex flex-col justify-end rounded-[24px] overflow-hidden group min-h-[380px]"
-              >
-                <div className="absolute inset-0 z-0">
-                  {card.image ? (
-                    <Image
-                      src={card.image.src}
-                      alt={card.image.alt}
-                      fill
-                      className="object-cover group-hover:scale-105 transition-transform duration-500"
-                    />
-                  ) : (
-                    <MissingImage
-                      label="Sizing card image"
-                      aspect="aspect-auto h-full"
-                    />
-                  )}
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/25 to-transparent" />
-                </div>
+          <>
+            {/* Mobile: Slider */}
+            <div className="flex overflow-x-auto md:hidden gap-4 snap-x snap-mandatory pl-[5%] -mr-[5%] [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none] pb-4">
+              {sizingCards.map((card, idx) => (
+                <Reveal
+                  key={idx}
+                  delay={idx * 0.15}
+                  className="relative flex flex-col justify-end rounded-[24px] overflow-hidden group min-h-[380px] w-[75vw] shrink-0 snap-start"
+                >
+                  <div className="absolute inset-0 z-0">
+                    {card.image ? (
+                      <Image
+                        src={card.image.src}
+                        alt={card.image.alt}
+                        fill
+                        className="object-cover group-hover:scale-105 transition-transform duration-500"
+                      />
+                    ) : (
+                      <MissingImage
+                      type="bgimage"
+                        label="Sizing card image"
+                        aspect="aspect-auto h-full"
+                      />
+                    )}
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/25 to-transparent" />
+                  </div>
 
-                <div className="relative z-10 w-full bg-black/5 backdrop-blur-md p-5 mt-auto text-left">
-                  <h4 className="text-white text-xl leading-tight mb-2">
-                    {card.title}
-                  </h4>
-                  <p className="text-base text-white leading-tight font-light">
-                    {card.description}
-                  </p>
-                </div>
-              </Reveal>
-            ))}
-          </div>
+                  <div className="relative z-10 w-full bg-black/5 backdrop-blur-md p-5 mt-auto text-left">
+                    <h4 className="text-white text-xl leading-tight mb-2">
+                      {card.title}
+                    </h4>
+                    <p className="text-base text-white leading-tight font-light">
+                      {card.description}
+                    </p>
+                  </div>
+                </Reveal>
+              ))}
+            </div>
+
+            {/* Desktop: Grid */}
+            <div className="hidden md:grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+              {sizingCards.map((card, idx) => (
+                <Reveal
+                  key={idx}
+                  delay={idx * 0.15}
+                  className="relative flex flex-col justify-end rounded-[24px] overflow-hidden group min-h-[380px]"
+                >
+                  <div className="absolute inset-0 z-0">
+                    {card.image ? (
+                      <Image
+                        src={card.image.src}
+                        alt={card.image.alt}
+                        fill
+                        className="object-cover group-hover:scale-105 transition-transform duration-500"
+                      />
+                    ) : (
+                      <MissingImage
+                        type="bgimage"
+                        label="Sizing card image"
+                        aspect="aspect-auto h-full"
+                      />
+                    )}
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/25 to-transparent" />
+                  </div>
+
+                  <div className="relative z-10 w-full bg-black/5 backdrop-blur-md p-5 mt-auto text-left">
+                    <h4 className="text-white text-xl leading-tight mb-2">
+                      {card.title}
+                    </h4>
+                    <p className="text-base text-white leading-tight font-light">
+                      {card.description}
+                    </p>
+                  </div>
+                </Reveal>
+              ))}
+            </div>
+          </>
         ) : (
-          <MissingImage label="Sizing cards" aspect="aspect-[3/1]" />
+          <MissingImage type="bgimage" label="Sizing cards" aspect="aspect-[3/1]" />
         )}
       </div>
     </section>

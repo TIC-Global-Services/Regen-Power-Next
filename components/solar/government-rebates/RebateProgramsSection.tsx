@@ -43,7 +43,7 @@ export default function RebateProgramsSection({ resolved }: Props) {
   };
 
   return (
-    <section className="bg-white py-16 md:py-24">
+    <section className="bg-white py-0 md:py-24">
       <div className="mx-auto max-w-7xl px-[5%]">
         <SectionHeader
           subtitle={resolved.subtitle}

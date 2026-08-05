@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useMemo, useState } from 'react';
-import Image, { StaticImageData } from 'next/image';
+import type { StaticImageData } from 'next/image';
 import { Plus, X } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Fade from './fade';
@@ -57,19 +57,19 @@ const FAQ = ({
 
     return (
         <Fade>
-            <section className="py-16 md:py-20 bg-white px-[5%]">
+            <section className="py-10 md:py-20 bg-white px-[5%]">
                 {faqSchema ? (
                     <script
-                        type="application/ld+json"
-                        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
+                         type="application/ld+json"
+                         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
                     />
                 ) : null}
                 {/* Top Titles */}
-                <div className="mb-8 lg:mb-10 -space-y-3">
+                <div className="mb-2 lg:mb-10 -space-y-3">
                     <h3 className="text-xl md:text-2xl text-black font-normal tracking-tighter">
                         {topTitle}
                     </h3>
-                    <h2 className="text-5xl md:text-[5.5rem] text-[#63B846] font-light leading-none tracking-tighter">
+                    <h2 className="text-[2.5rem] md:text-[5.5rem] text-[#63B846] font-light md:leading-none tracking-tighter">
                         {title}
                     </h2>
                 </div>
@@ -79,11 +79,10 @@ const FAQ = ({
                     <div className="w-full">
                         {image && (
                             <div className="relative w-full aspect-3/3 max-h-[540px] rounded-[24px] overflow-hidden shadow-sm">
-                                <Image
-                                    src={image}
+                                <img
+                                    src={typeof image === 'string' ? image : image.src}
                                     alt="FAQ Context"
-                                    fill
-                                    className="object-cover"
+                                    className="absolute inset-0 w-full h-full object-cover"
                                 />
                             </div>
                         )}
