@@ -54,11 +54,11 @@ const FinanceOptionBlock: React.FC<{ data: FinanceOptionData }> = ({ data }) => 
   return (
     <section className="w-full px-[5%] py-12 md:py-20 bg-white">
       {/* Header */}
-      <div className="max-w-5xl mx-auto text-center flex flex-col items-center mb-16 md:mb-24">
+      <div className="text-left md:text-center mb-4 md:mb-8">
         <h2 className="text-3xl md:text-4xl lg:text-[3.125rem] font-light text-[#63B846] leading-[1.1] tracking-tight mb-4">
           {data.sectionTitle}
         </h2>
-        <p className="text-sm md:text-xl text-black font-medium leading-[1.2]">
+        <p className="text-base md:text-xl text-black font-medium leading-[1.2] max-w-5xl mx-auto">
           {data.sectionSubtitle}
         </p>
       </div>

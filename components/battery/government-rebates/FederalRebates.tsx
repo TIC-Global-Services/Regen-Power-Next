@@ -30,14 +30,14 @@ const FederalRebates: React.FC<FederalRebatesProps> = ({ data = [] }) => {
       {data.map((item, index) => (
         <section key={index} className="w-full bg-white px-[5%] py-12 md:py-20">
           {/* Header Section */}
-          <div className="max-w-4xl mx-auto text-center flex flex-col items-center mb-12 md:mb-10">
-            <h3 className="text-lg md:text-xl font-medium text-black tracking-tight leading-none">
+          <div className="text-left md:text-center mb-12 md:mb-10">
+            <h3 className="text-base md:text-xl font-medium text-black tracking-tight leading-tight">
               {item.sectionSubtitle}
             </h3>
-            <h2 className="text-3xl md:text-4xl lg:text-[3.125rem] font-light text-[#63B846] leading-none tracking-tight">
+            <h2 className="text-[2.5rem] md:text-4xl lg:text-[3.125rem] font-light text-[#63B846] leading-tight tracking-tight">
               {item.sectionTitle}
             </h2>
-            <p className="text-sm md:text-base text-black font-medium leading-[1.2] max-w-3xl">
+            <p className="text-base text-black font-medium leading-[1.2] max-w-3xl mx-auto">
               {item.sectionDescription}
             </p>
           </div>
@@ -55,7 +55,7 @@ const FederalRebates: React.FC<FederalRebatesProps> = ({ data = [] }) => {
                 </h4>
                 <ul className="flex flex-col">
                   {item.keySpecsBulletPoints.map((spec, i) => (
-                    <li key={i} className="flex items-start text-sm md:text-base text-black font-medium leading-snug">
+                    <li key={i} className="flex items-start text-base text-black font-medium leading-snug">
                       <span className="mr-2 mt-0.5">•</span>
                       <span>{spec}</span>
                     </li>
@@ -75,17 +75,17 @@ const FederalRebates: React.FC<FederalRebatesProps> = ({ data = [] }) => {
 
               {/* Eligible Capacity Card (Span 4) */}
               <div className="md:col-span-4 bg-[#EEF6EB] rounded-3xl p-10 flex flex-col justify-center">
-                <h4 className="text-lg md:text-xl font-normal text-black mb-3">
+                <h4 className="text-xl md:text-2xl font-normal text-black mb-3">
                   {item.eligibleCapacityTitle}
                 </h4>
-                <p className="text-sm md:text-base text-black font-medium mb-6 leading-[1.2]">
+                <p className="text-base text-black font-medium mb-6 leading-[1.2]">
                   {item.eligibleCapacityText}
                 </p>
                 
-                <h4 className="text-lg md:text-xl font-normal text-black mb-3">
+                <h4 className="text-base md:text-xl font-normal text-black mb-3">
                   {item.importantNoteTitle}
                 </h4>
-                <p className="text-sm md:text-base text-black font-medium leading-[1.2]">
+                <p className="text-base text-black font-medium leading-[1.2]">
                   {item.importantNoteText}
                 </p>
               </div>
@@ -107,7 +107,7 @@ const FederalRebates: React.FC<FederalRebatesProps> = ({ data = [] }) => {
 
               {/* Combined WA Scheme Card (Span 5) */}
               <div className="md:col-span-4 bg-[#EEF6EB] rounded-3xl p-8 flex flex-col justify-center">
-                <p className="text-sm md:text-[1.375rem] text-black font-medium leading-[1.2] tracking-tight">
+                <p className="text-base md:text-[1.375rem] text-black font-medium leading-[1.2] tracking-tight">
                   {item.combinedSchemeText}
                 </p>
               </div>
@@ -119,7 +119,7 @@ const FederalRebates: React.FC<FederalRebatesProps> = ({ data = [] }) => {
                 </h4>
                 <ul className="flex flex-col">
                   {item.eligibilityBulletPoints.map((eligibilityItem, i) => (
-                    <li key={i} className="flex items-start text-sm md:text-base text-black font-medium leading-[1.1]">
+                    <li key={i} className="flex items-start text-base text-black font-medium leading-[1.1]">
                       <span className="mr-2 mt-0.5">•</span>
                       <span>{eligibilityItem}</span>
                     </li>

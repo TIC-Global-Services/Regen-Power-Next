@@ -158,6 +158,7 @@ const GovernmentRebatesPage = async () => {
           listTitle={faqProps.listTitle}
           image={faqProps.image?.src ?? businessBg}
           items={faqProps.items}
+          hideImageMobile
         />
       )}
 

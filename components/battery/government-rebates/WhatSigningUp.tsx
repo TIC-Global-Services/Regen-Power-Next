@@ -24,37 +24,7 @@ export interface WhatSigningUpData {
 
 export interface WhatSigningUpProps {
   data?: WhatSigningUpData;
-  title?: string;
-  subtitle?: string;
-  vppCardsLeft?: VppCardItem[];
-  vppCardsRight?: VppCardItem[];
 }
-
-const defaultCardsLeft: VppCardItem[] = [
-  {
-    title: "Synergy",
-    subtitle: "(SWIS — Most Of Perth And The South West):",
-    text: "Join The Synergy Battery Rewards Program With A Simple 2-Year Agreement And Earn Rewards By Exporting Stored Battery Energy During Activation Events, Typically Held Up To 30 Times A Year Between 3 Pm And 9 Pm On High-Demand Days. Each Event Lasts Only A Few Hours, And You'll Receive $0.70 Per KWh For The Energy You Export. Any Electricity You Draw From The Grid During These Events Is Offset With Energy Credits, Ensuring You're Never Out Of Pocket, With Credits Applied To Your Synergy Bill Each Quarter.",
-  },
-  {
-    title: "Horizon Power",
-    subtitle: "(Regional WA Customers):",
-    text: "Horizon Power customers sign a 2-year VPP agreement tailored for regional microgrids. Earn premium export rewards up to $380/kWh capacity rebate, helping balance local network demand during peak periods while generating direct quarterly bill credits for your account.",
-  },
-];
-
-const defaultCardsRight: VppCardItem[] = [
-  {
-    title: "Alternative VPP Products",
-    subtitle: "(Synergy Customers Only):",
-    text: "You Can Also Choose An Alternative Virtual Power Plant (VPP) Program Instead Of Synergy Battery Rewards, Provided It Is Offered By Your Battery Supplier, Compatible With Your System, Delivers Value Through Credits Or Payments, And Is Supported By Genuine Grid Market Revenue Streams.",
-  },
-  {
-    title: "Key Program Guarantees",
-    subtitle: "(What You Retain & Protect):",
-    text: "Participating in a VPP does not sacrifice your home's blackout backup. Your battery always reserves energy for outages, and event dispatches are capped and managed intelligently so you never draw high-peak power unneeded.",
-  },
-];
 
 const VppCard = ({ card }: { card: VppCardItem }) => (
   <div className="relative overflow-hidden bg-white/10 backdrop-blur-sm border border-neutral-200/80 rounded-2xl lg:rounded-[2rem] p-6 lg:p-8 shadow-[0_15px_40px_-15px_rgba(0,0,0,0.06)] w-[280px] sm:w-[360px] md:w-[460px] lg:w-full lg:max-w-[480px] pointer-events-auto">
@@ -74,37 +44,20 @@ const VppCard = ({ card }: { card: VppCardItem }) => (
   </div>
 );
 
-export default function WhatSigningUp({
-  data,
-  title: propTitle,
-  subtitle: propSubtitle,
-  vppCardsLeft: propCardsLeft,
-  vppCardsRight: propCardsRight,
-}: WhatSigningUpProps) {
-  const title =
-    data?.title ??
-    propTitle ??
-    "What Signing Up To A VPP Actually Means";
-
-  const subtitle =
-    data?.subtitle ??
-    propSubtitle ??
-    "VPP Participation Is A Requirement Of The WA Residential Battery Scheme — But It's Also A Revenue Stream. Here's What You're Agreeing To And What You Get In Return.";
-
-  const vppCardsLeft =
-    data?.vppCardsLeft ?? propCardsLeft ?? defaultCardsLeft;
-
-  const vppCardsRight =
-    data?.vppCardsRight ?? propCardsRight ?? defaultCardsRight;
+export default function WhatSigningUp({ data }: WhatSigningUpProps) {
+  const title = data?.title ?? "";
+  const subtitle = data?.subtitle ?? "";
+  const vppCardsLeft = data?.vppCardsLeft ?? [];
+  const vppCardsRight = data?.vppCardsRight ?? [];
 
   const containerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const ctx = gsap.context(() => {
       const isMobile = window.matchMedia("(max-width: 1024px)").matches;
-      const staggerDelay = isMobile ? 0.6 : 0.65;
-      const startY = isMobile ? "90vh" : "120vh";
-      const endY = isMobile ? "-90vh" : "-120vh";
+      const staggerDelay = isMobile ? 0.8 : 0.65;
+      const startY = isMobile ? "95vh" : "120vh";
+      const endY = isMobile ? "-95vh" : "-120vh";
 
       const leftCards = gsap.utils.toArray<HTMLElement>(".card-left-vpp");
       const rightCards = gsap.utils.toArray<HTMLElement>(".card-right-vpp");
@@ -164,14 +117,14 @@ export default function WhatSigningUp({
       >
         {/* Pinned Title Layer */}
         <div className="absolute inset-0 z-0 flex flex-col items-center justify-center pointer-events-none px-4">
-          <div className="px-6 py-10 md:px-16 md:py-12 text-center max-w-3xl z-20">
+          <div className="px-6 py-10 md:px-16 md:py-12 text-left md:text-center max-w-3xl z-20">
             <Reveal className="mb-4">
-              <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-light tracking-tight text-[#63B846]">
+              <h2 className="text-[2.5rem] sm:text-4xl md:text-5xl lg:text-6xl font-light tracking-tight leading-tight text-[#63B846]">
                 {title}
               </h2>
             </Reveal>
             <Reveal delay={0.3}>
-              <p className="text-neutral-800 font-medium text-sm sm:text-base md:text-lg max-w-2xl mx-auto leading-[1.2]">
+              <p className="text-neutral-800 font-medium text-base md:text-lg max-w-2xl mx-auto leading-[1.2]">
                 {subtitle}
               </p>
             </Reveal>

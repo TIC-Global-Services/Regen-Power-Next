@@ -39,19 +39,19 @@ const RebateDetailSplit: React.FC<{ data?: RebateDetailSplitData }> = ({ data })
             <div className="">
                 {/* Header Section */}
                 {(data.topSubtitle || data.title || data.description) && (
-                    <div className="mb-10 md:mb-14 text-center max-w-4xl mx-auto flex flex-col items-center">
+                    <div className="mb-10 md:mb-14 text-left md:text-center capitalize ">
                         {data.topSubtitle && (
-                            <p className="text-xl md:text-2xl font-normal tracking-tight text-black mb-2">
+                            <p className="text-base md:text-2xl font-normal tracking-tight text-black mb-2">
                                 {data.topSubtitle}
                             </p>
                         )}
                         {data.title && (
-                            <h2 className="text-3xl md:text-4xl lg:text-[3.125rem] font-light tracking-tight text-[#63B846] mb-4">
+                            <h2 className="text-[2.5rem] md:text-4xl lg:text-[3.125rem] font-light leading-tight tracking-tight text-[#63B846] mb-4">
                                 {data.title}
                             </h2>
                         )}
                         {data.description && (
-                            <p className="text-sm md:text-xl text-black leading-[1.2] font-medium ">
+                            <p className="text-base md:text-xl text-black leading-[1.2] font-medium max-w-4xl mx-auto">
                                 {data.description}
                             </p>
                         )}
@@ -93,7 +93,7 @@ const RebateDetailSplit: React.FC<{ data?: RebateDetailSplitData }> = ({ data })
                                         {data.topBoxItems.map((item, idx) => (
                                             <li
                                                 key={idx}
-                                                className="text-sm md:text-base text-black leading-[1.2] flex items-start"
+                                                className="text-base md:text-lg text-black leading-[1] flex items-start"
                                             >
                                                 <span className="mr-2 font-normal text-black min-w-[16px]">
                                                     {idx + 1}.
@@ -119,7 +119,7 @@ const RebateDetailSplit: React.FC<{ data?: RebateDetailSplitData }> = ({ data })
                                         {data.bottomBoxItems.map((item, idx) => (
                                             <li
                                                 key={idx}
-                                                className="text-sm md:text-base text-black leading-[0.6] flex items-start"
+                                                className="text-base md:text-lg text-black leading-[0.6] flex items-start"
                                             >
                                                 <span className="mr-2 mt-0.5 text-black">•</span>
                                                 <span>{item}</span>
