@@ -19,6 +19,8 @@ interface FAQProps {
     items: FAQItem[];
     defaultOpenIndex?: number | null;
     enableSchema?: boolean;
+    /** Hide the image column on mobile (< lg). */
+    hideImageMobile?: boolean;
 }
 
 const FAQ = ({
@@ -29,6 +31,7 @@ const FAQ = ({
     items,
     defaultOpenIndex = 0,
     enableSchema = false,
+    hideImageMobile = false,
 }: FAQProps) => {
     const [openIndex, setOpenIndex] = useState<number | null>(defaultOpenIndex);
 
@@ -76,7 +79,7 @@ const FAQ = ({
 
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-20 items-start">
                     {/* Left Column - Image */}
-                    <div className="w-full">
+                    <div className={`w-full ${hideImageMobile ? 'hidden lg:block' : ''}`}>
                         {image && (
                             <div className="relative w-full aspect-3/3 max-h-[540px] rounded-[24px] overflow-hidden shadow-sm">
                                 <img

@@ -12,12 +12,13 @@ export interface BatteryFAQData {
 
 const BatteryFAQ = ({ data }: { data: BatteryFAQData }) => {
   return (
-    <FAQ 
+    <FAQ
       topTitle={data.topTitle}
       title={data.title}
       listTitle={data.listTitle}
       image={data.image}
       items={data.items}
+      hideImageMobile
     />
   );
 };

@@ -27,7 +27,7 @@ const CtaButton: React.FC<CtaButtonProps> = ({
   bgClass = 'bg-[#63B84666] backdrop-blur-md',
   borderClass = 'border border-[#63B846]',
   hoverClass = 'hover:bg-[#8dc63f] hover:text-white',
-  className = '',
+  className = 'capitalize',
   onClick,
   icon: Icon = ArrowUpRight,
   iconBgClass = 'bg-[#63B846]',

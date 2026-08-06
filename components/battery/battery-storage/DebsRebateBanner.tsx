@@ -15,8 +15,19 @@ const DebsRebateBanner = ({ data }: { data: DebsRebateData }) => {
   return (
     <section className="bg-white py-12 md:py-20 px-[5%]">
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-center">
+        {/* Right — Image (on top on mobile, right column on desktop) */}
+        <div className="relative w-full aspect-[4/5] md:aspect-[3/4] lg:aspect-[4/4] rounded-[20px] overflow-hidden order-1 lg:order-2">
+          <Image
+            src={data.image}
+            alt={data.title}
+            fill
+            className="object-cover"
+
+          />
+        </div>
+
         {/* Left — Text Content */}
-        <div className="flex flex-col justify-center">
+        <div className="flex flex-col justify-center order-2 lg:order-1">
           <h3 className="text-xl md:text-[2.125rem] text-black font-normal tracking-tight leading-[1.1] mb-1">
             {data.subtitle}
           </h3>
@@ -29,17 +40,6 @@ const DebsRebateBanner = ({ data }: { data: DebsRebateData }) => {
           <div>
             <CtaButton href={data.ctaLink} text={data.ctaText} textColor="text-black" />
           </div>
-        </div>
-
-        {/* Right — Image */}
-        <div className="relative w-full aspect-[4/5] md:aspect-[3/4] lg:aspect-[4/4] rounded-[20px] overflow-hidden">
-          <Image
-            src={data.image}
-            alt={data.title}
-            fill
-            className="object-cover"
-           
-          />
         </div>
       </div>
     </section>
