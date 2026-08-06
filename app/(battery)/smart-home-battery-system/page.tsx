@@ -117,20 +117,7 @@ const SmartBatterySystemPage = async () => {
 
       {timelineProps && <BatteryTimeline data={timelineProps} />}
 
-      {brandsProps && (
-        <BatteryBrandsGrid
-          data={{
-            ...brandsProps,
-            brands: brandsProps.brands.map((brand) => ({
-              ...brand,
-              specification: brand.specification.map((spec) => ({
-                ...spec,
-                logo: spec.logo || undefined,
-              })),
-            })),
-          }}
-        />
-      )}
+      {brandsProps && <BatteryBrandsGrid data={brandsProps} />}
 
       {bentoProps && <SmartInstallBento data={bentoProps} />}
 

@@ -55,7 +55,6 @@ export type SmartHomeTimelineEventData = z.infer<
 export const SmartHomeBrandSpecSchema = z.object({
   id: z.number(),
   title: z.string(),
-  logo: MediaSchema.nullable(),
   description: z.string(),
 });
 export type SmartHomeBrandSpecData = z.infer<typeof SmartHomeBrandSpecSchema>;
@@ -64,6 +63,7 @@ export type SmartHomeBrandSpecData = z.infer<typeof SmartHomeBrandSpecSchema>;
 export const SmartHomeBrandCardSchema = z.object({
   id: z.number(),
   title: z.string(),
+  logo: MediaSchema.nullable(),
   specification: z.array(SmartHomeBrandSpecSchema),
   showbutton: z.boolean(),
   buttonText: z.string(),

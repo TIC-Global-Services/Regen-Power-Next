@@ -163,11 +163,11 @@ export function resolveBatteryTimeline(
 
 export interface ResolvedBrandSpecification {
   title: string;
-  logo?: string;
   description: string;
 }
 export interface ResolvedBatteryBrandCard {
   title: string;
+  logo?: string;
   specification: ResolvedBrandSpecification[];
   showbutton: boolean;
   buttonText: string;
@@ -189,9 +189,9 @@ export function resolveBatteryBrandsGrid(
     subtitle: data.subtitle ?? "",
     brands: (data.brands ?? []).map((brand) => ({
       title: brand.title,
+      logo: brand.logo ? strapiImageData(brand.logo)?.src ?? undefined : undefined,
       specification: (brand.specification ?? []).map((spec) => ({
         title: spec.title,
-        logo: spec.logo ? strapiImageData(spec.logo)?.src ?? undefined : undefined,
         description: spec.description,
       })),
       showbutton: brand.showbutton,

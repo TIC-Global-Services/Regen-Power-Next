@@ -19,7 +19,8 @@ export const timeline =
   "populate[sections][on][smart-home-battery.timeline][populate][events]=true";
 
 export const brandsGrid =
-  "populate[sections][on][smart-home-battery.brands-grid][populate][brands][populate][specification]=true";
+  "populate[sections][on][smart-home-battery.brands-grid][populate][brands][populate][logo]=true" +
+  "&populate[sections][on][smart-home-battery.brands-grid][populate][brands][populate][specification]=true";
 
 export const installBento =
   "populate[sections][on][smart-home-battery.install-bento][populate][blocks]=true";
