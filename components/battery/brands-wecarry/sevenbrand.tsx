@@ -96,11 +96,19 @@ const SevenBrand: React.FC<{ data: SevenBrandData }> = ({ data }) => {
           background: rgba(255, 255, 255, 0.2);
           border-radius: 4px;
         }
+        .seven-brand-swiper .swiper-pagination-bullet {
+          background-color: #A0CF44;
+          opacity: 0.4;
+        }
+        .seven-brand-swiper .swiper-pagination-bullet-active {
+          background-color: #63B846;
+          opacity: 1;
+        }
       `}</style>
       <div ref={containerRef}>
         {/* Title */}
-        <div className="text-center mb-12 md:mb-16">
-          <h2 className="text-4xl md:text-5xl lg:text-[3.125rem] font-light text-[#63B846] leading-tight tracking-tight">
+        <div className="text-center mb-4 md:mb-16">
+          <h2 className="text-[2.5rem] md:text-5xl lg:text-[3.125rem] font-light text-[#63B846] leading-tight tracking-tight">
             {data.title}
           </h2>
         </div>
@@ -131,13 +139,13 @@ const SevenBrand: React.FC<{ data: SevenBrandData }> = ({ data }) => {
               return (
                 <SwiperSlide key={idx} className="h-auto">
                   {/* Main Card Container: Dark Grey */}
-                  <div className="brand-card bg-[#2D2E2A] text-white rounded-[32px] p-6 md:p-8 lg:p-10 w-full flex flex-col justify-between select-none transition-all duration-300">
+                  <div className="brand-card bg-[#2D2E2A] text-white rounded-[20px] p-6 md:p-8 lg:p-10 w-full flex flex-col justify-between select-none transition-all duration-300">
 
                     {/* 3x2 Grid structure on desktop */}
-                    <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 w-full flex-grow">
+                    <div className="grid grid-cols-1 lg:grid-cols-3 gap-3 lg:gap-6 w-full flex-grow">
 
                       {/* Cell 1: Top Left - Title & Description block */}
-                      <div className="flex flex-col justify-start p-2 md:p-4 h-[204px] overflow-y-auto card-scroll">
+                      <div className="flex flex-col justify-start p-2 md:p-4 lg:h-[204px] overflow-y-auto card-scroll">
                         <h3 className="text-3xl md:text-4xl font-medium tracking-tight text-[#63B846] mb-3">
                           {brand.title}
                         </h3>
@@ -147,7 +155,7 @@ const SevenBrand: React.FC<{ data: SevenBrandData }> = ({ data }) => {
                       </div>
 
                       {/* Cell 2: Top Middle - Smart Home / Certifications */}
-                      <div className="bg-[#484945] rounded-[20px] p-5 md:p-6 flex flex-col h-[204px] overflow-y-auto card-scroll justify-start">
+                      <div className="bg-[#484945] rounded-[8px] p-5 md:p-6 flex flex-col h-[204px] overflow-y-auto card-scroll justify-start">
                         {spec1 && (
                           <>
                             {spec1.title && (
@@ -162,7 +170,7 @@ const SevenBrand: React.FC<{ data: SevenBrandData }> = ({ data }) => {
                                     {block.title}
                                   </h4>
                                 )}
-                                <p className="text-gray-300 font-light text-xs md:text-sm leading-[1.2]">
+                                <p className="text-white font-light text-xs md:text-sm leading-[1.2]">
                                   {block.description}
                                 </p>
                               </div>
@@ -172,7 +180,7 @@ const SevenBrand: React.FC<{ data: SevenBrandData }> = ({ data }) => {
                       </div>
 
                       {/* Cell 3: Top Right - Feature Bullets */}
-                      <div className="bg-[#484945] rounded-[20px] p-5 md:p-6 flex flex-col h-[204px] overflow-y-auto card-scroll justify-start">
+                      <div className="bg-[#484945] rounded-[8px] p-5 md:p-6 flex flex-col h-[204px] overflow-y-auto card-scroll justify-start">
                         {spec3 && (
                           <>
                             {spec3.title && (
@@ -193,7 +201,7 @@ const SevenBrand: React.FC<{ data: SevenBrandData }> = ({ data }) => {
                       </div>
 
                       {/* Cell 4: Bottom Left - Key Specs */}
-                      <div className="bg-[#484945] rounded-[20px] p-5 md:p-4 flex flex-col h-[204px] overflow-y-auto card-scroll justify-start">
+                      <div className="bg-[#484945] rounded-[8px] p-5 md:p-4 flex flex-col h-[204px] overflow-y-auto card-scroll justify-start">
                         {spec0 && (
                           <>
                             {spec0.title && (
@@ -223,7 +231,7 @@ const SevenBrand: React.FC<{ data: SevenBrandData }> = ({ data }) => {
                       </div>
 
                       {/* Cell 5: Bottom Middle - Why We Carry It */}
-                      <div className="bg-[#484945] rounded-[20px] p-4 md:p-4 flex flex-col h-[204px] overflow-y-auto card-scroll justify-start">
+                      <div className="bg-[#484945] rounded-[8px] p-4 md:p-4 flex flex-col h-[204px] overflow-y-auto card-scroll justify-start">
                         {spec2 && (
                           <>
                             {spec2.title && (
@@ -232,7 +240,7 @@ const SevenBrand: React.FC<{ data: SevenBrandData }> = ({ data }) => {
                               </h4>
                             )}
                             {spec2.specdetails.map((detail, dIdx) => (
-                              <p key={dIdx} className="text-gray-300 font-light text-xs md:text-sm leading-[1.2]">
+                              <p key={dIdx} className="text-white font-light text-xs md:text-sm leading-[1.2]">
                                 {detail.description}
                               </p>
                             ))}
@@ -241,7 +249,7 @@ const SevenBrand: React.FC<{ data: SevenBrandData }> = ({ data }) => {
                       </div>
 
                       {/* Cell 6: Bottom Right - Best For / VPP Compatibility */}
-                      <div className="bg-[#484945] rounded-[20px] p-5 md:p-6 flex flex-col h-[204px] overflow-y-auto card-scroll justify-start">
+                      <div className="bg-[#484945] rounded-[8px] p-5 md:p-6 flex flex-col h-[204px] overflow-y-auto card-scroll justify-start">
                         {spec4 && (
                           <>
                             {spec4.title && (
@@ -256,7 +264,7 @@ const SevenBrand: React.FC<{ data: SevenBrandData }> = ({ data }) => {
                                     {block.title}
                                   </h4>
                                 )}
-                                <p className="text-gray-300 font-light text-xs md:text-sm leading-[1.2]">
+                                <p className="text-white font-light text-xs md:text-sm leading-[1.2]">
                                   {block.description}
                                 </p>
                               </div>
