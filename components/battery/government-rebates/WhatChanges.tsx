@@ -26,9 +26,9 @@ const WhatChanges: React.FC<WhatChangesProps> = ({ data }) => {
 
   return (
     <section className="w-full bg-white px-[5%] py-12 md:py-20 font-sans">
-      <div className="max-w-7xl mx-auto">
+      <div className="text-left md:text-center">
         {/* Header */}
-        <div className="text-center mb-10 md:mb-16 max-w-4xl mx-auto flex flex-col items-center">
+        <div className="mb-10 md:mb-16 max-w-3xl mx-auto flex flex-col items-center">
           <h2 className="text-3xl md:text-4xl lg:text-[3.125rem] font-light text-[#63B846] leading-tight tracking-tight mb-4">
             {title}
           </h2>
@@ -44,7 +44,7 @@ const WhatChanges: React.FC<WhatChangesProps> = ({ data }) => {
             <h3 className="text-xl md:text-2xl font-normal text-black mb-6 leading-tight">
               {card1.title}
             </h3>
-            <p className="text-sm md:text-base text-black font-medium leading-[1.2]">
+            <p className="text-base text-black font-medium leading-[1.2]">
               {card1.description}
             </p>
           </div>
@@ -54,13 +54,13 @@ const WhatChanges: React.FC<WhatChangesProps> = ({ data }) => {
             <h3 className="text-xl md:text-2xl font-normal text-black mb-6 leading-tight">
               {card2.title}
             </h3>
-            <p className="text-sm md:text-base text-black font-medium leading-[1.2] mb-4">
+            <p className="text-base text-black font-medium leading-[1.2] mb-4">
               {card2.description}
             </p>
             {card2.bullets && card2.bullets.length > 0 && (
               <ul className="flex flex-col gap-3">
                 {card2.bullets.map((bullet, index) => (
-                  <li key={index} className="flex items-start text-sm md:text-base text-black font-medium leading-snug">
+                  <li key={index} className="flex items-start text-base text-black font-medium leading-snug">
                     <span className="mr-2 mt-1 flex-shrink-0 text-black font-bold">•</span>
                     <span>{bullet}</span>
                   </li>
@@ -76,7 +76,7 @@ const WhatChanges: React.FC<WhatChangesProps> = ({ data }) => {
               <h3 className="text-xl md:text-2xl font-normal text-black mb-4 leading-tight">
                 {card3.title}
               </h3>
-              <p className="text-sm md:text-base text-black font-medium leading-[1.2]">
+              <p className="text-base text-black font-medium leading-[1.2]">
                 {card3.description}
               </p>
             </div>
@@ -86,7 +86,7 @@ const WhatChanges: React.FC<WhatChangesProps> = ({ data }) => {
               <h3 className="text-xl md:text-2xl font-normal text-black mb-4 leading-tight">
                 {card4.title}
               </h3>
-              <p className="text-sm md:text-base text-black font-medium leading-[1.2]">
+              <p className="text-base text-black font-medium leading-[1.2]">
                 {card4.description}
               </p>
             </div>

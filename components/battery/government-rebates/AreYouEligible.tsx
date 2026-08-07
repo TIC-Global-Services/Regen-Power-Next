@@ -26,7 +26,7 @@ const Areyoueligible = ({ data }: areyoueligibleProps) => {
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 items-stretch w-full">
 
                 {/* Image Column */}
-                <div className="relative w-full min-h-[350px] lg:h-screen overflow-hidden">
+                <div className="relative h-[450px] lg:h-screen overflow-hidden rounded-[20px] lg:rounded-none mx-5 lg:mx-0">
                     <Image
                         src={data.image}
                         alt={data.imageAlt || ''}
@@ -36,7 +36,7 @@ const Areyoueligible = ({ data }: areyoueligibleProps) => {
                     />
                 </div>
                 {/* Text Column */}
-                <div className="w-full  flex flex-col justify-center py-20 max-w-2xl">
+                <div className="w-full  flex flex-col justify-center py-12 lg:py-20 max-w-2xl px-5 lg:px-0">
                     <div>
                         <h3 className="text-xl md:text-2xl font-normal text-black tracking-tight mb-1">
                             {data.subtitle}
