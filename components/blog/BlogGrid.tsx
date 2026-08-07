@@ -36,28 +36,22 @@ const BlogGrid: React.FC<BlogGridProps> = ({
                 onChange={setActiveCategory}
             />
 
-            <div className="grid grid-cols-3 gap-5 md:gap-6 max-w-7xl mx-auto">
-                {pairs.map(([textCard, imageCard], idx) =>
-                    idx % 2 === 0 ? (
-                        <React.Fragment key={idx}>
-                            <div className="col-span-1">
-                                <BlogCard card={textCard} />
+            <div className="flex flex-col gap-5 md:gap-6 max-w-7xl mx-auto">
+                {pairs.map(([textCard, imageCard], idx) => {
+                    const textLeft = idx % 2 === 0;
+                    return (
+                        <div key={idx} className="grid grid-cols-1 md:grid-cols-3 gap-5 md:gap-6">
+                            {/* Text card — first on mobile; left for even rows, right for odd rows on desktop */}
+                            <div className={`md:col-span-1 ${textLeft ? 'md:order-1' : 'md:order-2'}`}>
+                                <BlogCard card={textCard} variant="text" />
                             </div>
-                            <div className="col-span-2">
-                                <BlogCard card={imageCard} />
+                            {/* Image card — second on mobile; right for even rows, left for odd rows on desktop */}
+                            <div className={`md:col-span-2 ${textLeft ? 'md:order-2' : 'md:order-1'}`}>
+                                <BlogCard card={imageCard} variant="image" />
                             </div>
-                        </React.Fragment>
-                    ) : (
-                        <React.Fragment key={idx}>
-                            <div className="col-span-2">
-                                <BlogCard card={imageCard} />
-                            </div>
-                            <div className="col-span-1">
-                                <BlogCard card={textCard} />
-                            </div>
-                        </React.Fragment>
-                    )
-                )}
+                        </div>
+                    );
+                })}
             </div>
         </section>
     );

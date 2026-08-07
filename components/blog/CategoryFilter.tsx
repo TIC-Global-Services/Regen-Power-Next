@@ -27,7 +27,7 @@ const CategoryFilter: React.FC<CategoryFilterProps> = ({
 
     return (
         <div className="w-full flex justify-center py-10 md:py-14 px-[5%]">
-            <div className="flex flex-wrap justify-center gap-2 md:gap-3 max-w-4xl">
+            <div className="flex flex-wrap md:flex-wrap overflow-x-auto md:overflow-visible md:justify-center gap-2 md:gap-3 max-w-4xl whitespace-nowrap [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
                 {categories.map((cat) => {
                     const isActive = active === cat.value;
                     return (

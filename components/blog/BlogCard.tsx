@@ -2,6 +2,7 @@
 
 import React from 'react';
 import Image, { StaticImageData } from 'next/image';
+import { ArrowUpRight } from 'lucide-react';
 
 export interface BlogCardData {
     title: string;
@@ -10,47 +11,19 @@ export interface BlogCardData {
     imagePosition: 'right' | 'left';
 }
 
+export type BlogCardVariant = 'text' | 'image';
+
 interface BlogCardProps {
     card: BlogCardData;
+    variant?: BlogCardVariant;
 }
 
-const BlogCard: React.FC<BlogCardProps> = ({ card }) => {
-    const hasImage = card.image && card.image !== '';
-    const hasText = card.title || card.description;
-
-    if (hasImage && hasText) {
-        const isImageRight = card.imagePosition === 'right';
+const BlogCard: React.FC<BlogCardProps> = ({ card, variant = 'text' }) => {
+    if (variant === 'image') {
         return (
-            <div
-                className={`flex flex-col md:flex-row bg-[#E5EFD5] rounded-[20px] overflow-hidden ${
-                    isImageRight ? '' : 'md:flex-row-reverse'
-                }`}
-            >
-                <div className="relative w-full md:w-2/5 aspect-[4/3] md:aspect-auto md:min-h-[280px]">
-                    <Image
-                        src={card.image}
-                        alt={card.title}
-                        fill
-                        className="object-cover"
-                    />
-                </div>
-                <div className="flex-1 p-6 md:p-8 flex flex-col justify-center">
-                    <h3 className="text-xl md:text-2xl font-normal text-black tracking-tight leading-tight mb-3">
-                        {card.title}
-                    </h3>
-                    <p className="text-sm md:text-base text-black/75 leading-snug tracking-tight">
-                        {card.description}
-                    </p>
-                </div>
-            </div>
-        );
-    }
-
-    if (hasImage) {
-        return (
-            <div className="relative w-full h-full min-h-[280px] bg-[#E5EFD5] rounded-[20px] overflow-hidden">
+            <div className="relative w-full h-[400px] md:h-[466px] rounded-[20px] overflow-hidden bg-[#E5EFD5]">
                 <Image
-                    src={card.image}
+                    src={card.image || '/fallback.png'}
                     alt={card.title || 'Blog image'}
                     fill
                     className="object-cover"
@@ -59,20 +32,25 @@ const BlogCard: React.FC<BlogCardProps> = ({ card }) => {
         );
     }
 
-    if (hasText) {
-        return (
-            <div className="bg-[#E5EFD5] rounded-[20px] overflow-hidden p-6 md:p-8 flex flex-col justify-center h-full">
-                <h3 className="text-xl md:text-2xl font-normal text-black tracking-tight leading-tight mb-3">
-                    {card.title}
-                </h3>
-                <p className="text-sm md:text-base text-black/75 leading-snug tracking-tight">
-                    {card.description}
-                </p>
-            </div>
-        );
-    }
+    // Text card
+    const hasText = card.title || card.description;
+    if (!hasText) return null;
 
-    return null;
+    return (
+        <div className="relative w-full h-[304px] md:h-[466px] bg-[#E5EFD5] rounded-[20px] p-6 md:p-8 flex flex-col justify-end">
+            {/* ↗ arrow top right (plain, no bg circle) */}
+            <span className="absolute top-5 right-5 md:top-7 md:right-7 flex items-center justify-center text-black">
+                <ArrowUpRight className="w-6 h-6 md:w-7 md:h-7" />
+            </span>
+
+            <h3 className="text-xl md:text-2xl font-normal text-black tracking-tight leading-tight mb-3">
+                {card.title}
+            </h3>
+            <p className="text-sm md:text-base text-black/75 leading-snug tracking-tight">
+                {card.description}
+            </p>
+        </div>
+    );
 };
 
 export default BlogCard;
