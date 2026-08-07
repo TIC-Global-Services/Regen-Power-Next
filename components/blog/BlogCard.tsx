@@ -1,12 +1,11 @@
 'use client';
 
 import React from 'react';
-import Image, { StaticImageData } from 'next/image';
 
 export interface BlogCardData {
     title: string;
     description: string;
-    image: StaticImageData | string;
+    image: string;
     imagePosition: 'right' | 'left';
 }
 
@@ -17,6 +16,7 @@ interface BlogCardProps {
 const BlogCard: React.FC<BlogCardProps> = ({ card }) => {
     const hasImage = card.image && card.image !== '';
     const hasText = card.title || card.description;
+    const imgSrc = card.image || '/fallback.png';
 
     if (hasImage && hasText) {
         const isImageRight = card.imagePosition === 'right';
@@ -27,11 +27,11 @@ const BlogCard: React.FC<BlogCardProps> = ({ card }) => {
                 }`}
             >
                 <div className="relative w-full md:w-2/5 aspect-[4/3] md:aspect-auto md:min-h-[280px]">
-                    <Image
-                        src={card.image}
+                    <img
+                        src={imgSrc}
                         alt={card.title}
-                        fill
-                        className="object-cover"
+                        className="absolute inset-0 w-full h-full object-cover"
+                        onError={(e) => { e.currentTarget.src = '/fallback.png'; }}
                     />
                 </div>
                 <div className="flex-1 p-6 md:p-8 flex flex-col justify-center">
@@ -49,11 +49,11 @@ const BlogCard: React.FC<BlogCardProps> = ({ card }) => {
     if (hasImage) {
         return (
             <div className="relative w-full h-full min-h-[280px] bg-[#E5EFD5] rounded-[20px] overflow-hidden">
-                <Image
-                    src={card.image}
+                <img
+                    src={imgSrc}
                     alt={card.title || 'Blog image'}
-                    fill
-                    className="object-cover"
+                    className="absolute inset-0 w-full h-full object-cover"
+                    onError={(e) => { e.currentTarget.src = '/fallback.png'; }}
                 />
             </div>
         );
@@ -76,3 +76,4 @@ const BlogCard: React.FC<BlogCardProps> = ({ card }) => {
 };
 
 export default BlogCard;
+

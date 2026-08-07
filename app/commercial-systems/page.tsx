@@ -45,6 +45,7 @@ import FiveThingsSection from "@/components/commercial/systems/FiveThingsSection
 import FaqSection from "@/components/commercial/systems/FaqSection";
 import CommercialFormSection from "@/components/commercial/systems/CommercialFormSection";
 import CtaBannerSection from "@/components/commercial/systems/CtaBannerSection";
+import getValidMediaSrc from "@/utils/getValidsrc";
 
 export const revalidate = 60;
 
@@ -79,9 +80,10 @@ export default async function CommercialSystemsPage() {
   const faqProps = resolveSharedFaq(faq);
   const commercialFormProps = resolveCommercialSystemsCommercialForm(commercialForm);
   const ctaBannerProps = resolveSharedCtaBanner(ctaBanner);
+  
 
   return (
-    <div className="bg-white min-h-screen text-black">
+    <div className="bg-white min-h-screen text-black overflow-x-hidden">
       {heroProps && <HeroSection resolved={heroProps} />}
 
       {statsProps && <StatsCardGridSection resolved={statsProps} />}

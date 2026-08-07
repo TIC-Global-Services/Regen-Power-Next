@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
-import Image, { StaticImageData } from 'next/image';
+import type { StaticImageData } from 'next/image';
 import { ArrowLeft, ArrowRight } from 'lucide-react';
 import { AnimatePresence, motion } from 'framer-motion';
 import SectionHeader from '@/reuseables/SectionHeader';
@@ -70,12 +70,10 @@ const ThreeTiersSection: React.FC<ThreeTiersSectionProps> = ({
                                 transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
                                 className="absolute inset-0"
                             >
-                                <Image
-                                    src={tiers[activeIndex].image}
+                                <img
+                                    src={(typeof tiers[activeIndex].image === 'string' ? tiers[activeIndex].image : (tiers[activeIndex].image as any)?.src) || '/fallback.png'}
                                     alt={tiers[activeIndex].title}
-                                    fill
-                                    className="object-cover"
-                                    priority
+                                    className="absolute inset-0 w-full h-full object-cover"
                                 />
                             </motion.div>
                         </AnimatePresence>

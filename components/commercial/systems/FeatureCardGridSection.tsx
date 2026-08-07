@@ -16,7 +16,7 @@ export default function FeatureCardGridSection({ resolved }: Props) {
       cards={resolved.cards.map((c) => ({
         title: c.title,
         description: c.description,
-        image: c.image?.src ?? '',
+        image: c.image?.src ?? '/fallback.png',
         textPosition: (c.textPosition as "top" | "bottom") || "top",
         footerTitle: c.footerTitle || undefined,
         footerDescription: c.footerDescription || undefined,

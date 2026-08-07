@@ -1,5 +1,5 @@
 import React from 'react';
-import Image, { StaticImageData } from 'next/image';
+import type { StaticImageData } from 'next/image';
 import CtaButton from '@/reuseables/CtaButton';
 import Reveal from '@/reuseables/Reveal';
 
@@ -26,6 +26,14 @@ const WatchSystemSection: React.FC<WatchSystemSectionProps> = ({
         <section className="py-16 md:py-24 bg-white">
             <div className="px-[5%] mx-auto">
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-center">
+
+                    <Reveal className="relative w-full aspect-[4/5] rounded-[20px] overflow-hidden md:hidden">
+                        <img
+                            src={(typeof image === 'string' ? image : (image as any)?.src) || '/fallback.png'}
+                            alt={imageAlt}
+                            className="absolute inset-0 w-full h-full object-cover"
+                        />
+                    </Reveal>
                     <div className="flex flex-col justify-center">
                         <p className="text-lg md:text-2xl font-light text-black tracking-tight mb-1">
                             {subtitle}
@@ -52,13 +60,11 @@ const WatchSystemSection: React.FC<WatchSystemSectionProps> = ({
                         </div>
                     </div>
 
-                    <Reveal className="relative w-full aspect-[4/5] rounded-[20px] overflow-hidden">
-                        <Image
-                            src={image}
+                    <Reveal className="relative w-full aspect-[4/5] rounded-[20px] overflow-hidden hidden md:flex">
+                        <img
+                            src={(typeof image === 'string' ? image : (image as any)?.src) || '/fallback.png'}
                             alt={imageAlt}
-                            fill
-                            className="object-cover"
-                            priority
+                            className="absolute inset-0 w-full h-full object-cover"
                         />
                     </Reveal>
                 </div>

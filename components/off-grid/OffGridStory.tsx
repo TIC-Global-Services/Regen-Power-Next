@@ -39,7 +39,7 @@ const OffGridStory: React.FC<OffGridStoryProps> = ({
     const featuredContent = (
         <>
             <img
-                src={featuredImage || '/fallback.png'}
+                src={featuredImage || '/chem_nayar.jpg'}
                 alt={featuredImageAlt || featuredTitle}
                 className={`absolute inset-0 w-full h-full object-cover ${featuredHref ? 'transition-transform duration-700 group-hover:scale-105' : ''}`}
             />
@@ -64,16 +64,16 @@ const OffGridStory: React.FC<OffGridStoryProps> = ({
     );
 
     return (
-        <section className="py-16 md:py-24 bg-white">
-            <div className="px-[5%] mx-auto">
-                <div className="text-center max-w-4xl mx-auto mb-12 md:mb-16 -space-y-2">
-                    <p className="text-lg md:text-2xl text-black font-light tracking-tight leading-none">
+        <section className="py-10 md:py-20 bg-white">
+            <div className="px-[5%]">
+                <div className="text-left md:text-center max-w-4xl mx-auto mb-12 md:mb-0 -space-y-2">
+                    <p className="text-base md:text-2xl text-black font-light tracking-tight leading-none mb-2">
                         {subtitle}
                     </p>
-                    <h2 className="text-4xl md:text-6xl lg:text-[5rem] text-[#63B846] font-normal tracking-tighter leading-none">
+                    <h2 className="text-[2.5rem] md:text-6xl lg:text-[5rem] text-[#63B846] font-normal tracking-tighter leading-none">
                         {title}
                     </h2>
-                    <p className="text-sm md:text-base text-black leading-[1.2] mt-4 max-w-3xl mx-auto">
+                    <p className="text-base md:text-base text-black leading-[1.2] mt-4 max-w-3xl mx-auto">
                         {description}
                     </p>
                 </div>
@@ -84,7 +84,7 @@ const OffGridStory: React.FC<OffGridStoryProps> = ({
                     showHeader={false}
                 />
 
-                <div className="mt-12 md:mt-16">
+                <div className="mt-0 md:mt-5">
                     {featuredHref ? (
                         <Link
                             href={featuredHref}
@@ -93,7 +93,7 @@ const OffGridStory: React.FC<OffGridStoryProps> = ({
                             {featuredContent}
                         </Link>
                     ) : (
-                        <div className="relative w-full rounded-2xl overflow-hidden aspect-[16/9] md:aspect-[2.4/1]">
+                        <div className="relative w-full rounded-2xl overflow-hidden aspect-[3/4] md:aspect-[2.4/1]">
                             {featuredContent}
                         </div>
                     )}

@@ -53,16 +53,17 @@ const PressMediaPage = async () => {
           description={heroProps.description}
           ctaText={heroProps.ctaText}
           ctaLink={heroProps.ctaLink}
-          backgroundImage={heroProps.backgroundImage}
+          backgroundImage={heroProps.backgroundImage || '/press_media_hero.png'}
         />
       )}
 
       {featuredProps && (
         <FeaturedArticle
-          image={featuredProps.image}
+          image={featuredProps.image || '/FeaturedArticle_fallback.png'}
           title={featuredProps.title}
           description={featuredProps.description}
           href={featuredProps.href}
+          showReadMore={true}
         />
       )}
 

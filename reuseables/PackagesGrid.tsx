@@ -38,8 +38,15 @@ const PackagesGrid: React.FC<PackagesGridProps> = ({
           subtitle={subtitle}
           title={title}
           description={description}
-          align="center"
-          className="mx-auto mb-16"
+          align="left"
+          className="mb-16 md:hidden"
+        />
+        <SectionHeader
+          subtitle={subtitle}
+          title={title}
+          description={description}
+          align="left"
+          className="mb-16 hidden md:block"
         />
 
         {/* 3-Column Card Layout */}

@@ -15,9 +15,7 @@ const BlogGrid: React.FC<BlogGridProps> = ({
     defaultCategory,
     cards,
 }) => {
-    const [activeCategory, setActiveCategory] = useState<string>(
-        defaultCategory ?? categories[0]?.value ?? ''
-    );
+    const [activeCategory, setActiveCategory] = useState<string>(defaultCategory ?? categories[0].value);
 
     const pairs: [BlogCardData, BlogCardData][] = [];
     for (let i = 0; i < cards.length; i += 2) {
@@ -32,11 +30,12 @@ const BlogGrid: React.FC<BlogGridProps> = ({
         <section className="w-full px-[5%] pb-20 md:pb-28">
             <CategoryFilter
                 categories={categories}
-                defaultCategory={defaultCategory}
+                defaultCategory={activeCategory}
                 onChange={setActiveCategory}
             />
 
-            <div className="grid grid-cols-3 gap-5 md:gap-6 max-w-7xl mx-auto">
+            {/* Desktop grid */}
+            <div className="hidden md:grid grid-cols-3 gap-5 md:gap-6 max-w-7xl mx-auto">
                 {pairs.map(([textCard, imageCard], idx) =>
                     idx % 2 === 0 ? (
                         <React.Fragment key={idx}>
@@ -59,8 +58,25 @@ const BlogGrid: React.FC<BlogGridProps> = ({
                     )
                 )}
             </div>
+
+            {/* Mobile stacked layout */}
+            <div className="md:hidden flex flex-col gap-6">
+                {pairs.map(([textCard, imageCard], idx) => (
+                    <div key={idx} className="flex flex-col gap-3">
+                        {/* Image card */}
+                        <div className="w-full">
+                            <BlogCard card={imageCard} />
+                        </div>
+                        {/* Text card */}
+                        <div className="w-full">
+                            <BlogCard card={textCard} />
+                        </div>
+                    </div>
+                ))}
+            </div>
         </section>
     );
 };
 
 export default BlogGrid;
+

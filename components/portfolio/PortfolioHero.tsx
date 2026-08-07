@@ -21,7 +21,7 @@ const PortfolioHero: React.FC<PortfolioHeroProps> = ({
 }) => {
     return (
         <Hero
-            mediaSrc={backgroundImage}
+            mediaSrc={backgroundImage || '/portfolio_hero.png'}
             mediaType="image"
             topSubtitle={subtitle}
             mainTitle={mainTitle}

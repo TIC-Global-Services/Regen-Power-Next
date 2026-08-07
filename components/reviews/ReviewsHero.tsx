@@ -21,7 +21,7 @@ const ReviewsHero: React.FC<ReviewsHeroProps> = ({
 }) => {
     return (
         <Hero
-            mediaSrc={backgroundImage}
+            mediaSrc={backgroundImage || '/review_hero_fallback.png'}
             mediaType="image"
             topSubtitle={subtitle}
             mainTitle={mainTitle}

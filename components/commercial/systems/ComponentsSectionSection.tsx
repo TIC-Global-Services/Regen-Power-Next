@@ -12,7 +12,7 @@ export default function ComponentsSectionSection({ resolved }: Props) {
       subtitle={resolved.subtitle || "Six Components"}
       title={resolved.title}
       description={resolved.description}
-      backgroundImage={resolved.backgroundImage?.src ?? ''}
+      backgroundImage={resolved.backgroundImage?.src ?? '/fallback.png'}
       items={resolved.items.map((item) => ({
         letter: item.letter,
         title: item.title,

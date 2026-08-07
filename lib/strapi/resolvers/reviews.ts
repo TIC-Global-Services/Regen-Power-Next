@@ -70,13 +70,11 @@ export function resolveReviewsTestimonialsSection(
     (items, card) => {
       if (card.type === "image") {
         const image = card.image ? strapiImageData(card.image) : null;
-        if (image?.src) {
-          items.push({
-            type: "image",
-            image: image.src,
-            alt: card.imageAlt || image.alt || "Regen Power installation",
-          });
-        }
+        items.push({
+          type: "image",
+          image: image?.src || "/fallback.png",
+          alt: card.imageAlt || image?.alt || "Regen Power installation",
+        });
         return items;
       }
 

@@ -13,17 +13,17 @@ const ReviewsIntro: React.FC<ReviewsIntroProps> = ({
 }) => {
     return (
         <section className="w-full px-[5%] py-12 md:py-20">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-16 max-w-7xl mx-auto">
+            <div className="flex gap-8 md:gap-50">
                 <div>
-                    <p className="text-2xl md:text-3xl font-light tracking-tight text-black mb-1">
+                    <p className="text-2xl md:text-[1.375rem] w-full font-light tracking-tighter text-black">
                         {subtitle}
                     </p>
-                    <h2 className="text-5xl md:text-6xl lg:text-7xl font-normal tracking-tight text-[#63B846]">
+                    <h2 className="text-5xl md:text-6xl lg:text-[5rem] font-normal tracking-tight text-[#63B846]">
                         {title}
                     </h2>
                 </div>
                 <div className="self-end">
-                    <p className="text-base md:text-lg lg:text-xl leading-snug tracking-tight text-black/85 max-w-2xl">
+                    <p className="text-base md:text-lg lg:text-[1.875rem] leading-snug tracking-tight text-black/85 ">
                         {description}
                     </p>
                 </div>
