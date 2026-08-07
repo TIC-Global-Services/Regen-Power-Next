@@ -89,11 +89,12 @@ const OverlayCardGrid: React.FC<OverlayCardGridProps> = ({
                         />
                     )}
 
+                    {/* Desktop cards */}
                     <div
-                        className={`mt-12 max-w-6xl mx-auto ${
+                        className={`mt-12 max-w-6xl mx-auto hidden md:${cardLayout === 'grid' ? 'grid' : 'flex'} ${
                             cardLayout === 'grid'
-                                ? `grid grid-cols-1 md:grid-cols-2 lg:grid-cols-${cardColumns} gap-4 md:gap-5`
-                                : 'flex flex-wrap justify-center gap-4'
+                                ? `grid-cols-2 lg:grid-cols-${cardColumns} gap-4 md:gap-5`
+                                : 'flex-wrap justify-center gap-4'
                         }`}
                     >
                         {cards.map((card, idx) => (
@@ -113,6 +114,28 @@ const OverlayCardGrid: React.FC<OverlayCardGridProps> = ({
                                 </p>
                             </article>
                         ))}
+                    </div>
+
+                    {/* Mobile slider (no indicators) */}
+                    <div className="mt-8 md:hidden w-full">
+                        <div
+                            className="flex gap-4 overflow-x-auto snap-x snap-mandatory scrollbar-hide pb-2 -mx-[5%] px-[5%]"
+                            style={{ WebkitOverflowScrolling: 'touch', scrollbarWidth: 'none', msOverflowStyle: 'none' } as React.CSSProperties}
+                        >
+                            {cards.map((card, idx) => (
+                                <article
+                                    key={idx}
+                                    className="snap-start shrink-0 w-[75%] rounded-[8px] border border-white/20 bg-white/12 p-4 backdrop-blur-md flex flex-col text-left"
+                                >
+                                    <h3 className="text-base tracking-tight text-white mb-1">
+                                        {card.title}
+                                    </h3>
+                                    <p className="text-sm leading-tight text-white/85">
+                                        {card.description}
+                                    </p>
+                                </article>
+                            ))}
+                        </div>
                     </div>
                 </div>
             </div>

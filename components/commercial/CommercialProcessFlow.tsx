@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
-import Image, { StaticImageData } from 'next/image';
+import type { StaticImageData } from 'next/image';
 import { AnimatePresence, motion } from 'framer-motion';
 import { ArrowLeft, ArrowRight } from 'lucide-react';
 import SectionHeader from '@/reuseables/SectionHeader';
@@ -57,7 +57,7 @@ const CommercialProcessFlow: React.FC<CommercialProcessFlowProps> = ({
                     align="left"
                     subtitleClass="text-lg md:text-2xl font-light text-black tracking-tight"
                     titleClass="text-4xl md:text-6xl lg:text-[4.5rem] text-[#63B846] font-normal tracking-tighter leading-none"
-                    className="max-w-4xl mb-12 md:mb-16"
+                    className="max-w-4xl mb-4 md:mb-16"
                 />
 
                 <div className="relative w-full max-w-full">
@@ -106,12 +106,11 @@ const CommercialProcessFlow: React.FC<CommercialProcessFlowProps> = ({
                                         }`}
                                         style={{ zIndex: isActive ? 10 : 1 }}
                                     >
-                                        <Image
-                                            src={step.image}
-                                            alt={step.title}
-                                            fill
-                                            className="object-cover"
-                                        />
+                                         <img
+                                             src={(typeof step.image === 'string' ? step.image : (step.image as any)?.src) || '/fallback.png'}
+                                             alt={step.title}
+                                             className="absolute inset-0 w-full h-full object-cover"
+                                         />
                                         {isActive && (
                                             <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent" />
                                         )}
@@ -122,7 +121,7 @@ const CommercialProcessFlow: React.FC<CommercialProcessFlowProps> = ({
                     </div>
 
                     {/* Active card title + description */}
-                    <div className="mt-8 max-w-md mx-auto text-center min-h-[100px]">
+                    <div className="mt-0 max-w-md mx-auto text-center">
                         <AnimatePresence mode="wait">
                             <motion.div
                                 key={activeIndex}
@@ -142,23 +141,23 @@ const CommercialProcessFlow: React.FC<CommercialProcessFlowProps> = ({
                     </div>
 
                     {/* Step number + nav */}
-                    <div className="flex items-center justify-center gap-6 mt-8">
+                    <div className="flex items-center justify-center gap-4 mt-5">
                         <button
                             onClick={handlePrev}
                             aria-label="Previous step"
-                            className="w-12 h-12 rounded-full bg-black text-white flex items-center justify-center transition-all duration-300 hover:scale-105 active:scale-95"
+                            className="w-8 h-8 rounded-full bg-black text-white flex items-center justify-center transition-all duration-300 hover:scale-105 active:scale-95"
                         >
-                            <ArrowLeft size={20} style={{ color: '#63B846' }} />
+                            <ArrowLeft size={12} style={{ color: '#63B846' }} />
                         </button>
-                        <p className="text-base md:text-lg font-semibold text-black tracking-tight min-w-[100px] text-center">
+                        <p className="text-base md:text-lg font-semibold text-black tracking-tight text-center">
                             Step {steps[activeIndex].stepNumber}
                         </p>
                         <button
                             onClick={handleNext}
                             aria-label="Next step"
-                            className="w-12 h-12 rounded-full bg-black text-white flex items-center justify-center transition-all duration-300 hover:scale-105 active:scale-95"
+                            className="w-8 h-8 rounded-full bg-black text-white flex items-center justify-center transition-all duration-300 hover:scale-105 active:scale-95"
                         >
-                            <ArrowRight size={20} style={{ color: '#63B846' }} />
+                            <ArrowRight size={12} style={{ color: '#63B846' }} />
                         </button>
                     </div>
                 </div>

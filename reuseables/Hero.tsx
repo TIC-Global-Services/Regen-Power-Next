@@ -1,7 +1,9 @@
+
 import React from 'react';
 import type { StaticImageData } from 'next/image';
 import { LucideIcon } from 'lucide-react';
 import CtaButton from './CtaButton';
+import SimpleParallax from 'simple-parallax-js'
 
 export interface HeroProps {
     mediaSrc: string | StaticImageData;
@@ -31,8 +33,8 @@ const Hero: React.FC<HeroProps> = ({
     description,
     ctaText,
     ctaLink,
-    CtatextColor='text-white',
-    imageClass='object-cover',
+    CtatextColor = 'text-white',
+    imageClass = 'object-cover',
     isFullScreen = true,
     subtitleColor = 'text-black',
     descriptionColor = 'text-black',

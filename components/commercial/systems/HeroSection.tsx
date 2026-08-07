@@ -9,7 +9,7 @@ interface Props {
 export default function HeroSection({ resolved }: Props) {
   return (
     <Hero
-      mediaSrc={resolved.mediaSrc}
+      mediaSrc={resolved.mediaSrc || '/commercial_system_hero.png'}
       mediaType="image"
       topSubtitle={resolved.topSubtitle}
       mainTitle={resolved.mainTitle}

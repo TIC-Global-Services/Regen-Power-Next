@@ -1,5 +1,5 @@
 import React from 'react';
-import Image, { StaticImageData } from 'next/image';
+import type { StaticImageData } from 'next/image';
 import SectionHeader from '@/reuseables/SectionHeader';
 import Reveal from '@/reuseables/Reveal';
 
@@ -41,11 +41,10 @@ const SixIndustriesSection: React.FC<SixIndustriesSectionProps> = ({
                             className="bg-[#E5EFD5] rounded-[20px] p-6 md:p-8 flex flex-col min-h-[320px] md:min-h-[360px] hover:bg-[#D7E5C0] transition-colors duration-300"
                         >
                             <div className="relative w-12 h-12 md:w-14 md:h-14">
-                                <Image
-                                    src={industry.icon}
+                                <img
+                                    src={(typeof industry.icon === 'string' ? industry.icon : (industry.icon as any)?.src) || '/fallback.png'}
                                     alt={industry.title}
-                                    fill
-                                    className="object-contain"
+                                    className="w-full h-full object-contain"
                                 />
                             </div>
 

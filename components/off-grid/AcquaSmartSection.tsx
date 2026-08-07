@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { ArrowLeft, ArrowRight } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
@@ -17,7 +17,12 @@ interface AcquaSmartSectionProps {
     imageAlt?: string;
     cards: AcquaSmartCard[];
 }
-
+const getPerPage = () => {
+    if (typeof window === 'undefined') return 3;
+    if (window.innerWidth < 640) return 1;   // mobile: one card = one slide
+    if (window.innerWidth < 1024) return 2;  // tablet
+    return 3;                                // desktop
+};
 const AcquaSmartSection: React.FC<AcquaSmartSectionProps> = ({
     subtitle,
     title,
@@ -26,8 +31,20 @@ const AcquaSmartSection: React.FC<AcquaSmartSectionProps> = ({
     imageAlt = 'AcquaSmart water treatment trailer',
     cards,
 }) => {
-    const [page, setPage] = useState(0);
-    const perPage = 3;
+      const [page, setPage] = useState(0);
+    const [perPage, setPerPage] = useState(3);
+ 
+    useEffect(() => {
+        setPerPage(getPerPage());
+ 
+        const handleResize = () => {
+            setPerPage(getPerPage());
+            setPage(0);
+        };
+ 
+        window.addEventListener('resize', handleResize);
+        return () => window.removeEventListener('resize', handleResize);
+    }, []);
     const totalPages = Math.ceil(cards.length / perPage);
 
     const handlePrev = () => {
@@ -51,7 +68,7 @@ const AcquaSmartSection: React.FC<AcquaSmartSectionProps> = ({
                         />
                     </div>
                     <div>
-                        <p className="text-lg md:text-2xl text-black font-light tracking-tight mb-1">
+                        <p className="text-lg md:text-2xl text-black font-light leading-none tracking-tight mb-1">
                             {subtitle}
                         </p>
                         <h2 className="text-4xl md:text-6xl lg:text-[4.5rem] text-[#63B846] font-normal tracking-tighter leading-none mb-6">

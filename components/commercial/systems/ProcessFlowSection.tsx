@@ -16,7 +16,7 @@ export default function ProcessFlowSection({ resolved }: Props) {
         stepNumber: s.stepNumber,
         title: s.title,
         description: s.description,
-        image: s.image?.src ?? '',
+        image: s.image?.src || '/fallback.png',
       }))}
     />
   );

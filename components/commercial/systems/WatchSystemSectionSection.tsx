@@ -14,7 +14,7 @@ export default function WatchSystemSectionSection({ resolved }: Props) {
       paragraphs={resolved.paragraphs}
       ctaText={resolved.ctaText || ""}
       ctaHref={resolved.ctaHref || "#"}
-      image={resolved.image?.src ?? ''}
+      image={resolved.image?.src || '/fallback.png'}
     />
   );
 }

@@ -15,7 +15,7 @@ export default function IndustriesSection({ resolved }: Props) {
         title: ind.title,
         description: ind.description,
         caseStudy: ind.caseStudy,
-        icon: ind.icon?.src ?? '',
+        icon: ind.icon?.src || '/regen_logo_nav.png',
       }))}
     />
   );

@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
-import Image, { StaticImageData } from 'next/image';
+import type { StaticImageData } from 'next/image';
 import { ArrowRight } from 'lucide-react';
 import SectionHeader from '@/reuseables/SectionHeader';
 
@@ -129,11 +129,10 @@ const CommercialForm: React.FC<CommercialFormProps> = ({
                         />
 
                         <div className="relative w-full aspect-square max-w-[420px] mt-6 rounded-[20px] overflow-hidden">
-                            <Image
-                                src={image}
+                            <img
+                                src={(typeof image === 'string' ? image : (image as any)?.src) || '/fallback.png'}
                                 alt={imageAlt}
-                                fill
-                                className="object-contain p-2"
+                                className="w-full h-full object-contain p-2"
                             />
                         </div>
                     </div>

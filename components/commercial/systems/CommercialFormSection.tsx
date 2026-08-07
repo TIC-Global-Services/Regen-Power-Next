@@ -12,7 +12,7 @@ export default function CommercialFormSection({ resolved }: Props) {
       subtitle={resolved.subtitle}
       title={resolved.title}
       description={resolved.description}
-      image={resolved.image?.src ?? ''}
+      image={resolved.image?.src || '/fallback.png'}
     />
   );
 }

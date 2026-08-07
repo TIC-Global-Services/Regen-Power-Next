@@ -44,7 +44,7 @@ export const TestimonialImageCard: React.FC<TestimonialImageCardProps> = ({
             alt={imageAlt}
             fill
             className="object-cover"
-            sizes="(min-width: 768px) 33vw, 100vw"
+            sizes="(min-width: 768px) 66vw, 100vw"
         />
     </div>
 );

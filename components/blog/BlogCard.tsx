@@ -1,13 +1,13 @@
 'use client';
 
 import React from 'react';
-import Image, { StaticImageData } from 'next/image';
+import Image from 'next/image';
 import { ArrowUpRight } from 'lucide-react';
 
 export interface BlogCardData {
     title: string;
     description: string;
-    image: StaticImageData | string;
+    image: string;
     imagePosition: 'right' | 'left';
 }
 

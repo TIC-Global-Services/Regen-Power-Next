@@ -9,7 +9,7 @@ interface Props {
 const RDHero = ({ resolved }: Props) => {
   return (
     <Hero
-      mediaSrc={resolved.mediaSrc}
+      mediaSrc={resolved.mediaSrc || '/r&d_hero_banner.png'}
       mediaType="image"
       topSubtitle={resolved.subtitle}
       mainTitle={resolved.mainTitle}

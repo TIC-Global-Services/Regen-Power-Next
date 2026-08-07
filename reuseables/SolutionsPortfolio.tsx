@@ -29,7 +29,7 @@ const defaultCards: PortfolioCard[] = [
         type: 'text',
         variant: 'light-gray',
         title: 'Summer Heat\nDerating',
-        description: 'Inverters Are Specified With Headroom For Sustained 40°C+ Rooftop Temperatures, We Don’t Install On Capacity Limits.',
+        description: 'Inverters Are Specified With Headroom For Sustained 40°C+ Rooftop Temperatures, We Don\'t Install On Capacity Limits.',
     },
     {
         type: 'image',
@@ -69,14 +69,14 @@ const TextCardView: React.FC<{ card: TextCard; mobileScroll?: boolean }> = ({ ca
     const isDark = card.variant === 'dark';
     const titleLines = card.title.split('\n');
     return (
-        <div className={`${variantClass[card.variant]} rounded-2xl p-6 md:p-8 flex flex-col justify-between min-h-[280px] md:min-h-[340px] ${mobileScroll ? 'shrink-0 w-[75vw] md:w-auto' : ''}`}>
+        <div className={`${variantClass[card.variant]} rounded-2xl p-6 md:p-8 flex flex-col justify-between h-full min-h-[280px] md:min-h-[340px] ${mobileScroll ? 'shrink-0 w-[75vw] md:w-auto' : ''}`}>
             <h3 className="text-3xl md:text-4xl lg:text-5xl font-normal tracking-tight leading-tight text-[#63B846]">
                 {titleLines.map((line, i) => (
                     <span key={i} className="block">{line}</span>
                 ))}
             </h3>
             <div>
-                <p className={`text-sm md:text-base leading-snug tracking-tight max-w-md ${isDark ? 'text-white/80' : 'text-black/80'}`}>
+                <p className={`text-sm md:text-base leading-[1.2] tracking-tight max-w-md ${isDark ? 'text-white/80' : 'text-black/80'}`}>
                     {card.description}
                 </p>
                 {card.specs && (
@@ -90,7 +90,7 @@ const TextCardView: React.FC<{ card: TextCard; mobileScroll?: boolean }> = ({ ca
 };
 
 const ImageCardView: React.FC<{ card: ImageCard; mobileScroll?: boolean }> = ({ card, mobileScroll }) => (
-    <div className={`${variantClass[card.variant]} rounded-2xl p-6 md:p-8 flex items-center justify-center min-h-[280px] md:min-h-[300px] ${mobileScroll ? 'shrink-0 w-[75vw] md:w-auto' : ''}`}>
+    <div className={`${variantClass[card.variant]} rounded-2xl p-6 md:p-8 flex items-center justify-center h-full min-h-[280px] md:min-h-[300px] ${mobileScroll ? 'shrink-0 w-[75vw] md:w-auto' : ''}`}>
         <div className="relative w-32 h-32 md:w-40 md:h-40">
             <Image
                 src={card.image || gridDots}
@@ -140,21 +140,21 @@ const SolutionsPortfolio: React.FC<SolutionsPortfolioProps> = ({
 }) => {
     return (
         <section className={`w-full px-[5%] py-12 md:py-20 ${className}`}>
-            <div className="">
+            <div>
                 {showHeader && (subtitle || title) && (
-                    <div className="text-left md:text-center mb-10 md:mb-14">
+                    <div className="text-center mb-10 md:mb-14">
                         {subtitle && (
-                            <p className="text-base md:text-3xl font-light tracking-tight text-black leading-none">
+                            <p className="text-2xl md:text-3xl font-light tracking-tight text-black leading-none">
                                 {subtitle}
                             </p>
                         )}
                         {title && (
-                            <h2 className="text-[2.5rem] md:text-6xl lg:text-7xl font-normal leading-none tracking-tight text-[#63B846]">
+                            <h2 className="text-5xl md:text-6xl lg:text-7xl font-normal leading-none tracking-tight text-[#63B846]">
                                 {title}
                             </h2>
                         )}
                         {description && (
-                            <p className="text-base text-black/80 leading-[1.2] mt-4 max-w-3xl mx-auto">
+                            <p className="text-sm md:text-base text-black/80 leading-[1.2] mt-4 max-w-3xl mx-auto">
                                 {description}
                             </p>
                         )}
