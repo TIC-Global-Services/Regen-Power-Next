@@ -10,6 +10,7 @@ export * as batteryProduct from "./battery-product";
 export * as batteryStorage from "./battery-storage";
 export * as smartHomeBattery from "./smart-home-battery";
 export * as evCharging from "./ev-charging";
+export * as home from "./home";
 export * as batteryBrands from "./battery-brands";
 export * as faq from "./faq";
 export * as commercial from "./commercial";

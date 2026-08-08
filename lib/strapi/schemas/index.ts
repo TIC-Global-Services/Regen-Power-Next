@@ -350,6 +350,33 @@ export { BlogHeroSchema, BlogCategoryFilterSchema, BlogCtaBannerSchema } from ".
 export type { PortfolioHeroData, PortfolioFiltersData } from "./portfolio";
 export { PortfolioHeroSchema, PortfolioFiltersSchema } from "./portfolio";
 export type {
+  HomeHeroData,
+  HomeAwardsData,
+  HomeWhyChooseUsData,
+  HomeExpertiseData,
+  HomeSolarAndStorageData,
+  HomePartnersAndMembershipData,
+  HomeThreeWaysToPayData,
+  HomeCraftmanshipData,
+  HomeRealStoriesData,
+  HomeSmartSolarData,
+  HomeBatteryQuoteData,
+} from "./home";
+export {
+  HomeHeroSchema,
+  HomeAwardsSchema,
+  HomeWhyChooseUsSchema,
+  HomeExpertiseSchema,
+  HomeSolarAndStorageSchema,
+  HomePartnersAndMembershipSchema,
+  HomeThreeWaysToPaySchema,
+  HomeCraftmanshipSchema,
+  HomeRealStoriesSchema,
+  HomeSmartSolarSchema,
+  HomeBatteryQuoteSchema,
+} from "./home";
+
+export type {
   EvChargingHeroData,
   EvChargingWallConnectorData,
   EvChargingChargerProductsData,

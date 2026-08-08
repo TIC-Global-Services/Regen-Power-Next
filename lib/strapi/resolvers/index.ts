@@ -24,6 +24,43 @@ export type {
 } from "./solar";
 
 export {
+  resolveHomeHero,
+  resolveHomeAwards,
+  resolveHomeWhyChooseUs,
+  resolveHomeExpertise,
+  resolveHomeSolarAndStorage,
+  resolveHomePartnersAndMembership,
+  resolveHomeThreeWaysToPay,
+  resolveHomeCraftmanship,
+  resolveHomeRealStories,
+  resolveHomeSmartSolar,
+  resolveHomeBatteryQuote,
+} from "./home";
+export type {
+  ResolvedHomeHero,
+  ResolvedHomeAwards,
+  ResolvedHomeAwardLogo,
+  ResolvedHomeWhyChooseUs,
+  ResolvedHomeExpertise,
+  ResolvedHomeExpertiseItem,
+  ResolvedHomeSolarAndStorage,
+  ResolvedHomeFeatureItem,
+  ResolvedHomePartnersAndMembership,
+  ResolvedHomeLogoItem,
+  ResolvedHomeThreeWaysToPay,
+  ResolvedHomeFinancingCard,
+  ResolvedHomeCraftmanship,
+  ResolvedHomeBrandCategory,
+  ResolvedHomeBrandLogo,
+  ResolvedHomeRealStories,
+  ResolvedHomeBadgeItem,
+  ResolvedHomeReview,
+  ResolvedHomeSmartSolar,
+  ResolvedHomeSmartSolarCard,
+  ResolvedHomeBatteryQuote,
+} from "./home";
+
+export {
   resolveSharedCtaBanner,
   resolveSharedFaq,
   resolveSharedEditorialSection,
