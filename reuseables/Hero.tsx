@@ -3,7 +3,6 @@ import React from 'react';
 import type { StaticImageData } from 'next/image';
 import { LucideIcon } from 'lucide-react';
 import CtaButton from './CtaButton';
-import SimpleParallax from 'simple-parallax-js'
 
 export interface HeroProps {
     mediaSrc: string | StaticImageData;

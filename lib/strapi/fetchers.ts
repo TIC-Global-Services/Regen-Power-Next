@@ -10,6 +10,7 @@ import * as batteryRebates from "./populate/battery-rebates";
 import * as batteryProduct from "./populate/battery-product";
 import * as batteryStorage from "./populate/battery-storage";
 import * as smartHomeBattery from "./populate/smart-home-battery";
+import * as evCharging from "./populate/ev-charging";
 import * as batteryBrands from "./populate/battery-brands";
 import * as faq from "./populate/faq";
 import * as commercial from "./populate/commercial";
@@ -41,6 +42,7 @@ const PAGE_SLUGS = {
   batteryStorage: "battery-storage-page",
   smartHomeBattery: "smart-home-battery-page",
   brandsWeCarry: "battery-brands-page",
+  evCharging: "ev-charging-page",
 } as const;
 
 async function getSingleType(
@@ -316,5 +318,23 @@ export const getBrandsWeCarryPage = () =>
       batteryBrands.whyOurInstaller,
       batteryBrands.faq,
       batteryBrands.ctaBanner
+    )
+  );
+
+export const getEvChargingPage = () =>
+  getSingleType(
+    PAGE_SLUGS.evCharging,
+    populate(
+      evCharging.hero,
+      evCharging.wallConnector,
+      evCharging.chargerProducts,
+      evCharging.installerBrands,
+      evCharging.benefitCards,
+      evCharging.homeBattery,
+      evCharging.featureCards,
+      evCharging.installationSteps,
+      evCharging.stats,
+      evCharging.faq,
+      evCharging.ctaBanner
     )
   );

@@ -350,6 +350,41 @@ export { BlogHeroSchema, BlogCategoryFilterSchema, BlogCtaBannerSchema } from ".
 export type { PortfolioHeroData, PortfolioFiltersData } from "./portfolio";
 export { PortfolioHeroSchema, PortfolioFiltersSchema } from "./portfolio";
 export type {
+  EvChargingHeroData,
+  EvChargingWallConnectorData,
+  EvChargingChargerProductsData,
+  EvChargingChargerProductData,
+  EvChargingInstallerBrandsData,
+  EvChargingInstallerBrandData,
+  EvChargingBenefitCardsData,
+  EvChargingBenefitData,
+  EvChargingHomeBatteryData,
+  EvChargingFeatureCardsData,
+  EvChargingFeatureCardData,
+  EvChargingInstallationStepsData,
+  EvChargingInstallationStepData,
+  EvChargingStatsData,
+  EvChargingWhyChooseCardData,
+} from "./ev-charging";
+export {
+  EvChargingHeroSchema,
+  EvChargingWallConnectorSchema,
+  EvChargingChargerProductsSchema,
+  EvChargingChargerProductSchema,
+  EvChargingInstallerBrandsSchema,
+  EvChargingInstallerBrandSchema,
+  EvChargingBenefitCardsSchema,
+  EvChargingBenefitSchema,
+  EvChargingHomeBatterySchema,
+  EvChargingFeatureCardsSchema,
+  EvChargingFeatureCardSchema,
+  EvChargingInstallationStepsSchema,
+  EvChargingInstallationStepSchema,
+  EvChargingStatsSchema,
+  EvChargingWhyChooseCardSchema,
+} from "./ev-charging";
+
+export type {
   PressMediaHeroData,
   PressMediaFeaturedArticleData,
   PressMediaLatestNewsSectionData,

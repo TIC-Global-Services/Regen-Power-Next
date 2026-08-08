@@ -199,6 +199,35 @@ export type {
 } from "./battery-storage";
 
 export {
+  resolveEvChargingHero,
+  resolveEvChargingWallConnector,
+  resolveEvChargingChargerProducts,
+  resolveEvChargingInstallerBrands,
+  resolveEvChargingBenefitCards,
+  resolveEvChargingHomeBattery,
+  resolveEvChargingFeatureCards,
+  resolveEvChargingInstallationSteps,
+  resolveEvChargingStats,
+} from "./ev-charging";
+export type {
+  ResolvedEvChargingHero,
+  ResolvedEvChargingWallConnector,
+  ResolvedEvChargingChargerProducts,
+  ResolvedEvChargingChargerProduct,
+  ResolvedEvChargingInstallerBrands,
+  ResolvedEvChargingInstallerBrand,
+  ResolvedEvChargingBenefitCards,
+  ResolvedEvChargingBenefit,
+  ResolvedEvChargingHomeBattery,
+  ResolvedEvChargingFeatureCards,
+  ResolvedEvChargingFeatureCard,
+  ResolvedEvChargingInstallationSteps,
+  ResolvedEvChargingInstallationStep,
+  ResolvedEvChargingStats,
+  ResolvedEvChargingWhyChooseCard,
+} from "./ev-charging";
+
+export {
   resolveSmartHomeHero,
   resolveSmartHomeGreatFit,
   resolveFourPillars,
