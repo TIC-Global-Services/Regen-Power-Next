@@ -72,7 +72,7 @@ const FAQ = ({
                     <h3 className="text-xl md:text-2xl text-black font-normal tracking-tighter">
                         {topTitle}
                     </h3>
-                    <h2 className="text-[2.5rem] md:text-[5.5rem] text-[#63B846] font-light md:leading-none tracking-tighter">
+                    <h2 className="text-[2.5rem] md:text-[5.5rem] text-[#63B846] font-light md:leading-none tracking-tight">
                         {title}
                     </h2>
                 </div>

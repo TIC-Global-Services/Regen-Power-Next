@@ -77,24 +77,26 @@ const Expertise = ({ data }: ExpertiseProps) => {
                 className="min-w-[45vw] sm:min-w-[45vw] lg:min-w-0 snap-center shrink-0 flex flex-col h-auto"
               >
                 <div
-                  className={`bg-[#f0f6ec] rounded-[20px] p-6 w-full lg:p-8 flex flex-col flex-grow min-h-[400px] hover:bg-[#8dc63f] lg:min-h-[60dvh] shadow-2xl hover:-translate-y-2 transition-transform duration-300 group`}
+                  className={`bg-[#f0f6ec] rounded-[20px] p-6 lg:p-8 flex flex-col w-full h-[420px] md:h-[480px] lg:h-[58dvh] hover:bg-[#8dc63f] shadow-2xl hover:-translate-y-2 transition-transform duration-300 group`}
                 >
                   {/* 3D Image Container */}
-                  <div className="relative w-full h-[200px] md:min-h-[300px] md:ml-10 mb-20  flex justify-end items-end overflow-hidden">
-                    <Image
-                      src={item.image}
-                      alt={item.title.replace('\\n', ' ')}
-                      fill
-                      className="object-cover md:object-contain drop-shadow-xl group-hover:scale-105 transition-transform duration-500"
-                    />
+                  <div className="relative w-full h-[52%] flex justify-end items-end overflow-visible md:ml-6">
+                    <div className="relative w-[90%] h-full transform group-hover:scale-105 transition-transform duration-500">
+                      <Image
+                        src={item.image}
+                        alt={item.title.replace('\\n', ' ')}
+                        fill
+                        className="object-contain object-right-bottom drop-shadow-xl"
+                      />
+                    </div>
                   </div>
 
                   {/* Text and Icon at the bottom */}
-                  <div className="mt-auto">
+                  <div className="h-[43%] flex flex-col justify-end mt-auto">
                     <div className="mb-4">
                       <Image src={item.icon} alt="" width={32} height={32} className="w-8 h-8 object-contain shrink-0" />
                     </div>
-                    <h3 className={`text-[1.90rem] font-medium leading-[1.2] tracking-tight whitespace-pre-line ${item.textColor}`}>
+                    <h3 className={`text-xl md:text-2xl lg:text-[1.90rem] font-medium leading-[1.2] tracking-tight whitespace-pre-line ${item.textColor}`}>
                       {item.title}
                     </h3>
                   </div>

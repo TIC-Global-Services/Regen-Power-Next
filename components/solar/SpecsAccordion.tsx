@@ -22,6 +22,7 @@ const SpecsAccordion: React.FC<SpecsAccordionProps> = ({ resolved }) => {
           title={resolved.title}
           description={resolved.description}
           align="left"
+          descClass="max-w-2xl"
           className="mb-16"
         />
 
@@ -34,7 +35,7 @@ const SpecsAccordion: React.FC<SpecsAccordionProps> = ({ resolved }) => {
                 <div className={`${idx !== 4 ?'border-b':'' } border-gray-300 py-8`}>
                   <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-8">
                     <div className="lg:w-[280px] shrink-0">
-                      <h3 className="text-2xl md:text-[2.5rem] text-black leading-tight">
+                      <h3 className="text-2xl md:text-[2.5rem] text-black leading-tight capitalize">
                         {spec.title}
                       </h3>
                     </div>

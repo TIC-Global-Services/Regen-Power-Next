@@ -119,7 +119,7 @@ const FeatureSplitSection: React.FC<FeatureSplitSectionProps> = ({
                             align="left"
                             subtitleClass="text-base md:text-xl lg:text-2xl normal-case block text-black"
                             titleClass="text-3xl md:text-4xl lg:text-[2.75rem] xl:text-[3.25rem] font-normal leading-[1.1] tracking-tight"
-                            descClass="text-gray-600 leading-[1.2] font-light"
+                            descClass="leading-[1.2] font-light"
                         />
                     </div>
 

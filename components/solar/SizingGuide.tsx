@@ -21,7 +21,8 @@ const SizingGuide: React.FC<SizingGuideProps> = ({ resolved }) => {
           subtitle={resolved.subtitle}
           title={resolved.title}
           description={resolved.description}
-          align="left"
+          align="center"
+          descClass="max-w-3xl"
           className="mx-auto mb-8"
         />
 
@@ -111,7 +112,7 @@ const SizingGuide: React.FC<SizingGuideProps> = ({ resolved }) => {
                 <Reveal
                   key={idx}
                   delay={idx * 0.15}
-                  className="relative flex flex-col justify-end rounded-[24px] overflow-hidden group min-h-[380px]"
+                  className="relative flex flex-col justify-end rounded-[24px] overflow-hidden group min-h-[48dvh]"
                 >
                   <div className="absolute inset-0 z-0">
                     {card.image ? (

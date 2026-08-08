@@ -25,11 +25,12 @@ const SolarPackages: React.FC<SolarPackagesProps> = ({ resolved }) => {
           title={resolved.title}
           description={resolved.description}
           align="center"
+          descClass="max-w-6xl"
           className="mx-auto mb-16"
         />
 
         {/* Card Layout: 2-col on desktop, stacked on mobile */}
-        <div className="md:grid grid-cols-1 md:grid-cols-2 gap-4 justify-center items-start max-w-4xl mx-auto">
+        <div className="md:grid grid-cols-1 md:grid-cols-3 gap-4 justify-center items-start">
           {packages.map((pkg, idx) => (
             <Reveal
               key={idx}

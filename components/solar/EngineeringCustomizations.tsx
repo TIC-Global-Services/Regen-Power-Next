@@ -26,6 +26,9 @@ const EngineeringCustomizations: React.FC<EngineeringCustomizationsProps> = ({
 
     if (layout.spacerAt === 0) itemsWithSpacer.push("spacer");
     colItems.forEach((item, i) => {
+      if (layout.spacerAt === 1 && i === 1) {
+        itemsWithSpacer.push("spacer");
+      }
       itemsWithSpacer.push({
         title: item.title,
         desc: item.description,

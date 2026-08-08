@@ -66,10 +66,10 @@ const InvertersSliderSection: React.FC<InvertersSliderSectionProps> = ({
                   <Reveal
                     key={idx}
                     delay={idx * 0.1}
-                    className="bg-[#EEF6EB]/50 rounded-[24px] p-8 flex flex-col justify-between h-[520px] w-[80vw] lg:w-[380px] shrink-0 shadow-sm hover:shadow-md transition-shadow"
+                    className="bg-[#EEF6EB]/50 rounded-[24px] p-8 flex flex-col justify-between min-h-[60dvh] w-[80vw] lg:w-[380px] shrink-0  transition-shadow"
                   >
                     <div className="flex flex-col">
-                      <div className="relative w-[150px] h-[80px] mb-10 flex items-center">
+                      <div className="relative w-[150px] h-[100px] mb-10 flex items-center">
                         {logoMap[item.name] ? (
                           <img
                             src={logoMap[item.name]?.src || logoMap[item.name]}

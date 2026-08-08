@@ -18,7 +18,7 @@ export default function DealsPhilosophySection({ resolved }: Props) {
       }))}
       align="left"
       subtitleClass="text-lg md:text-2xl text-black font-normal"
-      titleClass="text-4xl md:text-[5rem] text-[#63B846] leading-none font-normal tracking-tight"
+      titleClass="text-4xl md:text-[3.75rem] text-[#63B846] leading-none font-normal tracking-tight"
       revealEffect
     />
   );

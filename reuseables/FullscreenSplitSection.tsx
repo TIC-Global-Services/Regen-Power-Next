@@ -15,7 +15,7 @@ export interface FullscreenSplitSectionProps {
   badge?: string;
 }
 
-const FullscreenSplitSection: React.FC<FullscreenSplitSectionProps> = ({
+const  FullscreenSplitSection: React.FC<FullscreenSplitSectionProps> = ({
   subtitle,
   title,
   description,
@@ -50,7 +50,7 @@ const FullscreenSplitSection: React.FC<FullscreenSplitSectionProps> = ({
 
         {/* Text Column */}
         <div
-          className={`flex flex-col pt-4 pb-16 lg:py-24 px-5 md:px-16 ${isImageLeft ? 'lg:pl-12 lg:pr-20' : 'lg:pl-20 lg:pr-12'
+          className={`flex flex-col pt-4 pb-16 lg:py-24 px-5 md:px-10 ${isImageLeft ? 'lg:pl-12 lg:pr-20' : 'lg:pl-20 lg:pr-12'
             } text-left h-full lg:h-screen lg:min-h-screen ${isSplit ? 'justify-between' : 'justify-center'
             }`}
         >

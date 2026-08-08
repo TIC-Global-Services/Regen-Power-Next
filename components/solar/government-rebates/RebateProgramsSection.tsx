@@ -11,7 +11,7 @@ interface Props {
   resolved: ResolvedRebatesRebatePrograms;
 }
 
-export default function RebateProgramsSection({ resolved }: Props) {
+export default function   RebateProgramsSection({ resolved }: Props) {
   const programs = resolved.programs;
   const [activeIndex, setActiveIndex] = useState(0);
   const [paused, setPaused] = useState(false);

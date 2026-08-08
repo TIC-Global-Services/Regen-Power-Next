@@ -120,36 +120,30 @@ const WhyChooseUs = ({ data }: WhyChooseUsProps) => {
             className="bg-[#A0CF44] rounded-[20px] p-6 md:p-8 relative flex flex-col justify-end min-h-[280px] md:h-full overflow-hidden"
           >
 
-            {/* 1. Main White Corner Box (Houses the Button) */}
-            <div className="absolute top-0 right-0 w-[60px] h-[62px] md:w-[96px] md:h-[98px] bg-white rounded-bl-[20px] z-10 flex items-center justify-center">
-              {/* Floating Plus Button */}
-              <button className="w-10 h-10 md:w-18 md:h-18 z-100 bg-black rounded-full flex items-center justify-center text-white text-3xl md:text-6xl pb-1 md:pb-3 font-light shadow-lg hover:scale-105 transition-transform">
-                +
-              </button>
-            </div>
+            
 
             {/* 2. Top-Left Inverse Curve Mask */}
-            <div className="absolute top-0 right-[60px] md:right-[96px] w-5 h-12 bg-transparent z-1 rounded-tr-[20px] shadow-[16px_-16px_0_16px_#ffffff]" />
+            {/* <div className="absolute top-0 right-[60px] md:right-[96px] w-5 h-12 bg-transparent z-1 rounded-tr-[20px] shadow-[16px_-16px_0_16px_#ffffff]" /> */}
 
             {/* 3. Bottom-Right Inverse Curve Mask */}
-            <div className="absolute top-[62px] md:top-[98px] right-0 w-4 h-6 bg-transparent z-10 rounded-tr-[20px] shadow-[16px_-16px_0_16px_#ffffff]" />
+            {/* <div className="absolute top-[62px] md:top-[98px] right-0 w-4 h-6 bg-transparent z-10 rounded-tr-[20px] shadow-[16px_-16px_0_16px_#ffffff]" /> */}
 
             {/* Stats Layout */}
             <div className="relative z-0 flex flex-col mt-8 md:mt-16">
               <div>
-                <h3 className="text-[3.5rem] lg:text-[5.5rem] leading-none font-black text-black tracking-tighter">
+                <h3 className="text-[3.5rem] lg:text-[5.5rem] leading-none font-black text-white tracking-tighter">
                   <AnimatedCounter from={0} to={data.batteryInstallationsCount} />+
                 </h3>
-                <p className="text-xl lg:text-2xl text-black font-normal">
+                <p className="text-xl lg:text-2xl text-white font-normal">
                   {data.batteryInstallationsLabel}
                 </p>
               </div>
 
               <div>
-                <h3 className="text-[3.5rem] lg:text-[5.5rem] leading-none font-black text-black tracking-tighter">
+                <h3 className="text-[3.5rem] lg:text-[5.5rem] leading-none font-black text-white tracking-tighter">
                   <AnimatedCounter from={0} to={data.solarInstallationsCount} />+
                 </h3>
-                <p className="text-xl lg:text-2xl text-black font-normal">
+                <p className="text-xl lg:text-2xl text-white font-normal">
                   {data.solarInstallationsLabel}
                 </p>
               </div>

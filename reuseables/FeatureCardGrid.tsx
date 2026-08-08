@@ -88,12 +88,12 @@ const FeatureCardGrid: React.FC<FeatureCardGridProps> = ({
       <section className="py-10 md:py-20 bg-white px-[5%] md:px-[5%] overflow-hidden">
         <div className="text-left md:text-center mb-5 md:mb-16 -space-y-4">
           {topSubtitle && (
-            <h3 className="text-xl md:text-[2.125rem] text-black font-normal tracking-tight capitalize mb-1">
+            <h3 className="text-xl md:text-[2.125rem] text-black font-normal tracking-tight capitalize ">
               {topSubtitle}
             </h3>
           )}
           {title && (
-            <h2 className="text-[2.5rem] md:text-5xl lg:text-[5rem] text-[#63B846] leading-none font-normal capitalize tracking-tighter mb-2">
+            <h2 className="text-[2.5rem] md:text-5xl lg:text-[5rem]  text-[#63B846] leading-none font-normal capitalize tracking-tighter mb-4 mt-2">
               {title}
             </h2>
           )}

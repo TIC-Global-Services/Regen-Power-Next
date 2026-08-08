@@ -148,7 +148,7 @@ const EditorialTextSection: React.FC<EditorialTextSectionProps> = ({
     <>
       {badge && (
         <div className={`mb-6 flex ${align === 'left' ? 'justify-start' : align === 'right' ? 'justify-end' : 'justify-center'}`}>
-          <span className="bg-gray-100 text-gray-900 text-xs font-semibold uppercase tracking-wider px-4 py-1.5 rounded-full">
+          <span className="bg-[#E1D9D4] text-gray-900 text-xs font-semibold uppercase tracking-wider px-4 py-1.5 rounded-full">
             {badge}
           </span>
         </div>

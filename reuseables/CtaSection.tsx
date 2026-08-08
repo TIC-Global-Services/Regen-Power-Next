@@ -43,12 +43,12 @@ const CtaSection: React.FC<CtaSectionProps> = ({
                     <p className="text-base md:text-3xl font-light tracking-tighter leading-none">
                         {subtitle}
                     </p>
-                    <h2 className="text-[2.5rem] md:text-6xl lg:text-7xl text-[#63B846] font-normal tracking-tighter leading-none mb-2">
+                    <h2 className="text-[2.5rem] md:text-6xl lg:text-[3.75rem] text-[#63B846] font-normal tracking-tighter leading-none mb-4">
                         {title}
                     </h2>
 
                     {description && (
-                        <p className="text-sm md:text-lg leading-[1.3] tracking-tight text-white/90 mb-6 max-w-2xl">
+                        <p className="text-sm md:text-lg leading-[1.2] tracking-tight text-white/90 mb-6 max-w-2xl">
                             {description}
                         </p>
                     )}
