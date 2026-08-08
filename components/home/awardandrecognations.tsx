@@ -7,6 +7,8 @@ import { Autoplay } from 'swiper/modules';
 import type { Swiper as SwiperType } from 'swiper';
 import 'swiper/css';
 
+import Marquee from '@/reuseables/Marquee';
+
 export interface AwardLogoItem {
   src: StaticImageData | string;
   alt: string;
@@ -31,16 +33,24 @@ const AwardAndRecognations = ({ data }: AwardAndRecognationsProps) => {
       </div>
 
       <div className="lg:px-[5%]">
-        {/* Desktop View - Static Layout */}
-        <div className="hidden md:flex flex-row items-center justify-between gap-4">
-          {data.logos.map((logo, index) => (
-            <div
-              key={index}
-              className={`relative ${index === 2 ? 'h-44 w-40 z-10' : 'h-20 w-40'} ${index === 3 ? 'w-48' : ''}`}
-            >
-              <Image src={logo.src} alt={logo.alt} fill className="object-contain" />
-            </div>
-          ))}
+        {/* Desktop View - Marquee */}
+        <div className="hidden md:block w-full">
+          <Marquee speed={25} gap={80} pauseOnHover={false}>
+            {data.logos.map((logo, index) => (
+              <div
+                key={index}
+                className="flex items-center justify-center h-44 w-60 shrink-0"
+              >
+                <div
+                  className={`relative ${
+                    index === 2 ? 'h-44 w-40' : index === 3 ? 'h-20 w-48' : 'h-20 w-40'
+                  }`}
+                >
+                  <Image src={logo.src} alt={logo.alt} fill className="object-contain" />
+                </div>
+              </div>
+            ))}
+          </Marquee>
         </div>
 
         {/* Mobile View - Swiper Marquee */}

@@ -85,11 +85,11 @@ const WhyChooseUs = ({ data }: WhyChooseUsProps) => {
           initial="hidden"
           whileInView="show"
           viewport={{ once: true, margin: "-100px" }}
-          className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6 auto-rows-auto md:auto-rows-fr"
+          className="grid grid-cols-1 lg:grid-cols-3 gap-4 lg:gap-6 auto-rows-auto lg:auto-rows-fr"
         >
 
           {/* Left Card - Award Winner */}
-          <motion.div variants={itemVariants} className="bg-[#EEF6EB] rounded-[20px] p-4 flex flex-col md:min-h-[40dvh]">
+          <motion.div variants={itemVariants} className="bg-[#EEF6EB] rounded-[20px] p-4 flex flex-col md:h-full md:min-h-[55dvh]">
             <div className="w-full relative aspect-2/1 rounded-3xl overflow-hidden mb-2 lg:mb-8 flex items-center justify-center">
               <Image
                 src={data.awardWinnerBg}
@@ -117,7 +117,7 @@ const WhyChooseUs = ({ data }: WhyChooseUsProps) => {
           {/* Middle Card - Installations */}
           <motion.div
             variants={itemVariants}
-            className="bg-[#A0CF44] rounded-[20px] p-6 md:p-8 relative flex flex-col justify-end min-h-[280px] md:h-[350px] lg:min-h-[500px] overflow-hidden"
+            className="bg-[#A0CF44] rounded-[20px] p-6 md:p-8 relative flex flex-col justify-end min-h-[280px] md:h-full overflow-hidden"
           >
 
             {/* 1. Main White Corner Box (Houses the Button) */}
@@ -157,7 +157,7 @@ const WhyChooseUs = ({ data }: WhyChooseUsProps) => {
           </motion.div>
 
           {/* Right Column - Stacked Cards */}
-          <div className="flex flex-col gap-6 h-full">
+          <div className="flex flex-col gap-4 lg:gap-6 h-full">
 
             {/* Top Right Card - Years */}
             <motion.div variants={itemVariants} className="bg-[#f0f6ec] rounded-[20px] p-6 relative overflow-hidden flex-grow flex flex-col justify-end min-h-[220px] md:min-h-[250px]">

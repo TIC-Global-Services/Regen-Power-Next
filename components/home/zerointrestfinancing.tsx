@@ -43,10 +43,10 @@ const ZeroInterestFinancing = ({ data }: ZeroInterestFinancingProps) => {
           />
 
           {/* Cards Grid */}
-          <div className="flex overflow-x-auto md:grid md:grid-cols-3 gap-4 ml-5 md:gap-6 snap-x snap-mandatory -mx-[1%] px-[0%] md:mx-0 md:px-0 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none] pb-4">
+          <div className="flex overflow-x-auto md:grid lg:grid-cols-3 gap-4 ml-5 md:gap-6 snap-x snap-mandatory -mx-[1%] px-[0%] md:mx-0 md:px-0 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none] pb-4">
             {data.cards.map((card, index) => (
               <Reveal key={index} className="group w-[80vw] md:w-auto shrink-0 snap-start flex flex-col md:block">
-                <div className="relative rounded-[24px] overflow-hidden min-h-[420px] md:min-h-[500px]">
+                <div className="relative rounded-[24px] overflow-hidden min-h-[420px] lg:min-h-[500px]">
                   {/* Background Image */}
                   <div className="absolute inset-0 z-0">
                     <Image
