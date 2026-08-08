@@ -3,6 +3,7 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 import { ChevronDown, Plus } from 'lucide-react';
 import gsap from 'gsap';
 import CtaButton from './CtaButton';
@@ -33,7 +34,6 @@ const navItems = [
     name: 'Commercial & Off Grid',
     href: '/commercial-off-grid',
     subItems: [
-    
       { name: 'Off-Grid Solutions', href: '/off-grid-solutions' },
       { name: 'Research & Development', href: '/research-and-development' },
       { name: 'Portfolio', href: '/portfolio' },
@@ -47,11 +47,24 @@ const navItems = [
 const Navbar = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isVisible, setIsVisible] = useState(true);
+  const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
+  const [expandedMobileItem, setExpandedMobileItem] = useState<number | null>(null);
 
+  const pathname = usePathname();
   const overlayRef = useRef<HTMLDivElement | null>(null);
   const menuLinksRef = useRef<HTMLUListElement | null>(null);
   const plusIconRef = useRef<HTMLDivElement | null>(null);
   const lastScrollY = useRef(0);
+
+  // Close navigation menus on route change
+  useEffect(() => {
+    setHoveredIndex(null);
+    setExpandedMobileItem(null);
+    if (isMobileMenuOpen) {
+      setIsMobileMenuOpen(false);
+      closeMenu();
+    }
+  }, [pathname]);
 
   useEffect(() => {
     if (isMobileMenuOpen) {
@@ -68,7 +81,7 @@ const Navbar = () => {
     const handleScroll = () => {
       const currentY = window.scrollY;
       // Don't hide navbar if mobile menu is open
-      if (currentY > lastScrollY.current && currentY > 80 && document.body.style.overflow !== 'hidden') {
+      if (currentY > lastScrollY.current && currentY > 80 && !isMobileMenuOpen) {
         setIsVisible(false);
       } else {
         setIsVisible(true);
@@ -78,7 +91,7 @@ const Navbar = () => {
 
     window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+  }, [isMobileMenuOpen]);
 
   useEffect(() => {
     if (overlayRef.current) {
@@ -150,16 +163,23 @@ const Navbar = () => {
           visibility: "hidden",
           opacity: 0,
         });
+        setExpandedMobileItem(null);
       },
     });
   }, []);
 
   const toggleMenu = useCallback(() => {
     setIsMobileMenuOpen((p) => {
-      !p ? openMenu() : closeMenu();
-      return !p;
+      const nextState = !p;
+      if (nextState) {
+        openMenu();
+      } else {
+        closeMenu();
+      }
+      return nextState;
     });
   }, [openMenu, closeMenu]);
+
 
   return (
     <header className={`fixed top-0 left-0 right-0 z-50 w-full py-6 px-4 md:px-8 transition-transform duration-300 ${isVisible ? 'translate-y-0' : '-translate-y-full'}`}>
@@ -176,41 +196,60 @@ const Navbar = () => {
         </Link>
 
         {/* Desktop Navigation */}
-        <nav className="hidden lg:flex items-center bg-[#63B84666] backdrop-blur-md rounded-full px-2 py-1.5 shadow-sm border-1 border-[#63B846]">
+        <nav className="hidden lg:flex items-center bg-[#63B84666] backdrop-blur-md rounded-full px-2 py-1.5 shadow-sm border border-[#63B846]">
           <ul className="flex items-center text-sm font-medium text-black">
-            {navItems.map((item, index) => (
-              <li key={index} className="relative group px-3 py-2">
-                <Link
-                  href={item.href}
-                  className="flex items-center gap-1 hover:text-white transition-colors text-black"
+            {navItems.map((item, index) => {
+              const isHovered = hoveredIndex === index;
+              return (
+                <li
+                  key={index}
+                  className="relative px-3 py-2"
+                  onMouseEnter={() => setHoveredIndex(index)}
+                  onMouseLeave={() => setHoveredIndex(null)}
                 >
-                  {item.name}
-                  {item.subItems && (
-                    <ChevronDown size={14} className="group-hover:rotate-180 transition-transform duration-300" />
-                  )}
-                </Link>
+                  <Link
+                    href={item.href}
+                    className="flex items-center gap-1 hover:text-white transition-colors text-black"
+                    onClick={() => setHoveredIndex(null)}
+                  >
+                    {item.name}
+                    {item.subItems && (
+                      <ChevronDown
+                        size={14}
+                        className={`transition-transform duration-300 ${isHovered ? 'rotate-180' : ''}`}
+                      />
+                    )}
+                  </Link>
 
-                {/* Dropdown Menu */}
-                {item.subItems && (
-                  <div className="absolute left-0 top-full pt-4 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 transform translate-y-2 group-hover:translate-y-0">
-                    <div className="bg-white rounded-xl shadow-xl overflow-hidden min-w-[200px] border border-gray-100 p-2">
-                      <ul className="flex flex-col">
-                        {item.subItems.map((subItem, subIndex) => (
-                          <li key={subIndex}>
-                            <Link
-                              href={subItem.href}
-                              className="block px-4 py-2 text-sm text-gray-700 hover:bg-[#8dc63f]/10 hover:text-[#8dc63f] rounded-lg transition-colors"
-                            >
-                              {subItem.name}
-                            </Link>
-                          </li>
-                        ))}
-                      </ul>
+                  {/* Dropdown Menu */}
+                  {item.subItems && (
+                    <div
+                      className={`absolute left-0 top-full pt-4 transition-all duration-300 transform ${
+                        isHovered
+                          ? 'opacity-100 visible translate-y-0'
+                          : 'opacity-0 invisible translate-y-2'
+                      }`}
+                    >
+                      <div className="bg-white rounded-xl shadow-xl overflow-hidden min-w-[200px] border border-gray-100 p-2">
+                        <ul className="flex flex-col">
+                          {item.subItems.map((subItem, subIndex) => (
+                            <li key={subIndex}>
+                              <Link
+                                href={subItem.href}
+                                className="block px-4 py-2 text-sm text-gray-700 hover:bg-[#8dc63f]/10 hover:text-[#8dc63f] rounded-lg transition-colors"
+                                onClick={() => setHoveredIndex(null)}
+                              >
+                                {subItem.name}
+                              </Link>
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
                     </div>
-                  </div>
-                )}
-              </li>
-            ))}
+                  )}
+                </li>
+              );
+            })}
           </ul>
         </nav>
 
@@ -236,44 +275,79 @@ const Navbar = () => {
           className="fixed inset-0 bg-[#0a0a0a]/95 backdrop-blur-2xl z-40 lg:hidden flex flex-col pt-28 px-8"
         >
           <ul ref={menuLinksRef} className="flex flex-col gap-6 overflow-y-auto pb-20">
-            {navItems.map((item, index) => (
-              <li key={index} className="flex flex-col gap-3">
-                <Link
-                  href={item.href}
-                  className="text-3xl font-medium text-white flex justify-between items-center hover:text-[#8dc63f] transition-colors"
-                  onClick={() => {
-                    toggleMenu();
-                  }}
-                >
-                  {item.name}
-                </Link>
-                {item.subItems && (
-                  <ul className="flex flex-col gap-3 pl-4 border-l border-white/10 mt-2">
-                    {item.subItems.map((subItem, subIndex) => (
-                      <li key={subIndex}>
-                        <Link
-                          href={subItem.href}
-                          className="text-gray-400 py-1 block text-xl hover:text-white transition-colors"
-                          onClick={toggleMenu}
-                        >
-                          {subItem.name}
-                        </Link>
-                      </li>
-                    ))}
-                  </ul>
-                )}
-              </li>
-            ))}
+            {navItems.map((item, index) => {
+              const hasSubItems = !!item.subItems;
+              const isExpanded = expandedMobileItem === index;
+              return (
+                <li key={index} className="flex flex-col gap-1">
+                  <div className="flex justify-between items-center w-full">
+                    <Link
+                      href={item.href}
+                      className="text-3xl font-medium text-white hover:text-[#8dc63f] transition-colors flex-1 py-1"
+                      onClick={() => {
+                        setIsMobileMenuOpen(false);
+                        closeMenu();
+                      }}
+                    >
+                      {item.name}
+                    </Link>
+                    {hasSubItems && (
+                      <button
+                        className="p-3 -mr-3 text-white/60 hover:text-[#8dc63f] transition-colors focus:outline-none cursor-pointer"
+                        onClick={() => setExpandedMobileItem(isExpanded ? null : index)}
+                        aria-label="Toggle submenu"
+                      >
+                        <ChevronDown
+                          size={28}
+                          className={`transition-transform duration-300 ${isExpanded ? 'rotate-180 text-[#8dc63f]' : ''}`}
+                        />
+                      </button>
+                    )}
+                  </div>
+
+                  {/* Mobile Submenu Accordion */}
+                  {hasSubItems && (
+                    <div
+                      className={`grid transition-all duration-300 ease-in-out ${
+                        isExpanded ? 'grid-rows-[1fr] opacity-100 mt-2' : 'grid-rows-[0fr] opacity-0 pointer-events-none'
+                      }`}
+                    >
+                      <div className="overflow-hidden">
+                        <ul className="flex flex-col gap-3 pl-4 border-l border-white/10">
+                          {item.subItems?.map((subItem, subIndex) => (
+                            <li key={subIndex}>
+                              <Link
+                                href={subItem.href}
+                                className="text-gray-400 py-1 block text-xl hover:text-white transition-colors"
+                                onClick={() => {
+                                  setIsMobileMenuOpen(false);
+                                  closeMenu();
+                                }}
+                              >
+                                {subItem.name}
+                              </Link>
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                    </div>
+                  )}
+                </li>
+              );
+            })}
             <li className="mt-8">
               <CtaButton
-                href="#"
+                href="/contact"
                 text="Contact Us"
                 textColor="text-white"
                 bgClass="bg-[#8dc63f]"
                 borderClass="border border-[#7ebd35]"
                 hoverClass="hover:bg-[#7ebd35]"
                 className="w-full justify-between"
-                onClick={toggleMenu}
+                onClick={() => {
+                  setIsMobileMenuOpen(false);
+                  closeMenu();
+                }}
               />
             </li>
           </ul>
