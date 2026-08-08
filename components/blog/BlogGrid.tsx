@@ -15,12 +15,17 @@ const BlogGrid: React.FC<BlogGridProps> = ({
     defaultCategory,
     cards,
 }) => {
-    const [activeCategory, setActiveCategory] = useState<string>(defaultCategory ?? categories[0].value);
+    const [activeCategory, setActiveCategory] = useState<string>(defaultCategory ?? categories[0]?.value ?? '');
+
+    // Filter cards by the active category
+    const filteredCards = activeCategory
+        ? cards.filter((c) => c.categoryKey === activeCategory)
+        : cards;
 
     const pairs: [BlogCardData, BlogCardData][] = [];
-    for (let i = 0; i < cards.length; i += 2) {
-        const first = cards[i];
-        const second = cards[i + 1];
+    for (let i = 0; i < filteredCards.length; i += 2) {
+        const first = filteredCards[i];
+        const second = filteredCards[i + 1];
         if (first && second) {
             pairs.push([first, second]);
         }

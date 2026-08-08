@@ -9,6 +9,7 @@ export interface BlogCardData {
     description: string;
     image: string;
     imagePosition: 'right' | 'left';
+    categoryKey?: string;
 }
 
 export type BlogCardVariant = 'text' | 'image';
