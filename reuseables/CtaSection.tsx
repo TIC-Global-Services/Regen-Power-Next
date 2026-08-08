@@ -39,11 +39,11 @@ const CtaSection: React.FC<CtaSectionProps> = ({
             </div>
 
             <div className="relative z-10 w-full px-[5%] mt-12 md:mt-16">
-                <div className="max-w-4xl text-white">
-                    <p className="text-2xl md:text-3xl font-light tracking-tighter leading-none">
+                <div className="max-w-4xl text-white capitalize">
+                    <p className="text-base md:text-3xl font-light tracking-tighter leading-none">
                         {subtitle}
                     </p>
-                    <h2 className="text-5xl md:text-6xl lg:text-7xl text-[#63B846] font-normal tracking-tighter leading-none mb-2">
+                    <h2 className="text-[2.5rem] md:text-6xl lg:text-7xl text-[#63B846] font-normal tracking-tighter leading-none mb-2">
                         {title}
                     </h2>
 
