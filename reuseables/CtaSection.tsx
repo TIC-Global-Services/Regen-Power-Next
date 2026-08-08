@@ -29,7 +29,7 @@ const CtaSection: React.FC<CtaSectionProps> = ({
         <section className={`relative w-full ${minHeightClass} flex items-start overflow-hidden`}>
             <div className="absolute inset-0 z-0">
                 <img
-                    src={(typeof bgImage === 'string' ? bgImage : (bgImage as any)?.src) || '/fallback.png'}
+                    src={(typeof bgImage === 'string' ? bgImage : bgImage?.src) || '/fallback.png'}
                     alt=""
                     className="absolute inset-0 w-full h-full object-cover object-bottom"
                 />
@@ -39,11 +39,11 @@ const CtaSection: React.FC<CtaSectionProps> = ({
             </div>
 
             <div className="relative z-10 w-full px-[5%] mt-12 md:mt-16">
-                <div className="max-w-4xl text-white">
-                    <p className="text-2xl md:text-3xl font-light tracking-tighter leading-none">
+                <div className="max-w-4xl text-white capitalize">
+                    <p className="text-base md:text-3xl font-light tracking-tighter leading-none">
                         {subtitle}
                     </p>
-                    <h2 className="text-5xl md:text-6xl lg:text-7xl text-[#63B846] font-normal tracking-tighter leading-none mb-2">
+                    <h2 className="text-[2.5rem] md:text-6xl lg:text-7xl text-[#63B846] font-normal tracking-tighter leading-none mb-2">
                         {title}
                     </h2>
 

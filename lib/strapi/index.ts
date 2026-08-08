@@ -25,10 +25,17 @@ export {
   getReviewsPage,
   getContactPage,
   getFaqPage,
+  getGovernmentRebatesPage,
+  getBatteryProductPage,
+  getBatteryStoragePage,
+  getSmartHomeBatteryPage,
+  getBrandsWeCarryPage,
+  getEvChargingPage,
+  getHomePage,
 } from "./fetchers";
 
 export { populate } from "./populate/index";
-export { solar, brands, deals, shared, rebates, faq, commercial, research, reviews } from "./populate/fragments";
+export { solar, brands, deals, shared, rebates, batteryRebates, batteryProduct, batteryStorage, smartHomeBattery, batteryBrands, evCharging, home, faq, commercial, research, reviews } from "./populate/fragments";
 
 // Backward-compat type aliases (used by existing schemas)
 export type {

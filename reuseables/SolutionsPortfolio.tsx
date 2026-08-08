@@ -1,6 +1,4 @@
-'use client';
-
-import React, { useRef, useState, useEffect, useCallback } from 'react';
+import React from 'react';
 import Image, { StaticImageData } from 'next/image';
 import gridDots from '@/assets/commercial-off-grid/gridDots.png';
 
@@ -67,11 +65,11 @@ const variantClass: Record<CardVariant, string> = {
     'dark': 'bg-[#0a0a0a] text-white',
 };
 
-const TextCardView: React.FC<{ card: TextCard }> = ({ card }) => {
+const TextCardView: React.FC<{ card: TextCard; mobileScroll?: boolean }> = ({ card, mobileScroll }) => {
     const isDark = card.variant === 'dark';
     const titleLines = card.title.split('\n');
     return (
-        <div className={`${variantClass[card.variant]} rounded-2xl p-6 md:p-8 flex flex-col  justify-between h-full min-h-[280px] md:min-h-[340px] h-full`}>
+        <div className={`${variantClass[card.variant]} rounded-2xl p-6 md:p-8 flex flex-col justify-between h-full min-h-[280px] md:min-h-[340px] ${mobileScroll ? 'shrink-0 w-[75vw] md:w-auto' : ''}`}>
             <h3 className="text-3xl md:text-4xl lg:text-5xl font-normal tracking-tight leading-tight text-[#63B846]">
                 {titleLines.map((line, i) => (
                     <span key={i} className="block">{line}</span>
@@ -82,7 +80,7 @@ const TextCardView: React.FC<{ card: TextCard }> = ({ card }) => {
                     {card.description}
                 </p>
                 {card.specs && (
-                    <p className={`text-sm md:text-base leading-snug tracking-tight max-w-md  ${isDark ? 'text-white/80' : 'text-black/80'}`}>
+                    <p className={`text-sm md:text-base leading-snug tracking-tight max-w-md mt-2 ${isDark ? 'text-white/80' : 'text-black/80'}`}>
                         {card.specs}
                     </p>
                 )}
@@ -91,8 +89,8 @@ const TextCardView: React.FC<{ card: TextCard }> = ({ card }) => {
     );
 };
 
-const ImageCardView: React.FC<{ card: ImageCard }> = ({ card }) => (
-    <div className={`${variantClass[card.variant]} rounded-2xl p-6 md:p-8 flex items-center justify-center h-full min-h-[280px] md:min-h-[300px]`}>
+const ImageCardView: React.FC<{ card: ImageCard; mobileScroll?: boolean }> = ({ card, mobileScroll }) => (
+    <div className={`${variantClass[card.variant]} rounded-2xl p-6 md:p-8 flex items-center justify-center h-full min-h-[280px] md:min-h-[300px] ${mobileScroll ? 'shrink-0 w-[75vw] md:w-auto' : ''}`}>
         <div className="relative w-32 h-32 md:w-40 md:h-40">
             <Image
                 src={card.image || gridDots}
@@ -113,13 +111,22 @@ export interface SolutionsPortfolioProps {
     layout?: CardLayout;
     showHeader?: boolean;
     className?: string;
+    /** When true, render cards as a horizontal swipe scroll on mobile instead of a stacked grid. */
+    mobileScroll?: boolean;
 }
 
 const gridCols: Record<CardLayout, string> = {
-    3: 'md:grid-cols-2 lg:grid-cols-3',
-    4: 'md:grid-cols-2 lg:grid-cols-4',
-    6: 'md:grid-cols-2 lg:grid-cols-3',
+    3: 'grid-cols-1 md:grid-cols-2 lg:grid-cols-3',
+    4: 'grid-cols-1 md:grid-cols-2 lg:grid-cols-4',
+    6: 'grid-cols-1 md:grid-cols-2 lg:grid-cols-3',
 };
+
+/** Desktop-only grid classes (md:/lg:) — used when mobileScroll renders the mobile row. */
+const desktopGridCols = (layout: CardLayout) =>
+    gridCols[layout]
+        .split(' ')
+        .filter((c) => c.startsWith('md:') || c.startsWith('lg:'))
+        .join(' ');
 
 const SolutionsPortfolio: React.FC<SolutionsPortfolioProps> = ({
     subtitle,
@@ -129,41 +136,8 @@ const SolutionsPortfolio: React.FC<SolutionsPortfolioProps> = ({
     layout = 6,
     showHeader = true,
     className = '',
+    mobileScroll = false,
 }) => {
-    const sliderRef = useRef<HTMLDivElement>(null);
-    const [activeIndex, setActiveIndex] = useState(0);
-
-    const handleScroll = useCallback(() => {
-        const slider = sliderRef.current;
-        if (!slider) return;
-        const scrollLeft = slider.scrollLeft;
-        const cardWidth = slider.children[0]?.clientWidth ?? 1;
-        const gap = 20; // matches gap-5 (1.25rem = 20px)
-        const index = Math.round(scrollLeft / (cardWidth + gap));
-        setActiveIndex(Math.min(index, cards.length - 1));
-    }, [cards.length]);
-
-    useEffect(() => {
-        const slider = sliderRef.current;
-        if (!slider) return;
-        slider.addEventListener('scroll', handleScroll, { passive: true });
-        return () => slider.removeEventListener('scroll', handleScroll);
-    }, [handleScroll]);
-
-    const scrollToIndex = (index: number) => {
-        const slider = sliderRef.current;
-        if (!slider || !slider.children[index]) return;
-        const child = slider.children[index] as HTMLElement;
-        slider.scrollTo({ left: child.offsetLeft - slider.offsetLeft, behavior: 'smooth' });
-    };
-
-    const renderCard = (card: PortfolioCard, index: number) => {
-        if (card.type === 'image') {
-            return <ImageCardView key={index} card={card} />;
-        }
-        return <TextCardView key={index} card={card} />;
-    };
-
     return (
         <section className={`w-full px-[5%] py-12 md:py-20 ${className}`}>
             <div>
@@ -187,46 +161,16 @@ const SolutionsPortfolio: React.FC<SolutionsPortfolioProps> = ({
                     </div>
                 )}
 
-                {/* Desktop grid */}
-                <div className={`hidden md:grid ${gridCols[layout]} gap-5 md:gap-6`}>
-                    {cards.map(renderCard)}
-                </div>
-
-                {/* Mobile slider */}
-                <div className="md:hidden">
-                    <div
-                        ref={sliderRef}
-                        className="flex gap-5 overflow-x-auto snap-x snap-mandatory scrollbar-hide pb-2 -mx-[2%] px-[5%]"
-                        style={{ WebkitOverflowScrolling: 'touch', scrollbarWidth: 'none', msOverflowStyle: 'none' }}
-                    >
-                        {cards.map((card, index) => (
-                            <div
-                                key={index}
-                                className="snap-start shrink-0 w-[85%] h-[300px]"
-                            >
-                                {card.type === 'image'
-                                    ? <ImageCardView card={card} />
-                                    : <TextCardView card={card} />
-                                }
-                            </div>
-                        ))}
-                    </div>
-
-                    {/* Dot indicators */}
-                    <div className="flex justify-center gap-2 mt-5">
-                        {cards.map((_, index) => (
-                            <button
-                                key={index}
-                                aria-label={`Go to slide ${index + 1}`}
-                                onClick={() => scrollToIndex(index)}
-                                className={`rounded-full transition-all duration-300 ${
-                                    index === activeIndex
-                                        ? 'w-7 h-2.5 bg-[#63B846]'
-                                        : 'w-2.5 h-2.5 bg-black/20'
-                                }`}
-                            />
-                        ))}
-                    </div>
+                <div className={`${mobileScroll
+                        ? `flex overflow-x-auto md:grid ${desktopGridCols(layout)} snap-x snap-mandatory md:snap-none -mx-[5%] px-[5%] md:mx-0 md:px-0 gap-4 md:gap-6 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none] pb-4 md:pb-0`
+                        : `grid ${gridCols[layout]} gap-5 md:gap-6`
+                    }`}>
+                    {cards.map((card, index) => {
+                        if (card.type === 'image') {
+                            return <ImageCardView key={index} card={card} mobileScroll={mobileScroll} />;
+                        }
+                        return <TextCardView key={index} card={card} mobileScroll={mobileScroll} />;
+                    })}
                 </div>
             </div>
         </section>

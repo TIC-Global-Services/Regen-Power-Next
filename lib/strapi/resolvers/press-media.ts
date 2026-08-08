@@ -82,6 +82,7 @@ export interface ResolvedPressMediaCard {
   title: string;
   description: string;
   image: string;
+  categoryKey?: string;
 }
 export interface ResolvedPressMediaNewsSection {
   subtitle: string;
@@ -106,6 +107,7 @@ export function resolvePressMediaNewsSection(
       title: card.title,
       description: card.description ?? "",
       image: card.image ? strapiImageData(card.image)?.src ?? "" : "",
+      ...(card.categoryKey ? { categoryKey: card.categoryKey } : {}),
     })),
   };
 }

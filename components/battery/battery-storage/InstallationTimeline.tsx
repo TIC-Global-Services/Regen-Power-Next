@@ -3,7 +3,7 @@
 import React, { useState, useCallback } from 'react';
 import Image, { StaticImageData } from 'next/image';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ArrowLeft, ArrowRight, ChevronLeft, ChevronRight } from 'lucide-react';
+import { ArrowLeft, ArrowRight } from 'lucide-react';
 
 export interface TimelineStep {
   title: string;
@@ -20,10 +20,6 @@ export interface InstallationTimelineData {
 const InstallationTimeline = ({ data }: { data: InstallationTimelineData }) => {
   const [activeIndex, setActiveIndex] = useState(0);
 
-  const handleDotClick = useCallback((idx: number) => {
-    setActiveIndex(idx);
-  }, []);
-
   const handleNext = useCallback(() => {
     setActiveIndex((prev) => (prev === data.steps.length - 1 ? 0 : prev + 1));
   }, [data.steps.length]);
@@ -37,12 +33,34 @@ const InstallationTimeline = ({ data }: { data: InstallationTimelineData }) => {
   return (
     <section className="bg-white py-16 md:py-24 px-[5%]">
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-center">
+        {/* Right — Image (on top on mobile, right column on desktop) */}
+        <div className="relative w-full aspect-[4/5] md:aspect-[3/4] lg:aspect-[4/5] rounded-[20px] overflow-hidden bg-gray-100 order-1 lg:order-2">
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={activeIndex}
+              initial={{ opacity: 0, scale: 1.03 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.97 }}
+              transition={{ duration: 0.4, ease: 'easeInOut' }}
+              className="absolute inset-0"
+            >
+              <Image
+                src={activeStep.image}
+                alt={activeStep.title}
+                fill
+                className="object-cover"
+                sizes="(max-width: 1024px) 100vw, 50vw"
+              />
+            </motion.div>
+          </AnimatePresence>
+        </div>
+
         {/* Left — Text Content */}
-        <div className="flex flex-col justify-center">
+        <div className="flex flex-col justify-center order-2 lg:order-1 capitalize">
           <h3 className="text-xl md:text-[2.125rem] text-black font-normal tracking-tight leading-snug mb-1">
             {data.topSubtitle}
           </h3>
-          <h2 className="text-4xl md:text-5xl lg:text-[5rem] text-[#63B846] font-medium leading-[1] tracking-tight mb-8">
+          <h2 className="text-[2.5rem] md:text-5xl lg:text-[5rem] text-[#63B846] font-medium leading-[1] tracking-tight mb-4">
             {data.title}
           </h2>
 
@@ -58,7 +76,7 @@ const InstallationTimeline = ({ data }: { data: InstallationTimelineData }) => {
               <h4 className="text-xl md:text-[2rem] font-normal text-black mb-2 tracking-tight">
                 {activeStep.title}
               </h4>
-              <p className="text-sm md:text-xl text-black/70 leading-[1.2] max-w-md">
+              <p className="text-base md:text-xl text-black leading-[1.2] max-w-md">
                 {activeStep.description}
               </p>
             </motion.div>
@@ -100,28 +118,7 @@ const InstallationTimeline = ({ data }: { data: InstallationTimelineData }) => {
           </div>
         </div>
 
-        {/* Right — Image that changes per step */}
-        <div className="relative w-full aspect-[4/5] md:aspect-[3/4] lg:aspect-[4/5] rounded-[20px] overflow-hidden bg-gray-100">
-          <AnimatePresence mode="wait">
-            <motion.div
-              key={activeIndex}
-              initial={{ opacity: 0, scale: 1.03 }}
-              animate={{ opacity: 1, scale: 1 }}
-              exit={{ opacity: 0, scale: 0.97 }}
-              transition={{ duration: 0.4, ease: 'easeInOut' }}
-              className="absolute inset-0"
-            >
-              <Image
-                src={activeStep.image}
-                alt={activeStep.title}
-                fill
-                className="object-cover"
-                sizes="(max-width: 1024px) 100vw, 50vw"
-              />
-            </motion.div>
-          </AnimatePresence>
         </div>
-      </div>
     </section>
   );
 };

@@ -2,10 +2,6 @@
 
 import React from 'react';
 import Image, { StaticImageData } from 'next/image';
-import { Swiper, SwiperSlide } from 'swiper/react';
-import { Pagination } from 'swiper/modules';
-import 'swiper/css';
-import 'swiper/css/pagination';
 
 import CtaButton from '@/reuseables/CtaButton';
 import Fade from '@/reuseables/fade';
@@ -26,9 +22,9 @@ export interface OneLocalTeamData {
 
 const TrustCardItem = ({ card }: { card: TrustCard }) => (
   <div
-    className="bg-[#EEF6EB] rounded-[20px] p-7 md:p-8 flex flex-col transition-shadow duration-300 hover:shadow-md min-h-[55dvh] justify-center items-start text-left"
+    className="bg-[#EEF6EB] rounded-[20px] p-7 md:p-8 flex flex-col transition-shadow duration-300 hover:shadow-md aspect-[3/3] md:aspect-auto md:min-h-[55dvh] justify-center items-start"
   >
-    <div className="relative w-full h-30 mb-10">
+    <div className="relative w-full flex-1 mb-6 md:h-30 md:mb-10">
       <Image
         src={card.image}
         alt={card.title}
@@ -37,7 +33,7 @@ const TrustCardItem = ({ card }: { card: TrustCard }) => (
         sizes="(max-width: 1024px) 100vw, 33vw"
       />
     </div>
-    <div className="w-full">
+    <div className="w-full text-center md:text-left">
       <h4 className="text-lg md:text-3xl font-normal text-black tracking-tight mb-2">
         {card.title}
       </h4>
@@ -54,11 +50,11 @@ const OneLocalTeam = ({ data }: { data: OneLocalTeamData }) => {
       <section className="bg-white py-16 md:py-24 px-[5%]">
         <div className="max-w-7xl mx-auto">
           {/* Section Header */}
-          <div className="text-center mb-10 md:mb-14">
-            <h3 className="text-xl md:text-[2.125rem] text-black font-normal tracking-tight mb-1">
+          <div className="text-left md:text-center capitalize mb-10 md:mb-14">
+            <h3 className="text-base md:text-[2.125rem] text-black font-normal tracking-tight mb-1">
               {data.topSubtitle}
             </h3>
-            <h2 className="text-4xl md:text-7xl lg:text-[5rem] text-[#63B846] font-light leading-none tracking-tighter">
+            <h2 className="text-[2.5rem] md:text-7xl lg:text-[5rem] text-[#63B846] font-light leading-none tracking-tighter">
               {data.title}
             </h2>
           </div>
@@ -89,36 +85,18 @@ const OneLocalTeam = ({ data }: { data: OneLocalTeamData }) => {
             </div>
           </div>
 
-          {/* Mobile Layout (Carousel) */}
-          <div
-            className="lg:hidden w-full relative pb-12"
-            style={{
-              '--swiper-pagination-color': '#63B846',
-              '--swiper-pagination-bullet-inactive-color': '#d1d5db',
-              '--swiper-pagination-bullet-inactive-opacity': '1',
-            } as React.CSSProperties}
-          >
-            <Swiper
-              modules={[Pagination]}
-              spaceBetween={20}
-              slidesPerView={1}
-              breakpoints={{
-                640: { slidesPerView: 2 },
-              }}
-              pagination={{ clickable: true }}
-              className="w-full"
-            >
-              {data.cards.map((card, idx) => (
-                <SwiperSlide key={idx} className="h-auto">
-                  <TrustCardItem card={card} />
-                </SwiperSlide>
-              ))}
-            </Swiper>
-            
-            {/* Mobile CTA */}
-            <div className="text-center mt-8">
-              <CtaButton href={data.ctaLink} text={data.ctaText} textColor="text-white" />
-            </div>
+          {/* Mobile Layout (Horizontal Slider) */}
+          <div className="flex overflow-x-auto lg:hidden gap-4 -mx-[5%] px-[5%] [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none] pb-4 mb-8">
+            {data.cards.map((card, idx) => (
+              <div key={idx} className="w-[75vw] shrink-0 snap-start">
+                <TrustCardItem card={card} />
+              </div>
+            ))}
+          </div>
+
+          {/* Mobile CTA */}
+          <div className="lg:hidden text-center">
+            <CtaButton href={data.ctaLink} text={data.ctaText} textColor="text-black" />
           </div>
         </div>
       </section>

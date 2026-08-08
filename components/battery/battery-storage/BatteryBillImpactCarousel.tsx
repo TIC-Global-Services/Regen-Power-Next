@@ -3,9 +3,9 @@
 import React, { useRef } from 'react';
 import Image from 'next/image';
 import { ArrowLeft, ArrowRight } from 'lucide-react';
-import { BillImpactCard } from './BatteryBillImpact';
+import { JargonCard } from './BatteryJargon';
 
-export const BatteryBillImpactCarousel = ({ cards }: { cards: BillImpactCard[] }) => {
+export const BatteryBillImpactCarousel = ({ cards }: { cards: JargonCard[] }) => {
   const scrollContainerRef = useRef<HTMLDivElement>(null);
 
   const scrollLeft = () => {
@@ -24,13 +24,13 @@ export const BatteryBillImpactCarousel = ({ cards }: { cards: BillImpactCard[] }
     <div className="w-full relative mt-8 lg:mt-0">
       <div
         ref={scrollContainerRef}
-        className="flex gap-4 overflow-x-auto snap-x snap-mandatory pb-4 [&::-webkit-scrollbar]:hidden"
+        className="flex gap-4 overflow-x-auto -mx-[5%] px-[5%] [&::-webkit-scrollbar]:hidden"
         style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
       >
         {cards.map((card, idx) => (
           <div
             key={idx}
-            className="relative rounded-[24px] overflow-hidden group min-h-[460px] md:min-h-[520px] min-w-[280px] sm:min-w-[320px] md:min-w-[340px] snap-center shrink-0"
+            className="relative rounded-[24px] overflow-hidden group min-h-[400px] md:min-h-[520px] min-w-[240px] sm:min-w-[320px] md:min-w-[340px] snap-center shrink-0"
           >
             <Image src={card.image} alt={card.title} fill className="object-cover transition-transform duration-700 group-hover:scale-105" />
             <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-black/30" />
@@ -41,10 +41,10 @@ export const BatteryBillImpactCarousel = ({ cards }: { cards: BillImpactCard[] }
             </div>
 
             <div className="absolute bottom-0 left-0 p-6 md:p-8 w-full">
-              <h4 className="text-xl md:text-2xl text-white font-medium mb-3">
+              <h4 className="text-xl md:text-2xl text-white font-medium tracking-tight leading-tight capitalize mb-3 ">
                 {card.title}
               </h4>
-              <p className="text-white/80 text-sm leading-[1.2]">
+              <p className="text-white text-base capitalize leading-[1.2]">
                 {card.description}
               </p>
             </div>
@@ -52,8 +52,8 @@ export const BatteryBillImpactCarousel = ({ cards }: { cards: BillImpactCard[] }
         ))}
       </div>
 
-      {/* Navigation Buttons */}
-      <div className="flex justify-end gap-3 mt-4 mr-[5%]">
+      {/* Navigation Buttons (desktop only) */}
+      <div className="hidden lg:flex justify-end gap-3 mt-4 mr-[5%]">
         <button
           onClick={scrollLeft}
           className="w-12 h-12 rounded-full bg-black flex items-center justify-center text-white hover:bg-black/80 transition-colors"

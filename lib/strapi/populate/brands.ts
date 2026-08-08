@@ -20,4 +20,5 @@ export const criteriaList =
   "populate[sections][on][brands.criteria-list][populate][items]=true";
 
 export const specsTable =
-  "populate[sections][on][brands.specs-table][populate][columns]=true";
+  "populate[sections][on][brands.specs-table][populate][columns]=true" +
+  "&populate[sections][on][brands.specs-table][populate][rows][populate][values]=true";

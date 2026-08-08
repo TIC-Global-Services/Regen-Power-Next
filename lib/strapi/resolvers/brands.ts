@@ -178,17 +178,22 @@ export function resolveBrandsCriteriaList(
 }
 
 export interface ResolvedBrandsSpecColumn {
-  brand: string;
-  efficiency: string;
-  tempCoeff: string;
-  degradation: string;
-  warranty: string;
+  title: string;
+}
+export interface ResolvedBrandsSpecValue {
+  text: string;
+}
+export interface ResolvedBrandsSpecRow {
+  label: string;
+  values: ResolvedBrandsSpecValue[];
 }
 export interface ResolvedBrandsSpecsTable {
   subtitle: string;
   title: string;
   description: string;
+  labelColumnTitle: string;
   columns: ResolvedBrandsSpecColumn[];
+  rows: ResolvedBrandsSpecRow[];
 }
 export function resolveBrandsSpecsTable(
   data: BrandsSpecsTableData | undefined
@@ -198,12 +203,15 @@ export function resolveBrandsSpecsTable(
     subtitle: data.subtitle ?? "",
     title: data.title ?? "",
     description: data.description ?? "",
+    labelColumnTitle: data.labelColumnTitle ?? "",
     columns: (data.columns ?? []).map((col) => ({
-      brand: col.brand,
-      efficiency: col.efficiency ?? "",
-      tempCoeff: col.tempCoeff ?? "",
-      degradation: col.degradation ?? "",
-      warranty: col.warranty ?? "",
+      title: col.title ?? "",
+    })),
+    rows: (data.rows ?? []).map((row) => ({
+      label: row.label ?? "",
+      values: (row.values ?? []).map((value) => ({
+        text: value.text ?? "",
+      })),
     })),
   };
 }

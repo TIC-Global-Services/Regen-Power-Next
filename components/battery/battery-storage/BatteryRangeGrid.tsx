@@ -32,18 +32,32 @@ const BatteryRangeGrid = ({ data }: { data: BatteryRangeGridData }) => {
   return (
     <section className="bg-white py-16 md:py-24 px-[5%]">
       {/* Section Header */}
-      <div className="text-center mb-10 md:mb-14 -space-y-4">
-        <h3 className="text-2xl md:text-[2.125rem] text-black font-normal tracking-tight">
+      <div className="text-left md:text-center mb-10 md:mb-14">
+        <h3 className="text-2xl md:text-[2.125rem] text-black font-normal tracking-tight leading-[1.2] ">
           {data.topSubtitle}
         </h3>
-        <h2 className="text-4xl md:text-6xl lg:text-[5rem] text-[#63B846] font-light leading-none tracking-tighter">
+        <h2 className="text-[2.5rem] md:text-6xl lg:text-[5rem] text-[#63B846] font-light leading-tight tracking-tighter ">
           {data.title}
         </h2>
-        <p className="text-black text-sm md:text-lg leading-[1.2] whitespace-pre-line">{data.description}</p>
+        
       </div>
 
-      {/* Bento Grid converted to Flex to center bottom row */}
-      <div className="flex flex-wrap justify-center gap-4 md:gap-5">
+      {/* Mobile: Horizontal Slider */}
+      <div className="flex overflow-x-auto md:hidden gap-4 -mx-[5%] px-[5%] [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none] pb-4">
+        {data.batteries.map((card, idx) => {
+          return (
+            <div
+              key={idx}
+              className="w-[75vw] shrink-0 snap-start h-[400px]"
+            >
+              <ImageCard card={card} />
+            </div>
+          );
+        })}
+      </div>
+
+      {/* Desktop: Bento Grid converted to Flex to center bottom row */}
+      <div className="hidden md:flex flex-wrap justify-center gap-4 md:gap-5">
         {data.batteries.map((card, idx) => {
           return (
             <div
@@ -69,7 +83,7 @@ const ImageCard = ({ card }: { card: BatteryRangeCard }) => (
         src={card.image}
         alt={card.title}
         fill
-        className="object-cover transition-transform duration-700 group-hover:scale-105 max-w-[30vw]"
+        className="object-cover transition-transform duration-700 group-hover:scale-105 x"
       // sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
       />
     )}
@@ -82,7 +96,7 @@ const ImageCard = ({ card }: { card: BatteryRangeCard }) => (
       <h4 className="text-white text-xl md:text-[1.875rem] font-medium tracking-tight leading-[1.2] mb-2">
         {card.title}
       </h4>
-      <p className="text-white/75 text-xs md:text-lg tracking-tight leading-[1.2] line-clamp-3 mb-4">
+      <p className="text-white text-base md:text-lg tracking-tight leading-[1.2] line-clamp-3 capitalize mb-4">
         {card.description}
       </p>
       {card.ctaText && card.ctaLink && (

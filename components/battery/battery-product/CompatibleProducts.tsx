@@ -19,15 +19,15 @@ const CompatibleProducts = ({ data }: CompatibleProductsProps) => {
   return (
     <section className="bg-white py-16 md:py-24 px-[5%]">
       <div className="max-w-5xl mx-auto">
-        <div className="text-center mb-12 md:mb-16">
+        <div className="text-left md:text-center mb-12 md:mb-16">
           <h3 className="text-xl md:text-[2.125rem] text-black font-normal tracking-tight">
             {data.topSubtitle}
           </h3>
-          <h2 className="text-4xl md:text-[5rem] text-[#63B846] font-normal leading-[1] tracking-tight mt-2">
+          <h2 className="text-[2.5rem] md:text-[5rem] text-[#63B846] font-normal leading-[1] tracking-tight mt-2">
             {data.title}
           </h2>
           {data.description && (
-            <p className='text-sm leading-[1.2] md:text-lg tracking-tight mt-4'>{data.description}</p>
+            <p className='text-base leading-[1.2] md:text-lg tracking-tight mt-4'>{data.description}</p>
           )}
         </div>
 
@@ -43,7 +43,7 @@ const CompatibleProducts = ({ data }: CompatibleProductsProps) => {
                   <span className="mt-1 shrink-0">
                     <Minus className="w-5 h-5 text-black" strokeWidth={1.5} />
                   </span>
-                  <span className="text-sm md:text-base leading-[1.2] text-black/90 font-medium">
+                  <span className="text-base leading-[1.2] tracking-tight text-black font-medium">
                     {item}
                   </span>
                 </li>
@@ -62,7 +62,7 @@ const CompatibleProducts = ({ data }: CompatibleProductsProps) => {
                   <span className="mt-1 shrink-0">
                     <Minus className="w-5 h-5 text-black" strokeWidth={1.5} />
                   </span>
-                  <span className="text-sm md:text-base leading-[1.2] text-black/90 font-medium">
+                  <span className="text-base leading-[1.2] tracking-tight text-black font-medium">
                     {item}
                   </span>
                 </li>

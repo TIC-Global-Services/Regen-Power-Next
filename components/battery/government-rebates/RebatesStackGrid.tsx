@@ -24,7 +24,7 @@ const RebatesStackGrid: React.FC<{ data?: RebatesStackGridData }> = ({ data }) =
                 {/* Header */}
                 <div className="text-center mb-10 md:mb-14">
                     {data.title && (
-                        <h2 className="text-4xl md:text-5xl lg:text-6xl font-normal tracking-tight text-[#63B846] mb-2">
+                        <h2 className="text-[2.5rem] md:text-5xl lg:text-6xl font-normal tracking-tight text-[#63B846] mb-2">
                             {data.title}
                         </h2>
                     )}
@@ -42,12 +42,12 @@ const RebatesStackGrid: React.FC<{ data?: RebatesStackGridData }> = ({ data }) =
                             key={idx}
                             className="bg-[#EAF2E2] rounded-3xl p-6 md:p-8 flex flex-col justify-start min-h-[300px]"
                         >
-                            <h3 className="text-2xl md:text-3xl font-normal tracking-tight text-black mb-6 leading-tight">
+                            <h3 className="text-xl md:text-3xl font-normal tracking-tight text-black mb-6 leading-tight">
                                 {card.title}
                             </h3>
                             <ul className="space-y-3">
                                 {card.items.map((item, itemIdx) => (
-                                    <li key={itemIdx} className="text-sm md:text-base text-black/90 leading-[1.2] flex items-start">
+                                    <li key={itemIdx} className="text-base text-black leading-[1.2] flex items-start">
                                         <span className="mr-2 mt-0.5">•</span>
                                         <span>{item}</span>
                                     </li>

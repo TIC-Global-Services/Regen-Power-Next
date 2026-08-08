@@ -31,7 +31,7 @@ const OurBatterybrands: React.FC<{ data?: OurBatteryBrandsData }> = ({ data }) =
     return (
         <section className="w-full px-[5%] py-12 md:py-20 bg-white">
             <div>
-                {/* Section Header (Optional) */}
+                {/* Section Header (Optional)
                 {(data.topSubtitle || data.title || data.description) && (
                     <div className="text-center mb-10 md:mb-14">
                         {data.topSubtitle && (
@@ -50,7 +50,7 @@ const OurBatterybrands: React.FC<{ data?: OurBatteryBrandsData }> = ({ data }) =
                             </p>
                         )}
                     </div>
-                )}
+                )} */}
 
                 {/* Brands Rows */}
                 <div className="flex flex-col gap-6 md:gap-8">
@@ -64,7 +64,7 @@ const OurBatterybrands: React.FC<{ data?: OurBatteryBrandsData }> = ({ data }) =
                             >
                                 {/* Text Content Card */}
                                 <div
-                                    className={`bg-[#EAF2E2] rounded-3xl p-6 md:p-8 flex flex-col justify-between relative md:col-span-8 ${isEven ? 'order-1 md:order-1' : 'order-1 md:order-2'
+                                    className={`bg-[#EAF2E2] rounded-[1.25rem] p-6 md:p-8 flex flex-col justify-between relative md:col-span-8 ${isEven ? 'order-1 md:order-1' : 'order-1 md:order-2'
                                         }`}
                                 >
                                     {/* Arrow icon if link exists */}
@@ -113,7 +113,7 @@ const OurBatterybrands: React.FC<{ data?: OurBatteryBrandsData }> = ({ data }) =
                                             {brand.specifications.map((spec, specIdx) => (
                                                 <p
                                                     key={specIdx}
-                                                    className="text-xs md:text-lg text-black/90 leading-[1.1] tracking-tight"
+                                                    className="text-base md:text-lg text-black/90 leading-[1.1] tracking-tight"
                                                 >
                                                     <span className="font-semibold text-black">
                                                         {spec.label}:
@@ -127,7 +127,7 @@ const OurBatterybrands: React.FC<{ data?: OurBatteryBrandsData }> = ({ data }) =
 
                                 {/* Image Card */}
                                 <div
-                                    className={`rounded-3xl overflow-hidden relative min-h-[260px] md:min-h-[360px] md:col-span-4 ${isEven ? 'order-2 md:order-2' : 'order-2 md:order-1'
+                                    className={`rounded-[1.25rem] overflow-hidden relative min-h-[340px] md:min-h-[360px] md:col-span-4 ${isEven ? 'order-2 md:order-2' : 'order-2 md:order-1'
                                         }`}
                                 >
                                     <Image

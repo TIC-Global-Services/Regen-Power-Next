@@ -3,7 +3,6 @@ import React from 'react';
 import type { StaticImageData } from 'next/image';
 import { LucideIcon } from 'lucide-react';
 import CtaButton from './CtaButton';
-import SimpleParallax from 'simple-parallax-js'
 
 export interface HeroProps {
     mediaSrc: string | StaticImageData;
@@ -72,7 +71,7 @@ const Hero: React.FC<HeroProps> = ({
 
             {/* Content Area */}
             <div className="relative z-10 w-full px-[5%] flex flex-col md:flex-row md:items-end justify-between gap-8 pt-32">
-                <div className="max-w-3xl">
+                <div className="max-w-3xl capitalize">
                     <p className={`text-2xl md:text-3xl font-light tracking-tighter drop-shadow-md ${subtitleColor}`}>
                         {topSubtitle}
                     </p>

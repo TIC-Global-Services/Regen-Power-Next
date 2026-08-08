@@ -19,11 +19,13 @@ interface EditorialTextSectionProps {
   badge?: string;
   subtitle: string;
   title: string | React.ReactNode;
+  description?: string;
   paragraphs: ParagraphItem[];
   align?: 'left' | 'center' | 'right';
   className?: string;
   subtitleClass?: string;
   titleClass?: string;
+  descriptionClass?: string;
   paragraphsClass?: string;
   revealEffect?: boolean;
 }
@@ -47,11 +49,13 @@ const EditorialTextSection: React.FC<EditorialTextSectionProps> = ({
   badge,
   subtitle,
   title,
+  description,
   paragraphs,
   align = 'left',
   className = '',
   subtitleClass = '',
   titleClass = '',
+  descriptionClass = '',
   paragraphsClass = '',
   revealEffect = false
 }) => {
@@ -152,9 +156,11 @@ const EditorialTextSection: React.FC<EditorialTextSectionProps> = ({
       <SectionHeader
         subtitle={subtitle}
         title={title}
+        description={description}
         align={align}
         subtitleClass={subtitleClass}
         titleClass={titleClass}
+        descClass={descriptionClass}
         className="mb-8"
       />
     </>

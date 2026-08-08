@@ -13,6 +13,10 @@ interface CtaButtonProps {
   className?: string;
   onClick?: (e: React.MouseEvent<HTMLAnchorElement | HTMLButtonElement>) => void;
   icon?: LucideIcon;
+  iconBgClass?: string;
+  iconTextColor?: string;
+  disabled?: boolean;
+  buttonTextClass?: string;
 }
 
 const CtaButton: React.FC<CtaButtonProps> = ({
@@ -23,22 +27,26 @@ const CtaButton: React.FC<CtaButtonProps> = ({
   bgClass = 'bg-[#63B84666] backdrop-blur-md',
   borderClass = 'border border-[#63B846]',
   hoverClass = 'hover:bg-[#8dc63f] hover:text-white',
-  className = '',
+  className = 'capitalize',
   onClick,
   icon: Icon = ArrowUpRight,
+  iconBgClass = 'bg-[#63B846]',
+  iconTextColor = 'text-black',
+  disabled = false,
+  buttonTextClass = '',
 }) => {
   const content = (
     <>
-      <span className="pl-4 text-sm md:text-base tracking-tight whitespace-nowrap">
+      <span className={`pl-4 text-sm md:text-base tracking-tight whitespace-nowrap min-w-0 flex-1 ${buttonTextClass}`}>
         {text}
       </span>
-      <div className="bg-[#63B846] text-black p-2 rounded-full group-hover:scale-105 group-hover:rotate-45 group-hover:bg-[#63B846]/80 transition-all duration-300 flex items-center justify-center">
+      <div className={`${iconBgClass} ${iconTextColor} p-2 rounded-full shrink-0 group-hover:scale-105 group-hover:rotate-45 group-hover:opacity-90 transition-all duration-300 flex items-center justify-center`}>
         <Icon size={16} strokeWidth={2.5} />
       </div>
     </>
   );
 
-  const combinedClasses = `inline-flex items-center gap-3 ${bgClass} ${borderClass} ${textColor} px-1.5 py-1.5 rounded-full ${hoverClass} transition-all duration-300 group ${className}`;
+  const combinedClasses = `inline-flex items-center gap-3 ${bgClass} ${borderClass} ${textColor} px-1.5 py-2 md:py-1.5 rounded-full ${hoverClass} transition-all duration-300 group ${className} ${disabled ? 'opacity-50 pointer-events-none' : ''}`;
 
   if (href) {
     return (

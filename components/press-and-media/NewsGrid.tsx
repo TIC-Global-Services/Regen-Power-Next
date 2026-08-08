@@ -8,6 +8,7 @@ export interface PressCard {
     title: string;
     description: string;
     image: StaticImageData | string;
+    categoryKey?: string;
 }
 
 interface NewsGridProps {
@@ -25,13 +26,23 @@ const NewsGrid: React.FC<NewsGridProps> = ({
     defaultCategory,
     cards = [],
 }) => {
-    const [activeCategory] = useState<string>(
+    const [activeCategory, setActiveCategory] = useState<string>(
         defaultCategory ?? categories[0]?.value ?? ''
     );
+    // Multi-select categories from the filter button (empty = not active)
+    const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
+
+    // Filter cards: multi-select wins if any selected, else single-category logic
+    const filteredCards =
+        selectedCategories.length > 0
+            ? cards.filter((c) => selectedCategories.includes(c.categoryKey || ''))
+            : !activeCategory || activeCategory === 'All'
+              ? cards
+              : cards.filter((c) => c.categoryKey === activeCategory);
 
     return (
         <section className="w-full pb-20 md:pb-28">
-            {(subtitle || title) && (
+            {/* {(subtitle || title) && (
                 <div className="text-center mb-8 md:mb-10 px-[5%]">
                     {subtitle && (
                         <p className="text-2xl md:text-3xl font-light tracking-tight text-black mb-1">
@@ -44,19 +55,23 @@ const NewsGrid: React.FC<NewsGridProps> = ({
                         </h2>
                     )}
                 </div>
-            )}
+            )} */}
 
             <NewsFilter
                 categories={categories}
                 defaultCategory={defaultCategory}
+                active={activeCategory}
+                onChange={setActiveCategory}
+                selected={selectedCategories}
+                onSelectedChange={setSelectedCategories}
             />
 
             <div className="px-[5%]">
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 md:gap-6 max-w-7xl mx-auto">
-                    {cards.map((card, idx) => (
+                    {filteredCards.map((card, idx) => (
                         <div
                             key={idx}
-                            className="group relative block rounded-2xl overflow-hidden aspect-[4/5] md:aspect-[3/4]"
+                            className="group relative block rounded-2xl overflow-hidden h-[320px] md:aspect-[3/4] md:h-auto"
                         >
                             <Image
                                 src={card.image}
@@ -67,17 +82,17 @@ const NewsGrid: React.FC<NewsGridProps> = ({
                             />
                             <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent" />
                             <div className="absolute bottom-0 left-0 right-0 p-4 md:p-5 text-white">
-                                <h3 className="text-base md:text-lg font-medium tracking-tight leading-tight mb-1.5">
+                                <h3 className="text-xl md:text-2xl font-medium tracking-tight leading-tight mb-1.5">
                                     {card.title}
                                 </h3>
-                                <p className="text-xs md:text-[13px] leading-snug tracking-tight text-white/85">
+                                <p className="text-base leading-tight tracking-tight text-white/85">
                                     {card.description}
                                 </p>
                             </div>
                         </div>
                     ))}
                 </div>
-                {cards.length === 0 && (
+                {filteredCards.length === 0 && (
                     <p className="text-center text-black/60 py-12">No news in this category yet.</p>
                 )}
             </div>

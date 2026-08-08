@@ -1,9 +1,6 @@
 import React from 'react';
 import Image, { StaticImageData } from 'next/image';
 
-// Assuming you have an image at this path, update if necessary
-import fallbackImg from '@/assets/for_your_home.png';
-
 export interface SchemeDataItem {
   subtitle: string;
   title: string;
@@ -23,9 +20,9 @@ const ResidentialBattery: React.FC<ResidentialBatteryProps> = ({ data = [] }) =>
   return (
     <section className="w-full bg-white">
       {data.map((item, index) => (
-        <div key={index} className="grid grid-cols-1 md:grid-cols-2 w-full gap-20">
+        <div key={index} className="grid grid-cols-1 md:grid-cols-2 w-full gap-8 md:gap-20">
           {/* Left Side: Image */}
-          <div className="w-full relative min-h-screen">
+          <div className="relative h-[450px] md:min-h-screen overflow-hidden rounded-[20px] md:rounded-none mx-5 md:mx-0">
             <Image
               src={item.image}
               alt="WA Residential Battery Scheme"
@@ -35,7 +32,7 @@ const ResidentialBattery: React.FC<ResidentialBatteryProps> = ({ data = [] }) =>
           </div>
 
           {/* Right Side: Content */}
-          <div className="w-full  flex flex-col justify-center py-12">
+          <div className="w-full  flex flex-col justify-center py-12 px-5 md:px-0">
             <h3 className="text-xl md:text-2xl font-normal text-black tracking-tight mb-2">
               {item.subtitle}
             </h3>

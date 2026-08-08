@@ -6,6 +6,13 @@ import * as brands from "./populate/brands";
 import * as deals from "./populate/deals";
 import * as shared from "./populate/shared";
 import * as rebates from "./populate/rebates";
+import * as batteryRebates from "./populate/battery-rebates";
+import * as batteryProduct from "./populate/battery-product";
+import * as batteryStorage from "./populate/battery-storage";
+import * as smartHomeBattery from "./populate/smart-home-battery";
+import * as evCharging from "./populate/ev-charging";
+import * as home from "./populate/home";
+import * as batteryBrands from "./populate/battery-brands";
 import * as faq from "./populate/faq";
 import * as commercial from "./populate/commercial";
 import * as research from "./populate/research";
@@ -31,6 +38,13 @@ const PAGE_SLUGS = {
   reviews: "reviews-page",
   contact: "contact-page",
   faq: "faq-page",
+  governmentRebates: "government-rebates-page",
+  batteryProduct: "battery-product-page",
+  batteryStorage: "battery-storage-page",
+  smartHomeBattery: "smart-home-battery-page",
+  brandsWeCarry: "battery-brands-page",
+  evCharging: "ev-charging-page",
+  home: "home-page",
 } as const;
 
 async function getSingleType(
@@ -215,4 +229,132 @@ export const getContactPage = () =>
   getSingleType(
     PAGE_SLUGS.contact,
     populate(contact.hero)
+  );
+
+export const getGovernmentRebatesPage = () =>
+  getSingleType(
+    PAGE_SLUGS.governmentRebates,
+    populate(
+      batteryRebates.hero,
+      batteryRebates.rebatesStackGrid,
+      batteryRebates.residentialBattery,
+      batteryRebates.federalRebate,
+      batteryRebates.financeOption,
+      batteryRebates.whatChanges,
+      batteryRebates.areYouEligible,
+      batteryRebates.rebateDetailSplit,
+      batteryRebates.whatSigningUp,
+      shared.faq,
+      shared.ctaBanner
+    )
+  );
+
+export const getBatteryProductPage = () =>
+  getSingleType(
+    PAGE_SLUGS.batteryProduct,
+    populate(
+      batteryProduct.hero,
+      batteryProduct.marquee,
+      batteryProduct.brandMatters,
+      batteryProduct.howYouUseIt,
+      batteryProduct.rightSizing,
+      batteryProduct.ourBrands,
+      batteryProduct.comparisonTable,
+      batteryProduct.compatibleProducts,
+      batteryProduct.whatWeCheck,
+      batteryProduct.warrantyCoverage,
+      batteryProduct.zeroInterest,
+      batteryProduct.homeowners,
+      shared.ctaBanner
+    )
+  );
+
+export const getBatteryStoragePage = () =>
+  getSingleType(
+    PAGE_SLUGS.batteryStorage,
+    populate(
+      batteryStorage.hero,
+      batteryStorage.marquee,
+      batteryStorage.debsRebate,
+      batteryStorage.jargon,
+      batteryStorage.billImpact,
+      batteryStorage.rangeGrid,
+      batteryStorage.capacityBlocks,
+      batteryStorage.greatFit,
+      batteryStorage.solarMeaning,
+      batteryStorage.installationTimeline,
+      batteryStorage.team,
+      batteryStorage.customerStories,
+      batteryStorage.faq,
+      batteryStorage.ctaBanner
+    )
+  );
+
+export const getSmartHomeBatteryPage = () =>
+  getSingleType(
+    PAGE_SLUGS.smartHomeBattery,
+    populate(
+      smartHomeBattery.hero,
+      smartHomeBattery.marquee,
+      smartHomeBattery.greatFit,
+      smartHomeBattery.fourPillars,
+      smartHomeBattery.splitSection,
+      smartHomeBattery.timeline,
+      smartHomeBattery.brandsGrid,
+      smartHomeBattery.installBento,
+      smartHomeBattery.ctaBanner
+    )
+  );
+
+export const getBrandsWeCarryPage = () =>
+  getSingleType(
+    PAGE_SLUGS.brandsWeCarry,
+    populate(
+      batteryBrands.hero,
+      batteryBrands.brandLongTermBet,
+      batteryBrands.whatItTakes,
+      batteryBrands.sevenBrand,
+      batteryBrands.comparisonTable,
+      batteryBrands.quickWay,
+      batteryBrands.cecApproved,
+      batteryBrands.whyOurInstaller,
+      batteryBrands.faq,
+      batteryBrands.ctaBanner
+    )
+  );
+
+export const getHomePage = () =>
+  getSingleType(
+    PAGE_SLUGS.home,
+    populate(
+      home.hero,
+      home.awards,
+      home.whychooseus,
+      home.expertise,
+      home.solarandstorage,
+      home.patnersandmembership,
+      home.threewaystopay,
+      home.craftmanship,
+      home.realStories,
+      home.smartsolar,
+      home.batteryQuote
+    )
+  );
+
+export const getEvChargingPage = () =>
+  getSingleType(
+    PAGE_SLUGS.evCharging,
+    populate(
+      evCharging.hero,
+      evCharging.wallConnector,
+      evCharging.chargerProducts,
+      evCharging.installerBrands,
+      evCharging.benefitCards,
+      evCharging.homeBattery,
+      evCharging.featureCards,
+      evCharging.installationSteps,
+      evCharging.stats,
+      evCharging.faq,
+      evCharging.ctaBanner
+    )
   );
