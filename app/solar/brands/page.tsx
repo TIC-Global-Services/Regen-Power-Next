@@ -39,7 +39,7 @@ import SpecsTableSection from "@/components/solar/brands/SpecsTableSection";
 
 import FAQ from "@/reuseables/faq";
 import GetSolar from "@/reuseables/getsolar";
-import LeadCaptureForm from "@/components/solar/LeadCaptureForm";
+import LeadCaptureForm from "@/components/solar/solarSystem/LeadCaptureForm";
 
 export const revalidate = 60;
 

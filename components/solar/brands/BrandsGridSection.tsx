@@ -31,8 +31,6 @@ const BrandsGridSection: React.FC<BrandsGridSectionProps> = ({ resolved }) => {
       });
     }
 
-    if (colIdx === 0) items.push("spacer");
-
     if (second) {
       items.push({
         title: second.title,
@@ -43,6 +41,9 @@ const BrandsGridSection: React.FC<BrandsGridSectionProps> = ({ resolved }) => {
         delay: 0.15,
       });
     }
+
+    // Mirrored engineering arrangement: bottom spacer in the center column (col 1)
+    if (colIdx === 1) items.push("spacer");
 
     return { items };
   });
@@ -57,7 +58,6 @@ const BrandsGridSection: React.FC<BrandsGridSectionProps> = ({ resolved }) => {
       className="border-t border-gray-50"
       spacerHeightClass="h-[310px]"
       cardHeightClass="h-[310px] md:h-[320px]"
-      enableMobileSlider={true}
     />
   );
 };

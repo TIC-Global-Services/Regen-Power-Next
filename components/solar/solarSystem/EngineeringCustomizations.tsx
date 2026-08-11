@@ -26,9 +26,6 @@ const EngineeringCustomizations: React.FC<EngineeringCustomizationsProps> = ({
 
     if (layout.spacerAt === 0) itemsWithSpacer.push("spacer");
     colItems.forEach((item, i) => {
-      if (layout.spacerAt === 1 && i === 1) {
-        itemsWithSpacer.push("spacer");
-      }
       itemsWithSpacer.push({
         title: item.title,
         desc: item.description,
@@ -49,7 +46,6 @@ const EngineeringCustomizations: React.FC<EngineeringCustomizationsProps> = ({
       columns={columns}
       align="left"
       className="border-t border-gray-50"
-      enableMobileSlider={true}
     />
   );
 };

@@ -3,7 +3,6 @@ import Reveal from "@/reuseables/Reveal";
 import SectionHeader from "@/reuseables/SectionHeader";
 import MissingImage from "@/reuseables/MissingImage";
 import type { ResolvedSolarProcessSteps } from "@/lib/strapi/resolvers/solar";
-import { span } from "framer-motion/client";
 
 interface SolarProcessFlowProps {
   resolved: ResolvedSolarProcessSteps;
@@ -26,7 +25,7 @@ const SolarProcessFlow: React.FC<SolarProcessFlowProps> = ({ resolved }) => {
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12">
           {steps.map((step, index) => (
-            <div key={index} className="flex flex-col">
+            <div key={index} className="relative flex flex-col">
               <Reveal
                 delay={index * 0.15}
                 className="flex flex-col"
@@ -49,14 +48,20 @@ const SolarProcessFlow: React.FC<SolarProcessFlowProps> = ({ resolved }) => {
                 </div>
                 <div className="grid grid-cols-[auto_1fr] gap-x-3">
                   <span className="text-2xl font-semibold text-[#63B846]">0{index+1}</span>
-                  <h3 className="text-lg md:text-2xl font-semibold md:font-medium text-black leading-tight self-baseline">
-                    <span>{step.title}</span>
+                  <div className="relative self-baseline">
+                    <h3 className="text-lg md:text-2xl font-semibold md:font-medium text-black leading-tight">
+                      <span>{step.title}</span>
+                    </h3>
                     {index < steps.length - 1 && (
-                      <span className="hidden lg:inline text-black font-bold tracking-tighter text-3xl ml-2">
+                      <span
+                        aria-hidden
+                        className="hidden lg:flex absolute top-[0.9375rem] right-[-1.75rem] -translate-y-1/2 leading-none text-black font-bold tracking-tighter text-3xl z-10"
+                        title="Arrow aligned to the first line of the title"
+                      >
                         &raquo;
                       </span>
                     )}
-                  </h3>
+                  </div>
                   <div />
                   <p className="text-base text-black leading-tight font-normal">
                     {step.description}

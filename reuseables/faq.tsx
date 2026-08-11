@@ -68,7 +68,7 @@ const FAQ = ({
                     />
                 ) : null}
                 {/* Top Titles */}
-                <div className="mb-2 lg:mb-10 -space-y-3">
+                <div className="mb-2 lg:mb-10 -space-y-3 capitalize">
                     <h3 className="text-xl md:text-2xl text-black font-normal tracking-tighter">
                         {topTitle}
                     </h3>

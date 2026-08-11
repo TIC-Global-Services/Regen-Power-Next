@@ -32,20 +32,20 @@ import type {
   SharedCtaBannerData,
 } from "@/lib/strapi/schemas";
 
-import HeroSection from "@/components/solar/Hero";
-import SolarStatsAndIntro from "@/components/solar/SolarStatsAndIntro";
-import SolarProcessFlow from "@/components/solar/SolarProcessFlow";
-import SolarBrandsGrid from "@/components/solar/SolarBrandsGrid";
-import InverterSlider from "@/components/solar/InverterSlider";
-import SpecsAccordion from "@/components/solar/SpecsAccordion";
-import SizingGuide from "@/components/solar/SizingGuide";
-import SolarPackages from "@/components/solar/SolarPackages";
-import TimelineSection from "@/components/solar/TimelineSection";
-import EngineeringCustomizations from "@/components/solar/EngineeringCustomizations";
+import HeroSection from "@/components/solar/solarSystem/Hero";
+import SolarStatsAndIntro from "@/components/solar/solarSystem/SolarStatsAndIntro";
+import SolarProcessFlow from "@/components/solar/solarSystem/SolarProcessFlow";
+import SolarBrandsGrid from "@/components/solar/solarSystem/SolarBrandsGrid";
+import InverterSlider from "@/components/solar/solarSystem/InverterSlider";
+import SpecsAccordion from "@/components/solar/solarSystem/SpecsAccordion";
+import SizingGuide from "@/components/solar/solarSystem/SizingGuide";
+import SolarPackages from "@/components/solar/solarSystem/SolarPackages";
+import TimelineSection from "@/components/solar/solarSystem/TimelineSection";
+import EngineeringCustomizations from "@/components/solar/solarSystem/EngineeringCustomizations";
 
 import FAQ from "@/reuseables/faq";
 import GetSolar from "@/reuseables/getsolar";
-import LeadCaptureForm from "@/components/solar/LeadCaptureForm";
+import LeadCaptureForm from "@/components/solar/solarSystem/LeadCaptureForm";
 
 export const revalidate = 60;
 

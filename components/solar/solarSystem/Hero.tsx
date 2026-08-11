@@ -21,7 +21,7 @@ const HeroSection: React.FC<SolarHeroProps> = ({ heroProps }) => {
       titleColor="text-[#63B846]"
       descriptionColor="text-white/90"
       showOverlay={true}
-      heightClass="h-[600px]"
+
     />
   );
 };

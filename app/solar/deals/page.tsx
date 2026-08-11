@@ -30,12 +30,12 @@ import DealsHeroSection from "@/components/solar/deals/DealsHeroSection";
 import DealsPhilosophySection from "@/components/solar/deals/DealsPhilosophySection";
 import DealsGridSection from "@/components/solar/deals/DealsGridSection";
 import SplitSectionSection from "@/components/solar/deals/SplitSectionSection";
-import SolarPackages from "@/components/solar/SolarPackages";
+import SolarPackages from "@/components/solar/solarSystem/SolarPackages";
 import WaysToPaySection from "@/components/solar/deals/WaysToPaySection";
 import WhyMattersSection from "@/components/solar/deals/WhyMattersSection";
 import FaqSection from "@/components/solar/deals/FaqSection";
 import CtaBannerSection from "@/components/solar/deals/CtaBannerSection";
-import LeadCaptureForm from "@/components/solar/LeadCaptureForm";
+import LeadCaptureForm from "@/components/solar/solarSystem/LeadCaptureForm";
 
 export const revalidate = 60;
 

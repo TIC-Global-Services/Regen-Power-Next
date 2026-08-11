@@ -50,7 +50,7 @@ export default function LoanBenefitsSection({ resolved }: Props) {
           </h2>
 
           {resolved.description && (
-            <p className="text-sm md:text-xl leading-snug tracking-tight mt-3 mb-5 text-white/90 max-w-3xl">
+            <p className="text-sm md:text-xl leading-tight tracking-tight mt-3 mb-5 text-white/90 max-w-4xl">
               {resolved.description}
             </p>
           )}
@@ -60,10 +60,10 @@ export default function LoanBenefitsSection({ resolved }: Props) {
             {resolved.benefits.map((benefit, idx) => (
               <article
                 key={idx}
-                className="w-[240px] h-[220px] rounded-[8px] border border-white/20 bg-white/12 p-4 backdrop-blur-md flex flex-col text-left"
+                className="w-[240px] h-[180px] rounded-[8px] border border-white/20 bg-white/12 p-4 backdrop-blur-md flex flex-col justify-center text-left"
               >
-                <h3 className="text-[1.375rem] tracking-tight text-white mb-2 font-medium">{benefit.title}</h3>
-                <p className="text-sm leading-snug text-white/95">{benefit.description}</p>
+                <h3 className="text-[1.375rem] tracking-tight text-white font-medium">{benefit.title}</h3>
+                <p className="text-sm leading-tight text-white">{benefit.description}</p>
               </article>
             ))}
           </div>
@@ -84,7 +84,7 @@ export default function LoanBenefitsSection({ resolved }: Props) {
               {resolved.benefits.map((benefit, idx) => (
                 <SwiperSlide key={idx} className="h-auto flex pb-2">
                   <article
-                    className="w-full rounded-[8px] border border-white/20 bg-white/12 p-5 backdrop-blur-md flex flex-col text-left min-h-[180px] justify-start"
+                    className="w-full rounded-[8px] border border-white/20 bg-white/12 p-5 backdrop-blur-md flex flex-col justify-center text-left min-h-[180px]"
                   >
                     <h3 className="text-[1.25rem] tracking-tight text-white mb-2 font-medium">{benefit.title}</h3>
                     <p className="text-sm leading-snug text-white/90">{benefit.description}</p>

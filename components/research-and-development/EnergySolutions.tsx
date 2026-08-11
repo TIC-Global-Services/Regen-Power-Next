@@ -40,8 +40,8 @@ const EnergySolutions = ({ resolved }: Props) => {
 
   return (
     <section className="w-full px-[5%] py-10 md:py-20">
-      <div className="max-w-7xl mx-auto">
-        <div className="mb-8 md:mb-12">
+      <div >
+        <div className="mb-8 md:mb-12 capitalize">
           <p className="text-base md:text-3xl leading-none font-light tracking-tight text-black ">
             {resolved.subtitle}
           </p>
@@ -51,12 +51,12 @@ const EnergySolutions = ({ resolved }: Props) => {
         </div>
 
         {/* Desktop grid */}
-        <div className="hidden md:grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 md:gap-6">
+        <div className="hidden md:grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-2 md:gap-2">
           {items.map((item, index) => (
             <Link
               key={index}
               href={item.href}
-              className="group relative block rounded-2xl overflow-hidden aspect-[3/4] md:aspect-[4/5]"
+              className="group relative block rounded-2xl overflow-hidden aspect-[3/4] md:h-[440px] w-[320px]"
             >
               <img
                 src={item.image?.src || '/fallback.png'}
@@ -80,7 +80,7 @@ const EnergySolutions = ({ resolved }: Props) => {
         <div className="md:hidden">
           <div
             ref={sliderRef}
-            className="flex gap-5 overflow-x-auto snap-x snap-mandatory scrollbar-hide pb-2 -mx-[5%] px-[5%]"
+            className="flex gap-4 overflow-x-auto scrollbar-hide pb-2 -mx-[5%] px-[5%]"
             style={{ WebkitOverflowScrolling: 'touch', scrollbarWidth: 'none', msOverflowStyle: 'none' }}
           >
             {items.map((item, index) => (

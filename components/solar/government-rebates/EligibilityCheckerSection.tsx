@@ -87,8 +87,8 @@ export default function EligibilityCheckerSection({ resolved }: Props) {
           description={resolved.description}
           align="left"
           className="mb-10 max-w-4xl"
-          titleClass="text-5xl md:text-[3.75rem] font-light leading-none text-black"
-          descClass="max-w-4xl text-base md:text-xl text-black/85"
+          titleClass="text-5xl md:text-[3.75rem] leading-tight"
+          descClass="max-w-4xl text-base md:text-xl text-black"
         />
 
         {/* Questions + submit wrapper with blur overlay */}

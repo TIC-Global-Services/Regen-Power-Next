@@ -62,14 +62,14 @@ const defaultCards: PortfolioCard[] = [
 const variantClass: Record<CardVariant, string> = {
     'light-gray': 'bg-[#E8E8E6]',
     'light-green': 'bg-[#E5EFD5]',
-    'dark': 'bg-[#0a0a0a] text-white',
+    'dark': 'bg-[#3B3B33] text-white',
 };
 
 const TextCardView: React.FC<{ card: TextCard; mobileScroll?: boolean }> = ({ card, mobileScroll }) => {
     const isDark = card.variant === 'dark';
     const titleLines = card.title.split('\n');
     return (
-        <div className={`${variantClass[card.variant]} rounded-2xl p-6 md:p-8 flex flex-col justify-between h-full min-h-[280px] md:min-h-[340px] ${mobileScroll ? 'shrink-0 w-[75vw] md:w-auto' : ''}`}>
+        <div className={`${variantClass[card.variant]} rounded-2xl p-6 md:p-8 flex flex-col justify-between h-full min-h-[280px] ${mobileScroll ? 'shrink-0 w-[75vw] md:w-auto' : ''}`}>
             <h3 className="text-3xl md:text-4xl lg:text-5xl font-normal tracking-tight leading-tight text-[#63B846]">
                 {titleLines.map((line, i) => (
                     <span key={i} className="block">{line}</span>

@@ -5,6 +5,7 @@ import Image, { StaticImageData } from 'next/image';
 import { ArrowBigRight, ArrowRight, MoveRight } from 'lucide-react';
 import Fade from './fade';
 import CtaButton from './CtaButton';
+import SectionHeader from './SectionHeader';
 
 export interface FeatureCardItem {
   title: string;
@@ -31,8 +32,8 @@ export interface FeatureCardGridProps {
 }
 
 const FeatureCardGrid: React.FC<FeatureCardGridProps> = ({
-  topSubtitle = "Three Ways To Pay",
-  title = "Including One With Zero Interest",
+  topSubtitle = "",
+  title = "",
   bottomSubtitle = "",
   cards,
   showReadMore = true,
@@ -86,23 +87,16 @@ const FeatureCardGrid: React.FC<FeatureCardGridProps> = ({
   return (
     <Fade>
       <section className="py-10 md:py-20 bg-white px-[5%] md:px-[5%] overflow-hidden">
-        <div className="text-left md:text-center mb-5 md:mb-16 -space-y-4">
-          {topSubtitle && (
-            <h3 className="text-xl md:text-[2.125rem] text-black font-normal tracking-tight capitalize ">
-              {topSubtitle}
-            </h3>
-          )}
-          {title && (
-            <h2 className="text-[2.5rem] md:text-5xl lg:text-[5rem]  text-[#63B846] leading-none font-normal capitalize tracking-tighter mb-4 mt-2">
-              {title}
-            </h2>
-          )}
-          {bottomSubtitle && (
-            <p className="text-base md:text-xl text-black max-w-5xl mx-auto leading-[1.2] capitalize font-medium">
-              {bottomSubtitle}
-            </p>
-          )}
-        </div>
+        <SectionHeader
+          subtitle={topSubtitle}
+          title={title}
+          description={bottomSubtitle}
+          align="center"
+          className="mb-5 md:mb-16"
+          subtitleClass="text-xl md:text-[2.125rem] text-black tracking-tight capitalize"
+          titleClass="text-[2.5rem] md:text-6xl"
+          descClass="text-sm text-black max-w-3xl mx-auto font-medium capitalize"
+        />
 
         <div ref={containerRef} className="flex overflow-x-auto md:overflow-hidden md:flex-row -mx-[5%] pl-[5%] pr-[5%] gap-4 md:gap-5 w-[calc(100%+10%)] md:w-full md:mx-0 md:px-0 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none] pb-4 md:pb-0">
           {cards.map((card, index) => {

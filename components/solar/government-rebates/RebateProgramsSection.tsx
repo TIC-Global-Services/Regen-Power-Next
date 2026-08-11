@@ -3,6 +3,7 @@
 import React, { useState, useEffect, useRef, useCallback } from "react";
 import Image from "next/image";
 import SectionHeader from "@/reuseables/SectionHeader";
+import MissingImage from "@/reuseables/MissingImage";
 import type { ResolvedRebatesRebatePrograms } from "@/lib/strapi/resolvers/rebates";
 
 const CYCLE_DURATION = 5000; // ms per card
@@ -14,7 +15,6 @@ interface Props {
 export default function   RebateProgramsSection({ resolved }: Props) {
   const programs = resolved.programs;
   const [activeIndex, setActiveIndex] = useState(0);
-  const [paused, setPaused] = useState(false);
   const [progressKey, setProgressKey] = useState(0); // forces animation restart
   const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
@@ -27,14 +27,14 @@ export default function   RebateProgramsSection({ resolved }: Props) {
 
   // Auto-cycle timer
   useEffect(() => {
-    if (paused || programs.length <= 1) return;
+    if (programs.length <= 1) return;
 
     timerRef.current = setTimeout(advanceToNext, CYCLE_DURATION);
 
     return () => {
       if (timerRef.current) clearTimeout(timerRef.current);
     };
-  }, [activeIndex, paused, advanceToNext, programs.length, progressKey]);
+  }, [activeIndex, advanceToNext, programs.length, progressKey]);
 
   const handleManualClick = (index: number) => {
     if (timerRef.current) clearTimeout(timerRef.current);
@@ -57,11 +57,7 @@ export default function   RebateProgramsSection({ resolved }: Props) {
         />
       </div>
 
-      <div
-        className="hidden lg:flex items-end"
-        onMouseEnter={() => setPaused(true)}
-        onMouseLeave={() => setPaused(false)}
-      >
+      <div className="hidden lg:flex lg:h-[440px] items-end">
         {programs.map((program, index) => {
           const isActive = program.label === activeId;
           const isLast = index === programs.length - 1;
@@ -72,27 +68,27 @@ export default function   RebateProgramsSection({ resolved }: Props) {
               key={program.label}
               type="button"
               onClick={() => handleManualClick(index)}
-              className={`flex-1 relative text-left transition-all duration-300 ${isActive
-                ? "bg-[#A6D63F] pt-8 px-8 py-10"
-                : `bg-[#F3F7F1] pt-6  pb-4 px-5 h-[320px] ${!isLast ? "border-r border-[#DCE8D8]" : ""} hover:bg-[#EEF6EB]`
+              onMouseEnter={() => handleManualClick(index)}
+              className={`relative text-left transition-all duration-500 ease-in-out ${isActive
+                ? "bg-[#A6D63F] flex-[1.5_1_0%] pt-8 px-6 pb-10 lg:h-[420px]"
+                : `bg-[#F3F7F1] flex-1 pt-6 pb-4 px-5 h-[320px] ${!isLast ? "border-r border-[#DCE8D8]" : ""} hover:bg-[#EEF6EB]`
                 }`}
-              style={isActive ? { borderTop: '4px solid transparent' } : undefined}
+              style={
+                isActive
+                  ? { flexBasis: "0%", flexGrow: 1.5 }
+                  : undefined
+              }
             >
               {/* Progress bar on active card */}
               {isActive && (
                 <div
-                  className="absolute top-0 left-0 right-0"
-                  style={{ height: '4px' }}
+                  className="absolute top-0 left-0 right-0 h-[4px] overflow-hidden"
                 >
-                  {/* Track */}
-                  <div className="absolute -top-1 inset-0 bg-black/20" />
-                  {/* Fill */}
                   <div
                     key={progressKey}
-                    className="absolute -top-1 left-0 h-[4px] bg-black"
+                    className="absolute left-0 h-[4px] bg-black"
                     style={{
                       animation: `progressFill ${CYCLE_DURATION}ms linear forwards`,
-                      animationPlayState: paused ? 'paused' : 'running',
                     }}
                   />
                 </div>
@@ -103,28 +99,38 @@ export default function   RebateProgramsSection({ resolved }: Props) {
                 <div className="absolute top-0 left-0 right-0 h-[4px] bg-black/10" />
               )} */}
 
-              {isActive ? (
-                <>
-                  <h3 className="text-[2.5rem] tracking-tight text-black font-medium">
-                    {program.title}
-                  </h3>
-                  {img && (
-                    <div className="relative mt-6 w-[393px] h-[150px] overflow-hidden rounded-[20px]">
+              <h3
+                className={`${isActive
+                  ? "text-[1.6rem] lg:text-[2rem] leading-tight tracking-tight text-black font-medium"
+                  : "text-[1.750rem] leading-tight tracking-tight text-black"
+                }`}
+              >
+                {program.title}
+              </h3>
+
+              {/* Collapsible expanded content — animates open/closed instead of mounting/unmounting */}
+              <div
+                className={`grid transition-[grid-template-rows] duration-500 ease-in-out ${isActive ? "grid-rows-[1fr] mt-6" : "grid-rows-[0fr] mt-0"}`}
+              >
+                <div className="overflow-hidden">
+                  {img ? (
+                    <div className="relative h-[110px] lg:h-[150px] overflow-hidden rounded-[20px] max-w-[393px]">
                       <Image src={img.src} alt={img.alt} fill className="object-cover" />
+                    </div>
+                  ) : (
+                    <div className="max-w-[393px] h-[110px] lg:h-[150px] overflow-hidden rounded-[20px]">
+                      <MissingImage
+                        label={`${program.title} image`}
+                        type="bgimage"
+                      />
                     </div>
                   )}
                   <p className="mt-5 text-base leading-tight text-black/90">
                     {program.summary}
                   </p>
-                  {program.badge && (
-                    <span className="mt-4 inline-flex rounded-full bg-black/10 px-3 py-1 text-xs uppercase tracking-wide text-black">
-                      {program.badge}
-                    </span>
-                  )}
-                </>
-              ) : (
-                <p className="text-[1.750rem] leading-tight text-black">{program.title}</p>
-              )}
+                  
+                </div>
+              </div>
             </button>
           );
         })}
@@ -146,7 +152,7 @@ export default function   RebateProgramsSection({ resolved }: Props) {
                 onClick={() => handleManualClick(programs.indexOf(program))}
                 className="flex w-full items-center justify-between px-5 py-5 text-left"
               >
-                <span className="pr-4 text-4xl leading-tight tracking-tight text-black">
+                <span className="pr-4 text-[2.5rem] leading-tight tracking-tight text-black">
                   {program.title}
                 </span>
                 <span className="text-sm uppercase tracking-wide text-black/55">

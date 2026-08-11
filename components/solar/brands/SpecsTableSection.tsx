@@ -22,8 +22,8 @@ const SpecsTableSection: React.FC<SpecsTableSectionProps> = ({ resolved }) => {
           description={resolved.description ?? ""}
           align="left"
           className="mb-8"
-          subtitleClass="text-base md:text-xl lg:text-2xl normal-case block text-black mb-2"
-          titleClass="text-4xl md:text-[5.5rem] font-normal leading-none tracking-tight text-[#63B846]"
+          subtitleClass="text-base md:text-xl lg:text-2xl text-black mb-2 capitalize"
+          titleClass="text-4xl md:text-[5.5rem] font-normal leading-tight tracking-tight text-[#63B846]"
           descClass="text-xl leading-tight max-w-5xl"
         />
 

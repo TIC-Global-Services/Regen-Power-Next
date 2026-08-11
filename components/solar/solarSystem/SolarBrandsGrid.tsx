@@ -20,7 +20,7 @@ const SolarBrandsGrid: React.FC<SolarBrandsGridProps> = ({ resolved }) => {
           subtitle={resolved.subtitle}
           title={resolved.title}
           description={resolved.description}
-          align="left"
+          align="center"
           titleClass="text-[3.125rem] md:text[5rem]"
           subtitleClass="font-normal text-xl md:text-[1.875rem] leading-none"
           descClass="max-w-4xl"

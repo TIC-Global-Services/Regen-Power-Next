@@ -28,8 +28,8 @@ export default function DealsGridSection({ resolved }: Props) {
               titleClass="text-4xl md:text-[5rem] text-[#63B846] leading-none font-normal tracking-tight"
             />
           </div>
-          <div className="lg:w-[45%]">
-            <p className="leading-tight font-light text-sm md:text-base">
+          <div className="lg:w-[35%]">
+            <p className="leading-tight tracking-tight font-light text-sm md:text-base">
               {resolved.description}
             </p>
           </div>

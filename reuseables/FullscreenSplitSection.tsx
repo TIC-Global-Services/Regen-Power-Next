@@ -58,7 +58,7 @@ const  FullscreenSplitSection: React.FC<FullscreenSplitSectionProps> = ({
             <>
               <div>
                 {badge && (
-                  <span className="mb-6 inline-flex rounded-full bg-[#E5DDD8] px-5 py-2 text-xs font-medium uppercase tracking-wide text-black">
+                  <span className="mb-2 inline-flex rounded-full bg-[#E5DDD8] px-5 py-2 text-xs font-medium uppercase tracking-wide text-black">
                     {badge}
                   </span>
                 )}
@@ -66,14 +66,14 @@ const  FullscreenSplitSection: React.FC<FullscreenSplitSectionProps> = ({
                   subtitle={subtitle}
                   title={title}
                   align="left"
-                  subtitleClass="text-xl md:text-xl lg:text-2xl normal-case mb-4 block text-black font-medium"
-                  titleClass="text-[2.5rem] md:text-5xl lg:text-[3.125rem] font-normal leading-none tracking-tight mb-2 text-[#63B846]"
+                  subtitleClass="text-xl md:text-xl lg:text-2xl capitalize block text-black font-medium"
+                  titleClass="text-[2.5rem] md:text-5xl lg:text-[3.125rem] font-normal leading-tight tracking-tight mb-2 text-[#63B846]"
                 />
               </div>
 
               <div className="mt-2 lg:mt-24">
                 <Fade delay={0.2}>
-                  <div className="text-base md:text-xl leading-tight">
+                  <div className="text-base md:text-xl tracking-tight leading-tight">
                     {description}
                   </div>
                 </Fade>

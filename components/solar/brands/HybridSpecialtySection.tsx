@@ -25,10 +25,10 @@ const HybridSpecialtySection: React.FC<HybridSpecialtySectionProps> = ({
               title={resolved.title ?? ""}
               align="left"
               subtitleClass="text-base md:text-2xl font-medium normal-case"
-              titleClass="text-4xl md:text-5xl lg:text-[4.5rem] font-normal leading-none tracking-tight mb-6 text-[#63B846]"
+              titleClass="text-4xl md:text-5xl lg:text-[4.5rem] font-normal leading-tight tracking-tight mb-6 text-[#63B846]"
             />
             <Fade delay={0.2}>
-              <p className="text-sm md:text-xl leading-tight">
+              <p className="text-sm md:text-xl leading-tight tracking-tight">
                 {resolved.description ?? ""}
               </p>
             </Fade>
