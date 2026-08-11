@@ -14,12 +14,7 @@ export interface SmartInstallBentoData {
 }
 
 const SmartInstallBento = ({ data }: { data: SmartInstallBentoData }) => {
-  // Find the index of the block that should be dark by default
-  const defaultDarkIdx = data.blocks.findIndex(b => b.theme === 'dark');
   const [hoveredIdx, setHoveredIdx] = useState<number | null>(null);
-
-  // Determine which block is currently active (dark)
-  const activeIdx = hoveredIdx !== null ? hoveredIdx : (defaultDarkIdx >= 0 ? defaultDarkIdx : 0);
 
   return (
     <section className="py-16 md:py-24 pl-[5%] md:px-[5%] overflow-hidden">
@@ -38,7 +33,7 @@ const SmartInstallBento = ({ data }: { data: SmartInstallBentoData }) => {
         <div className="flex md:grid md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-4 overflow-x-auto md:overflow-x-visible snap-x snap-mandatory md:snap-none pb-6 md:pb-0 pr-[5%] md:pr-0 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
           {/* Desktop Title Block (Inside Grid) */}
           <div className="hidden md:flex p-6 md:p-2 flex-col justify-end">
-            <h2 className="text-4xl md:text-5xl lg:text-[3.125rem] text-[#63B846] font-normal leading-[1.05] tracking-tight mb-4 md:mb-0">
+            <h2 className="text-4xl md:text-5xl lg:text-[3.125rem] text-[#63B846] font-normal leading-[1] tracking-tight mb-4">
               {data.title}
             </h2>
             <p className="text-black text-base md:text-lg lg:text-2xl leading-[1.2] font-medium tracking-tight">
@@ -48,24 +43,26 @@ const SmartInstallBento = ({ data }: { data: SmartInstallBentoData }) => {
 
           {/* Map through the 5 bento blocks */}
           {data.blocks.map((block, idx) => {
-            const isActive = activeIdx === idx;
+            const isHovered = hoveredIdx === idx;
 
             return (
               <div
                 key={idx}
                 onMouseEnter={() => setHoveredIdx(idx)}
                 onMouseLeave={() => setHoveredIdx(null)}
-                className={`snap-start shrink-0 w-[75vw] md:w-auto rounded-[24px] p-6 md:p-8 lg:p-10 flex flex-col justify-end transition-colors duration-300 cursor-default h-[260px] lg:h-[300px] ${
-                  isActive
+                className={`snap-start shrink-0 w-[75vw] md:w-auto rounded-[14px] p-6 md:p-8 lg:p-10 flex flex-col justify-end transition-colors duration-300 cursor-default h-[260px] lg:h-[300px] ${
+                  isHovered
                     ? 'bg-[#3D3A35] text-white'
-                    : 'bg-[#EEEEEE] text-black'
+                    : 'bg-[#EBEBEB] text-black'
                 }`}
               >
-                <h4 className="text-xl md:text-2xl font-normal mb-3 md:mb-4 leading-tight tracking-tight">
+                <h4 className={`text-xl md:text-2xl font-normal mb-3 md:mb-4 leading-tight tracking-tight transition-colors duration-300 ${
+                  isHovered ? 'text-white' : 'text-black'
+                }`}>
                   {block.title}
                 </h4>
                 <p className={`text-sm md:text-base font-normal tracking-tight leading-[1.2] transition-colors duration-300 ${
-                  isActive ? 'text-white/70' : 'text-[#888888]'
+                  isHovered ? 'text-white/70' : 'text-[#888888]'
                 }`}>
                   {block.description}
                 </p>

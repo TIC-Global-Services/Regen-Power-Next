@@ -13,7 +13,6 @@ export interface HowYouUseItData {
     topSubtitle?: string;
     title?: string;
     description?: string;
-    defaultFeaturedIndex?: number;
     cards: HowYouUseItCard[];
 }
 
@@ -21,9 +20,6 @@ export interface HowYouUseItData {
 
 const HowYouUseIt: React.FC<{ data?: HowYouUseItData }> = ({ data }) => {
     if (!data || !data.cards || data.cards.length === 0) return null;
-
-    // Default featured index is 2 (3rd card: "How Important Is Blackout Backup?")
-    const featuredIndex = data.defaultFeaturedIndex ?? 2;
 
     return (
         <section className="w-full px-[5%] py-12 md:py-20 bg-white">
@@ -33,7 +29,7 @@ const HowYouUseIt: React.FC<{ data?: HowYouUseItData }> = ({ data }) => {
                 <div className="hidden md:grid md:grid-cols-3 gap-5 md:gap-6">
                     {/* Header Item */}
                     {(data.topSubtitle || data.title || data.description) && (
-                        <div className="md:col-span-2 flex flex-col justify-center md:pr-12 mb-6 md:mb-0">
+                        <div className="md:col-span-2 flex flex-col justify-center md:pr-12 mb-6 md:mb-0 capitalize">
                             {data.topSubtitle && (
                                 <p className="text-2xl md:text-3xl font-light tracking-tight text-black mb-1">
                                     {data.topSubtitle}
@@ -45,7 +41,7 @@ const HowYouUseIt: React.FC<{ data?: HowYouUseItData }> = ({ data }) => {
                                 </h2>
                             )}
                             {data.description && (
-                                <p className="text-base md:text-lg lg:text-2xl text-black font-normal leading-snug tracking-tight">
+                                <p className="text-base md:text-lg lg:text-2xl text-black font-normal leading-tight tracking-tight">
                                     {data.description}
                                 </p>
                             )}
@@ -53,29 +49,21 @@ const HowYouUseIt: React.FC<{ data?: HowYouUseItData }> = ({ data }) => {
                     )}
 
                     {/* Cards */}
-                    {data.cards.map((card, idx) => {
-                        const isInitiallyFeatured = card.isFeatured ?? (idx === featuredIndex);
-
-                        return (
-                            <div
-                                key={card.id || idx}
-                                className={`rounded-3xl p-6 md:p-8 flex flex-col justify-end min-h-[260px] md:min-h-[300px] transition-all duration-300 ${
-                                    isInitiallyFeatured
-                                        ? 'bg-[#353731] text-white group-hover:bg-[#EAEAEA] group-hover:text-black hover:!bg-[#353731] hover:!text-white'
-                                        : 'bg-[#EAEAEA] text-black hover:!bg-[#353731] hover:!text-white'
-                                }`}
-                            >
-                                <div>
-                                    <h3 className="text-xl md:text-2xl font-normal tracking-tight mb-3 leading-snug">
-                                        {card.title}
-                                    </h3>
-                                    <p className="text-xs md:text-[0.9rem] leading-[1.2] tracking-tight text-[#888888]">
-                                        {card.description}
-                                    </p>
-                                </div>
+                    {data.cards.map((card, idx) => (
+                        <div
+                            key={card.id || idx}
+                            className="group rounded-[14px] p-6 md:p-8 flex flex-col justify-end min-h-[260px] md:min-h-[300px] transition-colors duration-300 bg-[#EAEAEA] text-black hover:bg-[#353731] hover:text-white"
+                        >
+                            <div className="capitalize">
+                                <h3 className="text-xl md:text-2xl font-normal tracking-tight mb-3 leading-snug">
+                                    {card.title}
+                                </h3>
+                                <p className="text-xs md:text-[0.9rem] leading-[1.2] tracking-tight text-[#888888] transition-colors duration-300 group-hover:text-white/70">
+                                    {card.description}
+                                </p>
                             </div>
-                        );
-                    })}
+                        </div>
+                    ))}
                 </div>
 
                 {/* Mobile: Header */}
@@ -92,7 +80,7 @@ const HowYouUseIt: React.FC<{ data?: HowYouUseItData }> = ({ data }) => {
                             </h2>
                         )}
                         {data.description && (
-                            <p className="text-base md:text-lg lg:text-2xl text-black font-normal leading-snug tracking-tight">
+                            <p className="text-base md:text-lg lg:text-2xl text-black font-normal leading-tight tracking-tight">
                                 {data.description}
                             </p>
                         )}
@@ -101,29 +89,21 @@ const HowYouUseIt: React.FC<{ data?: HowYouUseItData }> = ({ data }) => {
 
                 {/* Mobile: Horizontal Scroll */}
                 <div className="flex overflow-x-auto md:hidden gap-4 -mx-[5%] px-[5%] [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none] pb-4 mt-6">
-                    {data.cards.map((card, idx) => {
-                        const isInitiallyFeatured = card.isFeatured ?? (idx === featuredIndex);
-
-                        return (
-                            <div
-                                key={card.id || idx}
-                                className={`rounded-3xl p-6 flex flex-col justify-end min-h-[260px] w-[75vw] shrink-0 snap-start transition-all duration-300 ${
-                                    isInitiallyFeatured
-                                        ? 'bg-[#353731] text-white'
-                                        : 'bg-[#EAEAEA] text-black'
-                                }`}
-                            >
-                                <div>
-                                    <h3 className="text-xl font-normal tracking-tight mb-3 leading-snug">
-                                        {card.title}
-                                    </h3>
-                                    <p className="text-xs leading-[1.2] tracking-tight text-[#888888]">
-                                        {card.description}
-                                    </p>
-                                </div>
+                    {data.cards.map((card, idx) => (
+                        <div
+                            key={card.id || idx}
+                            className="group rounded-3xl p-6 flex flex-col justify-end min-h-[260px] w-[75vw] shrink-0 snap-start transition-colors duration-300 bg-[#EAEAEA] text-black hover:bg-[#353731] hover:text-white"
+                        >
+                            <div>
+                                <h3 className="text-xl font-normal tracking-tight mb-3 leading-snug">
+                                    {card.title}
+                                </h3>
+                                <p className="text-xs leading-[1.2] tracking-tight text-[#888888] transition-colors duration-300 group-hover:text-white/70">
+                                    {card.description}
+                                </p>
                             </div>
-                        );
-                    })}
+                        </div>
+                    ))}
                 </div>
             </div>
         </section>

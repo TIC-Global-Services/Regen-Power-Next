@@ -25,12 +25,12 @@ const FourPillars = ({ data }: { data: FourPillarsData }) => {
                     </h3>
                 )}
                 {data.title && (
-                    <h2 className="text-[2.5rem] md:text-6xl lg:text-[5rem] text-[#63B846] font-light leading-none tracking-tighter">
+                    <h2 className="text-[2.5rem] md:text-6xl lg:text-[5rem] text-[#63B846] font-light leading-[1] tracking-tighter">
                         {data.title}
                     </h2>
                 )}
                 {data.description && (
-                    <p className="text-black text-base md:text-lg leading-[1.2] whitespace-pre-line mt-4 max-w-3xl mx-auto">
+                    <p className="text-black text-base md:text-lg leading-[1.2] tracking-tight whitespace-pre-line mt-4 max-w-3xl mx-auto">
                         {data.description}
                     </p>
                 )}
@@ -70,11 +70,11 @@ const FourPillars = ({ data }: { data: FourPillarsData }) => {
             </div>
 
             {/* Desktop: Four Column Card Grid */}
-            <div className="hidden sm:grid sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-5">
+            <div className="hidden sm:grid sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-2">
                 {data.cards.map((card, idx) => (
                     <div
                         key={idx}
-                        className="relative rounded-[20px] overflow-hidden h-[320px] md:h-[420px]"
+                        className="relative rounded-[20px] overflow-hidden min-h-[320px] md:min-h-[420px] max-w-full w-[320px] justify-self-center"
                     >
                         {/* Background image */}
                         {card.image && (
@@ -94,7 +94,7 @@ const FourPillars = ({ data }: { data: FourPillarsData }) => {
                             <h4 className="text-white text-xl md:text-[1.5rem] font-medium tracking-tight leading-[1.2]">
                                 {card.title}
                             </h4>
-                            <p className="text-white/85 text-xs md:text-base tracking-tight leading-[1.3]">
+                            <p className="text-white text-xs md:text-base tracking-tight leading-[1.2] mb-4 mx-auto">
                                 {card.description}
                             </p>
                         </div>

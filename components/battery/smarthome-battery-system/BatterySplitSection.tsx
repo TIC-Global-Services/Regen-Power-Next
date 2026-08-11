@@ -39,7 +39,7 @@ const BatterySplitSection = ({ data }: { data: BatterySplitData }) => {
 
   const renderImageAndNav = () => (
     <div className="w-full flex flex-col items-end gap-6">
-      <div className="w-full relative min-h-[350px] lg:min-h-[650px] rounded-[20px] overflow-hidden bg-gray-100">
+      <div className="w-full relative min-h-[350px] max-w-full md:w-[660px] lg:min-h-[770px] rounded-[20px] overflow-hidden bg-gray-100">
         <AnimatePresence mode="wait">
           <motion.div
             key={currentSlide}
@@ -108,17 +108,17 @@ const BatterySplitSection = ({ data }: { data: BatterySplitData }) => {
                   {slide.title}
                 </h2>
 
-                <p className="text-base md:text-lg text-black/80 font-normal mb-8">
+                <p className="text-base md:text-2xl text-black font-normal leading-[1] tracking-tight mb-8">
                   {slide.mainDescription}
                 </p>
 
-                <div className="space-y-2 mb-8 w-full">
+                <div className="space-y-2 mb-8 w-full capitalize">
                   {slide.blocks.map((block, idx) => (
                     <div key={idx}>
                       <h4 className="text-lg md:text-xl font-semibold text-black mb-1 tracking-tight">
                         {block.title}
                       </h4>
-                      <p className="text-sm md:text-base font-normal tracking-tight text-black">
+                      <p className="text-base md:text-xl font-normal leading-[1] tracking-tight text-black">
                         {block.description}
                       </p>
                     </div>

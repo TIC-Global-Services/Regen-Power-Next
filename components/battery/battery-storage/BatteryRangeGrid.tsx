@@ -105,7 +105,6 @@ const ImageCard = ({ card }: { card: BatteryRangeCard }) => (
             href={card.ctaLink}
             text={card.ctaText}
             textColor="text-white"
-            textClass="text-xs md:text-xs"
           />
         </div>
       )}

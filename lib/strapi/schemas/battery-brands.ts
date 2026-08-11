@@ -118,7 +118,6 @@ export const BatteryBrandsCecApprovedSchema = z.object({
   __component: z.literal("battery-brands.cec-approved"),
   title: z.string().nullable(),
   description: z.string().nullable(),
-  defaultFeaturedIndex: z.number().nullable(),
   cards: z.array(CecCardSchema),
 });
 export type BatteryBrandsCecApprovedData = z.infer<

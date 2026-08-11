@@ -64,7 +64,6 @@ export const HowYouUseItCardSchema = z.object({
   id: z.number(),
   title: z.string(),
   description: z.string(),
-  isFeatured: z.boolean().nullable(),
 });
 
 export const HowYouUseItSchema = z.object({
@@ -72,7 +71,6 @@ export const HowYouUseItSchema = z.object({
   topSubtitle: z.string().nullable(),
   title: z.string().nullable(),
   description: z.string().nullable(),
-  defaultFeaturedIndex: z.number().nullable(),
   cards: z.array(HowYouUseItCardSchema),
 });
 export type HowYouUseItData = z.infer<typeof HowYouUseItSchema>;

@@ -46,7 +46,7 @@ const BatteryTimeline = ({ data }: { data: BatteryTimelineData }) => {
     <section className="bg-white py-16 md:py-24 px-[5%] overflow-hidden">
       <div className="">
         <div className="text-center mb-16">
-          <h3 className="text-xl md:text-2xl text-black font-normal">
+          <h3 className="text-xl md:text-2xl text-black tracking-tight font-normal">
             {data.topSubtitle}
           </h3>
           <h2 className="text-4xl md:text-5xl lg:text-[4rem] text-[#63B846] font-normal tracking-tight">
@@ -232,12 +232,12 @@ const BatteryTimeline = ({ data }: { data: BatteryTimelineData }) => {
                   animate="center"
                   exit="exit"
                   transition={{ duration: 0.3 }}
-                  className="absolute inset-0 flex flex-col"
+                  className="absolute inset-0 flex flex-col capitalize"
                 >
-                  <h4 className="text-3xl md:text-[2.5rem] font-normal text-black mb-6 leading-[1.15] tracking-tight text-center md:text-left">
+                  <h4 className="text-3xl md:text-[2.5rem] font-normal text-black mb-6 leading-[1] tracking-tight text-center md:text-left">
                     {activeEvent.title}
                   </h4>
-                  <p className="text-sm md:text-2xl text-black leading-[1.2] tracking-tight font-normal text-center md:text-left pl-0 md:pl-8">
+                  <p className="text-sm md:text-2xl text-black leading-[1] tracking-tight font-normal text-center md:text-left pl-0 md:pl-8">
                     {activeEvent.description}
                   </p>
                 </motion.div>

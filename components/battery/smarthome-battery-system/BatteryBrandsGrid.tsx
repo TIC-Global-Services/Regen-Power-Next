@@ -28,13 +28,13 @@ const BatteryBrandsGrid = ({ data }: { data: BatteryBrandsGridData }) => {
     <section className="bg-white py-16 md:py-24 px-[5%] min-h-screen">
       <div className="">
         <div className="text-left md:text-center mb-10 capitalize">
-          <h3 className="text-xl md:text-[2rem] text-black font-normal leading-none">
+          <h3 className="text-xl md:text-[2rem] text-black font-normal tracking-tight ">
             {data.topSubtitle}
           </h3>
           <h2 className="text-[2.5rem] md:text-5xl lg:text-[5rem] text-[#63B846] font-normal tracking-tight">
             {data.title}
           </h2>
-          <p className="text-base md:text-[1.375rem] text-black leading-tight font-medium">
+          <p className="text-base md:text-xl text-black tracking-tight leading-[1] max-w-4xl mx-auto font-medium">
             {data.subtitle}
           </p>
         </div>
@@ -103,7 +103,7 @@ const BatteryBrandsGrid = ({ data }: { data: BatteryBrandsGridData }) => {
                 <div className="flex flex-col gap-6 mb-8 flex-1">
                   {brand.specification.map((spec, sIdx) => (
                     <div key={sIdx}>
-                      <p className="text-black text-sm md:text-base leading-[1.2]">
+                      <p className="text-black text-sm md:text-base leading-tight tracking-tight ">
                         <span className="font-bold">{spec.title} </span>
                         {spec.description}
                       </p>

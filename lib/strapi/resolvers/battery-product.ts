@@ -92,13 +92,11 @@ export interface ResolvedHowYouUseItCard {
   id?: string | number;
   title: string;
   description: string;
-  isFeatured?: boolean;
 }
 export interface ResolvedHowYouUseIt {
   topSubtitle?: string;
   title?: string;
   description?: string;
-  defaultFeaturedIndex?: number;
   cards: ResolvedHowYouUseItCard[];
 }
 export function resolveHowYouUseIt(
@@ -109,12 +107,10 @@ export function resolveHowYouUseIt(
     topSubtitle: data.topSubtitle ?? undefined,
     title: data.title ?? undefined,
     description: data.description ?? undefined,
-    defaultFeaturedIndex: data.defaultFeaturedIndex ?? undefined,
     cards: (data.cards ?? []).map((card) => ({
       id: card.id,
       title: card.title,
       description: card.description,
-      ...(card.isFeatured ? { isFeatured: card.isFeatured } : {}),
     })),
   };
 }

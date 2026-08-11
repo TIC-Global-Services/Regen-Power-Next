@@ -184,7 +184,6 @@ export interface ResolvedCecCard {
 export interface ResolvedCecApproved {
   title: string;
   description: string;
-  defaultFeaturedIndex?: number;
   cards: ResolvedCecCard[];
 }
 export function resolveCecApproved(
@@ -194,10 +193,6 @@ export function resolveCecApproved(
   return {
     title: data.title ?? "",
     description: data.description ?? "",
-    ...(data.defaultFeaturedIndex !== undefined &&
-    data.defaultFeaturedIndex !== null
-      ? { defaultFeaturedIndex: data.defaultFeaturedIndex }
-      : {}),
     cards: (data.cards ?? []).map((card) => ({
       title: card.title,
       description: card.description,
