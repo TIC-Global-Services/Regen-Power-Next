@@ -24,14 +24,14 @@ const BatteryCapacityBlocks = ({ data }: { data: BatteryCapacityData }) => {
       <section className="bg-white py-16 md:py-24 px-[5%]">
         <div className="">
           {/* Section Header */}
-          <div className="text-left md:text-center mb-10 md:mb-14 ">
-            <h3 className="text-base md:text-[2rem] text-black font-normal tracking-tight leading-[1.2]">
+          <div className="text-left md:text-center mb-10 md:mb-14 capitalize ">
+            <h3 className="text-base md:text-[2rem] text-black font-normal tracking-tight leading-[1]">
               {data.topSubtitle}
             </h3>
-            <h2 className="text-[2.5rem] md:text-5xl lg:text-[5rem] text-[#63B846] font-light leading-tight tracking-tighter mb-2">
+            <h2 className="text-[2.5rem] md:text-5xl lg:text-[5rem] text-[#63B846] font-light leading-tight tracking-tighter">
               {data.title}
             </h2>
-            <p className="text-base md:text-xl text-black max-w-4xl mx-auto leading-[1.2] font-medium whitespace-pre-line">
+            <p className="text-base md:text-xl text-black max-w-3xl mx-auto leading-[1.2] tracking-tight font-medium whitespace-pre-line">
               {data.description}
             </p>
           </div>
@@ -63,13 +63,13 @@ const BatteryCapacityBlocks = ({ data }: { data: BatteryCapacityData }) => {
           </div>
 
           {/* Desktop: Cards Grid */}
-          <div className="hidden md:grid md:grid-cols-3 gap-5 mb-10">
+          <div className="hidden md:grid md:grid-cols-3 gap-5 md:gap-2 mb-10 justify-center max-w-6xl mx-auto">
             {data.cards.map((card, idx) => (
               <div
                 key={idx}
-                className={`rounded-[16px] p-7 md:p-8 flex flex-col justify-center items-center  min-h-[280px] transition-shadow duration-300 hover:shadow-md ${card.isPrimary
+                className={`rounded-[16px] p-7 md:p-8 flex flex-col justify-center items-center max-w-full md:w-[360px] min-h-[280px] transition-shadow duration-300 hover:shadow-md ${card.isPrimary
                     ? 'bg-[#63B846] text-black'
-                    : 'bg-[#EEF6EB] border border-[#63B846]/20 text-black'
+                    : 'bg-[#EEF6EB] text-black'
                   }`}
               >
                 <h4
@@ -90,7 +90,7 @@ const BatteryCapacityBlocks = ({ data }: { data: BatteryCapacityData }) => {
 
           {/* Footer Text + CTA */}
           <div className="text-center">
-            <p className="text-base md:text-xl text-black font-medium mb-6 max-w-4xl mx-auto">
+            <p className="text-base md:text-xl text-black font-medium mb-6 max-w-4xl mx-auto capitalize tracking-tight leading-[1.2] whitespace-pre-line">
               {data.footerText}
             </p>
             <CtaButton href={data.ctaLink} text={data.ctaText} textColor="text-black" />

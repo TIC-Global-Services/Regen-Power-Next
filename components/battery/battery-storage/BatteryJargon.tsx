@@ -27,7 +27,7 @@ const BatteryJargon = ({ data }: { data: BatteryJargonData }) => {
           <h2 className="text-[2.5rem] md:text-[5rem] text-[#63B846] font-normal leading-[1.1] mb-6 tracking-tight">
             {data.title}
           </h2>
-          <p className="text-base md:text-xl text-black leading-[1] capitalize font-medium">
+          <p className="text-base md:text-xl text-black leading-[1] tracking-tight capitalize font-medium">
             {data.description}
           </p>
         </div>

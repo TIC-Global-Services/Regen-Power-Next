@@ -130,6 +130,9 @@ export const BatteryStorageBillImpactSchema = z.object({
   title: z.string().nullable(),
   bottomSubtitle: z.string().nullable(),
   cards: z.array(BatteryStorageImageCardSchema),
+  ctaDescription: z.string().nullable(),
+  ctaText: z.string().nullable(),
+  ctaLink: z.string().nullable(),
 });
 export type BatteryStorageBillImpactData = z.infer<
   typeof BatteryStorageBillImpactSchema
@@ -224,6 +227,8 @@ export const BatteryStorageCustomerStoriesSchema = z.object({
   topSubtitle: z.string().nullable(),
   title: z.string().nullable(),
   stories: z.array(BatteryStorageStoryCardSchema),
+  centerButton: z.boolean().nullable(),
+  centerButtonText: z.string().nullable(),
 });
 export type BatteryStorageCustomerStoriesData = z.infer<
   typeof BatteryStorageCustomerStoriesSchema

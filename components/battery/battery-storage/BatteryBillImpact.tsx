@@ -6,6 +6,9 @@ export interface BatteryBillImpactData {
   title: string;
   bottomSubtitle?: string;
   cards: FeatureCardItem[];
+  ctaDescription?: string;
+  ctaText?: string;
+  ctaLink?: string;
 }
 
 const BatteryBillImpact = ({ data }: { data: BatteryBillImpactData }) => {
@@ -18,6 +21,9 @@ const BatteryBillImpact = ({ data }: { data: BatteryBillImpactData }) => {
         bottomSubtitle={data.bottomSubtitle}
         cards={data.cards}
         showReadMore={false}
+        ctaDescription={data.ctaDescription}
+        ctaText={data.ctaText}
+        ctaLink={data.ctaLink}
       />
 
     </div>

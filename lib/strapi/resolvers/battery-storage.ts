@@ -121,6 +121,9 @@ export interface ResolvedBatteryBillImpact {
   title: string;
   bottomSubtitle?: string;
   cards: ResolvedBillImpactCard[];
+  ctaDescription?: string;
+  ctaText?: string;
+  ctaLink?: string;
 }
 export function resolveBatteryBillImpact(
   data: BatteryStorageBillImpactData | undefined
@@ -135,6 +138,11 @@ export function resolveBatteryBillImpact(
       description: card.description,
       image: card.image ? strapiImageData(card.image)?.src ?? null : null,
     })),
+    ctaDescription:
+      data.ctaDescription ??
+      "Want an estimate for your home? Tell us your address and usage and we'll model it",
+    ctaText: data.ctaText ?? "Get a personalised quote",
+    ctaLink: data.ctaLink ?? undefined,
   };
 }
 
@@ -331,6 +339,8 @@ export interface ResolvedCustomerStories {
   topSubtitle: string;
   title: string;
   stories: ResolvedStoryCard[];
+  centerButton?: boolean;
+  centerButtonText?: string;
 }
 export function resolveCustomerStories(
   data: BatteryStorageCustomerStoriesData | undefined
@@ -345,6 +355,9 @@ export function resolveCustomerStories(
       description: s.description,
       image: s.image ? strapiImageData(s.image)?.src ?? null : null,
     })),
+    centerButton: data.centerButton ?? true,
+    centerButtonText:
+      data.centerButtonText ?? "View our full portfolio of 113+ installs",
   };
 }
 

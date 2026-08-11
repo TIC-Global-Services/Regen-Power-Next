@@ -172,9 +172,9 @@ const  EditorialTextSection: React.FC<EditorialTextSectionProps> = ({
         ref={sectionRef}
         className={`w-full bg-white relative overflow-hidden min-h-screen flex flex-col justify-center px-[5%]`}
       >
-        <div className="w-full px-16">
+        <div className="w-full md:px-16">
           {headerSection}
-          <div className={`text-lg md:text-3xl font-light leading-tight tracking-tight mt-8 ml-16 max-w-6xl ${paragraphsClass || (align === 'left' ? 'text-left' : align === 'right' ? 'text-right' : 'text-center')}`}>
+          <div className={`text-lg md:text-3xl font-light leading-tight tracking-tight mt-8 md:ml-16 md:max-w-6xl ${paragraphsClass || (align === 'left' ? 'text-left' : align === 'right' ? 'text-right' : 'text-center')}`}>
             {paragraphs.map(renderParagraph)}
           </div>
         </div>

@@ -33,10 +33,10 @@ const BatteryRangeGrid = ({ data }: { data: BatteryRangeGridData }) => {
     <section className="bg-white py-16 md:py-24 px-[5%]">
       {/* Section Header */}
       <div className="text-left md:text-center mb-10 md:mb-14">
-        <h3 className="text-2xl md:text-[2.125rem] text-black font-normal tracking-tight leading-[1.2] ">
+        <h3 className="text-2xl md:text-[2.125rem] text-black font-normal tracking-tight leading-[1] ">
           {data.topSubtitle}
         </h3>
-        <h2 className="text-[2.5rem] md:text-6xl lg:text-[5rem] text-[#63B846] font-light leading-tight tracking-tighter ">
+        <h2 className="text-[2.5rem] md:text-6xl lg:text-[5rem] text-[#63B846] font-light leading-[1] tracking-tighter ">
           {data.title}
         </h2>
         
@@ -105,6 +105,7 @@ const ImageCard = ({ card }: { card: BatteryRangeCard }) => (
             href={card.ctaLink}
             text={card.ctaText}
             textColor="text-white"
+            textClass="text-xs md:text-xs"
           />
         </div>
       )}

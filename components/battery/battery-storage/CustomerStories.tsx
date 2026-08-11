@@ -13,6 +13,8 @@ export interface CustomerStoriesData {
   topSubtitle: string;
   title: string;
   stories: StoryCard[];
+  centerButton?: boolean;
+  centerButtonText?: string;
 }
 
 const CustomerStories = ({ data }: { data: CustomerStoriesData }) => {
@@ -31,8 +33,8 @@ const CustomerStories = ({ data }: { data: CustomerStoriesData }) => {
         title={data.title}
         cards={mappedCards}
         showReadMore={false}
-        centerButton={true}
-        centerButtonText='View our full portfolio of 113+ installs'
+        centerButton={data.centerButton ?? true}
+        centerButtonText={data.centerButtonText}
       />
     </div>
   );

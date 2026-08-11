@@ -37,7 +37,7 @@ const TrustCardItem = ({ card }: { card: TrustCard }) => (
       <h4 className="text-lg md:text-3xl font-normal text-black tracking-tight mb-2">
         {card.title}
       </h4>
-      <p className="text-lg text-black leading-[1.2]">
+      <p className="text-lg text-black leading-[1.2] tracking-tight ">
         {card.description}
       </p>
     </div>

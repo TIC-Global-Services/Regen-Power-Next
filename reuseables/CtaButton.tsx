@@ -16,6 +16,12 @@ interface CtaButtonProps {
   iconBgClass?: string;
   iconTextColor?: string;
   disabled?: boolean;
+  /**
+   * Controls the button label size. Replaces the default `text-sm md:text-base`.
+   * Pass responsive variants as a single string, e.g. `"text-xs md:text-sm"`.
+   */
+  textClass?: string;
+  /** Additive utility classes appended after the label size (e.g. `whitespace-normal`). */
   buttonTextClass?: string;
 }
 
@@ -33,11 +39,12 @@ const CtaButton: React.FC<CtaButtonProps> = ({
   iconBgClass = 'bg-[#63B846]',
   iconTextColor = 'text-black',
   disabled = false,
+  textClass = 'text-sm ',
   buttonTextClass = '',
 }) => {
   const content = (
     <>
-      <span className={`pl-4 text-sm md:text-base tracking-tight whitespace-nowrap min-w-0 flex-1 ${buttonTextClass}`}>
+      <span className={`pl-4 ${textClass} tracking-tight whitespace-nowrap min-w-0 flex-1 ${buttonTextClass}`}>
         {text}
       </span>
       <div className={`${iconBgClass} ${iconTextColor} p-2 rounded-full shrink-0 group-hover:scale-105 group-hover:rotate-45 group-hover:opacity-90 transition-all duration-300 flex items-center justify-center`}>
