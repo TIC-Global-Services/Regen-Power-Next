@@ -36,7 +36,7 @@ const ZeroInterest: React.FC<{ data: ZeroInterestData }> = ({ data }) => {
                     <h2 className="text-[2.5rem] md:text-6xl font-normal tracking-tight text-[#63B846] mb-2">
                         {data.title}
                     </h2>
-                    <p className="text-base text-black/80 leading-[1.2] max-w-3xl mx-auto">
+                    <p className="text-base md:text-xl text-black leading-[1.2] max-w-4xl mx-auto">
                         {data.description}
                     </p>
                 </div>
@@ -45,12 +45,12 @@ const ZeroInterest: React.FC<{ data: ZeroInterestData }> = ({ data }) => {
                 <div className="grid grid-cols-1 md:grid-cols-12 gap-5 md:gap-6">
                     {/* Row 1 — Key Terms (5 cols) + Top Image (7 cols) */}
                     <div className="bg-[#EAF2E2] rounded-3xl md:col-span-5 p-8 flex flex-col justify-center min-h-[300px]">
-                        <h3 className="text-2xl md:text-4xl font-normal tracking-tight text-black mb-6">
+                        <h3 className="text-xl md:text-3xl font-normal tracking-tight text-black mb-6">
                             {data.keyTerms.title}
                         </h3>
-                        <ul className="space-y-2">
+                        <ul className="space-y-1">
                             {data.keyTerms.items.map((item, idx) => (
-                                <li key={idx} className="text-base text-black leading-tight">
+                                <li key={idx} className="text-lg text-black tracking-tight leading-tight">
                                     • {item}
                                 </li>
                             ))}
@@ -77,20 +77,20 @@ const ZeroInterest: React.FC<{ data: ZeroInterestData }> = ({ data }) => {
                     </div>
 
                     <div className="bg-[#EAF2E2] md:col-span-5 rounded-3xl p-8 flex flex-col justify-center min-h-[300px]">
-                        <h3 className="text-3xl md:text-4xl font-normal tracking-tight text-black mb-6">
+                        <h3 className="text-xl md:text-3xl font-normal tracking-tight text-black mb-6">
                             {data.eligibility.title}
                         </h3>
-                        <ul className="space-y-2">
+                        <ul className="space-y-1">
                             {data.eligibility.items.map((item, idx) => (
-                                <li key={idx} className="text-base text-black leading-tight">
+                                <li key={idx} className="text-lg text-black tracking-tight leading-tight">
                                     • {item}
                                 </li>
                             ))}
                         </ul>
                     </div>
 
-                    <div className="bg-[#EAF2E2] md:col-span-4 rounded-3xl p-8 flex flex-col justify-between min-h-[300px]">
-                        <p className="text-lg md:text-xl lg:text-[1.25rem] font-normal tracking-tight text-black leading-[1.2]">
+                    <div className="bg-[#EAF2E2] md:col-span-4 rounded-3xl p-8 flex flex-col justify-center min-h-[300px]">
+                        <p className="text-lg md:text-[1.375rem] font-normal tracking-tight text-black leading-[1.2]">
                             {data.summaryText}
                         </p>
                     </div>

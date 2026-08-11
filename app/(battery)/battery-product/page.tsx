@@ -37,7 +37,8 @@ import GetSolar from "@/reuseables/getsolar";
 
 import BatteryBrandMatters from "@/components/battery/battery-product/BatteryBrandMatters";
 import HowYouUseIt from "@/components/battery/battery-product/HowYouUseIt";
-import CompatibleProducts from "@/components/battery/battery-product/CompatibleProducts";
+import GreatFit from "@/components/battery/smarthome-battery-system/GreatFit";
+import { Minus } from "lucide-react";
 import SpecsTableSection from "@/components/solar/brands/SpecsTableSection";
 import BatteryMarquee from "@/components/battery/battery-storage/BatteryMarquee";
 import WarrantyCoverage from "@/components/battery/battery-product/WarrantyCoverage";
@@ -140,7 +141,13 @@ const BatteryProductPage = async () => {
 
       {comparisonProps && <SpecsTableSection resolved={comparisonProps} />}
 
-      {compatibleProps && <CompatibleProducts data={compatibleProps} />}
+      {compatibleProps && (
+        <GreatFit
+          data={compatibleProps}
+          leftIcon={Minus}
+          rightIcon={Minus}
+        />
+      )}
 
       {whatWeCheckProps && <WhatWeCheck data={whatWeCheckProps} />}
 

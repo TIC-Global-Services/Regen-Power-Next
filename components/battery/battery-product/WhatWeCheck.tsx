@@ -9,9 +9,23 @@ export interface WhatWeCheckData {
     paragraphs: string[];
 }
 
+/** Renders a string with markdown-style `**bold**` segments as <strong>. */
+const renderBold = (text: string): React.ReactNode => {
+  if (!text.includes("**")) return text;
+
+  const parts = text.split(/(\*\*[^*]+\*\*)/g);
+  return parts.map((part, i) => {
+    if (part.startsWith("**") && part.endsWith("**") && part.length > 4) {
+      return <strong key={i}>{part.slice(2, -2)}</strong>;
+    }
+    return part;
+  });
+};
+
 const WhatWeCheck = ({ data }: { data: WhatWeCheckData }) => {
   const checkParagraphs = data.paragraphs.map((text) => {
-    if (text.includes(" — ")) {
+    // Backward-compatible: any leading "Title — " segment becomes bold.
+    if (text.includes(" — ") && !text.startsWith("**")) {
       const [title, rest] = text.split(" — ");
       return {
         text: (
@@ -21,7 +35,7 @@ const WhatWeCheck = ({ data }: { data: WhatWeCheckData }) => {
         )
       };
     }
-    return { text };
+    return { text: renderBold(text) };
   });
 
   return (
@@ -33,8 +47,9 @@ const WhatWeCheck = ({ data }: { data: WhatWeCheckData }) => {
       align="left"
       revealEffect={true}
       className="py-16 md:py-24"
-      subtitleClass="text-xl md:text-[2rem] text-black font-normal mb-1 tracking-tight"
-      titleClass="text-4xl md:text-[5rem] text-[#63B846] font-normal leading-[1.1] tracking-tight"
+      subtitleClass="text-xl md:text-[1.75rem] text-black font-normal tracking-tight"
+      titleClass="text-4xl md:text-6xl text-[#63B846] font-normal leading-[1.1] tracking-tight"
+      descriptionClass="text-base md:text-lg text-black font-normal leading-tight tracking-tight mb-6"
     />
   );
 };

@@ -69,14 +69,14 @@ const TextCardView: React.FC<{ card: TextCard; mobileScroll?: boolean }> = ({ ca
     const isDark = card.variant === 'dark';
     const titleLines = card.title.split('\n');
     return (
-        <div className={`${variantClass[card.variant]} rounded-2xl p-6 md:p-8 flex flex-col justify-between h-full min-h-[280px] ${mobileScroll ? 'shrink-0 w-[75vw] md:w-auto' : ''}`}>
-            <h3 className="text-3xl md:text-4xl lg:text-5xl font-normal tracking-tight leading-tight text-[#63B846]">
+        <div className={`${variantClass[card.variant]} rounded-2xl p-6 flex flex-col justify-between h-full min-h-[280px] ${mobileScroll ? 'shrink-0 w-[75vw] md:w-auto' : ''}`}>
+            <h3 className="text-3xl md:text-[2.5rem] font-normal tracking-tight leading-[1] text-[#63B846] mb-2">
                 {titleLines.map((line, i) => (
                     <span key={i} className="block">{line}</span>
                 ))}
             </h3>
             <div>
-                <p className={`text-sm md:text-base leading-[1.2] tracking-tight max-w-md ${isDark ? 'text-white/80' : 'text-black/80'}`}>
+                <p className={`text-sm md:text-base leading-[1.2] tracking-tight max-w-md mb-4 ${isDark ? 'text-white/80' : 'text-black/80'}`}>
                     {card.description}
                 </p>
                 {card.specs && (
@@ -154,7 +154,7 @@ const SolutionsPortfolio: React.FC<SolutionsPortfolioProps> = ({
                             </h2>
                         )}
                         {description && (
-                            <p className="text-sm md:text-base text-black/80 leading-[1.2] mt-4 max-w-3xl mx-auto">
+                            <p className="text-sm md:text-xl text-black leading-[1.2] mt-4 max-w-3xl mx-auto">
                                 {description}
                             </p>
                         )}

@@ -117,8 +117,12 @@ export function resolveHowYouUseIt(
 
 // ─── Right Sizing → RightSizingData ─────────────────────────────────────
 
+export interface ResolvedRightSizingStepIcon {
+  src: string;
+  alt: string;
+}
 export interface ResolvedRightSizingStep {
-  iconName: "zap" | "sun" | "car" | "home" | "paneltop";
+  icon: ResolvedRightSizingStepIcon | null;
   title: string;
   placeholder?: string;
 }
@@ -139,7 +143,7 @@ export function resolveRightSizing(
     title: data.title ?? "",
     description: data.description ?? "",
     steps: (data.steps ?? []).map((step) => ({
-      iconName: step.iconName,
+      icon: strapiImageData(step.icon),
       title: step.title,
       placeholder: step.placeholder ?? undefined,
     })),

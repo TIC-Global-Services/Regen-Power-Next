@@ -79,7 +79,7 @@ export type HowYouUseItData = z.infer<typeof HowYouUseItSchema>;
 
 export const RightSizingStepSchema = z.object({
   id: z.number(),
-  iconName: z.enum(["zap", "sun", "car", "home", "paneltop"]),
+  icon: MediaSchema.nullable(),
   title: z.string(),
   placeholder: z.string().nullable(),
 });

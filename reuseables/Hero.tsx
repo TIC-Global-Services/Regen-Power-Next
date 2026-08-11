@@ -72,13 +72,13 @@ const Hero: React.FC<HeroProps> = ({
             {/* Content Area */}
             <div className="relative z-10 w-full px-[5%] flex flex-col md:flex-row md:items-end justify-between gap-8 pt-32">
                 <div className="max-w-3xl capitalize">
-                    <p className={`text-2xl md:text-3xl font-light tracking-tight drop-shadow-md leading-none ${subtitleColor}`}>
+                    <p className={`text-2xl md:text-3xl font-light tracking-tight drop-shadow-md leading-[1]] ${subtitleColor}`}>
                         {topSubtitle}
                     </p>
-                    <h1 className={`text-5xl md:text-7xl lg:text-[3.750rem] font-medium  leading-none tracking-tight drop-shadow-md ${titleColor || 'text-[#8dc63f]'}`}>
+                    <h1 className={`text-5xl md:text-7xl lg:text-[3.750rem] font-medium leading-[1] tracking-tight drop-shadow-md mb-4 ${titleColor || 'text-[#8dc63f]'}`}>
                         {mainTitle}
                     </h1>
-                    <div className={`text-base md:text-xl leading-[1.2] max-w-xl font-light tracking-tight drop-shadow-sm ${descriptionColor}`}>
+                    <div className={`text-base md:text-xl leading-[1.2] max-w-3xl font-light tracking-tight drop-shadow-sm ${descriptionColor}`}>
                         {description}
                     </div>
                 </div>

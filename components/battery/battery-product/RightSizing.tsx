@@ -1,21 +1,16 @@
 "use client";
 import React, { useState } from 'react';
-import {
-    Zap,
-    Sun,
-    Car,
-    Home,
-    PanelTop,
-    ArrowUpRight,
-    type LucideIcon,
-} from 'lucide-react';
+import { ArrowUpRight } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import CtaButton from '@/reuseables/CtaButton';
 
-export type RightSizingIconName = 'zap' | 'sun' | 'car' | 'home' | 'paneltop';
+export interface RightSizingStepIcon {
+    src: string;
+    alt: string;
+}
 
 export interface RightSizingStep {
-    iconName: RightSizingIconName;
+    icon: RightSizingStepIcon | null;
     title: string;
     placeholder?: string;
 }
@@ -29,14 +24,6 @@ export interface RightSizingData {
     ctaHref?: string;
 }
 
-const ICON_MAP: Record<RightSizingIconName, LucideIcon> = {
-    zap: Zap,
-    sun: Sun,
-    car: Car,
-    home: Home,
-    paneltop: PanelTop,
-};
-
 const RightSizing: React.FC<{ data?: RightSizingData }> = ({ data }) => {
     const [currentStep, setCurrentStep] = useState(0);
     const [answers, setAnswers] = useState<string[]>([]);
@@ -44,7 +31,6 @@ const RightSizing: React.FC<{ data?: RightSizingData }> = ({ data }) => {
     if (!data || !data.steps || data.steps.length === 0) return null;
 
     const step = data.steps[currentStep];
-    const StepIcon = ICON_MAP[step.iconName] ?? Zap;
     const isFirstStep = currentStep === 0;
     const isLastStep = currentStep === data.steps.length - 1;
 
@@ -108,11 +94,17 @@ const RightSizing: React.FC<{ data?: RightSizingData }> = ({ data }) => {
                             transition={{ duration: 0.3, ease: 'easeOut' }}
                             className="flex flex-col items-center"
                         >
-                            <div className="w-20 h-20 md:w-24 md:h-24 rounded-full bg-[#EAF2E2] flex items-center justify-center mb-6">
-                                <StepIcon
-                                    className="w-9 h-9 md:w-10 md:h-10 text-[#63B846]"
-                                    strokeWidth={2}
-                                />
+                            <div className="w-20 h-20 md:w-24 md:h-24 rounded-full bg-[#EAF2E2] flex items-center justify-center mb-6 overflow-hidden">
+                                {step.icon ? (
+                                    // eslint-disable-next-line @next/next/no-img-element
+                                    <img
+                                        src={step.icon.src}
+                                        alt={step.icon.alt || step.title}
+                                        className="w-9 h-9 md:w-10 md:h-10 object-contain"
+                                    />
+                                ) : (
+                                    <span className="w-9 h-9 md:w-10 md:h-10 rounded-full bg-[#63B846]" />
+                                )}
                             </div>
                             <h3 className="text-2xl md:text-3xl font-normal tracking-tight text-black text-center">
                                 {step.title}
