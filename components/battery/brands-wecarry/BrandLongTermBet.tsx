@@ -56,8 +56,8 @@ const BrandLongTermBet: React.FC<BrandLongTermBetProps> = ({ data }) => {
                   <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-black/20" />
                 </div>
 
-                {/* Content */}
-                <div className="relative z-10 h-full flex flex-col justify-between p-6">
+                {/* Content — staggered top|bottom|top */}
+                <div className={`relative z-10 h-full flex flex-col p-6 ${index % 2 === 0 ? 'justify-start' : 'justify-end'}`}>
                   <div>
                     <h3 className="text-xl font-normal text-white mb-3 leading-snug">
                       {card.title}
@@ -88,13 +88,13 @@ const BrandLongTermBet: React.FC<BrandLongTermBetProps> = ({ data }) => {
                     <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-black/20" />
                   </div>
 
-                  {/* Content */}
-                  <div className="relative z-10 h-full flex flex-col justify-between p-6 md:p-8">
+                  {/* Content — staggered top|bottom|top */}
+                  <div className={`relative z-10 h-full flex flex-col p-6 md:p-8 ${index % 2 === 0 ? 'justify-start' : 'justify-end'}`}>
                     <div>
                       <h3 className="text-xl md:text-2xl font-normal text-white mb-3 leading-snug">
                         {card.title}
                       </h3>
-                      <p className="text-white/80 text-sm leading-[1.2]">
+                      <p className="text-white text-sm leading-[1.2]">
                         {card.description}
                       </p>
                     </div>

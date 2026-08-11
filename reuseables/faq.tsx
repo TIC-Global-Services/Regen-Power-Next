@@ -69,7 +69,7 @@ const FAQ = ({
                 ) : null}
                 {/* Top Titles */}
                 <div className="mb-2 lg:mb-10 -space-y-3 capitalize">
-                    <h3 className="text-xl md:text-2xl text-black font-normal tracking-tighter">
+                    <h3 className="text-xl md:text-2xl text-black font-normal tracking-tight">
                         {topTitle}
                     </h3>
                     <h2 className="text-[2.5rem] md:text-[5.5rem] text-[#63B846] font-light md:leading-none tracking-tight">
@@ -104,9 +104,9 @@ const FAQ = ({
                                     <div key={index} className="border-b-2 border-[#EEF6EB] last:border-b-0">
                                         <button
                                             onClick={() => toggleItem(index)}
-                                            className="w-full py-5 flex justify-between items-center text-left focus:outline-none group"
+                                            className="w-full py-5 flex justify-between items-center text-left focus:outline-none group "
                                         >
-                                            <span className="text-[15px] md:text-xl text-black font-medium pr-8">
+                                            <span className="text-[15px] md:text-xl text-black font-medium pr-8 tracking-tight">
                                                 {item.question}
                                             </span>
                                             <span className="text-[#63B846] flex-shrink-0 transition-transform duration-300">
@@ -127,7 +127,7 @@ const FAQ = ({
                                                     transition={{ duration: 0.3, ease: "easeInOut" }}
                                                     className="overflow-hidden"
                                                 >
-                                                    <p className="pb-6 text-xs md:text-sm text-black/70 leading-[1.2] pr-8">
+                                                    <p className="pb-6 text-xs md:text-sm text-black/70 tracking-tight leading-[1.2] pr-8">
                                                         {item.answer}
                                                     </p>
                                                 </motion.div>

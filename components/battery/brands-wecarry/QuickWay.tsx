@@ -22,8 +22,8 @@ const QuickWay: React.FC<{ data: QuickWayData }> = ({ data }) => {
     <section className="bg-white w-full">
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-0 items-stretch w-full">
 
-        {/* Image Column */}
-        <div className="relative h-[450px] lg:h-[600px] overflow-hidden rounded-[20px] lg:rounded-none mx-5 lg:mx-0">
+        {/* Image Column — same full-bleed, full-height rhythm as other split sections */}
+        <div className="relative h-[450px] lg:h-screen overflow-hidden rounded-[20px] lg:rounded-none px-5 md:px-16 lg:px-0">
           <Image
             src={data.image}
             alt={data.imageAlt || data.title}
@@ -33,24 +33,28 @@ const QuickWay: React.FC<{ data: QuickWayData }> = ({ data }) => {
           />
         </div>
 
-        {/* Text Column */}
-        <div className="flex flex-col justify-between py-4 lg:py-24 px-8 md:px-16 lg:pl-12 lg:pr-[8%] text-left">
+        {/* Text Column — same gutters as other split sections */}
+        <div className="flex flex-col justify-between pt-4 pb-16 lg:py-24 px-5 md:px-10 lg:pl-12 lg:pr-20 text-left">
+          {/* Top block: title + subtitle */}
           <div className="max-w-xl">
             <h2 className="text-[2.5rem] md:text-5xl lg:text-[3.125rem] font-normal leading-tight tracking-tight mb-4 text-[#63B846]">
               {data.title}
             </h2>
 
-            <p className="text-base leading-[1.2] font-light mb-10">
+            <p className="text-base md:text-xl tracking-tight leading-[1.2] font-light mb-14">
               {data.subtitle}
             </p>
+          </div>
 
+          {/* Bottom block: section header + recommendations */}
+          <div className="max-w-xl mt-12">
             <h3 className="text-2xl md:text-3xl font-normal text-[#63B846] mb-6 tracking-tight">
               {data.sectionHeader}
             </h3>
 
-            <ul className="-space-y-1 list-none">
+            <ul className="space-y-1 list-none">
               {data.recommendations.map((item, idx) => (
-                <li key={idx} className="text-base md:text-xl leading-[1.3] flex items-start">
+                <li key={idx} className="text-base md:text-xl leading-[1] flex items-start">
                   <span className="mr-2 text-black font-normal">•</span>
                   <span>
                     <span className="text-black font-normal">{item.condition}</span>

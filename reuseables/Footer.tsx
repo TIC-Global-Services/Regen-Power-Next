@@ -18,15 +18,15 @@ const waHeadOffice = {
   address: 'Head Office: Address TBC',
   phone: '1800 073 436',
   directLine: '08 9456 3491',
-  email: 'Sales@Regenpower.Com',
+  email: 'Sales@Regenpower.com',
   hours: 'Mon – Fri 8:00am – 5:00pm AWST',
 };
 
 const otherStateOffices = [
-  { state: 'South Australia', phone: '08 8311 1403', email: 'Sales.Sa@Regenpower.Com' },
-  { state: 'New South Wales', phone: '02 8077 4232', email: 'Sales.Nsw@Regenpower.Com' },
-  { state: 'Queensland', phone: '07 3036 7421', email: 'Sales.Qld@Regenpower.Com' },
-  { state: 'Victoria', phone: '03 8676 8807', email: 'Sales.Vic@Regenpower.Com' },
+  { state: 'South Australia', phone: '08 8311 1403', email: 'Sales.Sa@Regenpower.com' },
+  { state: 'New South Wales', phone: '02 8077 4232', email: 'Sales.Nsw@Regenpower.com' },
+  { state: 'Queensland', phone: '07 3036 7421', email: 'Sales.Qld@Regenpower.com' },
+  { state: 'Victoria', phone: '03 8676 8807', email: 'Sales.Vic@Regenpower.com' },
 ];
 
 const socialLinks = [
