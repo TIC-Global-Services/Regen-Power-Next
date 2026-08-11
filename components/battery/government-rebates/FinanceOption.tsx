@@ -53,22 +53,25 @@ const FinanceOptionBlock: React.FC<{ data: FinanceOptionData }> = ({ data }) => 
 
   return (
     <section className="w-full px-[5%] py-12 md:py-20 bg-white">
-      {/* Header */}
-      <div className="text-left md:text-center mb-4 md:mb-8">
-        <h2 className="text-3xl md:text-4xl lg:text-[3.125rem] font-light text-[#63B846] leading-[1.1] tracking-tight mb-4">
-          {data.sectionTitle}
-        </h2>
-        <p className="text-base md:text-xl text-black font-medium leading-[1.2] max-w-5xl mx-auto">
-          {data.sectionSubtitle}
-        </p>
-      </div>
-
       {/* Scrolling Parent Container */}
       <div className="relative w-full max-w-[1400px] mx-auto" style={{ height: `${data.sections.length * 80}vh` }}>
-        
+
         {/* Sticky viewport wrapper */}
-        <div className="sticky top-24 md:top-36 w-full flex flex-col md:flex-row gap-12 lg:gap-24">
-          
+        <div className="sticky top-8 md:top-14 w-full flex flex-col gap-6 lg:gap-8">
+
+          {/* Header — pinned inside the sticky section */}
+          <div className="text-left md:text-center">
+            <h2 className="text-3xl md:text-4xl lg:text-[3.125rem] font-light text-[#63B846] leading-[1.1] tracking-tight mb-4">
+              {data.sectionTitle}
+            </h2>
+            <p className="text-base md:text-xl text-black font-medium leading-[1.2] max-w-5xl mx-auto">
+              {data.sectionSubtitle}
+            </p>
+          </div>
+
+          {/* Pinned image + text row */}
+          <div className="w-full flex flex-col md:flex-row gap-12 lg:gap-24 flex-1">
+
           {/* Left Side: Sticky Image */}
           <div className="w-full md:w-1/2 rounded-[20px] overflow-hidden relative transition-all duration-500">
             {data.sections.map((section, index) => (
@@ -113,6 +116,8 @@ const FinanceOptionBlock: React.FC<{ data: FinanceOptionData }> = ({ data }) => 
               </div>
             ))}
           </div>
+
+          </div>{/* end pinned image+text row */}
 
         </div>
 

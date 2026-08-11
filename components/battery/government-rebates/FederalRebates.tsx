@@ -37,7 +37,7 @@ const FederalRebates: React.FC<FederalRebatesProps> = ({ data = [] }) => {
             <h2 className="text-[2.5rem] md:text-4xl lg:text-[3.125rem] font-light text-[#63B846] leading-tight tracking-tight">
               {item.sectionTitle}
             </h2>
-            <p className="text-base text-black font-medium leading-[1.2] max-w-3xl mx-auto">
+            <p className="text-base md:text-xl text-black font-medium leading-[1.2] max-w-4xl mx-auto">
               {item.sectionDescription}
             </p>
           </div>
@@ -49,7 +49,7 @@ const FederalRebates: React.FC<FederalRebatesProps> = ({ data = [] }) => {
             <div className="grid grid-cols-1 md:grid-cols-12 gap-6 items-stretch">
               
               {/* Key Specs Card (Span 5) */}
-              <div className="md:col-span-5 bg-[#EEF6EB] rounded-3xl p-8 flex flex-col justify-center">
+              <div className="md:col-span-5 bg-[#EEF6EB] rounded-3xl p-8 flex flex-col justify-center tracking-tight">
                 <h4 className="text-xl md:text-2xl font-normal text-black mb-6">
                   {item.keySpecsTitle}
                 </h4>
@@ -74,7 +74,7 @@ const FederalRebates: React.FC<FederalRebatesProps> = ({ data = [] }) => {
               </div>
 
               {/* Eligible Capacity Card (Span 4) */}
-              <div className="md:col-span-4 bg-[#EEF6EB] rounded-3xl p-10 flex flex-col justify-center">
+              <div className="md:col-span-4 bg-[#EEF6EB] rounded-3xl p-10 flex flex-col justify-center tracking-tight leading-[1]">
                 <h4 className="text-xl md:text-2xl font-normal text-black mb-3">
                   {item.eligibleCapacityTitle}
                 </h4>
@@ -113,7 +113,7 @@ const FederalRebates: React.FC<FederalRebatesProps> = ({ data = [] }) => {
               </div>
 
               {/* Eligibility Card (Span 4) */}
-              <div className="md:col-span-5 bg-[#EEF6EB] rounded-3xl p-8 flex flex-col justify-center">
+              <div className="md:col-span-5 bg-[#EEF6EB] rounded-3xl p-8 flex flex-col justify-center tracking-tight leading-[1]">
                 <h4 className="text-xl md:text-2xl font-normal text-black mb-6">
                   {item.eligibilityTitle}
                 </h4>

@@ -27,17 +27,17 @@ export interface WhatSigningUpProps {
 }
 
 const VppCard = ({ card }: { card: VppCardItem }) => (
-  <div className="relative overflow-hidden bg-white/10 backdrop-blur-sm border border-neutral-200/80 rounded-2xl lg:rounded-[2rem] p-6 lg:p-8 shadow-[0_15px_40px_-15px_rgba(0,0,0,0.06)] w-[280px] sm:w-[360px] md:w-[460px] lg:w-full lg:max-w-[480px] pointer-events-auto">
+  <div className="relative overflow-hidden bg-white/10 backdrop-blur-sm border border-neutral-200/80 rounded-2xl lg:rounded-[2rem] p-6 lg:p-8 shadow-[0_15px_40px_-15px_rgba(0,0,0,0.06)] w-[280px] sm:w-[360px] md:w-[460px] lg:w-full lg:max-w-[660px] pointer-events-auto">
     <div className="relative z-10">
-      <h3 className="text-xl sm:text-2xl lg:text-3xl font-medium text-neutral-900 leading-tight">
+      <h3 className="text-xl sm:text-2xl lg:text-3xl font-medium text-neutral-900 leading-tight tracking-tight">
         {card.title}
       </h3>
       {card.subtitle && (
-        <h4 className="text-base sm:text-lg lg:text-xl font-medium text-neutral-800 mb-4 leading-tight">
+        <h4 className="text-base sm:text-lg lg:text-xl font-medium text-neutral-800 mb-4 leading-tight tracking-tight">
           {card.subtitle}
         </h4>
       )}
-      <p className="text-xs sm:text-sm lg:text-base text-neutral-700 leading-[1.2] font-normal">
+      <p className="text-xs sm:text-sm lg:text-base text-neutral-700 leading-[1.2] font-normal tracking-tight">
         {card.text}
       </p>
     </div>
@@ -132,7 +132,7 @@ export default function WhatSigningUp({ data }: WhatSigningUpProps) {
         </div>
 
         {/* Cards Layer */}
-        <div className="absolute inset-0 z-10 w-full max-w-6xl mx-auto flex justify-between h-full pointer-events-none px-2 md:px-0">
+        <div className="absolute inset-0 z-10 w-full max-w-7xl mx-auto flex justify-between h-full pointer-events-none px-2 md:px-0">
           {/* Left Column Area */}
           <div className="w-full lg:w-1/2 absolute inset-y-0 left-0 h-full">
             {vppCardsLeft.map((card, i) => (

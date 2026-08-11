@@ -26,6 +26,7 @@ export const whatChanges =
 
 export const areYouEligible =
   "populate[sections][on][battery-rebates.are-you-eligible][populate][items]=true" +
+  "&populate[sections][on][battery-rebates.are-you-eligible][populate][additionalItems]=true" +
   "&populate[sections][on][battery-rebates.are-you-eligible][populate][image]=true";
 
 export const rebateDetailSplit =

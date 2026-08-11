@@ -32,15 +32,15 @@ const WhatChanges: React.FC<WhatChangesProps> = ({ data }) => {
           <h2 className="text-3xl md:text-4xl lg:text-[3.125rem] font-light text-[#63B846] leading-tight tracking-tight mb-4">
             {title}
           </h2>
-          <p className="text-sm md:text-base text-black font-medium leading-[1.2] max-w-3xl">
+          <p className="text-base md:text-xl text-black font-medium leading-[1.2] max-w-2xl">
             {subtitle}
           </p>
         </div>
 
         {/* 3-Column Grid */}
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 items-stretch">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 items-stretch text-left tracking-tight">
           {/* Column 1 - Card 1 */}
-          <div className="bg-[#EEF6EB] rounded-3xl p-8 md:p-10 flex flex-col justify-start">
+          <div className="bg-[#EEF6EB] rounded-3xl p-8 md:p-10 flex flex-col justify-start ">
             <h3 className="text-xl md:text-2xl font-normal text-black mb-6 leading-tight">
               {card1.title}
             </h3>

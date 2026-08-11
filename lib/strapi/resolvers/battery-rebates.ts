@@ -214,6 +214,8 @@ export interface ResolvedAreYouEligible {
   bottomSubtitle?: string;
   description?: string;
   items: { title: string }[];
+  additionalListTitle?: string;
+  additionalItems?: { title: string }[];
   image: string | null;
   imageAlt?: string;
 }
@@ -228,6 +230,8 @@ export function resolveAreYouEligible(
     bottomSubtitle: data.bottomSubtitle ?? undefined,
     description: data.description ?? undefined,
     items: (data.items ?? []).map((i) => ({ title: i.text })),
+    additionalListTitle: data.additionalListTitle ?? undefined,
+    additionalItems: (data.additionalItems ?? []).map((i) => ({ title: i.text })),
     image: img?.src ?? null,
     imageAlt: data.imageAlt ?? undefined,
   };

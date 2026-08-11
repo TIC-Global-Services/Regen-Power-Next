@@ -93,7 +93,7 @@ const RebateDetailSplit: React.FC<{ data?: RebateDetailSplitData }> = ({ data })
                                         {data.topBoxItems.map((item, idx) => (
                                             <li
                                                 key={idx}
-                                                className="text-base md:text-lg text-black leading-[1] flex items-start"
+                                                className="text-base md:text-lg text-black leading-[1] tracking-tight flex items-start"
                                             >
                                                 <span className="mr-2 font-normal text-black min-w-[16px]">
                                                     {idx + 1}.
@@ -119,7 +119,7 @@ const RebateDetailSplit: React.FC<{ data?: RebateDetailSplitData }> = ({ data })
                                         {data.bottomBoxItems.map((item, idx) => (
                                             <li
                                                 key={idx}
-                                                className="text-base md:text-lg text-black leading-[0.6] flex items-start"
+                                                className="text-base md:text-lg text-black tracking-tight leading-[1] flex items-start"
                                             >
                                                 <span className="mr-2 mt-0.5 text-black">•</span>
                                                 <span>{item}</span>

@@ -126,6 +126,8 @@ export const AreYouEligibleSchema = z.object({
   bottomSubtitle: z.string().nullable(),
   description: z.string().nullable(),
   items: z.array(BatteryRebatesListItemSchema),
+  additionalListTitle: z.string().nullable(),
+  additionalItems: z.array(BatteryRebatesListItemSchema),
   image: MediaSchema.nullable(),
   imageAlt: z.string().nullable(),
 });
