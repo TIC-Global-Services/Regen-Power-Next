@@ -39,7 +39,7 @@ const WhatItTakes: React.FC<WhatItTakesProps> = ({ data }) => {
                 </div>
                 {/* Text Column */}
                 <div className="w-full  flex flex-col justify-between py-4 lg:py-20 max-w-2xl px-5 lg:px-0">
-                    <div>
+                    <div className="capitalize">
                         <h3 className="text-base md:text-2xl font-normal text-black tracking-tight mb-2">
                             {data.subtitle}
                         </h3>
@@ -52,7 +52,7 @@ const WhatItTakes: React.FC<WhatItTakesProps> = ({ data }) => {
 
                         <ul className="flex flex-col gap-1 mb-8">
                             {data.items.map((item, i) => (
-                                <li key={i} className="flex items-start text-base md:text-xl text-black font-normal leading-[1.2]">
+                                <li key={i} className="flex items-start text-base md:text-xl text-black font-normal leading-[1.2] tracking-tight">
                                     <span className="mr-2 font-bold text-black">•</span>
                                     <span>{item.title}</span>
                                 </li>

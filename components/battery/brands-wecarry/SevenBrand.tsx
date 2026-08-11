@@ -108,7 +108,7 @@ const SevenBrand: React.FC<{ data: SevenBrandData }> = ({ data }) => {
       <div ref={containerRef}>
         {/* Title */}
         <div className="text-center mb-4 md:mb-16">
-          <h2 className="text-[2.5rem] md:text-5xl lg:text-[3.125rem] font-light text-[#63B846] leading-tight tracking-tight">
+          <h2 className="text-[2.5rem] md:text-[5rem] font-normal text-[#63B846] leading-tight tracking-tight">
             {data.title}
           </h2>
         </div>
@@ -120,7 +120,7 @@ const SevenBrand: React.FC<{ data: SevenBrandData }> = ({ data }) => {
             spaceBetween={30}
             slidesPerView={1}
             autoplay={{
-              delay: 6000,
+              delay: 5000,
               disableOnInteraction: false,
               pauseOnMouseEnter: true
             }}
@@ -146,31 +146,31 @@ const SevenBrand: React.FC<{ data: SevenBrandData }> = ({ data }) => {
 
                       {/* Cell 1: Top Left - Title & Description block */}
                       <div className="flex flex-col justify-start p-2 md:p-4 lg:h-[204px] overflow-y-auto card-scroll">
-                        <h3 className="text-3xl md:text-4xl font-medium tracking-tight text-[#63B846] mb-3">
+                        <h3 className="text-3xl md:text-[2.5rem] font-medium tracking-tight text-[#63B846] mb-3">
                           {brand.title}
                         </h3>
-                        <p className="text-gray-300 font-light text-sm md:text-base leading-[1.2]">
+                        <p className="text-white font-normal text-sm md:text-xl tracking-tight leading-[1.2]">
                           {brand.description}
                         </p>
                       </div>
 
                       {/* Cell 2: Top Middle - Smart Home / Certifications */}
-                      <div className="bg-[#484945] rounded-[8px] p-5 md:p-6 flex flex-col h-[204px] overflow-y-auto card-scroll justify-start">
+                      <div className="bg-white/30 rounded-[8px] p-5 md:p-6 flex flex-col h-[204px] overflow-y-auto card-scroll justify-start">
                         {spec1 && (
                           <>
                             {spec1.title && (
-                              <h4 className="text-white text-base font-semibold mb-3 tracking-tight border-b border-[#5e5f5a] pb-2">
+                              <h4 className="text-white text-base font-normal mb-3 tracking-tight border-b border-[#5e5f5a] pb-2">
                                 {spec1.title}
                               </h4>
                             )}
                             {spec1.specdetails.map((block, bIdx) => (
-                              <div key={bIdx} className={bIdx > 0 ? "mt-3 border-t border-[#5e5f5a] pt-2" : ""}>
+                              <div key={bIdx} className={bIdx > 0 ? "mt-3 pt-2" : ""}>
                                 {block.title && (
-                                  <h4 className="text-white text-base font-semibold mb-1 tracking-tight">
+                                  <h4 className="text-white text-xl font-normal mb-1 tracking-tight">
                                     {block.title}
                                   </h4>
                                 )}
-                                <p className="text-white font-light text-xs md:text-sm leading-[1.2]">
+                                <p className="text-white font-normal text-xs md:text-sm tracking-tight leading-[1.2]">
                                   {block.description}
                                 </p>
                               </div>
@@ -180,15 +180,15 @@ const SevenBrand: React.FC<{ data: SevenBrandData }> = ({ data }) => {
                       </div>
 
                       {/* Cell 3: Top Right - Feature Bullets */}
-                      <div className="bg-[#484945] rounded-[8px] p-5 md:p-6 flex flex-col h-[204px] overflow-y-auto card-scroll justify-start">
+                      <div className="bg-white/30 rounded-[8px] p-5 md:p-6 flex flex-col h-[204px] overflow-y-auto card-scroll justify-start">
                         {spec3 && (
                           <>
                             {spec3.title && (
-                              <h4 className="text-white text-base font-semibold mb-3 tracking-tight">
+                              <h4 className="text-white text-xl font-normal mb-2 tracking-tight">
                                 {spec3.title}
                               </h4>
                             )}
-                            <ul className="text-xs md:text-xs text-gray-300 font-light leading-[1.2] list-none">
+                            <ul className="text-xs md:text-sm text-white font-normal leading-[1.2] list-none">
                               {spec3.specdetails.map((bullet, fIdx) => (
                                 <li key={fIdx} className="flex items-start">
                                   <span className="mr-2 text-white font-normal">•</span>
@@ -201,15 +201,15 @@ const SevenBrand: React.FC<{ data: SevenBrandData }> = ({ data }) => {
                       </div>
 
                       {/* Cell 4: Bottom Left - Key Specs */}
-                      <div className="bg-[#484945] rounded-[8px] p-5 md:p-4 flex flex-col h-[204px] overflow-y-auto card-scroll justify-start">
+                      <div className="bg-white/30 rounded-[8px] p-5 md:p-4 flex flex-col h-[204px] overflow-y-auto card-scroll justify-start">
                         {spec0 && (
                           <>
                             {spec0.title && (
-                              <h4 className="text-white text-base font-semibold mb-3 tracking-tight">
+                              <h4 className="text-white text-xl mb-2 font-normal tracking-tight">
                                 {spec0.title}
                               </h4>
                             )}
-                            <ul className="text-xs md:text-sm text-gray-300 font-light leading-[1.2] list-none">
+                            <ul className="text-xs md:text-sm text-white font-normal tracking-tight leading-[1.2] list-none">
                               {spec0.specdetails.map((spec, sIdx) => (
                                 <li key={sIdx} className="flex items-start">
                                   <span className="mr-2 text-white font-normal">•</span>
@@ -231,16 +231,16 @@ const SevenBrand: React.FC<{ data: SevenBrandData }> = ({ data }) => {
                       </div>
 
                       {/* Cell 5: Bottom Middle - Why We Carry It */}
-                      <div className="bg-[#484945] rounded-[8px] p-4 md:p-4 flex flex-col h-[204px] overflow-y-auto card-scroll justify-start">
+                      <div className="bg-white/30 rounded-[8px] p-4 md:p-4 flex flex-col h-[204px] overflow-y-auto card-scroll justify-start">
                         {spec2 && (
                           <>
                             {spec2.title && (
-                              <h4 className="text-white text-base font-semibold  tracking-tight">
+                              <h4 className="text-white text-xl font-normal  tracking-tight">
                                 {spec2.title}
                               </h4>
                             )}
                             {spec2.specdetails.map((detail, dIdx) => (
-                              <p key={dIdx} className="text-white font-light text-xs md:text-sm leading-[1.2]">
+                              <p key={dIdx} className="text-white font-normal text-xs md:text-sm tracking-tightleading-[1.2]">
                                 {detail.description}
                               </p>
                             ))}
@@ -249,22 +249,22 @@ const SevenBrand: React.FC<{ data: SevenBrandData }> = ({ data }) => {
                       </div>
 
                       {/* Cell 6: Bottom Right - Best For / VPP Compatibility */}
-                      <div className="bg-[#484945] rounded-[8px] p-5 md:p-6 flex flex-col h-[204px] overflow-y-auto card-scroll justify-start">
+                      <div className="bg-white/30 rounded-[8px] p-5 md:p-6 flex flex-col h-[204px] overflow-y-auto card-scroll justify-start">
                         {spec4 && (
                           <>
                             {spec4.title && (
-                              <h4 className="text-white text-base font-semibold  tracking-tight">
+                              <h4 className="text-white text-base font-normal  tracking-tight">
                                 {spec4.title}
                               </h4>
                             )}
                             {spec4.specdetails.map((block, bIdx) => (
-                              <div key={bIdx} className={bIdx > 0 ? "mt-3 border-t border-[#5e5f5a] pt-2" : ""}>
+                              <div key={bIdx} className={bIdx > 0 ? "mt-3 pt-2" : ""}>
                                 {block.title && (
-                                  <h4 className="text-white text-base font-semibold mb-1 tracking-tight">
+                                  <h4 className="text-white text-xl font-normal mb-1 tracking-tight">
                                     {block.title}
                                   </h4>
                                 )}
-                                <p className="text-white font-light text-xs md:text-sm leading-[1.2]">
+                                <p className="text-white font-normal text-xs md:text-sm tracking-tight leading-[1.2]">
                                   {block.description}
                                 </p>
                               </div>
