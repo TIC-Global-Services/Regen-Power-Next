@@ -127,9 +127,9 @@ const ReadyToBegin = ({ data }: { data: ReadyToBeginProps }) => {
             </div>
           </div>
 
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-stretch mt-16">
+          <div className="grid grid-cols-1 xl:grid-cols-12 gap-8 lg:gap-12 items-stretch mt-16">
             {/* Left side: Contact Details Card */}
-            <div className="lg:col-span-7 lg:border-r lg:border-[#00000033] lg:pr-12 h-full flex flex-col justify-between">
+            <div className="lg:col-span-7 xl:border-r xl:border-[#00000033] xl:pr-12 h-full w-full flex flex-col justify-between">
               <div className="bg-[#EEF6EB] rounded-[24px] p-8 flex flex-col justify-between h-full border border-gray-50">
                 <div className="flex-1">
                   <h3 className="text-[#63B846] text-2xl md:text-3xl font-extrabold mb-4 text-center">
@@ -139,19 +139,19 @@ const ReadyToBegin = ({ data }: { data: ReadyToBeginProps }) => {
                     {contactIntro}
                   </p>
 
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6 text-left md:divide-x md:divide-black/10">
+                  <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 text-left md:divide-x md:divide-black/10">
                     {/* Left Column (Address) */}
                     {leftItem && (
                       <div className="space-y-2">
                         <span className="block text-[#63B846] font-bold text-2xl">{leftItem.title}</span>
-                        <p className="text-black text-sm md:text-[1.375rem] leading-relaxed font-normal">
+                        <p className="text-black text-sm md:text-[1.375rem] leading-[1.2] font-normal">
                           {leftItem.value}
                         </p>
                       </div>
                     )}
 
                     {/* Right Column (Email & Phone) */}
-                    <div className="space-y-4 md:pl-6">
+                    <div className="space-y-4 lg:pl-6">
                       {rightItems.map((item, idx) => (
                         <div key={idx} className="space-y-1">
                           <span className="block text-[#63B846] font-bold text-2xl">{item.title}</span>
