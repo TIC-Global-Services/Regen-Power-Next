@@ -2,8 +2,6 @@ import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
 import SmoothScroller from "@/utils/SmoothScroller";
-import Navbar from "@/reuseables/Navbar";
-import Footer from "@/reuseables/Footer";
 
 const aeonik = localFont({
   src: [
@@ -39,9 +37,7 @@ export default function RootLayout({
     >
       <body className="min-h-full flex flex-col overflow-hidden">
         <SmoothScroller>
-          <Navbar />
           {children}
-          <Footer />
         </SmoothScroller>
       </body>
     </html>
