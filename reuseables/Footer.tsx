@@ -4,14 +4,14 @@ import Link from 'next/link';
 import {  DiscAlbum, Link2Icon, Mail,  } from 'lucide-react';
 
 const quickLinks = [
-  { name: 'Solar Solutions', href: '#' },
-  { name: 'Battery Storage', href: '#' },
-  { name: 'EV Charging', href: '#' },
-  { name: 'Commercial Solar', href: '#' },
-  { name: 'About Us', href: '#' },
-  { name: 'Contact', href: '#' },
-  { name: 'Blog', href: '#' },
-  { name: 'Customer Reviews', href: '#' },
+  { name: 'Solar', href: '/solar' },
+  { name: 'Battery Storage', href: '/battery-storage' },
+  { name: 'EV Charging', href: '/ev-charging' },
+  { name: 'Commercial systems', href: '/commercial-systems' },
+  { name: 'About Us', href: '/about' },
+  { name: 'Contact', href: '/contact' },
+  { name: 'Blog', href: '/blog' },
+  { name: 'Customer Reviews', href: '/reviews' },
 ];
 
 const waHeadOffice = {

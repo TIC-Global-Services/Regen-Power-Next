@@ -3,6 +3,7 @@
 import React from 'react';
 import Fade from '@/reuseables/fade';
 import { MapPin, Mail, Phone } from 'lucide-react';
+import Link from 'next/link';
 
 export interface ContactItem {
   type: 'address' | 'email' | 'phone';
@@ -50,14 +51,16 @@ const ContactInfo = ({
   ]
 }: ContactInfoProps) => {
 
-  const renderIcon = (type: 'address' | 'email' | 'phone') => {
+  const renderIcon = (type: 'Instagram' | 'LinkedIn' | 'Facebook' | 'Twitter') => {
     switch (type) {
-      case 'address':
-        return <MapPin className="text-[#63B846] shrink-0" size={24} />;
-      case 'email':
-        return <Mail className="text-[#63B846] shrink-0" size={24} />;
-      case 'phone':
-        return <Phone className="text-[#63B846] shrink-0" size={24} />;
+      case 'Instagram':
+        return <img  src={'/instagram_logo.svg'}  className="text-[#63B846] shrink-0" height={24} width={24} />;
+      case 'LinkedIn':
+        return <img src={'/linkedin_logo.svg'} className="text-[#63B846] shrink-0" height={24}  width={24}/>;
+      case 'Facebook':
+        return <img src={'/facebook_logo.svg'} className="text-[#63B846] shrink-0" height={24}  width={24}/>;
+      case 'Twitter':
+        return <img src={'/twitter_logo.svg'} className="text-[#63B846] shrink-0" height={24}  width={24}/>;
     }
   };
 
@@ -66,7 +69,7 @@ const ContactInfo = ({
       return (
         <a 
           href={`mailto:${item.value}`}
-          className="text-base md:text-lg text-gray-800 hover:text-[#63B846] font-semibold transition-colors duration-200"
+          className="text-base md:text-lg text-gray-800 hover:text-[#63B846] font-normal transition-colors duration-200"
         >
           {item.value}
         </a>
@@ -76,13 +79,13 @@ const ContactInfo = ({
       return (
         <a 
           href={`tel:${item.value.replace(/[^0-9]/g, '')}`}
-          className="text-base md:text-lg text-gray-800 hover:text-[#63B846] font-semibold transition-colors duration-200"
+          className="text-base md:text-lg text-gray-800 hover:text-[#63B846] font-normal transition-colors duration-200"
         >
           {item.value}
         </a>
       );
     }
-    return <span className="text-base md:text-lg text-gray-800 font-semibold">{item.value}</span>;
+    return <span className="text-base md:text-lg text-gray-800 font-normal">{item.value}</span>;
   };
 
   return (
@@ -95,7 +98,7 @@ const ContactInfo = ({
               {title}
             </h2>
             {description && (
-              <p className="text-sm md:text-base text-gray-500 leading-relaxed font-medium">
+              <p className="text-xl md:text-2xl leading-none font-medium">
                 {description}
               </p>
             )}
@@ -106,18 +109,18 @@ const ContactInfo = ({
             {items.map((item, idx) => (
               <div 
                 key={idx} 
-                className="flex flex-col items-center text-center p-6 bg-[#fdfdfd] border border-gray-100/60 rounded-[20px] shadow-sm hover:shadow-md transition-shadow duration-300"
+                className="flex flex-col items-center text-center"
               >
                 {/* Icon Circle */}
-                <div className="w-12 h-12 rounded-full bg-[#EEF6EB] flex items-center justify-center mb-4">
+                {/* <div className="w-12 h-12 rounded-full bg-[#EEF6EB] flex items-center justify-center mb-4">
                   {renderIcon(item.type)}
-                </div>
+                </div> */}
                 {/* Label */}
-                <span className="text-xs font-bold text-gray-400 uppercase tracking-widest mb-1.5">
+                <span className="text-2xl font-bold text-[#63B846] mb-1.5">
                   {item.label}
                 </span>
                 {/* Value / Link */}
-                <div className="max-w-[240px] leading-relaxed">
+                <div className="max-w-[240px] leading-none">
                   {renderLink(item)}
                 </div>
               </div>
@@ -128,15 +131,21 @@ const ContactInfo = ({
           {socials.length > 0 && (
             <div className="flex flex-wrap justify-center items-center gap-6 md:gap-10 text-sm md:text-base font-bold">
               {socials.map((social, idx) => (
-                <a
+                <Link
                   key={idx}
                   href={social.url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-gray-500 hover:text-[#63B846] transition-colors duration-200 capitalize tracking-tight"
+                  className="text-[#63B846] transition-colors duration-200 capitalize tracking-tight text-2xl"
                 >
-                  {social.name}
-                </a>
+                  {/* Logo on mobile, name on desktop */}
+                  <span className="block md:hidden">
+                    {renderIcon(social.name as 'Instagram' | 'LinkedIn' | 'Facebook' | 'Twitter')}
+                  </span>
+                  <span className="hidden md:block">
+                    {social.name}
+                  </span>
+                </Link>
               ))}
             </div>
           )}

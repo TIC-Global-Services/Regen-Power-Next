@@ -1,0 +1,146 @@
+'use client';
+
+import React from 'react';
+
+// ─── Desktop Components ──────────────────────────────────────
+import DesktopHero from '@/components/Promotion/desktop/hero';
+import LimitedSpot from '@/components/Promotion/desktop/limitedspot';
+import TrustRegen from '@/components/Promotion/desktop/trustregen';
+import FreeQuotation from '@/components/Promotion/desktop/freequatation';
+import BatteryRebates from '@/components/Promotion/desktop/batteryrebates';
+import DesktopBrands from '@/components/Promotion/desktop/brands';
+import HighEnergy from '@/components/Promotion/desktop/highenergy';
+import BatteryPackage from '@/components/Promotion/desktop/batterypackage';
+import ReadyToBegin from '@/components/Promotion/desktop/readytobegin';
+import SolarFinancing from '@/components/Promotion/desktop/solarfinancing';
+import AboutRegen from '@/components/Promotion/desktop/aboutregen';
+import FindOutWhy from '@/components/Promotion/desktop/findoutwhy';
+import Acheivements from '@/components/Promotion/desktop/acheivements';
+import FAQ from '@/components/Promotion/desktop/faq';
+
+// ─── Mobile / Tablet Components ──────────────────────────────
+import MobileHero from '@/components/Promotion/other/Hero';
+import WhyChooseUs from '@/components/Promotion/other/WhyChooseUs';
+import Awards from '@/components/Promotion/other/Awards';
+import BatteryPricing from '@/components/Promotion/other/BatteryPricing';
+import QuoteForm from '@/components/Promotion/other/QuoteForm';
+import MobileBrands from '@/components/Promotion/other/Brands';
+import ContactInfo from '@/components/Promotion/other/ContactInfo';
+
+// ─── Shared Data ─────────────────────────────────────────────
+import {
+  // Desktop data
+  desktopHeroData,
+  desktopLimitedSpotData,
+  desktopTrustRegenData,
+  desktopFreeQuotationData,
+  desktopBatteryRebatesData,
+  desktopBrandsData,
+  desktopHighEnergyData,
+  desktopBatteryPackageData,
+  desktopReadyToBeginData,
+  desktopSolarFinancingData,
+  desktopAboutRegenData,
+  desktopFindOutWhyData,
+  desktopAchievementsData,
+  desktopFaqData,
+  // Mobile data
+  mobileHeroData,
+  mobileWhyChooseUsData,
+  mobileAwardsData,
+  mobileBatteryPricingData,
+  mobileQuoteFormData,
+  mobileBrandsData,
+  mobileContactInfoData,
+} from '@/app/(promotion)/promotionPageData';
+
+const CombinedPromoPage = () => {
+  const handleScrollToQuote = () => {
+    const element = document.getElementById('quote-form-section');
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
+  return (
+    <div className="flex flex-col min-h-screen bg-white">
+      {/* ═══ Desktop View (lg and above) ═══ */}
+      <div className="hidden lg:block">
+        <DesktopHero data={desktopHeroData} />
+        <LimitedSpot data={desktopLimitedSpotData} />
+        <TrustRegen data={desktopTrustRegenData} />
+        <FreeQuotation data={desktopFreeQuotationData} />
+        <BatteryRebates data={desktopBatteryRebatesData} />
+        <DesktopBrands data={desktopBrandsData} />
+        <HighEnergy data={desktopHighEnergyData} />
+        <BatteryPackage data={desktopBatteryPackageData} />
+        <ReadyToBegin data={desktopReadyToBeginData} />
+        <SolarFinancing data={desktopSolarFinancingData} />
+        <AboutRegen data={desktopAboutRegenData} />
+        <FindOutWhy data={desktopFindOutWhyData} />
+        <Acheivements data={desktopAchievementsData} />
+        <FAQ data={desktopFaqData} />
+      </div>
+
+      {/* ═══ Mobile / Tablet View (below lg) ═══ */}
+      <div className="lg:hidden">
+        {/* 1. Hero */}
+        <MobileHero
+          title={mobileHeroData.title}
+          subtitle={mobileHeroData.subtitle}
+          highlight={mobileHeroData.highlight}
+          description={mobileHeroData.description}
+          cta={mobileHeroData.cta}
+          backgroundImage={mobileHeroData.backgroundImage}
+          onCtaClick={handleScrollToQuote}
+        />
+
+        {/* 2. Why Choose Us */}
+        <WhyChooseUs
+          title={mobileWhyChooseUsData.title}
+          titleGreen={mobileWhyChooseUsData.titleGreen}
+          cards={mobileWhyChooseUsData.cards}
+        />
+
+        {/* 3. Awards */}
+        <Awards awards={mobileAwardsData} />
+
+        {/* 4. Battery Pricing Comparison */}
+        <BatteryPricing
+          backgroundImage={mobileBatteryPricingData.backgroundImage}
+          centerImage={mobileBatteryPricingData.centerImage}
+          items={mobileBatteryPricingData.items}
+        />
+
+        {/* 5. Get A Quote Form */}
+        <div id="quote-form-section">
+          <QuoteForm
+            title={mobileQuoteFormData.title}
+            titleGreen={mobileQuoteFormData.titleGreen}
+            noticeText={mobileQuoteFormData.noticeText}
+            buttonText={mobileQuoteFormData.buttonText}
+          />
+        </div>
+
+        {/* 6. Brands & Showcase */}
+        <MobileBrands
+          title={mobileBrandsData.title}
+          titleGreen={mobileBrandsData.titleGreen}
+          description={mobileBrandsData.description}
+          brands={mobileBrandsData.brands}
+          batteries={mobileBrandsData.batteries}
+        />
+
+        {/* 7. Contact Details */}
+        <ContactInfo
+          title={mobileContactInfoData.title}
+          description={mobileContactInfoData.description}
+          items={mobileContactInfoData.items}
+          socials={mobileContactInfoData.socials}
+        />
+      </div>
+    </div>
+  );
+};
+
+export default CombinedPromoPage;

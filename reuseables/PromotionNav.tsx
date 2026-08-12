@@ -9,7 +9,7 @@ const PromotionNav = () => {
                 <img src='/regen_logo_nav.png' className='h-10 w-auto object-contain' alt="Regen Power" />
             </div>
             <div className='flex gap-4 items-center'>
-                 <CtaButton text='Free Quote' textColor='text-white' />
+                <div className='md:block hidden'> <CtaButton text='Free Quote' textColor='text-white' /></div>
                  <CtaButton text='Call 08-9456-3491' textColor='text-white' />
             </div>
         </nav>

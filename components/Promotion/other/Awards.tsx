@@ -18,15 +18,13 @@ const Awards = ({
   awards = [
     {
       id: 'productreview',
-      image: '/assets/home/realstories/top_panel_installers.png',
+      image: '/awards/award-winner.png',
       title: '6 X ProductReview Award Winner 2021, 22, 23, 24, 25, 26',
-      description: 'Awarded for consistent excellence and outstanding customer satisfaction in residential solar and battery installations.'
     },
     {
       id: 'bestrated',
-      image: '/assets/home/realstories/best_rated_batch.png',
+      image: '/awards/best-rated.png',
       title: 'The Best Rated Installer in WA 2026',
-      description: 'Recognized as Perth and Western Australia\'s premier solar systems provider with 4.9+ star community ratings.'
     }
   ]
 }: AwardsProps) => {
@@ -35,14 +33,14 @@ const Awards = ({
       <Fade>
         <div className="max-w-6xl mx-auto">
           {/* Flex row on tablet and desktop, vertical flex on mobile */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 max-w-4xl mx-auto">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-3 max-w-4xl mx-auto">
             {awards.map((award) => (
               <div 
                 key={award.id} 
-                className="flex flex-col items-center text-center p-6 md:p-8 bg-[#fdfdfd] border border-gray-100 rounded-[24px] shadow-sm hover:shadow-md transition-all duration-300 group"
+                className="flex flex-col items-center text-center"
               >
                 {/* Badge Image Area with glassmorphic backing */}
-                <div className="relative w-36 h-36 md:w-44 md:h-44 flex items-center justify-center bg-[#F2F2F2] rounded-[20px] p-4 mb-6 group-hover:scale-105 transition-transform duration-300">
+                <div className="relative h-full w-full flex items-center justify-center bg-[#F2F2F2] rounded-[12px] p-10 mb-6 group-hover:scale-105 transition-transform duration-300">
                   <img
                     src={award.image}
                     alt={award.title}
@@ -55,7 +53,7 @@ const Awards = ({
                 </div>
 
                 {/* Badge Details */}
-                <h3 className="text-lg md:text-xl font-bold text-gray-900 leading-snug tracking-tight max-w-[280px] mb-2">
+                <h3 className="text-lg md:text-2xl font-bold text-gray-900 leading-snug tracking-tight">
                   {award.title}
                 </h3>
                 

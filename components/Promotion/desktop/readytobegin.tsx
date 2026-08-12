@@ -103,7 +103,7 @@ const ReadyToBegin = ({ data }: { data: ReadyToBeginProps }) => {
       );
     }
     return (
-      <p className="text-black text-sm md:text-[1.375rem] leading-relaxed font-normal">
+      <p className="text-black text-sm lg:text-[1.375rem] leading-relaxed font-normal">
         {item.value}
       </p>
     );

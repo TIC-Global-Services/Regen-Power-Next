@@ -66,7 +66,7 @@ const QuoteForm = ({
   };
 
   return (
-    <section className="bg-white py-16 md:py-24 px-4 md:px-[5%] w-full">
+    <section className="bg-white py-10 md:py-24 px-4 md:px-[5%] w-full">
       <Fade>
         <div className="max-w-3xl mx-auto">
           {/* Header */}
@@ -77,11 +77,8 @@ const QuoteForm = ({
             
             {/* Notice block */}
             {noticeText && (
-              <div className="mt-6 bg-[#EEF6EB] border border-[#63B846]/20 rounded-[20px] p-6 text-left max-w-2xl mx-auto">
-                <p className="text-sm md:text-base text-gray-700 font-medium leading-relaxed">
-                  <span className="font-bold text-[#63B846] inline-flex items-center gap-1.5 mr-1">
-                    <Sparkles size={16} /> Important Notice:
-                  </span>{' '}
+              <div className="md:mt-6 mt-4  text-left max-w-2xl mx-auto ">
+                <p className="text-xl md:text-2xl text-center font-medium leading-[1.2]">
                   {noticeText}
                 </p>
               </div>
@@ -89,7 +86,7 @@ const QuoteForm = ({
           </div>
 
           {/* Form */}
-          <form onSubmit={handleSubmit} className="space-y-8 bg-[#fdfdfd] border border-gray-100 rounded-[28px] p-6 md:p-10 shadow-sm">
+          <form onSubmit={handleSubmit} className="space-y-8 p-6 md:p-10 ">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               
               {/* First Name */}
@@ -187,12 +184,12 @@ const QuoteForm = ({
                 type="submit"
                 text={isSubmitting ? "Submitting..." : buttonText}
                 icon={ArrowRight}
-                bgClass="bg-[#63B846] border-0"
-                hoverClass="hover:bg-[#52a037] hover:scale-102"
-                textColor="text-white font-bold"
-                iconBgClass="bg-white/20"
-                iconTextColor="text-white"
-                className="py-3 px-8 shadow-md"
+                // bgClass="bg-[#63B846] border-0"
+                // hoverClass="hover:bg-[#52a037] hover:scale-102"
+                // textColor="text-white font-bold"
+                // iconBgClass="bg-white/20"
+                // iconTextColor="text-white"
+                className="font-semibold"
                 disabled={isSubmitting}
               />
             </div>

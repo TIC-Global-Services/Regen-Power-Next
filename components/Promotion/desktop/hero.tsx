@@ -50,16 +50,16 @@ const Hero = ({ data }: { data: HeroProps }) => {
           </div>
 
           {/* 4-Column Layout */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 items-stretch">
+          <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-4 gap-6 items-stretch">
             
             {/* Package Cards */}
             {data.packages.map((pkg, idx) => (
               <div
                 key={idx}
-                className="bg-white rounded-[20px] p-6 flex flex-col justify-between shadow-lg border border-gray-100 hover:shadow-xl transition-all duration-300"
+                className="bg-white rounded-[20px] p-6 flex flex-col justify-between border border-gray-100 hover:shadow-xl transition-all duration-300"
               >
                 <div>
-                  <h3 className="text-[1.8rem] md:text-[2.2rem] font-extrabold text-black text-center pb-3 border-b border-gray-200">
+                  <h3 className="text-[1.8rem] md:text-[2.2rem] font-bold text-black text-center pb-3 border-b border-gray-200">
                     {pkg.capacity}
                   </h3>
                   
