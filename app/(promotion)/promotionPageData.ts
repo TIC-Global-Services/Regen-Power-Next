@@ -660,7 +660,8 @@ export const mobileBatteryPricingData = {
 export const mobileQuoteFormData = {
   title: "Get A Quote",
   noticeText:
-    "Due to the current high demand for batteries, we are unable to accept bookings for Solar-Only installations at this time. Bookings will only be accepted for Solar + Battery or Battery-Only installations.",
+    "Due to the current high demand for batteries, we are unable to accept bookings for Solar-Only installations at this time.",
+    noticehighlight:" Bookings will only be accepted for Solar + Battery or Battery-Only installations.",
   buttonText: "Get Free Estimate",
 };
 
