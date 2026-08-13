@@ -28,7 +28,6 @@ export type SolarStatsAndIntroData = z.infer<typeof SolarStatsAndIntroSchema>;
 
 export const SolarProcessStepSchema = z.object({
   id: z.number(),
-  stepNumber: z.string(),
   title: z.string(),
   description: z.string(),
   image: MediaSchema.nullable().optional(),
@@ -66,10 +65,9 @@ export const SolarInverterCardSchema = z.object({
 
 export const SolarInverterRefSchema = z.object({
   id: z.number(),
-  name: z.string(),
   title: z.string(),
   backgroundImage: MediaSchema.nullable().optional(),
-  cards: z.array(SolarInverterCardSchema).optional(),
+  infoCards: z.array(SolarInverterCardSchema).optional(),
 });
 
 export const SolarInverterSliderSchema = z.object({
@@ -89,14 +87,14 @@ export const SolarSpecItemSchema = z.object({
   image: MediaSchema.nullable().optional(),
 });
 
-export const SolarSpecsTableSchema = z.object({
-  __component: z.literal("solar.specs-table"),
+export const SolarSpecsRowCardsSchema = z.object({
+  __component: z.literal("solar.specs-row-cards"),
   subtitle: z.string().nullable(),
   title: z.string().nullable(),
   description: z.string().nullable(),
   specs: z.array(SolarSpecItemSchema),
 });
-export type SolarSpecsTableData = z.infer<typeof SolarSpecsTableSchema>;
+export type SolarSpecsRowCardsData = z.infer<typeof SolarSpecsRowCardsSchema>;
 
 export const SolarSizingTableRowSchema = z.object({
   id: z.number(),
@@ -113,15 +111,15 @@ export const SolarSizingCardSchema = z.object({
   image: MediaSchema.nullable().optional(),
 });
 
-export const SolarSizingGuideSchema = z.object({
-  __component: z.literal("solar.sizing-guide"),
+export const SolarSizingGuideTableSchema = z.object({
+  __component: z.literal("solar.sizing-guide-table"),
   subtitle: z.string().nullable(),
   title: z.string().nullable(),
   description: z.string().nullable(),
   tableRows: z.array(SolarSizingTableRowSchema),
   sizingCards: z.array(SolarSizingCardSchema),
 });
-export type SolarSizingGuideData = z.infer<typeof SolarSizingGuideSchema>;
+export type SolarSizingGuideTableData = z.infer<typeof SolarSizingGuideTableSchema>;
 
 export const SolarPackageItemSchema = z.object({
   label: z.string(),
@@ -132,7 +130,6 @@ export const SolarPackageSchema = z.object({
   id: z.number(),
   title: z.string(),
   description: z.string(),
-  bgClass: z.string().nullable().optional(),
   features: z.array(SolarPackageItemSchema).optional(),
 });
 

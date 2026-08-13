@@ -2,18 +2,20 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { ReactNode } from 'react';
+import { CSSProperties, ReactNode } from 'react';
 
 interface RevealProps {
   children: ReactNode;
   delay?: number;
   className?: string;
+  style?: CSSProperties;
 }
 
-export default function Reveal({ children, delay = 0, className = "" }: RevealProps) {
+export default function Reveal({ children, delay = 0, className = "", style }: RevealProps) {
   return (
     <motion.div
       className={className}
+      style={style}
       // 1. Initial hidden state
       initial={{ opacity: 0, y: 50 }}
       

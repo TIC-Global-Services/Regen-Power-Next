@@ -1,38 +1,58 @@
 "use client";
 
-import React, { useEffect, useRef } from 'react';
-import Image, { StaticImageData } from 'next/image';
-import { motion, useInView, useMotionValue, useTransform, animate, Variants } from 'framer-motion';
-import SectionHeader from "@/reuseables/SectionHeader";
+import React, { useEffect, useRef } from "react";
+import Image, { StaticImageData } from "next/image";
+import {
+  motion,
+  useInView,
+  useMotionValue,
+  useTransform,
+  animate,
+  Variants,
+} from "framer-motion";
 
-export interface WhyChooseUsData {
-  subtitle: string;
-  title: string;
-  awardWinnerCount: number;
-  awardWinnerTitle: string;
-  awardWinnerBg: StaticImageData | string;
-  awardWinnerLogo: StaticImageData | string;
-  batteryInstallationsCount: number;
-  batteryInstallationsLabel: string;
-  solarInstallationsCount: number;
-  solarInstallationsLabel: string;
-  yearsInBusinessCount: number;
-  yearsInBusinessDescription: string;
-  yearsInBusinessBg: StaticImageData | string;
-  ratingScore: number;
-  ratingPlatformLabel: string;
-  ratingBg: StaticImageData | string;
+export interface WhyChooseUsRow {
+  id: string;
+  count: number;
+  prefix?: string;
+  suffix?: string;
+  label: string;
 }
 
-interface WhyChooseUsProps {
-  data: WhyChooseUsData;
+export interface WhyChooseUsCard {
+  id: string;
+  /** Single animated number (omit with stats to render rows instead) */
+  count?: number;
+  prefix?: string;
+  suffix?: string;
+  title?: string;
+  description?: string;
+  /** Inline icon next to the count (e.g. a star) */
+  icon?: string | StaticImageData | null;
+  /** Full-card background image */
+  image?: string | StaticImageData | null;
+  /** Overlay logo (contain), shown on top of image */
+  logo?: string | StaticImageData | null;
+  /** Multi-stat cards (render each row independently) */
+  stats?: WhyChooseUsRow[];
 }
+
+export interface WhyChooseUsProps {
+  subtitle?: string;
+  title?: string;
+  cards: WhyChooseUsCard[];
+  className?: string;
+}
+
+/* ─── Animated Counter ─────────────────────────────────────────── */
 
 const AnimatedCounter = ({ from, to }: { from: number; to: number }) => {
   const ref = useRef<HTMLSpanElement>(null);
   const inView = useInView(ref, { once: true, margin: "-100px" });
   const count = useMotionValue(from);
-  const rounded = useTransform(count, (latest) => Math.round(latest).toLocaleString());
+  const rounded = useTransform(count, (latest) =>
+    Math.round(latest).toLocaleString()
+  );
 
   useEffect(() => {
     if (inView) {
@@ -44,13 +64,11 @@ const AnimatedCounter = ({ from, to }: { from: number; to: number }) => {
   return <motion.span ref={ref}>{rounded}</motion.span>;
 };
 
+/* ─── Animation Variants ───────────────────────────────────────── */
+
 const containerVariants: Variants = {
   hidden: {},
-  show: {
-    transition: {
-      staggerChildren: 0.15
-    }
-  }
+  show: { transition: { staggerChildren: 0.15 } },
 };
 
 const itemVariants: Variants = {
@@ -58,141 +76,200 @@ const itemVariants: Variants = {
   show: {
     opacity: 1,
     scale: 1,
-    transition: { duration: 0.5, ease: "easeOut" }
-  }
+    transition: { duration: 0.5, ease: "easeOut" },
+  },
 };
 
-const WhyChooseUs = ({ data }: WhyChooseUsProps) => {
-  return (
-    <section className="py-10 md:py-20 bg-white overflow-hidden">
-      <div className="px-[8%] md:px-[5%]">
-        {/* <SectionHeader
-          subtitle={data.subtitle}
-          title={data.title}
-          align="left"
-          subtitleClass="text-2xl md:text-3xl lg:text-3xl font-medium text-black tracking-tight normal-case mb-1"
-          titleClass="text-[#63B846] font-light text-[2.5rem] md:text-[3rem] lg:text-[5rem] tracking-tighter leading-none"
-          className="mb-10 md:mb-15 lg:-space-y-4"
-        /> */}
-        <div className='flex flex-col justify-center items-center md:justify-start md:items-start mb-5 md:mb-20'>
-          <span className="text-xl md:text-[2rem] leading-[0.5] font-normal text-center  tracking-tight mb-1 block normal-case">{data.subtitle}</span>
-          <h1 className="text-4xl md:text-5xl lg:text-[5rem] leading-none text-[#63B846] tracking-tight mt-1">{data.title}</h1>
-        </div>
+/* ─── Presentation (hardcoded; CMS supplies only content) ──────── */
 
-        {/* Grid Layout */}
+// Reproduces the legacy per-card look without CMS-driven style fields.
+const cardBackgroundColor = (card: WhyChooseUsCard): string =>
+  (card.stats?.length ?? 0) > 0 ? "#A0CF44" : "#EEF6EB";
+
+const cardTextColor = (card: WhyChooseUsCard): string => {
+  const isGreen = (card.stats?.length ?? 0) > 0;
+  const isImageWithIcon = !!card.image && !!card.icon;
+  return isGreen || isImageWithIcon ? "#FFFFFF" : "#000000";
+};
+
+/* ─── Single card ────────────────────────────────────────────── */
+
+const StatCard = ({
+  card,
+  className = "",
+  emphasizeTitle = false,
+  blurredBgImage = false,
+}: {
+  card: WhyChooseUsCard;
+  className?: string;
+  emphasizeTitle?: boolean;
+  blurredBgImage?: boolean;
+}) => (
+  <motion.div
+    variants={itemVariants}
+    className={`relative rounded-[20px] overflow-hidden flex flex-col p-4 md:p-6 ${className}`}
+    style={{
+      backgroundColor: cardBackgroundColor(card),
+      color: cardTextColor(card),
+    }}
+  >
+    {/* Image + overlay logo (boxed, top) */}
+    {card.image && card.logo ? (
+      <div className="relative w-full aspect-2/1 rounded-3xl overflow-hidden mb-2 lg:mb-8">
+        <Image src={card.image} alt="" fill className="object-cover z-0" />
+        <Image src={card.logo} alt="" fill className="object-contain p-4 z-10" />
+      </div>
+    ) : card.image && blurredBgImage ? (
+      /* Blurred bg image — original position: full-card, bottom-right, pushed off the right edge */
+      <div className="absolute right-[-30%] bottom-30 w-full h-full opacity-90 z-0">
+        <Image
+          src={card.image}
+          alt="Solar Panels Background"
+          fill
+          className="object-cover object-right-bottom mix-blend-multiply blur-xs"
+        />
+      </div>
+    ) : card.image ? (
+      <Image src={card.image} alt="" fill className="object-cover z-0" />
+    ) : null}
+
+    {/* Content */}
+    <div className="relative z-20 mt-auto pt-4">
+      {card.stats && card.stats.length > 0 ? (
+        card.stats.map((row) => (
+          <div key={row.id} className="mb-2 last:mb-0">
+            <h3 className="text-[3.5rem] lg:text-[5.5rem] leading-none font-black tracking-tighter whitespace-nowrap">
+              {row.prefix}
+              <AnimatedCounter from={0} to={row.count} />
+              {row.suffix}
+            </h3>
+            <p className="text-xl lg:text-2xl tracking-tight font-normal">
+              {row.label}
+            </p>
+          </div>
+        ))
+      ) : (
+        <>
+          {card.icon ? (
+            /* Rating card: number + star left, title right (wraps on its \n) */
+            <div className="flex items-start gap-2 md:gap-3">
+              <div className="flex items-center gap-2 md:gap-3">
+                {card.count != null && (
+                  <span className="text-[3.5rem] lg:text-[5.5rem] font-bold leading-none tracking-tighter whitespace-nowrap">
+                    {card.prefix}
+                    <AnimatedCounter from={0} to={card.count} />
+                    {card.suffix}
+                  </span>
+                )}
+                <Image
+                  src={card.icon}
+                  alt=""
+                  width={30}
+                  height={30}
+                  className="w-7 h-7 md:w-7 md:h-7"
+                />
+              </div>
+              {card.title && (
+                <span className="text-2xl lg:text-4xl leading-[1.2] tracking-tight font-normal whitespace-pre-line">
+                  {card.title}
+                </span>
+              )}
+            </div>
+          ) : (
+            <>
+              {(card.count != null || card.title) && (
+                <div
+                  className={
+                    emphasizeTitle
+                      ? "flex flex-col"
+                      : "flex items-center gap-2 md:gap-3"
+                  }
+                >
+                  {card.count != null && (
+                    <span className="text-[3.5rem] lg:text-[5.5rem] font-bold leading-none tracking-tighter whitespace-nowrap">
+                      {card.prefix}
+                      <AnimatedCounter from={0} to={card.count} />
+                      {card.suffix}
+                    </span>
+                  )}
+                  {emphasizeTitle && card.title && (
+                    <span className="text-[3.5rem] lg:text-[5.5rem] font-bold leading-none tracking-tighter whitespace-pre-line">
+                      {card.title}
+                    </span>
+                  )}
+                </div>
+              )}
+              {!emphasizeTitle && card.title && (
+                <p className="text-2xl lg:text-4xl leading-[1.2] tracking-tight font-normal whitespace-pre-line">
+                  {card.title}
+                </p>
+              )}
+            </>
+          )}
+          {card.description && (
+            <p className="text-xl md:text-3xl tracking-tight font-medium leading-[1.2] whitespace-pre-line">
+              {card.description}
+            </p>
+          )}
+        </>
+      )}
+    </div>
+  </motion.div>
+);
+
+const WhyChooseUs: React.FC<WhyChooseUsProps> = ({
+  subtitle,
+  title,
+  cards,
+  className = "",
+}) => {
+  return (
+    <section className={`py-10 md:py-20 bg-white overflow-hidden ${className}`}>
+      <div className="px-[8%] md:px-[5%]">
+        {(subtitle || title) && (
+          <div className="flex flex-col justify-center items-center md:justify-start md:items-start mb-5 md:mb-20">
+            {subtitle && (
+              <span className="text-xl md:text-[2rem] leading-[0.5] font-normal text-center tracking-tight mb-1 block normal-case">
+                {subtitle}
+              </span>
+            )}
+            {title && (
+              <h1 className="text-4xl md:text-5xl lg:text-[5rem] leading-none text-[#63B846] tracking-tight mt-1">
+                {title}
+              </h1>
+            )}
+          </div>
+        )}
+
         <motion.div
           variants={containerVariants}
           initial="hidden"
           whileInView="show"
           viewport={{ once: true, margin: "-100px" }}
-          className="grid grid-cols-1 lg:grid-cols-3 gap-4 lg:gap-6 auto-rows-auto lg:auto-rows-fr"
+          className="grid grid-cols-1 lg:grid-cols-3 gap-4 lg:gap-6 lg:auto-rows-fr"
         >
+          {/* Award — tall left */}
+          {cards[0] && (
+            <StatCard card={cards[0]} className="md:h-full md:min-h-[55dvh]" />
+          )}
 
-          {/* Left Card - Award Winner */}
-          <motion.div variants={itemVariants} className="bg-[#EEF6EB] rounded-[20px] p-4 flex flex-col md:h-full md:min-h-[55dvh]">
-            <div className="w-full relative aspect-2/1 rounded-3xl overflow-hidden mb-2 lg:mb-8 flex items-center justify-center">
-              <Image
-                src={data.awardWinnerBg}
-                alt="Product Review Awards Logo Background"
-                fill
-                className="object-cover z-0"
+          {/* Installations — tall middle */}
+          {cards[1] && (
+            <StatCard card={cards[1]} className="md:h-full min-h-[280px]" />
+          )}
+
+          {/* Right column — Years (grows) + Rating (fixed) */}
+          {cards[2] && cards[3] && (
+            <div className="flex flex-col gap-4 lg:gap-6 lg:h-full">
+              <StatCard
+                card={cards[2]}
+                className="flex-grow min-h-[220px] md:min-h-[250px]"
+                emphasizeTitle
+                blurredBgImage
               />
-              <Image
-                src={data.awardWinnerLogo}
-                alt="Product Review Logo"
-                fill
-                className="object-contain p-4 z-10 relative"
-              />
+              <StatCard card={cards[3]} className="h-[140px] md:h-[160px]" />
             </div>
-            <div className="mt-auto py-4 px-4">
-              <h3 className="text-[4rem] lg:text-[6.250rem] font-bold text-black mb-2 tracking-tight leading-none">
-                <AnimatedCounter from={0} to={data.awardWinnerCount} /><span className="text-[3rem] lg:text-[6.250rem]">×</span>
-              </h3>
-              <p className="text-2xl lg:text-4xl text-black leading-[1.2] font-normal whitespace-pre-line">
-                {data.awardWinnerTitle}
-              </p>
-            </div>
-          </motion.div>
-
-          {/* Middle Card - Installations */}
-          <motion.div
-            variants={itemVariants}
-            className="bg-[#A0CF44] rounded-[20px] p-6 md:p-8 relative flex flex-col justify-end min-h-[280px] md:h-full overflow-hidden"
-          >
-
-            
-
-            {/* 2. Top-Left Inverse Curve Mask */}
-            {/* <div className="absolute top-0 right-[60px] md:right-[96px] w-5 h-12 bg-transparent z-1 rounded-tr-[20px] shadow-[16px_-16px_0_16px_#ffffff]" /> */}
-
-            {/* 3. Bottom-Right Inverse Curve Mask */}
-            {/* <div className="absolute top-[62px] md:top-[98px] right-0 w-4 h-6 bg-transparent z-10 rounded-tr-[20px] shadow-[16px_-16px_0_16px_#ffffff]" /> */}
-
-            {/* Stats Layout */}
-            <div className="relative z-0 flex flex-col mt-8 md:mt-16">
-              <div>
-                <h3 className="text-[3.5rem] lg:text-[5.5rem] leading-none font-black text-white tracking-tighter">
-                  <AnimatedCounter from={0} to={data.batteryInstallationsCount} />+
-                </h3>
-                <p className="text-xl lg:text-2xl text-white font-normal">
-                  {data.batteryInstallationsLabel}
-                </p>
-              </div>
-
-              <div>
-                <h3 className="text-[3.5rem] lg:text-[5.5rem] leading-none font-black text-white tracking-tighter">
-                  <AnimatedCounter from={0} to={data.solarInstallationsCount} />+
-                </h3>
-                <p className="text-xl lg:text-2xl text-white font-normal">
-                  {data.solarInstallationsLabel}
-                </p>
-              </div>
-            </div>
-          </motion.div>
-
-          {/* Right Column - Stacked Cards */}
-          <div className="flex flex-col gap-4 lg:gap-6 h-full">
-
-            {/* Top Right Card - Years */}
-            <motion.div variants={itemVariants} className="bg-[#f0f6ec] rounded-[20px] p-6 relative overflow-hidden flex-grow flex flex-col justify-end min-h-[220px] md:min-h-[250px]">
-              <div className="absolute right-[-20%] bottom-30 w-full h-full opacity-90 z-0">
-                <Image
-                  src={data.yearsInBusinessBg}
-                  alt="Solar Panels Background"
-                  fill
-                  className="object-cover object-right-bottom mix-blend-multiply blur-sm"
-                />
-              </div>
-              <div className="relative z-10 w-full">
-                <h3 className="text-[3.5rem] lg:text-[5rem] font-bold text-black leading-none  tracking-tight">
-                  <AnimatedCounter from={0} to={data.yearsInBusinessCount} /><br />Years
-                </h3>
-                <p className="text-xl md:text-3xl text-black font-medium leading-[1.2]">
-                  {data.yearsInBusinessDescription}
-                </p>
-              </div>
-            </motion.div>
-
-            {/* Bottom Right Card - Rating */}
-            <motion.div variants={itemVariants} className="rounded-[20px] md:rounded-[32px] relative overflow-hidden h-[140px] md:h-[160px] p-5 md:p-8 flex items-center justify-center">
-              <Image
-                src={data.ratingBg}
-                alt="Green sphere background"
-                fill
-                className="object-cover z-0"
-              />
-              <div className="relative z-10 flex items-center gap-3 md:gap-4">
-                <h3 className="text-[4rem] md:text-[6.250rem] font-bold text-white flex items-center gap-2 md:gap-3 leading-none tracking-tighter">
-                  <AnimatedCounter from={0} to={data.ratingScore} /> <span className="text-[2.5rem] font-extrabold"><Image src={'/star.svg'} height={50} width={50} alt="Star" className="w-[50px] h-[50px] md:w-[80px] md:h-[80px]" /></span>
-                </h3>
-                <p className="text-white text-lg md:text-4xl tracking-tight font-medium leading-[1.2]">
-                  {data.ratingPlatformLabel}
-                </p>
-              </div>
-            </motion.div>
-
-          </div>
-
+          )}
         </motion.div>
       </div>
     </section>

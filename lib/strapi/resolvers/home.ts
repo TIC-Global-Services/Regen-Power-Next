@@ -3,6 +3,7 @@ import type {
   HomeHeroData,
   HomeAwardsData,
   HomeWhyChooseUsData,
+  HomeStatCardData,
   HomeExpertiseData,
   HomeSolarAndStorageData,
   HomePartnersAndMembershipData,
@@ -86,24 +87,58 @@ export function resolveHomeAwards(
 
 // ─── Why Choose Us ──────────────────────────────────────────────────────
 
+export interface ResolvedHomeStatRow {
+  id: string;
+  count: number;
+  prefix: string;
+  suffix: string;
+  label: string;
+}
+
+export interface ResolvedHomeStatCard {
+  id: string;
+  count?: number;
+  prefix: string;
+  suffix: string;
+  title: string;
+  description: string;
+  icon: string;
+  image: string;
+  logo: string;
+  stats: ResolvedHomeStatRow[];
+}
+
 export interface ResolvedHomeWhyChooseUs {
   subtitle: string;
   title: string;
-  awardWinnerCount: number;
-  awardWinnerTitle: string;
-  awardWinnerBg: string;
-  awardWinnerLogo: string;
-  batteryInstallationsCount: number;
-  batteryInstallationsLabel: string;
-  solarInstallationsCount: number;
-  solarInstallationsLabel: string;
-  yearsInBusinessCount: number;
-  yearsInBusinessDescription: string;
-  yearsInBusinessBg: string;
-  ratingScore: number;
-  ratingPlatformLabel: string;
-  ratingBg: string;
+  cards: ResolvedHomeStatCard[];
 }
+
+const resolveStatCard = (
+  id: string,
+  c: HomeStatCardData
+): ResolvedHomeStatCard => {
+  const text = (v?: string | null) => v ?? "";
+  return {
+    id,
+    ...(c.count != null ? { count: c.count } : {}),
+    prefix: text(c.prefix),
+    suffix: text(c.suffix),
+    title: text(c.title),
+    description: text(c.description),
+    icon: src(c.icon),
+    image: src(c.image),
+    logo: src(c.logo),
+    stats: (c.stats ?? []).map((s) => ({
+      id: `row-${s.id}`,
+      count: s.count ?? 0,
+      prefix: text(s.prefix),
+      suffix: text(s.suffix),
+      label: text(s.label),
+    })),
+  };
+};
+
 export function resolveHomeWhyChooseUs(
   data: HomeWhyChooseUsData | undefined | null
 ): ResolvedHomeWhyChooseUs | null {
@@ -111,20 +146,7 @@ export function resolveHomeWhyChooseUs(
   return {
     subtitle: data.subtitle ?? "",
     title: data.title ?? "",
-    awardWinnerCount: data.awardWinnerCount ?? 0,
-    awardWinnerTitle: data.awardWinnerTitle ?? "",
-    awardWinnerBg: src(data.awardWinnerBg),
-    awardWinnerLogo: src(data.awardWinnerLogo),
-    batteryInstallationsCount: data.batteryInstallationsCount ?? 0,
-    batteryInstallationsLabel: data.batteryInstallationsLabel ?? "",
-    solarInstallationsCount: data.solarInstallationsCount ?? 0,
-    solarInstallationsLabel: data.solarInstallationsLabel ?? "",
-    yearsInBusinessCount: data.yearsInBusinessCount ?? 0,
-    yearsInBusinessDescription: data.yearsInBusinessDescription ?? "",
-    yearsInBusinessBg: src(data.yearsInBusinessBg),
-    ratingScore: data.ratingScore ?? 0,
-    ratingPlatformLabel: data.ratingPlatformLabel ?? "",
-    ratingBg: src(data.ratingBg),
+    cards: (data.cards ?? []).map((c) => resolveStatCard(`card-${c.id}`, c)),
   };
 }
 
@@ -269,7 +291,6 @@ export interface ResolvedHomeCraftmanship {
   subtitle: string;
   title: string;
   categories: ResolvedHomeBrandCategory[];
-  defaultTabId?: string;
 }
 export function resolveHomeCraftmanship(
   data: HomeCraftmanshipData | undefined | null
@@ -278,7 +299,6 @@ export function resolveHomeCraftmanship(
   return {
     subtitle: data.subtitle ?? "",
     title: data.title ?? "",
-    defaultTabId: data.defaultTabId ?? undefined,
     categories: (data.categories ?? []).map((cat) => ({
       id: String(cat.id),
       label: cat.label ?? "",
@@ -353,6 +373,8 @@ export interface ResolvedHomeSmartSolar {
   topSubtitle: string;
   title: string;
   bottomSubtitle: string;
+  centerButtonText?: string;
+  centerButtonLink?: string;
   cards: ResolvedHomeSmartSolarCard[];
 }
 export function resolveHomeSmartSolar(
@@ -363,6 +385,8 @@ export function resolveHomeSmartSolar(
     topSubtitle: data.topSubtitle ?? "",
     title: data.title ?? "",
     bottomSubtitle: data.bottomSubtitle ?? "",
+    ...(data.centerButtonText ? { centerButtonText: data.centerButtonText } : {}),
+    ...(data.centerButtonLink ? { centerButtonLink: data.centerButtonLink } : {}),
     cards: (data.cards ?? []).map((c) => ({
       title: c.title,
       description: c.description ?? "",

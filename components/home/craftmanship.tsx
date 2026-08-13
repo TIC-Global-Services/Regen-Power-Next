@@ -5,6 +5,8 @@ import Image, { StaticImageData } from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import Marquee from "@/reuseables/Marquee";
 import SectionHeader from "@/reuseables/SectionHeader";
+import MissingImage from "@/reuseables/MissingImage";
+import Reveal from "@/reuseables/Reveal";
 
 export interface BrandLogo {
   id: string;
@@ -22,7 +24,6 @@ export interface CraftsmanshipData {
   subtitle: string;
   title: string;
   categories: BrandCategory[];
-  defaultTabId?: string;
 }
 
 interface CraftsmanshipProps {
@@ -106,49 +107,111 @@ const Craftsmanship = ({ data }: CraftsmanshipProps) => {
             className="max-w-5xl mx-auto"
           >
             {(() => {
-              const cols = 5;
+              // Tabs with more than 6 logos get 4 columns; otherwise 3.
               const totalLogos = activeCategory.logos.length;
+              const cols = totalLogos > 6 ? 4 : 3;
               const totalRows = Math.ceil(totalLogos / cols);
               const lastRowCount = totalLogos % cols || cols;
-              const lastRowOffset =
-                lastRowCount < cols
-                  ? Math.floor((cols - lastRowCount) / 2)
-                  : 0;
+              // Multi-item partial rows render as a flex row below the grid; a lone leftover
+              // item stays INSIDE the grid on the middle track so its borders land exactly on
+              // the track boundaries and align with the column dividers above.
+              const flexPartial = lastRowCount > 1 && lastRowCount < cols;
+              const gridItems =
+                lastRowCount === 1
+                  ? totalLogos
+                  : lastRowCount < cols
+                    ? totalLogos - lastRowCount
+                    : totalLogos;
+              const gridRowCount = Math.ceil(gridItems / cols);
+              const gridColsClass =
+                cols === 4 ? "md:grid-cols-4" : "md:grid-cols-3";
+
+              const renderLogo = (logo: BrandLogo) => (
+                <div className="relative w-full h-[60px] md:h-[80px]">
+                  {logo.src ? (
+                    <img
+                      src={typeof logo.src === "string" ? logo.src : logo.src.src}
+                      alt={logo.name}
+                      className="absolute inset-0 w-full h-full object-contain"
+                    />
+                  ) : (
+                    <MissingImage
+                      label={logo.name || "Brand logo"}
+                      type="logo"
+                      aspect="aspect-[3/1]"
+                      className="h-full"
+                    />
+                  )}
+                </div>
+              );
 
               return (
                 <>
-                  {/* Desktop Grid View */}
-                  <div
-                    className="hidden md:grid"
-                    style={{ gridTemplateColumns: `repeat(${cols}, 1fr)` }}
-                  >
-                    {activeCategory.logos.map((logo, idx) => {
-                      const colInRow = idx % cols;
-                      const rowIdx = Math.floor(idx / cols);
-                      const isLastRow = rowIdx === totalRows - 1;
-                      const isIncompleteLastRow =
-                        isLastRow && lastRowCount < cols;
+                  {/* Desktop Grid View — fixed min-height so tab switching never jumps; wrapper vertically centers a single row */}
+                  <div className="hidden md:flex md:flex-col md:justify-center md:min-h-[440px]">
+                    <div className={`grid ${gridColsClass}`}>
+                      {activeCategory.logos.slice(0, gridItems).map((logo, idx) => {
+                        const colInRow = idx % cols;
+                        const rowIdx = Math.floor(idx / cols);
+                        const isLoneItem =
+                          lastRowCount === 1 && rowIdx === totalRows - 1;
+                        // Lone item sits on the middle track (1-based) so its borders coincide
+                        // with the column dividers of the rows above.
+                        const style: React.CSSProperties | undefined =
+                          isLoneItem
+                            ? { gridColumnStart: Math.ceil(cols / 2) }
+                            : undefined;
 
-                      const style: React.CSSProperties =
-                        isIncompleteLastRow && colInRow === 0
-                          ? { gridColumnStart: lastRowOffset + 1 }
-                          : {};
+                        const isLastGridRow = rowIdx === gridRowCount - 1;
+                        const showBorderRightDesktop =
+                          isLoneItem || colInRow < cols - 1;
+                        // Horizontal line under every row except the very last one
+                        const showBorderBottomDesktop =
+                          !isLastGridRow || flexPartial;
 
-                      return (
-                        <div
-                          key={logo.id}
-                          style={style}
-                          className={`flex items-center justify-center py-5 md:py-10 hover:-translate-y-0.5 transition-all duration-300 ${colInRow > 0 ? "border-l border-gray-200" : ""
-                            } ${rowIdx > 0 ? "border-t border-gray-200" : ""}`}
-                        >
-                          <Image
-                            src={logo.src}
-                            alt={logo.name}
-                            className="object-cover md:object-contain max-h-12 md:max-h-14 w-auto"
-                          />
-                        </div>
-                      );
-                    })}
+                        return (
+                          <Reveal
+                            key={logo.id}
+                            delay={idx * 0.05}
+                            style={style}
+                            className={`flex items-center justify-center p-8 md:p-12 hover:bg-gray-50 transition-colors h-[180px] md:h-[220px] relative
+                              ${showBorderBottomDesktop ? "md:border-b border-[#00000033]" : "md:border-b-0"}
+                              ${showBorderRightDesktop ? "md:border-r border-[#00000033]" : "md:border-r-0"}
+                            `}
+                          >
+                            {/* Lone item: left divider drawn 1px OUTSIDE the box so it overlaps the
+                                divider above (a border would sit 1px inside and look misaligned) */}
+                            {isLoneItem && (
+                              <span
+                                aria-hidden
+                                className="absolute left-0 -translate-x-px top-0 bottom-0 w-px bg-[#00000033]"
+                              />
+                            )}
+                            {renderLogo(logo)}
+                          </Reveal>
+                        );
+                      })}
+                    </div>
+
+                    {/* Multi-item partial last row — items stretch evenly to fill the row width */}
+                    {flexPartial && (
+                      <div className="flex">
+                        {activeCategory.logos.slice(gridItems).map((logo, i) => {
+                          const idx = gridItems + i;
+                          return (
+                            <Reveal
+                              key={logo.id}
+                              delay={idx * 0.05}
+                              className={`flex-1 flex items-center justify-center p-8 md:p-12 hover:bg-gray-50 transition-colors h-[180px] md:h-[220px] relative
+                                ${i < lastRowCount - 1 ? "md:border-r border-[#00000033]" : ""}
+                              `}
+                            >
+                              {renderLogo(logo)}
+                            </Reveal>
+                          );
+                        })}
+                      </div>
+                    )}
                   </div>
 
                   {/* Mobile Marquee View */}

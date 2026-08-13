@@ -26,7 +26,6 @@ interface ZeroInterestFinancingProps {
 
 const ZeroInterestFinancing = ({ data }: ZeroInterestFinancingProps) => {
   const cta = data.cards.find((card: any) => card.ctaText);
-  console.log("ctatext ctatext", cta)
 
   return (
     <section className="py-10 md:py-20 bg-white overflow-hidden">
@@ -38,7 +37,7 @@ const ZeroInterestFinancing = ({ data }: ZeroInterestFinancingProps) => {
             title={data.title}
             align="center"
             subtitleClass="text-xl md:text-[2.125rem] lg:leading-[0.2] font-normal text-black"
-            titleClass="text-[3.125rem] md:text-4xl lg:text-[5rem] font-light text-black tracking-tight leading-none md:leading-tight"
+            titleClass="text-[3.125rem] md:text-4xl lg:text-[5rem] font-light text-[#63B846] tracking-tight leading-none md:leading-tight"
             className="mb-12 md:mb-16 "
           />
 
@@ -59,18 +58,20 @@ const ZeroInterestFinancing = ({ data }: ZeroInterestFinancingProps) => {
                     <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-black/20" />
                   </div>
 
-                  {/* Content */}
+                  {/* Content — staggered top|bottom|top */}
                   <div className="relative z-10 h-full flex flex-col justify-between p-6 md:p-8 min-h-[420px] md:min-h-[500px]">
-                    <div>
-                      <h3 className="text-xl md:text-2xl font-normal text-white mb-3 leading-[1.2] tracking-tight">
-                        {card.title}
-                      </h3>
-                      <p className="text-white/80 text-sm md:text-lg leading-[1.2]">
-                        {card.description}
-                      </p>
+                    <div className={`flex flex-col ${index % 2 === 0 ? 'justify-start' : 'justify-end'} flex-1`}>
+                      <div>
+                        <h3 className="text-xl md:text-2xl font-normal text-white mb-3 leading-[1.2] tracking-tight">
+                          {card.title}
+                        </h3>
+                        <p className="text-white text-sm md:text-lg leading-[1.2]">
+                          {card.description}
+                        </p>
+                      </div>
                     </div>
 
-                    {/* CTA Button */}
+                    {/* CTA Button — pinned to bottom */}
                     {card.ctaText && (
                       <div className="mt-6 md:flex justify-end hidden ">
                         <CtaButton text={card.ctaText} textColor='text-white' />

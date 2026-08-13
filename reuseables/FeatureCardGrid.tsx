@@ -27,6 +27,7 @@ export interface FeatureCardGridProps {
   showPersonalisedquoteCta?: boolean
   centerButton?: boolean
   centerButtonText?: string
+  centerButtonLink?: string
   /** Hide the center CTA button on mobile (< md). */
   hideCenterButtonMobile?: boolean
   /** Copy + link for the personalised-quote CTA (falls back to hardcoded defaults). */
@@ -44,6 +45,7 @@ const FeatureCardGrid: React.FC<FeatureCardGridProps> = ({
   showPersonalisedquoteCta = false,
   centerButton = false,
   centerButtonText = "",
+  centerButtonLink,
   hideCenterButtonMobile = false,
   ctaDescription = "",
   ctaText = "",
@@ -102,7 +104,7 @@ const FeatureCardGrid: React.FC<FeatureCardGridProps> = ({
           className="mb-5 md:mb-16"
           subtitleClass="text-xl md:text-[2.125rem] text-black tracking-tight capitalize"
           titleClass="text-[2.5rem] md:text-[5rem] tracking-tight leading-[1]"
-          descClass="text-sm md:text-xl text-black max-w-5xl mx-auto font-medium capitalize"
+          descClass="text-sm md:text-xl text-black max-w-5xl mx-auto font-medium tracking-tight capitalize"
         />
 
         <div ref={containerRef} className="flex overflow-x-auto md:overflow-hidden md:flex-row -mx-[5%] pl-[5%] pr-[5%] gap-4 md:gap-5 w-[calc(100%+10%)] md:w-full md:mx-0 md:px-0 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none] pb-4 md:pb-0">
@@ -187,8 +189,8 @@ const FeatureCardGrid: React.FC<FeatureCardGridProps> = ({
           </div>
         )}
         {centerButton && (
-          <div className={`${hideCenterButtonMobile ? 'hidden md:flex' : 'flex'} justify-center items-center gap-3 mt-4 md:mt-10`} >
-            <CtaButton text={centerButtonText} className="max-w-full whitespace-normal" buttonTextClass="whitespace-normal" />
+          <div className={`${hideCenterButtonMobile ? 'hidden md:flex' : 'flex'} justify-end md:justify-center items-center gap-3 mt-4 md:mt-10`} >
+            <CtaButton text={centerButtonText} href={centerButtonLink} className="max-w-full whitespace-normal" buttonTextClass="whitespace-normal" />
           </div>
         )}
       </section>

@@ -35,7 +35,7 @@ export default function VideoHotspotExperience({
   description,
   ctaText,
   ctaLink,
-  ctaTextColor = "text-black",
+  ctaTextColor = "text-white",
 }: VideoHotspotExperienceProps) {
   const videoRefs = [
     useRef<HTMLVideoElement>(null),
@@ -231,12 +231,13 @@ export default function VideoHotspotExperience({
             </div>
           </div>
 
-          {/* CTA Button */}
+          {/* CTA Button — uniform green hover + arrow animation */}
           <div className="flex-shrink-0 pb-2 pointer-events-auto">
             <CtaButton
               href={ctaLink}
               text={ctaText}
               textColor={ctaTextColor}
+              iconTextColor={ctaTextColor === "text-white" ? "text-white" : "text-black"}
             />
           </div>
         </div>
