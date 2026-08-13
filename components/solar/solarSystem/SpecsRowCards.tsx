@@ -22,7 +22,7 @@ const SpecsRowCards: React.FC<SpecsRowCardsProps> = ({ resolved }) => {
           title={resolved.title}
           description={resolved.description}
           align="left"
-          descClass="max-w-2xl"
+          descClass="max-w-2xl text-base leading-none"
           className="mb-16"
         />
 

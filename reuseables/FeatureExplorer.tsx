@@ -89,7 +89,7 @@ const FeatureExplorer: React.FC<FeatureExplorerProps> = ({
                                 >
                                     <div className="flex items-center gap-4 md:gap-4 mb-4">
                                         <span className="text-[4rem] md:text-[5rem] lg:text-[6rem] font-normal text-black/90 leading-none tracking-tighter select-none">
-                                            {activeFeature.number}
+                                            0{activeIndex+1}
                                         </span>
                                         <h3 className="text-xl md:text-2xl whitespace-pre-line lg:text-[2.5rem] font-medium text-black leading-none pt-1 max-w-sm">
                                             {activeFeature.title}

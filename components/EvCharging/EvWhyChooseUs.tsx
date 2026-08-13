@@ -222,7 +222,7 @@ const MobileAwardCard = ({ card }: { card: WhyChooseCard }) => (
     {/* Counter + text */}
     <div className="flex flex-col items-start w-full px-2">
       {(card.mobileCount ?? card.count) !== undefined && (
-        <h3 className="text-5xl font-extrabold text-black mb-1 tracking-tight leading-none">
+        <h3 className="text-5xl font-bold text-black mb-1 tracking-tight leading-none">
           <AnimatedCounter from={0} to={(card.mobileCount ?? card.count)!} />
           {card.mobileCountSuffix ?? card.countSuffix}
         </h3>

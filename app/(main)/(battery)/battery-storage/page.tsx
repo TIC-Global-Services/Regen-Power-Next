@@ -59,7 +59,13 @@ import forYourHome from "@/assets/for_your_home.png";
 export const revalidate = 60;
 
 const BatteryStoragePage = async () => {
-  const { data } = await getBatteryStoragePage();
+  const response = await getBatteryStoragePage();
+  const data = response?.data;
+
+  if (!data) {
+    return <main className="w-full min-h-screen" />;
+  }
+
   const sections = data.sections ?? [];
 
   const hero = findSection<BatteryStorageHeroData>(sections, "battery-storage.hero");
