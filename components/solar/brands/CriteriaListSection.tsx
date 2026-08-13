@@ -11,7 +11,7 @@ const CriteriaListSection: React.FC<CriteriaListSectionProps> = ({ resolved }) =
   const features = (resolved.items ?? []).map((item) => ({
     title: item.title,
     description: item.description,
-    image: fallbackImg,
+    image: item.image ?? fallbackImg,
   }));
 
   if (features.length === 0) return null;

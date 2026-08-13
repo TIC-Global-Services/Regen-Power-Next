@@ -17,7 +17,7 @@ export const invertersSlider =
   "populate[sections][on][brands.inverters-slider][populate][inverters]=true";
 
 export const criteriaList =
-  "populate[sections][on][brands.criteria-list][populate][items]=true";
+  "populate[sections][on][brands.criteria-list][populate][items][populate][image]=true";
 
 export const specsTable =
   "populate[sections][on][brands.specs-table][populate][columns]=true" +
