@@ -52,12 +52,18 @@ export default function   RebateProgramsSection({ resolved }: Props) {
           align="center"
           className="mb-16"
           subtitleClass="text-xl md:text-[1.75rem] text-black"
-          titleClass="text-5xl md:text-[3.75rem] font-light leading-none"
+          titleClass="text-5xl md:text-6xl font-light leading-none"
           descClass="mx-auto max-w-xl text-base md:text-xl text-black"
         />
       </div>
 
-      <div className="hidden lg:flex lg:h-[440px] items-end">
+      {/* Container height is locked to the active card's square size
+          (activeGrow / totalGrow of the width), so switching cards never
+          changes the row height → no jump. */}
+      <div
+        className="hidden lg:flex items-end"
+        style={{ aspectRatio: `${(1.5 + 1 * (programs.length - 1)) / 1.5} / 1` }}
+      >
         {programs.map((program, index) => {
           const isActive = program.label === activeId;
           const isLast = index === programs.length - 1;
@@ -69,15 +75,10 @@ export default function   RebateProgramsSection({ resolved }: Props) {
               type="button"
               onClick={() => handleManualClick(index)}
               onMouseEnter={() => handleManualClick(index)}
-              className={`relative text-left transition-all duration-500 ease-in-out ${isActive
-                ? "bg-[#A6D63F] flex-[1.5_1_0%] pt-8 px-6 pb-10 lg:h-[420px]"
-                : `bg-[#F3F7F1] flex-1 pt-6 pb-4 px-5 h-[320px] ${!isLast ? "border-r border-[#DCE8D8]" : ""} hover:bg-[#EEF6EB]`
+              className={`relative overflow-hidden text-left transition-all duration-500 ease-in-out ${isActive
+                ? "bg-[#A6D63F] flex-[1.5_1_0%] pt-8 px-6 pb-10 aspect-square"
+                : `bg-[#F3F7F1] flex-1 pt-6 pb-4 px-5 aspect-square ${!isLast ? "border-r border-[#DCE8D8]" : ""} hover:bg-[#EEF6EB]`
                 }`}
-              style={
-                isActive
-                  ? { flexBasis: "0%", flexGrow: 1.5 }
-                  : undefined
-              }
             >
               {/* Progress bar on active card */}
               {isActive && (
@@ -95,14 +96,14 @@ export default function   RebateProgramsSection({ resolved }: Props) {
               )}
 
               {/* Thin top line on inactive cards */}
-              {/* {!isActive && (
-                <div className="absolute top-0 left-0 right-0 h-[4px] bg-black/10" />
-              )} */}
+              {!isActive && (
+                <div className="absolute top-0 left-0 right-0 h-[1px] bg-black/5" />
+              )}
 
               <h3
                 className={`${isActive
-                  ? "text-[1.6rem] lg:text-[2rem] leading-tight tracking-tight text-black font-medium"
-                  : "text-[1.750rem] leading-tight tracking-tight text-black"
+                  ? "text-[1.6rem] lg:text-[2.5rem] leading-tight tracking-tight text-black"
+                  : "text-[1.75rem] leading-tight tracking-tight text-black"
                 }`}
               >
                 {program.title}
@@ -114,18 +115,18 @@ export default function   RebateProgramsSection({ resolved }: Props) {
               >
                 <div className="overflow-hidden">
                   {img ? (
-                    <div className="relative h-[110px] lg:h-[150px] overflow-hidden rounded-[20px] max-w-[393px]">
+                    <div className="relative h-[110px] lg:h-[120px] xl:h-[150px] overflow-hidden rounded-[20px] max-w-[393px]">
                       <Image src={img.src} alt={img.alt} fill className="object-cover" />
                     </div>
                   ) : (
-                    <div className="max-w-[393px] h-[110px] lg:h-[150px] overflow-hidden rounded-[20px]">
+                    <div className="max-w-[393px] h-[110px] md:h-[215px] overflow-hidden rounded-[20px]">
                       <MissingImage
                         label={`${program.title} image`}
                         type="bgimage"
                       />
                     </div>
                   )}
-                  <p className="mt-5 text-base leading-tight text-black/90">
+                  <p className="mt-5 text-base leading-tight text-black">
                     {program.summary}
                   </p>
                   
