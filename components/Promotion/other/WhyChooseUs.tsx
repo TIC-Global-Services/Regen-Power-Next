@@ -126,8 +126,8 @@ const WhyChooseUs = ({
         return (
           <div className="bg-black rounded-[12px] p-3 md:p-6 flex flex-col justify-between min-h-[340px] md:min-h-[45dvh] shadow-lg hover:shadow-xl transition-all duration-300 relative overflow-hidden group">
             {/* Top Section: Globe Icon aligned to the right */}
-            <div className="w-full flex justify-end">
-              <div className="relative w-45 h-45 sm:w-32 sm:h-32 md:w-36 md:h-36 opacity-85 group-hover:opacity-100 transition-opacity duration-300">
+            <div className="w-full flex justify-center">
+              <div className="relative w-50 h-50 sm:w-32 sm:h-32 md:w-36 md:h-36 opacity-85 group-hover:opacity-100 transition-opacity duration-300">
                 {/* Globe Wireframe SVG */}
                <img src={card.icon} className='w-full h-full object-cover'></img>
               </div>

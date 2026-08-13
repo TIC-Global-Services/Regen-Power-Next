@@ -53,7 +53,7 @@ const Awards = ({
                 </div>
 
                 {/* Badge Details */}
-                <h3 className="text-lg md:text-2xl font-bold text-gray-900 leading-snug tracking-tight">
+                <h3 className="text-xl md:text-2xl font-bold text-gray-900 leading-snug tracking-tight whitespace-pre-line">
                   {award.title}
                 </h3>
                 
