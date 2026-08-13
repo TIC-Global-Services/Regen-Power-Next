@@ -3,6 +3,7 @@
 import React, { useState } from "react";
 import Reveal from "@/reuseables/Reveal";
 import SectionHeader from "@/reuseables/SectionHeader";
+import { text } from "stream/consumers";
 
 export interface StaggeredCard {
   title: string;
@@ -83,9 +84,7 @@ const StaggeredCardItem: React.FC<StaggeredCardItemProps> = ({
           </h4>
         )}
         <p
-          className={`text-xs md:text-base leading-tight transition-colors duration-300 ${
-            hovered ? "text-white" : "text-black"
-          }`}
+          className={"text-xs md:text-sm leading-tight tracking-tight transition-colors duration-300 text-[#888888]"}
         >
           {item.desc}
         </p>

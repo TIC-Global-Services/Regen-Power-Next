@@ -62,14 +62,14 @@ const Tier1MeansSection: React.FC<Tier1MeansSectionProps> = ({ resolved }) => {
               titleClass="text-4xl md:text-5xl lg:text-[3.125rem] font-normal leading-none tracking-tight mb-6"
               align="left"
             /> */}
-            <p className="text-base md:text-xl lg:text-2xl normal-case mb-2 tracking-tight block text-black font-medium">{resolved.subtitle}</p>
-            <h1 className="text-[#63B846] text-4xl md:text-5xl lg:text-[3.125rem] font-normal leading-none tracking-tight">{firstPart}</h1>
-            <h2 className="text-4xl md:text-5xl lg:text-[3.125rem] font-normal leading-none tracking-tight mb-4">{secondPart}</h2>
+            <p className="text-base md:text-2xl capitalize mb-2 tracking-tight block text-black font-medium">{resolved.subtitle}</p>
+            <h1 className="text-[#63B846] text-4xl md:text-[3.125rem] font-normal leading-none tracking-tight">{firstPart}</h1>
+            <h2 className="text-4xl md:text-[3.125rem] font-normal leading-none tracking-tight mb-4">{secondPart}</h2>
           </div>
 
           <div className="mt-5 lg:mt-24">
             <Fade delay={0.2}>
-              <div className="text-sm md:text-xl leading-tight">
+              <div className="text-sm md:text-2xl leading-tight tracking-tight ">
                 {resolved.description ?? ""}
               </div>
             </Fade>

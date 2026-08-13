@@ -18,9 +18,7 @@ const BrandsHeroSection: React.FC<BrandsHeroSectionProps> = ({ resolved }) => {
         description={resolved.description ?? ""}
         ctaText={resolved.ctaText ?? ""}
         ctaLink={resolved.ctaLink ?? "#quote-form"}
-        subtitleColor="text-white"
-        titleColor="text-[#63B846]"
-        descriptionColor="text-white/90"
+        
         showOverlay={true}
       />
     </div>

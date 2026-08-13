@@ -24,7 +24,7 @@ const SpecTable: React.FC<SpecTableProps> = ({
       <table className="w-full border-collapse text-center bg-white">
         <thead>
           <tr className="h-[100px]">
-            <th className="bg-[#A0CF44] text-black font-normal p-4 text-xl tracking-tight border-r border-b border-black w-[15%]">
+            <th className="bg-[#A0CF44] text-black font-normal p-4 text-2xl tracking-tight border-r border-b border-black w-[15%]">
               {labelColumnTitle}
             </th>
             {columns.map((col, idx) => {
@@ -32,7 +32,7 @@ const SpecTable: React.FC<SpecTableProps> = ({
               return (
                 <th
                   key={idx}
-                  className={`bg-[#EEF6EB]/60 p-2 text-black font-normal text-base border-b border-black ${
+                  className={`bg-[#EEF6EB]/60 p-2 text-black font-normal text-xl tracking-tight border-b border-black ${
                     isLastCol ? "" : "border-r"
                   } overflow-hidden `}
                 >
@@ -51,7 +51,7 @@ const SpecTable: React.FC<SpecTableProps> = ({
                 className="hover:bg-[#EEF6EB]/80 transition-colors h-[100px]"
               >
                 <td
-                  className={`bg-[#A0CF44] text-black font-normal p-4 text-xl border-r border-black ${
+                  className={`bg-[#A0CF44] text-black font-normal p-4 text-2xl border-r border-black ${
                     isLastRow ? "" : "border-b"
                   }`}
                 >

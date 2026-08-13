@@ -36,9 +36,9 @@ const FeatureSplitSection: React.FC<FeatureSplitSectionProps> = ({
     leftTitle,
     rightTitle,
     leftItems,
-    subtitle = "Our Ten-Brand Shortlist,",
-    heading = "And How It Got Away.",
-    introText = "Every Brand On This Page Has To Meet Five Criteria Before We Put It On A Perth Roof. We'd Rather Turn Down A Volume Deal Than Install Something We Wouldn't Want Supporting For The Next 25 Years.",
+    subtitle = "",
+    heading = "",
+    introText = "",
     features = [],
     accentColor = '#63B846',
     bgColor = '#ffffff',
@@ -108,8 +108,8 @@ const FeatureSplitSection: React.FC<FeatureSplitSectionProps> = ({
         >
             {/* Desktop */}
             <div className="hidden lg:grid grid-cols-12 min-h-screen">
-                <div className="col-span-6 flex flex-col justify-center pl-[10%] lg:pl-[8%] pr-[5%] h-screen">
-                    <div className="mb-8">
+                <div className="col-span-6 flex flex-col justify-center pl-[5%] pr-[18%] h-screen">
+                    <div className="mb-12">
                         <SectionHeader
                             subtitle={subtitle}
                             title={
@@ -117,19 +117,19 @@ const FeatureSplitSection: React.FC<FeatureSplitSectionProps> = ({
                             }
                             description={introText}
                             align="left"
-                            subtitleClass="text-base md:text-xl lg:text-2xl normal-case block text-black"
-                            titleClass="text-3xl md:text-4xl lg:text-[2.75rem] xl:text-[3.25rem] font-normal leading-[1.1] tracking-tight"
-                            descClass="leading-[1.2] font-light"
+                            subtitleClass="text-base md:text-2xl text-black"
+                            titleClass="text-3xl md:text-[3.125rem] font-normal tracking-tight"
+                            descClass="text-base md:text-xl leading-[1.2]"
                         />
                     </div>
 
-                    <div className="flex flex-col gap-8 lg:gap-10">
+                    <div className="flex flex-col gap-8 lg:gap-4">
                         {features.map((feature, index) => (
                             <div key={index} className="feature-text-item transition-all duration-300">
-                                <h3 className="text-xl md:text-[2rem] tracking-tight text-black">
+                                <h3 className="text-xl md:text-[2rem] tracking-tight text-black mb-2">
                                     {feature.title}
                                 </h3>
-                                <p className="text-sm md:text-xl leading-tight">
+                                <p className="text-sm md:text-xl tracking-tight leading-tight">
                                     {feature.description}
                                 </p>
                             </div>
