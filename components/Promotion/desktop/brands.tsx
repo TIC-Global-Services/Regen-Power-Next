@@ -27,11 +27,11 @@ const Brands = ({ data }: { data: BrandsProps }) => {
     <section className="bg-white py-16 md:py-20 overflow-hidden border-t border-gray-100">
       <Fade>
         {/* Header */}
-        <div className="max-w-7xl mx-auto px-[5%] mb-10 text-center">
-          <span className="block text-black text-sm md:text-base font-bold uppercase tracking-widest mb-2">
+        <div className=" px-[5%] mb-10 text-center">
+          <span className="block text-black text-sm md:text-[2.125rem] font-bold  tracking-tight leading-none">
             {subtitle}
           </span>
-          <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-[#63B846] tracking-tight leading-tight">
+          <h2 className="text-4xl md:text-5xl lg:text-[5rem] font-bold text-[#63B846] tracking-tight leading-none">
             {title}
           </h2>
         </div>
@@ -39,23 +39,23 @@ const Brands = ({ data }: { data: BrandsProps }) => {
         {/* Panel Brands Marquee Row using Reusable Marquee */}
         {brands.length > 0 && (
           <div className="py-4  bg-[#EEF6EB]/10 mb-12">
-            <Marquee speed={30} gap={0} repeat={4} pauseOnHover={false}>
+            <Marquee speed={30} gap={5} repeat={4} pauseOnHover={false}>
               {brands.map((brand, idx) => (
-                <div key={idx} className="flex items-center justify-center px-8 border-r border-[#00000033] h-8 w-44 shrink-0 divide-y md:divide-y-0 lg:divide-x divide-[#00000033]">
+                <div key={idx} className="flex items-center justify-center px-8 border-r border-[#00000033] h-24 w-44 shrink-0 divide-y md:divide-y-0 lg:divide-x divide-[#00000033]">
                   <img
                     src={brand.logo}
                     alt={brand.name}
-                    className="h-6 w-auto object-contain opacity-75 hover:opacity-100 transition-opacity duration-300"
+                    className="h-50 w-auto object-contain  transition-opacity duration-300"
                   />
                 </div>
               ))}
             </Marquee>
           </div>
         )}
-
+      <div className="h-[1px] max-w-7xl mx-auto bg-[#00000033]"></div>
         {/* Batteries & Inverters Static Grid (No Marquee, Full Height Images) */}
         {batteries.length > 0 && (
-          <div className="max-w-7xl mx-auto px-[5%]">
+          <div className="px-[5%] py-[5%]">
             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 overflow-hidden divide-y md:divide-y-0 lg:divide-x divide-[#00000033] bg-white">
               {batteries.map((battery, idx) => (
                 <div 
@@ -67,7 +67,7 @@ const Brands = ({ data }: { data: BrandsProps }) => {
                     <img
                       src={battery.image}
                       alt={battery.name}
-                      className="max-h-[50dvh] w-auto object-cover hover:scale-105 transition-transform duration-500"
+                      className="max-h-[70dvh] w-auto object-cover hover:scale-105 transition-transform duration-500"
                     />
                   </div>
 
@@ -76,7 +76,7 @@ const Brands = ({ data }: { data: BrandsProps }) => {
                     <img
                       src={battery.logo}
                       alt={`${battery.name} Logo`}
-                      className="max-h-6 max-w-full object-contain"
+                      className="max-h-10 max-w-full object-contain"
                     />
                   </div>
                 </div>

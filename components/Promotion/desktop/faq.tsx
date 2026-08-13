@@ -74,22 +74,22 @@ const FAQ = ({ data }: { data: FaqProps }) => {
       <Fade>
         <div className="">
           {/* Header */}
-          <div className="text-center max-w-6xl mx-auto mb-16">
+          <div className="text-center  mb-16">
             <span className="text-lg md:text-[2.125rem] font-bold text-black tracking-tight leading-none block">
               {data.subtitle}
             </span>
             <h2 className="text-3xl md:text-[4.375rem] font-bold text-[#63B846] tracking-tight leading-none mb-6">
               {data.title}
             </h2>
-            <p className="text-[#4D4D4D] text-sm md:text-2xl leading-none tracking-tight max-w-4xl mx-auto">
+            <p className="text-[#4D4D4D] text-sm md:text-2xl leading-[1.2] tracking-tight max-w-4xl mx-auto">
               {data.description}
             </p>
           </div>
 
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-0 items-stretch">
             {/* Left Highlights Box */}
-            <div className="lg:col-span-5 bg-[#EEF6EB] rounded-[16px] p-6 md:p-8 text-black flex flex-col justify-between">
-              <div className="space-y-5">
+            <div className="lg:col-span-6 bg-[#EEF6EB] rounded-[16px] p-6 md:p-12 text-black flex flex-col justify-between ">
+              <div className="space-y-5 ">
                 {data.highlightCard.items.map((item, idx) => (
                   <div key={idx} className="space-y-2 border-b border-black/10 pb-5 last:border-b-0 last:pb-0">
                     <h4 className="font-bold text-sm md:text-[1.625rem] tracking-tight leading-[1.2] text-[#63B846]">
@@ -110,13 +110,13 @@ const FAQ = ({ data }: { data: FaqProps }) => {
                 ))}
               </div>
 
-              <h3 className="text-base md:text-xl font-bold text-black mt-6">
-                {data.highlightCard.ctaText}
+              <h3 className="text-base md:text-[1.625rem] font-bold tracking-tight text-[#63B846]">
+                {data.highlightCard.title}
               </h3>
             </div>
-
+              
             {/* Right FAQ List */}
-            <div className="lg:col-span-7  lg:pl-10 py-2 flex flex-col justify-center">
+            <div className="lg:col-span-6 border-l border-[#939393] lg:ml-5 pl-5 py-2 flex flex-col justify-center">
               {data.faqItems.map((item, idx) => (
                 <FAQItem
                   key={idx}

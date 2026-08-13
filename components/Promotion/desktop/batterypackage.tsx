@@ -1,152 +1,134 @@
 import React from 'react';
 import Fade from '@/reuseables/fade';
 
-/* ── Rebate line item (e.g. "State Rebate $1,209") ──────────────── */
-
-interface RebateItem {
+export interface BatteryPackageRebate {
   label: string;
   amount: number;
 }
 
-/* ── Single package ─────────────────────────────────────────────── */
-
-export interface BatteryPkg {
-  capacity: string;
+export interface BatteryPackageItem {
+  name?: string;
+  capacity?: string;
   originalPrice: number;
+  rebates?: BatteryPackageRebate[];
+  stateRebate?: number;
+  federalRebate?: number;
   finalPrice: number;
-  rebates: RebateItem[];
-  image: string;
+  installationText?: string;
+  pricingNote?: string;
+  isFullyInstalled?: boolean;
+  priceNote?: string;
+  image?: string;
 }
 
-/* ── Component props ────────────────────────────────────────────── */
-
-export interface BatteryPackageProps {
+export interface BatteryPackageSection {
   title: string;
-  packages: BatteryPkg[];
+  centerImage?: {
+    url: string;
+    alt: string;
+  };
+  packages: BatteryPackageItem[];
 }
 
-/* ── Minus-circle icon (inline SVG keeps bundle small) ──────────── */
+const formatPrice = (value: number) => `$${value.toLocaleString()}`;
 
-const MinusCircleIcon = () => (
+const MinusCircle = ({ size = 18 }: { size?: number }) => (
   <svg
-    className="w-5 h-5 text-red-500 shrink-0"
-    fill="none"
-    stroke="currentColor"
+    width={size}
+    height={size}
     viewBox="0 0 24 24"
-    strokeWidth="3"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+    className="text-red-500 shrink-0"
+    aria-hidden="true"
   >
-    <circle cx="12" cy="12" r="10" />
-    <line x1="8" y1="12" x2="16" y2="12" />
+    <circle cx="12" cy="12" r="9" stroke="currentColor" strokeWidth="2" />
+    <path d="M8 12H16" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
   </svg>
 );
 
-/* ── Pricing card (reused per package — keeps things DRY) ───────── */
+const BatteryPackageCard = ({ pkg }: { pkg: BatteryPackageItem }) => {
+  const title = pkg.capacity || pkg.name || 'Battery';
+  const rebates =
+    pkg.rebates && pkg.rebates.length > 0
+      ? pkg.rebates
+      : [
+          { label: 'State Rebate', amount: pkg.stateRebate ?? 0 },
+          { label: 'Federal Rebate', amount: pkg.federalRebate ?? 0 },
+        ].filter((rebate) => rebate.amount > 0);
 
-const PricingCard = ({ pkg }: { pkg: BatteryPkg }) => (
-  <div className="bg-[#EEF6EB] rounded-[12px] p-8 flex flex-col justify-between text-center min-h-[60dvh]">
-    {/* Capacity heading */}
-    <div>
-      <div className="inline-block pb-2 mb-6 border-b-2 border-black/80 px-4">
-        <h3 className="text-2xl md:text-3xl font-bold text-black">
-          {pkg.capacity}
-        </h3>
-      </div>
-
-      {/* Original price */}
-      <div className="text-3xl md:text-4xl font-bold text-black mb-8">
-        ${pkg.originalPrice.toLocaleString()}
-      </div>
-
-      {/* Rebate rows */}
-      <div className="flex flex-col gap-3 items-center mb-8">
-        {pkg.rebates.map((rebate, idx) => (
-          <div
-            key={idx}
-            className="flex items-center gap-2 text-sm md:text-base font-normal"
-          >
-            <MinusCircleIcon />
-            <span>
-              {rebate.label} ${rebate.amount.toLocaleString()}
-            </span>
-          </div>
-        ))}
-      </div>
-    </div>
-
-    {/* Final pricing */}
-    <div className="mt-auto pt-6 border-t border-black/5">
-      <span className="block text-sm md:text-base font-bold  uppercase tracking-wider mb-1">
-        Final Pricing
-      </span>
-      <div className="text-4xl md:text-5xl lg:text-6xl font-black text-[#63B846] mb-2">
-        ${pkg.finalPrice.toLocaleString()}
-      </div>
-      <span className="block text-sm md:text-lg font-normal text-black">
-        Fully Installed
-      </span>
-      <p className="text-xs md:text-lg font-bold leading-none">
-        Price is after the battery rebate
-      </p>
-    </div>
-  </div>
-);
-
-/* ── Product image column ───────────────────────────────────────── */
-
-const ProductImageCard = ({ src, alt }: { src: string; alt: string }) => (
-  <div className="bg-[#EEF6EB] rounded-[24px] p-8 flex items-center justify-center border border-gray-50  h-full lg:min-h-auto">
-    <img
-      src={src}
-      alt={alt}
-      className="max-h-[40dvh] w-auto object-contain hover:scale-105 transition-transform duration-500"
-    />
-  </div>
-);
-
-/* ── Main component ─────────────────────────────────────────────── */
-
-const BatteryPackage = ({ data }: { data: BatteryPackageProps }) => {
-  const { title, packages } = data;
-
-  const gridCells: React.ReactNode[] = [];
-
-  packages.forEach((pkg, idx) => {
-    gridCells.push(<PricingCard key={`pkg-${idx}`} pkg={pkg} />);
-
-    // Insert the product image after every package except the last
-    if (idx < packages.length - 1) {
-      gridCells.push(
-        <ProductImageCard
-          key={`img-${idx}`}
-          src={pkg.image}
-          alt={pkg.capacity}
-        />
-      );
-    }
-  });
-
-  // Compute grid columns dynamically based on cell count
-  const colClass =
-    gridCells.length === 3
-      ? 'lg:grid-cols-3'
-      : gridCells.length === 2
-        ? 'lg:grid-cols-2'
-        : `lg:grid-cols-${gridCells.length}`;
+  const installationText = pkg.installationText || (pkg.isFullyInstalled ? 'Fully Installed' : '');
+  const pricingNote = pkg.pricingNote || pkg.priceNote || 'Price is after the battery rebate';
 
   return (
-    <section className="bg-white py-16 md:py-24 px-[5%] border-t border-gray-100">
-      <Fade>
-        <div>
-          {/* Green section title */}
-          <div className="text-center mb-16">
-            <h2 className="text-4xl md:text-[3.125rem] font-bold text-[#63B846] tracking-tight leading-tight">
-              {title}
-            </h2>
-          </div>
+    <div className="bg-[#EEF6EB] rounded-[10px] px-4 py-8 flex flex-col h-full justify-between border border-gray-100 transition-all duration-300">
+      <div>
+        <h3 className="text-[1.8rem] md:text-[2.5rem] font-bold text-black tracking-tight leading-none text-center pb-3 border-b-[1px] border-black">
+          {title}
+        </h3>
 
-          {/* Dynamic grid */}
-          <div className={`grid grid-cols-1 ${colClass} gap-6 items-stretch`}>
-            {gridCells}
+        <div className="mt-4 text-center">
+          <span className="text-4xl md:text-[3.125rem] font-bold text-black">
+            {formatPrice(pkg.originalPrice)}
+          </span>
+        </div>
+
+        <div className="flex flex-col mt-10 ">
+          {rebates.map((rebate, idx) => (
+            <div
+              key={`${rebate.label}-${idx}`}
+              className="flex items-center justify-center text-[1.375rem] text-black"
+            >
+              <MinusCircle size={18} />
+              <span className="ml-2">
+                {rebate.label}: <span className="font-normal">{formatPrice(rebate.amount)}</span>
+              </span>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <div className="text-center border-t border-gray-100 pt-4 mt-8">
+        <span className="text-xl font-bold block">Final Pricing</span>
+        <span className="text-3xl md:text-[3.75rem] font-bold text-[#63B846] block mb-1 leading-none">
+          {formatPrice(pkg.finalPrice)}
+        </span>
+        <span className="text-lg font-normal block leading-none mt-5">{installationText}</span>
+        <p className="text-lg font-bold leading-none">{pricingNote}</p>
+      </div>
+    </div>
+  );
+};
+
+const BatteryPackage = ({ data }: { data: BatteryPackageSection }) => {
+  const { title, centerImage, packages } = data;
+  const centerImageSource = centerImage?.url || packages[0]?.image || '/sig_energy.png';
+  const centerImageAlt = centerImage?.alt || 'Battery system';
+
+  return (
+    <section className="bg-white px-[5%] py-16 md:py-20">
+      <Fade>
+        <div className="">
+          <h2 className="mb-12 text-center text-[2.6rem] md:text-[4rem] font-bold text-[#63B846] leading-none">
+            {title}
+          </h2>
+
+          <div className="grid grid-cols-1 md:grid-cols-[1fr_2fr_1fr] gap-6 md:gap-6 items-center">
+            {packages.map((pkg, index) => (
+              <React.Fragment key={`${pkg.name}-${index}`}>
+                <BatteryPackageCard pkg={pkg} />
+
+                {index === 0 && (
+                  <div className="hidden bg-[#EEF6EB] h-full rounded-[10px] md:flex items-center justify-center py-8">
+                    <img
+                      src={centerImageSource}
+                      alt={centerImageAlt}
+                      className="h-full w-auto object-contain"
+                    />
+                  </div>
+                )}
+              </React.Fragment>
+            ))}
           </div>
         </div>
       </Fade>

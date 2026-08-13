@@ -2,8 +2,9 @@ import React from 'react';
 import Fade from '@/reuseables/fade';
 
 export interface NestedCard {
-  type: 'logo' | 'empty';
+  type: 'logo' | 'empty' | 'image';
   logoPath?: string;
+  imagePath?: string;
   showBadge?: boolean;
 }
 
@@ -24,7 +25,7 @@ export interface LimitedSpotProps {
 const CardItem = ({ card }: { card: LimitedSpotCard }) => {
   if (card.type === 'nested') {
     return (
-      <div className="relative rounded-[24px] p-6 md:p-4 flex flex-col justify-between overflow-hidden bg-[#F2F2F2] border border-gray-100 shadow-sm transition-transform duration-300 hover:scale-[1.01] min-h-[300px] md:min-h-[460px] h-full">
+      <div className="relative rounded-[12px] p-6 md:p-4 flex flex-col justify-between overflow-hidden bg-[#F2F2F2] border border-gray-100 shadow-sm transition-transform duration-300 hover:scale-[1.01] min-h-[300px] md:min-h-[460px] h-full">
         {/* Top Text Part */}
         <div className="flex items-end gap-4 text-black mb-6 mt-2">
           {card.value && (
@@ -33,7 +34,7 @@ const CardItem = ({ card }: { card: LimitedSpotCard }) => {
             </span>
           )}
           {card.title && (
-            <h4 className="text-base md:text-[1.875rem] font-bold leading-[1.1] tracking-tight text-left max-w-[250px]">
+            <h4 className="text-base md:text-[1.875rem] font-bold leading-[1.1] tracking-tight text-left max-w-[250px] whitespace-pre-line">
               {card.title}
             </h4>
           )}
@@ -41,7 +42,7 @@ const CardItem = ({ card }: { card: LimitedSpotCard }) => {
 
         {/* Bottom Nested Card (Black Box) */}
         {card.nestedCard && (
-          <div className="relative bg-black rounded-[18px] p-3 h-[30dvh] w-full flex items-center justify-center overflow-hidden">
+          <div className="relative bg-black rounded-[12px] p-3 h-[30dvh] w-full flex items-end justify-center overflow-hidden">
             {card.nestedCard.type === 'logo' && (
               <div className="relative w-full h-full flex items-center justify-center">
                 <img
@@ -51,6 +52,14 @@ const CardItem = ({ card }: { card: LimitedSpotCard }) => {
                 />
               </div>
             )}
+
+            {card.nestedCard.type === 'image' && card.nestedCard.imagePath && (
+              <img
+                src={card.nestedCard.imagePath}
+                alt={card.title || 'Battery installation'}
+                className="h-full w-full object-contain absolute top-10"
+              />
+            )}
           </div>
         )}
       </div>
@@ -59,7 +68,7 @@ const CardItem = ({ card }: { card: LimitedSpotCard }) => {
 
   if (card.type === 'image') {
     return (
-      <div className="relative rounded-[24px] overflow-hidden transition-transform duration-300 hover:scale-[1.01] shadow-sm border border-gray-100/50 min-h-[300px] md:min-h-[460px] h-full flex flex-col justify-start items-center p-6 md:p-8 text-center bg-white">
+      <div className="relative rounded-[12px] overflow-hidden transition-transform duration-300 hover:scale-[1.01] shadow-sm border border-gray-100/50 min-h-[300px] md:min-h-[460px] h-full flex flex-col justify-start items-center p-6 md:p-8 text-center bg-white">
         <img
           src={card.bgImage || '/wa_born_fallback.svg'}
           alt={card.title || 'Background'}
@@ -87,7 +96,16 @@ const CardItem = ({ card }: { card: LimitedSpotCard }) => {
 
   if (card.type === 'black') {
     return (
-      <div className="relative rounded-[24px] p-6 md:p-8 pb-10 flex flex-col justify-end items-start overflow-hidden transition-transform duration-300 hover:scale-[1.01] shadow-sm border border-gray-900 bg-black min-h-[300px] md:min-h-[460px] h-full">
+      <div className="relative rounded-[12px] p-6 md:p-8 pb-10 flex flex-col justify-end items-start overflow-hidden transition-transform duration-300 hover:scale-[1.01] shadow-sm border border-gray-900 bg-black min-h-[300px] md:min-h-[460px] h-full">
+        {card.bgImage && (
+          <img
+            src={card.bgImage}
+            alt={card.title || 'Home installation'}
+            className="absolute -top-20 left-25 inset-0 w-full h-full object-contain"
+          />
+        )}
+        <div className="absolute inset-0 bg-black/40" />
+
         {/* Card Content bottom-aligned */}
         <div className="relative z-20 flex flex-col items-start text-left">
           {card.value && (
@@ -108,7 +126,7 @@ const CardItem = ({ card }: { card: LimitedSpotCard }) => {
   }
 
   return (
-    <div className="relative rounded-[24px] p-6 md:p-8 flex flex-col justify-between overflow-hidden bg-[#F2F2F2] min-h-[300px] md:min-h-[460px] h-full">
+    <div className="relative rounded-[12px] p-6 md:p-8 flex flex-col justify-between overflow-hidden bg-[#F2F2F2] min-h-[300px] md:min-h-[460px] h-full">
       {card.title && <h4>{card.title}</h4>}
     </div>
   );

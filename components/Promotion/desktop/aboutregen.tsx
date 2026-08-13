@@ -25,7 +25,7 @@ const AboutRegen = ({ data }: { data: AboutRegenProps }) => {
             {/* Left Column: Image or Video */}
             <div className="lg:col-span-6  border-r border-[#939393] pr-4">
               <div
-                className="relative rounded-[12px] overflow-hidden aspect-[4/3] bg-gray-100 group cursor-pointer shadow-md"
+                className="relative rounded-[10px] overflow-hidden aspect-[4/3] bg-gray-100 group cursor-pointer shadow-md"
                 onClick={() => setIsPlaying(true)}
               >
                 {!isPlaying ? (
@@ -37,7 +37,7 @@ const AboutRegen = ({ data }: { data: AboutRegenProps }) => {
                       className="object-cover group-hover:scale-105 transition-transform duration-500"
                     />
                     <div className="absolute inset-0 bg-black/20 group-hover:bg-black/30 transition-colors flex items-center justify-center">
-                      <div className="w-16 h-16 rounded-full bg-white text-[#63B846] flex items-center justify-center group-hover:scale-110 transition-transform duration-300 shadow-lg">
+                      <div className="w-16 h-16 rounded-full bg-white text-[#63B846] flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
                         <Play size={28} className="fill-current ml-1" />
                       </div>
                     </div>
@@ -66,7 +66,7 @@ const AboutRegen = ({ data }: { data: AboutRegenProps }) => {
              
               
               {/* <div className="h-1.5 w-20 bg-[#63B846] rounded-full" /> */}
-              <div className="space-y-4 text-black gr text-sm md:text-[1.625rem] leading-none mt-5 font-medium max-w-2xl">
+              <div className="space-y-4 text-black gr text-sm md:text-[1.625rem] leading-[1.2] mt-5 font-medium">
                 {/* {data.paragraphs.map((p, idx) => (
                   <p key={idx}>{p}</p>
                 ))} */}

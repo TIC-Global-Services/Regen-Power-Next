@@ -121,7 +121,7 @@ const ReadyToBegin = ({ data }: { data: ReadyToBeginProps }) => {
             <h2 className="text-5xl md:text-[5rem] font-bold text-[#63B846] tracking-tight leading-none mb-2">
               {formattedSubTitle}
             </h2>
-            <div className="text-[#4D4D4D] text-sm md:text-2xl space-y-1 leading-none mt-5">
+            <div className="text-[#4D4D4D] text-sm md:text-2xl space-y-1 leading-[1.2] mt-5 whitespace-pre-line">
               <p>{firstSentence}</p>
               <p className="text-[#4D4D4D] text-2xl font-bold w-full">{finalSecondSentence}</p>
             </div>

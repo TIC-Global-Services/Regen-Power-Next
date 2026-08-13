@@ -2,7 +2,6 @@
 
 import React, { useState } from 'react';
 import Fade from '@/reuseables/fade';
-import Image from 'next/image';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 
 export interface RebateRow {
@@ -35,20 +34,15 @@ const BatteryRebates = ({ data }: { data: BatteryRebatesProps }) => {
   return (
     <section className="relative w-full py-20 md:py-10 px-[5%] overflow-hidden min-h-screen flex items-start bg-black">
       {/* Background Image */}
-      <div className="absolute inset-0 z-0">
-        <Image
-          src={bgImage || "/fallback"}
-          alt="Battery Rebates Background"
-          fill
-          className="object-cover object-center brightness-75"
-          priority
-        />
-        <div className="absolute inset-0 bg-[#071E07]/45 backdrop-blur-[1px]" />
-      </div>
+      <img
+        src={bgImage || "/battery_rebates_fallback.png"}
+        alt="Battery Rebates Background"
+        className="absolute inset-0 z-0 h-full w-full object-cover object-center"
+      />
 
       <Fade>
         <div className="relative z-10  w-full">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-0 items-start">
 
             {/* Left: Subtitle, Title, Nav */}
             <div className="lg:col-span-6 flex flex-col justify-center ">
@@ -56,7 +50,7 @@ const BatteryRebates = ({ data }: { data: BatteryRebatesProps }) => {
                 <span className="inline-block text-black text-xl md:text-[3.125rem] font-bold  tracking-tight">
                   {subtitle}
                 </span>
-                <h2 className="text-4xl md:text-5xl lg:text-[3.125rem] font-bold text-white tracking-tight leading-none max-w-xl">
+                <h2 className="text-4xl md:text-5xl lg:text-[3.125rem] font-bold text-white tracking-tight leading-none whitespace-pre-line">
                   {title}
                 </h2>
               </div>
@@ -82,7 +76,7 @@ const BatteryRebates = ({ data }: { data: BatteryRebatesProps }) => {
 
             {/* Right: Table (entire content swaps per slide) */}
             <div className="lg:col-span-6 w-full">
-              <div className="border border-white/15  overflow-hidden bg-white/10 backdrop-blur-md">
+              <div className="border border-white/15  overflow-hidden bg-white/10 backdrop-blur-md ">
                 <div
                   key={slideIndex}
                   className="flex flex-col space-y-1 animate-[fadeSlide_0.35s_ease-out]"
@@ -90,17 +84,17 @@ const BatteryRebates = ({ data }: { data: BatteryRebatesProps }) => {
                   {currentRows.map((row, idx) => (
                     <div
                       key={idx}
-                      className={`grid grid-cols-12 items-center p-4 md:p-5  transition-colors duration-200 ${
+                      className={`grid grid-cols-12 items-center p-4 md:p-8  transition-colors duration-200 ${
                         idx === 0
-                          ? "bg-white shadow-md border border-[#EBEBEB] "
-                          : "hover:bg-white/5 border-b-[#EBEBEB]"
+                          ? "bg-white  border border-[#EBEBEB] "
+                          : "hover:bg-white/5 border-b border-[#FFFFFF33]"
                       }`}
                     >
                       {/* Title (right-aligned) */}
-                      <div className={`col-span-4 text-right pr-6 md:pr-10 leading-none  border-r flex flex-col justify-center h-full ${
+                      <div className={`col-span-4 text-right pr-6 md:pr-4 leading-none border-r flex flex-col justify-center h-full ${
                         idx === 0 ? "border-[#EBEBEB]" : "border-[#EBEBEB]"
                       }`}>
-                        <span className={`text-sm md:text-base lg:text-[1.875rem] leading-none font-bold tracking-tight ${
+                        <span className={`text-sm md:text-base lg:text-[1.875rem] leading-none whitespace-pre-line font-bold tracking-tight ${
                           idx === 0 ? "text-[#63B846]" : "text-white/90"
                         }`}>
                           {row.title}
@@ -108,9 +102,9 @@ const BatteryRebates = ({ data }: { data: BatteryRebatesProps }) => {
                       </div>
 
                       {/* Description */}
-                      <div className="col-span-8 pl-6 md:pl-8 flex items-center">
-                        <p className={`text-xs md:text-sm lg:text-[1.375rem] leading-none ${
-                          idx === 0 ? "text-gray-800 font-medium" : "text-white/80"
+                      <div className="col-span-8 pl-6 md:pl-4 flex items-center">
+                        <p className={`text-xs md:text-sm lg:text-[1.375rem] leading-[1.2] ${
+                          idx === 0 ? "text-gray-800 font-medium" : "text-black"
                         }`}>
                           {row.description}
                         </p>

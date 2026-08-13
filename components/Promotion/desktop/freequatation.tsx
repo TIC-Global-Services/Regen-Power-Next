@@ -67,20 +67,20 @@ const FreeQuotation = ({ data }: { data: FreeQuotationProps }) => {
             <span className="block text-xl md:text-[2.125rem] font-bold text-black tracking-tight leading-none">
               {mainTitle}
             </span>
-            <h2 className="text-5xl md:text-[5rem] font-bold text-[#63B846] tracking-tight leading-none mb-2">
+            <h2 className="text-5xl md:text-[5rem] font-bold text-[#63B846] tracking-tight leading-none">
               {subTitle}
             </h2>
-            <div className="text-gray-500 text-sm md:text-2xl space-y-1 leading-none mt-10">
+            <div className="text-[#4D4D4D] text-sm md:text-2xl space-y-1 leading-[1.1] mt-5 whitespace-pre-line">
               <p>{firstSentence}</p>
-              <p className="text-black text-2xl font-bold w-full">{finalSecondSentence}</p>
+              <p className="text-[#4D4D4D] text-2xl font-bold w-full whitespace-pre-line">{finalSecondSentence}</p>
             </div>
           </div>
 
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-5 items-center">
             {/* Left side: Video Thumbnail */}
-            <div className="lg:col-span-7 lg:border-r lg:border-black lg:pr-10 h-full">
+            <div className="lg:col-span-7 lg:border-r lg:border-black lg:pr-5 h-full">
               <div
-                className="relative rounded-[24px] overflow-hidden aspect-[16/10] bg-[#EEF6EB] group cursor-pointer shadow-sm hover:shadow-md transition-shadow duration-300 border border-gray-100"
+                className="relative rounded-[10px] overflow-hidden aspect-[16/10] bg-[#EEF6EB] group cursor-pointer shadow-sm hover:shadow-md transition-shadow duration-300 border border-gray-100"
                 onClick={() => setIsPlaying(true)}
               >
                 {!isPlaying ? (
