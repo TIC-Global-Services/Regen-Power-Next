@@ -41,7 +41,7 @@ const SolarProcessFlow: React.FC<SolarProcessFlowProps> = ({ resolved }) => {
                     </div>
                   ) : (
                     <MissingImage
-                      label={`Step ${step.stepNumber} image`}
+                      label={`Step ${index + 1} image`}
                       aspect="aspect-[4/3]"
                     />
                   )}

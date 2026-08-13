@@ -96,12 +96,20 @@ export const SolarSpecsRowCardsSchema = z.object({
 });
 export type SolarSpecsRowCardsData = z.infer<typeof SolarSpecsRowCardsSchema>;
 
-export const SolarSizingTableRowSchema = z.object({
+export const SolarSizingValueSchema = z.object({
   id: z.number(),
-  dailyUse: z.string(),
-  recommendedSize: z.string(),
-  typicalHousehold: z.string(),
-  phaseRequired: z.string(),
+  text: z.string(),
+});
+
+export const SolarSizingColumnSchema = z.object({
+  id: z.number(),
+  title: z.string(),
+});
+
+export const SolarSizingRowSchema = z.object({
+  id: z.number(),
+  label: z.string(),
+  values: z.array(SolarSizingValueSchema),
 });
 
 export const SolarSizingCardSchema = z.object({
@@ -116,7 +124,9 @@ export const SolarSizingGuideTableSchema = z.object({
   subtitle: z.string().nullable(),
   title: z.string().nullable(),
   description: z.string().nullable(),
-  tableRows: z.array(SolarSizingTableRowSchema),
+  labelColumnTitle: z.string().nullable(),
+  columns: z.array(SolarSizingColumnSchema),
+  rows: z.array(SolarSizingRowSchema),
   sizingCards: z.array(SolarSizingCardSchema),
 });
 export type SolarSizingGuideTableData = z.infer<typeof SolarSizingGuideTableSchema>;

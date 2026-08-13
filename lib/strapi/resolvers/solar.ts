@@ -6,8 +6,8 @@ import type {
   SolarProcessStepsData,
   SolarBrandsGridData,
   SolarInverterSliderData,
-  SolarSpecsTableData,
-  SolarSizingGuideData,
+  SolarSpecsRowCardsData,
+  SolarSizingGuideTableData,
   SolarPackagesData,
   SolarTimelineData,
   SolarEngineeringItemsData,
@@ -59,7 +59,6 @@ export function resolveSolarStatsAndIntro(
 }
 
 export interface ResolvedSolarProcessStep {
-  stepNumber: string;
   title: string;
   description: string;
   image: StrapiImageData | null;
@@ -77,7 +76,6 @@ export function resolveSolarProcessSteps(
     subtitle: data.subtitle ?? "",
     title: data.title ?? "",
     steps: (data.steps ?? []).map((s) => ({
-      stepNumber: s.stepNumber,
       title: s.title,
       description: s.description,
       image: s.image ? strapiImageData(s.image) : null,
@@ -119,10 +117,9 @@ export interface ResolvedSolarInverterCard {
   text: string;
 }
 export interface ResolvedSolarInverter {
-  name: string;
   title: string;
   background: StrapiImageData | null;
-  cards: ResolvedSolarInverterCard[];
+  infoCards: ResolvedSolarInverterCard[];
 }
 export interface ResolvedSolarInverterSlider {
   subtitle: string;
@@ -139,10 +136,9 @@ export function resolveSolarInverterSlider(
     title: data.title ?? "",
     description: data.description ?? "",
     inverters: (data.inverters ?? []).map((inv) => ({
-      name: inv.name,
       title: inv.title,
       background: inv.backgroundImage ? strapiImageData(inv.backgroundImage) : null,
-      cards: (inv.cards ?? []).map((c) => ({ label: c.label, text: c.text })),
+      infoCards: (inv.infoCards ?? []).map((c) => ({ label: c.label, text: c.text })),
     })),
   };
 }
@@ -153,15 +149,15 @@ export interface ResolvedSolarSpec {
   description: string;
   image: StrapiImageData | null;
 }
-export interface ResolvedSolarSpecsTable {
+export interface ResolvedSolarSpecsRowCards {
   subtitle: string;
   title: string;
   description: string;
   specs: ResolvedSolarSpec[];
 }
-export function resolveSolarSpecsTable(
-  data: SolarSpecsTableData | undefined
-): ResolvedSolarSpecsTable | null {
+export function resolveSolarSpecsRowCards(
+  data: SolarSpecsRowCardsData | undefined
+): ResolvedSolarSpecsRowCards | null {
   if (!data) return null;
   return {
     subtitle: data.subtitle ?? "",
@@ -181,22 +177,43 @@ export interface ResolvedSolarSizingCard {
   description: string;
   image: StrapiImageData | null;
 }
-export interface ResolvedSolarSizingGuide {
+export interface ResolvedSolarSizingColumn {
+  title: string;
+}
+export interface ResolvedSolarSizingValue {
+  text: string;
+}
+export interface ResolvedSolarSizingRow {
+  label: string;
+  values: ResolvedSolarSizingValue[];
+}
+export interface ResolvedSolarSizingGuideTable {
   subtitle: string;
   title: string;
   description: string;
-  tableRows: SolarSizingGuideData["tableRows"];
+  labelColumnTitle: string;
+  columns: ResolvedSolarSizingColumn[];
+  rows: ResolvedSolarSizingRow[];
   sizingCards: ResolvedSolarSizingCard[];
 }
-export function resolveSolarSizingGuide(
-  data: SolarSizingGuideData | undefined
-): ResolvedSolarSizingGuide | null {
+export function resolveSolarSizingGuideTable(
+  data: SolarSizingGuideTableData | undefined
+): ResolvedSolarSizingGuideTable | null {
   if (!data) return null;
   return {
     subtitle: data.subtitle ?? "",
     title: data.title ?? "",
     description: data.description ?? "",
-    tableRows: data.tableRows ?? [],
+    labelColumnTitle: data.labelColumnTitle ?? "",
+    columns: (data.columns ?? []).map((col) => ({
+      title: col.title ?? "",
+    })),
+    rows: (data.rows ?? []).map((row) => ({
+      label: row.label ?? "",
+      values: (row.values ?? []).map((value) => ({
+        text: value.text ?? "",
+      })),
+    })),
     sizingCards: (data.sizingCards ?? []).map((c) => ({
       title: c.title,
       description: c.description,
@@ -233,7 +250,7 @@ export function resolveSolarPackages(
     packages: (data.packages ?? []).map((p, idx) => ({
       title: p.title,
       description: p.description,
-      bgClass: p.bgClass ?? bgColors[idx] ?? "",
+      bgClass: bgColors[idx] ?? "",
       items: (p.features ?? []).map((f) => ({ label: f.label, value: f.value })),
     })),
   };

@@ -89,8 +89,8 @@ const InverterSlider: React.FC<InverterSliderProps> = ({ resolved }) => {
           </div>
 
           <div className="relative z-30 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4 mt-auto">
-            {slides[activeTab].cards.length > 0 ? (
-              slides[activeTab].cards.map((card, idx) => (
+            {slides[activeTab].infoCards.length > 0 ? (
+              slides[activeTab].infoCards.map((card, idx) => (
                 <div
                   key={idx}
                   className="bg-white/30 backdrop-blur-md border border-white/15 rounded-[0.5rem] p-5 hover:bg-white/15 transition-colors"

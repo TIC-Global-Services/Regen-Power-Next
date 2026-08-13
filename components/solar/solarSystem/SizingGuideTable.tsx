@@ -4,14 +4,16 @@ import Reveal from "@/reuseables/Reveal";
 import CtaButton from "@/reuseables/CtaButton";
 import SectionHeader from "@/reuseables/SectionHeader";
 import MissingImage from "@/reuseables/MissingImage";
-import type { ResolvedSolarSizingGuide } from "@/lib/strapi/resolvers/solar";
+import SpecTable from "@/reuseables/SpecTable";
+import type { ResolvedSolarSizingGuideTable } from "@/lib/strapi/resolvers/solar";
 
-interface SizingGuideProps {
-  resolved: ResolvedSolarSizingGuide;
+interface SizingGuideTableProps {
+  resolved: ResolvedSolarSizingGuideTable;
 }
 
-const SizingGuide: React.FC<SizingGuideProps> = ({ resolved }) => {
-  const tableRows = resolved.tableRows;
+const SizingGuideTable: React.FC<SizingGuideTableProps> = ({ resolved }) => {
+  const columns = resolved.columns;
+  const rows = resolved.rows;
   const sizingCards = resolved.sizingCards;
 
   return (
@@ -21,9 +23,11 @@ const SizingGuide: React.FC<SizingGuideProps> = ({ resolved }) => {
           subtitle={resolved.subtitle}
           title={resolved.title}
           description={resolved.description}
-          align="center"
-          descClass="max-w-3xl"
-          className="mx-auto mb-8"
+          align="left"
+          className="mb-8"
+          subtitleClass="text-base md:text-xl lg:text-2xl text-black mb-2 capitalize"
+          titleClass="text-4xl md:text-[5.5rem] font-normal leading-tight tracking-tight text-[#63B846]"
+          descClass="text-xl leading-tight max-w-5xl"
         />
 
         <div className="text-center">
@@ -36,32 +40,12 @@ const SizingGuide: React.FC<SizingGuideProps> = ({ resolved }) => {
           </Reveal>
         </div>
 
-        {tableRows.length > 0 ? (
-          <div className="overflow-x-auto rounded-[24px] mt-12 mb-16 max-w-4xl mx-auto overflow-hidden">
-            <table className="w-full border-collapse text-center bg-white">
-              <thead>
-                <tr className="bg-[#A0CF44] text-black font-[var(--font-aeonik)]">
-                  <th className="p-5 text-lg md:text-2xl font-normal border-r border-b border-black w-1/4">Daily use</th>
-                  <th className="p-5 text-lg md:text-2xl font-normal border-r border-b border-black w-1/4">Recommended size</th>
-                  <th className="p-5 text-lg md:text-2xl font-normal border-r border-b border-black w-1/4">Typical household</th>
-                  <th className="p-5 text-lg md:text-2xl font-normal border-b border-black w-1/4">Phase required</th>
-                </tr>
-              </thead>
-              <tbody>
-                {tableRows.map((row, idx) => {
-                  const isLastRow = idx === tableRows.length - 1;
-                  return (
-                    <tr key={idx} className="bg-[#EEF6EB]">
-                      <td className={`p-5 text-xl text-black border-r border-black ${isLastRow ? "" : "border-b"}`}>{row.dailyUse}</td>
-                      <td className={`p-5 text-xl text-black border-r border-black ${isLastRow ? "" : "border-b"}`}>{row.recommendedSize}</td>
-                      <td className={`p-5 text-xl text-black font-light border-r border-black ${isLastRow ? "" : "border-b"}`}>{row.typicalHousehold}</td>
-                      <td className={`p-5 text-xl text-black font-light ${isLastRow ? "" : "border-b border-black"}`}>{row.phaseRequired}</td>
-                    </tr>
-                  );
-                })}
-              </tbody>
-            </table>
-          </div>
+        {rows.length > 0 ? (
+          <SpecTable
+            labelColumnTitle={resolved.labelColumnTitle}
+            columns={columns}
+            rows={rows}
+          />
         ) : (
           <MissingImage label="Sizing table rows" aspect="aspect-[3/1] my-12 max-w-4xl mx-auto" />
         )}
@@ -152,4 +136,4 @@ const SizingGuide: React.FC<SizingGuideProps> = ({ resolved }) => {
   );
 };
 
-export default SizingGuide;
+export default SizingGuideTable;

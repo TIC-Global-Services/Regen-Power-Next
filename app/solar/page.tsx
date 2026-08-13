@@ -7,8 +7,8 @@ import {
   resolveSolarProcessSteps,
   resolveSolarBrandsGrid,
   resolveSolarInverterSlider,
-  resolveSolarSpecsTable,
-  resolveSolarSizingGuide,
+  resolveSolarSpecsRowCards,
+  resolveSolarSizingGuideTable,
   resolveSolarPackages,
   resolveSolarTimeline,
   resolveSolarEngineeringItems,
@@ -22,8 +22,8 @@ import type {
   SolarProcessStepsData,
   SolarBrandsGridData,
   SolarInverterSliderData,
-  SolarSpecsTableData,
-  SolarSizingGuideData,
+  SolarSpecsRowCardsData,
+  SolarSizingGuideTableData,
   SolarPackagesData,
   SolarTimelineData,
   SolarEngineeringItemsData,
@@ -37,8 +37,8 @@ import SolarStatsAndIntro from "@/components/solar/solarSystem/SolarStatsAndIntr
 import SolarProcessFlow from "@/components/solar/solarSystem/SolarProcessFlow";
 import SolarBrandsGrid from "@/components/solar/solarSystem/SolarBrandsGrid";
 import InverterSlider from "@/components/solar/solarSystem/InverterSlider";
-import SpecsAccordion from "@/components/solar/solarSystem/SpecsAccordion";
-import SizingGuide from "@/components/solar/solarSystem/SizingGuide";
+import SpecsRowCards from "@/components/solar/solarSystem/SpecsRowCards";
+import SizingGuideTable from "@/components/solar/solarSystem/SizingGuideTable";
 import SolarPackages from "@/components/solar/solarSystem/SolarPackages";
 import TimelineSection from "@/components/solar/solarSystem/TimelineSection";
 import EngineeringCustomizations from "@/components/solar/solarSystem/EngineeringCustomizations";
@@ -58,8 +58,8 @@ const SolarPage = async () => {
   const process = findSection<SolarProcessStepsData>(sections, "solar.process-steps");
   const brands = findSection<SolarBrandsGridData>(sections, "solar.brands-grid");
   const inverters = findSection<SolarInverterSliderData>(sections, "solar.inverter-slider");
-  const specs = findSection<SolarSpecsTableData>(sections, "solar.specs-table");
-  const sizing = findSection<SolarSizingGuideData>(sections, "solar.sizing-guide");
+  const specs = findSection<SolarSpecsRowCardsData>(sections, "solar.specs-row-cards");
+  const sizing = findSection<SolarSizingGuideTableData>(sections, "solar.sizing-guide-table");
   const packages = findSection<SolarPackagesData>(sections, "solar.packages");
   const timeline = findSection<SolarTimelineData>(sections, "solar.timeline");
   const engineering = findSection<SolarEngineeringItemsData>(sections, "solar.engineering-items");
@@ -72,8 +72,8 @@ const SolarPage = async () => {
   const processProps = resolveSolarProcessSteps(process);
   const brandsProps = resolveSolarBrandsGrid(brands);
   const invertersProps = resolveSolarInverterSlider(inverters);
-  const specsProps = resolveSolarSpecsTable(specs);
-  const sizingProps = resolveSolarSizingGuide(sizing);
+  const specsProps = resolveSolarSpecsRowCards(specs);
+  const sizingProps = resolveSolarSizingGuideTable(sizing);
   const packagesProps = resolveSolarPackages(packages);
   const timelineProps = resolveSolarTimeline(timeline);
   const engineeringProps = resolveSolarEngineeringItems(engineering);
@@ -88,8 +88,8 @@ const SolarPage = async () => {
       {processProps && <SolarProcessFlow resolved={processProps} />}
       {brandsProps && <SolarBrandsGrid resolved={brandsProps} />}
       {invertersProps && <InverterSlider resolved={invertersProps} />}
-      {specsProps && <SpecsAccordion resolved={specsProps} />}
-      {sizingProps && <SizingGuide resolved={sizingProps} />}
+      {specsProps && <SpecsRowCards resolved={specsProps} />}
+      {sizingProps && <SizingGuideTable resolved={sizingProps} />}
       {packagesProps && <SolarPackages resolved={packagesProps} />}
       {timelineProps && <TimelineSection resolved={timelineProps} />}
       {engineeringProps && <EngineeringCustomizations resolved={engineeringProps} />}

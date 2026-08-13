@@ -3,13 +3,13 @@ import Image from "next/image";
 import SectionHeader from "@/reuseables/SectionHeader";
 import Reveal from "@/reuseables/Reveal";
 import MissingImage from "@/reuseables/MissingImage";
-import type { ResolvedSolarSpecsTable } from "@/lib/strapi/resolvers/solar";
+import type { ResolvedSolarSpecsRowCards } from "@/lib/strapi/resolvers/solar";
 
-interface SpecsAccordionProps {
-  resolved: ResolvedSolarSpecsTable;
+interface SpecsRowCardsProps {
+  resolved: ResolvedSolarSpecsRowCards;
 }
 
-const SpecsAccordion: React.FC<SpecsAccordionProps> = ({ resolved }) => {
+const SpecsRowCards: React.FC<SpecsRowCardsProps> = ({ resolved }) => {
   const specs = resolved.specs.filter(
     (s) => s.title || s.value || s.description
   );
@@ -32,7 +32,7 @@ const SpecsAccordion: React.FC<SpecsAccordionProps> = ({ resolved }) => {
           <div className="flex flex-col border-t border-gray-300">
             {specs.map((spec, idx) => (
               <Reveal key={idx} delay={idx * 0.1}>
-                <div className={`${idx !== 4 ?'border-b':'' } border-gray-300 py-8`}>
+                <div className={`${idx !== specs.length - 1 ?'border-b':'' } border-gray-300 py-8`}>
                   <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-8">
                     <div className="lg:w-[280px] shrink-0">
                       <h3 className="text-2xl md:text-[2.5rem] text-black leading-tight capitalize">
@@ -79,4 +79,4 @@ const SpecsAccordion: React.FC<SpecsAccordionProps> = ({ resolved }) => {
   );
 };
 
-export default SpecsAccordion;
+export default SpecsRowCards;
