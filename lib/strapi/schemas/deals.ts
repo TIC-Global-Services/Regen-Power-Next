@@ -34,6 +34,7 @@ export const DealsGridSchema = z.object({
   description: z.string().nullable(),
   promotions: z.array(DealsPromotionSchema),
   ctaText: z.string().nullable(),
+  ctaLink: z.string().nullable(),
 });
 export type DealsGridData = z.infer<typeof DealsGridSchema>;
 

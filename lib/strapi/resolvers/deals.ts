@@ -61,6 +61,7 @@ export interface ResolvedDealsGrid {
   title: string;
   description: string | null;
   ctaText: string;
+  ctaLink: string;
   promotions: ResolvedDealsGridPromotion[];
 }
 export function resolveDealsGrid(
@@ -72,6 +73,7 @@ export function resolveDealsGrid(
     title: data.title ?? "",
     description: data.description,
     ctaText: data.ctaText ?? "Get This Bundle Quoted",
+    ctaLink: data.ctaLink ?? "#quote-form",
     promotions: (data.promotions ?? []).map((p) => ({
       title: p.title,
       description: p.description,

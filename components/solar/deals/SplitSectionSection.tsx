@@ -9,7 +9,7 @@ interface Props {
 export default function SplitSectionSection({ resolved }: Props) {
   return (
     <FullscreenSplitSection
-      subtitle={resolved.subtitle || 'fallback.png'}
+      subtitle={resolved.subtitle}
       title={resolved.title}
       description={resolved.description}
       image={resolved.image?.src ?? ""}

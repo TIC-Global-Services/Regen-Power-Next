@@ -84,7 +84,7 @@ export default function DealsGridSection({ resolved }: Props) {
         </div>
 
         <div className="flex justify-center">
-          <CtaButton text={resolved.ctaText || "Get This Bundle Quoted"} />
+          <CtaButton text={resolved.ctaText || "Get This Bundle Quoted"} href={resolved.ctaLink} />
         </div>
       </div>
     </section>
