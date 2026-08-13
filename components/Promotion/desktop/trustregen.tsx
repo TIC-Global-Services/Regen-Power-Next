@@ -28,7 +28,7 @@ const TrustRegen = ({ data }: { data: TrustRegenProps }) => {
             <span className="text-base md:text-[2.125rem] font-bold tracking-tight leading-none">
               {data.subtitle}
             </span>
-            <h2 className="text-3xl md:text-[5rem] font-extrabold text-[#63B846] tracking-tight leading-none ">
+            <h2 className="text-3xl md:text-[5rem] font-bold text-[#63B846] tracking-tight leading-none ">
               {data.title}
             </h2>
           </div>
@@ -68,12 +68,12 @@ const TrustRegen = ({ data }: { data: TrustRegenProps }) => {
                  
 
                   {/* Title */}
-                  <h3 className="text-lg md:text-4xl font-extrabold text-black  leading-none">
+                  <h3 className="text-lg md:text-4xl font-bold text-black  leading-none">
                     {feature.title}
                   </h3>
 
                   {/* Description */}
-                  <p className="text-gray-500 text-xs md:text-xl leading-none max-w-md mt-4">
+                  <p className="text-xs md:text-xl leading-none max-w-sm mt-4">
                     {feature.description}
                   </p>
 

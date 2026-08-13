@@ -83,7 +83,7 @@ const SolarFinancing = ({ data }: { data: SolarFinancingProps }) => {
         <div className="relative z-10 max-w-7xl mx-auto w-full">
           {/* Centered Header */}
           <div className="text-center max-w-6xl mx-auto mb-16">
-            <h2 className="text-4xl md:text-5xl lg:text-[4.375rem] font-extrabold text-[#63B846] tracking-tight leading-none mb-2">
+            <h2 className="text-4xl md:text-5xl lg:text-[4.375rem] font-bold text-[#63B846] tracking-tight leading-none mb-2">
               {mainTitle} <span className="text-[#63B846]">{subTitleText}</span>
             </h2>
             <p className="text-lg md:text-4xl text-white/95 font-semibold tracking-tight leading-none max-w-5xl mx-auto">

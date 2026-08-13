@@ -28,7 +28,7 @@ const Brands = ({ data }: { data: BrandsProps }) => {
       <Fade>
         {/* Header */}
         <div className="max-w-7xl mx-auto px-[5%] mb-10 text-center">
-          <span className="block text-black text-sm md:text-base font-extrabold uppercase tracking-widest mb-2">
+          <span className="block text-black text-sm md:text-base font-bold uppercase tracking-widest mb-2">
             {subtitle}
           </span>
           <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-[#63B846] tracking-tight leading-tight">

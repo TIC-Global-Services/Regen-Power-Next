@@ -25,7 +25,7 @@ export class StrapiFetchError extends Error {
 
 export async function strapiFetch<T>(
   path: string,
-  init?: RequestInit & { next?: { revalidate?: number; tags?: string[] } }
+  init?: RequestInit & { next?: { revalidate?: number; tags?: string[] } },
 ): Promise<T> {
   const url = `${getStrapiURL()}/api${path}`;
   const res = await fetch(url, {
@@ -45,11 +45,13 @@ export async function strapiFetch<T>(
     } catch {
       /* ignore */
     }
-    throw new StrapiFetchError(
-      `Strapi ${res.status} ${res.statusText} for ${path}`,
-      res.status,
-      details
-    );
+
+    console.warn(`Strapi ${res.status} for ${path} - using empty response`);
+
+    return {
+      data: { sections: [] },
+      meta: {},
+    } as T;
   }
 
   return res.json() as Promise<T>;

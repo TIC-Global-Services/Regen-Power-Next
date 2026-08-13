@@ -47,13 +47,13 @@ const PricingCard = ({ pkg }: { pkg: BatteryPkg }) => (
     {/* Capacity heading */}
     <div>
       <div className="inline-block pb-2 mb-6 border-b-2 border-black/80 px-4">
-        <h3 className="text-2xl md:text-3xl font-extrabold text-black">
+        <h3 className="text-2xl md:text-3xl font-bold text-black">
           {pkg.capacity}
         </h3>
       </div>
 
       {/* Original price */}
-      <div className="text-3xl md:text-4xl font-extrabold text-black mb-8">
+      <div className="text-3xl md:text-4xl font-bold text-black mb-8">
         ${pkg.originalPrice.toLocaleString()}
       </div>
 
@@ -139,7 +139,7 @@ const BatteryPackage = ({ data }: { data: BatteryPackageProps }) => {
         <div>
           {/* Green section title */}
           <div className="text-center mb-16">
-            <h2 className="text-4xl md:text-[3.125rem] font-extrabold text-[#63B846] tracking-tight leading-tight">
+            <h2 className="text-4xl md:text-[3.125rem] font-bold text-[#63B846] tracking-tight leading-tight">
               {title}
             </h2>
           </div>

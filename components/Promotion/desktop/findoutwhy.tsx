@@ -32,7 +32,7 @@ const FindOutWhy = ({ data }: { data: FindOutWhyProps }) => {
               <span className="text-lg md:text-[2.125rem] font-bold text-black tracking-tight leading-none block">
                 {data.title}
               </span>
-              <h2 className="text-4xl md:text-[4.375rem] font-extrabold text-[#63B846] tracking-tighter leading-none">
+              <h2 className="text-4xl md:text-[4.375rem] font-bold text-[#63B846] tracking-tighter leading-none">
                 {data.subtitle}
               </h2>
             </div>

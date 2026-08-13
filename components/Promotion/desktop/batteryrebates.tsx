@@ -53,7 +53,7 @@ const BatteryRebates = ({ data }: { data: BatteryRebatesProps }) => {
             {/* Left: Subtitle, Title, Nav */}
             <div className="lg:col-span-6 flex flex-col justify-center ">
               <div className="">
-                <span className="inline-block text-black text-xl md:text-[3.125rem] font-extrabold  tracking-tight">
+                <span className="inline-block text-black text-xl md:text-[3.125rem] font-bold  tracking-tight">
                   {subtitle}
                 </span>
                 <h2 className="text-4xl md:text-5xl lg:text-[3.125rem] font-bold text-white tracking-tight leading-none max-w-xl">

@@ -132,7 +132,7 @@ const ReadyToBegin = ({ data }: { data: ReadyToBeginProps }) => {
             <div className="lg:col-span-7 xl:border-r xl:border-[#00000033] xl:pr-12 h-full w-full flex flex-col justify-between">
               <div className="bg-[#EEF6EB] rounded-[24px] p-8 flex flex-col justify-between h-full border border-gray-50">
                 <div className="flex-1">
-                  <h3 className="text-[#63B846] text-2xl md:text-3xl font-extrabold mb-4 text-center">
+                  <h3 className="text-[#63B846] text-2xl md:text-3xl font-bold mb-4 text-center">
                     {contactTitle}
                   </h3>
                   <p className="text-sm md:text-xl leading-[1.2] mb-8 text-center">

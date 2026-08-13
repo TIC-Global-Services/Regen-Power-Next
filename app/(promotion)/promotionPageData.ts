@@ -1,4 +1,6 @@
 export const desktopHeroData = {
+  backgroundImage: "/landing_page_hero.png",
+  batteryImage: "/promotion_battery_fallback.png",
   title: "Double Rebates, Double Savings: WA & Federal Incentives Slash Battery Costs",
   subtitle: "Lock in Pricing Now!",
   packages: [
@@ -22,8 +24,8 @@ export const desktopHeroData = {
     }
   ],
   sidebar: {
-    title: "Battery Rebate Available!",
-    subtitle: "WA & Federal Battery Rebates Now Live – Save Up to $5,255!",
+    title: "Battery \nRebate \nAvailable!",
+    subtitle: "WA & Federal Battery \nRebates Now Live – Save Up to $5,255!",
     paragraphs: [
       "Upgrade your home with a 20kWh battery with State + Federal incentives worth up to $5,255 OFF when you're ready.",
       "Lock in today's pricing, secure your rebate spot, and be first in line for approval and installation."
@@ -41,14 +43,14 @@ export const desktopLimitedSpotData = {
       title: "Years Established 2003",
       nestedCard: {
         type: "logo" as const,
-        logoPath: "/regen_logo.svg",
+        logoPath: "/white_regen_logo.svg",
       }
     },
     {
       type: "image" as const,
       value: "YES",
       title: "We are Local WA Born\nand Bred Company",
-      bgImage: "/assets/home/whychooseus/bussiness_operating.png"
+      bgImage: "/wa_born_fallback.svg"
     },
     {
       type: "black" as const,
@@ -369,7 +371,7 @@ export const mobileHeroData = {
     label: "See What's Included & Get A Quote",
     href: "/quote",
   },
-  backgroundImage: "/fallback.png",
+  backgroundImage: "/landing_page_hero.png",
 };
 
 export const mobileWhyChooseUsData = {
@@ -381,28 +383,28 @@ export const mobileWhyChooseUsData = {
       type: 'nested' as const,
       value: "23",
       title: "Years Established 2003",
-      logoPath: "/regen_logo.svg"
+      logoPath: "/white_regen_logo.svg"
     },
     {
       id: 'local',
       type: 'image' as const,
       value: "YES",
       title: "We are Local WA Born and Bred Company",
-      bgImage: "/fallback.png"
+      bgImage: "/wa_born_fallback.svg"
     },
     {
       id: 'installations',
       type: 'dark' as const,
       value: "45K",
       title: "Solar Installations Nationwide",
-      iconType: 'globe' as const
+      icon: '/globe_fallback.png'
     },
     {
       id: 'batteries',
       type: 'nested-reverse' as const,
       value: "3k+",
       title: "Number of battery\ninstallations in WA",
-      iconType: 'battery' as const
+      icon: '/white_regen_logo.svg'
     }
   ]
 };

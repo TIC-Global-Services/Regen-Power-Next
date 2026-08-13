@@ -11,7 +11,7 @@ export interface WhyChooseUsCard {
   title: string;
   bgImage?: string;
   logoPath?: string;
-  iconType?: 'battery' | 'globe' | 'none';
+  icon?: string;
 }
 
 export interface WhyChooseUsProps {
@@ -29,7 +29,7 @@ const WhyChooseUs = ({
       type: 'nested',
       value: "23",
       title: "Years Established 2003",
-      logoPath: "/regen_logo.svg"
+      icon: "/regen_logo.svg"
     },
     {
       id: 'local',
@@ -43,14 +43,14 @@ const WhyChooseUs = ({
       type: 'dark',
       value: "45K",
       title: "Solar Installations\nNationwide",
-      iconType: 'globe'
+      icon: 'globe'
     },
     {
       id: 'batteries',
       type: 'nested-reverse',
       value: "3k+",
       title: "Number of battery\ninstallations in WA",
-      iconType: 'battery'
+      icon: 'battery'
     }
   ]
 }: WhyChooseUsProps) => {
@@ -124,32 +124,7 @@ const WhyChooseUs = ({
             <div className="w-full flex justify-end">
               <div className="relative w-28 h-28 md:w-36 md:h-36 opacity-85 group-hover:opacity-100 transition-opacity duration-300">
                 {/* Globe Wireframe SVG */}
-                <svg viewBox="0 0 100 100" className="w-full h-full text-zinc-500 group-hover:text-zinc-400 transition-colors duration-300">
-                  <circle cx="50" cy="50" r="40" fill="none" stroke="currentColor" strokeWidth="0.5" />
-                  <path d="M10,50 Q50,20 90,50 Q50,80 10,50" fill="none" stroke="currentColor" strokeWidth="0.5" strokeDasharray="1 1" />
-                  <path d="M10,50 Q50,35 90,50 Q50,65 10,50" fill="none" stroke="currentColor" strokeWidth="0.5" strokeDasharray="2 2" />
-                  <path d="M50,10 Q20,50 50,90 Q80,50 50,10" fill="none" stroke="currentColor" strokeWidth="0.5" strokeDasharray="2 2" />
-                  <path d="M50,10 Q35,50 50,90 Q65,50 50,10" fill="none" stroke="currentColor" strokeWidth="0.5" strokeDasharray="1 1" />
-                  <line x1="50" y1="10" x2="50" y2="90" stroke="currentColor" strokeWidth="0.5" />
-                  <line x1="10" y1="50" x2="90" y2="50" stroke="currentColor" strokeWidth="0.5" />
-                  <circle cx="45" cy="40" r="1.2" fill="currentColor" />
-                  <circle cx="48" cy="38" r="0.8" fill="currentColor" />
-                  <circle cx="52" cy="42" r="1.5" fill="currentColor" />
-                  <circle cx="55" cy="45" r="1.2" fill="currentColor" />
-                  <circle cx="58" cy="40" r="0.8" fill="currentColor" />
-                  <circle cx="62" cy="44" r="1.2" fill="currentColor" />
-                  <circle cx="38" cy="48" r="1.5" fill="currentColor" />
-                  <circle cx="34" cy="52" r="1.2" fill="currentColor" />
-                  <circle cx="42" cy="55" r="2" fill="currentColor" />
-                  <circle cx="46" cy="58" r="0.8" fill="currentColor" />
-                  <circle cx="50" cy="62" r="1.5" fill="currentColor" />
-                  <circle cx="54" cy="60" r="1.2" fill="currentColor" />
-                  <circle cx="60" cy="56" r="0.8" fill="currentColor" />
-                  <circle cx="65" cy="52" r="1.5" fill="currentColor" />
-                  <circle cx="30" cy="45" r="1.2" fill="currentColor" />
-                  <circle cx="35" cy="40" r="0.8" fill="currentColor" />
-                  <circle cx="70" cy="48" r="0.8" fill="currentColor" />
-                </svg>
+               <img src={card.icon} className='w-full h-full object-contain'></img>
               </div>
             </div>
 
@@ -171,7 +146,7 @@ const WhyChooseUs = ({
             {/* Top Black Box Container for Battery Icon */}
             <div className="bg-black rounded-[12px] p-2 flex items-center justify-center h-[25dvh] w-full relative overflow-hidden group">
               <img
-                src={card.logoPath || "/regen_logo.svg"}
+                src={card.icon || "/regen_logo.svg"}
                 alt="Regen Power Logo"
                 className="h-10 md:h-12 w-auto object-contain z-10 transition-transform duration-350"
                 onError={(e) => {

@@ -40,12 +40,12 @@ const Hero = ({
 }: HeroProps) => {
 
   return (
-    <section
-      className="relative w-full min-h-[90vh] md:min-h-screen flex flex-col items-center justify-center text-center px-4 md:px-[5%] pt-32 pb-16 overflow-hidden bg-cover bg-center bg-no-repeat"
-      style={{
-        backgroundImage: `url('${backgroundImage}')`
-      }}
-    >
+    <section className="relative w-full min-h-[90vh] md:min-h-screen flex flex-col items-center justify-center text-center px-4 md:px-[5%] pt-32 pb-16 overflow-hidden">
+      <img
+        src={backgroundImage}
+        alt=""
+        className="absolute inset-0 z-0 h-full w-full object-cover object-center"
+      />
       <Fade>
         <div className="relative z-10 max-w-4xl mx-auto flex flex-col items-center justify-center">
           {/* Main Title */}
@@ -55,11 +55,11 @@ const Hero = ({
           <h1 className='text-white font-bold md:text-6xl'>{subtitle}</h1>
           {/* Highlight / Rebate Details */}
           {(highlight || description) && (
-            <div className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-extrabold text-white leading-snug drop-shadow-sm  max-w-2xl flex items-start">
+            <div className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-white leading-snug drop-shadow-sm  max-w-2xl flex items-start">
               {highlight && (
                 <>
                   {highlight.prefix && <span className='md:text-[1.875rem]'>{highlight.prefix} </span>}
-                  <span className="text-[#63B846] text-[4.375rem] font-extrabold whitespace-nowrap">
+                  <span className="text-[#63B846] text-[4.375rem] font-bold whitespace-nowrap">
                     {highlight.value}
                   </span>
                   {/* {highlight.suffix && <span> {highlight.suffix}</span>} */}

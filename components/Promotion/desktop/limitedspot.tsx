@@ -28,7 +28,7 @@ const CardItem = ({ card }: { card: LimitedSpotCard }) => {
         {/* Top Text Part */}
         <div className="flex items-end gap-4 text-black mb-6 mt-2">
           {card.value && (
-            <span className="text-5xl md:text-[6.25rem] font-extrabold tracking-tighter shrink-0 leading-none">
+            <span className="text-5xl md:text-[6.25rem] font-bold tracking-tighter shrink-0 leading-none">
               {card.value}
             </span>
           )}
@@ -47,7 +47,7 @@ const CardItem = ({ card }: { card: LimitedSpotCard }) => {
                 <img
                   src={card.nestedCard.logoPath || "/regen_logo.svg"}
                   alt="Regen Power Logo"
-                  className="h-50 w-50 object-contain"
+                  className="h-60 w-80 object-contain"
                 />
               </div>
             )}
@@ -59,9 +59,9 @@ const CardItem = ({ card }: { card: LimitedSpotCard }) => {
 
   if (card.type === 'image') {
     return (
-      <div className="relative rounded-[24px] overflow-hidden transition-transform duration-300 hover:scale-[1.01] shadow-sm border border-gray-100/50 min-h-[300px] md:min-h-[460px] h-full flex flex-col justify-center items-center p-6 md:p-8 text-center bg-white">
+      <div className="relative rounded-[24px] overflow-hidden transition-transform duration-300 hover:scale-[1.01] shadow-sm border border-gray-100/50 min-h-[300px] md:min-h-[460px] h-full flex flex-col justify-start items-center p-6 md:p-8 text-center bg-white">
         <img
-          src={card.bgImage || '/fallback.png'}
+          src={card.bgImage || '/wa_born_fallback.svg'}
           alt={card.title || 'Background'}
           className="absolute inset-0 w-full h-full object-cover z-0"
         />
@@ -69,7 +69,7 @@ const CardItem = ({ card }: { card: LimitedSpotCard }) => {
         {/* Card Content centered */}
         <div className="relative z-20 flex flex-col items-center justify-center">
           {card.value && (
-            <span className="text-5xl md:text-[6.25rem] font-extrabold tracking-tighter shrink-0 leading-none text-black mb-4">
+            <span className="text-5xl md:text-[6.25rem] font-bold tracking-tighter shrink-0 leading-none text-black mb-4">
               {card.value}
             </span>
           )}
@@ -91,7 +91,7 @@ const CardItem = ({ card }: { card: LimitedSpotCard }) => {
         {/* Card Content bottom-aligned */}
         <div className="relative z-20 flex flex-col items-start text-left">
           {card.value && (
-            <span className="text-5xl md:text-[6.25rem] font-extrabold tracking-tighter shrink-0 leading-none text-white mb-2">
+            <span className="text-5xl md:text-[6.25rem] font-bold tracking-tighter shrink-0 leading-none text-white mb-2">
               {card.value}
             </span>
           )}

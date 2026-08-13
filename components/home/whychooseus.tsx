@@ -183,7 +183,7 @@ const WhyChooseUs = ({ data }: WhyChooseUsProps) => {
               />
               <div className="relative z-10 flex items-center gap-3 md:gap-4">
                 <h3 className="text-[4rem] md:text-[6.250rem] font-bold text-white flex items-center gap-2 md:gap-3 leading-none tracking-tighter">
-                  <AnimatedCounter from={0} to={data.ratingScore} /> <span className="text-[2.5rem] font-extrabold"><Image src={'/star.svg'} height={50} width={50} alt="Star" className="w-[50px] h-[50px] md:w-[80px] md:h-[80px]" /></span>
+                  <AnimatedCounter from={0} to={data.ratingScore} /> <span className="text-[2.5rem] font-bold"><Image src={'/star.svg'} height={50} width={50} alt="Star" className="w-[50px] h-[50px] md:w-[80px] md:h-[80px]" /></span>
                 </h3>
                 <p className="text-white text-lg md:text-4xl tracking-tight font-medium leading-[1.2]">
                   {data.ratingPlatformLabel}

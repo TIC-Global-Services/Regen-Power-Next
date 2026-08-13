@@ -78,7 +78,7 @@ const FAQ = ({ data }: { data: FaqProps }) => {
             <span className="text-lg md:text-[2.125rem] font-bold text-black tracking-tight leading-none block">
               {data.subtitle}
             </span>
-            <h2 className="text-3xl md:text-[4.375rem] font-extrabold text-[#63B846] tracking-tight leading-none mb-6">
+            <h2 className="text-3xl md:text-[4.375rem] font-bold text-[#63B846] tracking-tight leading-none mb-6">
               {data.title}
             </h2>
             <p className="text-[#4D4D4D] text-sm md:text-2xl leading-none tracking-tight max-w-4xl mx-auto">
@@ -110,7 +110,7 @@ const FAQ = ({ data }: { data: FaqProps }) => {
                 ))}
               </div>
 
-              <h3 className="text-base md:text-xl font-extrabold text-black mt-6">
+              <h3 className="text-base md:text-xl font-bold text-black mt-6">
                 {data.highlightCard.ctaText}
               </h3>
             </div>

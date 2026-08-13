@@ -23,7 +23,7 @@ const Acheivements = ({ data }: { data: AcheivementsProps }) => {
             <span className="text-lg md:text-[2rem] font-bold text-black tracking-tight leading-none block">
               {data.title}
             </span>
-            <h2 className="text-4xl md:text-[5rem] font-extrabold text-[#63B846] tracking-tighter leading-none mb-6">
+            <h2 className="text-4xl md:text-[5rem] font-bold text-[#63B846] tracking-tighter leading-none mb-6">
               {data.subtitle}
             </h2>
             <p className="text-[#4D4D4D] text-sm md:text-[1.375rem] leading-tight font-medium max-w-5xl mx-auto">

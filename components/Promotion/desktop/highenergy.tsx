@@ -37,7 +37,7 @@ const HighEnergy = ({ data }: { data: HighEnergyProps }) => {
         <div className="px-[5%] mb-12">
           {/* Centered Header */}
           <div className="text-center  mb-16">
-            <h2 className="text-4xl md:text-[3.125rem] font-extrabold text-black tracking-tight leading-tight">
+            <h2 className="text-4xl md:text-[3.125rem] font-bold text-black tracking-tight leading-tight">
               {titlePart1}
             </h2>
             {titlePart2 && (
@@ -51,7 +51,7 @@ const HighEnergy = ({ data }: { data: HighEnergyProps }) => {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-x-12">
             {bullets.map((bullet, idx) => (
               <div key={idx} className="flex gap-3 items-start">
-                <span className="text-black font-extrabold text-lg leading-none mt-2">•</span>
+                <span className="text-black font-bold text-lg leading-none mt-2">•</span>
                 <p className="text-sm md:text-[1.625rem] leading-[1.2] font-medium">
                   {bullet}
                 </p>
