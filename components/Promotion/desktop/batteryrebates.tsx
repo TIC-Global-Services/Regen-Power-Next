@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from 'react';
+import React, { useState, useCallback, useRef } from 'react';
 import Fade from '@/reuseables/fade';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 
@@ -20,19 +20,47 @@ const BatteryRebates = ({ data }: { data: BatteryRebatesProps }) => {
   const { title, subtitle, bgImage, data: slides } = data;
 
   const [slideIndex, setSlideIndex] = useState(0);
+  const [isTransitioning, setIsTransitioning] = useState(false);
+  const transitionRef = useRef<NodeJS.Timeout | null>(null);
+
+  const changeSlide = useCallback(
+    (getNext: (prev: number) => number) => {
+      if (isTransitioning) return;
+
+      // Clear any lingering timeout
+      if (transitionRef.current) clearTimeout(transitionRef.current);
+
+      // Phase 1 — fade out
+      setIsTransitioning(true);
+
+      transitionRef.current = setTimeout(() => {
+        // Phase 2 — swap data while invisible
+        setSlideIndex((prev) => getNext(prev));
+
+        // Phase 3 — small delay then fade in
+        requestAnimationFrame(() => {
+          requestAnimationFrame(() => {
+            setIsTransitioning(false);
+            transitionRef.current = null;
+          });
+        });
+      }, 300); // matches the CSS transition duration
+    },
+    [isTransitioning]
+  );
 
   const handlePrev = () => {
-    setSlideIndex((prev) => (prev === 0 ? slides.length - 1 : prev - 1));
+    changeSlide((prev) => (prev === 0 ? slides.length - 1 : prev - 1));
   };
 
   const handleNext = () => {
-    setSlideIndex((prev) => (prev === slides.length - 1 ? 0 : prev + 1));
+    changeSlide((prev) => (prev === slides.length - 1 ? 0 : prev + 1));
   };
 
   const currentRows = slides[slideIndex] ?? [];
 
   return (
-    <section className="relative w-full py-20 md:py-10 px-[5%] overflow-hidden min-h-screen flex items-start bg-black">
+    <section className="relative w-full py-20 md:py-20 px-[5%] overflow-hidden min-h-screen flex items-start bg-black">
       {/* Background Image */}
       <img
         src={bgImage || "/battery_rebates_fallback.png"}
@@ -56,7 +84,7 @@ const BatteryRebates = ({ data }: { data: BatteryRebatesProps }) => {
               </div>
 
               {/* Arrow buttons + slide indicator */}
-              <div className="flex items-center gap-4 mt-5">
+              <div className="flex items-center gap-2 mt-5">
                 <button
                   onClick={handlePrev}
                   className="w-12 h-12 rounded-full bg-[#FFFFFF66] hover:bg-white text-gray-800 flex items-center justify-center transition-all duration-300 shadow-md cursor-pointer"
@@ -78,8 +106,7 @@ const BatteryRebates = ({ data }: { data: BatteryRebatesProps }) => {
             <div className="lg:col-span-6 w-full">
               <div className="border border-white/15  overflow-hidden bg-white/10 backdrop-blur-md ">
                 <div
-                  key={slideIndex}
-                  className="flex flex-col space-y-1 animate-[fadeSlide_0.35s_ease-out]"
+                  className={`flex flex-col space-y-1 transition-opacity duration-300 ease-in-out ${isTransitioning ? 'opacity-0' : 'opacity-100'}`}
                 >
                   {currentRows.map((row, idx) => (
                     <div
@@ -119,13 +146,7 @@ const BatteryRebates = ({ data }: { data: BatteryRebatesProps }) => {
         </div>
       </Fade>
 
-      {/* Inline keyframe for the slide-in animation */}
-      <style jsx>{`
-        @keyframes fadeSlide {
-          0%   { opacity: 0; transform: translateX(30px); }
-          100% { opacity: 1; transform: translateX(0); }
-        }
-      `}</style>
+
     </section>
   );
 };

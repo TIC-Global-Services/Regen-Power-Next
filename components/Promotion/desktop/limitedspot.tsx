@@ -42,7 +42,7 @@ const CardItem = ({ card }: { card: LimitedSpotCard }) => {
 
         {/* Bottom Nested Card (Black Box) */}
         {card.nestedCard && (
-          <div className="relative bg-black rounded-[12px] p-3 h-[30dvh] w-full flex items-end justify-center overflow-hidden">
+          <div className="relative bg-black rounded-[12px] p-3 h-[35dvh] w-full flex items-end justify-center overflow-hidden">
             {card.nestedCard.type === 'logo' && (
               <div className="relative w-full h-full flex items-center justify-center">
                 <img
@@ -96,7 +96,7 @@ const CardItem = ({ card }: { card: LimitedSpotCard }) => {
 
   if (card.type === 'black') {
     return (
-      <div className="relative rounded-[12px] p-6 md:p-8 pb-10 flex flex-col justify-end items-start overflow-hidden transition-transform duration-300 hover:scale-[1.01] shadow-sm border border-gray-900 bg-black min-h-[300px] md:min-h-[460px] h-full">
+      <div className="relative  rounded-[12px] p-6 md:p-8 pb-10 flex flex-col justify-end items-start overflow-hidden transition-transform duration-300 hover:scale-[1.01] shadow-sm border border-gray-900 bg-black min-h-[300px] md:min-h-[460px] h-full">
         {card.bgImage && (
           <img
             src={card.bgImage}
@@ -134,7 +134,7 @@ const CardItem = ({ card }: { card: LimitedSpotCard }) => {
 
 const LimitedSpot = ({ data }: { data: LimitedSpotProps }) => {
   return (
-    <section className="bg-white py-16 md:py-24 px-[5%]">
+    <section className="bg-white py-16 md:py-20 px-[5%]">
       <Fade>
         <div className="max-w-7xl mx-auto">
           {/* Section Header */}

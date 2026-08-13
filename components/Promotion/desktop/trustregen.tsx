@@ -20,88 +20,56 @@ const TrustRegen = ({ data }: { data: TrustRegenProps }) => {
   const [activeIdx, setActiveIdx] = useState(0);
 
   return (
-    <section className="bg-white py-16 md:py-24 px-[5%]">
+    <section className="bg-white py-16 md:py-20 px-[5%]">
       <Fade>
-        <div className="-space-y-5">
-          {/* Header */}
+        <div className="">
           <div className="text-center mb-14 md:mb-20">
-            <span className="text-base md:text-[2.125rem] font-bold tracking-tight leading-none">
+            <span className="block text-base md:text-[2.125rem] font-bold tracking-tight leading-none text-black">
               {data.subtitle}
             </span>
-            <h2 className="text-3xl md:text-[5rem] font-bold text-[#63B846] tracking-tight leading-none ">
+            <h2 className="text-3xl md:text-[5rem] font-bold text-[#63B846] tracking-tight leading-none mt-2">
               {data.title}
             </h2>
           </div>
 
-          {/* Features Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-3">
+          <div className="grid grid-cols-1 md:grid-cols-3 items-stretch">
             {data?.features?.map((feature, idx) => {
-              const IconComponent =
-                (Icons as any)[feature.icon] || Icons.HelpCircle;
               const isActive = activeIdx === idx;
-
-              // Light green by default, dark green when active
-              const borderColor = isActive
-                ? "#63B846"
-                : "rgba(99, 184, 70, 0.25)";
+              const borderColor = isActive ? '#63B846' : 'rgba(99, 184, 70, 0.25)';
 
               return (
                 <div
                   key={idx}
-                  className={`flex flex-col items-center text-center cursor-pointer py-10 px-6 relative transition-colors duration-300
-                    border-b-2
-                    ${idx === 0 ? "md:border-r-2" : ""}
-                    ${idx === 1 ? "md:border-l-1.5 md:border-r-2 md:mx-[5px]" : ""}
-                    ${idx === 2 ? "md:border-l-1.5 md:-ml-[2px]" : ""}
-                  `}
+                  className="relative flex flex-col items-center text-center cursor-pointer px-6 py-10 md:px-8 md:py-12 transition-all duration-300"
                   onMouseEnter={() => setActiveIdx(idx)}
                   style={{
-                    borderBottomColor: borderColor,
-                    borderRightColor: borderColor,
-                    borderLeftColor: borderColor,
+                    borderBottom: `2px solid ${borderColor}`,
+                    borderLeft: idx === 0 ? `0px solid transparent` : `1px solid ${borderColor}`,
+                    borderRight: idx === 2 ? `0px solid transparent` : `1px solid ${borderColor}`,
                     zIndex: isActive ? 2 : 1,
                   }}
                 >
-                  {/* Icon */}
-                  <div className=" mb-5">
+                  <div className="mb-6 flex h-24 w-24 items-center justify-center md:h-28 md:w-28">
                     <img
                       src={feature.icon}
                       alt={feature.title}
-                      className="w-full h-full object-contain"
+                      className="h-full w-full object-contain"
                     />
                   </div>
 
-                  {/* Vertical green line */}
-
-                  {/* Title */}
-                  <h3 className="text-lg md:text-4xl font-bold text-black  leading-[1] whitespace-pre-line">
+                  <h3 className="text-lg md:text-[2.25rem] font-bold text-black leading-[1.2] whitespace-pre-line">
                     {feature.title}
                   </h3>
 
-                  {/* Description */}
-                  <p className="text-xs md:text-xl leading-[1.2]  mt-4 whitespace-pre-line tracking-tight">
+                  <p className="mt-4 text-xs md:text-xl leading-[1.2] whitespace-pre-line tracking-tight text-black/80">
                     {feature.description}
                   </p>
 
-                  {/* Dot (Only for column 1 & 2, positioned at the bottom right corner on desktop) */}
                   {idx < 2 && (
-                    // <div
-                    //   className="hidden md:block absolute bottom-0 right-0 w-4 h-4 rounded-full translate-x-[9px] translate-y-[9px] z-30"
-                    //   style={{
-                    //     backgroundColor: activeIdx === idx || activeIdx === idx + 1 ? '#63B846' : 'rgba(99, 184, 70, 0.25)',
-                    //     border: '3px solid white',
-                    //     transition: 'background-color 0.3s ease',
-                    //   }}
-                    // />
                     <img
-                      src={"/dot.svg"}
-                      alt={""}
-                      className="hidden md:block absolute bottom-0 right-0 w-5 h-5 rounded-full translate-x-[9px] translate-y-[9px] z-30"
-                        style={{
-                          // backgroundColor: activeIdx === idx || activeIdx === idx + 1 ? '#63B846' : 'rgba(99, 184, 70, 0.25)',
-                          border: '3px solid white',
-                          transition: 'background-color 0.3s ease',
-                        }}
+                      src="/dot.svg"
+                      alt=""
+                      className="hidden md:block absolute -right-2 bottom-0 h-5 w-5 translate-y-1/2 rounded-full border-[3px] border-white bg-[#63B846]"
                     />
                   )}
                 </div>

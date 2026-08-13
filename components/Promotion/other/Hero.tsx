@@ -40,7 +40,7 @@ const Hero = ({
 }: HeroProps) => {
 
   return (
-    <section className="relative w-full min-h-[90vh] md:min-h-screen flex flex-col items-center justify-center text-center px-4 md:px-[5%] pt-32 pb-16 overflow-hidden">
+    <section className="relative w-full min-h-[100dvh] md:min-h-[100dvh] flex flex-col items-center justify-center text-center px-4 md:px-[5%] pt-32 pb-16 overflow-hidden">
       <img
         src={backgroundImage}
         alt=""
@@ -49,30 +49,24 @@ const Hero = ({
       <Fade>
         <div className="relative z-10 max-w-4xl mx-auto flex flex-col items-center justify-center">
           {/* Main Title */}
-          <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-[5rem] font-black text-black leading-none tracking-tight drop-shadow-md">
+          <h1 className="text-6xl font-black text-black leading-none tracking-tight drop-shadow-md">
             {title}
           </h1>
-          <h1 className='text-white font-bold md:text-6xl'>{subtitle}</h1>
+          <h2 className='text-white font-bold text-[2.125rem] leading-none'>{subtitle}</h2>
           {/* Highlight / Rebate Details */}
-          {(highlight || description) && (
-            <div className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-white leading-snug drop-shadow-sm  max-w-2xl flex items-start">
-              {highlight && (
-                <>
-                  {highlight.prefix && <span className='md:text-[1.875rem]'>{highlight.prefix} </span>}
-                  <span className="text-[#63B846] text-[4.375rem] font-bold whitespace-nowrap">
-                    {highlight.value}
-                  </span>
-                  {/* {highlight.suffix && <span> {highlight.suffix}</span>} */}
-                </>
-              )}
-              
+          {highlight && (
+            <div className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold text-white leading-snug drop-shadow-sm max-w-2xl flex flex-wrap items-baseline justify-start items-start gap-2 mt-2">
+              {highlight.prefix && <span className='text-xl sm:text-xl md:text-[1.875rem]'>{highlight.prefix}</span>}
+              <span className="text-[#63B846] text-[3.125rem] sm:text-[3.125rem] md:text-[4.375rem] font-bold">
+                {highlight.value}
+              </span>
             </div>
           )}
           {description && (
-                <span className="font-bold text-[2.5rem] text-white">
-                  {' '}{description}
-                </span>
-              )}
+            <span className="font-bold text-xl sm:text-3xl md:text-[2.5rem] text-white  block">
+              {description}
+            </span>
+          )}
           {/* CTA Button */}
           {cta && (
             <div className="mt-8 flex justify-center w-full max-w-xs sm:max-w-sm">
@@ -80,7 +74,9 @@ const Hero = ({
                 text={cta.label}
                 href={cta.href}
                 icon={ArrowRight}
+                textClass='font-medium'
                 textColor="text-white"
+                
                 onClick={onCtaClick}
               />
             </div>

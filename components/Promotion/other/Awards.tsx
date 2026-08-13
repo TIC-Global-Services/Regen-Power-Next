@@ -37,10 +37,10 @@ const Awards = ({
             {awards.map((award) => (
               <div 
                 key={award.id} 
-                className="flex flex-col items-center text-center"
+                className="flex flex-col items-center text-center group"
               >
                 {/* Badge Image Area with glassmorphic backing */}
-                <div className="relative h-full w-full flex items-center justify-center bg-[#F2F2F2] rounded-[12px] p-10 mb-6 group-hover:scale-105 transition-transform duration-300">
+                <div className="relative h-full w-full flex items-center justify-center bg-[#F2F2F2] rounded-[12px] p-6 sm:p-10 mb-6 group-hover:scale-105 transition-transform duration-300">
                   <img
                     src={award.image}
                     alt={award.title}

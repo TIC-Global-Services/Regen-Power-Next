@@ -51,7 +51,7 @@ const Brands = ({
         <div className="max-w-7xl mx-auto">
           {/* Header */}
           <div className="text-center mb-12 max-w-4xl mx-auto">
-            <h2 className="text-3xl sm:text-4xl md:text-6xl leading-none font-black text-black tracking-tight leading-tight">
+            <h2 className="text-3xl sm:text-4xl md:text-6xl leading-none font-black text-black tracking-tight leading-none">
               {title} 
             </h2>
             <span className="text-3xl sm:text-3xl font-bold leading-none text-[#63B846] md:text-6xl">{titleGreen}</span>

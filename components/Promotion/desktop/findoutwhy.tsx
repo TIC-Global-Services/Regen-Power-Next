@@ -22,8 +22,10 @@ export interface FindOutWhyProps {
 }
 
 const FindOutWhy = ({ data }: { data: FindOutWhyProps }) => {
+  if (!data) return null;
+
   return (
-    <section className="bg-white py-16 md:py-24 px-[5%]">
+    <section className="bg-white py-16 md:py-20 px-[5%]">
       <Fade>
         <div className="">
           {/* Header & Rating Summary */}
@@ -46,16 +48,16 @@ const FindOutWhy = ({ data }: { data: FindOutWhyProps }) => {
 
           {/* Awards Section */}
           <div className="flex flex-col items-center justify-center gap-12 mb-10">
-            {data.awards.map((award, idx) => (
+            {data.awards?.map((award, idx) => (
               <div key={idx} className="flex flex-col items-center text-center">
                 <div className="relative mb-3">
                   <img
-                    src={award.image }
-                    alt={award.description}
+                    src={award?.image}
+                    alt={award?.description || ''}
                     className="max-h-[140px] md:max-h-[40dvh] object-contain w-auto"
                   />
                 </div>
-                {award.description.toLowerCase().includes("stars") ? (
+                {award?.description?.toLowerCase().includes("stars") ? (
                   <div className="flex items-center justify-center gap-1.5 text-base md:text-[1.5rem] font-bold text-[#4D4D4D]">
                     <span className="whitespace-pre-line tracking-tight">{award.description}</span>
                   </div>
@@ -65,7 +67,7 @@ const FindOutWhy = ({ data }: { data: FindOutWhyProps }) => {
                       Top Rated Solar Panel Installers
                     </p> */}
                     <p className="text-sm md:text-[1.5rem] font-bold text-black whitespace-pre-line">
-                      {award.description}
+                      {award?.description}
                     </p>
                   </div>
                 )}
@@ -75,18 +77,18 @@ const FindOutWhy = ({ data }: { data: FindOutWhyProps }) => {
 
           {/* Testimonial Cards */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-4">
-            {data.reviews.map((item, idx) => (
+            {data.reviews?.map((item, idx) => (
               <div
                 key={idx}
                 className="bg-[#EEF6EB] rounded-[10px] p-6 md:p-8 flex flex-col justify-between"
               >
                 <div>
                   <h4 className="font-bold text-black text-lg md:text-[1.625rem] leading-none mb-3">
-                    {item.author}
+                    {item?.author}
                   </h4>
                   <div className="flex gap-1 mb-4">
                     {[...Array(5)].map((_, i) => {
-                      const isFilled = i < item.rating;
+                      const isFilled = i < (item?.rating || 0);
                       return (
                         <Star
                           key={i}
@@ -97,7 +99,7 @@ const FindOutWhy = ({ data }: { data: FindOutWhyProps }) => {
                     })}
                   </div>
                   <p className="text-black text-sm md:text-[1.25rem] leading-[1.2] font-medium mt-2">
-                    {item.review}
+                    {item?.review}
                   </p>
                 </div>
               </div>

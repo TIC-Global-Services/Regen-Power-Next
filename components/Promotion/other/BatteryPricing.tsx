@@ -58,7 +58,7 @@ const renderSection = (section: PromotionSection, sectionIdx: number) => {
     case 'price':
       return (
         <div key={sectionIdx} className="text-center py-2">
-          <span className="text-[3.5rem] md:text-[4rem] font-bold text-black leading-none tracking-tight">
+          <span className="text-[3.75rem] font-bold text-black leading-none tracking-tight">
             {section.value}
           </span>
         </div>
@@ -67,13 +67,13 @@ const renderSection = (section: PromotionSection, sectionIdx: number) => {
     // ── Rebate / deduction list ──
     case 'list':
       return (
-        <div key={sectionIdx} className="space-y-1 py-1">
+        <div key={sectionIdx} className="py-1">
           {section.items?.map((item, idx) => (
             <div
               key={idx}
-              className="flex items-center justify-center gap-2 text-base md:text-lg font-normal text-black"
+              className="flex items-center justify-center gap-2 text-[1.375rem] font-normal text-black"
             >
-              <MinusCircle size={16} className="text-red-500 shrink-0" />
+              <MinusCircle size={20} className="text-red-500 shrink-0" />
               <span>
                 {item.label} {item.value != null ? `$${item.value}` : ''}
               </span>
@@ -86,7 +86,7 @@ const renderSection = (section: PromotionSection, sectionIdx: number) => {
     case 'info':
       return (
         <div key={sectionIdx} className="text-center py-5">
-          <p className="text-sm md:text-base font-normal leading-snug">
+          <p className="text-xl font-normal leading-[1.2] whitespace-pre-line">
             {section.value}
           </p>
         </div>
@@ -95,13 +95,13 @@ const renderSection = (section: PromotionSection, sectionIdx: number) => {
     // ── Highlighted final pricing ──
     case 'highlight':
       return (
-        <div key={sectionIdx} className="pt-4 border-t border-gray-200 text-center">
+        <div key={sectionIdx} className="pt-5 border-t border-gray-200 text-center">
           {section.title && (
-            <span className="text-lg md:text-xl font-semibold text-black leading-none block mb-1">
+            <span className="text-xl font-semibold text-black leading-none block mb-1">
               {section.title}
             </span>
           )}
-          <span className="text-[3rem] md:text-[3.75rem] font-black text-[#63B846] leading-none block">
+          <span className="text-[3.75rem] font-black text-[#63B846] leading-none block">
             {section.value}
           </span>
         </div>
@@ -110,16 +110,16 @@ const renderSection = (section: PromotionSection, sectionIdx: number) => {
     // ── Simple text / footnote ──
     case 'text':
       return (
-        <div key={sectionIdx} className="text-center pt-2 pb-2">
+        <div key={sectionIdx} className="text-center pt-3 pb-2">
           {section.value && (
-            <p className="text-xs md:text-lg font-normal  leading-none">
+            <p className="text-lg font-normal  leading-none">
               {section.value}
             </p>
           )}
           {section.items?.map((item, idx) => (
             <p
               key={idx}
-              className={`text-xs md:text-base tracking-tight leading-normal font-bold`}
+              className={`text-lg tracking-tight leading-normal font-bold`}
             >
               {item.label}
             </p>
@@ -200,7 +200,7 @@ const BatteryPricing = ({
 }: PromotionGridProps) => {
   return (
     <section
-      className="relative w-full py-16 md:py-24 px-4 md:px-[5%] min-h-screen overflow-hidden bg-cover bg-center bg-no-repeat"
+      className="relative w-full py-16 md:py-24 px-[5%] md:px-[5%] overflow-hidden bg-cover bg-center bg-no-repeat"
       style={{
         backgroundImage: `url('${backgroundImage}')`,
       }}
@@ -213,7 +213,7 @@ const BatteryPricing = ({
             {items[0] && (
               <div className="w-full bg-white/90 backdrop-blur-sm rounded-[12px] p-6 md:p-6 flex flex-col shadow-xl transition-all duration-300">
                 {/* Card Title */}
-                <h3 className="text-2xl md:text-3xl font-black text-black text-center pb-4 border-b tracking-tight">
+                <h3 className="text-[2.5rem]  font-black text-black text-center pb-4 border-b tracking-tight">
                   {items[0].title}
                 </h3>
 
@@ -227,11 +227,11 @@ const BatteryPricing = ({
             {/* Center Column – Battery Image */}
             {centerImage && (
               <div className="w-full flex flex-col items-center justify-center my-4 md:my-0 group md:order-none">
-                <div className="relative lg:h-[400px]">
+                <div className="relative h-[250px] sm:h-[300px] lg:h-[400px] w-full flex items-center justify-center">
                   <img
                     src={centerImage}
                     alt="Battery System"
-                    className="w-full h-full object-contain drop-shadow-[0_15px_30px_rgba(255,255,255,0.15)] group-hover:scale-105 transition-transform duration-500"
+                    className="max-h-full max-w-full object-contain drop-shadow-[0_15px_30px_rgba(255,255,255,0.15)] group-hover:scale-105 transition-transform duration-500"
                     onError={(e) => {
                       (e.target as HTMLImageElement).src = '/fallback.png';
                     }}
@@ -242,9 +242,9 @@ const BatteryPricing = ({
 
             {/* Right Card */}
             {items[1] && (
-              <div className="w-full bg-white/90 backdrop-blur-sm rounded-[12px] p-6 md:p-6 flex flex-col shadow-xl transition-all duration-300">
+              <div className="w-full bg-white/90 backdrop-blur-sm rounded-[12px] p-4 md:p-6 flex flex-col shadow-xl transition-all duration-300">
                 {/* Card Title */}
-                <h3 className="text-2xl md:text-3xl font-black text-black text-center pb-4 border-b tracking-tight">
+                <h3 className="text-[2.5rem] font-black text-black text-center pb-4 border-b tracking-tight">
                   {items[1].title}
                 </h3>
 

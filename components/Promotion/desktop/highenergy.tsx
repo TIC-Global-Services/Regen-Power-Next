@@ -32,7 +32,7 @@ const HighEnergy = ({ data }: { data: HighEnergyProps }) => {
   }
 
   return (
-    <section className="bg-white py-16 md:py-24 overflow-hidden border-t border-gray-100">
+    <section className="bg-white py-16 md:py-20 overflow-hidden border-t border-gray-100">
       <Fade>
         <div className="px-[5%] mb-12">
           {/* Centered Header */}

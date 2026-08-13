@@ -63,7 +63,7 @@ const CombinedPromoPage = () => {
   };
 
   return (
-    <div className="flex flex-col min-h-screen bg-white">
+    <div className="flex flex-col min-h-[100dvh] bg-white overflow-x-hidden w-full">
       {/* ═══ Desktop View (lg and above) ═══ */}
       <div className="hidden lg:block">
         <DesktopHero data={desktopHeroData} />
@@ -83,7 +83,7 @@ const CombinedPromoPage = () => {
       </div>
 
       {/* ═══ Mobile / Tablet View (below lg) ═══ */}
-      <div className="lg:hidden">
+      <div className="lg:hidden w-full overflow-x-hidden">
         {/* 1. Hero */}
         <MobileHero
           title={mobileHeroData.title}
@@ -116,7 +116,6 @@ const CombinedPromoPage = () => {
         <div id="quote-form-section">
           <QuoteForm
             title={mobileQuoteFormData.title}
-            titleGreen={mobileQuoteFormData.titleGreen}
             noticeText={mobileQuoteFormData.noticeText}
             buttonText={mobileQuoteFormData.buttonText}
           />

@@ -54,13 +54,13 @@ const ContactInfo = ({
   const renderIcon = (type: 'Instagram' | 'LinkedIn' | 'Facebook' | 'Twitter') => {
     switch (type) {
       case 'Instagram':
-        return <img  src={'/instagram_logo.svg'}  className="text-[#63B846] shrink-0" height={24} width={24} />;
+        return <img  src={'/instagram_logo.svg'}  className="text-[#63B846] shrink-0" height={30} width={30} />;
       case 'LinkedIn':
-        return <img src={'/linkedin_logo.svg'} className="text-[#63B846] shrink-0" height={24}  width={24}/>;
+        return <img src={'/linkedin_logo.svg'} className="text-[#63B846] shrink-0" height={30}  width={30}/>;
       case 'Facebook':
-        return <img src={'/facebook_logo.svg'} className="text-[#63B846] shrink-0" height={24}  width={24}/>;
+        return <img src={'/facebook_logo.svg'} className="text-[#63B846] shrink-0" height={30}  width={30}/>;
       case 'Twitter':
-        return <img src={'/twitter_logo.svg'} className="text-[#63B846] shrink-0" height={24}  width={24}/>;
+        return <img src={'/twitter_logo.svg'} className="text-[#63B846] shrink-0" height={30}  width={30}/>;
     }
   };
 
@@ -69,7 +69,7 @@ const ContactInfo = ({
       return (
         <a 
           href={`mailto:${item.value}`}
-          className="text-base md:text-lg text-gray-800 hover:text-[#63B846] font-normal transition-colors duration-200"
+          className="text-lg md:text-lg text-gray-800 hover:text-[#63B846] font-normal transition-colors duration-200"
         >
           {item.value}
         </a>
@@ -79,13 +79,13 @@ const ContactInfo = ({
       return (
         <a 
           href={`tel:${item.value.replace(/[^0-9]/g, '')}`}
-          className="text-base md:text-lg text-gray-800 hover:text-[#63B846] font-normal transition-colors duration-200"
+          className="text-lg md:text-lg text-gray-800 hover:text-[#63B846] font-normal transition-colors duration-200"
         >
           {item.value}
         </a>
       );
     }
-    return <span className="text-base md:text-lg text-gray-800 font-normal">{item.value}</span>;
+    return <span className="text-lg md:text-lg text-gray-800 font-normal whitespace-pre-line">{item.value}</span>;
   };
 
   return (
@@ -98,14 +98,14 @@ const ContactInfo = ({
               {title}
             </h2>
             {description && (
-              <p className="text-xl md:text-2xl leading-none font-medium">
+              <p className="text-xl md:text-2xl leading-[1.2] font-medium">
                 {description}
               </p>
             )}
           </div>
 
           {/* Contact Details Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-6 border-b border-gray-100 pb-12 mb-8 max-w-4xl mx-auto">
+          <div className="grid grid-cols-1 md:grid-cols-3  gap-8 md:gap-6 border-b border-gray-100 pb-12 mb-8 max-w-4xl mx-auto">
             {items.map((item, idx) => (
               <div 
                 key={idx} 
@@ -120,7 +120,7 @@ const ContactInfo = ({
                   {item.label}
                 </span>
                 {/* Value / Link */}
-                <div className="max-w-[240px] leading-none">
+                <div className="md:max-w-[240px] leading-none">
                   {renderLink(item)}
                 </div>
               </div>

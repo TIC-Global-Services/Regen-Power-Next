@@ -70,7 +70,7 @@ const FAQ = ({ data }: { data: FaqProps }) => {
   };
 
   return (
-    <section className="bg-white py-16 md:py-24 px-[5%]">
+    <section className="bg-white py-16 md:py-20 px-[5%]">
       <Fade>
         <div className="">
           {/* Header */}

@@ -7,15 +7,13 @@ import { ArrowRight, Sparkles } from 'lucide-react';
 
 export interface QuoteFormProps {
   title?: string;
-  titleGreen?: string;
   noticeText?: string;
   buttonText?: string;
   onSubmitSuccess?: (data: any) => void;
 }
 
 const QuoteForm = ({
-  title = "Get",
-  titleGreen = "A Quote",
+  title = "Get A Quote",
   noticeText = "Due to the current high demand for batteries, we are unable to accept bookings for Solar-Only installations at this time. Bookings will only be accepted for Solar + Battery or Battery-Only installations.",
   buttonText = "Get Free Estimate",
   onSubmitSuccess,
@@ -71,8 +69,8 @@ const QuoteForm = ({
         <div className="max-w-3xl mx-auto">
           {/* Header */}
           <div className="text-center mb-10">
-            <h2 className="text-4xl md:text-5xl font-black text-black tracking-tight leading-tight">
-              {title} <span className="text-[#63B846]">{titleGreen}</span>
+            <h2 className="text-4xl md:text-5xl font-black text-[#63B846] tracking-tight leading-tight">
+              {title}
             </h2>
             
             {/* Notice block */}

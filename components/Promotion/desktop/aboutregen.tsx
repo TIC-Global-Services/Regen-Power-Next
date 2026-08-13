@@ -18,7 +18,7 @@ const AboutRegen = ({ data }: { data: AboutRegenProps }) => {
   const [isPlaying, setIsPlaying] = useState(false);
 
   return (
-    <section className="bg-white py-16 md:py-24 px-[5%]">
+    <section className="bg-white py-16 md:py-20 px-[5%]">
       <Fade>
         <div className="">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 items-center justify-center">

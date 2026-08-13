@@ -35,7 +35,7 @@ export default function RootLayout({
       lang="en"
       className={`${aeonik.variable} ${aeonik.className} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col overflow-hidden">
+      <body className="min-h-full flex flex-col overflow-x-hidden">
         <SmoothScroller>
           {children}
         </SmoothScroller>

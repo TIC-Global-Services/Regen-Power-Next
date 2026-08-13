@@ -32,7 +32,7 @@ const SolarFinancing = ({ data }: { data: SolarFinancingProps }) => {
   const cards = gridItems;
 
   return (
-    <section className="relative w-full py-20 md:py-28 px-[5%] overflow-hidden min-h-screen flex justify-center items-center bg-black">
+    <section className="relative w-full py-20 md:py-20 px-[5%] overflow-hidden min-h-screen flex justify-center items-center bg-black">
       {/* Background Image with dark overlay */}
       <div className="absolute inset-0 z-0">
         <img

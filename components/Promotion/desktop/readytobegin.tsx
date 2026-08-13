@@ -110,7 +110,7 @@ const ReadyToBegin = ({ data }: { data: ReadyToBeginProps }) => {
   };
 
   return (
-    <section className="bg-white py-16 md:py-24 px-[5%] border-t border-gray-100">
+    <section className="bg-white py-16 md:py-20 px-[5%] border-t border-gray-100">
       <Fade>
         <div>
           {/* Header section with split title and notice text */}
@@ -139,7 +139,7 @@ const ReadyToBegin = ({ data }: { data: ReadyToBeginProps }) => {
                     {contactIntro}
                   </p>
 
-                  <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 text-left md:divide-x md:divide-black/10">
+                  <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 text-left md:divide-x  md:divide-black/20">
                     {/* Left Column (Address) */}
                     {leftItem && (
                       <div className="space-y-2">
@@ -164,8 +164,8 @@ const ReadyToBegin = ({ data }: { data: ReadyToBeginProps }) => {
 
                 {/* Social Links Row */}
                 {socials.length > 0 && (
-                  <div className="border-t border-black/10 pt-6 mt-8">
-                    <div className="flex justify-around items-center divide-x divide-black/10 text-[#63B846] font-bold text-base md:text-2xl">
+                  <div className="border-t border-t-1 border-[#939393] pt-6 mt-8">
+                    <div className="flex justify-around items-center divide-x divide-[#939393] text-[#63B846] font-bold text-base md:text-2xl">
                       {socials.map((social, idx) => (
                         <a
                           key={idx}

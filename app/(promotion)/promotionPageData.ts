@@ -110,71 +110,78 @@ export const desktopBatteryRebatesData = {
   title: "Key Points You Should \nKnow",
   subtitle: "Battery Rebate",
   bgImage: "/battery_rebates_fallback.png",
+
   data: [
-    // Slide 1 – Rebates & Eligibility
+    // Left Panel — Battery Rebate & Key Points
     [
       {
         title: "State Rebate",
         description:
-          "Up To $1,300 Off The Cost Of Your Battery System (WA Government).",
+          "Up to $1,300 off the cost of your battery system (WA Government).",
       },
       {
-        title: "Federal \nRebate",
+        title: "Federal Rebate",
         description:
-          "Up To $2,205–$3,955, Depending On Battery Size (Cheaper Batteries Program)",
+          "Up to $2,205–$3,955, depending on battery size (Cheaper Home Batteries Program).",
       },
       {
-        title: "Interest \nFree Loan:",
+        title: "Interest-Free Loan",
         description:
-          "Up To $10,000 Repayable Over 10 Years – 0% Interest (WA Scheme Only).",
+          "Up to $10,000 repayable over 10 years – 0% interest (WA scheme only).",
       },
       {
-        title: "Eligibility \nStats",
+        title: "Eligibility",
         description:
-          "Eligible For Owner-Occupiers With Synergy And Income Below $210K/Year.",
+          "Must be an owner-occupier, Synergy customer, with household income under $210K/year.",
       },
       {
-        title: "VPP \nMandatory",
+        title: "VPP Participation Required",
         description:
-          "Up To $1,300 Off The Cost Of Your Battery System (WA Government).",
+          "You must join an approved Virtual Power Plant to qualify for state rebate.",
       },
       {
-        title: "Limited \nSlots",
+        title: "Limited Slots",
         description:
-          "Rebates Are First-Come, First-Served – Early Application Increases Your Chances.",
+          "Rebates are first-come, first-served – early application increases your chances.",
       },
     ],
-    // Slide 2 – Solar Benefits
+
+    // Right Panel — Why Regen Power
     [
       {
-        title: "Solar STCs",
+        title: "WA-Based & Trusted",
         description:
-          "Federal Small-Scale Technology Certificates Reduce Your Upfront Solar Cost By Up To $3,000.",
+          "Locally operated with 23+ years of experience.",
       },
       {
-        title: "Feed-In Tariff",
+        title: "Full-Service Retailer",
         description:
-          "Earn Credits On Excess Energy Exported Back To The Grid Via Synergy.",
+          "We supply, install, and support – end-to-end battery solutions.",
       },
       {
-        title: "Payback Period",
+        title: "Approved Products & Installers",
         description:
-          "Most Systems Pay For Themselves In 3–5 Years With Combined Savings And Rebates.",
+          "All our systems are rebate-eligible and VPP-compliant.",
       },
       {
-        title: "Battery Warranty",
+        title: "Top Battery Brands",
         description:
-          "Leading Brands Offer 10-Year Performance Warranties On Battery Systems.",
+          "Alpha ESS, Anker, SigEnergy, Tesla Powerwall, Goodwe, BYD, Sungrow, & more.",
       },
       {
-        title: "Grid Independence",
+        title: "Rebate & Loan Support",
         description:
-          "A Battery Lets You Store Daytime Solar For Evening Use, Reducing Grid Reliance.",
+          "We help you navigate and apply for both rebates and interest-free loans.",
       },
       {
-        title: "Installation Time",
+        title: "Thousands of Installs",
         description:
-          "Typical Solar + Battery Install Completed In 1–2 Days By CEC-Accredited Installers.",
+          "Trusted by over 45,000+ households in WA.",
+      },
+      {
+        title: "Warranties & After-Sales Care",
+        description:
+          "Up to 10-year warranties on batteries and hybrid inverters.",
       },
     ],
   ],
@@ -374,7 +381,7 @@ export const desktopFindOutWhyData = {
       description:
         "6-Time ProductReview Award Winner (2021, 2022, 2023, 2024, 2025 & 2026) \n⭐ 5.0 Stars • 2,684 Reviews",
     },
-   
+
   ],
   reviews: [
     {
@@ -403,7 +410,7 @@ export const desktopAchievementsData = {
   subtitle: "Our Achievements",
   description:
     "Surely Awards Are Not Everything, But It Is Testimony To What We Have Achieved And Assures You Will Be Working With Trusted Solar Company.",
-  badges: [
+  awards: [
     {
       name: "ATC Finalist 2014 & 2019",
       image: "/acheivement/australian_logo.png",
@@ -420,14 +427,46 @@ export const desktopAchievementsData = {
       name: "Financial Review Fast 100 2020",
       image: "/acheivement/fas100_logo.png",
     },
-    { name: "SEA Ambassador Award", image: "/acheivement/sea_logo.png" },
+    {
+      name: "SEA Ambassador Award",
+      image: "/acheivement/sea_logo.png",
+    },
     {
       name: "Belmont Small Business Award Winner",
       image: "/acheivement/awards_winner.png",
     },
+  ],
+  recognitions: [
     {
-      name: "Belmont Small Business Award Winner",
-      image: "/acheivement/google_rating.png",
+      title: "SunWiz Industry Recognition",
+      awards: [
+        {
+          name: "best-rated",
+          image: "/best-rated-1.png",
+        },
+        {
+          name: "best-rated#2",
+          image: "/best-rated-2.png",
+        },
+      ],
+    },
+    {
+      title: "Awarded by SolarQuotes",
+      awards: [
+        {
+          name: "top-rated-installer",
+          image: "/top-rated-installer.jpg",
+        },
+      ],
+    },
+    {
+      title: "Google Rating",
+      awards: [
+        {
+          name: "google-rating",
+          image: "/acheivement/google_rating.png",
+        },
+      ],
     },
   ],
 };
@@ -511,12 +550,14 @@ export const mobileHeroData = {
 export const mobileWhyChooseUsData = {
   title: "Why",
   titleGreen: "Regen Power",
+  ctatext:"Explore our packages & Get a Quote",
+  ctaLink:"",
   cards: [
     {
       id: "years",
       type: "nested" as const,
       value: "23",
-      title: "Years Established 2003",
+      title: "Years \nEstablished 2003",
       logoPath: "/white_regen_logo.svg",
     },
     {
@@ -530,15 +571,15 @@ export const mobileWhyChooseUsData = {
       id: "installations",
       type: "dark" as const,
       value: "45K",
-      title: "Solar Installations Nationwide",
-      icon: "/limited_home.png",
+      title: "Solar Installations \nNationwide",
+      icon: "/globe_fallback.png",
     },
     {
       id: "batteries",
       type: "nested-reverse" as const,
       value: "3k+",
       title: "Number of battery\ninstallations in WA",
-      icon: "/limited_battery.png",
+      icon: "/battery_fallback.png",
     },
   ],
 };
@@ -574,7 +615,7 @@ export const mobileBatteryPricingData = {
         {
           type: "info" as const,
           value:
-            "Up to $10K loan 0% interest for 10 years available under rebate scheme",
+            "Up to $10K loan \n0% interest for 10 years \navailable under rebate scheme",
         },
         { type: "highlight" as const, title: "Final Pricing", value: "$10990" },
         {
@@ -603,7 +644,7 @@ export const mobileBatteryPricingData = {
         {
           type: "info" as const,
           value:
-            "Up to $10K loan 0% interest for 10 years\navailable under rebate scheme",
+           "Up to $10K loan \n0% interest for 10 years \navailable under rebate scheme"
         },
         { type: "highlight" as const, title: "Final Pricing", value: "$12990" },
         {
@@ -617,8 +658,7 @@ export const mobileBatteryPricingData = {
 };
 
 export const mobileQuoteFormData = {
-  title: "Get",
-  titleGreen: "A Quote",
+  title: "Get A Quote",
   noticeText:
     "Due to the current high demand for batteries, we are unable to accept bookings for Solar-Only installations at this time. Bookings will only be accepted for Solar + Battery or Battery-Only installations.",
   buttonText: "Get Free Estimate",
@@ -671,7 +711,7 @@ export const mobileContactInfoData = {
     {
       type: "address" as const,
       label: "Address",
-      value: "4/90 Catalano Circuit, Canning Vale, WA 6155",
+      value: "4/90 Catalano Circuit, Canning \nVale, WA 6155",
     },
     {
       type: "email" as const,
