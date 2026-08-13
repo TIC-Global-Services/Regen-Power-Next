@@ -17,7 +17,6 @@ export default function WhyMattersSection({ resolved }: Props) {
     <FeatureSplitSection
       subtitle={resolved.subtitle || ""}
       heading={resolved.heading || ""}
-      introText={resolved.introText || ""}
       features={features}
     />
   );

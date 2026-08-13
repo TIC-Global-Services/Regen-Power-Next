@@ -17,19 +17,19 @@ export default function DealsGridSection({ resolved }: Props) {
   return (
     <section className="py-16 md:py-24 bg-white border-t border-gray-50">
       <div className="px-[5%] mx-auto">
-        <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-8 mb-16">
+        <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-8 mb-12">
           <div className="">
             <SectionHeader
               subtitle={resolved.subtitle || ""}
               title={resolved.title || ""}
               align="left"
               className="mb-0"
-              subtitleClass="text-lg md:text-2xl text-black font-normal"
-              titleClass="text-4xl md:text-[5rem] text-[#63B846] leading-none font-normal tracking-tight"
+              subtitleClass="text-lg md:text-[2.125rem] text-black font-normal"
+              titleClass="text-4xl md:text-[5rem] text-[#63B846] leading-none font-normal tracking-tight "
             />
           </div>
-          <div className="lg:w-[35%]">
-            <p className="leading-tight tracking-tight font-light text-sm md:text-base">
+          <div className="lg:w-[35%] mb-5">
+            <p className="leading-tight tracking-tight font-light text-sm md:text-lg">
               {resolved.description}
             </p>
           </div>
@@ -47,7 +47,7 @@ export default function DealsGridSection({ resolved }: Props) {
                 <h3 className="text-2xl md:text-3xl mb-4 tracking-tight text-[#63B846] leading-tight">
                   {promo.title}
                 </h3>
-                <p className="text-sm md:text-base text-[#888888] leading-tight font-light">
+                <p className="text-sm text-[#888888] tracking-tight leading-tight font-light">
                   {promo.description}
                 </p>
               </div>

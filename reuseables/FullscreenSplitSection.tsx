@@ -73,7 +73,7 @@ const  FullscreenSplitSection: React.FC<FullscreenSplitSectionProps> = ({
 
               <div className="mt-2 lg:mt-24">
                 <Fade delay={0.2}>
-                  <div className="text-base md:text-xl tracking-tight leading-tight">
+                  <div className="text-base md:text-2xl tracking-tight leading-tight">
                     {description}
                   </div>
                 </Fade>
