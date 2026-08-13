@@ -588,7 +588,7 @@ export const mobileAwardsData = [
   {
     id: "productreview",
     image: "/awards/award-winner.png",
-    title: "6 X ProductReview Award Winner \n2021, 22, 23, 24, 25, 26",
+    title: "6 X ProductReview Award Winner 2021, 22, 23, 24, 25, 26",
   },
   {
     id: "bestrated",

@@ -166,7 +166,7 @@ const WhyChooseUs = ({
               <div className="text-[4.375rem] font-black text-black leading-none tracking-tight">
                 {card.value}
               </div>
-              <div className="text-[1.375rem] font-bold text-black leading-none mt-5">
+              <div className="text-[1.375rem] font-bold text-black leading-none mt-5 md:mt-0">
                 {renderTitle(card.title)}
               </div>
             </div>
@@ -190,7 +190,7 @@ const WhyChooseUs = ({
           </div>
 
           {/* Cards Grid: 2 columns on all devices */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-8 max-w-5xl mx-auto">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-4 max-w-5xl mx-auto">
             {cards.map((card,i) => (
               <Reveal key={i}>
                 <div className="w-full">
@@ -199,7 +199,7 @@ const WhyChooseUs = ({
               </Reveal>
             ))}
           </div>
-            <div className='md{:hidden flex justify-center py-8'>
+            <div className='md:hidden flex justify-center py-8'>
               <CtaButton text={ctatext}></CtaButton>
             </div>
         </div>
