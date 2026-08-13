@@ -145,25 +145,17 @@ const  EditorialTextSection: React.FC<EditorialTextSectionProps> = ({
   };
 
   const headerSection = (
-    <>
-      {badge && (
-        <div className={`mb-6 flex ${align === 'left' ? 'justify-start' : align === 'right' ? 'justify-end' : 'justify-center'}`}>
-          <span className="bg-[#E1D9D4] text-gray-900 text-xs font-semibold uppercase tracking-wider px-4 py-1.5 rounded-full">
-            {badge}
-          </span>
-        </div>
-      )}
-      <SectionHeader
-        subtitle={subtitle}
-        title={title}
-        description={description}
-        align={align}
-        subtitleClass={subtitleClass}
-        titleClass={titleClass}
-        descClass={descriptionClass}
-        className="mb-8"
-      />
-    </>
+    <SectionHeader
+      badge={badge}
+      subtitle={subtitle}
+      title={title}
+      description={description}
+      align={align}
+      subtitleClass={subtitleClass}
+      titleClass={titleClass}
+      descClass={descriptionClass}
+      className="mb-8"
+    />
   );
 
   if (revealEffect) {

@@ -4,7 +4,6 @@ import Reveal from "@/reuseables/Reveal";
 import CtaButton from "@/reuseables/CtaButton";
 import SectionHeader from "@/reuseables/SectionHeader";
 import MissingImage from "@/reuseables/MissingImage";
-import SpecTable from "@/reuseables/SpecTable";
 import type { ResolvedSolarSizingGuideTable } from "@/lib/strapi/resolvers/solar";
 
 interface SizingGuideTableProps {
@@ -23,11 +22,11 @@ const SizingGuideTable: React.FC<SizingGuideTableProps> = ({ resolved }) => {
           subtitle={resolved.subtitle}
           title={resolved.title}
           description={resolved.description}
-          align="left"
-          className="mb-8"
-          subtitleClass="text-base md:text-xl lg:text-2xl text-black mb-2 capitalize"
-          titleClass="text-4xl md:text-[5.5rem] font-normal leading-tight tracking-tight text-[#63B846]"
-          descClass="text-xl leading-tight max-w-5xl"
+          align="center"
+          titleClass="text-[3.125rem] md:text-[5rem]"
+          subtitleClass="font-normal text-xl md:text-[2.125rem]"
+          descClass="max-w-3xl"
+          className="mx-auto mb-8"
         />
 
         <div className="text-center">
@@ -41,11 +40,62 @@ const SizingGuideTable: React.FC<SizingGuideTableProps> = ({ resolved }) => {
         </div>
 
         {rows.length > 0 ? (
-          <SpecTable
-            labelColumnTitle={resolved.labelColumnTitle}
-            columns={columns}
-            rows={rows}
-          />
+          <div className="overflow-x-auto rounded-[24px] mt-12 mb-16 max-w-5xl mx-auto overflow-hidden">
+            <table className="w-full border-collapse text-center bg-white">
+              <thead>
+                <tr className="bg-[#A0CF44] text-black font-[var(--font-aeonik)] h-[120px]">
+                  <th className="p-5 text-lg md:text-2xl font-normal border-r border-b border-black w-1/4 align-middle">
+                    {resolved.labelColumnTitle || "Daily Use"}
+                  </th>
+                  {columns.map((col, idx) => {
+                    const isLastCol = idx === columns.length - 1;
+                    return (
+                      <th
+                        key={idx}
+                        className={`p-5 text-lg md:text-2xl font-normal border-b border-black w-1/4 align-middle ${
+                          isLastCol ? "" : "border-r"
+                        }`}
+                      >
+                        {col.title}
+                      </th>
+                    );
+                  })}
+                </tr>
+              </thead>
+              <tbody>
+                {rows.map((row, rIdx) => {
+                  const isLastRow = rIdx === rows.length - 1;
+                  return (
+                    <tr key={rIdx} className="bg-[#EEF6EB] h-[120px]">
+                      <td
+                        className={`p-5 text-xl text-black border-r border-black align-middle ${
+                          isLastRow ? "" : "border-b"
+                        }`}
+                      >
+                        {row.label}
+                      </td>
+                      {columns.map((col, idx) => {
+                        const isLastCol = idx === columns.length - 1;
+                        const value = row.values[idx]?.text ?? "";
+                        return (
+                          <td
+                            key={idx}
+                            className={`p-5 text-xl text-black align-middle ${
+                              idx === 0 ? "" : "font-light"
+                            } border-black ${isLastRow ? "" : "border-b"} ${
+                              isLastCol ? "" : "border-r"
+                            }`}
+                          >
+                            {value}
+                          </td>
+                        );
+                      })}
+                    </tr>
+                  );
+                })}
+              </tbody>
+            </table>
+          </div>
         ) : (
           <MissingImage label="Sizing table rows" aspect="aspect-[3/1] my-12 max-w-4xl mx-auto" />
         )}
@@ -96,7 +146,7 @@ const SizingGuideTable: React.FC<SizingGuideTableProps> = ({ resolved }) => {
                 <Reveal
                   key={idx}
                   delay={idx * 0.15}
-                  className="relative flex flex-col justify-end rounded-[24px] overflow-hidden group min-h-[48dvh]"
+                  className="relative flex flex-col justify-end rounded-[24px] overflow-hidden group min-h-[400px] max-w-full md:w-[320px]"
                 >
                   <div className="absolute inset-0 z-0">
                     {card.image ? (

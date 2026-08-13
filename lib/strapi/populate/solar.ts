@@ -12,7 +12,7 @@ export const brandsGrid =
   "populate[sections][on][solar.brands-grid][populate][brands][populate]=logo";
 
 export const inverterSlider =
-  "populate[sections][on][solar.inverter-slider][populate][inverters][populate]=backgroundImage" +
+  "populate[sections][on][solar.inverter-slider][populate][inverters][populate][backgroundImage]=true" +
   "&populate[sections][on][solar.inverter-slider][populate][inverters][populate][infoCards]=true";
 
 export const specsRowCards =

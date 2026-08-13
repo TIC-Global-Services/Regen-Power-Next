@@ -51,13 +51,13 @@ const InverterSlider: React.FC<InverterSliderProps> = ({ resolved }) => {
               titleClass="text-[2.125rem]"
             /> */}
             <p className="text-2xl leading-none tracking-tight">{resolved.subtitle}</p>
-            <h1 className="text-2xl md:text-[3.125rem] text-[#63B846] leading-none">
+            <h1 className="text-2xl md:text-[3.125rem] tracking-tight text-[#63B846] leading-none">
               {resolved.title}
             </h1>
           </div>
-          <div className="lg:max-w-2xl">
+          <div className="lg:max-w-xl">
             <Fade delay={0.2}>
-              <p className="text-sm leading-tight">{resolved.description}</p>
+              <p className="text-sm leading-tight tracking-tight ">{resolved.description}</p>
             </Fade>
           </div>
         </div>
@@ -82,7 +82,7 @@ const InverterSlider: React.FC<InverterSliderProps> = ({ resolved }) => {
 
           <div className="relative z-10 mt-4">
             <h3
-              className="text-5xl md:text-7xl lg:text-[6rem] tracking-tight text-[#63B846]"
+              className="text-5xl md:text-7xl lg:text-[6rem] tracking-tight text-white "
             >
               {slides[activeTab].title}
             </h3>
@@ -95,7 +95,7 @@ const InverterSlider: React.FC<InverterSliderProps> = ({ resolved }) => {
                   key={idx}
                   className="bg-white/30 backdrop-blur-md border border-white/15 rounded-[0.5rem] p-5 hover:bg-white/15 transition-colors"
                 >
-                  <h4 className="text-white text-xl uppercase tracking-tight mb-2">
+                  <h4 className="text-white text-[1.375rem] capitalize tracking-tight">
                     {card.label}
                   </h4>
                   <p className="text-white text-sm leading-tight">{card.text}</p>
@@ -116,8 +116,8 @@ const InverterSlider: React.FC<InverterSliderProps> = ({ resolved }) => {
               <button
                 key={index}
                 onClick={() => setActiveTab(index)}
-                className={`h-1.5 rounded-full transition-all duration-300
-                  ${activeTab === index ? "w-8 bg-[#63B846]" : "w-2.5 bg-gray-300"}
+                className={`h-1 rounded-full transition-all duration-300
+                  ${activeTab === index ? "w-8 bg-[#63B846]" : "w-2.5 bg-gray-400"}
                 `}
                 aria-label={`Go to slide ${index + 1}`}
               />

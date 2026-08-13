@@ -9,13 +9,17 @@ interface RevealProps {
   delay?: number;
   className?: string;
   style?: CSSProperties;
+  onMouseEnter?: () => void;
+  onMouseLeave?: () => void;
 }
 
-export default function Reveal({ children, delay = 0, className = "", style }: RevealProps) {
+export default function Reveal({ children, delay = 0, className = "", style, onMouseEnter, onMouseLeave }: RevealProps) {
   return (
     <motion.div
       className={className}
       style={style}
+      onMouseEnter={onMouseEnter}
+      onMouseLeave={onMouseLeave}
       // 1. Initial hidden state
       initial={{ opacity: 0, y: 50 }}
       

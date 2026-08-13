@@ -33,13 +33,16 @@ const TimelineSection: React.FC<TimelineSectionProps> = ({ resolved }) => {
               )}
             </div>
           </div>
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-32 items-start">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
           <div className="flex flex-col justify-between h-full">
             <div>
               <SectionHeader
                 subtitle={resolved.subtitle}
                 title={resolved.title}
                 description={resolved.description}
+                titleClass='text-[3.125rem] md:text-[5rem]'
+                subtitleClass='font-normal text-xl md:text-[2.125rem]'
+
                 align="left"
               />
 
@@ -53,19 +56,19 @@ const TimelineSection: React.FC<TimelineSectionProps> = ({ resolved }) => {
             </div>
 
             <Fade delay={0.3}>
-              <div className="mt-10 lg:mt-24">
+              <div className="mt-10 lg:mt-10">
                 <h3 className="text-2xl md:text-[2rem] font-normal text-black mb-3 tracking-tight">
                   {resolved.consultationTitle}
                 </h3>
-                <p className="text-sm md:text-xl leading-tight tracking-tight max-w-md">
+                <p className="text-sm md:text-xl leading-[1] tracking-tight max-w-md">
                   {resolved.consultationText}
                 </p>
               </div>
             </Fade>
           </div>
 
-          <div className="lg:sticky lg:top-28 md:flex justify-center hidden">
-            <div className="relative w-full aspect-[4/5]  max-w-[660px] rounded-[20px] overflow-hidden shadow-md">
+          <div className="lg:sticky lg:top-20 md:flex justify-center hidden">
+            <div className="relative w-full aspect-[6/7]  max-w-[660px] rounded-[20px] overflow-hidden shadow-md">
               {resolved.image ? (
                 <Image
                   src={resolved.image.src}

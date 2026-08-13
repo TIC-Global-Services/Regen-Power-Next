@@ -14,13 +14,6 @@ interface SectionHeaderProps {
   badge?: string;
 }
 
-const hasSizeClass = (cls: string) => {
-  return cls.split(' ').some(c => {
-    const clean = c.replace(/^(sm|md|lg|xl|2xl):/, '');
-    return clean.startsWith('text-') && !clean.match(/^text-(black|white|gray|red|blue|green|yellow|slate|zinc|neutral|stone|orange|amber|lime|emerald|teal|cyan|sky|indigo|violet|purple|fuchsia|pink|rose|inherit|current|transparent|\[#)/);
-  });
-};
-
 const SectionHeader: React.FC<SectionHeaderProps> = ({
   subtitle,
   title,
@@ -35,29 +28,26 @@ const SectionHeader: React.FC<SectionHeaderProps> = ({
   const alignClass = align === 'left' ? 'text-left' : align === 'right' ? 'text-right' : 'text-center mx-auto';
   const containerAlign = align === 'left' ? 'items-start' : align === 'right' ? 'items-end' : 'items-center';
 
-  const defaultSubtitleSize = hasSizeClass(subtitleClass) ? '' : 'text-lg md:text-[2.125rem]';
-  const defaultTitleSize = hasSizeClass(titleClass) ? '' : 'text-3xl md:text-4xl lg:text-[5rem]';
-
   return (
     <div className={`w-full flex flex-col capitalize ${containerAlign} ${alignClass} ${className}`}>
       <Reveal>
         {badge && (
-          <span className="mb-2 inline-flex rounded-full bg-[#E5DDD8] px-5 py-2 text-xs font-medium uppercase tracking-tight  text-black">
+          <span className="mb-2 inline-flex rounded-full bg-[#E1D9D4] px-5 py-2 text-xs font-normal uppercase tracking-tight  text-black">
             {badge}
           </span>
         )}
         {subtitle && (
-          <p className={`${defaultSubtitleSize} leading-none tracking-tight font-normal block ${subtitleClass}`}>
+          <p className={`${subtitleClass || 'text-lg md:text-2xl'} leading-[1] tracking-tight font-normal block`}>
             {subtitle}
           </p>
         )}
-        <h2 className={` ${defaultTitleSize} ${titleClass} text-[2.5rem] text-[#63B846] tracking-tight leading-none font-normal `}>
+        <h2 className={`${titleClass || 'text-3xl md:text-[5rem]'} text-[#63B846] tracking-tight leading-[1] font-normal mb-4`}>
           {title}
         </h2>
       </Reveal>
       {description && (
         <Fade delay={0.2}>
-          <p className={`${descClass} text-base leading-tight tracking-tight mt-4 max-w-3xl `}>
+          <p className={`text-sm leading-tight tracking-tight max-w-3xl ${descClass}`}>
             {description}
           </p>
         </Fade>

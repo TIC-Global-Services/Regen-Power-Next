@@ -5,6 +5,7 @@ import { Hotspot } from "./Hotspot";
 import { GuideTour, TOUR } from "./GuideTour";
 import { LoadingScreen } from "./LoadingScreen";
 import { ChargingIcon, SolarIcon, BackIcon } from "./icons";
+import { CtaIcon } from "@/components/icons/CtaIcons";
 import CtaButton from "@/reuseables/CtaButton";
 import {
   PointNum,
@@ -237,7 +238,8 @@ export default function VideoHotspotExperience({
               href={ctaLink}
               text={ctaText}
               textColor={ctaTextColor}
-              iconTextColor={ctaTextColor === "text-white" ? "text-white" : "text-black"}
+              icon={CtaIcon}
+              iconTextColor="text-white"
             />
           </div>
         </div>

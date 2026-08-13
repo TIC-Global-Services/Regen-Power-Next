@@ -3,6 +3,7 @@ import React from 'react';
 import type { StaticImageData } from 'next/image';
 import { LucideIcon } from 'lucide-react';
 import CtaButton from './CtaButton';
+import { CtaIcon } from '@/components/icons/CtaIcons';
 
 export interface HeroProps {
     mediaSrc: string | StaticImageData;
@@ -35,12 +36,12 @@ const Hero: React.FC<HeroProps> = ({
     CtatextColor = 'text-white',
     imageClass = 'object-cover',
     isFullScreen = true,
-    subtitleColor = 'text-black',
-    descriptionColor = 'text-black',
+    subtitleColor = 'text-white',
+    descriptionColor = 'text-white',
     showOverlay = false,
     titleColor,
     heightClass,
-    icon,
+    icon = CtaIcon,
 }) => {
     const height = heightClass || (isFullScreen ? 'h-screen min-h-[600px]' : 'md:h-[600px]');
     return (
@@ -70,12 +71,12 @@ const Hero: React.FC<HeroProps> = ({
             )}
 
             {/* Content Area */}
-            <div className="relative z-10 w-full px-[5%] flex flex-col md:flex-row md:items-end justify-between gap-8 pt-32">
+            <div className="relative z-10 w-full px-[5%] flex flex-col md:flex-row md:items-end justify-between gap-8 pt-20 pb-10 ">
                 <div className="max-w-3xl capitalize">
                     <p className={`text-2xl md:text-3xl font-light tracking-tight drop-shadow-md leading-[1]] ${subtitleColor}`}>
                         {topSubtitle}
                     </p>
-                    <h1 className={`text-5xl md:text-7xl lg:text-[3.750rem] font-medium leading-[1] tracking-tight drop-shadow-md mb-4 ${titleColor || 'text-[#8dc63f]'}`}>
+                    <h1 className={`text-5xl md:text-7xl lg:text-[3.750rem] font-medium leading-[1] tracking-tight drop-shadow-md mb-2 ${titleColor || 'text-[#8dc63f]'}`}>
                         {mainTitle}
                     </h1>
                     <div className={`text-base md:text-xl leading-[1.2] max-w-3xl font-light tracking-tight drop-shadow-sm ${descriptionColor}`}>
@@ -90,6 +91,7 @@ const Hero: React.FC<HeroProps> = ({
                         text={ctaText}
                         textColor={CtatextColor}
                         icon={icon}
+                        iconTextColor="text-white"
                     />
                 </div>
             </div>

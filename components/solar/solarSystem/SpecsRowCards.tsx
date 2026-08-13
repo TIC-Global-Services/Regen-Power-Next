@@ -22,7 +22,9 @@ const SpecsRowCards: React.FC<SpecsRowCardsProps> = ({ resolved }) => {
           title={resolved.title}
           description={resolved.description}
           align="left"
-          descClass="max-w-2xl text-base leading-none"
+          titleClass="text-[3.125rem] md:text-[5rem]"
+          subtitleClass="text-xl md:text-[2.125rem] text-black capitalize"
+          descClass="max-w-2xl"
           className="mb-16"
         />
 
@@ -40,11 +42,11 @@ const SpecsRowCards: React.FC<SpecsRowCardsProps> = ({ resolved }) => {
                       </h3>
                     </div>
 
-                    <div className="flex-grow max-w-md">
+                    <div className="flex-grow max-w-sm">
                       <span className="text-xl md:text-2xl text-black block mb-1 md:mb-3 font-[var(--font-aeonik)]">
                         {spec.value}
                       </span>
-                      <p className="text-sm md:text-base leading-tight">
+                      <p className="text-sm md:text-base tracking-tight leading-tight">
                         {spec.description}
                       </p>
                     </div>
