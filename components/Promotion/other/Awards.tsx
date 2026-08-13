@@ -2,6 +2,7 @@
 
 import React from 'react';
 import Fade from '@/reuseables/fade';
+import Reveal from '@/reuseables/Reveal';
 
 export interface AwardItem {
   id: string;
@@ -34,8 +35,9 @@ const Awards = ({
         <div className="max-w-6xl mx-auto">
           {/* Flex row on tablet and desktop, vertical flex on mobile */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-3 max-w-4xl mx-auto">
-            {awards.map((award) => (
-              <div 
+            {awards.map((award,i) => (
+              <Reveal delay={i*0.5} key={i}>
+                <div 
                 key={award.id} 
                 className="flex flex-col items-center text-center group"
               >
@@ -63,6 +65,7 @@ const Awards = ({
                   </p>
                 )}
               </div>
+              </Reveal>
             ))}
           </div>
         </div>

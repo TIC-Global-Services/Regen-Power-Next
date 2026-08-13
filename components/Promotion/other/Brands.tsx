@@ -47,7 +47,7 @@ const Brands = ({
 
   return (
     <section className="bg-white py-16 md:py-24 px-4 md:px-[5%] w-full border-t border-gray-100">
-      <Fade>
+      <Fade duration={5}>
         <div className="max-w-7xl mx-auto">
           {/* Header */}
           <div className="text-center mb-12 max-w-4xl mx-auto">

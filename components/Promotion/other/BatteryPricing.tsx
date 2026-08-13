@@ -205,7 +205,7 @@ const BatteryPricing = ({
         backgroundImage: `url('${backgroundImage}')`,
       }}
     >
-      <Fade>
+      <Fade duration={5}>
         <div className="z-10 relative">
           {/* 3-column grid: Card | Image | Card */}
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 md:gap-0 items-center">

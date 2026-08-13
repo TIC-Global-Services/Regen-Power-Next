@@ -28,7 +28,7 @@ interface WhyChooseUsProps {
   data: WhyChooseUsData;
 }
 
-const AnimatedCounter = ({ from, to }: { from: number; to: number }) => {
+export const AnimatedCounter = ({ from, to }: { from: number; to: number }) => {
   const ref = useRef<HTMLSpanElement>(null);
   const inView = useInView(ref, { once: true, margin: "-100px" });
   const count = useMotionValue(from);

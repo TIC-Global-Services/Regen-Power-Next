@@ -60,7 +60,7 @@ const FreeQuotation = ({ data }: { data: FreeQuotationProps }) => {
 
   return (
     <section className="bg-white py-16 md:py-20 px-[5%]">
-      <Fade>
+      <Fade duration={5}>
         <div className="">
           {/* Header section with split title and notice text */}
           <div className="text-center mb-10">

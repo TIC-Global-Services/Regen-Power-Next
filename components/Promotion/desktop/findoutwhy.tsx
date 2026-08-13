@@ -1,6 +1,7 @@
 import React from 'react';
 import Fade from '@/reuseables/fade';
 import { Star } from 'lucide-react';
+import Reveal from '@/reuseables/Reveal';
 
 export interface Award {
   image: string;
@@ -26,7 +27,7 @@ const FindOutWhy = ({ data }: { data: FindOutWhyProps }) => {
 
   return (
     <section className="bg-white py-16 md:py-20 px-[5%]">
-      <Fade>
+      <Fade duration={5}>
         <div className="">
           {/* Header & Rating Summary */}
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start mb-16">
@@ -78,8 +79,8 @@ const FindOutWhy = ({ data }: { data: FindOutWhyProps }) => {
           {/* Testimonial Cards */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-4">
             {data.reviews?.map((item, idx) => (
-              <div
-                key={idx}
+              <Reveal key={idx}>
+                <div
                 className="bg-[#EEF6EB] rounded-[10px] p-6 md:p-8 flex flex-col justify-between"
               >
                 <div>
@@ -103,6 +104,7 @@ const FindOutWhy = ({ data }: { data: FindOutWhyProps }) => {
                   </p>
                 </div>
               </div>
+              </Reveal>
             ))}
           </div>
         </div>

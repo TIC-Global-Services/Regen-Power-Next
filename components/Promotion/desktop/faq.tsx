@@ -71,7 +71,7 @@ const FAQ = ({ data }: { data: FaqProps }) => {
 
   return (
     <section className="bg-white py-16 md:py-20 px-[5%]">
-      <Fade>
+      <Fade duration={5}>
         <div className="">
           {/* Header */}
           <div className="text-center  mb-16">

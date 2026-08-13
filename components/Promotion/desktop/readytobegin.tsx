@@ -111,7 +111,7 @@ const ReadyToBegin = ({ data }: { data: ReadyToBeginProps }) => {
 
   return (
     <section className="bg-white py-16 md:py-20 px-[5%] border-t border-gray-100">
-      <Fade>
+      <Fade duration={5}>
         <div>
           {/* Header section with split title and notice text */}
           <div className="text-center max-w-5xl mx-auto mb-10">

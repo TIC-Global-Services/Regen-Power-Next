@@ -67,7 +67,7 @@ const QuoteForm = ({
 
   return (
     <section className="bg-white py-10 md:py-24 px-4 md:px-[5%] w-full">
-      <Fade>
+      <Fade duration={5}>
         <div className="max-w-3xl mx-auto">
           {/* Header */}
           <div className="text-center mb-10">
