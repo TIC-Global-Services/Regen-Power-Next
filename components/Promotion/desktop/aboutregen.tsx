@@ -44,7 +44,7 @@ const AboutRegen = ({ data }: { data: AboutRegenProps }) => {
                   </>
                 ) : (
                   <iframe
-                    src={"https://player.vimeo.com/video/810074456?h=62919e7375"}
+                    src={"https://player.vimeo.com/video/960269967?h=385e5e0fef"}
                     className='object-cover h-full w-full'
                     allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share'
                     allowFullScreen
