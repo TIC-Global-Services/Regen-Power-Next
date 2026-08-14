@@ -118,7 +118,7 @@ const BatterySplitSection = ({ data }: { data: BatterySplitData }) => {
                       <h4 className="text-lg md:text-xl font-semibold text-black mb-1 tracking-tight">
                         {block.title}
                       </h4>
-                      <p className="text-base md:text-xl font-normal leading-[1] tracking-tight text-black">
+                      <p className="text-base md:text-xl font-normal leading-[1] tracking-tight text-black whitespace-pre-line">
                         {block.description}
                       </p>
                     </div>

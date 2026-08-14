@@ -206,7 +206,6 @@ export function resolveBatteryBrandsGrid(
 export interface ResolvedInstallBentoBlock {
   title: string;
   description: string;
-  theme: "white" | "dark" | "light";
 }
 export interface ResolvedSmartInstallBento {
   title: string;
@@ -223,7 +222,6 @@ export function resolveSmartInstallBento(
     blocks: (data.blocks ?? []).map((b) => ({
       title: b.title,
       description: b.description,
-      theme: b.theme,
     })),
   };
 }

@@ -6,7 +6,6 @@ import { motion, AnimatePresence } from 'framer-motion';
 export interface MeaningCard {
   title: string;
   description: string;
-  isPrimary?: boolean;
 }
 
 export interface SolarBatteryMeaningData {

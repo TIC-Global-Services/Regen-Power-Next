@@ -163,14 +163,16 @@ const GovernmentRebatesPage = async () => {
       )}
 
       {ctaBannerProps && (
-        <GetSolar
-          subtitle={ctaBannerProps.subtitle}
-          mainTitle={ctaBannerProps.mainTitle}
-          description={ctaBannerProps.description}
-          buttonText={ctaBannerProps.buttonText}
-          buttonHref={ctaBannerProps.buttonHref}
-          bgImage={ctaBannerProps.bgImage || forYourHome}
-        />
+        <div id="quote" className="scroll-mt-20">
+          <GetSolar
+            subtitle={ctaBannerProps.subtitle}
+            mainTitle={ctaBannerProps.mainTitle}
+            description={ctaBannerProps.description}
+            buttonText={ctaBannerProps.buttonText}
+            buttonHref={ctaBannerProps.buttonHref}
+            bgImage={ctaBannerProps.bgImage || forYourHome}
+          />
+        </div>
       )}
     </main>
   );

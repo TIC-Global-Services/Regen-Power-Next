@@ -158,7 +158,6 @@ export interface ResolvedRangeCard {
 export interface ResolvedBatteryRangeGrid {
   topSubtitle: string;
   title: string;
-  description?: string;
   batteries: ResolvedRangeCard[];
 }
 export function resolveBatteryRangeGrid(
@@ -168,7 +167,6 @@ export function resolveBatteryRangeGrid(
   return {
     topSubtitle: data.topSubtitle ?? "",
     title: data.title ?? "",
-    description: data.description ?? undefined,
     batteries: (data.batteries ?? []).map((b) => ({
       title: b.title,
       description: b.description ?? undefined,
@@ -245,7 +243,6 @@ export function resolveGreatFit(
 export interface ResolvedMeaningCard {
   title: string;
   description: string;
-  isPrimary?: boolean;
 }
 export interface ResolvedSolarBatteryMeaning {
   topSubtitle: string;
@@ -264,7 +261,6 @@ export function resolveSolarBatteryMeaning(
     cards: (data.cards ?? []).map((card) => ({
       title: card.title,
       description: card.description,
-      isPrimary: card.isPrimary ?? false,
     })),
   };
 }
@@ -341,6 +337,7 @@ export interface ResolvedCustomerStories {
   stories: ResolvedStoryCard[];
   centerButton?: boolean;
   centerButtonText?: string;
+  centerButtonLink?: string;
 }
 export function resolveCustomerStories(
   data: BatteryStorageCustomerStoriesData | undefined
@@ -358,6 +355,7 @@ export function resolveCustomerStories(
     centerButton: data.centerButton ?? true,
     centerButtonText:
       data.centerButtonText ?? "View our full portfolio of 113+ installs",
+    centerButtonLink: data.centerButtonLink ?? undefined,
   };
 }
 

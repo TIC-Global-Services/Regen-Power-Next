@@ -248,6 +248,9 @@ export interface ResolvedRebateDetailSplit {
   topBoxItems?: string[];
   bottomBoxTitle?: string;
   bottomBoxItems?: string[];
+  imagePosition?: "left" | "right";
+  ctaText?: string;
+  ctaLink?: string;
 }
 export function resolveRebateDetailSplit(
   data: RebateDetailSplitSectionData | undefined
@@ -263,6 +266,9 @@ export function resolveRebateDetailSplit(
     topBoxItems: (data.topBoxItems ?? []).map((i) => i.text),
     bottomBoxTitle: data.bottomBoxTitle ?? undefined,
     bottomBoxItems: (data.bottomBoxItems ?? []).map((i) => i.text),
+    imagePosition: data.imagePosition ?? "left",
+    ctaText: data.ctaText ?? undefined,
+    ctaLink: data.ctaLink ?? undefined,
   };
 }
 

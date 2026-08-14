@@ -34,6 +34,19 @@ export type BatteryStorageSimpleCardData = z.infer<
   typeof BatteryStorageSimpleCardSchema
 >;
 
+/**
+ * solar-meaning card — same shape as simple-card but WITHOUT `isPrimary`.
+ * That flag is only meaningful on capacity-blocks; the VPP section doesn't use it.
+ */
+export const BatteryStorageSolarMeaningCardSchema = z.object({
+  id: z.number(),
+  title: z.string(),
+  description: z.string(),
+});
+export type BatteryStorageSolarMeaningCardData = z.infer<
+  typeof BatteryStorageSolarMeaningCardSchema
+>;
+
 /** battery-storage.range-card */
 export const BatteryStorageRangeCardSchema = z.object({
   id: z.number(),
@@ -144,7 +157,6 @@ export const BatteryStorageRangeGridSchema = z.object({
   __component: z.literal("battery-storage.range-grid"),
   topSubtitle: z.string().nullable(),
   title: z.string().nullable(),
-  description: z.string().nullable(),
   batteries: z.array(BatteryStorageRangeCardSchema),
 });
 export type BatteryStorageRangeGridData = z.infer<
@@ -190,7 +202,7 @@ export const BatteryStorageSolarMeaningSchema = z.object({
   topSubtitle: z.string().nullable(),
   title: z.string().nullable(),
   description: z.string().nullable(),
-  cards: z.array(BatteryStorageSimpleCardSchema),
+  cards: z.array(BatteryStorageSolarMeaningCardSchema),
 });
 export type BatteryStorageSolarMeaningData = z.infer<
   typeof BatteryStorageSolarMeaningSchema
@@ -229,6 +241,7 @@ export const BatteryStorageCustomerStoriesSchema = z.object({
   stories: z.array(BatteryStorageStoryCardSchema),
   centerButton: z.boolean().nullable(),
   centerButtonText: z.string().nullable(),
+  centerButtonLink: z.string().nullable(),
 });
 export type BatteryStorageCustomerStoriesData = z.infer<
   typeof BatteryStorageCustomerStoriesSchema
