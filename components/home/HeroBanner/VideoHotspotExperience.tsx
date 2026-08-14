@@ -4,40 +4,28 @@ import { useRef, useState, useEffect } from "react";
 import { Hotspot } from "./Hotspot";
 import { GuideTour, TOUR } from "./GuideTour";
 import { LoadingScreen } from "./LoadingScreen";
-import { ChargingIcon, SolarIcon, BackIcon } from "./icons";
-import { CtaIcon } from "@/components/icons/CtaIcons";
-import CtaButton from "@/reuseables/CtaButton";
+import { ChargingIcon, SolarIcon, StoreIcon, BackIcon } from "./icons";
 import {
   PointNum,
   Step,
   HOME_SRC,
   POINT_SRC,
+  POINT_LOOP_SRC,
   POINT_REV_SRC,
   HOME_HOTSPOTS,
   BACK_HOTSPOT,
-  TAIL_SECONDS,
   SCENE_FADE_MS,
-  BOOMERANG_FADE_MS,
+  LOOP_FADE_MS,
   ALL_VIDEO_SRCS,
 } from "./scenes";
 
-interface VideoHotspotExperienceProps {
-  topSubtitle: React.ReactNode;
-  mainTitle: React.ReactNode;
-  description: React.ReactNode;
-  ctaText: string;
-  ctaLink: string;
-  ctaTextColor?: string;
-}
+const POINT_ICON = {
+  charging: <ChargingIcon />,
+  solar: <SolarIcon />,
+  store: <StoreIcon />,
+};
 
-export default function VideoHotspotExperience({
-  topSubtitle,
-  mainTitle,
-  description,
-  ctaText,
-  ctaLink,
-  ctaTextColor = "text-white",
-}: VideoHotspotExperienceProps) {
+export default function VideoHotspotExperience() {
   const videoRefs = [
     useRef<HTMLVideoElement>(null),
     useRef<HTMLVideoElement>(null),
@@ -52,7 +40,6 @@ export default function VideoHotspotExperience({
   const [loadedCount, setLoadedCount] = useState(0);
   const [ready, setReady] = useState(false);
   const [hideLoader, setHideLoader] = useState(false);
-  const [showText, setShowText] = useState(true);
 
   const switchLayer = (
     src: string,
@@ -131,7 +118,6 @@ export default function VideoHotspotExperience({
     stepRef.current = { kind: "forward", point };
     setUiMode("back");
     setUiPoint(point);
-    setShowText(false);
     switchLayer(POINT_SRC[point], false, 0, SCENE_FADE_MS);
   };
 
@@ -140,56 +126,23 @@ export default function VideoHotspotExperience({
     const step = stepRef.current;
 
     if (step.kind === "forward") {
-      // full play-through finished: start the boomerang, reverse leg first
-      stepRef.current = { kind: "boom-rev", point: step.point };
-      switchLayer(POINT_REV_SRC[step.point], false, 0, BOOMERANG_FADE_MS);
-    } else if (step.kind === "boom-fwd") {
-      // forward leg reached the real end of the clip: swing back into reverse
-      stepRef.current = { kind: "boom-rev", point: step.point };
-      switchLayer(POINT_REV_SRC[step.point], false, 0, BOOMERANG_FADE_MS);
+      // full play-through finished: settle into the seamless tail loop
+      stepRef.current = { kind: "loop", point: step.point };
+      switchLayer(POINT_LOOP_SRC[step.point], true, 0, LOOP_FADE_MS);
     } else if (step.kind === "reverse") {
       // fully reversed back to frame 0: go home
       stepRef.current = { kind: "home" };
       setUiMode("home");
       setUiPoint(null);
-      setShowText(true);
       switchLayer(HOME_SRC, true, 0, SCENE_FADE_MS);
     }
   };
 
-  const handleTimeUpdate = (idx: number) => {
-    if (idx !== activeIdxRef.current) return;
-    const step = stepRef.current;
-    if (step.kind !== "boom-rev") return;
-    const el = videoRefs[idx].current;
-    if (!el) return;
-    if (el.currentTime >= TAIL_SECONDS) {
-      const point = step.point;
-      stepRef.current = { kind: "boom-fwd", point };
-      switchLayer(
-        POINT_SRC[point],
-        false,
-        Math.max(el.duration - TAIL_SECONDS, 0),
-        BOOMERANG_FADE_MS,
-      );
-    }
-  };
-
   const handleBack = (point: PointNum) => {
-    const step = stepRef.current;
-    if (step.kind === "boom-fwd" || step.kind === "forward") {
-      const el = videoRefs[activeIdxRef.current].current;
-      if (!el) return;
-      const reverseStart = Math.max(el.duration - el.currentTime, 0);
-      stepRef.current = { kind: "reverse", point };
-      switchLayer(POINT_REV_SRC[point], false, reverseStart, BOOMERANG_FADE_MS);
-    } else if (step.kind === "boom-rev") {
-      // let the reverse clip run through to its real end (-> handleEnded -> home)
-      stepRef.current = { kind: "reverse", point };
-    }
+    stepRef.current = { kind: "reverse", point };
+    switchLayer(POINT_REV_SRC[point], false, 0, SCENE_FADE_MS);
     setUiMode("none");
     setUiPoint(null);
-    setShowText(true);
   };
 
   return (
@@ -207,43 +160,8 @@ export default function VideoHotspotExperience({
           muted
           autoPlay={i === 0}
           onEnded={() => handleEnded(i)}
-          onTimeUpdate={() => handleTimeUpdate(i)}
         />
       ))}
-
-      {/* Hero Text Content Overlay */}
-      {ready && (
-        <div
-          className={`absolute bottom-16 md:bottom-24 left-0 w-full z-10 px-[5%] flex flex-col md:flex-row md:items-end justify-between gap-8 pointer-events-none transition-all duration-700 ease-in-out ${
-            showText
-              ? "opacity-100 translate-y-0"
-              : "opacity-0 translate-y-8"
-          }`}
-        >
-          <div className="max-w-3xl">
-            <p className="text-2xl md:text-3xl font-light tracking-tighter drop-shadow-md text-white/90">
-              {topSubtitle}
-            </p>
-            <h1 className="text-5xl md:text-7xl lg:text-[3.750rem] font-medium mb-2 leading-none tracking-tight drop-shadow-md text-[#63B846]">
-              {mainTitle}
-            </h1>
-            <div className="text-base md:text-xl leading-[1.2] max-w-xl font-light tracking-tight drop-shadow-sm text-white/80 whitespace-pre-line">
-              {description}
-            </div>
-          </div>
-
-          {/* CTA Button — uniform green hover + arrow animation */}
-          <div className="flex-shrink-0 pb-2 pointer-events-auto">
-            <CtaButton
-              href={ctaLink}
-              text={ctaText}
-              textColor={ctaTextColor}
-              icon={CtaIcon}
-              iconTextColor="text-white"
-            />
-          </div>
-        </div>
-      )}
 
       {ready &&
         uiMode === "home" &&
@@ -253,7 +171,7 @@ export default function VideoHotspotExperience({
             x={h.x}
             y={h.y}
             label={h.label}
-            icon={h.icon === "charging" ? <ChargingIcon /> : <SolarIcon />}
+            icon={POINT_ICON[h.icon]}
             floatDelay={i * 0.35}
             onClick={() => goToPoint(h.point)}
           />

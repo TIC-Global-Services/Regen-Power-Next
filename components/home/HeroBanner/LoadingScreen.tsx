@@ -11,7 +11,7 @@ export function LoadingScreen({
         fadeOut ? "opacity-0 pointer-events-none" : "opacity-100"
       }`}
     >
-      <div
+     <div
         style={{ animation: "guide-in 0.4s cubic-bezier(0.16,1,0.3,1)" }}
         className="flex w-56 flex-col items-center gap-3"
       >

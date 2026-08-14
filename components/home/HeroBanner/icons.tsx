@@ -32,6 +32,27 @@ export function SolarIcon() {
   );
 }
 
+export function StoreIcon() {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" className="h-4 w-4">
+      <path
+        d="M4 10 5 4h14l1 6"
+        stroke="currentColor"
+        strokeWidth="1.6"
+        strokeLinejoin="round"
+      />
+      <path
+        d="M4 10a2.5 2.5 0 0 0 5 0 2.5 2.5 0 0 0 5 0 2.5 2.5 0 0 0 5 0"
+        stroke="currentColor"
+        strokeWidth="1.6"
+        strokeLinejoin="round"
+      />
+      <path d="M5 10.5V20h14v-9.5" stroke="currentColor" strokeWidth="1.6" strokeLinejoin="round" />
+      <path d="M10 20v-5.5h4V20" stroke="currentColor" strokeWidth="1.6" strokeLinejoin="round" />
+    </svg>
+  );
+}
+
 export function BackIcon() {
   return (
     <svg viewBox="0 0 24 24" fill="none" className="h-4 w-4">

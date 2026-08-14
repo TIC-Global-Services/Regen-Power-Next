@@ -1,6 +1,6 @@
 "use client";
 
-import { ChargingIcon, SolarIcon, TapIcon } from "./icons";
+import { ChargingIcon, SolarIcon, StoreIcon, TapIcon } from "./icons";
 import { HOME_HOTSPOTS } from "./scenes";
 
 export type TourStop = {
@@ -28,6 +28,12 @@ export const TOUR: TourStop[] = [
     title: "Solar Panel",
     body: "Tap this point to look closer.",
     target: { x: HOME_HOTSPOTS[1].x, y: HOME_HOTSPOTS[1].y },
+  },
+  {
+    icon: <StoreIcon />,
+    title: "Store Room",
+    body: "Tap this point to look closer.",
+    target: { x: HOME_HOTSPOTS[2].x, y: HOME_HOTSPOTS[2].y },
   },
 ];
 
