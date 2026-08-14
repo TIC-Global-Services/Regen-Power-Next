@@ -1,10 +1,11 @@
 import React from 'react';
 import Image, { StaticImageData } from 'next/image';
+import businessBg from '@/assets/home/zerointrest/businessBg.jpg';
 
 export interface BrandMatterCard {
   title: string;
   description: string;
-  image: StaticImageData | string;
+  image: StaticImageData | string | null;
 }
 
 export interface BatteryBrandMattersData {
@@ -42,7 +43,7 @@ const BatteryBrandMatters = ({ data }: { data: BatteryBrandMattersData }) => {
             >
               {/* Background Image */}
               <Image
-                src={card.image}
+                src={card.image ?? businessBg}
                 alt={card.title}
                 fill
                 className="object-cover transition-transform duration-700 group-hover:scale-105"
@@ -73,7 +74,7 @@ const BatteryBrandMatters = ({ data }: { data: BatteryBrandMattersData }) => {
             >
               {/* Background Image */}
               <Image
-                src={card.image}
+                src={card.image ?? businessBg}
                 alt={card.title}
                 fill
                 className="object-cover transition-transform duration-700 group-hover:scale-105"

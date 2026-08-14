@@ -166,9 +166,6 @@ export interface ResolvedBatteryBrandItem {
   link?: string;
 }
 export interface ResolvedOurBrands {
-  topSubtitle?: string;
-  title?: string;
-  description?: string;
   brands: ResolvedBatteryBrandItem[];
 }
 export function resolveOurBrands(
@@ -176,9 +173,6 @@ export function resolveOurBrands(
 ): ResolvedOurBrands | null {
   if (!data) return null;
   return {
-    topSubtitle: data.topSubtitle ?? undefined,
-    title: data.title ?? undefined,
-    description: data.description ?? undefined,
     brands: (data.brands ?? []).map((brand) => ({
       title: brand.title,
       logo: brand.logo ? (strapiImageData(brand.logo)?.src ?? null) : null,

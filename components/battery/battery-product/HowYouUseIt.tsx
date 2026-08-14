@@ -6,7 +6,6 @@ export interface HowYouUseItCard {
     id?: string | number;
     title: string;
     description: string;
-    isFeatured?: boolean;
 }
 
 export interface HowYouUseItData {

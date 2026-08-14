@@ -34,7 +34,7 @@ const SpecTable: React.FC<SpecTableProps> = ({
                   key={idx}
                   className={`bg-[#EEF6EB]/60 p-2 text-black font-normal text-xl tracking-tight border-b border-black ${
                     isLastCol ? "" : "border-r"
-                  } overflow-hidden `}
+                  } overflow-hidden whitespace-pre-line `}
                 >
                   {col.title}
                 </th>

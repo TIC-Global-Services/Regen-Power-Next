@@ -1,11 +1,12 @@
 import React from 'react';
 import { StaticImageData } from 'next/image';
 import FeatureCardGrid, { FeatureCardItem } from '@/reuseables/FeatureCardGrid';
+import businessBg from '@/assets/home/zerointrest/businessBg.jpg';
 
 export interface HomeownerStory {
   title: string;
   description?: string;
-  image: StaticImageData | string;
+  image: StaticImageData | string | null;
   footerTitle?: string;
   footerDescription?: string;
 }
@@ -23,7 +24,7 @@ const Homeowners = ({ data }: { data: HomeownersData }) => {
   const mappedCards: FeatureCardItem[] = data.stories.map((story) => ({
     title: story.title,
     description: story.description ?? '',
-    image: story.image,
+    image: story.image ?? businessBg,
     textPosition: 'top',
     footerTitle: story.footerTitle,
     footerDescription: story.footerDescription,

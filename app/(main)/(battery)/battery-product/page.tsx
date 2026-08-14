@@ -50,9 +50,6 @@ import RightSizing from "@/components/battery/battery-product/RightSizing";
 
 import heroBanner from "@/assets/evcharging/hero_banner.png";
 import businessBg from "@/assets/home/zerointrest/businessBg.jpg";
-import productReviewBg from "@/assets/home/zerointrest/productReviewBg.png";
-import productReviewRating from "@/assets/home/zerointrest/productReviewRating.png";
-import forYourHome from "@/assets/for_your_home.png";
 
 export const revalidate = 60;
 
@@ -110,34 +107,13 @@ const BatteryProductPage = async () => {
 
       {marqueeProps && <BatteryMarquee data={marqueeProps} />}
 
-      {brandMattersProps && (
-        <BatteryBrandMatters
-          data={{
-            ...brandMattersProps,
-            cards: brandMattersProps.cards.map((card) => ({
-              ...card,
-              image: card.image || businessBg,
-            })),
-          }}
-        />
-      )}
+      {brandMattersProps && <BatteryBrandMatters data={brandMattersProps} />}
 
       {howYouUseItProps && <HowYouUseIt data={howYouUseItProps} />}
 
       {rightSizingProps && <RightSizing data={rightSizingProps} />}
 
-      {ourBrandsProps && (
-        <OurBatterybrands
-          data={{
-            ...ourBrandsProps,
-            brands: ourBrandsProps.brands.map((brand) => ({
-              ...brand,
-              logo: brand.logo || undefined,
-              image: brand.image || heroBanner,
-            })),
-          }}
-        />
-      )}
+      {ourBrandsProps && <OurBatterybrands data={ourBrandsProps} />}
 
       {comparisonProps && <SpecsTableSection resolved={comparisonProps} />}
 
@@ -164,27 +140,9 @@ const BatteryProductPage = async () => {
         />
       )}
 
-      {zeroInterestProps && (
-        <ZeroInterest
-          data={{
-            ...zeroInterestProps,
-            topImage: zeroInterestProps.topImage || productReviewBg,
-            bottomImage: zeroInterestProps.bottomImage || businessBg,
-          }}
-        />
-      )}
+      {zeroInterestProps && <ZeroInterest data={zeroInterestProps} />}
 
-      {homeownersProps && (
-        <Homeowners
-          data={{
-            ...homeownersProps,
-            stories: homeownersProps.stories.map((story) => ({
-              ...story,
-              image: story.image || businessBg,
-            })),
-          }}
-        />
-      )}
+      {homeownersProps && <Homeowners data={homeownersProps} />}
 
       {ctaBannerProps && (
         <GetSolar
