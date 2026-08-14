@@ -47,7 +47,7 @@ const Hero = ({
         className="absolute inset-0 z-0 h-full w-full object-cover object-center"
       />
       <Fade>
-        <div className="relative z-10 max-w-4xl mx-auto flex flex-col items-center justify-center">
+        <div className="relative z-10 max-w-4xl mx-auto flex flex-col items-center justify-start md:justify-center">
           {/* Main Title */}
           <h1 className="text-6xl font-black text-black leading-none tracking-tight drop-shadow-md">
             {title}
