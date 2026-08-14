@@ -155,6 +155,7 @@ export function resolveBrandsInvertersSlider(
 export interface ResolvedBrandsCriteriaItem {
   title: string;
   description: string;
+  image: StrapiImageData | null;
 }
 export interface ResolvedBrandsCriteriaList {
   subtitle: string;
@@ -173,6 +174,7 @@ export function resolveBrandsCriteriaList(
     items: (data.items ?? []).map((item) => ({
       title: item.title,
       description: item.description,
+      image: item.image ? strapiImageData(item.image) : null,
     })),
   };
 }

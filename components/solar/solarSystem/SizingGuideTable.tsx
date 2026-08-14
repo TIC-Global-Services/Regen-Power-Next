@@ -4,14 +4,15 @@ import Reveal from "@/reuseables/Reveal";
 import CtaButton from "@/reuseables/CtaButton";
 import SectionHeader from "@/reuseables/SectionHeader";
 import MissingImage from "@/reuseables/MissingImage";
-import type { ResolvedSolarSizingGuide } from "@/lib/strapi/resolvers/solar";
+import type { ResolvedSolarSizingGuideTable } from "@/lib/strapi/resolvers/solar";
 
-interface SizingGuideProps {
-  resolved: ResolvedSolarSizingGuide;
+interface SizingGuideTableProps {
+  resolved: ResolvedSolarSizingGuideTable;
 }
 
-const SizingGuide: React.FC<SizingGuideProps> = ({ resolved }) => {
-  const tableRows = resolved.tableRows;
+const SizingGuideTable: React.FC<SizingGuideTableProps> = ({ resolved }) => {
+  const columns = resolved.columns;
+  const rows = resolved.rows;
   const sizingCards = resolved.sizingCards;
 
   return (
@@ -22,6 +23,8 @@ const SizingGuide: React.FC<SizingGuideProps> = ({ resolved }) => {
           title={resolved.title}
           description={resolved.description}
           align="center"
+          titleClass="text-[3.125rem] md:text-[5rem]"
+          subtitleClass="font-normal text-xl md:text-[2.125rem]"
           descClass="max-w-3xl"
           className="mx-auto mb-8"
         />
@@ -36,26 +39,57 @@ const SizingGuide: React.FC<SizingGuideProps> = ({ resolved }) => {
           </Reveal>
         </div>
 
-        {tableRows.length > 0 ? (
-          <div className="overflow-x-auto rounded-[24px] mt-12 mb-16 max-w-4xl mx-auto overflow-hidden">
+        {rows.length > 0 ? (
+          <div className="overflow-x-auto rounded-[24px] mt-12 mb-16 max-w-5xl mx-auto overflow-hidden">
             <table className="w-full border-collapse text-center bg-white">
               <thead>
-                <tr className="bg-[#A0CF44] text-black font-[var(--font-aeonik)]">
-                  <th className="p-5 text-lg md:text-2xl font-normal border-r border-b border-black w-1/4">Daily use</th>
-                  <th className="p-5 text-lg md:text-2xl font-normal border-r border-b border-black w-1/4">Recommended size</th>
-                  <th className="p-5 text-lg md:text-2xl font-normal border-r border-b border-black w-1/4">Typical household</th>
-                  <th className="p-5 text-lg md:text-2xl font-normal border-b border-black w-1/4">Phase required</th>
+                <tr className="bg-[#A0CF44] text-black font-[var(--font-aeonik)] h-[120px]">
+                  <th className="p-5 text-lg md:text-2xl font-normal border-r border-b border-black w-1/4 align-middle">
+                    {resolved.labelColumnTitle || "Daily Use"}
+                  </th>
+                  {columns.map((col, idx) => {
+                    const isLastCol = idx === columns.length - 1;
+                    return (
+                      <th
+                        key={idx}
+                        className={`p-5 text-lg md:text-2xl font-normal border-b border-black w-1/4 align-middle ${
+                          isLastCol ? "" : "border-r"
+                        }`}
+                      >
+                        {col.title}
+                      </th>
+                    );
+                  })}
                 </tr>
               </thead>
               <tbody>
-                {tableRows.map((row, idx) => {
-                  const isLastRow = idx === tableRows.length - 1;
+                {rows.map((row, rIdx) => {
+                  const isLastRow = rIdx === rows.length - 1;
                   return (
-                    <tr key={idx} className="bg-[#EEF6EB]">
-                      <td className={`p-5 text-xl text-black border-r border-black ${isLastRow ? "" : "border-b"}`}>{row.dailyUse}</td>
-                      <td className={`p-5 text-xl text-black border-r border-black ${isLastRow ? "" : "border-b"}`}>{row.recommendedSize}</td>
-                      <td className={`p-5 text-xl text-black font-light border-r border-black ${isLastRow ? "" : "border-b"}`}>{row.typicalHousehold}</td>
-                      <td className={`p-5 text-xl text-black font-light ${isLastRow ? "" : "border-b border-black"}`}>{row.phaseRequired}</td>
+                    <tr key={rIdx} className="bg-[#EEF6EB] h-[120px]">
+                      <td
+                        className={`p-5 text-xl text-black border-r border-black align-middle ${
+                          isLastRow ? "" : "border-b"
+                        }`}
+                      >
+                        {row.label}
+                      </td>
+                      {columns.map((col, idx) => {
+                        const isLastCol = idx === columns.length - 1;
+                        const value = row.values[idx]?.text ?? "";
+                        return (
+                          <td
+                            key={idx}
+                            className={`p-5 text-xl text-black align-middle ${
+                              idx === 0 ? "" : "font-light"
+                            } border-black ${isLastRow ? "" : "border-b"} ${
+                              isLastCol ? "" : "border-r"
+                            }`}
+                          >
+                            {value}
+                          </td>
+                        );
+                      })}
                     </tr>
                   );
                 })}
@@ -112,7 +146,7 @@ const SizingGuide: React.FC<SizingGuideProps> = ({ resolved }) => {
                 <Reveal
                   key={idx}
                   delay={idx * 0.15}
-                  className="relative flex flex-col justify-end rounded-[24px] overflow-hidden group min-h-[48dvh]"
+                  className="relative flex flex-col justify-end rounded-[24px] overflow-hidden group min-h-[400px] max-w-full md:w-[320px]"
                 >
                   <div className="absolute inset-0 z-0">
                     {card.image ? (
@@ -152,4 +186,4 @@ const SizingGuide: React.FC<SizingGuideProps> = ({ resolved }) => {
   );
 };
 
-export default SizingGuide;
+export default SizingGuideTable;

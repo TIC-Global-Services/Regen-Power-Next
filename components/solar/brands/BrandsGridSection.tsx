@@ -56,8 +56,8 @@ const BrandsGridSection: React.FC<BrandsGridSectionProps> = ({ resolved }) => {
       columns={columns}
       align="center"
       className="border-t border-gray-50"
-      spacerHeightClass="h-[310px]"
-      cardHeightClass="h-[310px] md:h-[320px]"
+      spacerHeightClass="h-[280px]"
+      cardHeightClass="h-[250px] md:h-[280px]"
     />
   );
 };

@@ -79,6 +79,7 @@ export const BrandsCriteriaItemSchema = z.object({
   id: z.number(),
   title: z.string(),
   description: z.string(),
+  image: MediaSchema.nullable(),
 });
 
 export const BrandsCriteriaListSchema = z.object({

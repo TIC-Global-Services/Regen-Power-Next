@@ -25,7 +25,9 @@ const SolarPackages: React.FC<SolarPackagesProps> = ({ resolved }) => {
           title={resolved.title}
           description={resolved.description}
           align="center"
-          descClass="max-w-6xl"
+          titleClass="text-[3.125rem] md:text-[5rem]"
+          subtitleClass="font-normal text-xl md:text-[2.125rem]"
+          descClass="max-w-5xl"
           className="mx-auto mb-16"
         />
 
@@ -35,7 +37,7 @@ const SolarPackages: React.FC<SolarPackagesProps> = ({ resolved }) => {
             <Reveal
               key={idx}
               delay={idx * 0.1}
-              className={`rounded-[20px] p-8 md:p-10 flex flex-col justify-start shadow-sm transition-all duration-300 hover:shadow-lg w-full h-full lg:h-[540px] overflow-hidden mx-auto
+              className={`rounded-[20px] p-8 md:p-10 flex flex-col justify-start shadow-sm transition-all duration-300 hover:shadow-lg w-full h-full lg:max-h-[540px] overflow-hidden mx-auto
                 ${pkg.bgClass}
               `}
             >
@@ -53,10 +55,10 @@ const SolarPackages: React.FC<SolarPackagesProps> = ({ resolved }) => {
               <div className="space-y-2 flex-grow">
                 {pkg.items.map((item, itemIdx) => (
                   <div key={itemIdx}>
-                    <h4 className="text-xl font-bold text-black mb-0.5">
+                    <h4 className="text-xl font-bold text-black mb-2">
                       {item.label}
                     </h4>
-                    <p className="text-sm md:text-base leading-snug text-black/80 font-normal">
+                    <p className="text-sm md:text-base leading-tight text-black font-normal">
                       {item.value}
                     </p>
                   </div>

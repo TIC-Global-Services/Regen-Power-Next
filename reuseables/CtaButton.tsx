@@ -32,7 +32,7 @@ const CtaButton: React.FC<CtaButtonProps> = ({
   textColor = 'text-black',
   bgClass = 'bg-[#63B84666] backdrop-blur-md',
   borderClass = 'border border-[#63B846]',
-  hoverClass = 'hover:bg-[#8dc63f] hover:text-white',
+  hoverClass = 'hover:bg-white hover:text-black',
   className = 'capitalize',
   onClick,
   icon: Icon = ArrowUpRight,
@@ -47,7 +47,7 @@ const CtaButton: React.FC<CtaButtonProps> = ({
       <span className={`pl-4 ${textClass} tracking-tight whitespace-nowrap min-w-0 flex-1 ${buttonTextClass}`}>
         {text}
       </span>
-      <div className={`${iconBgClass} ${iconTextColor} p-2 rounded-full shrink-0 group-hover:scale-105 group-hover:rotate-45 group-hover:opacity-90 transition-all duration-300 flex items-center justify-center`}>
+      <div className={`${iconBgClass} ${iconTextColor} p-2 rounded-full shrink-0 group-hover:scale-110 transition-transform duration-300 flex items-center justify-center`}>
         <Icon size={16} strokeWidth={2.5} />
       </div>
     </>

@@ -31,7 +31,7 @@ import AwardAndRecognations from "@/components/home/awardandrecognations";
 import WhyChooseUs from "@/components/home/whychooseus";
 import Expertise from "@/components/home/expertise";
 import Partners from "@/components/home/partners";
-import ZeroInterestFinancing from "@/components/home/zerointrestfinancing";
+import ZeroInterestFinancing from "@/components/home/zerointerestfinancing";
 import Craftsmanship from "@/components/home/craftmanship";
 import RealStories from "@/components/home/realStories";
 import BatteryQuote from "@/components/home/batteryQuote";
@@ -126,6 +126,9 @@ const Home = async () => {
   const batteryQuoteProps = resolveHomeBatteryQuote(batteryQuote);
 
   const awardFallbacks = [atlogo, fast100, eupd, financialtimes, belmont];
+  const whyCardImageFallbacks = [productReviewBg, null, businessBg, productReviewRatingBg] as const;
+  const whyCardLogoFallbacks = [productreview, null, null, null] as const;
+  const whyCardIconFallbacks = [null, null, null, "/star.svg"] as const;
   const expertiseFallbacks = [
     residentialImg,
     batteryImg,
@@ -163,13 +166,14 @@ const Home = async () => {
 
       {whyChooseUsProps && (
         <WhyChooseUs
-          data={{
-            ...whyChooseUsProps,
-            awardWinnerBg: whyChooseUsProps.awardWinnerBg || productReviewBg,
-            awardWinnerLogo: whyChooseUsProps.awardWinnerLogo || productreview,
-            yearsInBusinessBg: whyChooseUsProps.yearsInBusinessBg || businessBg,
-            ratingBg: whyChooseUsProps.ratingBg || productReviewRatingBg,
-          }}
+          subtitle={whyChooseUsProps.subtitle}
+          title={whyChooseUsProps.title}
+          cards={whyChooseUsProps.cards.map((card, i) => ({
+            ...card,
+            image: card.image || whyCardImageFallbacks[i % whyCardImageFallbacks.length],
+            logo: card.logo || whyCardLogoFallbacks[i % whyCardLogoFallbacks.length],
+            icon: card.icon || whyCardIconFallbacks[i % whyCardIconFallbacks.length],
+          }))}
         />
       )}
 
@@ -251,6 +255,9 @@ const Home = async () => {
           title={smartSolarProps.title}
           bottomSubtitle={smartSolarProps.bottomSubtitle}
           cards={smartSolarProps.cards}
+          centerButton={!!smartSolarProps.centerButtonText}
+          centerButtonText={smartSolarProps.centerButtonText}
+          centerButtonLink={smartSolarProps.centerButtonLink}
         />
       )}
 

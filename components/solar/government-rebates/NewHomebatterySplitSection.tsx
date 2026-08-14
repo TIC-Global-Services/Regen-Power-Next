@@ -6,7 +6,7 @@ interface Props {
   resolved: ResolvedSharedSplitSection;
 }
 
-export default function SplitSectionSection({ resolved }: Props) {
+export default function NewHomebatterySplitSection({ resolved }: Props) {
   return (
     <FullscreenSplitSection
       subtitle={resolved.subtitle}
@@ -14,9 +14,13 @@ export default function SplitSectionSection({ resolved }: Props) {
       description={resolved.description}
       image={resolved.image?.src ?? ""}
       imageAlt=""
-      textArrangement="split"
+      textArrangement="center"
       imagePosition={resolved.imagePosition}
       badge={resolved.badge}
+      titleClass="text-[2.5rem] md:text-6xl font-normal leading-[1] tracking-tight text-[#63B846]"
+      subtitleClass="text-xl md:text-[2.125rem] tracking-tight capitalize"
+      descriptionClass="text-base md:text-xl leading-tight tracking-tight capitalize"
+      
     />
   );
 }

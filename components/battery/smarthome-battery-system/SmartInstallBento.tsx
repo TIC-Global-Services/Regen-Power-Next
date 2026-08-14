@@ -4,7 +4,6 @@ import React, { useState } from 'react';
 export interface InstallBentoBlock {
   title: string;
   description: string;
-  theme: 'white' | 'dark' | 'light';
 }
 
 export interface SmartInstallBentoData {

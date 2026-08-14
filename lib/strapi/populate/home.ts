@@ -5,10 +5,10 @@ export const awards =
   "populate[sections][on][home.awards][populate][logos][populate][src]=true";
 
 export const whychooseus =
-  "populate[sections][on][home.whychooseus][populate][awardWinnerBg]=true" +
-  "&populate[sections][on][home.whychooseus][populate][awardWinnerLogo]=true" +
-  "&populate[sections][on][home.whychooseus][populate][yearsInBusinessBg]=true" +
-  "&populate[sections][on][home.whychooseus][populate][ratingBg]=true";
+  "populate[sections][on][home.whychooseus][populate][cards][populate][image]=true" +
+  "&populate[sections][on][home.whychooseus][populate][cards][populate][logo]=true" +
+  "&populate[sections][on][home.whychooseus][populate][cards][populate][icon]=true" +
+  "&populate[sections][on][home.whychooseus][populate][cards][populate][stats]=true";
 
 export const expertise =
   "populate[sections][on][home.expertise][populate][bgImage]=true" +
@@ -30,7 +30,8 @@ export const craftmanship =
 
 export const realStories =
   "populate[sections][on][home.real-stories][populate][googleLogo]=true" +
-  "&populate[sections][on][home.real-stories][populate][badges][populate][src]=true";
+  "&populate[sections][on][home.real-stories][populate][badges][populate][src]=true" +
+  "&populate[sections][on][home.real-stories][populate][reviews]=true";
 
 export const smartsolar =
   "populate[sections][on][home.smartsolar][populate][cards][populate][image]=true";

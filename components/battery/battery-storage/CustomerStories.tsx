@@ -15,6 +15,7 @@ export interface CustomerStoriesData {
   stories: StoryCard[];
   centerButton?: boolean;
   centerButtonText?: string;
+  centerButtonLink?: string;
 }
 
 const CustomerStories = ({ data }: { data: CustomerStoriesData }) => {
@@ -35,6 +36,7 @@ const CustomerStories = ({ data }: { data: CustomerStoriesData }) => {
         showReadMore={false}
         centerButton={data.centerButton ?? true}
         centerButtonText={data.centerButtonText}
+        centerButtonLink={data.centerButtonLink}
       />
     </div>
   );

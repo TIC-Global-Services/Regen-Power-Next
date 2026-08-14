@@ -76,7 +76,6 @@ export const SmartHomeInstallBlockSchema = z.object({
   id: z.number(),
   title: z.string(),
   description: z.string(),
-  theme: z.enum(["white", "dark", "light"]),
 });
 export type SmartHomeInstallBlockData = z.infer<
   typeof SmartHomeInstallBlockSchema
@@ -91,7 +90,7 @@ export const SmartHomeHeroSchema = z.object({
   description: z.string().nullable(),
   ctaText: z.string().nullable(),
   ctaLink: z.string().nullable(),
-  showOverlay: z.boolean().nullable(),
+  showOverlay: z.boolean().nullable().optional(),
   backgroundImage: MediaSchema.nullable(),
 });
 export type SmartHomeHeroData = z.infer<typeof SmartHomeHeroSchema>;

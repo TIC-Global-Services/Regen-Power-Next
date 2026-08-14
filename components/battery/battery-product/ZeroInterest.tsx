@@ -1,6 +1,8 @@
 import React from 'react';
 import Image, { StaticImageData } from 'next/image';
 import CtaButton from '@/reuseables/CtaButton';
+import businessBg from '@/assets/home/zerointrest/businessBg.jpg';
+import productReviewBg from '@/assets/home/zerointrest/productReviewBg.png';
 
 // ─── Types ──────────────────────────────────────────────────────────────
 
@@ -16,8 +18,8 @@ export interface ZeroInterestData {
     keyTerms: ZeroInterestProps;
     eligibility: ZeroInterestProps;
     summaryText: string;
-    topImage: StaticImageData | string;
-    bottomImage: StaticImageData | string;
+    topImage: StaticImageData | string | null;
+    bottomImage: StaticImageData | string | null;
     ctaText: string;
     ctaLink: string;
 }
@@ -59,7 +61,7 @@ const ZeroInterest: React.FC<{ data: ZeroInterestData }> = ({ data }) => {
 
                     <div className="md:col-span-7 rounded-3xl overflow-hidden min-h-[300px] relative">
                         <Image
-                            src={data.topImage}
+                            src={data.topImage ?? productReviewBg}
                             alt="Grid asset"
                             fill
                             className="object-cover"
@@ -69,7 +71,7 @@ const ZeroInterest: React.FC<{ data: ZeroInterestData }> = ({ data }) => {
                     {/* Row 2 — Bottom Image (3 cols) + Eligibility (5 cols) + Summary (4 cols) */}
                     <div className="md:col-span-3 rounded-3xl overflow-hidden min-h-[300px] relative">
                         <Image
-                            src={data.bottomImage}
+                            src={data.bottomImage ?? businessBg}
                             alt="Grid asset"
                             fill
                             className="object-cover"

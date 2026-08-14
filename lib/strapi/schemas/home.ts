@@ -42,26 +42,36 @@ export const HomeAwardsSchema = z.object({
 });
 export type HomeAwardsData = z.infer<typeof HomeAwardsSchema>;
 
-// ─── Why Choose Us ─────────────────────────────────────────────────────
+// ─── Why Choose Us (generic stat cards grid) ────────────────────────────
+
+export const HomeStatRowSchema = z.object({
+  id: z.number(),
+  count: z.number().nullable(),
+  prefix: z.string().nullable(),
+  suffix: z.string().nullable(),
+  label: z.string().nullable(),
+});
+export type HomeStatRowData = z.infer<typeof HomeStatRowSchema>;
+
+export const HomeStatCardSchema = z.object({
+  id: z.number(),
+  count: z.number().nullable(),
+  prefix: z.string().nullable(),
+  suffix: z.string().nullable(),
+  title: z.string().nullable(),
+  description: z.string().nullable(),
+  icon: MediaSchema.nullable(),
+  image: MediaSchema.nullable(),
+  logo: MediaSchema.nullable(),
+  stats: z.array(HomeStatRowSchema).nullable(),
+});
+export type HomeStatCardData = z.infer<typeof HomeStatCardSchema>;
 
 export const HomeWhyChooseUsSchema = z.object({
   __component: z.literal("home.whychooseus"),
   subtitle: z.string().nullable(),
   title: z.string().nullable(),
-  awardWinnerCount: z.number().nullable(),
-  awardWinnerTitle: z.string().nullable(),
-  awardWinnerBg: MediaSchema.nullable(),
-  awardWinnerLogo: MediaSchema.nullable(),
-  batteryInstallationsCount: z.number().nullable(),
-  batteryInstallationsLabel: z.string().nullable(),
-  solarInstallationsCount: z.number().nullable(),
-  solarInstallationsLabel: z.string().nullable(),
-  yearsInBusinessCount: z.number().nullable(),
-  yearsInBusinessDescription: z.string().nullable(),
-  yearsInBusinessBg: MediaSchema.nullable(),
-  ratingScore: z.number().nullable(),
-  ratingPlatformLabel: z.string().nullable(),
-  ratingBg: MediaSchema.nullable(),
+  cards: z.array(HomeStatCardSchema),
 });
 export type HomeWhyChooseUsData = z.infer<typeof HomeWhyChooseUsSchema>;
 
@@ -167,7 +177,6 @@ export const HomeCraftmanshipSchema = z.object({
   __component: z.literal("home.craftmanship"),
   subtitle: z.string().nullable(),
   title: z.string().nullable(),
-  defaultTabId: z.string().nullable(),
   categories: z.array(HomeBrandCategorySchema),
 });
 export type HomeCraftmanshipData = z.infer<typeof HomeCraftmanshipSchema>;
@@ -219,6 +228,8 @@ export const HomeSmartSolarSchema = z.object({
   topSubtitle: z.string().nullable(),
   title: z.string().nullable(),
   bottomSubtitle: z.string().nullable(),
+  centerButtonText: z.string().nullable(),
+  centerButtonLink: z.string().nullable(),
   cards: z.array(HomeSmartSolarCardSchema),
 });
 export type HomeSmartSolarData = z.infer<typeof HomeSmartSolarSchema>;

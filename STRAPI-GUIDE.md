@@ -227,12 +227,39 @@ Below is every content type and component you need to build in Strapi. Build the
 
 #### 15. Single Type: `WhyChooseUs`
 
+> **Migrated to a generic stat-cards grid.** The legacy flat fields (`awardWinnerCount`,
+> `batteryInstallationsCount`, etc.) still exist and are auto-mapped into cards as a
+> backward-compat bridge in `resolveHomeWhyChooseUs` (`lib/strapi/resolvers/home.ts`).
+> New content should use `cards`; once Strapi is migrated, legacy fields can be dropped.
+
 | Field | Type | Notes |
 |-------|------|-------|
 | `title` | Text (short) | Section heading |
-| `description` | Rich text (blocks) | |
-| `stats` | Component (repeatable) | `home.stat` |
-| `backgroundImages` | Media (multiple) | Gallery for the background |
+| `subtitle` | Text (short) | Section eyebrow |
+| `cards` | Component (repeatable) | `home.stat-card` |
+
+#### 15a. Component: `home.stat-card` (category: `home`)
+
+| Field | Type | Notes |
+|-------|------|-------|
+| `count` | Number (integer) (optional) | Animated number (omit when using `stats`) |
+| `prefix` | Text (short) (optional) | Text before the count, e.g. "$" |
+| `suffix` | Text (short) (optional) | Text after the count, e.g. "+", "×", "%" |
+| `title` | Text (short) (optional) | Heading (supports `\n`) |
+| `description` | Text (long) (optional) | Extra paragraph |
+| `icon` | Media (single) (optional) | Inline icon next to the count (e.g. star) |
+| `image` | Media (single) (optional) | Full-card background (or boxed top image when `logo` set) |
+| `logo` | Media (single) (optional) | Overlay logo (contain) on top of `image` |
+| `bgColor` | Text (short) (optional) | Hex background, default `#EEF6EB` |
+| `textColor` | Text (short) (optional) | Hex text color, default `#000000` |
+| `column` | Enumeration (optional) | Desktop column (1-3); omit for auto-flow |
+| `span` | Enumeration (optional) | Desktop column span (1-3) |
+| `stats` | Component (repeatable) (optional) | `home.stat` rows for multi-stat cards |
+
+> `home.stat` rows use `label` + `value` (see §14) — e.g. `"45,000+"` / `"Solar Installations"`.
+> Layout: generic `reuseables/StatCardsGrid.tsx`; renders any number of cards, fully CMS driven.
+> **After migrating Strapi to `cards`:** uncomment the three `cards` populate lines in
+> `lib/strapi/populate/home.ts` (until then they 400 — the field doesn't exist in Strapi yet).
 
 #### 16. Component: `home.expertise-item` (category: `home`)
 
@@ -687,7 +714,7 @@ Use the Content Manager to copy hardcoded data from these source files into Stra
 | Nav links | `reuseables/Navbar.tsx` lines 10-34 | NavItem collection |
 | Footer links + offices + social | `reuseables/Footer.tsx` | Footer single type |
 | Reviews + badges | `components/home/realStories.tsx` | Review collection |
-| Stats + counters | `components/home/whychooseus.tsx` | WhyChooseUs single type |
+| Stats + counters | `reuseables/StatCardsGrid.tsx` (generic) | WhyChooseUs single type (`cards`) |
 | Partners + memberships | `components/home/partners.tsx` | Partners single type |
 | Awards logos | `components/home/awardandrecognations.tsx` | Award collection |
 | Expertise items | `components/home/expertise.tsx` | Expertise collection |

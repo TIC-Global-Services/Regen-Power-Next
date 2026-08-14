@@ -8,25 +8,20 @@ export interface BatteryRangeCard {
   image?: StaticImageData | string;
   ctaText?: string;
   ctaLink?: string;
-  isTextOnly?: boolean;
 }
 
 export interface BatteryRangeGridData {
   topSubtitle: string;
   title: string;
-  description?: string;
   batteries: BatteryRangeCard[];
 }
 
 /**
  * Bento-style grid for the Battery Range section.
- * 
- * Expects exactly 5 cards in `batteries`:
- *   [0] top-left   [1] top-center (text-only)   [2] top-right
- *   [3] bottom-left                              [4] bottom-right
  *
- * The center card (index 1) renders as a text-only tile.
- * All others render with an image background + dark gradient overlay.
+ * Expects 5 cards in `batteries`. Cards with an `image` render an image
+ * background + dark gradient overlay; the rest fall back to the page's
+ * default background image (see battery-storage/page.tsx).
  */
 const BatteryRangeGrid = ({ data }: { data: BatteryRangeGridData }) => {
   return (
@@ -83,8 +78,7 @@ const ImageCard = ({ card }: { card: BatteryRangeCard }) => (
         src={card.image}
         alt={card.title}
         fill
-        className="object-cover transition-transform duration-700 group-hover:scale-105 x"
-      // sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+        className="object-cover transition-transform duration-700 group-hover:scale-105"
       />
     )}
 
@@ -111,26 +105,5 @@ const ImageCard = ({ card }: { card: BatteryRangeCard }) => (
     </div>
   </div>
 );
-
-// const TextOnlyCard = ({ card }: { card: BatteryRangeCard }) => (
-//   <div className="rounded-[20px] bg-[#f4f4f4] p-7 md:p-8 flex flex-col justify-center">
-//     <h4 className="text-2xl md:text-3xl text-black font-medium tracking-tight leading-snug mb-3">
-//       {card.title}
-//     </h4>
-//     <p className="text-black/65 text-sm md:text-[15px] leading-[1.2]">
-//       {card.description}
-//     </p>
-//     {card.ctaText && card.ctaLink && (
-//       <div className="mt-5">
-//         <CtaButton
-//           href={card.ctaLink}
-//           text={card.ctaText}
-//           textColor="text-black"
-//           bgClass="bg-white"
-//         />
-//       </div>
-//     )}
-//   </div>
-// );
 
 export default BatteryRangeGrid;

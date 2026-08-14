@@ -19,8 +19,8 @@ const SolarProcessFlow: React.FC<SolarProcessFlowProps> = ({ resolved }) => {
           title={resolved.title}
           align="center"
           className="mb-5 md:mb-32"
-          subtitleClass="text-xl md:text-4xl"
-          titleClass="text-[2.5rem] md:text-[5rem] leading-none"
+          subtitleClass="text-xl md:text-[2.125rem]"
+          titleClass="text-[5rem]"
         />
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12">
@@ -41,7 +41,7 @@ const SolarProcessFlow: React.FC<SolarProcessFlowProps> = ({ resolved }) => {
                     </div>
                   ) : (
                     <MissingImage
-                      label={`Step ${step.stepNumber} image`}
+                      label={`Step ${index + 1} image`}
                       aspect="aspect-[4/3]"
                     />
                   )}

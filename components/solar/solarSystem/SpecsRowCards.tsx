@@ -3,13 +3,13 @@ import Image from "next/image";
 import SectionHeader from "@/reuseables/SectionHeader";
 import Reveal from "@/reuseables/Reveal";
 import MissingImage from "@/reuseables/MissingImage";
-import type { ResolvedSolarSpecsTable } from "@/lib/strapi/resolvers/solar";
+import type { ResolvedSolarSpecsRowCards } from "@/lib/strapi/resolvers/solar";
 
-interface SpecsAccordionProps {
-  resolved: ResolvedSolarSpecsTable;
+interface SpecsRowCardsProps {
+  resolved: ResolvedSolarSpecsRowCards;
 }
 
-const SpecsAccordion: React.FC<SpecsAccordionProps> = ({ resolved }) => {
+const SpecsRowCards: React.FC<SpecsRowCardsProps> = ({ resolved }) => {
   const specs = resolved.specs.filter(
     (s) => s.title || s.value || s.description
   );
@@ -22,7 +22,9 @@ const SpecsAccordion: React.FC<SpecsAccordionProps> = ({ resolved }) => {
           title={resolved.title}
           description={resolved.description}
           align="left"
-          descClass="max-w-2xl text-base leading-none"
+          titleClass="text-[3.125rem] md:text-[5rem]"
+          subtitleClass="text-xl md:text-[2.125rem] text-black capitalize"
+          descClass="max-w-2xl"
           className="mb-16"
         />
 
@@ -32,7 +34,7 @@ const SpecsAccordion: React.FC<SpecsAccordionProps> = ({ resolved }) => {
           <div className="flex flex-col border-t border-gray-300">
             {specs.map((spec, idx) => (
               <Reveal key={idx} delay={idx * 0.1}>
-                <div className={`${idx !== 4 ?'border-b':'' } border-gray-300 py-8`}>
+                <div className={`${idx !== specs.length - 1 ?'border-b':'' } border-gray-300 py-8`}>
                   <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-8">
                     <div className="lg:w-[280px] shrink-0">
                       <h3 className="text-2xl md:text-[2.5rem] text-black leading-tight capitalize">
@@ -40,11 +42,11 @@ const SpecsAccordion: React.FC<SpecsAccordionProps> = ({ resolved }) => {
                       </h3>
                     </div>
 
-                    <div className="flex-grow max-w-md">
+                    <div className="flex-grow max-w-sm">
                       <span className="text-xl md:text-2xl text-black block mb-1 md:mb-3 font-[var(--font-aeonik)]">
                         {spec.value}
                       </span>
-                      <p className="text-sm md:text-base leading-tight">
+                      <p className="text-sm md:text-base tracking-tight leading-tight">
                         {spec.description}
                       </p>
                     </div>
@@ -79,4 +81,4 @@ const SpecsAccordion: React.FC<SpecsAccordionProps> = ({ resolved }) => {
   );
 };
 
-export default SpecsAccordion;
+export default SpecsRowCards;

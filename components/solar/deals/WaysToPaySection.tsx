@@ -22,6 +22,7 @@ export default function WaysToPaySection({ resolved }: Props) {
       bottomSubtitle={resolved.bottomSubtitle || ""}
       cards={cards}
       showReadMore={false}
+      showDescriptionInactive
     />
   );
 }

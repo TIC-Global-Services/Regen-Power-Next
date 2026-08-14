@@ -28,7 +28,7 @@ import type {
 import RebatesHeroSection from "@/components/solar/government-rebates/RebatesHeroSection";
 import RebateProgramsSection from "@/components/solar/government-rebates/RebateProgramsSection";
 import StcExplainerSection from "@/components/solar/government-rebates/StcExplainerSection";
-import SplitSectionSection from "@/components/solar/deals/SplitSectionSection";
+import NewHomebatterySplitSection from "@/components/solar/government-rebates/NewHomebatterySplitSection";
 import UtilityCardsSection from "@/components/solar/government-rebates/UtilityCardsSection";
 import LoanBenefitsSection from "@/components/solar/government-rebates/LoanBenefitsSection";
 import EligibilityCheckerSection from "@/components/solar/government-rebates/EligibilityCheckerSection";
@@ -81,7 +81,7 @@ export default async function GovernmentRebatesPage() {
 
       {stcExplainerProps && <StcExplainerSection resolved={stcExplainerProps} />}
 
-      {federalBatteryRebateProps && <SplitSectionSection resolved={federalBatteryRebateProps} />}
+      {federalBatteryRebateProps && <NewHomebatterySplitSection resolved={federalBatteryRebateProps} />}
 
       {utilityCardsProps && <UtilityCardsSection resolved={utilityCardsProps} />}
 
@@ -89,7 +89,7 @@ export default async function GovernmentRebatesPage() {
 
       {eligibilityCheckerProps && <EligibilityCheckerSection resolved={eligibilityCheckerProps} />}
 
-      {paperworkSectionProps && <SplitSectionSection resolved={paperworkSectionProps} />}
+      {paperworkSectionProps && <NewHomebatterySplitSection resolved={paperworkSectionProps} />}
 
       {faqProps && <FaqSection resolved={faqProps} />}
 

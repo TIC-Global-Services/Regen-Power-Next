@@ -108,9 +108,6 @@ export const BatteryBrandItemSchema = z.object({
 
 export const OurBrandsSchema = z.object({
   __component: z.literal("battery-product.our-brands"),
-  topSubtitle: z.string().nullable(),
-  title: z.string().nullable(),
-  description: z.string().nullable(),
   brands: z.array(BatteryBrandItemSchema),
 });
 export type OurBrandsData = z.infer<typeof OurBrandsSchema>;

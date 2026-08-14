@@ -13,6 +13,7 @@ const navItems = [
     name: 'Solar System',
     href: '/solar',
     subItems: [
+      { name: 'Solar System', href: '/solar' },
       { name: 'Brand we carry', href: '/solar/brands' },
       { name: 'Solar Deals', href: '/solar/deals' },
       { name: 'Government rebates', href: '/solar/government-rebates' },
@@ -24,6 +25,7 @@ const navItems = [
     href: '/battery-storage',
     subItems: [
       { name: 'Battery Storage', href: '/battery-storage' },
+      { name: 'Battery Product', href: '/battery-product' },
       { name: 'Smart home battery system', href: '/smart-home-battery-system' },
       { name: 'government rebates', href: '/government-rebates' },
       { name: 'Brands we carry', href: '/brands-we-carry' },
@@ -34,6 +36,7 @@ const navItems = [
     name: 'Commercial & Off Grid',
     href: '/commercial-off-grid',
     subItems: [
+      { name: 'Commercial & Off Grid', href: '/commercial-off-grid' },
       { name: 'Off-Grid Solutions', href: '/off-grid-solutions' },
       { name: 'Research & Development', href: '/research-and-development' },
       { name: 'Portfolio', href: '/portfolio' },
@@ -183,7 +186,7 @@ const Navbar = () => {
 
   return (
     <header className={`fixed top-0 left-0 right-0 z-50 w-full py-6 px-4 md:px-8 transition-transform duration-300 ${isVisible ? 'translate-y-0' : '-translate-y-full'}`}>
-      <div className="px-[2%] flex items-center justify-between">
+      <div className="px-[3%] flex items-center justify-between">
         {/* Logo */}
         <Link href="/" className="flex-shrink-0 z-50">
           <Image
@@ -197,7 +200,7 @@ const Navbar = () => {
 
         {/* Desktop Navigation */}
         <nav className="hidden lg:flex items-center bg-[#63B84666] backdrop-blur-md rounded-full px-2 py-1.5 shadow-sm border border-[#63B846]">
-          <ul className="flex items-center text-sm font-medium text-black">
+          <ul className="flex items-center text-sm font-medium text-white">
             {navItems.map((item, index) => {
               const isHovered = hoveredIndex === index;
               return (
@@ -209,7 +212,7 @@ const Navbar = () => {
                 >
                   <Link
                     href={item.href}
-                    className="flex items-center gap-1 hover:text-white transition-colors text-black"
+                    className="flex items-center gap-1 hover:text-[#8dc63f] transition-colors text-white"
                     onClick={() => setHoveredIndex(null)}
                   >
                     {item.name}
@@ -253,9 +256,14 @@ const Navbar = () => {
           </ul>
         </nav>
 
-        {/* Contact Us Button (Desktop) */}
+        {/* Contact Us Button (Desktop) — uniform green hover + arrow animation */}
         <div className="hidden lg:flex">
-          <CtaButton href="/contact" text="Contact Us" textColor="text-black" />
+          <CtaButton
+            href="/contact"
+            text="Contact Us"
+            textColor="text-white"
+            iconTextColor="text-white"
+          />
         </div>
 
         {/* Mobile Menu Toggle */}

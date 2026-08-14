@@ -27,12 +27,15 @@ export interface FeatureCardGridProps {
   showPersonalisedquoteCta?: boolean
   centerButton?: boolean
   centerButtonText?: string
+  centerButtonLink?: string
   /** Hide the center CTA button on mobile (< md). */
   hideCenterButtonMobile?: boolean
   /** Copy + link for the personalised-quote CTA (falls back to hardcoded defaults). */
   ctaDescription?: string;
   ctaText?: string;
   ctaLink?: string;
+  /** Keep the description visible on inactive (narrow) cards too. */
+  showDescriptionInactive?: boolean;
 }
 
 const FeatureCardGrid: React.FC<FeatureCardGridProps> = ({
@@ -44,10 +47,12 @@ const FeatureCardGrid: React.FC<FeatureCardGridProps> = ({
   showPersonalisedquoteCta = false,
   centerButton = false,
   centerButtonText = "",
+  centerButtonLink,
   hideCenterButtonMobile = false,
   ctaDescription = "",
   ctaText = "",
-  ctaLink
+  ctaLink,
+  showDescriptionInactive = false
 }) => {
   const [activeIndex, setActiveIndex] = useState(0);
   const containerRef = useRef<HTMLDivElement>(null);
@@ -101,8 +106,8 @@ const FeatureCardGrid: React.FC<FeatureCardGridProps> = ({
           align="center"
           className="mb-5 md:mb-16"
           subtitleClass="text-xl md:text-[2.125rem] text-black tracking-tight capitalize"
-          titleClass="text-[2.5rem] md:text-[5rem] tracking-tight leading-[1]"
-          descClass="text-sm md:text-xl text-black max-w-5xl mx-auto font-medium capitalize"
+          titleClass="text-[2.5rem] md:text-6xl tracking-tight leading-[1]"
+          descClass="text-sm text-black max-w-5xl mx-auto font-medium tracking-tight capitalize"
         />
 
         <div ref={containerRef} className="flex overflow-x-auto md:overflow-hidden md:flex-row -mx-[5%] pl-[5%] pr-[5%] gap-4 md:gap-5 w-[calc(100%+10%)] md:w-full md:mx-0 md:px-0 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none] pb-4 md:pb-0">
@@ -150,7 +155,8 @@ const FeatureCardGrid: React.FC<FeatureCardGridProps> = ({
                     </p>
                   )}
 
-                  <p className={`text-white text-xs md:text-[15px] leading-tight max-w-[85%] font-light transition-all duration-700 ease-[cubic-bezier(0.4,0,0.2,1)] ${isActive ? 'opacity-100' : 'opacity-0 h-0 overflow-hidden m-0'}`}>
+                  
+                  <p className={`text-white text-xs md:text-[15px] leading-tight max-w-[85%] tracking-tight transition-all duration-700 ease-[cubic-bezier(0.4,0,0.2,1)] ${isActive ? '' : showDescriptionInactive ? 'mt-1.5' : 'opacity-0 h-0 overflow-hidden m-0'}`}>
                     {card.description}
                   </p>
 
@@ -162,7 +168,7 @@ const FeatureCardGrid: React.FC<FeatureCardGridProps> = ({
                         </h5>
                       )}
                       {card.footerDescription && (
-                        <p className="text-white text-sm tracking-tight font-light">
+                        <p className="text-white text-base tracking-tight ">
                           {card.footerDescription}
                         </p>
                       )}
@@ -187,8 +193,8 @@ const FeatureCardGrid: React.FC<FeatureCardGridProps> = ({
           </div>
         )}
         {centerButton && (
-          <div className={`${hideCenterButtonMobile ? 'hidden md:flex' : 'flex'} justify-center items-center gap-3 mt-4 md:mt-10`} >
-            <CtaButton text={centerButtonText} className="max-w-full whitespace-normal" buttonTextClass="whitespace-normal" />
+          <div className={`${hideCenterButtonMobile ? 'hidden md:flex' : 'flex'} justify-end md:justify-center items-center gap-3 mt-4 md:mt-10`} >
+            <CtaButton text={centerButtonText} href={centerButtonLink} className="max-w-full whitespace-normal" buttonTextClass="whitespace-normal" />
           </div>
         )}
       </section>

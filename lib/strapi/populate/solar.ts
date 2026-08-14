@@ -12,14 +12,16 @@ export const brandsGrid =
   "populate[sections][on][solar.brands-grid][populate][brands][populate]=logo";
 
 export const inverterSlider =
-  "populate[sections][on][solar.inverter-slider][populate][inverters][populate]=backgroundImage";
+  "populate[sections][on][solar.inverter-slider][populate][inverters][populate][backgroundImage]=true" +
+  "&populate[sections][on][solar.inverter-slider][populate][inverters][populate][infoCards]=true";
 
-export const specsTable =
-  "populate[sections][on][solar.specs-table][populate][specs][populate]=image";
+export const specsRowCards =
+  "populate[sections][on][solar.specs-row-cards][populate][specs][populate]=image";
 
-export const sizingGuide =
-  "populate[sections][on][solar.sizing-guide][populate][tableRows]=true" +
-  "&populate[sections][on][solar.sizing-guide][populate][sizingCards][populate]=image";
+export const sizingGuideTable =
+  "populate[sections][on][solar.sizing-guide-table][populate][columns]=true" +
+  "&populate[sections][on][solar.sizing-guide-table][populate][rows][populate][values]=true" +
+  "&populate[sections][on][solar.sizing-guide-table][populate][sizingCards][populate]=image";
 
 export const packages =
   "populate[sections][on][solar.packages][populate][packages][populate]=features";

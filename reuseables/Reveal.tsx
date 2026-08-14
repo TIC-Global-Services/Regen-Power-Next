@@ -2,18 +2,24 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { ReactNode } from 'react';
+import { CSSProperties, ReactNode } from 'react';
 
 interface RevealProps {
   children: ReactNode;
   delay?: number;
   className?: string;
+  style?: CSSProperties;
+  onMouseEnter?: () => void;
+  onMouseLeave?: () => void;
 }
 
-export default function Reveal({ children, delay = 0, className = "" }: RevealProps) {
+export default function Reveal({ children, delay = 0, className = "", style, onMouseEnter, onMouseLeave }: RevealProps) {
   return (
     <motion.div
       className={className}
+      style={style}
+      onMouseEnter={onMouseEnter}
+      onMouseLeave={onMouseLeave}
       // 1. Initial hidden state
       initial={{ opacity: 0, y: 50 }}
       

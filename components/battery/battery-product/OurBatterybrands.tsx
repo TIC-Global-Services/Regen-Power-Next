@@ -1,7 +1,6 @@
 import React from 'react';
 import Image, { StaticImageData } from 'next/image';
-
-
+import heroBanner from '@/assets/evcharging/hero_banner.png';
 
 export interface BrandSpecification {
     label: string;
@@ -10,16 +9,13 @@ export interface BrandSpecification {
 
 export interface BatteryBrandItem {
     title: string;
-    logo?: StaticImageData | string;
-    image: StaticImageData | string;
+    logo: StaticImageData | string | null;
+    image: StaticImageData | string | null;
     specifications: BrandSpecification[];
     link?: string;
 }
 
 export interface OurBatteryBrandsData {
-    topSubtitle?: string;
-    title?: string;
-    description?: string;
     brands: BatteryBrandItem[];
 }
 
@@ -31,27 +27,6 @@ const OurBatterybrands: React.FC<{ data?: OurBatteryBrandsData }> = ({ data }) =
     return (
         <section className="w-full px-[5%] py-12 md:py-20 bg-white">
             <div>
-                {/* Section Header (Optional)
-                {(data.topSubtitle || data.title || data.description) && (
-                    <div className="text-center mb-10 md:mb-14">
-                        {data.topSubtitle && (
-                            <p className="text-2xl md:text-3xl font-light tracking-tight text-black mb-1">
-                                {data.topSubtitle}
-                            </p>
-                        )}
-                        {data.title && (
-                            <h2 className="text-5xl md:text-6xl lg:text-7xl font-normal tracking-tight text-[#63B846]">
-                                {data.title}
-                            </h2>
-                        )}
-                        {data.description && (
-                            <p className="text-sm md:text-base text-black/80 leading-[1.2] mt-4 max-w-3xl mx-auto">
-                                {data.description}
-                            </p>
-                        )}
-                    </div>
-                )} */}
-
                 {/* Brands Rows */}
                 <div className="flex flex-col gap-6 md:gap-8">
                     {data.brands.map((brand, idx) => {
@@ -131,7 +106,7 @@ const OurBatterybrands: React.FC<{ data?: OurBatteryBrandsData }> = ({ data }) =
                                         }`}
                                 >
                                     <Image
-                                        src={brand.image}
+                                        src={brand.image ?? heroBanner}
                                         alt={brand.title}
                                         fill
                                         className="object-cover"

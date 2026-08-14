@@ -24,17 +24,17 @@ const HybridSpecialtySection: React.FC<HybridSpecialtySectionProps> = ({
               subtitle={resolved.subtitle ?? ""}
               title={resolved.title ?? ""}
               align="left"
-              subtitleClass="text-base md:text-2xl font-medium normal-case"
-              titleClass="text-4xl md:text-5xl lg:text-[4.5rem] font-normal leading-tight tracking-tight mb-6 text-[#63B846]"
+              subtitleClass="text-base md:text-2xl tracking-tight capitalize"
+              titleClass="text-4xl md:text-[3.125rem] font-normal tracking-tight text-[#63B846]"
             />
             <Fade delay={0.2}>
-              <p className="text-sm md:text-xl leading-tight tracking-tight">
+              <p className="text-sm md:text-xl leading-[1] tracking-tight">
                 {resolved.description ?? ""}
               </p>
             </Fade>
           </div>
 
-          <Reveal className="relative w-full aspect-[5/5] rounded-[14px] overflow-hidden">
+          <Reveal className="relative w-full aspect-[4.5/5] rounded-[20px] overflow-hidden">
             {imgUrl ? (
               <img
                 src={imgUrl}

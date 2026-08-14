@@ -145,6 +145,9 @@ export const RebateDetailSplitSchema = z.object({
   topBoxItems: z.array(BatteryRebatesListItemSchema),
   bottomBoxTitle: z.string().nullable(),
   bottomBoxItems: z.array(BatteryRebatesListItemSchema),
+  imagePosition: z.enum(["left", "right"]).nullable(),
+  ctaText: z.string().nullable(),
+  ctaLink: z.string().nullable(),
 });
 export type RebateDetailSplitData = z.infer<typeof RebateDetailSplitSchema>;
 

@@ -80,7 +80,7 @@ const Expertise = ({ data }: ExpertiseProps) => {
                   className={`bg-[#f0f6ec] rounded-[20px] p-6 lg:p-8 flex flex-col w-full h-[420px] md:h-[480px] lg:h-[58dvh] hover:bg-[#8dc63f] shadow-2xl hover:-translate-y-2 transition-transform duration-300 group`}
                 >
                   {/* 3D Image Container */}
-                  <div className="relative w-full h-[52%] flex justify-end items-end overflow-visible md:ml-6">
+                  <div className="relative w-full h-[90%] flex justify-end items-end overflow-visible md:ml-6">
                     <div className="relative w-[90%] h-full transform group-hover:scale-105 transition-transform duration-500">
                       <Image
                         src={item.image}

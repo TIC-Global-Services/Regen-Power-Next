@@ -53,8 +53,8 @@ const SolarStatsAndIntro: React.FC<SolarStatsAndIntroProps> = ({ resolved }) => 
         paragraphs={resolved.paragraphs}
         align="left"
         className="mt-0 md:mt-12 px-[5%]"
-        subtitleClass="text-xl md:text-2xl font-light text-black capitalize"
-        titleClass="text-[3.125rem] md:text-7xl lg:text-[5.5rem] leading-[1.05] tracking-tighter mb-4"
+        subtitleClass="text-xl md:text-2xl text-black capitalize"
+        titleClass="text-[3.125rem] md:text-[5rem] mb-4"
         paragraphsClass="text-left"
         revealEffect
       />

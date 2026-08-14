@@ -5,6 +5,7 @@ import { Hotspot } from "./Hotspot";
 import { GuideTour, TOUR } from "./GuideTour";
 import { LoadingScreen } from "./LoadingScreen";
 import { ChargingIcon, SolarIcon, BackIcon } from "./icons";
+import { CtaIcon } from "@/components/icons/CtaIcons";
 import CtaButton from "@/reuseables/CtaButton";
 import {
   PointNum,
@@ -35,7 +36,7 @@ export default function VideoHotspotExperience({
   description,
   ctaText,
   ctaLink,
-  ctaTextColor = "text-black",
+  ctaTextColor = "text-white",
 }: VideoHotspotExperienceProps) {
   const videoRefs = [
     useRef<HTMLVideoElement>(null),
@@ -231,12 +232,14 @@ export default function VideoHotspotExperience({
             </div>
           </div>
 
-          {/* CTA Button */}
+          {/* CTA Button — uniform green hover + arrow animation */}
           <div className="flex-shrink-0 pb-2 pointer-events-auto">
             <CtaButton
               href={ctaLink}
               text={ctaText}
               textColor={ctaTextColor}
+              icon={CtaIcon}
+              iconTextColor="text-white"
             />
           </div>
         </div>

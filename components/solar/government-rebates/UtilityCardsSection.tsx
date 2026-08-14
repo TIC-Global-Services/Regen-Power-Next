@@ -21,7 +21,7 @@ export default function UtilityCardsSection({ resolved }: Props) {
           className="md:items-center md:text-center mb-12 md:mx-auto"
           subtitleClass="text-xl md:text-xl lg:text-2xl normal-case mb-2 block text-black font-medium"
           titleClass="text-[2.5rem] md:text-[3.75rem] tracking-tighter font-light leading-none text-[#63B846] mb-2"
-          descClass="max-w-3xl text-base md:text-xl text-black tracking-tight font-light leading-tight"
+          descClass="max-w-2xl text-base md:text-xl text-black tracking-tight font-light leading-tight"
         />
 
         <div className="flex flex-col md:flex-row flex-wrap justify-center items-center md:items-stretch gap-6">
