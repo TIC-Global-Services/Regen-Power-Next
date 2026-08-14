@@ -177,7 +177,7 @@ const FreeQuotation = ({ data }: { data: FreeQuotationProps }) => {
                     hoverClass="hover:bg-[#A9D89D]"
                     textColor="text-black font-semibold"
                     iconBgClass="bg-[#63B846]"
-                    iconTextColor="text-white"
+                    iconTextColor="text-black"
                   />
                 </div>
               </form>
