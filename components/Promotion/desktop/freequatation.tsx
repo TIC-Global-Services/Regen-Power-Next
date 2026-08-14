@@ -60,7 +60,7 @@ const FreeQuotation = ({ data }: { data: FreeQuotationProps }) => {
 
   return (
     <section className="bg-white py-16 md:py-20 px-[5%]">
-      <Fade>
+      <Fade duration={5}>
         <div className="">
           {/* Header section with split title and notice text */}
           <div className="text-center mb-10">
@@ -80,16 +80,15 @@ const FreeQuotation = ({ data }: { data: FreeQuotationProps }) => {
             {/* Left side: Video Thumbnail */}
             <div className="lg:col-span-7 lg:border-r lg:border-black lg:pr-5 h-full">
               <div
-                className="relative rounded-[10px] overflow-hidden aspect-[16/10] bg-[#EEF6EB] group cursor-pointer shadow-sm hover:shadow-md transition-shadow duration-300 border border-gray-100"
+                className="relative rounded-[10px] overflow-hidden aspect-[16/9] bg-[#EEF6EB] group cursor-pointer shadow-sm hover:shadow-md transition-shadow duration-300 border border-gray-100"
                 onClick={() => setIsPlaying(true)}
               >
                 {!isPlaying ? (
                   <>
-                    <Image
+                    <img
                       src={getCleanThumbnail(data.videoThumbnail)}
                       alt="Regen Power Video Thumbnail"
-                      fill
-                      className="object-cover group-hover:scale-102 transition-transform duration-500 opacity-95"
+                      className="w-full h-full object-cover group-hover:scale-102 transition-transform duration-500 opacity-95"
                     />
                     <div className="absolute inset-0 flex items-center justify-center bg-transparent group-hover:bg-black/5 transition-colors">
                       <div className="w-16 h-16 rounded-full border border-black/60 flex items-center justify-center group-hover:scale-110 transition-transform duration-300 bg-white/20 backdrop-blur-[2px]">
@@ -98,14 +97,15 @@ const FreeQuotation = ({ data }: { data: FreeQuotationProps }) => {
                     </div>
                   </>
                 ) : (
+                  // <div>
                   <iframe
-                    className="w-full h-full"
-                    src={data.videoUrl || "https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=1"}
-                    title="Regen Power Video"
-                    frameBorder="0"
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    src={"https://player.vimeo.com/video/810074456?h=62919e7375"}
+                    className='object-cover h-full w-full'
+                    allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share'
                     allowFullScreen
+                    title='Regen Power Video'
                   />
+                  //  </div>
                 )}
               </div>
             </div>

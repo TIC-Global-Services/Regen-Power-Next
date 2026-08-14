@@ -9,12 +9,14 @@ export interface QuoteFormProps {
   title?: string;
   noticeText?: string;
   buttonText?: string;
+  noticehighlight?: string;
   onSubmitSuccess?: (data: any) => void;
 }
 
 const QuoteForm = ({
   title = "Get A Quote",
-  noticeText = "Due to the current high demand for batteries, we are unable to accept bookings for Solar-Only installations at this time. Bookings will only be accepted for Solar + Battery or Battery-Only installations.",
+  noticeText = "Due to the current high demand for batteries, we are unable to accept bookings for Solar-Only installations at this time.",
+  noticehighlight="Bookings will only be accepted for Solar + Battery or Battery-Only installations.",
   buttonText = "Get Free Estimate",
   onSubmitSuccess,
 }: QuoteFormProps) => {
@@ -65,7 +67,7 @@ const QuoteForm = ({
 
   return (
     <section className="bg-white py-10 md:py-24 px-4 md:px-[5%] w-full">
-      <Fade>
+      <Fade duration={5}>
         <div className="max-w-3xl mx-auto">
           {/* Header */}
           <div className="text-center mb-10">
@@ -77,7 +79,10 @@ const QuoteForm = ({
             {noticeText && (
               <div className="md:mt-6 mt-4  text-left max-w-2xl mx-auto ">
                 <p className="text-xl md:text-2xl text-center font-medium leading-[1.2]">
-                  {noticeText}
+                  {noticeText} 
+                </p>
+                <p className="text-xl md:text-2xl text-center font-bold leading-[1.2]">
+                  {noticehighlight} 
                 </p>
               </div>
             )}

@@ -1,5 +1,6 @@
 import React from 'react';
 import Fade from '@/reuseables/fade';
+import Reveal from '@/reuseables/Reveal';
 
 export interface NestedCard {
   type: 'logo' | 'empty' | 'image';
@@ -42,7 +43,7 @@ const CardItem = ({ card }: { card: LimitedSpotCard }) => {
 
         {/* Bottom Nested Card (Black Box) */}
         {card.nestedCard && (
-          <div className="relative bg-black rounded-[12px] p-3 h-[35dvh] w-full flex items-end justify-center overflow-hidden">
+          <div className="relative bg-black rounded-[12px] p-3 lg:h-full w-full flex items-end justify-center overflow-hidden">
             {card.nestedCard.type === 'logo' && (
               <div className="relative w-full h-full flex items-center justify-center">
                 <img
@@ -74,7 +75,7 @@ const CardItem = ({ card }: { card: LimitedSpotCard }) => {
           alt={card.title || 'Background'}
           className="absolute inset-0 w-full h-full object-cover z-0"
         />
-        
+
         {/* Card Content centered */}
         <div className="relative z-20 flex flex-col items-center justify-center">
           {card.value && (
@@ -147,7 +148,9 @@ const LimitedSpot = ({ data }: { data: LimitedSpotProps }) => {
           {/* Grid Layout (2 columns, 4 cards) */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {data?.cards?.map((card, idx) => (
-              <CardItem key={idx} card={card} />
+              <Reveal key={idx} delay={0.1 * idx}>
+                <CardItem card={card} />
+              </Reveal>
             ))}
           </div>
         </div>

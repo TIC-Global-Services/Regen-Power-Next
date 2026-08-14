@@ -73,7 +73,7 @@ const BatteryRebates = ({ data }: { data: BatteryRebatesProps }) => {
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-0 items-start">
 
             {/* Left: Subtitle, Title, Nav */}
-            <div className="lg:col-span-6 flex flex-col justify-center ">
+            <div className="lg:col-span-6 flex flex-col justify-center mt-10">
               <div className="">
                 <span className="inline-block text-black text-xl md:text-[3.125rem] font-bold  tracking-tight">
                   {subtitle}

@@ -86,7 +86,7 @@ const ReadyToBegin = ({ data }: { data: ReadyToBeginProps }) => {
       return (
         <a 
           href={`mailto:${item.value}`} 
-          className="block text-black text-sm md:text-[1.375rem] leading-relaxed font-normal hover:text-[#63B846] transition-colors"
+          className="block text-black text-sm md:text-[1.375rem] leading-relaxed font-normal hover:text-[#63B846] transition-colors border-b border-b-[#00000029] pb-2"
         >
           {item.value}
         </a>
@@ -111,7 +111,7 @@ const ReadyToBegin = ({ data }: { data: ReadyToBeginProps }) => {
 
   return (
     <section className="bg-white py-16 md:py-20 px-[5%] border-t border-gray-100">
-      <Fade>
+      <Fade duration={5}>
         <div>
           {/* Header section with split title and notice text */}
           <div className="text-center max-w-5xl mx-auto mb-10">

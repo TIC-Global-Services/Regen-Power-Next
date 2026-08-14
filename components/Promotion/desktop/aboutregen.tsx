@@ -19,13 +19,13 @@ const AboutRegen = ({ data }: { data: AboutRegenProps }) => {
 
   return (
     <section className="bg-white py-16 md:py-20 px-[5%]">
-      <Fade>
+      <Fade duration={5}>
         <div className="">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 items-center justify-center">
             {/* Left Column: Image or Video */}
             <div className="lg:col-span-6  border-r border-[#939393] pr-4">
               <div
-                className="relative rounded-[10px] overflow-hidden aspect-[4/3] bg-gray-100 group cursor-pointer shadow-md"
+                className="relative rounded-[10px] overflow-hidden aspect-[16/9] bg-gray-100 group cursor-pointer shadow-md"
                 onClick={() => setIsPlaying(true)}
               >
                 {!isPlaying ? (
@@ -44,12 +44,11 @@ const AboutRegen = ({ data }: { data: AboutRegenProps }) => {
                   </>
                 ) : (
                   <iframe
-                    className="w-full h-full"
-                    src={data.videoUrl || "https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=1"}
-                    title="About Regen Power"
-                    frameBorder="0"
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    src={"https://player.vimeo.com/video/810074456?h=62919e7375"}
+                    className='object-cover h-full w-full'
+                    allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share'
                     allowFullScreen
+                    title='Regen Power Video'
                   />
                 )}
               </div>

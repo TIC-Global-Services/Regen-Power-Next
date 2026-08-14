@@ -4,6 +4,7 @@ import React from 'react';
 import Fade from '@/reuseables/fade';
 import Image from 'next/image';
 import CtaButton from '@/reuseables/CtaButton';
+import Reveal from '@/reuseables/Reveal';
 
 export interface WhyChooseUsCard {
   id: string;
@@ -165,7 +166,7 @@ const WhyChooseUs = ({
               <div className="text-[4.375rem] font-black text-black leading-none tracking-tight">
                 {card.value}
               </div>
-              <div className="text-[1.375rem] font-bold text-black leading-none mt-5">
+              <div className="text-[1.375rem] font-bold text-black leading-none mt-5 md:mt-0">
                 {renderTitle(card.title)}
               </div>
             </div>
@@ -176,7 +177,7 @@ const WhyChooseUs = ({
 
   return (
     <section className="bg-white py-16 md:py-24 px-4 md:px-[5%] w-full">
-      <Fade>
+      <Fade duration={5}>
         <div className="max-w-7xl mx-auto">
           {/* Section Heading */}
           <div className="text-center mb-12 md:mb-16">
@@ -189,14 +190,16 @@ const WhyChooseUs = ({
           </div>
 
           {/* Cards Grid: 2 columns on all devices */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-8 max-w-5xl mx-auto">
-            {cards.map((card) => (
-              <div key={card.id} className="w-full">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-4 max-w-5xl mx-auto">
+            {cards.map((card,i) => (
+              <Reveal key={i}>
+                <div className="w-full">
                 {renderCard(card)}
               </div>
+              </Reveal>
             ))}
           </div>
-            <div className='md{:hidden flex justify-center py-8'>
+            <div className='md:hidden flex justify-center py-8'>
               <CtaButton text={ctatext}></CtaButton>
             </div>
         </div>

@@ -3,6 +3,7 @@
 import React, { useState } from "react";
 import Fade from "@/reuseables/fade";
 import * as Icons from "lucide-react";
+import Reveal from "@/reuseables/Reveal";
 
 export interface TrustFeature {
   title: string;
@@ -38,8 +39,9 @@ const TrustRegen = ({ data }: { data: TrustRegenProps }) => {
               const borderColor = isActive ? '#63B846' : 'rgba(99, 184, 70, 0.25)';
 
               return (
-                <div
-                  key={idx}
+                <Reveal key={idx}>
+                  <div
+                  
                   className="relative flex flex-col items-center text-center cursor-pointer px-6 py-10 md:px-8 md:py-12 transition-all duration-300"
                   onMouseEnter={() => setActiveIdx(idx)}
                   style={{
@@ -49,7 +51,7 @@ const TrustRegen = ({ data }: { data: TrustRegenProps }) => {
                     zIndex: isActive ? 2 : 1,
                   }}
                 >
-                  <div className="mb-6 flex h-24 w-24 items-center justify-center md:h-28 md:w-28">
+                  <div className="mb-6 flex h-24 w-24 items-center justify-center md:h-30 md:w-30">
                     <img
                       src={feature.icon}
                       alt={feature.title}
@@ -73,6 +75,8 @@ const TrustRegen = ({ data }: { data: TrustRegenProps }) => {
                     />
                   )}
                 </div>
+                </Reveal>
+                
               );
             })}
           </div>

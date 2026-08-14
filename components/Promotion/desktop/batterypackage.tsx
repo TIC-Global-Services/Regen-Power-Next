@@ -1,5 +1,6 @@
 import React from 'react';
 import Fade from '@/reuseables/fade';
+import Reveal from '@/reuseables/Reveal';
 
 export interface BatteryPackageRebate {
   label: string;
@@ -53,9 +54,9 @@ const BatteryPackageCard = ({ pkg }: { pkg: BatteryPackageItem }) => {
     pkg.rebates && pkg.rebates.length > 0
       ? pkg.rebates
       : [
-          { label: 'State Rebate', amount: pkg.stateRebate ?? 0 },
-          { label: 'Federal Rebate', amount: pkg.federalRebate ?? 0 },
-        ].filter((rebate) => rebate.amount > 0);
+        { label: 'State Rebate', amount: pkg.stateRebate ?? 0 },
+        { label: 'Federal Rebate', amount: pkg.federalRebate ?? 0 },
+      ].filter((rebate) => rebate.amount > 0);
 
   const installationText = pkg.installationText || (pkg.isFullyInstalled ? 'Fully Installed' : '');
   const pricingNote = pkg.pricingNote || pkg.priceNote || 'Price is after the battery rebate';
@@ -107,16 +108,18 @@ const BatteryPackage = ({ data }: { data: BatteryPackageSection }) => {
 
   return (
     <section className="bg-white px-[5%] py-16 md:py-20">
-      <Fade>
+      <Fade duration={5}>
         <div className="">
-          <h2 className="mb-12 text-center text-[2.6rem] md:text-[4rem] font-bold text-[#63B846] leading-none">
+          <h2 className="mb-12 text-center text-[2.6rem] md:text-[4rem] tracking-tight font-bold text-[#63B846] leading-none">
             {title}
           </h2>
 
           <div className="grid grid-cols-1 md:grid-cols-[1fr_2fr_1fr] gap-6 md:gap-6 items-center">
             {packages.map((pkg, index) => (
               <React.Fragment key={`${pkg.name}-${index}`}>
-                <BatteryPackageCard pkg={pkg} />
+                <Reveal>
+                  <BatteryPackageCard pkg={pkg} />
+                </Reveal>
 
                 {index === 0 && (
                   <div className="hidden bg-[#EEF6EB] h-full rounded-[10px] md:flex items-center justify-center py-8">

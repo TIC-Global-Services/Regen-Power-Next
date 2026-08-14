@@ -43,7 +43,7 @@ const SolarFinancing = ({ data }: { data: SolarFinancingProps }) => {
         <div className="absolute inset-0 bg-[#071E07]/45 backdrop-blur-[1px]" />
       </div>
 
-      <Fade>
+      <Fade duration={5}>
         <div className="relative z-10  w-full">
           {/* Centered Header */}
           <div className="text-center max-w-6xl mx-auto mb-16">

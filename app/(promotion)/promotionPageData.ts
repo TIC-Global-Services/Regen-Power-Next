@@ -328,7 +328,7 @@ export const desktopSolarFinancingData = {
       title: "10 Years Repayment",
       description:
         "Up to $10,000 interest-free loan available, repayable over 10 years to help cover the cost of a solar battery system.",
-      icon: "/solar-financing/solar-finance-2.svg",
+      icon: "/solar-financing/solar-finance-1.svg",
     },
     {
       title: "10 Years Repayment",
@@ -379,7 +379,12 @@ export const desktopFindOutWhyData = {
     {
       image: "/top_rated_logo.png",
       description:
-        "6-Time ProductReview Award Winner (2021, 2022, 2023, 2024, 2025 & 2026) \n⭐ 5.0 Stars • 2,684 Reviews",
+        "6-Time ProductReview Award Winner (2021, 2022, 2023, 2024, 2025 & 2026)",
+    },
+    {
+      image: "/awards/product_review.svg",
+      description:
+        "⭐ 5.0 Stars • 2,684 Reviews",
     },
 
   ],
@@ -588,7 +593,7 @@ export const mobileAwardsData = [
   {
     id: "productreview",
     image: "/awards/award-winner.png",
-    title: "6 X ProductReview Award Winner \n2021, 22, 23, 24, 25, 26",
+    title: "6 X ProductReview Award Winner 2021, 22, 23, 24, 25, 26",
   },
   {
     id: "bestrated",
@@ -660,7 +665,8 @@ export const mobileBatteryPricingData = {
 export const mobileQuoteFormData = {
   title: "Get A Quote",
   noticeText:
-    "Due to the current high demand for batteries, we are unable to accept bookings for Solar-Only installations at this time. Bookings will only be accepted for Solar + Battery or Battery-Only installations.",
+    "Due to the current high demand for batteries, we are unable to accept bookings for Solar-Only installations at this time.",
+    noticehighlight:" Bookings will only be accepted for Solar + Battery or Battery-Only installations.",
   buttonText: "Get Free Estimate",
 };
 

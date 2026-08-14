@@ -1,6 +1,7 @@
 import React from "react";
 import Fade from "@/reuseables/fade";
 import { MinusCircle } from "lucide-react";
+import Reveal from "@/reuseables/Reveal";
 
 export interface HeroPackage {
   capacity: string;
@@ -59,10 +60,8 @@ const Hero = ({ data }: { data: HeroProps }) => {
           <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-4 gap-4 items-center">
             {/* Package Cards */}
             {data.packages.map((pkg, idx) => (
-              <div
-                key={idx}
-                className="bg-white rounded-[10px] px-4 py-10 flex flex-col justify-between border border-gray-100 transition-all duration-300 lg:h-[580px] xl:h-[560px]"
-              >
+              <Reveal key={idx} delay={0.1 * idx} >
+                 <div className="bg-white rounded-[10px] px-4 py-10 flex flex-col justify-between border border-gray-100 transition-all duration-300 lg:h-[580px] xl:h-[560px]">
                 <div>
                   <h3 className="text-[1.8rem] md:text-[2.5rem] font-bold text-black tracking-tight leading-none text-center border-b-[2]  pb-5">
                     {pkg.capacity}
@@ -115,10 +114,13 @@ const Hero = ({ data }: { data: HeroProps }) => {
                   <p className="text-lg  font-bold">{pkg.priceNote}</p>
                 </div>
               </div>
+              </Reveal>
+             
             ))}
             {/* Column 3: Battery Image Container */}
             
             {data.batteryImage && (
+              <Reveal>
               <div className="bg-white/10 rounded-[10px] p-6 flex items-center justify-center  transition-all duration-300 lg:h-[580px] xl:h-[560px]">
                 <img
                   src={data.batteryImage}
@@ -126,8 +128,10 @@ const Hero = ({ data }: { data: HeroProps }) => {
                   className="max-h-full max-w-full object-contain transition-transform duration-500 hover:scale-105"
                 />
               </div>
+              </Reveal>
             )}
             {/* Column 4: Sidebar Info Card */}
+            <Reveal>
             <div className="bg-white rounded-[10px] px-6 py-8 flex flex-col justify-between border border-gray-100 lg:h-[580px] xl:h-[560px]">
               <div>
                 <h3 className="text-[2.875rem] font-bold text-[#63B846] mb-4 whitespace-pre-line leading-[1.1]">
@@ -145,6 +149,7 @@ const Hero = ({ data }: { data: HeroProps }) => {
                 </div>
               </div>
             </div>
+            </Reveal>
           </div>
         </div>
       </Fade>

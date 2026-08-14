@@ -51,7 +51,7 @@ const Acheivements: React.FC<ComponentProps> = (props) => {
 
   return (
     <section className="bg-white py-16 md:py-20 px-[5%]">
-      <Fade>
+      <Fade duration={5}>
         <div className="max-w-7xl mx-auto">
           {/* Header */}
           {(title || subtitle || description) && (
@@ -75,7 +75,7 @@ const Acheivements: React.FC<ComponentProps> = (props) => {
           )}
 
           {/* Grid of awards, row by row */}
-          <div className="flex flex-col max-w-6xl mx-auto">
+          <div className="flex flex-col">
             {rows.map((row, rowIdx) => (
               <div
                 key={rowIdx}
@@ -88,7 +88,7 @@ const Acheivements: React.FC<ComponentProps> = (props) => {
                   const isBottomRow = rowIdx === rows.length - 1;
 
                   const cellClasses = [
-                    'w-full md:w-1/3 flex items-center justify-center p-8 min-h-[220px] transition-all duration-300',
+                    'w-full  flex items-center justify-center p-6 min-h-[220px] transition-all duration-300',
                     // small screens: add bottom border between rows, but not on last row
                     !isBottomRow ? 'border-b border-gray-200' : 'border-b-0',
                     // md+: start with a border on all sides, then remove outer edges
@@ -103,7 +103,7 @@ const Acheivements: React.FC<ComponentProps> = (props) => {
 
                   return (
                     <div key={colIdx} className={cellClasses}>
-                      <div className="relative w-full h-[120px] flex items-center justify-center">
+                      <div className="relative w-full h-[180px] flex items-center justify-center">
                         <img
                           src={badge.image}
                           alt={badge.name}
@@ -130,7 +130,7 @@ const Acheivements: React.FC<ComponentProps> = (props) => {
                     {recognitions[0].awards.map((award, idx) => (
                       <div
                         key={idx}
-                        className={`w-full sm:w-[280px] flex items-center justify-center p-6 min-h-[160px] border-[#00000033]  border-t ${idx==0 ?"border-r":""} transition-all duration-300 `}
+                        className={`w-full sm:w-[280px] flex items-center justify-center p-4 min-h-[180px] border-[#00000033]  border-t ${idx==0 ?"border-r":""} transition-all duration-300 `}
                       >
                         <div className="relative w-full h-full flex items-center justify-center">
                           <img
