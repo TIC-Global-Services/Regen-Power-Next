@@ -86,7 +86,7 @@ const ReadyToBegin = ({ data }: { data: ReadyToBeginProps }) => {
       return (
         <a 
           href={`mailto:${item.value}`} 
-          className="block text-black text-sm md:text-[1.375rem] leading-relaxed font-normal hover:text-[#63B846] transition-colors"
+          className="block text-black text-sm md:text-[1.375rem] leading-relaxed font-normal hover:text-[#63B846] transition-colors border-b border-b-[#00000029] pb-2"
         >
           {item.value}
         </a>

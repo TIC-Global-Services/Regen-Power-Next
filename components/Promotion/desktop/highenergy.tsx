@@ -32,7 +32,7 @@ const HighEnergy = ({ data }: { data: HighEnergyProps }) => {
   }
 
   return (
-    <section className="bg-white py-16 md:py-20 overflow-hidden border-t border-gray-100">
+    <section className="bg-white py-16 md:py-10 overflow-hidden border-t border-gray-100">
       <Fade duration={5}>
         <div className="px-[5%] mb-12">
           {/* Centered Header */}
@@ -94,7 +94,7 @@ const HighEnergy = ({ data }: { data: HighEnergyProps }) => {
               {badges.map((badge, idx) => (
                 <div
                   key={idx}
-                  className="bg-white border border-[#00000033] px-8 py-6 h-[20dvh] shrink-0 flex items-center justify-center shadow-sm hover:shadow-md transition-shadow duration-300"
+                  className="bg-white border border-[#00000033] px-8 py-6 h-[30dvh] shrink-0 flex items-center justify-center shadow-sm hover:shadow-md transition-shadow duration-300"
                 >
                   <img
                     src={badge.logoPath}

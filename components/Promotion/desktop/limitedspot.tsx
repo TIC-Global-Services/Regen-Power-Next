@@ -43,7 +43,7 @@ const CardItem = ({ card }: { card: LimitedSpotCard }) => {
 
         {/* Bottom Nested Card (Black Box) */}
         {card.nestedCard && (
-          <div className="relative bg-black rounded-[12px] p-3 h-[35dvh] w-full flex items-end justify-center overflow-hidden">
+          <div className="relative bg-black rounded-[12px] p-3 lg:h-full w-full flex items-end justify-center overflow-hidden">
             {card.nestedCard.type === 'logo' && (
               <div className="relative w-full h-full flex items-center justify-center">
                 <img

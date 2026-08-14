@@ -25,7 +25,7 @@ const Brands = ({ data }: { data: BrandsProps }) => {
   const { title, subtitle, brands = [], batteries = [] } = data || {};
 
   return (
-    <section className="bg-white py-16 md:py-20 overflow-hidden border-t border-gray-100">
+    <section className="bg-white py-16 md:py-25 overflow-hidden border-t border-gray-100">
       <Fade>
         {/* Header */}
         <div className=" px-[5%] mb-10 text-center">

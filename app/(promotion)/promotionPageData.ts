@@ -328,7 +328,7 @@ export const desktopSolarFinancingData = {
       title: "10 Years Repayment",
       description:
         "Up to $10,000 interest-free loan available, repayable over 10 years to help cover the cost of a solar battery system.",
-      icon: "/solar-financing/solar-finance-2.svg",
+      icon: "/solar-financing/solar-finance-1.svg",
     },
     {
       title: "10 Years Repayment",
@@ -379,7 +379,12 @@ export const desktopFindOutWhyData = {
     {
       image: "/top_rated_logo.png",
       description:
-        "6-Time ProductReview Award Winner (2021, 2022, 2023, 2024, 2025 & 2026) \n⭐ 5.0 Stars • 2,684 Reviews",
+        "6-Time ProductReview Award Winner (2021, 2022, 2023, 2024, 2025 & 2026)",
+    },
+    {
+      image: "/awards/product_review.svg",
+      description:
+        "⭐ 5.0 Stars • 2,684 Reviews",
     },
 
   ],

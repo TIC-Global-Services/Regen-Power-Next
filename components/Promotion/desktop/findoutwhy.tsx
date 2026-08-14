@@ -81,7 +81,7 @@ const FindOutWhy = ({ data }: { data: FindOutWhyProps }) => {
             {data.reviews?.map((item, idx) => (
               <Reveal key={idx}>
                 <div
-                className="bg-[#EEF6EB] rounded-[10px] p-6 md:p-8 flex flex-col justify-between"
+                className="bg-[#EEF6EB] rounded-[10px] p-6 md:p-8 h-full flex flex-col justify-between"
               >
                 <div>
                   <h4 className="font-bold text-black text-lg md:text-[1.625rem] leading-none mb-3">

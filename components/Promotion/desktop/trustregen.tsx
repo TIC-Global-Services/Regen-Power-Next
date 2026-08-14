@@ -51,7 +51,7 @@ const TrustRegen = ({ data }: { data: TrustRegenProps }) => {
                     zIndex: isActive ? 2 : 1,
                   }}
                 >
-                  <div className="mb-6 flex h-24 w-24 items-center justify-center md:h-28 md:w-28">
+                  <div className="mb-6 flex h-24 w-24 items-center justify-center md:h-30 md:w-30">
                     <img
                       src={feature.icon}
                       alt={feature.title}
