@@ -19,7 +19,7 @@ export default function FiveThingsSection({ resolved }: Props) {
     if (!slider) return;
     const scrollLeft = slider.scrollLeft;
     const cardWidth = slider.children[0]?.clientWidth ?? 1;
-    const gap = 16; // matches gap-4 (1rem = 16px)
+    const gap = 16;
     const index = Math.round(scrollLeft / (cardWidth + gap));
     setActiveIndex(Math.min(index, items.length - 1));
   }, [items.length]);
@@ -39,62 +39,57 @@ export default function FiveThingsSection({ resolved }: Props) {
   };
 
   return (
-    <section className="py-12 md:py-24 bg-white">
-      <div className="px-[5%] mx-auto">
+    <section className="py-12 lg:py-8 bg-white min-h-[100dvh] flex flex-col justify-center overflow-hidden">
+      <div className="px-[5%] mx-auto w-full">
         <SectionHeader
           subtitle={resolved.subtitle}
           title={resolved.title}
           description={resolved.description}
           align="left"
-          subtitleClass="text-lg md:text-2xl font-light text-black tracking-tight text-left md:text-center"
-          titleClass="text-4xl md:text-6xl lg:text-[4.5rem] text-[#63B846] font-normal tracking-tighter leading-none text-left md:text-center"
-          descClass="text-left md:text-center"
-          className="md:items-center md:text-center md:mx-auto mx-auto max-w-4xl mb-12 md:mb-24"
+          subtitleClass="text-lg lg:text-2xl font-light text-black tracking-tight text-left lg:text-center"
+          titleClass="text-4xl lg:text-6xl lg:text-[4.5rem] text-[#63B846] font-normal tracking-tighter leading-none text-left lg:text-center"
+          descClass="text-left lg:text-center"
+          className="lg:items-center lg:text-center lg:mx-auto mx-auto max-w-4xl mb-12 lg:mb-20"
         />
 
         {/* Desktop staggered grid */}
-        <div className="hidden md:grid grid-cols-5 gap-3 md:gap-4 max-w-6xl mx-auto items-start">
+        <div className="hidden lg:grid grid-cols-5 gap-3 lg:gap-4 items-start justify-center w-full">
           {items.map((item, idx) => {
-            const isOffset = idx % 2 === 1;
-            const bg = item.highlight ? 'bg-[#A0CF44]' : 'bg-[#E5EFD5]';
+            const isShiftedDown = idx % 2 === 0;
+            const bg = item.highlight ? 'bg-[#63B846]' : 'bg-[#EEF6EB]';
 
             return (
               <Reveal
                 key={idx}
                 delay={idx * 0.1}
-                className={`relative flex flex-col ${
-                  isOffset ? 'mt-16 md:mt-24' : ''
+                className={`relative flex flex-col justify-center items-center w-full ${
+                  isShiftedDown ? 'mt-16 lg:mt-20 lg:mt-24' : ''
                 }`}
               >
-                {/* Number — top for even cards, bottom for odd-offset cards */}
-                {!isOffset ? (
+                {/* Number — top for shifted down cards */}
+                {isShiftedDown ? (
                   <span
-                    className={`text-[#1a1a1a] text-6xl md:text-8xl lg:text-[7rem] font-normal leading-none tracking-tighter select-none mb-2 ${
-                      item.highlight ? 'order-2' : 'order-1'
-                    }`}
+                    className="text-[#1a1a1a] absolute -top-16 lg:-top-20 lg:-top-24 text-6xl lg:text-8xl lg:text-[7.5rem] font-normal leading-none tracking-tighter select-none"
                   >
                     {item.number}
                   </span>
                 ) : null}
 
                 <div
-                  className={`${bg} rounded-[20px] p-5 md:p-6 flex flex-col min-h-[280px] md:min-h-[340px] transition-all duration-300 hover:scale-[1.02] ${
-                    isOffset ? 'order-1' : 'order-2'
-                  }`}
+                  className={`${bg} rounded-[20px] z-10 p-5 lg:p-6 lg:p-7 flex flex-col justify-center w-full h-[280px] lg:h-[340px] lg:h-[50dvh] transition-all duration-300 hover:scale-[1.02]`}
                 >
-                  <h3 className="text-lg md:text-xl lg:text-2xl font-normal text-black tracking-tight leading-tight mb-3">
+                  <h3 className="text-lg lg:text-xl lg:text-3xl font-normal text-black tracking-tight leading-tight mb-3">
                     {item.title}
                   </h3>
-                  <p className="text-xs md:text-sm text-black/80 leading-snug tracking-tight">
+                  <p className="text-xs lg:text-sm lg:text-base text-black/80 leading-snug tracking-tight">
                     {item.description}
                   </p>
                 </div>
 
-                {isOffset ? (
+                {/* Number — bottom for shifted up cards */}
+                {!isShiftedDown ? (
                   <span
-                    className={`text-[#1a1a1a] text-6xl md:text-8xl lg:text-[7rem] font-normal leading-none tracking-tighter select-none mt-2 ${
-                      item.highlight ? 'order-1' : 'order-3'
-                    }`}
+                    className="text-[#1a1a1a] absolute -bottom-16 lg:-bottom-20 lg:-bottom-20 text-6xl lg:text-8xl lg:text-[7.5rem] font-normal leading-none tracking-tighter select-none"
                   >
                     {item.number}
                   </span>
@@ -105,21 +100,21 @@ export default function FiveThingsSection({ resolved }: Props) {
         </div>
 
         {/* Mobile slider */}
-        <div className="md:hidden">
+        <div className="lg:hidden mt-8">
           <div
             ref={sliderRef}
-            className="flex  gap-4 overflow-x-auto snap-x snap-mandatory scrollbar-hide pb-2 -mx-[2%]"
+            className="flex gap-4 overflow-x-auto snap-x snap-mandatory scrollbar-hide pb-2 -mx-[2%]"
             style={{ WebkitOverflowScrolling: 'touch', scrollbarWidth: 'none', msOverflowStyle: 'none' }}
           >
             {items.map((item, idx) => {
-              const bg = item.highlight ? 'bg-[#A0CF44]' : 'bg-[#E5EFD5]';
+              const bg = item.highlight ? 'bg-[#63B846]' : 'bg-[#EEF6EB]';
               return (
                 <div
                   key={idx}
                   className="snap-start shrink-0 w-[62%]"
                 >
                   <div
-                    className={`${bg} rounded-[20px] p-6 flex flex-col min-h-[320px]`}
+                    className={`${bg} rounded-[20px] p-6 flex flex-col min-h-[320px] justify-center`}
                   >
                     <span className="text-[#1a1a1a] text-6xl font-normal leading-none tracking-tighter select-none mb-3">
                       {item.number}

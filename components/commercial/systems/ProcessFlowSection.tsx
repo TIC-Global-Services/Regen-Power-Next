@@ -1,8 +1,7 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
-import { ArrowLeft, ArrowRight } from 'lucide-react';
 import SectionHeader from '@/reuseables/SectionHeader';
 import type { ResolvedCommercialSystemsProcessFlow } from '@/lib/strapi/resolvers/commercial';
 
@@ -10,43 +9,54 @@ interface Props {
   resolved: ResolvedCommercialSystemsProcessFlow;
 }
 
-const ACTIVE_W = 320;
-const ACTIVE_H = 400;
-const INACTIVE_W = 180;
-const INACTIVE_H = 180;
-const GAP = 16;
-
-// X offset of the active card's center from the left of the row
-const ACTIVE_CENTER = 3 * (INACTIVE_W + GAP) + ACTIVE_W / 2;
+const ACTIVE_W = 380;
+const ACTIVE_H = 500;
+const INACTIVE_W = 200;
+const INACTIVE_H = 200;
+const GAP = 20;
 
 export default function ProcessFlowSection({ resolved }: Props) {
   const { steps } = resolved;
   const [activeIndex, setActiveIndex] = useState(0);
+  const [isHovered, setIsHovered] = useState(false);
 
-  const handlePrev = () => {
-    setActiveIndex((prev) => (prev === 0 ? steps.length - 1 : prev - 1));
-  };
+  // Auto-rotation effect
+  useEffect(() => {
+    if (isHovered || steps.length === 0) return;
+    const timer = setInterval(() => {
+      setActiveIndex((prev) => (prev === steps.length - 1 ? 0 : prev + 1));
+    }, 4000);
+    return () => clearInterval(timer);
+  }, [steps.length, isHovered]);
 
-  const handleNext = () => {
-    setActiveIndex((prev) => (prev === steps.length - 1 ? 0 : prev + 1));
-  };
+  // Calculate dynamic positioning values to ensure infinite seamless loop
+  const numLeft = Math.floor(steps.length / 2);
+  const ACTIVE_CENTER = numLeft * (INACTIVE_W + GAP) + ACTIVE_W / 2;
+  const totalWidth = (steps.length - 1) * (INACTIVE_W + GAP) + ACTIVE_W + GAP;
 
-  const totalWidth = 3 * INACTIVE_W + ACTIVE_W + 3 * INACTIVE_W + 6 * GAP;
+  if (steps.length === 0) return null;
 
   return (
     <section className="py-16 md:py-24 bg-white overflow-hidden">
-      <div className="px-[5%] mx-auto">
-        <SectionHeader
-          subtitle={resolved.subtitle}
-          title={resolved.title}
-          description={resolved.description}
-          align="left"
-          subtitleClass="text-lg md:text-2xl font-light text-black tracking-tight"
-          titleClass="text-4xl md:text-6xl lg:text-[4.5rem] text-[#63B846] font-normal tracking-tighter leading-none"
-          className="max-w-4xl mb-4 md:mb-16"
-        />
+      <div className=" mx-auto">
+        <div className="px-[5%]">
+          <SectionHeader
+            subtitle={resolved.subtitle}
+            title={resolved.title}
+            description={resolved.description}
+            align="left"
+            descClass="md:text-base"
+            subtitleClass="text-lg md:text-2xl font-light text-black tracking-tight"
+            titleClass="text-4xl md:text-6xl lg:text-[4.5rem] text-[#63B846] font-normal tracking-tighter leading-none"
+            className="max-w-4xl mb-8 md:mb-16"
+          />
+        </div>
 
-        <div className="relative w-full max-w-full">
+        <div
+          className="relative w-full max-w-full"
+          onMouseEnter={() => setIsHovered(true)}
+          onMouseLeave={() => setIsHovered(false)}
+        >
           {/* Marquee viewport — clips overflow */}
           <div
             className="relative w-full overflow-hidden"
@@ -62,16 +72,16 @@ export default function ProcessFlowSection({ resolved }: Props) {
               }}
             >
               {steps.map((step, idx) => {
-                const order = (idx - activeIndex + 3 + steps.length) % steps.length;
-                const isActive = order === 3;
+                const order = (idx - activeIndex + numLeft + steps.length) % steps.length;
+                const isActive = order === numLeft;
 
                 let x = 0;
-                if (order < 3) {
+                if (order < numLeft) {
                   x = order * (INACTIVE_W + GAP);
-                } else if (order === 3) {
-                  x = 3 * (INACTIVE_W + GAP);
+                } else if (order === numLeft) {
+                  x = numLeft * (INACTIVE_W + GAP);
                 } else {
-                  x = 3 * (INACTIVE_W + GAP) + ACTIVE_W + GAP + (order - 4) * (INACTIVE_W + GAP);
+                  x = numLeft * (INACTIVE_W + GAP) + ACTIVE_W + GAP + (order - numLeft - 1) * (INACTIVE_W + GAP);
                 }
 
                 return (
@@ -85,66 +95,57 @@ export default function ProcessFlowSection({ resolved }: Props) {
                       y: isActive ? 0 : (ACTIVE_H - INACTIVE_H) / 2,
                     }}
                     transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-                    className={`absolute top-0 left-0 rounded-[20px] overflow-hidden ${
-                      isActive
-                        ? 'border-2 border-dashed border-[#63B846]/40'
-                        : ''
-                    }`}
+                    className={`absolute top-0 left-0 bg-white ${isActive
+                      ? 'p-3 border border-dashed border-gray-400 cursor-default'
+                      : 'cursor-pointer'
+                      }`}
                     style={{ zIndex: isActive ? 10 : 1 }}
                   >
-                    <img
-                      src={step.image?.src || '/fallback.png'}
-                      alt={step.title}
-                      className="absolute inset-0 w-full h-full object-cover"
-                    />
-                    {isActive && (
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent" />
-                    )}
+                    <div className="relative w-full h-full overflow-hidden bg-gray-100">
+                      <img
+                        src={step.image?.src || '/fallback.png'}
+                        alt={step.title}
+                        className="absolute inset-0 w-full h-full object-cover"
+                      />
+                      {isActive && (
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent p-6 md:p-8 flex flex-col justify-end text-left">
+                          <AnimatePresence>
+                            <motion.div
+                              initial={{ opacity: 0, y: 10 }}
+                              animate={{ opacity: 1, y: 0 }}
+                              transition={{ delay: 0.2 }}
+                            >
+                              <h3 className="text-white text-2xl md:text-[2rem] font-normal mb-2 leading-tight">
+                                {step.title}
+                              </h3>
+                              <p className="text-white text-sm md:text-base leading-[1.2] font-light">
+                                {step.description}
+                              </p>
+                            </motion.div>
+                          </AnimatePresence>
+                        </div>
+                      )}
+                    </div>
                   </motion.button>
                 );
               })}
             </div>
           </div>
 
-          {/* Active card title + description */}
-          <div className="mt-0 max-w-md mx-auto text-center">
+          {/* Step number */}
+          <div className="flex items-start justify-center mt-2">
             <AnimatePresence mode="wait">
-              <motion.div
+              <motion.p
                 key={activeIndex}
-                initial={{ opacity: 0, y: 8 }}
+                initial={{ opacity: 0, y: 5 }}
                 animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -8 }}
+                exit={{ opacity: 0, y: -5 }}
                 transition={{ duration: 0.3 }}
+                className="text-xl md:text-2xl font-bold text-black tracking-tight text-center"
               >
-                <h3 className="text-xl md:text-2xl text-black font-normal tracking-tight leading-tight mb-2">
-                  {steps[activeIndex].title}
-                </h3>
-                <p className="text-sm md:text-base text-black/70 leading-snug tracking-tight">
-                  {steps[activeIndex].description}
-                </p>
-              </motion.div>
+                Step {steps[activeIndex].stepNumber}
+              </motion.p>
             </AnimatePresence>
-          </div>
-
-          {/* Step number + nav */}
-          <div className="flex items-center justify-center gap-4 mt-5">
-            <button
-              onClick={handlePrev}
-              aria-label="Previous step"
-              className="w-8 h-8 rounded-full bg-black text-white flex items-center justify-center transition-all duration-300 hover:scale-105 active:scale-95"
-            >
-              <ArrowLeft size={12} style={{ color: '#63B846' }} />
-            </button>
-            <p className="text-base md:text-lg font-semibold text-black tracking-tight text-center">
-              Step {steps[activeIndex].stepNumber}
-            </p>
-            <button
-              onClick={handleNext}
-              aria-label="Next step"
-              className="w-8 h-8 rounded-full bg-black text-white flex items-center justify-center transition-all duration-300 hover:scale-105 active:scale-95"
-            >
-              <ArrowRight size={12} style={{ color: '#63B846' }} />
-            </button>
           </div>
         </div>
       </div>

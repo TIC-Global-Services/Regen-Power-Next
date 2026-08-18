@@ -38,10 +38,10 @@ export default function IndustriesSection({ resolved }: Props) {
               </div>
 
               <div className="mt-auto pt-8">
-                <h3 className="text-2xl md:text-3xl font-normal text-black tracking-tight leading-tight mb-3">
+                <h3 className="text-2xl md:text-[2rem] font-normal text-black tracking-tight leading-tight mb-3">
                   {industry.title}
                 </h3>
-                <p className="text-sm md:text-base text-black/75 leading-snug tracking-tight mb-4">
+                <p className="text-sm md:text-xl text-black/75 leading-[1.2] tracking-tight mb-2">
                   {industry.description}
                 </p>
                 <p className="text-sm md:text-base text-black font-semibold leading-snug tracking-tight">
