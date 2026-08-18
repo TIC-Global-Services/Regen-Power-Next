@@ -1,14 +1,14 @@
 'use client';
 
 import React, { useState, useMemo, useCallback } from 'react';
-import Image from 'next/image';
 import type { PortfolioItem } from '@/utils/portfolio.model';
 import PortfolioFilters from './PortfolioFilters';
+import PortfolioHoverRow from './PortfolioHoverRow';
 
 /* ─── Constants ─── */
 
 const ITEMS_PER_PAGE = 12;
-const FALLBACK_IMAGE = '/fallback.png';
+const ROW_SIZE = 3;
 
 /* ─── Props ─── */
 
@@ -113,6 +113,12 @@ const PortfolioInteractive: React.FC<PortfolioInteractiveProps> = ({
   const visibleItems = filteredItems.slice(startIdx, startIdx + ITEMS_PER_PAGE);
   const pageNumbers = getPageNumbers(safePage, totalPages);
 
+  /* Chunk the page into rows of 3 for the hover-expand card rows */
+  const rows: PortfolioItem[][] = [];
+  for (let i = 0; i < visibleItems.length; i += ROW_SIZE) {
+    rows.push(visibleItems.slice(i, i + ROW_SIZE));
+  }
+
   return (
     <>
       {/* Filter bar */}
@@ -140,44 +146,10 @@ const PortfolioInteractive: React.FC<PortfolioInteractiveProps> = ({
               No projects match the current filters.
             </p>
           ) : (
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-5 md:gap-6">
-              {visibleItems.map((item, idx) => {
-                const isFirst = idx === 0;
-                return (
-                  <div
-                    key={item.id}
-                    className={`relative rounded-[20px] overflow-hidden group ${isFirst
-                        ? 'md:col-span-2 md:row-span-2 aspect-[4/3] md:aspect-auto'
-                        : 'aspect-[4/3]'
-                      }`}
-                  >
-                    <div className="absolute inset-0">
-                      <Image
-                        src={FALLBACK_IMAGE}
-                        alt={item.title}
-                        fill
-                        className="object-cover transition-transform duration-500 group-hover:scale-105"
-                      />
-                    </div>
-                    {/* Gradient overlay */}
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/30 to-transparent pointer-events-none" />
-                    {/* Text overlay */}
-                    <div className="absolute inset-0 p-6 md:p-8 flex flex-col justify-end text-white z-10">
-                      <h3
-                        className={`font-normal text-white tracking-tight leading-tight ${isFirst ? 'text-2xl md:text-3xl mb-2' : 'text-lg md:text-xl'
-                          }`}
-                      >
-                        {item.title}
-                      </h3>
-                      {isFirst && (
-                        <p className="text-sm md:text-base text-white/80 mt-2 leading-snug tracking-tight max-w-xl">
-                          {item.categories.join(' · ')}
-                        </p>
-                      )}
-                    </div>
-                  </div>
-                );
-              })}
+            <div className="flex flex-col gap-5 md:gap-6">
+              {rows.map((row, idx) => (
+                <PortfolioHoverRow key={idx} items={row} />
+              ))}
             </div>
           )}
         </div>

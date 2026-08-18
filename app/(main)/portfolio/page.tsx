@@ -1,8 +1,9 @@
 import React from 'react';
-import { getPortfolioPage } from '@/lib/strapi';
+import { getPortfolioPage, getPortfolioProjects } from '@/lib/strapi';
 import { findSection } from '@/lib/strapi/section-utils';
 import {
   resolvePortfolioHero,
+  resolvePortfolioProjects,
   resolveSharedCtaBanner,
   resolveSharedCategorySection,
 } from '@/lib/strapi/resolvers';
@@ -44,7 +45,10 @@ const locationOptions = PORTFOLIO_LOCATION_FILTERS.map((f) => ({
 /* ─── Page ─── */
 
 const PortfolioPage = async () => {
-  const { data } = await getPortfolioPage();
+  const [{ data }, { data: projects }] = await Promise.all([
+    getPortfolioPage(),
+    getPortfolioProjects(),
+  ]);
   const sections = data.sections ?? [];
 
   /* Resolve Strapi sections */
@@ -56,11 +60,8 @@ const PortfolioPage = async () => {
   const categorySectionProps = resolveSharedCategorySection(categorySection);
   const ctaProps = resolveSharedCtaBanner(ctaSection);
 
-  /*
-   * Portfolio items — use PORTFOLIO_DATA as fallback.
-   * TODO: Replace with Strapi portfolio items when the content-type is set up.
-   */
-  const portfolioItems = PORTFOLIO_DATA;
+  /* Portfolio items — live from the portfolio-project collection, static data as fallback. */
+  const portfolioItems = resolvePortfolioProjects(projects) ?? PORTFOLIO_DATA;
 
   return (
     <div className="bg-white min-h-screen text-black">

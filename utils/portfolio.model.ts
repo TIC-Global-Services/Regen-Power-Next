@@ -8,6 +8,7 @@ export interface PortfolioItem {
   suburb: string | null;
   state: string | null;   // WA, NSW, VIC, QLD, SA, TAS, NT, ACT
   postcode: string | null;
+  description?: string;   // short summary (from the portfolio-project collection)
 }
 
 export interface PortfolioFilterOption {

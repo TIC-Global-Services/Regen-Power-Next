@@ -1,5 +1,8 @@
 import { strapiFetch } from "./client";
 import type { StrapiResponse, StrapiSingleTypePage } from "./types";
+import type { BlogArticleData } from "./schemas/blog";
+import type { PressArticleData } from "./schemas/press-media";
+import type { PortfolioProjectData } from "./schemas/portfolio";
 import { populate } from "./populate/index";
 import * as solar from "./populate/solar";
 import * as brands from "./populate/brands";
@@ -213,18 +216,194 @@ export const getOffGridSolutionsPage = () =>
 export const getBlogPage = () =>
   getSingleType(
     PAGE_SLUGS.blog,
-    populate(blog.hero, blog.categoryFilter, shared.categorySection, shared.ctaBanner)
+    populate(blog.hero, shared.categorySection, shared.ctaBanner)
   );
+
+/* ─── blog-article collection ─── */
+
+const BLOG_ARTICLES_PAGE_SIZE = 100;
+
+/** Build the querystring for a page of blog-articles — only the fields the blog grid needs. */
+function blogArticlesQuery(page: number, pageSize: number): string {
+  const params = new URLSearchParams();
+  params.set("fields[0]", "title");
+  params.set("fields[1]", "description");
+  params.set("fields[2]", "slug");
+  params.set("fields[3]", "categories");
+  params.set("populate[image]", "true");
+  params.set("sort[0]", "publishedAt:desc");
+  params.set("pagination[page]", String(page));
+  params.set("pagination[pageSize]", String(pageSize));
+  return params.toString();
+}
+
+function blogArticlesPage(
+  page: number,
+  pageSize: number
+): Promise<StrapiResponse<BlogArticleData[]>> {
+  return strapiFetch<StrapiResponse<BlogArticleData[]>>(
+    `/blog-articles?${blogArticlesQuery(page, pageSize)}`
+  );
+}
+
+/** Fetch all published blog-articles (paginated server-side, revalidate 60). */
+export const getBlogArticles = async (): Promise<
+  StrapiResponse<BlogArticleData[]>
+> => {
+  const first = await blogArticlesPage(1, BLOG_ARTICLES_PAGE_SIZE);
+  if (!Array.isArray(first.data)) {
+    // strapiFetch returns { data: { sections: [] } } on error — treat as empty
+    return { data: [], meta: first.meta };
+  }
+  const pagination = (first.meta?.pagination ?? {}) as {
+    page?: number;
+    pageSize?: number;
+    pageCount?: number;
+    total?: number;
+  };
+  const total = pagination.total ?? first.data.length;
+  const pageCount = Math.max(
+    1,
+    pagination.pageCount ?? Math.ceil(total / BLOG_ARTICLES_PAGE_SIZE)
+  );
+  if (pageCount <= 1) return first;
+
+  const rest = await Promise.all(
+    Array.from({ length: pageCount - 1 }, (_, i) =>
+      blogArticlesPage(i + 2, BLOG_ARTICLES_PAGE_SIZE)
+    )
+  );
+  return {
+    data: rest.reduce((acc, r) => acc.concat(r.data), first.data),
+    meta: first.meta,
+  };
+};
 export const getPressMediaPage = () =>
   getSingleType(
     PAGE_SLUGS.pressMedia,
     populate(pressMedia.hero, pressMedia.featuredArticle, pressMedia.latestNewsSection, pressMedia.newsSection, shared.categorySection, shared.ctaBanner)
   );
+
+/* ─── press-article collection ─── */
+
+const PRESS_ARTICLES_PAGE_SIZE = 100;
+
+/** Build the querystring for a page of press-articles — only the fields the news grid needs. */
+function pressArticlesQuery(page: number, pageSize: number): string {
+  const params = new URLSearchParams();
+  params.set("fields[0]", "title");
+  params.set("fields[1]", "description");
+  params.set("fields[2]", "slug");
+  params.set("fields[3]", "categories");
+  params.set("fields[4]", "featured");
+  params.set("populate[image]", "true");
+  params.set("sort[0]", "publishedAt:desc");
+  params.set("pagination[page]", String(page));
+  params.set("pagination[pageSize]", String(pageSize));
+  return params.toString();
+}
+
+function pressArticlesPage(
+  page: number,
+  pageSize: number
+): Promise<StrapiResponse<PressArticleData[]>> {
+  return strapiFetch<StrapiResponse<PressArticleData[]>>(
+    `/press-articles?${pressArticlesQuery(page, pageSize)}`
+  );
+}
+
+/** Fetch all published press-articles (paginated server-side, revalidate 60). */
+export const getPressArticles = async (): Promise<
+  StrapiResponse<PressArticleData[]>
+> => {
+  const first = await pressArticlesPage(1, PRESS_ARTICLES_PAGE_SIZE);
+  if (!Array.isArray(first.data)) {
+    // strapiFetch returns { data: { sections: [] } } on error — treat as empty
+    return { data: [], meta: first.meta };
+  }
+  const pagination = (first.meta?.pagination ?? {}) as {
+    pageCount?: number;
+    total?: number;
+  };
+  const total = pagination.total ?? first.data.length;
+  const pageCount =
+    pagination.pageCount ?? Math.max(1, Math.ceil(total / PRESS_ARTICLES_PAGE_SIZE));
+  if (pageCount <= 1) return first;
+
+  const rest = await Promise.all(
+    Array.from({ length: pageCount - 1 }, (_, i) =>
+      pressArticlesPage(i + 2, PRESS_ARTICLES_PAGE_SIZE)
+    )
+  );
+  return {
+    data: rest.reduce((acc, r) => acc.concat(r.data), first.data),
+    meta: first.meta,
+  };
+};
 export const getPortfolioPage = () =>
   getSingleType(
     PAGE_SLUGS.portfolio,
     populate(portfolio.hero, portfolio.filters, shared.categorySection, shared.ctaBanner)
   );
+
+/* ─── portfolio-project collection ─── */
+
+const PORTFOLIO_PROJECTS_PAGE_SIZE = 100;
+
+/** Build the querystring for a page of portfolio-projects — only the fields the portfolio grid needs. */
+function portfolioProjectsQuery(page: number, pageSize: number): string {
+  const params = new URLSearchParams();
+  params.set("fields[0]", "title");
+  params.set("fields[1]", "description");
+  params.set("fields[2]", "slug");
+  params.set("fields[3]", "filters");
+  params.set("fields[4]", "state");
+  params.set("fields[5]", "suburb");
+  params.set("fields[6]", "postcode");
+  params.set("populate[image]", "true");
+  params.set("sort[0]", "createdAt:desc");
+  params.set("pagination[page]", String(page));
+  params.set("pagination[pageSize]", String(pageSize));
+  return params.toString();
+}
+
+function portfolioProjectsPage(
+  page: number,
+  pageSize: number
+): Promise<StrapiResponse<PortfolioProjectData[]>> {
+  return strapiFetch<StrapiResponse<PortfolioProjectData[]>>(
+    `/portfolio-projects?${portfolioProjectsQuery(page, pageSize)}`
+  );
+}
+
+/** Fetch all published portfolio-projects (paginated server-side, revalidate 60). */
+export const getPortfolioProjects = async (): Promise<
+  StrapiResponse<PortfolioProjectData[]>
+> => {
+  const first = await portfolioProjectsPage(1, PORTFOLIO_PROJECTS_PAGE_SIZE);
+  if (!Array.isArray(first.data)) {
+    // strapiFetch returns { data: { sections: [] } } on error — treat as empty
+    return { data: [], meta: first.meta };
+  }
+  const pagination = (first.meta?.pagination ?? {}) as {
+    pageCount?: number;
+    total?: number;
+  };
+  const total = pagination.total ?? first.data.length;
+  const pageCount =
+    pagination.pageCount ?? Math.max(1, Math.ceil(total / PORTFOLIO_PROJECTS_PAGE_SIZE));
+  if (pageCount <= 1) return first;
+
+  const rest = await Promise.all(
+    Array.from({ length: pageCount - 1 }, (_, i) =>
+      portfolioProjectsPage(i + 2, PORTFOLIO_PROJECTS_PAGE_SIZE)
+    )
+  );
+  return {
+    data: rest.reduce((acc, r) => acc.concat(r.data), first.data),
+    meta: first.meta,
+  };
+};
 export const getContactPage = () =>
   getSingleType(
     PAGE_SLUGS.contact,

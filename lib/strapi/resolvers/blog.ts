@@ -1,5 +1,9 @@
 import { strapiImageData } from "../media";
-import type { BlogHeroData, BlogCategoryFilterData } from "../schemas/blog";
+import type {
+  BlogHeroData,
+  BlogCategoryFilterData,
+  BlogArticleData,
+} from "../schemas/blog";
 
 export interface ResolvedBlogHero {
   subtitle: string;
@@ -29,7 +33,10 @@ export interface ResolvedBlogCard {
   description: string;
   image: string;
   imagePosition: "right" | "left";
+  /** first category — kept for back-compat */
   categoryKey: string;
+  /** every normalized category on the article, so a card matches all its pills */
+  categoryKeys?: string[];
 }
 export interface ResolvedBlogCategoryFilter {
   subtitle: string;
@@ -57,5 +64,106 @@ export function resolveBlogCategoryFilter(
       imagePosition: card.imagePosition ?? "right",
       categoryKey: card.categoryKey ?? "",
     })),
+  };
+}
+
+/* ─── blog-article collection → blog grid ─── */
+
+const CATEGORY_LABELS: Record<string, string> = {
+  news: "News",
+  articles: "Articles",
+  "solar rebate": "Solar Rebate",
+  "solar panels": "Solar Panels",
+  "solar system": "Solar System",
+};
+
+export const ALL_CATEGORIES_KEY = "all";
+
+/** "News" / "solar panels" → "news" / "solar-panels" */
+export function normalizeCategoryKey(raw: string): string {
+  return raw
+    .trim()
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-+|-+$/g, "");
+}
+
+/** "solar panels" → "Solar Panels", with a known-label override map */
+export function normalizeCategoryLabel(raw: string): string {
+  const lower = raw.trim().toLowerCase().replace(/\s+/g, " ");
+  if (CATEGORY_LABELS[lower]) return CATEGORY_LABELS[lower];
+  return lower.replace(/\b\w/g, (c) => c.toUpperCase());
+}
+
+/** Strip HTML/WordPress markup, collapse whitespace, truncate for a card. */
+export function cleanDescription(raw: string, max = 200): string {
+  const text = raw
+    .replace(/<[^>]*>/g, " ")
+    .replace(/\[[^\]]*\]/g, " ")
+    .replace(/&nbsp;/g, " ")
+    .replace(/&amp;/g, "&")
+    .replace(/&quot;/g, '"')
+    .replace(/&#39;|&apos;/g, "'")
+    .replace(/&lt;/g, "<")
+    .replace(/&gt;/g, ">")
+    .replace(/\s+/g, " ")
+    .trim();
+  if (!text) return "";
+  return text.length > max ? `${text.slice(0, max).trimEnd()}…` : text;
+}
+
+export interface ResolvedBlogCategoryOption {
+  label: string;
+  value: string;
+}
+
+export interface ResolvedBlogCollection {
+  categories: ResolvedBlogCategoryOption[];
+  defaultCategory: string;
+  cards: ResolvedBlogCard[];
+}
+
+export function resolveBlogArticles(
+  articles: BlogArticleData[] | undefined | null
+): ResolvedBlogCollection | null {
+  if (!Array.isArray(articles) || articles.length === 0) return null;
+
+  /* Derive category options from the data (most common first). */
+  const counts = new Map<string, { label: string; count: number }>();
+  for (const a of articles) {
+    for (const raw of a.categories ?? []) {
+      if (!raw?.trim()) continue;
+      const key = normalizeCategoryKey(raw);
+      const cur = counts.get(key) ?? { label: normalizeCategoryLabel(raw), count: 0 };
+      cur.count += 1;
+      counts.set(key, cur);
+    }
+  }
+
+  const categories: ResolvedBlogCategoryOption[] = [
+    { label: "All", value: ALL_CATEGORIES_KEY },
+    ...[...counts.entries()]
+      .sort((a, b) => b[1].count - a[1].count || a[1].label.localeCompare(b[1].label))
+      .map(([key, { label }]) => ({ label, value: key })),
+  ];
+
+  const cards: ResolvedBlogCard[] = articles.map((a) => {
+    const categoryKeys = Array.from(
+      new Set((a.categories ?? []).map((raw) => normalizeCategoryKey(raw)).filter(Boolean))
+    );
+    return {
+      title: a.title ?? "",
+      description: cleanDescription(a.description ?? ""),
+      image: a.image ? strapiImageData(a.image)?.src ?? "" : "",
+      imagePosition: "right",
+      categoryKey: categoryKeys[0] ?? "",
+      categoryKeys,
+    };
+  });
+
+  return {
+    categories,
+    defaultCategory: ALL_CATEGORIES_KEY,
+    cards,
   };
 }

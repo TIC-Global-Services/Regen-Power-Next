@@ -1,5 +1,9 @@
 import { strapiImageData } from "../media";
-import type { PortfolioHeroData, PortfolioFiltersData } from "../schemas/portfolio";
+import type { PortfolioHeroData, PortfolioFiltersData, PortfolioProjectData } from "../schemas/portfolio";
+import {
+  PORTFOLIO_CATEGORY_FILTERS,
+  type PortfolioItem,
+} from "@/utils/portfolio.model";
 
 export interface ResolvedPortfolioHero {
   subtitle: string;
@@ -63,4 +67,40 @@ export function resolvePortfolioFilters(
       categoryKey: card.categoryKey ?? "",
     })),
   };
+}
+
+/* ─── portfolio-project collection → PortfolioItem[] ─── */
+
+const FILTER_SLUG_TO_LABEL = new Map(
+  PORTFOLIO_CATEGORY_FILTERS.map((f) => [f.slug, f.label])
+);
+
+/**
+ * Map collection entries onto the existing PortfolioItem shape used by
+ * PortfolioInteractive. `categories` (display labels) are derived from the
+ * machine-slug `filters` array.
+ */
+export function resolvePortfolioProjects(
+  projects: PortfolioProjectData[] | undefined | null
+): PortfolioItem[] | null {
+  if (!Array.isArray(projects) || projects.length === 0) return null;
+
+  return projects.map((p) => {
+    const filters = (p.filters ?? []).map((f) => f.trim()).filter(Boolean);
+    const categories = Array.from(
+      new Set(filters.map((f) => FILTER_SLUG_TO_LABEL.get(f) ?? f))
+    );
+    return {
+      id: p.id,
+      title: p.title ?? "",
+      link: "",
+      image: p.image ? strapiImageData(p.image)?.src ?? "" : "",
+      categories,
+      filters,
+      suburb: p.suburb,
+      state: p.state,
+      postcode: p.postcode,
+      description: p.description?.trim() || undefined,
+    };
+  });
 }

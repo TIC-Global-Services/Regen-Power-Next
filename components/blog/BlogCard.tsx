@@ -10,6 +10,8 @@ export interface BlogCardData {
     image: string;
     imagePosition: 'right' | 'left';
     categoryKey?: string;
+    /** every category the card belongs to (multi-category articles) */
+    categoryKeys?: string[];
 }
 
 export type BlogCardVariant = 'text' | 'image';

@@ -1,15 +1,14 @@
 import React from 'react';
-import { getBlogPage } from '@/lib/strapi';
+import { getBlogPage, getBlogArticles } from '@/lib/strapi';
 import { findSection } from '@/lib/strapi/section-utils';
 import {
   resolveBlogHero,
-  resolveBlogCategoryFilter,
+  resolveBlogArticles,
   resolveSharedCtaBanner,
   resolveSharedCategorySection,
 } from '@/lib/strapi/resolvers';
 import type {
   BlogHeroData,
-  BlogCategoryFilterData,
   BlogCtaBannerData,
   SharedCategorySectionData,
 } from '@/lib/strapi/schemas';
@@ -21,16 +20,18 @@ import CategorySection from '@/reuseables/CategorySection';
 export const revalidate = 60;
 
 const BlogPage = async () => {
-  const { data } = await getBlogPage();
+  const [{ data }, { data: articles }] = await Promise.all([
+    getBlogPage(),
+    getBlogArticles(),
+  ]);
   const sections = data.sections ?? [];
 
   const hero = findSection<BlogHeroData>(sections, 'blog.hero');
-  const categoryFilter = findSection<BlogCategoryFilterData>(sections, 'blog.category-filter');
   const categorySection = findSection<SharedCategorySectionData>(sections, 'shared.category-section');
   const ctaBanner = findSection<BlogCtaBannerData>(sections, 'shared.cta-banner');
 
   const heroProps = resolveBlogHero(hero);
-  const gridProps = resolveBlogCategoryFilter(categoryFilter);
+  const gridProps = resolveBlogArticles(articles);
   const categorySectionProps = resolveSharedCategorySection(categorySection);
   const ctaBannerProps = resolveSharedCtaBanner(ctaBanner);
 

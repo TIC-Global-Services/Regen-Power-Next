@@ -384,21 +384,33 @@ export type {
 export { resolveContactHero } from "./contact";
 export type { ResolvedContactHero } from "./contact";
 
-export { resolveBlogHero, resolveBlogCategoryFilter } from "./blog";
-export type { ResolvedBlogHero, ResolvedBlogCategoryFilter } from "./blog";
-export { resolvePortfolioHero, resolvePortfolioFilters } from "./portfolio";
+export {
+  resolveBlogHero,
+  resolveBlogCategoryFilter,
+  resolveBlogArticles,
+  ALL_CATEGORIES_KEY,
+} from "./blog";
+export type {
+  ResolvedBlogHero,
+  ResolvedBlogCategoryFilter,
+  ResolvedBlogCollection,
+  ResolvedBlogCategoryOption,
+} from "./blog";
+export { resolvePortfolioHero, resolvePortfolioFilters, resolvePortfolioProjects } from "./portfolio";
 export type { ResolvedPortfolioHero, ResolvedPortfolioFilters, ResolvedPortfolioCard, ResolvedPortfolioFilterOption } from "./portfolio";
 export {
   resolvePressMediaHero,
   resolvePressMediaFeaturedArticle,
   resolvePressMediaLatestNewsSection,
   resolvePressMediaNewsSection,
+  resolvePressArticles,
 } from "./press-media";
 export type {
   ResolvedPressMediaHero,
   ResolvedPressMediaFeaturedArticle,
   ResolvedPressMediaLatestNewsSection,
   ResolvedPressMediaNewsSection,
+  ResolvedPressCollection,
 } from "./press-media";
 export {
   resolveOffGridHero,

@@ -4,7 +4,14 @@ import type {
   PressMediaFeaturedArticleData,
   PressMediaLatestNewsSectionData,
   PressMediaNewsSectionData,
+  PressArticleData,
 } from "../schemas/press-media";
+import {
+  ALL_CATEGORIES_KEY,
+  cleanDescription,
+  normalizeCategoryKey,
+  normalizeCategoryLabel,
+} from "./blog";
 
 export interface ResolvedPressMediaHero {
   subtitle: string;
@@ -109,5 +116,69 @@ export function resolvePressMediaNewsSection(
       image: card.image ? strapiImageData(card.image)?.src ?? "" : "",
       ...(card.categoryKey ? { categoryKey: card.categoryKey } : {}),
     })),
+  };
+}
+
+/* ─── press-article collection → news grid (same row layout as blog) ─── */
+
+export interface ResolvedPressCard {
+  title: string;
+  description: string;
+  image: string;
+  imagePosition: "right" | "left";
+  /** first category — kept for back-compat */
+  categoryKey: string;
+  /** every normalized category on the article */
+  categoryKeys: string[];
+}
+
+export interface ResolvedPressCollection {
+  categories: { label: string; value: string }[];
+  defaultCategory: string;
+  cards: ResolvedPressCard[];
+}
+
+export function resolvePressArticles(
+  articles: PressArticleData[] | undefined | null
+): ResolvedPressCollection | null {
+  if (!Array.isArray(articles) || articles.length === 0) return null;
+
+  /* Derive category options from the data (most common first). */
+  const counts = new Map<string, { label: string; count: number }>();
+  for (const a of articles) {
+    for (const raw of a.categories ?? []) {
+      if (!raw?.trim()) continue;
+      const key = normalizeCategoryKey(raw);
+      const cur = counts.get(key) ?? { label: normalizeCategoryLabel(raw), count: 0 };
+      cur.count += 1;
+      counts.set(key, cur);
+    }
+  }
+
+  const categories = [
+    { label: "All", value: ALL_CATEGORIES_KEY },
+    ...[...counts.entries()]
+      .sort((a, b) => b[1].count - a[1].count || a[1].label.localeCompare(b[1].label))
+      .map(([key, { label }]) => ({ label, value: key })),
+  ];
+
+  const cards: ResolvedPressCard[] = articles.map((a) => {
+    const categoryKeys = Array.from(
+      new Set((a.categories ?? []).map((raw) => normalizeCategoryKey(raw)).filter(Boolean))
+    );
+    return {
+      title: a.title ?? "",
+      description: cleanDescription(a.description ?? ""),
+      image: a.image ? strapiImageData(a.image)?.src ?? "" : "",
+      imagePosition: "right",
+      categoryKey: categoryKeys[0] ?? "",
+      categoryKeys,
+    };
+  });
+
+  return {
+    categories,
+    defaultCategory: ALL_CATEGORIES_KEY,
+    cards,
   };
 }

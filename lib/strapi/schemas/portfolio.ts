@@ -38,3 +38,24 @@ export const PortfolioFiltersSchema = z.object({
   cards: z.array(PortfolioCardSchema),
 });
 export type PortfolioFiltersData = z.infer<typeof PortfolioFiltersSchema>;
+
+/**
+ * portfolio-project collection entry — `GET /api/portfolio-projects`
+ * (fetched with fields: title, description, slug, filters, state, suburb, postcode + populate image)
+ */
+export const PortfolioProjectSchema = z.object({
+  id: z.number(),
+  documentId: z.string(),
+  title: z.string().nullable().default(""),
+  slug: z.string().nullable().default(""),
+  description: z.string().nullable().default(""),
+  filters: z.array(z.string()).nullable().default([]),
+  suburb: z.string().nullable(),
+  state: z.string().nullable(),
+  postcode: z.string().nullable(),
+  image: MediaSchema.nullable(),
+  createdAt: z.string().nullable().optional(),
+  updatedAt: z.string().nullable().optional(),
+  publishedAt: z.string().nullable().optional(),
+});
+export type PortfolioProjectData = z.infer<typeof PortfolioProjectSchema>;
