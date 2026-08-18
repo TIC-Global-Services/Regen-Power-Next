@@ -35,7 +35,7 @@ const gridCols: Record<IconCardLayout, string> = {
 };
 
 const variantClass: Record<IconCardVariant, string> = {
-    'light': 'bg-[#E5EFD5]',
+    'light': 'bg-[#EBEBEB]',
     'highlighted': 'bg-[#A0CF44]',
 };
 
@@ -43,7 +43,7 @@ const IconCardView: React.FC<{ card: IconCard; variant: IconCardVariant }> = ({ 
     const cardVariant = card.variant || variant;
     return (
         <div
-            className={`${variantClass[cardVariant]} rounded-[20px] p-6 md:p-7 flex flex-col justify-between h-full md:min-h-[440px]`}
+            className={`${variantClass[cardVariant]} rounded-[20px] p-6 md:p-7 flex flex-col justify-between h-full md:min-h-[50dvh]`}
         >
             <div className="relative w-14 h-14 md:w-16 md:h-16 mb-5 flex items-center justify-center">
                 {card.iconElement ? (
@@ -60,7 +60,7 @@ const IconCardView: React.FC<{ card: IconCard; variant: IconCardVariant }> = ({ 
                 )}
             </div>
             <div className="pt-10">
-                <h3 className="text-xl md:text-[1.35rem] text-black font-normal tracking-tight leading-snug mb-2">
+                <h3 className="text-xl md:text-[1.75rem] text-black font-normal tracking-tight leading-[1.2] mb-2">
                     {card.title}
                 </h3>
                 <p className="text-base md:text-xl text-black leading-[1.2] tracking-tight font-light">
@@ -120,7 +120,7 @@ const IconCardGrid: React.FC<IconCardGridProps> = ({
                 {showHeader && (subtitle || title || description) && (
                     <div className="text-center mb-12 md:mb-16">
                         {subtitle && (
-                            <p className="text-lg md:text-2xl text-black font-light tracking-tight mb-1">
+                            <p className="text-lg md:text-[2.125rem] text-black font-light tracking-tight leading-none">
                                 {subtitle}
                             </p>
                         )}
@@ -130,7 +130,7 @@ const IconCardGrid: React.FC<IconCardGridProps> = ({
                             </h2>
                         )}
                         {description && (
-                            <p className="text-sm md:text-base text-black leading-[1.2] mt-4">
+                            <p className="text-sm md:text-base text-black leading-[1.2] mt-4 md:max-w-4xl mx-auto">
                                 {description}
                             </p>
                         )}

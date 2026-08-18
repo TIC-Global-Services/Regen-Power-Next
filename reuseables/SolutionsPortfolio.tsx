@@ -60,8 +60,8 @@ const defaultCards: PortfolioCard[] = [
 ];
 
 const variantClass: Record<CardVariant, string> = {
-    'light-gray': 'bg-[#E8E8E6]',
-    'light-green': 'bg-[#E5EFD5]',
+    'light-gray': 'bg-[#EBEBEB]',
+    'light-green': 'bg-[#EEF6EB]',
     'dark': 'bg-[#3B3B33] text-white',
 };
 
@@ -76,11 +76,11 @@ const TextCardView: React.FC<{ card: TextCard; mobileScroll?: boolean }> = ({ ca
                 ))}
             </h3>
             <div>
-                <p className={`text-sm md:text-base leading-[1.2] tracking-tight max-w-md mb-4 ${isDark ? 'text-white/80' : 'text-black/80'}`}>
+                <p className={`text-sm md:text-base leading-[1.2] tracking-tight max-w-md ${isDark ? 'text-white/80' : 'text-black/80'}`}>
                     {card.description}
                 </p>
                 {card.specs && (
-                    <p className={`text-sm md:text-base leading-snug tracking-tight max-w-md mt-2 ${isDark ? 'text-white/80' : 'text-black/80'}`}>
+                    <p className={`text-sm md:text-base leading-[1.2] tracking-tight max-w-md ${isDark ? 'text-white/80' : 'text-black/80'}`}>
                         {card.specs}
                     </p>
                 )}
@@ -154,7 +154,7 @@ const SolutionsPortfolio: React.FC<SolutionsPortfolioProps> = ({
                             </h2>
                         )}
                         {description && (
-                            <p className="text-sm md:text-xl text-black leading-[1.2] mt-4 max-w-3xl mx-auto">
+                            <p className="text-sm md:text-xl text-black leading-[1.2] mt-4 max-w-7xl mx-auto">
                                 {description}
                             </p>
                         )}

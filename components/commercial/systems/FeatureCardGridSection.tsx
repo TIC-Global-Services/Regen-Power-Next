@@ -13,6 +13,7 @@ export default function FeatureCardGridSection({ resolved }: Props) {
       title={resolved.title}
       bottomSubtitle={resolved.bottomSubtitle}
       showReadMore={true}
+      
       cards={resolved.cards.map((c) => ({
         title: c.title,
         description: c.description,

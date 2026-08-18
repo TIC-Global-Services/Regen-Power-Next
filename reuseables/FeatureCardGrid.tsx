@@ -107,7 +107,7 @@ const FeatureCardGrid: React.FC<FeatureCardGridProps> = ({
           className="mb-5 md:mb-16"
           subtitleClass="text-xl md:text-[2.125rem] text-black tracking-tight capitalize"
           titleClass="text-[2.5rem] md:text-6xl tracking-tight leading-[1]"
-          descClass="text-sm text-black max-w-5xl mx-auto font-medium tracking-tight capitalize"
+          descClass="text-sm md:text-base text-black max-w-5xl mx-auto font-medium tracking-tight capitalize"
         />
 
         <div ref={containerRef} className="flex overflow-x-auto md:overflow-hidden md:flex-row -mx-[5%] pl-[5%] pr-[5%] gap-4 md:gap-5 w-[calc(100%+10%)] md:w-full md:mx-0 md:px-0 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none] pb-4 md:pb-0">
@@ -156,7 +156,7 @@ const FeatureCardGrid: React.FC<FeatureCardGridProps> = ({
                   )}
 
                   
-                  <p className={`text-white text-xs md:text-[15px] leading-tight max-w-[85%] tracking-tight transition-all duration-700 ease-[cubic-bezier(0.4,0,0.2,1)] ${isActive ? '' : showDescriptionInactive ? 'mt-1.5' : 'opacity-0 h-0 overflow-hidden m-0'}`}>
+                  <p className={`text-white text-xs md:text-base leading-tight max-w-[85%] tracking-tight transition-all duration-700 ease-[cubic-bezier(0.4,0,0.2,1)] ${isActive ? '' : showDescriptionInactive ? 'mt-1.5' : 'opacity-0 h-0 overflow-hidden m-0'}`}>
                     {card.description}
                   </p>
 
