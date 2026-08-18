@@ -79,7 +79,7 @@ export default function EligibilityCheckerSection({ resolved }: Props) {
   const activeResult = result ? resultMap[result] : null;
 
   return (
-    <section className="bg-white px-[5%] py-16 md:py-24">
+    <section className="bg-white px-[3%] py-16 md:py-24">
       <div>
         <SectionHeader
           badge={resolved.badge}
@@ -133,11 +133,10 @@ export default function EligibilityCheckerSection({ resolved }: Props) {
                               setValidationError("");
                             }}
                             aria-pressed={active}
-                            className={`min-w-28 rounded-[20px] border px-3 py-1.5 md:py-3 md:px-8 text-base md:text-xl tracking-tight transition-colors ${
-                              active
+                            className={`min-w-28 rounded-[20px] border px-3 py-1.5 md:py-3 md:px-8 text-base md:text-xl tracking-tight transition-colors ${active
                                 ? "border-[#63B846] bg-[#63B846] text-white"
                                 : "border-black/25 bg-white/70 text-black hover:border-[#63B846]"
-                            }`}
+                              }`}
                           >
                             {option === "yes" ? "Yes" : "No"}
                           </button>

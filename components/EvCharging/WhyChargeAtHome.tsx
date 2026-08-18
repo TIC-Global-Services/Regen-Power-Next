@@ -31,7 +31,7 @@ const WhyChargeAtHome = ({ data }: WhyChargeAtHomeProps) => {
   return (
     <Fade>
       <section className="py-16 md:py-24 bg-white">
-        <div className="px-[5%]">
+        <div className="px-[3%]">
           {/* Header */}
           <div className="mb-12 md:mb-10 leading-[0.8] flex justify-center items-center flex-col">
             <h2 className="text-2xl md:text-[5rem] font-medium text-[#63B846] tracking-tight">

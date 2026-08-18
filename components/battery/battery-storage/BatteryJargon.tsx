@@ -17,7 +17,7 @@ export interface BatteryJargonData {
 
 const BatteryJargon = ({ data }: { data: BatteryJargonData }) => {
   return (
-    <section className="bg-white py-16 md:py-20 px-[5%] overflow-hidden">
+    <section className="bg-white py-16 md:py-20 pl-[5%] overflow-hidden">
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-10 items-center">
         {/* Left Content */}
         <div className="w-full flex flex-col items-start pr-0 lg:pr-8 shrink-0">

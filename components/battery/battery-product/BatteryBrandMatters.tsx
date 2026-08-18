@@ -17,25 +17,25 @@ export interface BatteryBrandMattersData {
 
 const BatteryBrandMatters = ({ data }: { data: BatteryBrandMattersData }) => {
   return (
-    <section className="bg-white py-16 md:py-24 px-[5%]">
+    <section className="bg-white py-16 md:py-24 px-[3%]">
       <div className="">
         {/* Header */}
         <div className="text-left md:text-center mb-10 md:mb-16 max-w-4xl mx-auto">
-          <h3 className="text-base md:text-2xl text-black font-normal mb-2 tracking-tight">
+          <h3 className="text-base md:text-2xl text-black font-normal  tracking-tight">
             {data.topSubtitle}
           </h3>
-          <h2 className="text-[2.5rem] md:text-6xl lg:text-[4.5rem] text-[#63B846] font-normal leading-none tracking-tight mb-4">
+          <h2 className="text-[2.5rem] md:text-6xl lg:text-[4.5rem] text-[#63B846] font-normal leading-none tracking-tight mb-6">
             {data.title}
           </h2>
           {data.description && (
-            <p className="text-base text-black/75 font-normal max-w-2xl mx-auto leading-[1.2]">
+            <p className="text-base text-black font-normal max-w-2xl mx-auto leading-none">
               {data.description}
             </p>
           )}
         </div>
 
         {/* Mobile: Horizontal Scroll */}
-        <div className="flex overflow-x-auto md:hidden gap-4 -mx-[5%] px-[5%] [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none] ">
+        <div className="flex overflow-x-auto md:hidden gap-4 -mx-[5%] px-[3%] [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none] ">
           {data.cards.map((card, idx) => (
             <div
               key={idx}

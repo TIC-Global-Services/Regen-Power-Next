@@ -29,7 +29,7 @@ const BrandLongTermBet: React.FC<BrandLongTermBetProps> = ({ data }) => {
   return (
     <section className="py-16 md:py-20 bg-white overflow-hidden">
       <Fade>
-        <div className="px-[5%]">
+        <div className="px-[3%]">
           {/* Section Header */}
           <SectionHeader
             subtitle={data.subtitle}
@@ -41,7 +41,7 @@ const BrandLongTermBet: React.FC<BrandLongTermBetProps> = ({ data }) => {
           />
 
           {/* Mobile: Horizontal Slider */}
-          <div className="flex overflow-x-auto md:hidden gap-4 -mx-[5%] px-[5%] [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none] pb-4">
+          <div className="flex overflow-x-auto md:hidden gap-4 -mx-[5%] px-[3%] [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none] pb-4">
             {data.cards.map((card, index) => (
               <div key={index} className="relative rounded-[24px] overflow-hidden min-h-[420px] w-[75vw] shrink-0 snap-start group flex-none">
                 {/* Background Image */}
@@ -76,29 +76,29 @@ const BrandLongTermBet: React.FC<BrandLongTermBetProps> = ({ data }) => {
             {data.cards.map((card, index) => (
               <Reveal key={index} className="relative rounded-[24px] overflow-hidden min-h-[420px] md:min-h-[500px] group">
 
-                  {/* Background Image */}
-                  <div className="absolute inset-0 z-0">
-                    <Image
-                      src={card.image}
-                      alt={card.title}
-                      fill
-                      className="object-cover group-hover:scale-105 transition-transform duration-700"
-                    />
-                    {/* Gradient Overlay */}
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-black/20" />
-                  </div>
+                {/* Background Image */}
+                <div className="absolute inset-0 z-0">
+                  <Image
+                    src={card.image}
+                    alt={card.title}
+                    fill
+                    className="object-cover group-hover:scale-105 transition-transform duration-700"
+                  />
+                  {/* Gradient Overlay */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-black/20" />
+                </div>
 
-                  {/* Content — staggered top|bottom|top */}
-                  <div className={`relative z-10 h-full flex flex-col p-6 md:p-8 ${index % 2 === 0 ? 'justify-start' : 'justify-end'}`}>
-                    <div>
-                      <h3 className="text-xl md:text-2xl font-normal text-white mb-3 leading-snug">
-                        {card.title}
-                      </h3>
-                      <p className="text-white text-sm leading-[1.2]">
-                        {card.description}
-                      </p>
-                    </div>
+                {/* Content — staggered top|bottom|top */}
+                <div className={`relative z-10 h-full flex flex-col p-6 md:p-8 ${index % 2 === 0 ? 'justify-start' : 'justify-end'}`}>
+                  <div>
+                    <h3 className="text-xl md:text-2xl font-normal text-white mb-3 leading-snug">
+                      {card.title}
+                    </h3>
+                    <p className="text-white text-sm leading-[1.2]">
+                      {card.description}
+                    </p>
                   </div>
+                </div>
               </Reveal>
             ))}
           </div>

@@ -200,7 +200,7 @@ const BatteryPricing = ({
 }: PromotionGridProps) => {
   return (
     <section
-      className="relative w-full py-16 md:py-24 px-[5%] md:px-[5%] overflow-hidden bg-cover bg-center bg-no-repeat"
+      className="relative w-full py-16 md:py-24 px-[3%] md:px-[3%] overflow-hidden bg-cover bg-center bg-no-repeat"
       style={{
         backgroundImage: `url('${backgroundImage}')`,
       }}

@@ -60,7 +60,7 @@ const BatteryRebates = ({ data }: { data: BatteryRebatesProps }) => {
   const currentRows = slides[slideIndex] ?? [];
 
   return (
-    <section className="relative w-full py-20 md:py-20 px-[5%] overflow-hidden min-h-screen flex items-start bg-black">
+    <section className="relative w-full py-20 md:py-20 px-[3%] overflow-hidden min-h-screen flex items-start bg-black">
       {/* Background Image */}
       <img
         src={bgImage || "/battery_rebates_fallback.png"}
@@ -111,28 +111,24 @@ const BatteryRebates = ({ data }: { data: BatteryRebatesProps }) => {
                   {currentRows.map((row, idx) => (
                     <div
                       key={idx}
-                      className={`grid grid-cols-12 items-center p-4 md:p-8  transition-colors duration-200 ${
-                        idx === 0
+                      className={`grid grid-cols-12 items-center p-4 md:p-8  transition-colors duration-200 ${idx === 0
                           ? "bg-white  border border-[#EBEBEB] "
                           : "hover:bg-white/5 border-b border-[#FFFFFF33]"
-                      }`}
+                        }`}
                     >
                       {/* Title (right-aligned) */}
-                      <div className={`col-span-4 text-right pr-6 md:pr-4 leading-none border-r flex flex-col justify-center h-full ${
-                        idx === 0 ? "border-[#EBEBEB]" : "border-[#EBEBEB]"
-                      }`}>
-                        <span className={`text-sm md:text-base lg:text-[1.875rem] leading-none whitespace-pre-line font-bold tracking-tight ${
-                          idx === 0 ? "text-[#63B846]" : "text-white/90"
+                      <div className={`col-span-4 text-right pr-6 md:pr-4 leading-none border-r flex flex-col justify-center h-full ${idx === 0 ? "border-[#EBEBEB]" : "border-[#EBEBEB]"
                         }`}>
+                        <span className={`text-sm md:text-base lg:text-[1.875rem] leading-none whitespace-pre-line font-bold tracking-tight ${idx === 0 ? "text-[#63B846]" : "text-white/90"
+                          }`}>
                           {row.title}
                         </span>
                       </div>
 
                       {/* Description */}
                       <div className="col-span-8 pl-6 md:pl-4 flex items-center">
-                        <p className={`text-xs md:text-sm lg:text-[1.375rem] leading-[1.2] ${
-                          idx === 0 ? "text-gray-800 font-medium" : "text-black"
-                        }`}>
+                        <p className={`text-xs md:text-sm lg:text-[1.375rem] leading-[1.2] ${idx === 0 ? "text-gray-800 font-medium" : "text-black"
+                          }`}>
                           {row.description}
                         </p>
                       </div>

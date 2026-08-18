@@ -23,7 +23,7 @@ const HybridGenDetailSection: React.FC<HybridGenDetailSectionProps> = ({
 
     return (
         <section className="py-16 md:py-24 bg-white">
-            <div className="px-[5%] mx-auto">
+            <div className="px-[3%] mx-auto">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-16 items-center ">
                     <div className="relative w-full aspect-square rounded-[24px] overflow-hidden md:hidden">
                         <img
@@ -46,9 +46,9 @@ const HybridGenDetailSection: React.FC<HybridGenDetailSectionProps> = ({
                             />
                         </div>
                         {subtitle && (
-                             <p className="text-2xl md:text-[2.125rem] text-black font-light tracking-tight mb-1">
-                                 {subtitle}
-                             </p>
+                            <p className="text-2xl md:text-[2.125rem] text-black font-light tracking-tight mb-1">
+                                {subtitle}
+                            </p>
                         )}
                         {title && (
                             <h2 className="text-4xl md:text-6xl lg:text-[5rem] text-[#63B846] font-normal tracking-tighter leading-none mb-6">

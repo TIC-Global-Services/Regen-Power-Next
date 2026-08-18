@@ -21,7 +21,7 @@ export default function LoanBenefitsSection({ resolved }: Props) {
         {bgImg ? (
           <img
             src={bgImg.src}
-            alt={bgImg.alt}   
+            alt={bgImg.alt}
             className="w-full h-full absolute inset-0 object-cover object-bottom"
           />
         ) : (
@@ -30,7 +30,7 @@ export default function LoanBenefitsSection({ resolved }: Props) {
         <div className="absolute inset-0 bg-black/40" />
       </div>
 
-      <div className="relative z-10 w-full px-[5%] mt-15">
+      <div className="relative z-10 w-full px-[3%] mt-15">
         <div className="mx-auto text-center flex flex-col items-center">
           {resolved.badge && (
             <span className="mb-4 inline-flex rounded-full bg-[#E5DDD8] px-5 py-2 text-xs font-medium uppercase tracking-wide text-black">

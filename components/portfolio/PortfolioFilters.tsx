@@ -110,7 +110,7 @@ const PortfolioFilters: React.FC<PortfolioFiltersProps> = ({
   const hasActiveFilters = !!(industryLabel || sizeLabel || locationLabel);
 
   return (
-    <section className="w-full px-[5%] pt-12 md:pt-16 pb-4">
+    <section className="w-full px-[3%] pt-12 md:pt-16 pb-4">
       <div className="max-w-6xl mx-auto">
         {/* Filter row */}
         <div className="flex flex-wrap items-center gap-3">

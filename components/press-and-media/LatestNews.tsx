@@ -22,7 +22,7 @@ const LatestNews: React.FC<LatestNewsProps> = ({
     title = 'News',
 }) => {
     return (
-        <section className="w-full px-[5%] py-12 md:py-20">
+        <section className="w-full px-[3%] py-12 md:py-20">
             <div className="text-left md:text-center mb-10 md:mb-14 capitalize">
                 <p className="text-2xl md:text-3xl font-light tracking-tight text-black mb-1">
                     {subtitle}
@@ -33,7 +33,7 @@ const LatestNews: React.FC<LatestNewsProps> = ({
             </div>
 
             {/* Mobile: Horizontal Slider */}
-            <div className="flex overflow-x-auto md:hidden gap-4 -mx-[5%] px-[5%] [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none] pb-4">
+            <div className="flex overflow-x-auto md:hidden gap-4 -mx-[5%] px-[3%] [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none] pb-4">
                 {items.map((item, index) => (
                     <Link
                         key={index}

@@ -28,7 +28,7 @@ const TrustedInstaller = ({ data }: TrustedInstallerProps) => {
   return (
     <Fade>
       <section className="py-16 md:py-24 bg-white">
-        <div className="px-[5%]">
+        <div className="px-[3%]">
           {/* Header */}
           <div className="text-center mb-12 md:mb-16 max-w-3xl mx-auto flex flex-col gap-2">
             <div className="leading-[1.1]">

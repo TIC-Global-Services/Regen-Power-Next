@@ -116,7 +116,7 @@ const IconCardGrid: React.FC<IconCardGridProps> = ({
 
     return (
         <section className={`py-10 md:py-24 bg-white ${className}`}>
-            <div className="px-[5%]">
+            <div className="px-[3%]">
                 {showHeader && (subtitle || title || description) && (
                     <div className="text-center mb-12 md:mb-16">
                         {subtitle && (
@@ -148,7 +148,7 @@ const IconCardGrid: React.FC<IconCardGridProps> = ({
                 <div className="sm:hidden">
                     <div
                         ref={sliderRef}
-                        className="flex gap-5 overflow-x-auto snap-x snap-mandatory scrollbar-hide pb-2  -mx-[5%] px-[5%]"
+                        className="flex gap-5 overflow-x-auto snap-x snap-mandatory scrollbar-hide pb-2  -mx-[5%] px-[3%]"
                         style={{ WebkitOverflowScrolling: 'touch', scrollbarWidth: 'none', msOverflowStyle: 'none' }}
                     >
                         {cards.map((card, idx) => (
@@ -168,11 +168,10 @@ const IconCardGrid: React.FC<IconCardGridProps> = ({
                                 key={index}
                                 aria-label={`Go to slide ${index + 1}`}
                                 onClick={() => scrollToIndex(index)}
-                                className={`rounded-full transition-all duration-300 ${
-                                    index === activeIndex
+                                className={`rounded-full transition-all duration-300 ${index === activeIndex
                                         ? 'w-7 h-2.5 bg-[#63B846]'
                                         : 'w-2.5 h-2.5 bg-black/20'
-                                }`}
+                                    }`}
                             />
                         ))}
                     </div>

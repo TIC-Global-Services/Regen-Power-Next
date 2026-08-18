@@ -45,9 +45,9 @@ const SplitWords = ({ text }: { text: string }) => {
   );
 };
 
-const  EditorialTextSection: React.FC<EditorialTextSectionProps> = ({
+const EditorialTextSection: React.FC<EditorialTextSectionProps> = ({
   badge,
-  subtitle, 
+  subtitle,
   title,
   description,
   paragraphs,
@@ -162,7 +162,7 @@ const  EditorialTextSection: React.FC<EditorialTextSectionProps> = ({
     return (
       <section
         ref={sectionRef}
-        className={`w-full bg-white relative overflow-hidden min-h-screen flex flex-col justify-center px-[5%]`}
+        className={`w-full bg-white relative overflow-hidden min-h-screen flex flex-col justify-center px-[3%]`}
       >
         <div className="w-full md:px-16">
           {headerSection}
@@ -174,18 +174,18 @@ const  EditorialTextSection: React.FC<EditorialTextSectionProps> = ({
     );
   }
 
-  return (    <div className={``}>
-      {headerSection}
-      <Fade delay={0.2} duration={0.8}>
-        <div className={`mx-auto text-lg md:text-3xl font-light leading-tight tracking-tight mt-8 ${paragraphsClass || (align === 'left' ? 'text-left' : align === 'right' ? 'text-right' : 'text-center')}`}>
-          {paragraphs.map((para, idx) => (
-            <p key={idx} className={para.isSecondary ? 'text-gray-400' : 'text-black'}>
-              {para.text}
-            </p>
-          ))}
-        </div>
-      </Fade>
-    </div>
+  return (<div className={``}>
+    {headerSection}
+    <Fade delay={0.2} duration={0.8}>
+      <div className={`mx-auto text-lg md:text-3xl font-light leading-tight tracking-tight mt-8 ${paragraphsClass || (align === 'left' ? 'text-left' : align === 'right' ? 'text-right' : 'text-center')}`}>
+        {paragraphs.map((para, idx) => (
+          <p key={idx} className={para.isSecondary ? 'text-gray-400' : 'text-black'}>
+            {para.text}
+          </p>
+        ))}
+      </div>
+    </Fade>
+  </div>
   );
 };
 

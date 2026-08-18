@@ -83,7 +83,7 @@ const FeatureCardGrid: React.FC<FeatureCardGridProps> = ({
   };
 
   // Same ratio as before: active card = 2.5, others = 1
-  const ACTIVE_FLEX = 2;
+  const ACTIVE_FLEX = 1.8;
   const INACTIVE_FLEX = 1;
   const gapPx = 20; // matches md:gap-5 (20px) — adjust if you change the gap class
   const totalGap = gapPx * (cards.length - 1);
@@ -98,7 +98,7 @@ const FeatureCardGrid: React.FC<FeatureCardGridProps> = ({
 
   return (
     <Fade>
-      <section className="py-10 md:py-20 bg-white px-[5%] md:px-[5%] overflow-hidden">
+      <section className="py-10 md:py-20 bg-white px-[3%] md:px-[3%] overflow-hidden">
         <SectionHeader
           subtitle={topSubtitle}
           title={title}
@@ -107,10 +107,10 @@ const FeatureCardGrid: React.FC<FeatureCardGridProps> = ({
           className="mb-5 md:mb-16"
           subtitleClass="text-xl md:text-[2.125rem] text-black tracking-tight capitalize"
           titleClass="text-[2.5rem] md:text-6xl tracking-tight leading-[1]"
-          descClass="text-sm md:text-base text-black max-w-5xl mx-auto font-medium tracking-tight capitalize"
+          descClass="text-base md:text-base text-black max-w-4xl mx-auto font-medium tracking-tight whitespace-pre-line"
         />
 
-        <div ref={containerRef} className="flex overflow-x-auto md:overflow-hidden md:flex-row -mx-[5%] pl-[5%] pr-[5%] gap-4 md:gap-5 w-[calc(100%+10%)] md:w-full md:mx-0 md:px-0 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none] pb-4 md:pb-0">
+        <div ref={containerRef} className="flex  overflow-x-auto md:overflow-hidden md:flex-row -mx-[5%] pl-[5%] pr-[5%] gap-4 md:gap-4 w-[calc(100%+10%)] md:w-full md:mx-0 md:px-0 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none] pb-4 md:pb-0">
           {cards.map((card, index) => {
             const isActive = !isDesktop || activeIndex === index;
             const widthPx = getCardWidth(index);
@@ -129,7 +129,7 @@ const FeatureCardGrid: React.FC<FeatureCardGridProps> = ({
                   transform: 'translateZ(0)',
                   WebkitBackfaceVisibility: 'hidden',
                 }}
-                className={`relative rounded-[24px] overflow-hidden group flex-none cursor-pointer focus-visible:outline-none ${isActive ? 'min-h-[400px] md:h-[460px]' : 'min-h-[80px] md:min-h-[400px]'
+                className={`relative rounded-[20px] overflow-hidden group flex-none cursor-pointer focus-visible:outline-none ${isActive ? 'md:min-h-[460px] h-full' : 'md:min-h-[460px] h-full'
                   } w-[75vw] md:w-full shrink-0 snap-start md:snap-align-none`}
               >
                 <div className="absolute inset-0 z-0 w-full h-full" style={{ transform: 'translateZ(0)' }}>
@@ -142,7 +142,7 @@ const FeatureCardGrid: React.FC<FeatureCardGridProps> = ({
                   <div className={`absolute inset-0 transition-all duration-700 ease-[cubic-bezier(0.4,0,0.2,1)] bg-gradient-to-b ${isActive ? 'from-black/60 via-black/20 to-black/80' : 'from-black/70 via-black/40 to-black/80'}`} />
                 </div>
 
-                <div className="relative z-10 h-full p-6 md:p-8 flex flex-col">
+                <div className="relative z-10 h-full p-6 md:p-8 pt-5 flex flex-col">
                   {!isActive && <div className="flex-1" />}
 
                   <h4 className={`text-white font-normal tracking-tight transition-all duration-700 ease-[cubic-bezier(0.4,0,0.2,1)] ${isActive ? 'text-xl md:text-3xl mb-3' : 'text-[1.75rem] md:text-2xl mb-0'}`}>
@@ -155,7 +155,7 @@ const FeatureCardGrid: React.FC<FeatureCardGridProps> = ({
                     </p>
                   )}
 
-                  
+
                   <p className={`text-white text-xs md:text-base leading-tight max-w-[85%] tracking-tight transition-all duration-700 ease-[cubic-bezier(0.4,0,0.2,1)] ${isActive ? '' : showDescriptionInactive ? 'mt-1.5' : 'opacity-0 h-0 overflow-hidden m-0'}`}>
                     {card.description}
                   </p>

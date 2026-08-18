@@ -104,17 +104,17 @@ const FeatureExplorer: React.FC<FeatureExplorerProps> = ({
 
 
     return (
-          <section
+        <section
             ref={sectionRef}
             className={`h-screen overflow-hidden ${className}`}
             onTouchStart={handleTouchStart}
             onTouchEnd={handleTouchEnd}
-          >
+        >
             <div className="h-full">
                 <div className="grid grid-cols-1 lg:grid-cols-12 items-center h-full">
 
                     {/* Left Column (Content & Navigation) */}
-                    <div className="lg:col-span-6 flex flex-col justify-around px-[5%] h-full order-2 lg:order-1">
+                    <div className="lg:col-span-6 flex flex-col justify-around px-[3%] h-full order-2 lg:order-1">
 
                         {/* Header */}
                         <div className="flex flex-col hidden md:block">
@@ -145,7 +145,7 @@ const FeatureExplorer: React.FC<FeatureExplorerProps> = ({
                                 >
                                     <div className="flex items-center gap-4 md:gap-4 mb-4">
                                         <span className="text-[4rem] md:text-[5rem] lg:text-[6rem] font-normal text-black/90 leading-none tracking-tighter select-none">
-                                            0{activeIndex+1}
+                                            0{activeIndex + 1}
                                         </span>
                                         <h3 className="text-xl md:text-2xl whitespace-pre-line lg:text-[2.5rem] font-medium text-black leading-none pt-1 max-w-sm">
                                             {activeFeature.title}
@@ -170,11 +170,10 @@ const FeatureExplorer: React.FC<FeatureExplorerProps> = ({
                                         aria-label={`Go to feature ${idx + 1}`}
                                     >
                                         <span
-                                            className={`block rounded-full transition-all duration-300 ${
-                                                idx === activeIndex
+                                            className={`block rounded-full transition-all duration-300 ${idx === activeIndex
                                                     ? 'w-8 h-2'
                                                     : 'w-2 h-2 bg-black/20 hover:bg-black/40'
-                                            }`}
+                                                }`}
                                             style={idx === activeIndex ? { backgroundColor: accentColor } : undefined}
                                         />
                                     </button>
@@ -189,7 +188,7 @@ const FeatureExplorer: React.FC<FeatureExplorerProps> = ({
 
                     {/* Right Column (Media + Pins) */}
                     <div className="lg:col-span-6 order-1 lg:order-2">
-                         <div className="flex flex-col md:hidden py-5 px-[5%]">
+                        <div className="flex flex-col md:hidden py-5 px-[3%]">
                             {/* {renderTagIcon()} */}
                             <div className="leading-[0.9]">
                                 <h2 className="text-2xl md:text-4xl leading-none lg:text-[2.125rem] font-medium text-black tracking-tight">
@@ -291,7 +290,7 @@ const FeatureExplorer: React.FC<FeatureExplorerProps> = ({
                     </linearGradient>
                 </defs>
             </svg>
-          </section>
+        </section>
     );
 };
 

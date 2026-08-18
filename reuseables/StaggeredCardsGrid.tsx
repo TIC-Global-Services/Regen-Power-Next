@@ -54,9 +54,8 @@ const StaggeredCardItem: React.FC<StaggeredCardItemProps> = ({
       delay={item.delay || 0.1}
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
-      className={`${
-        hovered ? "bg-[#3B3B33]" : "bg-[#EBEBEB]"
-      } rounded-[14px] p-6 md:p-7 flex flex-col justify-between w-full  mx-auto shadow-sm hover:shadow-md transition-all duration-300 ${cardWidthClass} min-h-[280px] ${cardHeightClass}`}
+      className={`${hovered ? "bg-[#3B3B33]" : "bg-[#EBEBEB]"
+        } rounded-[14px] p-6 md:p-7 flex flex-col justify-between w-full  mx-auto shadow-sm hover:shadow-md transition-all duration-300 ${cardWidthClass} min-h-[280px] ${cardHeightClass}`}
     >
       <div className="flex flex-col">
         <h3 className="text-[#63B846] text-[2.5rem] md:text-[3.125rem] leading-[1.0] tracking-tighter mb-1">
@@ -64,9 +63,8 @@ const StaggeredCardItem: React.FC<StaggeredCardItemProps> = ({
         </h3>
         {item.subtitle && (
           <span
-            className={`text-xs md:text-sm tracking-tight mt-1 transition-colors duration-300 ${
-              hovered ? "text-white" : "text-black"
-            }`}
+            className={`text-xs md:text-sm tracking-tight mt-1 transition-colors duration-300 ${hovered ? "text-white" : "text-black"
+              }`}
           >
             {item.subtitle}
           </span>
@@ -76,9 +74,8 @@ const StaggeredCardItem: React.FC<StaggeredCardItemProps> = ({
       <div className="mt-auto">
         {item.middleTitle && (
           <h4
-            className={`text-sm md:text-xl tracking-tight mb-2 transition-colors duration-300 ${
-              hovered ? "text-white" : "text-black"
-            }`}
+            className={`text-sm md:text-xl tracking-tight mb-2 transition-colors duration-300 ${hovered ? "text-white" : "text-black"
+              }`}
           >
             {item.middleTitle}
           </h4>
@@ -110,7 +107,7 @@ const StaggeredCardsGrid: React.FC<StaggeredCardsGridProps> = ({
 }) => {
   return (
     <section className={`py-16 md:py-24 bg-white ${className}`}>
-      <div className="px-[5%] mx-auto">
+      <div className="px-[3%] mx-auto">
 
         {badge && (
           <div className={`mb-6 flex ${align === "left" ? "justify-start" : align === "right" ? "justify-end" : "justify-center"}`}>

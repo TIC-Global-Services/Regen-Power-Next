@@ -54,7 +54,7 @@ const Craftsmanship = ({ data }: CraftsmanshipProps) => {
 
   return (
     <section className="py-10 md:py-20 bg-white overflow-hidden">
-      <div className="px-[5%]">
+      <div className="px-[3%]">
         {/* <SectionHeader
           subtitle={data.subtitle}
           title={data.title}
@@ -78,8 +78,8 @@ const Craftsmanship = ({ data }: CraftsmanshipProps) => {
                   key={tab.id}
                   onClick={() => setActiveTabId(tab.id)}
                   className={`relative px-3 lg:px-8 py-1.5 md:py-2 text-xs md:text-base font-medium rounded-full transition-colors duration-200 cursor-pointer whitespace-nowrap ${isActive
-                      ? "text-[#63B846]"
-                      : "text-gray-600 hover:text-black"
+                    ? "text-[#63B846]"
+                    : "text-gray-600 hover:text-black"
                     }`}
                 >
 
@@ -222,8 +222,8 @@ const Craftsmanship = ({ data }: CraftsmanshipProps) => {
                           key={logo.id}
                           className="flex items-center justify-center px-4 py-3 aspect-[5/3] w-36 bg-gray-50/50 rounded-xl"
                         >
-                          <Image
-                            src={logo.src}
+                          <img
+                            src={typeof logo.src === "string" ? logo.src : logo.src.src}
                             alt={logo.name}
                             className="object-contain max-h-10 w-auto"
                           />

@@ -31,17 +31,17 @@ const AcquaSmartSection: React.FC<AcquaSmartSectionProps> = ({
     imageAlt = 'AcquaSmart water treatment trailer',
     cards,
 }) => {
-      const [page, setPage] = useState(0);
+    const [page, setPage] = useState(0);
     const [perPage, setPerPage] = useState(3);
- 
+
     useEffect(() => {
         setPerPage(getPerPage());
- 
+
         const handleResize = () => {
             setPerPage(getPerPage());
             setPage(0);
         };
- 
+
         window.addEventListener('resize', handleResize);
         return () => window.removeEventListener('resize', handleResize);
     }, []);
@@ -58,7 +58,7 @@ const AcquaSmartSection: React.FC<AcquaSmartSectionProps> = ({
 
     return (
         <section className="py-16 md:py-24 bg-white">
-            <div className="px-[5%] mx-auto">
+            <div className="px-[3%] mx-auto">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-16 items-center max-w-7xl mx-auto mb-12 md:mb-16">
                     <div className="relative w-full aspect-square rounded-[24px] overflow-hidden">
                         <img

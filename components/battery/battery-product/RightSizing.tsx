@@ -52,7 +52,7 @@ const RightSizing: React.FC<{ data?: RightSizingData }> = ({ data }) => {
     };
 
     return (
-        <section className="w-full px-[5%] py-12 md:py-20 bg-white">
+        <section className="w-full px-[3%] py-12 md:py-20 bg-white">
             <div className="max-w-4xl mx-auto">
                 {/* Header */}
                 <div className="text-left md:text-center">
@@ -75,9 +75,8 @@ const RightSizing: React.FC<{ data?: RightSizingData }> = ({ data }) => {
                         return (
                             <div
                                 key={idx}
-                                className={`flex-1 h-1.5 rounded-full transition-colors duration-300 ${
-                                    isActive || isCompleted ? 'bg-[#63B846]' : 'bg-[#A8D88A]'
-                                }`}
+                                className={`flex-1 h-1.5 rounded-full transition-colors duration-300 ${isActive || isCompleted ? 'bg-[#63B846]' : 'bg-[#A8D88A]'
+                                    }`}
                             />
                         );
                     })}

@@ -59,7 +59,7 @@ const ComparisonColumns: React.FC<ComparisonColumnsProps> = ({
   rightIcon: RightIcon = X,
 }) => {
   return (
-    <section className="bg-white py-16 md:py-24 px-[5%]">
+    <section className="bg-white py-16 md:py-20 px-[3%]">
       <div className="max-w-4xl mx-auto">
         <div className="text-center mb-12 md:mb-16">
           <h3 className="text-2xl md:text-[2.125rem] leading-[1] tracking-tight text-black font-norml">
@@ -73,7 +73,7 @@ const ComparisonColumns: React.FC<ComparisonColumnsProps> = ({
           )}
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-1">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-0">
           {/* Left Column */}
           <div className="bg-[#63B846] w-[335px] min-h-[478px] md:w-[400px] md:min-h-[460px] max-w-full rounded-[20px] p-8 justify-self-center flex flex-col">
             <h4 className="text-2xl font-medium mb-6 text-center text-black">

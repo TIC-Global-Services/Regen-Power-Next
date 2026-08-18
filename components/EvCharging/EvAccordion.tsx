@@ -27,7 +27,7 @@ const EvAccordion = ({ data }: EvAccordionProps) => {
   return (
     <Fade>
       <section className="py-16 md:py-24 bg-white overflow-hidden">
-        <div className="px-[5%]">
+        <div className="px-[3%]">
           {/* Header */}
           <div className="text-center mb-12 md:mb-10">
             <h2 className="text-xl md:text-[2rem] font-medium text-black tracking-tight ">
@@ -48,9 +48,8 @@ const EvAccordion = ({ data }: EvAccordionProps) => {
                 <div
                   key={index}
                   onClick={() => setActiveIndex(index)}
-                  className={`flex flex-col transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] cursor-pointer ${
-                    isActive ? 'lg:flex-[3]' : 'lg:flex-[1]'
-                  }`}
+                  className={`flex flex-col transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] cursor-pointer ${isActive ? 'lg:flex-[3]' : 'lg:flex-[1]'
+                    }`}
                 >
                   {/* Step Number */}
                   <span className="text-sm md:text-2xl font-semibold mb-3 block">

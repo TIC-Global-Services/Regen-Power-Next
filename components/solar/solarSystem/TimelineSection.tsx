@@ -14,25 +14,25 @@ interface TimelineSectionProps {
 const TimelineSection: React.FC<TimelineSectionProps> = ({ resolved }) => {
   return (
     <section className="py-10 md:py-24 bg-white border-t border-gray-50 min-h-screen">
-      <div className="px-[5%] mx-auto">
+      <div className="px-[3%] mx-auto">
         <div className="lg:sticky lg:top-28 md:hidden justify-center mb-5">
-            <div className="relative w-full aspect-[4/5]  max-w-[660px] rounded-[20px] overflow-hidden shadow-md">
-              {resolved.image ? (
-                <Image
-                  src={resolved.image.src}
-                  alt={resolved.image.alt}
-                  fill
-                  className="object-cover"
-                />
-              ) : (
-                <MissingImage
-                  type="bgimage"
-                  label="Timeline image"
-                  aspect="aspect-[4/6]"
-                />
-              )}
-            </div>
+          <div className="relative w-full aspect-[4/5]  max-w-[660px] rounded-[20px] overflow-hidden shadow-md">
+            {resolved.image ? (
+              <Image
+                src={resolved.image.src}
+                alt={resolved.image.alt}
+                fill
+                className="object-cover"
+              />
+            ) : (
+              <MissingImage
+                type="bgimage"
+                label="Timeline image"
+                aspect="aspect-[4/6]"
+              />
+            )}
           </div>
+        </div>
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
           <div className="flex flex-col justify-between h-full">
             <div>

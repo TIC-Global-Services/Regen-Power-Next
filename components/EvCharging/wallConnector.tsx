@@ -21,67 +21,74 @@ interface WallConnectorProps {
 const WallConnector = ({ data }: WallConnectorProps) => {
   return (
     <Fade>
-      <section className="bg-white overflow-hidden max-h-screen">
-        <div className="">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-center">
-            <Reveal delay={0.2}>
-              <div className="relative w-full aspect-[4/5] md:aspect-[3/4] overflow-hidden md:hidden mt-5">
-                <Image
-                  src={data.image}
-                  alt={data.imageAlt}
-                  fill
-                  className="object-cover "
-                  sizes="(max-width: 1024px) 100vw, 50vw"
-                  priority
-                />
-              </div>
-            </Reveal> 
-            {/* Left Side — Text Content */}
+      <section className="bg-white overflow-hidden w-full relative">
+        <div className="grid grid-cols-1 lg:grid-cols-2 min-h-[50vh] lg:min-h-screen">
+          {/* Mobile Image (shown only on mobile) */}
+          <Reveal delay={0.2} className="lg:hidden w-full">
+            <div className="relative w-full aspect-[4/5] overflow-hidden">
+              <Image
+                src={data.image}
+                alt={data.imageAlt}
+                fill
+                className="object-cover"
+                sizes="100vw"
+                priority
+              />
+            </div>
+          </Reveal>
+
+          {/* Left Side — Text Content */}
+          <div className="flex flex-col justify-center px-[10%] py-12 lg:py-24">
             <Reveal>
-              <div className="flex flex-col gap-8 md:gap-10 pl-[5%]">
+              <div className="flex flex-col gap-8 md:gap-20 ">
                 {/* Title */}
                 <div className="leading-[0.85]">
-                  <h2 className="text-2xl md:text-3xl font-medium text-black tracking-tight">
+                  <h2 className="text-2xl md:text-3xl font-medium text-black tracking-tight mb-2">
                     {data.title}
                   </h2>
-                  <p className="text-[#63B846] font-light text-[3rem] md:text-[4rem] lg:text-[5.5rem] tracking-tighter">
+                  <p className="text-[#63B846] font-light text-[3rem] md:text-[4.5rem] lg:text-[6rem] tracking-tighter">
                     {data.subtitle}
                   </p>
                 </div>
 
                 {/* Description */}
-                <p className="text-sm md:text-lg text-black leading-[1.2] max-w-[540px]">
-                  {data.description}
-                </p>
+
 
                 {/* Specs */}
-                <div className="flex flex-col gap-1.5">
-                  {data.specs.map((spec, index) => (
-                    <p
-                      key={index}
-                      className="text-sm md:text-base font-semibold text-black tracking-tight"
-                    >
-                      {spec}
+                <div className="flex flex-col gap-5 mt-5">
+                  <div>
+                    <p className="text-[15px] lg:text-lg text-black leading-[1.2] max-w-[540px]">
+                      {data.description}
                     </p>
-                  ))}
+                  </div>
+                  <div>
+                    {data.specs.map((spec, index) => (
+                      <p
+                        key={index}
+                        className="text-base lg:text-lg font-bold text-black tracking-tight leading-[1.2]"
+                      >
+                        {spec}
+                      </p>
+                    ))}
+                  </div>
                 </div>
               </div>
             </Reveal>
-
-            {/* Right Side — Image */}
-            <Reveal delay={0.2}>
-              <div className="relative w-full aspect-[4/5] md:aspect-[3/4] overflow-hidden hidden md:block">
-                <Image
-                  src={data.image}
-                  alt={data.imageAlt}
-                  fill
-                  className="object-cover "
-                  sizes="(max-width: 1024px) 100vw, 50vw"
-                  priority
-                />
-              </div>
-            </Reveal>
           </div>
+
+          {/* Right Side — Image (desktop) */}
+          <Reveal delay={0.2} className="hidden lg:block h-full w-full">
+            <div className="relative w-full h-full min-h-[500px] overflow-hidden">
+              <Image
+                src={data.image}
+                alt={data.imageAlt}
+                fill
+                className="object-cover"
+                sizes="50vw"
+                priority
+              />
+            </div>
+          </Reveal>
         </div>
       </section>
     </Fade>

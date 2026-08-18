@@ -34,7 +34,7 @@ const StatsCardGrid: React.FC<StatsCardGridProps> = ({
 }) => {
     return (
         <section className={`py-16 md:py-24 bg-white ${className}`}>
-            <div className="px-[5%] mx-auto">
+            <div className="px-[3%] mx-auto">
                 <SectionHeader
                     subtitle={subtitle}
                     title={title}
@@ -87,7 +87,7 @@ const StatsCardGrid: React.FC<StatsCardGridProps> = ({
                     {/* Card backgrounds */}
                     <div className="absolute inset-0 flex items-start gap-6">
                         {stats.map((stat, idx) => {
-                            const heightClass ='h-full';
+                            const heightClass = 'h-full';
                             return (
                                 <div
                                     key={idx}

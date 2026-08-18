@@ -101,6 +101,7 @@ const BatteryProductPage = async () => {
             subtitleColor: "text-white",
             descriptionColor: "text-white",
             showOverlay: heroProps.showOverlay,
+            heightClass:"h-[600px]"
           }}
         />
       )}

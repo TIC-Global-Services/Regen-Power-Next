@@ -50,7 +50,7 @@ const Acheivements: React.FC<ComponentProps> = (props) => {
   }
 
   return (
-    <section className="bg-white py-16 md:py-20 px-[5%]">
+    <section className="bg-white py-16 md:py-20 px-[3%]">
       <Fade duration={5}>
         <div className="max-w-7xl mx-auto">
           {/* Header */}
@@ -130,7 +130,7 @@ const Acheivements: React.FC<ComponentProps> = (props) => {
                     {recognitions[0].awards.map((award, idx) => (
                       <div
                         key={idx}
-                        className={`w-full sm:w-[280px] flex items-center justify-center p-4 min-h-[180px] border-[#00000033]  border-t ${idx==0 ?"border-r":""} transition-all duration-300 `}
+                        className={`w-full sm:w-[280px] flex items-center justify-center p-4 min-h-[180px] border-[#00000033]  border-t ${idx == 0 ? "border-r" : ""} transition-all duration-300 `}
                       >
                         <div className="relative w-full h-full flex items-center justify-center">
                           <img

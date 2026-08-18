@@ -60,11 +60,11 @@ const FAQ = ({
 
     return (
         <Fade>
-            <section className="py-10 md:py-20 bg-white px-[5%]">
+            <section className="py-10 md:py-20 bg-white px-[3%]">
                 {faqSchema ? (
                     <script
-                         type="application/ld+json"
-                         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
+                        type="application/ld+json"
+                        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
                     />
                 ) : null}
                 {/* Top Titles */}

@@ -31,7 +31,7 @@ const PackagesGrid: React.FC<PackagesGridProps> = ({
 }) => {
   return (
     <section className={`py-10 md:py-10 bg-white border-t border-gray-50 ${className}`}>
-      <div className="px-[5%] mx-auto">
+      <div className="px-[3%] mx-auto">
 
         {/* Header Section */}
         <SectionHeader

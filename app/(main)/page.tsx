@@ -140,6 +140,7 @@ const Home = async () => {
   const membershipFallbacks = [smartEnergyLogo, cleanEnergyLogo, approvedLogo];
   const zeroCardFallbacks = [zeroBusinessBg, zeroProductReviewBg, zeroProductReviewRating];
   const realBadgeFallbacks = [googleRating, bestRatedBatch, topPanelInstallers, topRated];
+  console.log("heroProps",heroProps)
 
   return (
     <div className="overflow-hidden">

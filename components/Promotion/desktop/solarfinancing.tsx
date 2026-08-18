@@ -32,7 +32,7 @@ const SolarFinancing = ({ data }: { data: SolarFinancingProps }) => {
   const cards = gridItems;
 
   return (
-    <section className="relative w-full py-20 md:py-20 px-[5%] overflow-hidden min-h-screen flex justify-center items-center bg-black">
+    <section className="relative w-full py-20 md:py-20 px-[3%] overflow-hidden min-h-screen flex justify-center items-center bg-black">
       {/* Background Image with dark overlay */}
       <div className="absolute inset-0 z-0">
         <img
@@ -67,16 +67,15 @@ const SolarFinancing = ({ data }: { data: SolarFinancingProps }) => {
                 <div
                   key={idx}
                   onMouseEnter={() => setHoveredIndex(idx)}
-                  className={`rounded-[12px] p-8 flex flex-col items-center justify-center text-center transition-all duration-300 min-h-[220px] cursor-pointer shadow-xl ${
-                    isHovered
+                  className={`rounded-[12px] p-8 flex flex-col items-center justify-center text-center transition-all duration-300 min-h-[220px] cursor-pointer shadow-xl ${isHovered
                       ? "bg-white border border-white/20 text-black transform scale-[1.02]"
                       : "bg-[#FFFFFF4D] hover:bg-white/15 border border-white/10 text-white backdrop-blur-md"
-                  }`}
+                    }`}
                 >
                   {isHovered ? (
                     /* Hovered State: Title and Description */
                     <div className="space-y-3 animate-[fadeIn_0.3s_ease-out]">
-                      
+
                       <p className="text-xs md:text-[1.625rem]  leading-none tracking-tight font-medium">
                         {item.description}
                       </p>
@@ -84,7 +83,7 @@ const SolarFinancing = ({ data }: { data: SolarFinancingProps }) => {
                   ) : (
                     /* Default State: Centered Icon only */
                     <div className="flex items-center justify-center h-full">
-                      <img src={item.icon}  className="object-contain h-full w-full" />
+                      <img src={item.icon} className="object-contain h-full w-full" />
                     </div>
                   )}
                 </div>

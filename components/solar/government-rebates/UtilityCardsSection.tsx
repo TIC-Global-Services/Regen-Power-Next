@@ -9,11 +9,11 @@ interface Props {
 
 export default function UtilityCardsSection({ resolved }: Props) {
   return (
-    <section className="bg-white px-[5%] py-16 md:py-24">
+    <section className="bg-white px-[3%] py-16 md:py-24">
       <div className="mx-auto max-w-5xl">
         <SectionHeader
           badge={resolved.badge}
-        
+
           subtitle={resolved.subtitle}
           title={resolved.title}
           description={resolved.description}

@@ -25,7 +25,7 @@ const OurBatterybrands: React.FC<{ data?: OurBatteryBrandsData }> = ({ data }) =
     if (!data || !data.brands || data.brands.length === 0) return null;
 
     return (
-        <section className="w-full px-[5%] py-12 md:py-20 bg-white">
+        <section className="w-full px-[3%] py-12 md:py-20 bg-white">
             <div>
                 {/* Brands Rows */}
                 <div className="flex flex-col gap-6 md:gap-8">

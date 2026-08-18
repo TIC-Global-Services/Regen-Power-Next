@@ -152,25 +152,25 @@ const StatCard = ({
         <>
           {card.icon ? (
             /* Rating card: number + star left, title right (wraps on its \n) */
-            <div className="flex items-start gap-2 md:gap-3">
-              <div className="flex items-center gap-2 md:gap-3">
+            <div className="flex flex-col items-start gap-2 md:gap-3">
+              <div className="flex  items-center gap-2 md:gap-3">
                 {card.count != null && (
-                  <span className="text-[3.5rem] lg:text-[5.5rem] font-bold leading-none tracking-tighter whitespace-nowrap">
+                  <span className="text-[3.5rem] lg:text-[5.5rem] font-bold leading-none tracking-tighter whitespace-nowrap text-black">
                     {card.prefix}
                     <AnimatedCounter from={0} to={card.count} />
                     {card.suffix}
                   </span>
                 )}
-                <Image
+                {/* <Image
                   src={card.icon}
                   alt=""
                   width={30}
                   height={30}
                   className="w-7 h-7 md:w-7 md:h-7"
-                />
+                /> */}
               </div>
               {card.title && (
-                <span className="text-2xl lg:text-4xl leading-[1.2] tracking-tight font-normal whitespace-pre-line">
+                <span className="text-2xl lg:text-4xl text-black leading-[1.2] tracking-tight font-normal whitespace-pre-line">
                   {card.title}
                 </span>
               )}
@@ -225,7 +225,7 @@ const WhyChooseUs: React.FC<WhyChooseUsProps> = ({
 }) => {
   return (
     <section className={`py-10 md:py-20 bg-white overflow-hidden ${className}`}>
-      <div className="px-[8%] md:px-[5%]">
+      <div className="px-[8%] md:px-[3%]">
         {(subtitle || title) && (
           <div className="flex flex-col justify-center items-center md:justify-start md:items-start mb-5 md:mb-20">
             {subtitle && (

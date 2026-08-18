@@ -38,7 +38,7 @@ const CtaSection: React.FC<CtaSectionProps> = ({
                 />
             </div>
 
-            <div className="relative z-10 w-full px-[5%] mt-12 md:mt-16">
+            <div className="relative z-10 w-full px-[3%] mt-12 md:mt-16">
                 <div className="max-w-4xl text-white capitalize">
                     <p className="text-base md:text-3xl font-light tracking-tighter leading-none">
                         {subtitle}

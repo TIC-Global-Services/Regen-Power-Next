@@ -11,10 +11,10 @@ import SectionHeader from '@/reuseables/SectionHeader';
 import defaultQuoteImg from '@/assets/solar/batteryquote.png';
 
 interface LeadCaptureFormProps {
-  subtitle?: string;
-  title?: string;
-  description?: string;
-  image?: string | StaticImageData;
+    subtitle?: string;
+    title?: string;
+    description?: string;
+    image?: string | StaticImageData;
 }
 
 const quoteSchema = z.object({
@@ -69,8 +69,8 @@ const RadioOption: React.FC<RadioOptionProps> = ({
     >
         <span
             className={`w-4 h-4 rounded-full border-2 flex items-center justify-center transition-colors duration-200 ${checked
-                    ? "border-black border-[0.5px] bg-[#63B8461A]"
-                    : "border-gray-300 group-hover:border-gray-400"
+                ? "border-black border-[0.5px] bg-[#63B8461A]"
+                : "border-gray-300 group-hover:border-gray-400"
                 }`}
         >
             {checked && <span className="w-1.5 h-1.5 rounded-full bg-black" />}
@@ -121,7 +121,7 @@ const LeadCaptureForm: React.FC<LeadCaptureFormProps> = ({
 
     return (
         <section id="quote-form" className="py-16 md:py-24 bg-white border-t border-gray-50">
-            <div className="px-[5%] mx-auto">
+            <div className="px-[3%] mx-auto">
                 <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
 
                     {/* Left Column: Heading and 3D Graphic */}
@@ -131,7 +131,7 @@ const LeadCaptureForm: React.FC<LeadCaptureFormProps> = ({
                             title={title}
                             description={description}
                             align="left"
-                            
+
                             descClass="mb-8"
                         />
 

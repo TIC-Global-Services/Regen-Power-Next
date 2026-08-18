@@ -139,7 +139,7 @@ const SolutionsPortfolio: React.FC<SolutionsPortfolioProps> = ({
     mobileScroll = false,
 }) => {
     return (
-        <section className={`w-full px-[5%] py-12 md:py-20 ${className}`}>
+        <section className={`w-full px-[3%] py-12 md:py-20 ${className}`}>
             <div>
                 {showHeader && (subtitle || title) && (
                     <div className="text-center mb-10 md:mb-14">
@@ -162,8 +162,8 @@ const SolutionsPortfolio: React.FC<SolutionsPortfolioProps> = ({
                 )}
 
                 <div className={`${mobileScroll
-                        ? `flex overflow-x-auto md:grid ${desktopGridCols(layout)} snap-x snap-mandatory md:snap-none -mx-[5%] px-[5%] md:mx-0 md:px-0 gap-4 md:gap-6 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none] pb-4 md:pb-0`
-                        : `grid ${gridCols[layout]} gap-5 md:gap-6`
+                    ? `flex overflow-x-auto md:grid ${desktopGridCols(layout)} snap-x snap-mandatory md:snap-none -mx-[5%] px-[3%] md:mx-0 md:px-0 gap-4 md:gap-6 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none] pb-4 md:pb-0`
+                    : `grid ${gridCols[layout]} gap-5 md:gap-6`
                     }`}>
                     {cards.map((card, index) => {
                         if (card.type === 'image') {

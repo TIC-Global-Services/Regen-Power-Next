@@ -17,7 +17,7 @@ const SizingGuideTable: React.FC<SizingGuideTableProps> = ({ resolved }) => {
 
   return (
     <section className="py-16 md:py-24 bg-white border-t border-gray-50">
-      <div className="px-[5%] mx-auto">
+      <div className="px-[3%] mx-auto">
         <SectionHeader
           subtitle={resolved.subtitle}
           title={resolved.title}
@@ -52,9 +52,8 @@ const SizingGuideTable: React.FC<SizingGuideTableProps> = ({ resolved }) => {
                     return (
                       <th
                         key={idx}
-                        className={`p-5 text-lg md:text-2xl font-normal border-b border-black w-1/4 align-middle ${
-                          isLastCol ? "" : "border-r"
-                        }`}
+                        className={`p-5 text-lg md:text-2xl font-normal border-b border-black w-1/4 align-middle ${isLastCol ? "" : "border-r"
+                          }`}
                       >
                         {col.title}
                       </th>
@@ -68,9 +67,8 @@ const SizingGuideTable: React.FC<SizingGuideTableProps> = ({ resolved }) => {
                   return (
                     <tr key={rIdx} className="bg-[#EEF6EB] h-[120px]">
                       <td
-                        className={`p-5 text-xl text-black border-r border-black align-middle ${
-                          isLastRow ? "" : "border-b"
-                        }`}
+                        className={`p-5 text-xl text-black border-r border-black align-middle ${isLastRow ? "" : "border-b"
+                          }`}
                       >
                         {row.label}
                       </td>
@@ -80,11 +78,9 @@ const SizingGuideTable: React.FC<SizingGuideTableProps> = ({ resolved }) => {
                         return (
                           <td
                             key={idx}
-                            className={`p-5 text-xl text-black align-middle ${
-                              idx === 0 ? "" : "font-light"
-                            } border-black ${isLastRow ? "" : "border-b"} ${
-                              isLastCol ? "" : "border-r"
-                            }`}
+                            className={`p-5 text-xl text-black align-middle ${idx === 0 ? "" : "font-light"
+                              } border-black ${isLastRow ? "" : "border-b"} ${isLastCol ? "" : "border-r"
+                              }`}
                           >
                             {value}
                           </td>
@@ -120,7 +116,7 @@ const SizingGuideTable: React.FC<SizingGuideTableProps> = ({ resolved }) => {
                       />
                     ) : (
                       <MissingImage
-                      type="bgimage"
+                        type="bgimage"
                         label="Sizing card image"
                         aspect="aspect-auto h-full"
                       />

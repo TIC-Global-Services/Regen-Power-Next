@@ -46,13 +46,13 @@ const Brands = ({
 }: BrandsProps) => {
 
   return (
-    <section className="bg-white py-16 md:py-24 px-4 md:px-[5%] w-full border-t border-gray-100">
+    <section className="bg-white py-16 md:py-24 px-4 md:px-[3%] w-full border-t border-gray-100">
       <Fade duration={5}>
         <div className="max-w-7xl mx-auto">
           {/* Header */}
           <div className="text-center mb-12 max-w-4xl mx-auto">
             <h2 className="text-3xl sm:text-4xl md:text-6xl leading-none font-black text-black tracking-tight leading-none">
-              {title} 
+              {title}
             </h2>
             <span className="text-3xl sm:text-3xl font-bold leading-none text-[#63B846] md:text-6xl">{titleGreen}</span>
             {description && (
@@ -87,8 +87,8 @@ const Brands = ({
             <div className="overflow-hidden">
               <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 divide-x divide-y lg:divide-y-0 divide-gray-200/80">
                 {batteries.map((battery, idx) => (
-                  <div 
-                    key={idx} 
+                  <div
+                    key={idx}
                     className="flex flex-col items-center justify-between p-6 hover:bg-gray-50/50 transition-colors duration-300 min-h-[260px] md:min-h-[300px]"
                   >
                     {/* Battery Product Image */}

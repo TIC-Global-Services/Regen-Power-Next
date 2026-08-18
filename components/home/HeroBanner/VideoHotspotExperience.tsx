@@ -189,9 +189,9 @@ export default function VideoHotspotExperience({
         {/* Hero Text Content Overlay */}
         {ready && (
           <div
-            className={`absolute bottom-16 md:bottom-24 left-0 w-full z-10 px-[5%] flex flex-col md:flex-row md:items-end justify-between gap-8 pointer-events-none transition-all duration-700 ease-in-out ${showText
-                ? "opacity-100 translate-y-0"
-                : "opacity-0 translate-y-8"
+            className={`absolute bottom-16 md:bottom-24 left-0 w-full z-10 px-[3%] flex flex-col md:flex-row md:items-end justify-between gap-8 pointer-events-none transition-all duration-700 ease-in-out ${showText
+              ? "opacity-100 translate-y-0"
+              : "opacity-0 translate-y-8"
               }`}
           >
             <div className="max-w-3xl">
@@ -259,5 +259,6 @@ export default function VideoHotspotExperience({
         )}
       </div>
     );
-  }}
-  
+  }
+}
+

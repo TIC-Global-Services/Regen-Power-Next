@@ -121,7 +121,7 @@ const BatteryQuote = ({ data }: BatteryQuoteProps) => {
 
     return (
         <section className="py-16 md:py-24 bg-white overflow-hidden">
-            <div className="px-[5%]">
+            <div className="px-[3%]">
                 <div className="flex flex-col lg:flex-row items-start gap-10 lg:gap-16">
                     <div className="w-full lg:w-[45%] flex flex-col">
                         <SectionHeader

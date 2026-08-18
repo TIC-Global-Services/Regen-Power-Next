@@ -8,7 +8,7 @@ import Reveal from '@/reuseables/Reveal';
 
 export interface WhyChooseUsCard {
   id: string;
-  type:'nested' | 'image' | 'dark' | 'nested-reverse';
+  type: 'nested' | 'image' | 'dark' | 'nested-reverse';
   value: string;
   title: string;
   bgImage?: string;
@@ -130,7 +130,7 @@ const WhyChooseUs = ({
             <div className="w-full flex justify-center">
               <div className="relative w-50 h-50 sm:w-32 sm:h-32 md:w-36 md:h-36 opacity-85 group-hover:opacity-100 transition-opacity duration-300">
                 {/* Globe Wireframe SVG */}
-               <img src={card.icon} className='w-full h-full object-cover'></img>
+                <img src={card.icon} className='w-full h-full object-cover'></img>
               </div>
             </div>
 
@@ -176,7 +176,7 @@ const WhyChooseUs = ({
   };
 
   return (
-    <section className="bg-white py-16 md:py-24 px-4 md:px-[5%] w-full">
+    <section className="bg-white py-16 md:py-24 px-4 md:px-[3%] w-full">
       <Fade duration={5}>
         <div className="max-w-7xl mx-auto">
           {/* Section Heading */}
@@ -191,17 +191,17 @@ const WhyChooseUs = ({
 
           {/* Cards Grid: 2 columns on all devices */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-4 max-w-5xl mx-auto">
-            {cards.map((card,i) => (
+            {cards.map((card, i) => (
               <Reveal key={i}>
                 <div className="w-full">
-                {renderCard(card)}
-              </div>
+                  {renderCard(card)}
+                </div>
               </Reveal>
             ))}
           </div>
-            <div className='md:hidden flex justify-center py-8'>
-              <CtaButton text={ctatext}></CtaButton>
-            </div>
+          <div className='md:hidden flex justify-center py-8'>
+            <CtaButton text={ctatext}></CtaButton>
+          </div>
         </div>
       </Fade>
     </section>

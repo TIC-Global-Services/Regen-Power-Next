@@ -46,11 +46,10 @@ const RadioGroup: React.FC<RadioGroupProps> = ({
                     className="flex items-center gap-2.5 cursor-pointer text-sm md:text-base text-black/80"
                 >
                     <span
-                        className={`w-4 h-4 rounded-full border flex items-center justify-center transition-colors ${
-                            isSelected
+                        className={`w-4 h-4 rounded-full border flex items-center justify-center transition-colors ${isSelected
                                 ? 'border-black bg-[#63B846]/10'
                                 : 'border-gray-400'
-                        }`}
+                            }`}
                     >
                         {isSelected && <span className="w-1.5 h-1.5 rounded-full bg-black" />}
                     </span>
@@ -104,7 +103,7 @@ const OffGridForm: React.FC<OffGridFormProps> = ({
 
     return (
         <section className="py-16 md:py-24 bg-white">
-            <div className="px-[5%] mx-auto">
+            <div className="px-[3%] mx-auto">
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-start">
                     <div className="flex flex-col">
                         <SectionHeader

@@ -30,7 +30,7 @@ const Awards = ({
   ]
 }: AwardsProps) => {
   return (
-    <section className="bg-white py-12 md:py-16 px-4 md:px-[5%] w-full">
+    <section className="bg-white py-12 md:py-16 px-4 md:px-[3%] w-full">
       <Fade>
         <div className="max-w-6xl mx-auto">
           {/* Flex row on tablet and desktop, vertical flex on mobile */}

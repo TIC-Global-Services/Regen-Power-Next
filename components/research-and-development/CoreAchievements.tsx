@@ -15,7 +15,7 @@ interface Props {
 
 const CoreAchievements = ({ resolved }: Props) => {
   return (
-    <section className="w-full px-[5%] py-10 md:py-20 overflow-hidden">
+    <section className="w-full px-[3%] py-10 md:py-20 overflow-hidden">
       <div className="max-w-7xl mx-auto">
         <div className="text-center mb-10 md:mb-14">
           <p className="text-2xl md:text-3xl font-light tracking-tight text-black leading-none">
@@ -53,7 +53,7 @@ const CoreAchievements = ({ resolved }: Props) => {
               delay: 4500,
               disableOnInteraction: false,
             }}
-            
+
             className="!py-6"
           >
             {resolved.items.map((item, index) => (

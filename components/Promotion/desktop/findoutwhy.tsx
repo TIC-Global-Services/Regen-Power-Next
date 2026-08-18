@@ -26,7 +26,7 @@ const FindOutWhy = ({ data }: { data: FindOutWhyProps }) => {
   if (!data) return null;
 
   return (
-    <section className="bg-white py-16 md:py-20 px-[5%]">
+    <section className="bg-white py-16 md:py-20 px-[3%]">
       <Fade duration={5}>
         <div className="">
           {/* Header & Rating Summary */}
@@ -39,7 +39,7 @@ const FindOutWhy = ({ data }: { data: FindOutWhyProps }) => {
                 {data.subtitle}
               </h2>
             </div>
-            
+
             <div className="lg:col-span-5 lg:pt-8">
               <p className="text-[#4D4D4D] text-sm md:text-[1.375rem] leading-tight font-medium max-w-xl">
                 {data.description}
@@ -81,29 +81,29 @@ const FindOutWhy = ({ data }: { data: FindOutWhyProps }) => {
             {data.reviews?.map((item, idx) => (
               <Reveal key={idx}>
                 <div
-                className="bg-[#EEF6EB] rounded-[10px] p-6 md:p-8 h-full flex flex-col justify-between"
-              >
-                <div>
-                  <h4 className="font-bold text-black text-lg md:text-[1.625rem] leading-none mb-3">
-                    {item?.author}
-                  </h4>
-                  <div className="flex gap-1 mb-4">
-                    {[...Array(5)].map((_, i) => {
-                      const isFilled = i < (item?.rating || 0);
-                      return (
-                        <Star
-                          key={i}
-                          size={20}
-                          className={isFilled ? "fill-[#FAB005] text-[#FAB005]" : "text-gray-300"}
-                        />
-                      );
-                    })}
+                  className="bg-[#EEF6EB] rounded-[10px] p-6 md:p-8 h-full flex flex-col justify-between"
+                >
+                  <div>
+                    <h4 className="font-bold text-black text-lg md:text-[1.625rem] leading-none mb-3">
+                      {item?.author}
+                    </h4>
+                    <div className="flex gap-1 mb-4">
+                      {[...Array(5)].map((_, i) => {
+                        const isFilled = i < (item?.rating || 0);
+                        return (
+                          <Star
+                            key={i}
+                            size={20}
+                            className={isFilled ? "fill-[#FAB005] text-[#FAB005]" : "text-gray-300"}
+                          />
+                        );
+                      })}
+                    </div>
+                    <p className="text-black text-sm md:text-[1.25rem] leading-[1.2] font-medium mt-2">
+                      {item?.review}
+                    </p>
                   </div>
-                  <p className="text-black text-sm md:text-[1.25rem] leading-[1.2] font-medium mt-2">
-                    {item?.review}
-                  </p>
                 </div>
-              </div>
               </Reveal>
             ))}
           </div>

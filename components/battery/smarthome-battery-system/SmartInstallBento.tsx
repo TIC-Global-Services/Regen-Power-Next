@@ -16,7 +16,7 @@ const SmartInstallBento = ({ data }: { data: SmartInstallBentoData }) => {
   const [hoveredIdx, setHoveredIdx] = useState<number | null>(null);
 
   return (
-    <section className="py-16 md:py-24 pl-[5%] md:px-[5%] overflow-hidden">
+    <section className="py-16 md:py-24 pl-[5%] md:px-[3%] overflow-hidden">
       <div className="capitalize">
         {/* Mobile Title Block (Above Slider) */}
         <div className="block md:hidden mb-8 pr-[5%]">
@@ -49,20 +49,17 @@ const SmartInstallBento = ({ data }: { data: SmartInstallBentoData }) => {
                 key={idx}
                 onMouseEnter={() => setHoveredIdx(idx)}
                 onMouseLeave={() => setHoveredIdx(null)}
-                className={`snap-start shrink-0 w-[75vw] md:w-auto rounded-[14px] p-6 md:p-8 lg:p-10 flex flex-col justify-end transition-colors duration-300 cursor-default h-[260px] lg:h-[300px] ${
-                  isHovered
+                className={`snap-start shrink-0 w-[75vw] md:w-auto rounded-[14px] p-6 md:p-8 lg:p-10 flex flex-col justify-end transition-colors duration-300 cursor-default h-[260px] lg:h-[300px] ${isHovered
                     ? 'bg-[#3D3A35] text-white'
                     : 'bg-[#EBEBEB] text-black'
-                }`}
+                  }`}
               >
-                <h4 className={`text-xl md:text-2xl font-normal mb-3 md:mb-4 leading-tight tracking-tight transition-colors duration-300 ${
-                  isHovered ? 'text-white' : 'text-black'
-                }`}>
+                <h4 className={`text-xl md:text-2xl font-normal mb-3 md:mb-4 leading-tight tracking-tight transition-colors duration-300 ${isHovered ? 'text-white' : 'text-black'
+                  }`}>
                   {block.title}
                 </h4>
-                <p className={`text-sm md:text-base font-normal tracking-tight leading-[1.2] transition-colors duration-300 ${
-                  isHovered ? 'text-white/70' : 'text-[#888888]'
-                }`}>
+                <p className={`text-sm md:text-base font-normal tracking-tight leading-[1.2] transition-colors duration-300 ${isHovered ? 'text-white/70' : 'text-[#888888]'
+                  }`}>
                   {block.description}
                 </p>
               </div>

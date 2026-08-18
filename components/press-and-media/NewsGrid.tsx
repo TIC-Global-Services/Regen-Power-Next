@@ -37,13 +37,13 @@ const NewsGrid: React.FC<NewsGridProps> = ({
         selectedCategories.length > 0
             ? cards.filter((c) => selectedCategories.includes(c.categoryKey || ''))
             : !activeCategory || activeCategory === 'All'
-              ? cards
-              : cards.filter((c) => c.categoryKey === activeCategory);
+                ? cards
+                : cards.filter((c) => c.categoryKey === activeCategory);
 
     return (
         <section className="w-full pb-20 md:pb-28">
             {/* {(subtitle || title) && (
-                <div className="text-center mb-8 md:mb-10 px-[5%]">
+                <div className="text-center mb-8 md:mb-10 px-[3%]">
                     {subtitle && (
                         <p className="text-2xl md:text-3xl font-light tracking-tight text-black mb-1">
                             {subtitle}
@@ -66,7 +66,7 @@ const NewsGrid: React.FC<NewsGridProps> = ({
                 onSelectedChange={setSelectedCategories}
             />
 
-            <div className="px-[5%]">
+            <div className="px-[3%]">
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 md:gap-6 max-w-7xl mx-auto">
                     {filteredCards.map((card, idx) => (
                         <div

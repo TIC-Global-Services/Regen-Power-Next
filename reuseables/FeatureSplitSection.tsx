@@ -157,7 +157,7 @@ const FeatureSplitSection: React.FC<FeatureSplitSectionProps> = ({
             </div>
 
             {/* Mobile & Tablet */}
-            <div className="lg:hidden flex flex-col px-[5%] py-16 md:py-24 gap-8">
+            <div className="lg:hidden flex flex-col px-[3%] py-16 md:py-24 gap-8">
                 {features[0]?.image && (
                     <div className="relative w-full aspect-[4/3] rounded-2xl overflow-hidden shadow-lg bg-gray-50">
                         <img

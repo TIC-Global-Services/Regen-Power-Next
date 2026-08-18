@@ -39,7 +39,7 @@ const FinanceOptionBlock: React.FC<{ data: FinanceOptionData }> = ({ data }) => 
       {
         root: null,
         // The active zone is defined by this margin. detects when the trigger occupies the center of the screen
-        rootMargin: '-35% 0px -35% 0px', 
+        rootMargin: '-35% 0px -35% 0px',
         threshold: 0,
       }
     );
@@ -52,7 +52,7 @@ const FinanceOptionBlock: React.FC<{ data: FinanceOptionData }> = ({ data }) => 
   }, [data.sections.length]);
 
   return (
-    <section className="w-full px-[5%] py-12 md:py-20 bg-white">
+    <section className="w-full px-[3%] py-12 md:py-20 bg-white">
       {/* Scrolling Parent Container */}
       <div className="relative w-full max-w-[1400px] mx-auto" style={{ height: `${data.sections.length * 80}vh` }}>
 
@@ -72,50 +72,49 @@ const FinanceOptionBlock: React.FC<{ data: FinanceOptionData }> = ({ data }) => 
           {/* Pinned image + text row */}
           <div className="w-full flex flex-col md:flex-row gap-12 lg:gap-24 flex-1">
 
-          {/* Left Side: Sticky Image */}
-          <div className="w-full md:w-1/2 rounded-[20px] overflow-hidden relative transition-all duration-500">
-            {data.sections.map((section, index) => (
-              <div
-                key={index}
-                className={`absolute inset-0 transition-opacity duration-700 ease-in-out ${
-                  activeIndex === index ? 'opacity-100 z-10' : 'opacity-0 z-0'
-                }`}
-              >
-                <Image
-                  src={section.image}
-                  alt={section.title}
-                  fill
-                  className="object-cover h-full"
-                />
-              </div>
-            ))}
-          </div>
-
-          {/* Right Side: Static Text container with Highlight transitions */}
-          <div className="w-full md:w-1/2 flex flex-col">
-            {data.sections.map((section, index) => (
-              <div key={index} className="flex flex-col justify-between">
-                <div className="py-5 md:py-8 transition-all duration-500 ease-in-out">
-                  <h3 className={`text-2xl md:text-3xl font-normal mb-4 tracking-tight transition-colors duration-500 ${activeIndex === index ? 'text-black' : 'text-[#9CA3AF]'}`}>
-                    {section.title}
-                  </h3>
-                  <ul className="flex flex-col gap-1 ">
-                    {section.listItems.map((item, i) => (
-                      <li key={i} className={`flex items-start text-base md:text-lg font-normal leading-[1.2] transition-colors duration-500 ${activeIndex === index ? 'text-black' : 'text-[#9CA3AF]'}`}>
-                        <span className="mr-2 mt-0.5">•</span>
-                        <span>{item}</span>
-                      </li>
-                    ))}
-                  </ul>
+            {/* Left Side: Sticky Image */}
+            <div className="w-full md:w-1/2 rounded-[20px] overflow-hidden relative transition-all duration-500">
+              {data.sections.map((section, index) => (
+                <div
+                  key={index}
+                  className={`absolute inset-0 transition-opacity duration-700 ease-in-out ${activeIndex === index ? 'opacity-100 z-10' : 'opacity-0 z-0'
+                    }`}
+                >
+                  <Image
+                    src={section.image}
+                    alt={section.title}
+                    fill
+                    className="object-cover h-full"
+                  />
                 </div>
-                
-                {/* Divider if not last */}
-                {index < data.sections.length - 1 && (
-                  <hr className="border-gray-200 w-full" />
-                )}
-              </div>
-            ))}
-          </div>
+              ))}
+            </div>
+
+            {/* Right Side: Static Text container with Highlight transitions */}
+            <div className="w-full md:w-1/2 flex flex-col">
+              {data.sections.map((section, index) => (
+                <div key={index} className="flex flex-col justify-between">
+                  <div className="py-5 md:py-8 transition-all duration-500 ease-in-out">
+                    <h3 className={`text-2xl md:text-3xl font-normal mb-4 tracking-tight transition-colors duration-500 ${activeIndex === index ? 'text-black' : 'text-[#9CA3AF]'}`}>
+                      {section.title}
+                    </h3>
+                    <ul className="flex flex-col gap-1 ">
+                      {section.listItems.map((item, i) => (
+                        <li key={i} className={`flex items-start text-base md:text-lg font-normal leading-[1.2] transition-colors duration-500 ${activeIndex === index ? 'text-black' : 'text-[#9CA3AF]'}`}>
+                          <span className="mr-2 mt-0.5">•</span>
+                          <span>{item}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+
+                  {/* Divider if not last */}
+                  {index < data.sections.length - 1 && (
+                    <hr className="border-gray-200 w-full" />
+                  )}
+                </div>
+              ))}
+            </div>
 
           </div>{/* end pinned image+text row */}
 

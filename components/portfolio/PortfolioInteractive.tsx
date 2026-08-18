@@ -124,7 +124,7 @@ const PortfolioInteractive: React.FC<PortfolioInteractiveProps> = ({
       />
 
       {/* Results count */}
-      <section className="w-full px-[5%]">
+      <section className="w-full px-[3%]">
         <div className="max-w-7xl mx-auto pt-4 pb-2">
           <p className="text-sm text-black/50 tracking-tight">
             Showing {visibleItems.length} of {filteredItems.length} project{filteredItems.length !== 1 ? 's' : ''}
@@ -133,7 +133,7 @@ const PortfolioInteractive: React.FC<PortfolioInteractiveProps> = ({
       </section>
 
       {/* Grid */}
-      <section className="w-full px-[5%] py-8 md:py-12">
+      <section className="w-full px-[3%] py-8 md:py-12">
         <div className="max-w-7xl mx-auto">
           {visibleItems.length === 0 ? (
             <p className="text-center text-black/60 py-16 tracking-tight">
@@ -146,11 +146,10 @@ const PortfolioInteractive: React.FC<PortfolioInteractiveProps> = ({
                 return (
                   <div
                     key={item.id}
-                    className={`relative rounded-[20px] overflow-hidden group ${
-                      isFirst
+                    className={`relative rounded-[20px] overflow-hidden group ${isFirst
                         ? 'md:col-span-2 md:row-span-2 aspect-[4/3] md:aspect-auto'
                         : 'aspect-[4/3]'
-                    }`}
+                      }`}
                   >
                     <div className="absolute inset-0">
                       <Image
@@ -165,9 +164,8 @@ const PortfolioInteractive: React.FC<PortfolioInteractiveProps> = ({
                     {/* Text overlay */}
                     <div className="absolute inset-0 p-6 md:p-8 flex flex-col justify-end text-white z-10">
                       <h3
-                        className={`font-normal text-white tracking-tight leading-tight ${
-                          isFirst ? 'text-2xl md:text-3xl mb-2' : 'text-lg md:text-xl'
-                        }`}
+                        className={`font-normal text-white tracking-tight leading-tight ${isFirst ? 'text-2xl md:text-3xl mb-2' : 'text-lg md:text-xl'
+                          }`}
                       >
                         {item.title}
                       </h3>
@@ -187,7 +185,7 @@ const PortfolioInteractive: React.FC<PortfolioInteractiveProps> = ({
 
       {/* Pagination */}
       {totalPages > 1 && (
-        <section className="w-full px-[5%] pb-12">
+        <section className="w-full px-[3%] pb-12">
           <div className="max-w-7xl mx-auto flex justify-center items-center gap-2">
             {/* Previous button */}
             <button
@@ -209,11 +207,10 @@ const PortfolioInteractive: React.FC<PortfolioInteractiveProps> = ({
                 <button
                   key={page}
                   onClick={() => setCurrentPage(page)}
-                  className={`min-w-[36px] h-9 rounded-lg text-sm font-medium tracking-tight transition-all cursor-pointer ${
-                    safePage === page
+                  className={`min-w-[36px] h-9 rounded-lg text-sm font-medium tracking-tight transition-all cursor-pointer ${safePage === page
                       ? 'bg-[#A0CF44] text-white'
                       : 'text-black/70 hover:bg-[#E5EFD5]'
-                  }`}
+                    }`}
                 >
                   {page}
                 </button>

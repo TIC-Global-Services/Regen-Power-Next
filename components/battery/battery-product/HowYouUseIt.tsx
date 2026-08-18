@@ -21,7 +21,7 @@ const HowYouUseIt: React.FC<{ data?: HowYouUseItData }> = ({ data }) => {
     if (!data || !data.cards || data.cards.length === 0) return null;
 
     return (
-        <section className="w-full px-[5%] py-12 md:py-20 bg-white">
+        <section className="w-full px-[3%] py-12 md:py-20 bg-white">
             <div className="">
                 {/* Grid matching design: Header spans 2 cols, cards take 1 col each */}
                 {/* Desktop: Grid matching design: Header spans 2 cols, cards take 1 col each */}
@@ -87,7 +87,7 @@ const HowYouUseIt: React.FC<{ data?: HowYouUseItData }> = ({ data }) => {
                 )}
 
                 {/* Mobile: Horizontal Scroll */}
-                <div className="flex overflow-x-auto md:hidden gap-4 -mx-[5%] px-[5%] [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none] pb-4 mt-6">
+                <div className="flex overflow-x-auto md:hidden gap-4 -mx-[5%] px-[3%] [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none] pb-4 mt-6">
                     {data.cards.map((card, idx) => (
                         <div
                             key={card.id || idx}

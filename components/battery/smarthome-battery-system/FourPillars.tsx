@@ -16,7 +16,7 @@ export interface FourPillarsData {
 
 const FourPillars = ({ data }: { data: FourPillarsData }) => {
     return (
-        <section className="bg-white py-16 md:py-24 px-[5%]">
+        <section className="bg-white py-16 md:py-24 px-[3%]">
             {/* Centered Section Header */}
             <div className="text-left md:text-center mb-10 md:mb-14 capitalize">
                 {data.topSubtitle && (
@@ -37,7 +37,7 @@ const FourPillars = ({ data }: { data: FourPillarsData }) => {
             </div>
 
             {/* Mobile: Horizontal Slider */}
-            <div className="flex overflow-x-auto md:hidden gap-4 -mx-[5%] px-[5%] [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none] pb-4">
+            <div className="flex overflow-x-auto md:hidden gap-4 -mx-[5%] px-[3%] [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none] pb-4">
                 {data.cards.map((card, idx) => (
                     <div
                         key={idx}

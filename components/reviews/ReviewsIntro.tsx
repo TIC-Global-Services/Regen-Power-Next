@@ -12,7 +12,7 @@ const ReviewsIntro: React.FC<ReviewsIntroProps> = ({
     description = "Over The Years, We've Helped Thousands Of Australian Homes And Businesses Transition To Renewable Energy With Confidence. Our Commitment To Quality Workmanship, Premium Products, Transparent Advice, And Ongoing Customer Support Has Earned Consistently Positive Feedback From Customers Nationwide.",
 }) => {
     return (
-        <section className="w-full px-[5%] py-12 md:py-20">
+        <section className="w-full px-[3%] py-12 md:py-20">
             <div className="flex gap-8 md:gap-50">
                 <div>
                     <p className="text-2xl md:text-[1.375rem] w-full font-light tracking-tighter text-black">

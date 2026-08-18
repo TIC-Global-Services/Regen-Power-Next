@@ -26,7 +26,7 @@ const CategoryFilter: React.FC<CategoryFilterProps> = ({
     };
 
     return (
-        <div className="w-full flex justify-center py-10 md:py-14 px-[5%]">
+        <div className="w-full flex justify-center py-10 md:py-14 px-[3%]">
             <div className="flex flex-nowrap md:flex-wrap overflow-x-auto md:overflow-visible md:justify-center gap-2 md:gap-3 max-w-4xl whitespace-nowrap -mx-[5%] md:snap-none [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
                 {categories.map((cat) => {
                     const isActive = active === cat.value;
@@ -34,11 +34,10 @@ const CategoryFilter: React.FC<CategoryFilterProps> = ({
                         <button
                             key={cat.value}
                             onClick={() => handleSelect(cat.value)}
-                            className={`shrink-0 snap-start px-5 md:px-6 py-2.5 md:py-3 rounded-full text-sm md:text-base font-medium tracking-tight transition-all duration-300 border ${
-                                isActive
+                            className={`shrink-0 snap-start px-5 md:px-6 py-2.5 md:py-3 rounded-full text-sm md:text-base font-medium tracking-tight transition-all duration-300 border ${isActive
                                     ? 'bg-[#D5E5C0] border-[#D5E5C0] text-black'
                                     : 'bg-transparent border-transparent text-black hover:bg-black/5'
-                            }`}
+                                }`}
                         >
                             {cat.label}
                         </button>

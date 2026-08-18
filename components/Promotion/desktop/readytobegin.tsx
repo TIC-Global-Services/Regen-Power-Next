@@ -84,8 +84,8 @@ const ReadyToBegin = ({ data }: { data: ReadyToBeginProps }) => {
     const titleLower = item.title.toLowerCase();
     if (titleLower.includes('mail')) {
       return (
-        <a 
-          href={`mailto:${item.value}`} 
+        <a
+          href={`mailto:${item.value}`}
           className="block text-black text-sm md:text-[1.375rem] leading-relaxed font-normal hover:text-[#63B846] transition-colors border-b border-b-[#00000029] pb-2"
         >
           {item.value}
@@ -94,8 +94,8 @@ const ReadyToBegin = ({ data }: { data: ReadyToBeginProps }) => {
     }
     if (titleLower.includes('phone') || titleLower.includes('tel')) {
       return (
-        <a 
-          href={`tel:${item.value.replace(/\s+/g, '')}`} 
+        <a
+          href={`tel:${item.value.replace(/\s+/g, '')}`}
           className="block text-black text-sm md:text-[1.375rem] leading-relaxed font-normal hover:text-[#63B846] transition-colors"
         >
           {item.value}
@@ -110,7 +110,7 @@ const ReadyToBegin = ({ data }: { data: ReadyToBeginProps }) => {
   };
 
   return (
-    <section className="bg-white py-16 md:py-20 px-[5%] border-t border-gray-100">
+    <section className="bg-white py-16 md:py-20 px-[3%] border-t border-gray-100">
       <Fade duration={5}>
         <div>
           {/* Header section with split title and notice text */}

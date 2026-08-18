@@ -15,7 +15,7 @@ const SpecsTableSection: React.FC<SpecsTableSectionProps> = ({ resolved }) => {
 
   return (
     <section className="py-16 md:py-24 bg-white border-t border-gray-50">
-      <div className="px-[5%] mx-auto">
+      <div className="px-[3%] mx-auto">
         <SectionHeader
           subtitle={resolved.subtitle ?? ""}
           title={resolved.title ?? ""}

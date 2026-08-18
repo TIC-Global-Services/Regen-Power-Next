@@ -49,27 +49,27 @@ const BatterySplitSection = ({ data }: { data: BatterySplitData }) => {
             transition={{ duration: 0.5, ease: "easeInOut" }}
             className="absolute inset-0"
           >
-            <Image 
-              src={slide.image} 
+            <Image
+              src={slide.image}
               alt={slide.title}
-              fill 
-              className="object-cover" 
+              fill
+              className="object-cover"
             />
           </motion.div>
         </AnimatePresence>
       </div>
-      
+
       {/* Slider Navigation */}
       {data.slides.length > 1 && (
         <div className="flex items-center gap-4">
-          <button 
+          <button
             onClick={prevSlide}
             className="w-12 h-12 rounded-full bg-black flex items-center justify-center hover:bg-black/80 transition-colors cursor-pointer"
             aria-label="Previous slide"
           >
             <ArrowLeft className="w-5 h-5 text-white" />
           </button>
-          <button 
+          <button
             onClick={nextSlide}
             className="w-12 h-12 rounded-full bg-black flex items-center justify-center hover:bg-black/80 transition-colors cursor-pointer"
             aria-label="Next slide"
@@ -82,7 +82,7 @@ const BatterySplitSection = ({ data }: { data: BatterySplitData }) => {
   );
 
   return (
-    <section className="bg-white py-16 md:py-24 px-[5%] overflow-hidden">
+    <section className="bg-white py-16 md:py-24 px-[3%] overflow-hidden">
       <div className="flex flex-col lg:flex-row gap-12 lg:gap-16 items-center">
         {/* Left Content */}
         <div className="w-full lg:w-1/2 flex flex-col items-start shrink-0 lg:min-h-[500px]">
@@ -125,9 +125,9 @@ const BatterySplitSection = ({ data }: { data: BatterySplitData }) => {
                   ))}
                 </div>
 
-                <CtaButton 
-                  href={slide.ctaLink} 
-                  text={slide.ctaText} 
+                <CtaButton
+                  href={slide.ctaLink}
+                  text={slide.ctaText}
                   textColor="text-black"
                 />
               </motion.div>

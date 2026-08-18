@@ -28,7 +28,7 @@ const Brands = ({ data }: { data: BrandsProps }) => {
     <section className="bg-white py-16 md:py-25 overflow-hidden border-t border-gray-100">
       <Fade>
         {/* Header */}
-        <div className=" px-[5%] mb-10 text-center">
+        <div className=" px-[3%] mb-10 text-center">
           <span className="block text-black text-sm md:text-[2.125rem] font-bold  tracking-tight leading-none">
             {subtitle}
           </span>
@@ -56,7 +56,7 @@ const Brands = ({ data }: { data: BrandsProps }) => {
         <div className="h-[1px] max-w-7xl mx-auto bg-[#00000033]"></div>
         {/* Batteries & Inverters Static Grid (No Marquee, Full Height Images) */}
         {batteries.length > 0 && (
-          <div className="px-[5%] py-[5%]">
+          <div className="px-[3%] py-[5%]">
             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 overflow-hidden divide-y md:divide-y-0 lg:divide-x divide-[#00000033] bg-white">
               {batteries.map((battery, idx) => (
                 <Reveal key={idx}>

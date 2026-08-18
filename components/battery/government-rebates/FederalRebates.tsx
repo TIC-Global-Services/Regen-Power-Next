@@ -28,7 +28,7 @@ const FederalRebates: React.FC<FederalRebatesProps> = ({ data = [] }) => {
   return (
     <>
       {data.map((item, index) => (
-        <section key={index} className="w-full bg-white px-[5%] py-12 md:py-20">
+        <section key={index} className="w-full bg-white px-[3%] py-12 md:py-20">
           {/* Header Section */}
           <div className="text-left md:text-center mb-12 md:mb-10">
             <h3 className="text-base md:text-xl font-medium text-black tracking-tight leading-tight">
@@ -44,10 +44,10 @@ const FederalRebates: React.FC<FederalRebatesProps> = ({ data = [] }) => {
 
           {/* Grid Layout Container */}
           <div className="flex flex-col gap-6">
-            
+
             {/* Top Row */}
             <div className="grid grid-cols-1 md:grid-cols-12 gap-6 items-stretch">
-              
+
               {/* Key Specs Card (Span 5) */}
               <div className="md:col-span-5 bg-[#EEF6EB] rounded-3xl p-8 flex flex-col justify-center tracking-tight">
                 <h4 className="text-xl md:text-2xl font-normal text-black mb-6">
@@ -81,7 +81,7 @@ const FederalRebates: React.FC<FederalRebatesProps> = ({ data = [] }) => {
                 <p className="text-base text-black font-medium mb-6 leading-[1.2]">
                   {item.eligibleCapacityText}
                 </p>
-                
+
                 <h4 className="text-base md:text-xl font-normal text-black mb-3">
                   {item.importantNoteTitle}
                 </h4>
@@ -94,7 +94,7 @@ const FederalRebates: React.FC<FederalRebatesProps> = ({ data = [] }) => {
 
             {/* Bottom Row */}
             <div className="grid grid-cols-1 md:grid-cols-12 gap-6 items-stretch">
-              
+
               {/* Bottom Image (Span 3) */}
               <div className="md:col-span-3 relative rounded-3xl overflow-hidden">
                 <Image

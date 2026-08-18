@@ -47,11 +47,11 @@ const TrustCardItem = ({ card }: { card: TrustCard }) => (
 const OneLocalTeam = ({ data }: { data: OneLocalTeamData }) => {
   return (
     <Fade>
-      <section className="bg-white py-16 md:py-24 px-[5%]">
+      <section className="bg-white py-16 md:py-24 px-[3%]">
         <div className="max-w-7xl mx-auto">
           {/* Section Header */}
           <div className="text-left md:text-center capitalize mb-10 md:mb-14">
-            <h3 className="text-base md:text-[2.125rem] text-black font-normal tracking-tight mb-1">
+            <h3 className="text-base md:text-[2.125rem] text-black font-normal tracking-tight leading-none">
               {data.topSubtitle}
             </h3>
             <h2 className="text-[2.5rem] md:text-7xl lg:text-[5rem] text-[#63B846] font-light leading-none tracking-tighter">
@@ -86,7 +86,7 @@ const OneLocalTeam = ({ data }: { data: OneLocalTeamData }) => {
           </div>
 
           {/* Mobile Layout (Horizontal Slider) */}
-          <div className="flex overflow-x-auto lg:hidden gap-4 -mx-[5%] px-[5%] [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none] pb-4 mb-8">
+          <div className="flex overflow-x-auto lg:hidden gap-4 -mx-[5%] px-[3%] [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none] pb-4 mb-8">
             {data.cards.map((card, idx) => (
               <div key={idx} className="w-[75vw] shrink-0 snap-start">
                 <TrustCardItem card={card} />

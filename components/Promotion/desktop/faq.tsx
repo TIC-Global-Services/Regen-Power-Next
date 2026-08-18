@@ -70,7 +70,7 @@ const FAQ = ({ data }: { data: FaqProps }) => {
   };
 
   return (
-    <section className="bg-white py-16 md:py-20 px-[5%]">
+    <section className="bg-white py-16 md:py-20 px-[3%]">
       <Fade duration={5}>
         <div className="">
           {/* Header */}
@@ -114,7 +114,7 @@ const FAQ = ({ data }: { data: FaqProps }) => {
                 {data.highlightCard.title}
               </h3>
             </div>
-              
+
             {/* Right FAQ List */}
             <div className="lg:col-span-6 border-l border-[#939393] lg:ml-5 pl-5 py-2 flex flex-col justify-center">
               {data.faqItems.map((item, idx) => (

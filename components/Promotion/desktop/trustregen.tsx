@@ -21,7 +21,7 @@ const TrustRegen = ({ data }: { data: TrustRegenProps }) => {
   const [activeIdx, setActiveIdx] = useState(0);
 
   return (
-    <section className="bg-white py-16 md:py-20 px-[5%]">
+    <section className="bg-white py-16 md:py-20 px-[3%]">
       <Fade>
         <div className="">
           <div className="text-center mb-14 md:mb-20">
@@ -41,42 +41,42 @@ const TrustRegen = ({ data }: { data: TrustRegenProps }) => {
               return (
                 <Reveal key={idx}>
                   <div
-                  
-                  className="relative flex flex-col items-center text-center cursor-pointer px-6 py-10 md:px-8 md:py-12 transition-all duration-300"
-                  onMouseEnter={() => setActiveIdx(idx)}
-                  style={{
-                    borderBottom: `2px solid ${borderColor}`,
-                    borderLeft: idx === 0 ? `0px solid transparent` : `1px solid ${borderColor}`,
-                    borderRight: idx === 2 ? `0px solid transparent` : `1px solid ${borderColor}`,
-                    zIndex: isActive ? 2 : 1,
-                  }}
-                >
-                  <div className="mb-6 flex h-24 w-24 items-center justify-center md:h-30 md:w-30">
-                    <img
-                      src={feature.icon}
-                      alt={feature.title}
-                      className="h-full w-full object-contain"
-                    />
+
+                    className="relative flex flex-col items-center text-center cursor-pointer px-6 py-10 md:px-8 md:py-12 transition-all duration-300"
+                    onMouseEnter={() => setActiveIdx(idx)}
+                    style={{
+                      borderBottom: `2px solid ${borderColor}`,
+                      borderLeft: idx === 0 ? `0px solid transparent` : `1px solid ${borderColor}`,
+                      borderRight: idx === 2 ? `0px solid transparent` : `1px solid ${borderColor}`,
+                      zIndex: isActive ? 2 : 1,
+                    }}
+                  >
+                    <div className="mb-6 flex h-24 w-24 items-center justify-center md:h-30 md:w-30">
+                      <img
+                        src={feature.icon}
+                        alt={feature.title}
+                        className="h-full w-full object-contain"
+                      />
+                    </div>
+
+                    <h3 className="text-lg md:text-[2.25rem] font-bold text-black leading-[1.2] whitespace-pre-line">
+                      {feature.title}
+                    </h3>
+
+                    <p className="mt-4 text-xs md:text-xl leading-[1.2] whitespace-pre-line tracking-tight text-black/80">
+                      {feature.description}
+                    </p>
+
+                    {idx < 2 && (
+                      <img
+                        src="/dot.svg"
+                        alt=""
+                        className="hidden md:block absolute -right-2 bottom-0 h-5 w-5 translate-y-1/2 rounded-full border-[3px] border-white bg-[#63B846]"
+                      />
+                    )}
                   </div>
-
-                  <h3 className="text-lg md:text-[2.25rem] font-bold text-black leading-[1.2] whitespace-pre-line">
-                    {feature.title}
-                  </h3>
-
-                  <p className="mt-4 text-xs md:text-xl leading-[1.2] whitespace-pre-line tracking-tight text-black/80">
-                    {feature.description}
-                  </p>
-
-                  {idx < 2 && (
-                    <img
-                      src="/dot.svg"
-                      alt=""
-                      className="hidden md:block absolute -right-2 bottom-0 h-5 w-5 translate-y-1/2 rounded-full border-[3px] border-white bg-[#63B846]"
-                    />
-                  )}
-                </div>
                 </Reveal>
-                
+
               );
             })}
           </div>

@@ -1,7 +1,7 @@
 import React from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import {  DiscAlbum, Link2Icon, Mail,  } from 'lucide-react';
+import { DiscAlbum, Link2Icon, Mail, } from 'lucide-react';
 
 const quickLinks = [
   { name: 'Solar', href: '/solar' },
@@ -37,18 +37,18 @@ const socialLinks = [
 
 const Footer = () => {
   return (
-    <footer 
-      className="relative w-full bg-[#0a0a0a] text-white pt-16 pb-8 px-4 md:px-8 lg:px-[5%] bg-cover bg-center"
+    <footer
+      className="relative w-full bg-[#0a0a0a] text-white pt-16 pb-8 px-4 md:px-8 lg:px-[3%] bg-cover bg-center"
       style={{ backgroundImage: "url('/footer_bg.svg')" }}
     >
       <div className="">
         {/* Logo Section */}
         <div className="flex justify-center mb-16">
-          <Image 
-            src="/regen_logo_footer.png" 
-            alt="Regen Power Logo" 
-            width={300} 
-            height={100} 
+          <Image
+            src="/regen_logo_footer.png"
+            alt="Regen Power Logo"
+            width={300}
+            height={100}
             className="h-auto w-[250px] object-contain"
           />
         </div>
@@ -101,7 +101,7 @@ const Footer = () => {
           <p className="text-center md:text-left">
             Copyright © 2026 <span className="text-[#8dc63f]">Regen Power</span> Pty Ltd. All rights reserved.
           </p>
-          
+
           <div className="flex gap-4">
             {socialLinks.map((social, index) => {
               const Icon = social.icon;

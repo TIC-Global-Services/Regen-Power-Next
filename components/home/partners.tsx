@@ -24,7 +24,7 @@ interface PartnersProps {
 const Partners = ({ data }: PartnersProps) => {
   return (
     <section className="py-16 md:py-20 bg-white overflow-hidden">
-      <div className="px-[5%]">
+      <div className="px-[3%]">
         {/* Section Header */}
         <SectionHeader
           subtitle={data.subtitle}
@@ -73,12 +73,12 @@ const Partners = ({ data }: PartnersProps) => {
                     className={`col-span-2 flex items-center justify-center p-3 md:p-8 hover:-translate-y-0.5 transition-all duration-300 ${index > 0 ? "border-l border-gray-200" : ""
                       }`}
                   >
-                    <div className="relative h-[20dvh] md:h-40 w-[12dvh] md:w-40">
+                    <div className="relative h-[20dvh] md:h-40 w-[12dvh] md:w-full">
                       <Image
                         src={membership.image}
                         alt={membership.name}
                         fill
-                        className="md:object-cover object-contain"
+                        className="md:object-contain"
                       />
                     </div>
                   </div>

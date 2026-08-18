@@ -24,7 +24,7 @@ export const BatteryBillImpactCarousel = ({ cards }: { cards: JargonCard[] }) =>
     <div className="w-full relative mt-8 lg:mt-0">
       <div
         ref={scrollContainerRef}
-        className="flex gap-4 overflow-x-auto -mx-[5%] px-[5%] [&::-webkit-scrollbar]:hidden"
+        className="flex gap-4 overflow-x-auto -mx-[5%] px-[3%] [&::-webkit-scrollbar]:hidden"
         style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
       >
         {cards.map((card, idx) => (
@@ -56,14 +56,14 @@ export const BatteryBillImpactCarousel = ({ cards }: { cards: JargonCard[] }) =>
       <div className="hidden lg:flex justify-end gap-3 mt-4 mr-[5%]">
         <button
           onClick={scrollLeft}
-          className="w-12 h-12 rounded-full bg-black flex items-center justify-center text-white hover:bg-black/80 transition-colors"
+          className="w-12 h-12 rounded-full bg-black flex items-center justify-center cursor-pointer text-white hover:bg-black/80 transition-colors"
           aria-label="Previous card"
         >
           <ArrowLeft className="w-5 h-5" />
         </button>
         <button
           onClick={scrollRight}
-          className="w-12 h-12 rounded-full bg-black flex items-center justify-center text-white hover:bg-black/80 transition-colors"
+          className="w-12 h-12 rounded-full bg-black flex items-center justify-center cursor-pointer text-white hover:bg-black/80 transition-colors"
           aria-label="Next card"
         >
           <ArrowRight className="w-5 h-5" />

@@ -107,7 +107,7 @@ const BatteryPackage = ({ data }: { data: BatteryPackageSection }) => {
   const centerImageAlt = centerImage?.alt || 'Battery system';
 
   return (
-    <section className="bg-white px-[5%] py-16 md:py-20">
+    <section className="bg-white px-[3%] py-16 md:py-20">
       <Fade duration={5}>
         <div className="">
           <h2 className="mb-12 text-center text-[2.6rem] md:text-[4rem] tracking-tight font-bold text-[#63B846] leading-none">

@@ -40,7 +40,7 @@ export default function FiveThingsSection({ resolved }: Props) {
 
   return (
     <section className="py-12 lg:py-8 bg-white min-h-[100dvh] flex flex-col justify-center overflow-hidden">
-      <div className="px-[5%] mx-auto w-full">
+      <div className="px-[3%] mx-auto w-full">
         <SectionHeader
           subtitle={resolved.subtitle}
           title={resolved.title}
@@ -62,9 +62,8 @@ export default function FiveThingsSection({ resolved }: Props) {
               <Reveal
                 key={idx}
                 delay={idx * 0.1}
-                className={`relative flex flex-col justify-center items-center w-full ${
-                  isShiftedDown ? 'mt-16 lg:mt-20 lg:mt-24' : ''
-                }`}
+                className={`relative flex flex-col justify-center items-center w-full ${isShiftedDown ? 'mt-16 lg:mt-20 lg:mt-24' : ''
+                  }`}
               >
                 {/* Number — top for shifted down cards */}
                 {isShiftedDown ? (
@@ -138,11 +137,10 @@ export default function FiveThingsSection({ resolved }: Props) {
                 key={index}
                 aria-label={`Go to slide ${index + 1}`}
                 onClick={() => scrollToIndex(index)}
-                className={`rounded-full transition-all duration-300 ${
-                  index === activeIndex
+                className={`rounded-full transition-all duration-300 ${index === activeIndex
                     ? 'w-7 h-2.5 bg-[#63B846]'
                     : 'w-2.5 h-2.5 bg-black/20'
-                }`}
+                  }`}
               />
             ))}
           </div>

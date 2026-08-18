@@ -18,7 +18,7 @@ const AboutRegen = ({ data }: { data: AboutRegenProps }) => {
   const [isPlaying, setIsPlaying] = useState(false);
 
   return (
-    <section className="bg-white py-16 md:py-20 px-[5%]">
+    <section className="bg-white py-16 md:py-20 px-[3%]">
       <Fade duration={5}>
         <div className="">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 items-center justify-center">
@@ -56,14 +56,14 @@ const AboutRegen = ({ data }: { data: AboutRegenProps }) => {
 
             {/* Right Column: Copy text */}
             <div className="lg:col-span-6">
-               <h2 className="text-3xl md:text-[2.125rem] font-bold  tracking-tight leading-none">
+              <h2 className="text-3xl md:text-[2.125rem] font-bold  tracking-tight leading-none">
                 {data.subtitle}
               </h2>
               <h2 className="text-3xl md:text-[5rem] font-bold text-[#63B846] tracking-tight leading-none">
                 {data.title}
               </h2>
-             
-              
+
+
               {/* <div className="h-1.5 w-20 bg-[#63B846] rounded-full" /> */}
               <div className="space-y-4 text-black gr text-sm md:text-[1.625rem] leading-[1.2] mt-5 font-medium">
                 {/* {data.paragraphs.map((p, idx) => (

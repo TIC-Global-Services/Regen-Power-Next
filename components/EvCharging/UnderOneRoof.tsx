@@ -26,7 +26,7 @@ interface UnderOneRoofProps {
 const UnderOneRoof = ({ data }: UnderOneRoofProps) => {
   return (
     <section className="py-16 md:py-20 bg-[#EEF6EB] overflow-hidden">
-      <div className="px-[5%]">
+      <div className="px-[3%]">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start">
           {/* Left Column — Heading and Intro */}
           <div className="lg:col-span-5 flex flex-col gap-6">
@@ -62,7 +62,7 @@ const UnderOneRoof = ({ data }: UnderOneRoofProps) => {
                       {data.cards[0].description}
                     </p>
                   </div>
-                  
+
                   {/* Right: Image */}
                   <div className="relative w-full md:w-[40%] h-40 md:h-auto rounded-[16px] overflow-hidden pointer-events-none self-stretch">
                     <Image

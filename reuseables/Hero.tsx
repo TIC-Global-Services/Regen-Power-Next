@@ -71,7 +71,7 @@ const Hero: React.FC<HeroProps> = ({
             )}
 
             {/* Content Area */}
-            <div className="relative z-10 w-full px-[5%] flex flex-col md:flex-row md:items-end justify-between gap-8 pt-20 pb-10 ">
+            <div className="relative z-10 w-full px-[3%] flex flex-col md:flex-row md:items-end justify-between gap-8 pt-20 pb-10 ">
                 <div className="max-w-3xl capitalize">
                     <p className={`text-2xl md:text-3xl font-light tracking-tight drop-shadow-md leading-[1]] ${subtitleColor}`}>
                         {topSubtitle}

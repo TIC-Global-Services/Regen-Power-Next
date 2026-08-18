@@ -54,20 +54,20 @@ const ContactInfo = ({
   const renderIcon = (type: 'Instagram' | 'LinkedIn' | 'Facebook' | 'Twitter') => {
     switch (type) {
       case 'Instagram':
-        return <img  src={'/instagram_logo.svg'}  className="text-[#63B846] shrink-0" height={30} width={30} />;
+        return <img src={'/instagram_logo.svg'} className="text-[#63B846] shrink-0" height={30} width={30} />;
       case 'LinkedIn':
-        return <img src={'/linkedin_logo.svg'} className="text-[#63B846] shrink-0" height={30}  width={30}/>;
+        return <img src={'/linkedin_logo.svg'} className="text-[#63B846] shrink-0" height={30} width={30} />;
       case 'Facebook':
-        return <img src={'/facebook_logo.svg'} className="text-[#63B846] shrink-0" height={30}  width={30}/>;
+        return <img src={'/facebook_logo.svg'} className="text-[#63B846] shrink-0" height={30} width={30} />;
       case 'Twitter':
-        return <img src={'/twitter_logo.svg'} className="text-[#63B846] shrink-0" height={30}  width={30}/>;
+        return <img src={'/twitter_logo.svg'} className="text-[#63B846] shrink-0" height={30} width={30} />;
     }
   };
 
   const renderLink = (item: ContactItem) => {
     if (item.type === 'email') {
       return (
-        <a 
+        <a
           href={`mailto:${item.value}`}
           className="text-lg md:text-lg text-gray-800 hover:text-[#63B846] font-normal transition-colors duration-200"
         >
@@ -77,7 +77,7 @@ const ContactInfo = ({
     }
     if (item.type === 'phone') {
       return (
-        <a 
+        <a
           href={`tel:${item.value.replace(/[^0-9]/g, '')}`}
           className="text-lg md:text-lg text-gray-800 hover:text-[#63B846] font-normal transition-colors duration-200"
         >
@@ -89,7 +89,7 @@ const ContactInfo = ({
   };
 
   return (
-    <section className="bg-white py-16 md:py-24 px-4 md:px-[5%] w-full border-t border-gray-100">
+    <section className="bg-white py-16 md:py-24 px-4 md:px-[3%] w-full border-t border-gray-100">
       <Fade duration={5}>
         <div className="max-w-5xl mx-auto">
           {/* Header */}
@@ -107,8 +107,8 @@ const ContactInfo = ({
           {/* Contact Details Grid */}
           <div className="grid grid-cols-1 md:grid-cols-3  gap-8 md:gap-6 border-b border-gray-100 pb-12 mb-8 max-w-4xl mx-auto">
             {items.map((item, idx) => (
-              <div 
-                key={idx} 
+              <div
+                key={idx}
                 className="flex flex-col items-center text-center"
               >
                 {/* Icon Circle */}

@@ -32,7 +32,7 @@ const BlogGrid: React.FC<BlogGridProps> = ({
     }
 
     return (
-        <section className="w-full px-[5%] pb-20 md:pb-28">
+        <section className="w-full px-[3%] pb-20 md:pb-28">
             <CategoryFilter
                 categories={categories}
                 defaultCategory={activeCategory}

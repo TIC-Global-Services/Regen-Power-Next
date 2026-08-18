@@ -11,7 +11,7 @@ export interface RebateDetailSplitData {
     description?: string;
     image?: StaticImageData | string;
     imagePosition?: 'left' | 'right';
-    
+
     // Top Box (Always a numbered list)
     topBoxTitle?: string;
     topBoxItems?: string[];
@@ -35,7 +35,7 @@ const RebateDetailSplit: React.FC<{ data?: RebateDetailSplitData }> = ({ data })
     const bg = data.bgColor || 'bg-white';
 
     return (
-        <section className={`w-full px-[5%] py-12 md:py-20 ${bg}`}>
+        <section className={`w-full px-[3%] py-12 md:py-20 ${bg}`}>
             <div className="">
                 {/* Header Section */}
                 {(data.topSubtitle || data.title || data.description) && (
@@ -62,9 +62,8 @@ const RebateDetailSplit: React.FC<{ data?: RebateDetailSplitData }> = ({ data })
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6 items-stretch">
                     {/* Image */}
                     <div
-                        className={`rounded-[20px] overflow-hidden relative min-h-[300px] md:min-h-[420px] ${
-                            isImageLeft ? 'order-1' : 'order-1 md:order-2'
-                        }`}
+                        className={`rounded-[20px] overflow-hidden relative min-h-[300px] md:min-h-[420px] ${isImageLeft ? 'order-1' : 'order-1 md:order-2'
+                            }`}
                     >
                         <Image
                             src={imgSrc}
@@ -76,9 +75,8 @@ const RebateDetailSplit: React.FC<{ data?: RebateDetailSplitData }> = ({ data })
 
                     {/* Content Boxes */}
                     <div
-                        className={`flex flex-col gap-4 justify-center ${
-                            isImageLeft ? 'order-2' : 'order-2 md:order-1'
-                        }`}
+                        className={`flex flex-col gap-4 justify-center ${isImageLeft ? 'order-2' : 'order-2 md:order-1'
+                            }`}
                     >
                         {/* Top Box - Numbered List */}
                         {(data.topBoxTitle || (data.topBoxItems && data.topBoxItems.length > 0)) && (

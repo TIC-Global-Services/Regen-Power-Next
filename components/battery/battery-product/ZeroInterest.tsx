@@ -28,7 +28,7 @@ export interface ZeroInterestData {
 
 const ZeroInterest: React.FC<{ data: ZeroInterestData }> = ({ data }) => {
     return (
-        <section className="w-full px-[5%] py-12 md:py-20 bg-white">
+        <section className="w-full px-[3%] py-12 md:py-20 bg-white">
             <div className="">
                 {/* Header */}
                 <div className="text-left md:text-center mb-10 md:mb-14">

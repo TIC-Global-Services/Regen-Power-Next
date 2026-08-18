@@ -326,7 +326,7 @@ const MOBILE_RENDERERS: Record<
 const EvWhyChooseUs = ({ data }: EvWhyChooseUsProps) => {
   return (
     <section className="py-10 md:py-24 bg-white overflow-hidden">
-      <div className="px-[5%]">
+      <div className="px-[3%]">
         {/* Header */}
         <div className="mb-10 md:mb-15 leading-[1.1] text-center lg:text-left">
           <h2 className="text-xl md:text-2xl lg:text-3xl font-medium text-black tracking-tight">

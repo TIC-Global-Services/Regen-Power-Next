@@ -12,7 +12,7 @@ interface Props {
   resolved: ResolvedRebatesRebatePrograms;
 }
 
-export default function   RebateProgramsSection({ resolved }: Props) {
+export default function RebateProgramsSection({ resolved }: Props) {
   const programs = resolved.programs;
   const [activeIndex, setActiveIndex] = useState(0);
   const [progressKey, setProgressKey] = useState(0); // forces animation restart
@@ -44,7 +44,7 @@ export default function   RebateProgramsSection({ resolved }: Props) {
 
   return (
     <section className="bg-white py-0 md:py-24">
-      <div className="mx-auto max-w-7xl px-[5%]">
+      <div className="mx-auto max-w-7xl px-[3%]">
         <SectionHeader
           subtitle={resolved.subtitle}
           title={resolved.title}
@@ -104,7 +104,7 @@ export default function   RebateProgramsSection({ resolved }: Props) {
                 className={`${isActive
                   ? "text-[1.6rem] lg:text-[2.5rem] leading-tight tracking-tight text-black"
                   : "text-[1.75rem] leading-tight tracking-tight text-black"
-                }`}
+                  }`}
               >
                 {program.title}
               </h3>
@@ -129,7 +129,7 @@ export default function   RebateProgramsSection({ resolved }: Props) {
                   <p className="mt-5 text-base leading-tight text-black">
                     {program.summary}
                   </p>
-                  
+
                 </div>
               </div>
             </button>
@@ -137,7 +137,7 @@ export default function   RebateProgramsSection({ resolved }: Props) {
         })}
       </div>
 
-      <div className="space-y-4 lg:hidden px-[5%]">
+      <div className="space-y-4 lg:hidden px-[3%]">
         {programs.map((program) => {
           const isActive = program.label === activeId;
           const img = program.image;

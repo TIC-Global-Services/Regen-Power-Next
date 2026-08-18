@@ -13,7 +13,7 @@ const SolarProcessFlow: React.FC<SolarProcessFlowProps> = ({ resolved }) => {
 
   return (
     <section className="py-16 md:pb-24 bg-white">
-      <div className="px-[5%]">
+      <div className="px-[3%]">
         <SectionHeader
           subtitle={resolved.subtitle}
           title={resolved.title}
@@ -47,7 +47,7 @@ const SolarProcessFlow: React.FC<SolarProcessFlowProps> = ({ resolved }) => {
                   )}
                 </div>
                 <div className="grid grid-cols-[auto_1fr] gap-x-3">
-                  <span className="text-2xl font-semibold text-[#63B846]">0{index+1}</span>
+                  <span className="text-2xl font-semibold text-[#63B846]">0{index + 1}</span>
                   <div className="relative self-baseline">
                     <h3 className="text-lg md:text-2xl font-semibold md:font-medium text-black leading-tight">
                       <span>{step.title}</span>

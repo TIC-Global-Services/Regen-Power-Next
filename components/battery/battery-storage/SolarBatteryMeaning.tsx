@@ -19,8 +19,8 @@ const SolarBatteryMeaning = ({ data }: { data: SolarBatteryMeaningData }) => {
   const [activeIndex, setActiveIndex] = useState(0);
 
   return (
-    <section className="bg-white py-16 md:py-24 px-[5%]">
-      <div className="max-w-7xl mx-auto text-left md:text-center capitalize mb-12 leading-[1.1]">
+    <section className="bg-white py-16 md:py-24 px-[3%]">
+      <div className="text-left md:text-center capitalize mb-12 leading-[1.1]">
         <h3 className="text-base md:text-[2.125rem] text-black font-normal leading-[1] tracking-tight ">
           {data.topSubtitle}
         </h3>
@@ -33,14 +33,13 @@ const SolarBatteryMeaning = ({ data }: { data: SolarBatteryMeaningData }) => {
       </div>
 
       {/* Mobile: Horizontal Slider */}
-      <div className="flex overflow-x-auto md:hidden gap-4 -mx-[5%] px-[5%] [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none] pb-4 max-w-7xl">
+      <div className="flex overflow-x-auto md:hidden gap-4 -mx-[5%] px-[3%] [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none] pb-4 max-w-7xl">
         {data.cards.map((card, idx) => {
           return (
             <div
               key={idx}
-              className={`rounded-[24px] p-8 flex flex-col justify-center w-[240px] min-h-[280px] max-w-full shrink-0 snap-start transition-colors duration-300 cursor-default overflow-hidden ${
-                idx === 0 ? 'bg-[#63B846]' : 'bg-[#EEF6EB]'
-              }`}
+              className={`rounded-[24px] p-8 flex flex-col justify-center w-[240px] min-h-[280px] max-w-full shrink-0 snap-start transition-colors duration-300 cursor-default overflow-hidden ${idx === 0 ? 'bg-[#63B846]' : 'bg-[#EEF6EB]'
+                }`}
             >
               <div className="h-full flex flex-col justify-center capitalize">
                 <h4 className="text-xl md:text-2xl font-normal text-black text-center">
@@ -56,7 +55,7 @@ const SolarBatteryMeaning = ({ data }: { data: SolarBatteryMeaningData }) => {
       </div>
 
       {/* Desktop: Grid */}
-      <div className="hidden sm:grid sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6 max-w-7xl mx-auto">
+      <div className="hidden sm:grid sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-4">
         {data.cards.map((card, idx) => {
           const isActive = activeIndex === idx;
 
@@ -64,9 +63,8 @@ const SolarBatteryMeaning = ({ data }: { data: SolarBatteryMeaningData }) => {
             <div
               key={idx}
               onMouseEnter={() => setActiveIndex(idx)}
-              className={`rounded-[24px] p-8 flex flex-col justify-center w-[240px] md:w-[320px] max-w-full min-h-[280px] md:min-h-[385px] justify-self-center transition-colors duration-300 cursor-default overflow-hidden ${
-                isActive ? 'bg-[#63B846]' : 'bg-[#EEF6EB]'
-              }`}
+              className={`rounded-[24px] p-8 flex flex-col justify-center w-[240px] md:w-full max-w-full min-h-[280px] md:min-h-[385px] h-full justify-self-center transition-colors duration-300 cursor-default overflow-hidden ${isActive ? 'bg-[#63B846]' : 'bg-[#EEF6EB]'
+                }`}
             >
               <div className="h-full flex flex-col justify-center">
                 <AnimatePresence mode="wait">
@@ -77,7 +75,7 @@ const SolarBatteryMeaning = ({ data }: { data: SolarBatteryMeaningData }) => {
                       animate={{ opacity: 1, height: 'auto' }}
                       exit={{ opacity: 0, height: 0 }}
                       transition={{ duration: 0.3 }}
-                      className="text-xl md:text-2xl font-normal text-black text-center"
+                      className="text-xl md:text-[1.75rem] font-normal text-black text-center"
                     >
                       {card.title}
                     </motion.h4>
@@ -90,7 +88,7 @@ const SolarBatteryMeaning = ({ data }: { data: SolarBatteryMeaningData }) => {
                       transition={{ duration: 0.3 }}
                       className="overflow-hidden"
                     >
-                      <p className="text-base md:text-xl text-black text-center leading-[1.2]">
+                      <p className="text-base md:text-lg text-black text-center leading-[1.2]">
                         {card.description}
                       </p>
                     </motion.div>

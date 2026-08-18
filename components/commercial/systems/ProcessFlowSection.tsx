@@ -39,7 +39,7 @@ export default function ProcessFlowSection({ resolved }: Props) {
   return (
     <section className="py-16 md:py-24 bg-white overflow-hidden">
       <div className=" mx-auto">
-        <div className="px-[5%]">
+        <div className="px-[3%]">
           <SectionHeader
             subtitle={resolved.subtitle}
             title={resolved.title}

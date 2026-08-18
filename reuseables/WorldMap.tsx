@@ -32,7 +32,7 @@ const WorldMap: React.FC<WorldMapProps> = ({
     className = '',
 }) => {
     return (
-        <section className={`w-full px-[5%] py-12 md:py-20 ${className}`}>
+        <section className={`w-full px-[3%] py-12 md:py-20 ${className}`}>
             <div className="max-w-7xl mx-auto">
                 {showHeader && (title || subtitle) && (
                     <div className="text-center mb-10 md:mb-14">
@@ -42,9 +42,8 @@ const WorldMap: React.FC<WorldMapProps> = ({
                             </p>
                         )}
                         {title && (
-                            <h2 className={`text-5xl md:text-6xl lg:text-7xl font-normal tracking-tight ${
-                                titleColor === 'green' ? 'text-[#63B846]' : 'text-black'
-                            }`}>
+                            <h2 className={`text-5xl md:text-6xl lg:text-7xl font-normal tracking-tight ${titleColor === 'green' ? 'text-[#63B846]' : 'text-black'
+                                }`}>
                                 {title}
                             </h2>
                         )}

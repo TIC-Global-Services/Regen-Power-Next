@@ -25,7 +25,7 @@ const HomeBattery = ({ data }: HomeBatteryProps) => {
   return (
     <Fade>
       <section className="py-16 md:py-24 bg-white overflow-hidden">
-        <div className="px-[5%]">
+        <div className="px-[3%]">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-10 items-center">
             {/* Left Side: Product Render Image */}
             <Reveal>

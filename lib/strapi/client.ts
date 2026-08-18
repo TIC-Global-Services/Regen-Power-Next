@@ -1,5 +1,5 @@
 const STRAPI_URL =
-  process.env.STRAPI_URL || "https://regen-strapi-production.up.railway.app";
+  process.env.STRAPI_URL || "https://regen-cms.theinternetcompany.one/";
 
 export function getStrapiURL(): string {
   return STRAPI_URL.replace(/\/$/, "");
