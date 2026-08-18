@@ -33,7 +33,7 @@ const SolutionCard: React.FC<{ sol: Solution }> = ({ sol }) => (
             <h3 className="text-2xl md:text-[1.75rem] text-white font-normal tracking-tight leading-tight mb-3">
                 {sol.title}
             </h3>
-            <p className="text-sm md:text-[15px] text-white/90 leading-snug tracking-tight font-light max-w-[90%]">
+            <p className="text-sm md:text-lg text-white/90 leading-[1.2] tracking-tight font-light max-w-[90%]">
                 {sol.description}
             </p>
             <div className="mt-auto">
@@ -101,7 +101,7 @@ const ThreeSolutionsSection: React.FC<ThreeSolutionsSectionProps> = ({
                 </div>
 
                 {/* Desktop grid */}
-                <div className="hidden md:grid md:grid-cols-3 gap-5 max-w-7xl mx-auto">
+                <div className="hidden md:grid md:grid-cols-3 gap-5 ">
                     {solutions.map((sol, idx) => (
                         <SolutionCard key={idx} sol={sol} />
                     ))}

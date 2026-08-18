@@ -54,8 +54,9 @@ const ThreeTiersSection: React.FC<ThreeTiersSectionProps> = ({
                     description={description}
                     align="left"
                     subtitleClass="text-lg md:text-2xl font-light text-black tracking-tight"
+                    descClass='md:text-base md:max-w-4xl'
                     titleClass="text-4xl md:text-6xl lg:text-[4.5rem] text-[#63B846] font-normal tracking-tighter leading-none"
-                    className="max-w-4xl mb-12 md:mb-16"
+                    className="max-w-6xl mb-12 md:mb-16"
                 />
 
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-stretch">
@@ -80,7 +81,7 @@ const ThreeTiersSection: React.FC<ThreeTiersSectionProps> = ({
                     </div>
 
                     {/* Content Side */}
-                    <div className="flex flex-col justify-between">
+                    <div className="flex flex-col justify-center">
                         <AnimatePresence mode="wait">
                             <motion.div
                                 key={activeIndex}
@@ -90,19 +91,19 @@ const ThreeTiersSection: React.FC<ThreeTiersSectionProps> = ({
                                 transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
                                 className="flex flex-col"
                             >
-                                <h3 className="text-3xl md:text-[2.5rem] font-normal text-black tracking-tight leading-tight mb-2">
+                                <h3 className="text-3xl md:text-[2.125rem] font-normal text-black tracking-tight leading-tight mb-2">
                                     {tiers[activeIndex].title}
                                 </h3>
-                                <p className="text-xl md:text-2xl text-black/70 font-light tracking-tight mb-6">
+                                <p className="text-xl md:text-[2.125rem] text-black font-light tracking-tight mb-6">
                                     {tiers[activeIndex].subtitle}
                                 </p>
                                 <p className="text-sm md:text-base text-black/80 leading-[1.2] tracking-tight mb-6 max-w-xl">
                                     {tiers[activeIndex].description}
                                 </p>
 
-                                <div className="space-y-3 mb-8">
+                                <div className="space-y-1 mb-8">
                                     {tiers[activeIndex].details.map((detail, idx) => (
-                                        <p key={idx} className="text-sm md:text-base text-black/85 leading-[1.2] tracking-tight">
+                                        <p key={idx} className="text-sm md:text-base text-black leading-[1.2] tracking-tight">
                                             <span className="font-semibold text-black">{detail.label}:</span> {detail.value}
                                         </p>
                                     ))}

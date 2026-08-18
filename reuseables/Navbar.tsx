@@ -37,6 +37,7 @@ const navItems = [
     href: '/commercial-off-grid',
     subItems: [
       { name: 'Commercial & Off Grid', href: '/commercial-off-grid' },
+      { name: 'Commercial Systems & Case Studies', href: '/commercial-systems' },
       { name: 'Off-Grid Solutions', href: '/off-grid-solutions' },
       { name: 'Research & Development', href: '/research-and-development' },
       { name: 'Portfolio', href: '/portfolio' },

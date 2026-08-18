@@ -1,7 +1,7 @@
 import type { NextConfig } from "next";
 
 const STRAPI_URL =
-  process.env.STRAPI_URL || "https://regen-strapi-production.up.railway.app";
+  process.env.STRAPI_URL || "https://regen-cms.theinternetcompany.one/";
 
 const nextConfig: NextConfig = {
   images: {

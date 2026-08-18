@@ -27,7 +27,7 @@ const WatchSystemSection: React.FC<WatchSystemSectionProps> = ({
             <div className="px-[5%] mx-auto">
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-center">
 
-                    <Reveal className="relative w-full aspect-[4/5] rounded-[20px] overflow-hidden md:hidden">
+                    <Reveal className="relative w-full aspect-[3/4] rounded-[20px] overflow-hidden md:hidden">
                         <img
                             src={(typeof image === 'string' ? image : (image as any)?.src) || '/fallback.png'}
                             alt={imageAlt}
@@ -35,17 +35,17 @@ const WatchSystemSection: React.FC<WatchSystemSectionProps> = ({
                         />
                     </Reveal>
                     <div className="flex flex-col justify-center">
-                        <p className="text-lg md:text-2xl font-light text-black tracking-tight mb-1">
+                        <p className="text-lg md:text-[1.75rem] font-light text-black tracking-tight leading-none">
                             {subtitle}
                         </p>
-                        <h2 className="text-4xl md:text-6xl lg:text-[4.5rem] text-[#63B846] font-normal tracking-tighter leading-none mb-6">
+                        <h2 className="text-4xl md:text-6xl lg:text-[3.750rem] text-[#63B846] font-normal tracking-tighter leading-none mb-6">
                             {title}
                         </h2>
-                        <div className="space-y-4 max-w-xl">
+                        <div className="space-y-4 mt-5">
                             {paragraphs.map((p, idx) => (
                                 <p
                                     key={idx}
-                                    className="text-sm md:text-base text-black/80 leading-[1.2] tracking-tight"
+                                    className="text-sm md:text-xl text-black/80 leading-[1.2] tracking-tight"
                                 >
                                     {p}
                                 </p>
@@ -60,7 +60,7 @@ const WatchSystemSection: React.FC<WatchSystemSectionProps> = ({
                         </div>
                     </div>
 
-                    <Reveal className="relative w-full aspect-[4/5] rounded-[20px] overflow-hidden hidden md:flex">
+                    <Reveal className="relative w-full aspect-[4/4] rounded-[20px] overflow-hidden hidden md:flex">
                         <img
                             src={(typeof image === 'string' ? image : (image as any)?.src) || '/fallback.png'}
                             alt={imageAlt}

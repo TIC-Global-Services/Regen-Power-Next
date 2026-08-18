@@ -30,7 +30,7 @@ const PackagesGrid: React.FC<PackagesGridProps> = ({
   className = ''
 }) => {
   return (
-    <section className={`py-10 md:py-20 bg-white border-t border-gray-50 ${className}`}>
+    <section className={`py-10 md:py-10 bg-white border-t border-gray-50 ${className}`}>
       <div className="px-[5%] mx-auto">
 
         {/* Header Section */}
@@ -39,24 +39,29 @@ const PackagesGrid: React.FC<PackagesGridProps> = ({
           title={title}
           description={description}
           align="left"
+          subtitleClass="text-base md:text-2xl font-light text-black tracking-tight"
+          titleClass="text-[2.5rem] md:text-6xl lg:text-[4.5rem] text-[#63B846] font-normal leading-none"
           className="mb-16 md:hidden"
         />
         <SectionHeader
           subtitle={subtitle}
           title={title}
           description={description}
-          align="left"
+          align="center"
+          descClass='mx-auto md:text-base'
+          subtitleClass="text-base md:text-[1.75rem] font-light text-black tracking-tight"
+          titleClass="text-[2.5rem] md:text-6xl text-[#63B846] font-normal leading-none"
           className="mb-16 hidden md:block"
         />
 
         {/* 3-Column Card Layout */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 justify-center items-start max-w-7xl mx-auto">
+        <div className="grid grid-cols-1 md:w-full lg:grid-cols-3 gap-4 lg:justify-center lg:items-start">
           {packages.map((pkg, idx) => (
             <Reveal
               key={idx}
               delay={idx * 0.1}
-              className={`rounded-[20px] p-8 md:p-10 flex flex-col justify-start shadow-sm transition-all duration-300 hover:shadow-lg w-full max-w-[434px] min-h-[380px] lg:h-[540px] overflow-hidden mx-auto
-                ${pkg.bgClass}
+              className={`rounded-[20px] p-8 md:p-10 flex flex-col justify-between  shadow-sm transition-all duration-300 hover:shadow-lg w-full lg:max-w-[434px] min-h-[380px] lg:h-[540px] overflow-hidden mx-auto
+                bg-[#EEF6EB] hover:bg-[#A0CF44]
               `}
             >
               {/* Title & Desc */}
@@ -70,7 +75,7 @@ const PackagesGrid: React.FC<PackagesGridProps> = ({
               </div>
 
               {/* Items List */}
-              <div className="space-y-2 flex-grow">
+              <div className="space-y-2">
                 {pkg.items.map((item, itemIdx) => (
                   <div key={itemIdx}>
                     <h4 className="text-xl font-bold text-black mb-0.5">
