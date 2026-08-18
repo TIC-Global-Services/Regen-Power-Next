@@ -34,18 +34,17 @@ import type {
 
 import HeroSection from "@/components/commercial/systems/HeroSection";
 import StatsCardGridSection from "@/components/commercial/systems/StatsCardGridSection";
-import TiersSection from "@/components/commercial/systems/TiersSectionSection";
-import ComponentsSection from "@/components/commercial/systems/ComponentsSectionSection";
-import IndustriesSection from "@/components/commercial/systems/IndustriesSectionSection";
+import TiersSection from "@/components/commercial/systems/TiersSection";
+import ComponentsSection from "@/components/commercial/systems/ComponentsSection";
+import IndustriesSection from "@/components/commercial/systems/IndustriesSection";
 import FeatureCardGridSection from "@/components/commercial/systems/FeatureCardGridSection";
-import WatchSystemSection from "@/components/commercial/systems/WatchSystemSectionSection";
+import WatchSystemSection from "@/components/commercial/systems/WatchSystemSection";
 import PackagesGridSection from "@/components/commercial/systems/PackagesGridSection";
 import ProcessFlowSection from "@/components/commercial/systems/ProcessFlowSection";
-import FiveThingsSection from "@/components/commercial/systems/FiveThingsSectionSection";
+import FiveThingsSection from "@/components/commercial/systems/FiveThingsSection";
 import FaqSection from "@/components/commercial/systems/FaqSection";
 import CommercialFormSection from "@/components/commercial/systems/CommercialFormSection";
 import CtaBannerSection from "@/components/commercial/systems/CtaBannerSection";
-import getValidMediaSrc from "@/utils/getValidsrc";
 
 export const revalidate = 60;
 
@@ -106,7 +105,11 @@ export default async function CommercialSystemsPage() {
 
       {faqProps && <FaqSection resolved={faqProps} />}
 
-      {commercialFormProps && <CommercialFormSection resolved={commercialFormProps} />}
+      {commercialFormProps && (
+        <div id="quote-form">
+          <CommercialFormSection resolved={commercialFormProps} />
+        </div>
+      )}
 
       {ctaBannerProps && <CtaBannerSection resolved={ctaBannerProps} />}
     </div>

@@ -34,7 +34,6 @@ export default async function CommercialOffGridPage() {
   const editorialProps = resolveSharedEditorialSection(editorial);
   const portfolioProps = resolveCommercialOffGridSolutionsPortfolio(portfolio);
   const ctaBannerProps = resolveSharedCtaBanner(ctaBanner);
-  console.log("heroPropsheroProps",heroProps);
 
   return (
     <div className="bg-white min-h-screen text-black">
@@ -44,7 +43,11 @@ export default async function CommercialOffGridPage() {
 
       {portfolioProps && <SolutionsPortfolioSection resolved={portfolioProps} />}
 
-      {ctaBannerProps && <CtaBannerSection resolved={ctaBannerProps} />}
+      {ctaBannerProps && (
+        <div id="quote-form">
+          <CtaBannerSection resolved={ctaBannerProps} />
+        </div>
+      )}
     </div>
   );
 }

@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { MediaSchema, ParagraphSchema, FaqItemSchema } from "./common";
+import { MediaSchema, ParagraphSchema, TextBlockSchema, FaqItemSchema } from "./common";
 
 export const CommercialSystemsHeroSchema = z.object({
   __component: z.literal("commercial-systems.hero"),
@@ -112,7 +112,7 @@ export const CommercialSystemsWatchSystemSectionSchema = z.object({
   ctaText: z.string().nullable(),
   ctaHref: z.string().nullable(),
   image: MediaSchema.nullable(),
-  paragraphs: z.array(ParagraphSchema),
+  paragraphs: z.array(TextBlockSchema),
 });
 export type CommercialSystemsWatchSystemSectionData = z.infer<typeof CommercialSystemsWatchSystemSectionSchema>;
 

@@ -35,6 +35,12 @@ export const ParagraphSchema = z.object({
   isSecondary: z.boolean(),
 });
 
+/** shared.text-block — single `text` field (no isSecondary) */
+export const TextBlockSchema = z.object({
+  id: z.number(),
+  text: z.string(),
+});
+
 export const FaqItemSchema = z.object({
   id: z.number(),
   question: z.string(),

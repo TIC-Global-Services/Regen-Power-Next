@@ -27,7 +27,7 @@ export function resolveSharedCtaBanner(
     mainTitle: data.mainTitle ?? "",
     description: data.description ?? "",
     buttonText: data.buttonText ?? "",
-    buttonHref: data.buttonHref ?? "",
+    buttonHref: data.buttonHref ?? "#quote-form",
     bgImage: img?.src,
   };
 }
