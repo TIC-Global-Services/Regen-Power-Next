@@ -129,20 +129,20 @@ const ContactInfo = ({
              <div className='h-[1.5px] bg-[#00000033] mb-10 w-[80%] mx-auto'></div>
           {/* Social Media Links Row */}
           {socials.length > 0 && (
-            <div className="flex flex-wrap justify-center items-center gap-6 md:gap-10 text-sm md:text-base font-bold">
+            <div className="flex flex-wrap justify-center items-center gap-y-4 lg:gap-10 text-sm md:text-base font-bold">
               {socials.map((social, idx) => (
                 <Link
                   key={idx}
                   href={social.url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-[#63B846] transition-colors duration-200 capitalize tracking-tight text-2xl"
+                  className="inline-flex items-center text-[#63B846] transition-colors duration-200 capitalize tracking-tight text-2xl px-6 border-r border-[#00000033] last:border-none lg:px-0 lg:border-none"
                 >
-                  {/* Logo on mobile, name on desktop */}
-                  <span className="block md:hidden">
+                  {/* Logo on mobile/tablet, name on desktop */}
+                  <span className="block lg:hidden">
                     {renderIcon(social.name as 'Instagram' | 'LinkedIn' | 'Facebook' | 'Twitter')}
                   </span>
-                  <span className="hidden md:block">
+                  <span className="hidden lg:block">
                     {social.name}
                   </span>
                 </Link>
