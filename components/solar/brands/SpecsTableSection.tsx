@@ -24,7 +24,7 @@ const SpecsTableSection: React.FC<SpecsTableSectionProps> = ({ resolved }) => {
           className="mb-8 hidden md:block"
           subtitleClass="text-base md:text-2xl tracking-tight text-black capitalize"
           titleClass="text-[2.5rem] md:text-[5rem] font-normal tracking-tight text-[#63B846]"
-          descClass="text-sm md:text-xl leading-tight tracking-tight max-w-5xl whitespace-pre-line"
+          descClass="text-sm md:text-xl leading-tight tracking-tight max-w-5xl mx-auto whitespace-pre-line"
         />
         <SectionHeader
           subtitle={resolved.subtitle ?? ""}
