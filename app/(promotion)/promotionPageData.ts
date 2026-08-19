@@ -547,7 +547,7 @@ export const mobileHeroData = {
   description: "Back In Rebate",
   cta: {
     label: "See What's Included & Get A Quote",
-    href: "#quote-form-section",
+    href: "#quote-form-section-mobile",
   },
   backgroundImage: "/landing_page_hero.png",
 };

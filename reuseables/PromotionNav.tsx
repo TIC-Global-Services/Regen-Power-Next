@@ -6,9 +6,10 @@ import { ArrowUpRight, CalculatorIcon } from 'lucide-react'
 
 const PromotionNav = () => {
   const handleScrollToQuote = () => {
-    const element = document.getElementById('quote-form-section');
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
+    const elements = document.querySelectorAll('#quote-form-section');
+    const visibleElement = Array.from(elements).find(el => (el as HTMLElement).offsetParent !== null);
+    if (visibleElement) {
+      visibleElement.scrollIntoView({ behavior: 'smooth' });
     }
   };
   return (
@@ -21,11 +22,11 @@ const PromotionNav = () => {
           <img src='/regen_logo_footer.png' className='h-10 w-auto object-contain' alt="Regen Power" />
         </div>
         <div className='flex gap-4 items-center'>
-          <div className='md:flex gap-2 hidden'>
+          <div className='lg:flex gap-2 hidden'>
             <CtaButton text='Free Quote' textColor='text-white' onClick={handleScrollToQuote} />
             <CtaButton text='Call 08-9456-3491' textColor='text-white' textClass="text-xs md:text-sm" />
           </div>
-          <div className='md:hidden'>
+          <div className='lg:hidden'>
 
             <button
               type="button"

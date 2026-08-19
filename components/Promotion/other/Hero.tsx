@@ -1,4 +1,3 @@
-'use client';
 
 import React from 'react';
 import Fade from '@/reuseables/fade';
@@ -33,7 +32,7 @@ const Hero = ({
   description = "Back In Rebate",
   cta = {
     label: "See What's Included & Get A Quote",
-    href: "#quote-form-section",
+    href: "#quote-form-section-mobile",
   },
   backgroundImage = "/fallback.png",
   onCtaClick,

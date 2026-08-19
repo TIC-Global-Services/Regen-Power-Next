@@ -61,9 +61,10 @@ const WhyChooseUs = ({
   ]
 }: WhyChooseUsProps) => {
   const handleScrollToQuote = () => {
-    const element = document.getElementById('quote-form-section');
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
+    const elements = document.querySelectorAll('#quote-form-section-mobile');
+    const visibleElement = Array.from(elements).find(el => (el as HTMLElement).offsetParent !== null);
+    if (visibleElement) {
+      visibleElement.scrollIntoView({ behavior: 'smooth' });
     }
   };
 

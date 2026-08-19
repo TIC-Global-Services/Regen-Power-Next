@@ -61,6 +61,13 @@ const CombinedPromoPage = () => {
       element.scrollIntoView({ behavior: 'smooth' });
     }
   };
+  const mobilehandleScrollToQuote = () => {
+    const element = document.getElementById('quote-form-section-mobile');
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
 
   return (
     <div className="flex flex-col min-h-[100dvh] bg-white overflow-x-hidden w-full">
@@ -92,10 +99,9 @@ const CombinedPromoPage = () => {
           subtitle={mobileHeroData.subtitle}
           highlight={mobileHeroData.highlight}
           description={mobileHeroData.description}
-        cta={mobileHeroData.cta}
-          
+          cta={mobileHeroData.cta}
           backgroundImage={mobileHeroData.backgroundImage}
-          onCtaClick={handleScrollToQuote}
+          onCtaClick={mobilehandleScrollToQuote}
         />
 
         {/* 2. Why Choose Us */}
@@ -116,12 +122,12 @@ const CombinedPromoPage = () => {
         />
 
         {/* 5. Get A Quote Form */}
-        <div id="quote-form-section">
+        <div id="quote-form-section-mobile">
           <QuoteForm
             title={mobileQuoteFormData.title}
             noticeText={mobileQuoteFormData.noticeText}
             buttonText={mobileQuoteFormData.buttonText}
-            
+
           />
         </div>
 
