@@ -33,14 +33,14 @@ const Hero = ({
   description = "Back In Rebate",
   cta = {
     label: "See What's Included & Get A Quote",
-    href: "/quote",
+    href: "#quote-form-section",
   },
   backgroundImage = "/fallback.png",
   onCtaClick,
 }: HeroProps) => {
 
   return (
-    <section className="relative w-full min-h-[100dvh] md:min-h-[100dvh] flex flex-col items-center justify-center text-center px-4 md:px-[5%] md:px-[3%] pt-32 pb-16 overflow-hidden">
+    <section className="relative w-full min-h-[100dvh] md:min-h-[100dvh] flex flex-col items-center justify-start text-center px-4 md:px-[3%] pt-45 overflow-hidden">
       <img
         src={backgroundImage}
         alt=""
@@ -76,7 +76,6 @@ const Hero = ({
                 icon={ArrowRight}
                 textClass='font-medium'
                 textColor="text-white"
-
                 onClick={onCtaClick}
               />
             </div>

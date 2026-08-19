@@ -93,7 +93,7 @@ const ContactInfo = ({
       <Fade duration={5}>
         <div className="max-w-5xl mx-auto">
           {/* Header */}
-          <div className="text-center mb-12 max-w-2xl mx-auto">
+          <div className="text-center mb-8 max-w-2xl mx-auto">
             <h2 className="text-4xl md:text-5xl font-black text-[#63B846] tracking-tight leading-tight mb-4">
               {title}
             </h2>
@@ -103,9 +103,9 @@ const ContactInfo = ({
               </p>
             )}
           </div>
-
+            <div className='h-[1.5px] bg-[#00000033] mb-5 w-[80%] mx-auto'></div>
           {/* Contact Details Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-3  gap-8 md:gap-6 border-b border-gray-100 pb-12 mb-8 max-w-4xl mx-auto">
+          <div className="grid grid-cols-1 md:grid-cols-3  gap-8 md:gap-6 border-b border-gray-100 pb-4 mb-4 max-w-4xl mx-auto">
             {items.map((item, idx) => (
               <div
                 key={idx}
@@ -126,7 +126,7 @@ const ContactInfo = ({
               </div>
             ))}
           </div>
-
+             <div className='h-[1.5px] bg-[#00000033] mb-10 w-[80%] mx-auto'></div>
           {/* Social Media Links Row */}
           {socials.length > 0 && (
             <div className="flex flex-wrap justify-center items-center gap-6 md:gap-10 text-sm md:text-base font-bold">

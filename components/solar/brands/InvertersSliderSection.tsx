@@ -37,7 +37,7 @@ const InverterCard: React.FC<{ item: ResolvedBrandsInverter }> = ({ item }) => {
   const logo = item.name ? logoMap[item.name] : undefined;
 
   return (
-    <div className="bg-[#EEF6EB]/50 rounded-[24px] p-8 flex flex-col justify-between min-h-[60dvh]">
+    <div className="bg-[#EEF6EB] rounded-[20px] p-8 flex flex-col justify-between min-h-[60dvh]">
       <div className="flex flex-col">
         {/* Brand logo */}
         <div className="relative w-[150px] h-[100px] mb-10 flex items-center">
@@ -120,7 +120,7 @@ const InvertersSliderSection: React.FC<InvertersSliderSectionProps> = ({
   if (inverters.length === 0) return null;
 
   return (
-    <section className="py-16 md:py-20 bg-white overflow-hidden border-t border-gray-50">
+    <section className="py-16 md:py-20  overflow-hidden border-t border-gray-50">
       <div className="pl-[5%] pr-0 mx-auto">
         <div className="flex flex-col lg:flex-row gap-8 lg:gap-12 items-start lg:items-center">
           {/* Heading */}
@@ -130,8 +130,8 @@ const InvertersSliderSection: React.FC<InvertersSliderSectionProps> = ({
               title={resolved.title ?? ""}
               align="left"
               className="mb-0"
-              subtitleClass="text-sm md:text-2xl tracking-tight font-medium text-black"
-              titleClass="text-5xl md:text-6xl lg:text-[3.125rem] font-normal leading-none tracking-tight text-[#63B846]"
+              subtitleClass="text-base md:text-2xl tracking-tight font-medium text-black"
+              titleClass="text-[2.5rem] md:text-6xl lg:text-[3.125rem] font-normal leading-none tracking-tight text-[#63B846]"
             />
           </div>
 
@@ -139,7 +139,7 @@ const InvertersSliderSection: React.FC<InvertersSliderSectionProps> = ({
           <div className="w-full lg:w-[78%]">
             <div
               ref={trackRef}
-              className="flex gap-6 overflow-x-auto snap-x snap-mandatory pr-[10vw] lg:pr-[calc(50%-190px)] [&::-webkit-scrollbar]:hidden"
+              className="flex gap-4 md:gap-6 overflow-x-auto snap-x snap-mandatory pr-[10vw] lg:pr-[calc(50%-190px)] [&::-webkit-scrollbar]:hidden"
               style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
             >
               {inverters.map((item, idx) => (
@@ -156,18 +156,18 @@ const InvertersSliderSection: React.FC<InvertersSliderSectionProps> = ({
         </div>
 
         {/* Controls */}
-        <div className="flex justify-end gap-4 mt-8 pr-[5%]">
+        <div className="flex justify-end gap-2 md:gap-4 mt-8 pr-[5%]">
           <button
             onClick={() => scrollByStep(-1)}
             aria-label="Previous inverter"
-            className="p-4 rounded-full border border-gray-200 transition-colors cursor-pointer text-white bg-black hover:bg-black/60"
+            className="p-2 md:p-4 rounded-full border border-gray-200 transition-colors cursor-pointer text-white bg-black hover:bg-black/60"
           >
             <ArrowLeft size={20} />
           </button>
           <button
             onClick={() => scrollByStep(1)}
             aria-label="Next inverter"
-            className="p-4 rounded-full border border-gray-200 transition-colors cursor-pointer text-white bg-black hover:bg-black/60"
+            className="p-2 md:p-4 rounded-full border border-gray-200 transition-colors cursor-pointer text-white bg-black hover:bg-black/60"
           >
             <ArrowRight size={20} />
           </button>

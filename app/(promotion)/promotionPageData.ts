@@ -547,7 +547,7 @@ export const mobileHeroData = {
   description: "Back In Rebate",
   cta: {
     label: "See What's Included & Get A Quote",
-    href: "/quote",
+    href: "#quote-form-section",
   },
   backgroundImage: "/landing_page_hero.png",
 };
@@ -603,7 +603,7 @@ export const mobileAwardsData = [
 ];
 
 export const mobileBatteryPricingData = {
-  backgroundImage: "/solar_house_render.png",
+  backgroundImage: "/battery_rebates_fallback.png",
   centerImage: "/sig_energy.png",
   items: [
     {

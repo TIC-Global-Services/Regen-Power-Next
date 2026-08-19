@@ -8,6 +8,8 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import type { ResolvedDealsGrid } from "@/lib/strapi/resolvers/deals";
 
 import "swiper/css";
+import Link from "next/link";
+import { ArrowUpRight, Icon } from "lucide-react";
 
 interface Props {
   resolved: ResolvedDealsGrid;
@@ -16,8 +18,8 @@ interface Props {
 export default function DealsGridSection({ resolved }: Props) {
   return (
     <section className="py-16 md:py-24 bg-white border-t border-gray-50">
-      <div className="px-[5%] md:px-[3%] mx-auto">
-        <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-8 mb-12">
+      <div className="md:px-[3%] mx-auto">
+        <div className="flex flex-col lg:flex-row lg:items-end justify-between md:gap-8 mb-12 px-[5%]">
           <div className="">
             <SectionHeader
               subtitle={resolved.subtitle || ""}
@@ -28,8 +30,8 @@ export default function DealsGridSection({ resolved }: Props) {
               titleClass="text-4xl md:text-[5rem] text-[#63B846] leading-none font-normal tracking-tight "
             />
           </div>
-          <div className="lg:w-[35%] mb-5">
-            <p className="leading-tight tracking-tight font-light text-sm md:text-lg">
+          <div className="lg:w-[35%] md:mb-5">
+            <p className="leading-tight tracking-tight font-light text-base md:text-lg">
               {resolved.description}
             </p>
           </div>
@@ -56,7 +58,7 @@ export default function DealsGridSection({ resolved }: Props) {
         </div>
 
         {/* Mobile: Swiper Carousel */}
-        <div className="block md:hidden w-full relative mb-12 -mx-[5vw]">
+        <div className="block md:hidden w-full relative mb-12 mx-[5vw] z-10">
           <Swiper
             spaceBetween={16}
             slidesPerView={1.15}
@@ -64,11 +66,11 @@ export default function DealsGridSection({ resolved }: Props) {
               480: { slidesPerView: 1.25 },
               640: { slidesPerView: 1.8 },
             }}
-            className="w-full px-[5vw]"
+            className="w-full px-[0vw]"
           >
             {resolved.promotions.map((promo, idx) => (
               <SwiperSlide key={idx} className="h-auto flex pb-4">
-                <div className="rounded-[20px] p-8 flex flex-col justify-between shadow-sm bg-[#EEF6EB]/50 border border-gray-100 w-full h-full min-h-[320px]">
+                <div className="rounded-[20px] p-8 flex flex-col justify-between shadow-sm bg-[#EEF6EB] border border-gray-100 w-full h-full min-h-[320px]">
                   <div>
                     <h3 className="text-2xl mb-4 tracking-tight text-[#63B846] leading-tight font-normal">
                       {promo.title}
@@ -84,7 +86,16 @@ export default function DealsGridSection({ resolved }: Props) {
         </div>
 
         <div className="flex justify-center">
-          <CtaButton text={resolved.ctaText || "Get This Bundle Quoted"} href={resolved.ctaLink} />
+          {/* <CtaButton text={resolved.ctaText || "Get This Bundle Quoted"} href={resolved.ctaLink} /> */}
+          <Link href={resolved.ctaLink}>
+            <button className="inline-flex items-center gap-3 bg-[#63B84666] backdrop-blur-md text-black border border-[#63B846] text-white px-1.5 py-1 md:py-1.5 rounded-full hover:bg-[#529a37] transition-all duration-300 group">
+              <span className={`pl-4 tracking-tight text-black whitespace-nowrap min-w-0 flex-1`}>
+                {resolved.ctaText}
+              </span>
+              <div className={` bg-[#63B846] text-black p-2 rounded-full shrink-0 group-hover:scale-110 transition-transform duration-300 flex items-center justify-center`}>
+                <ArrowUpRight size={16} strokeWidth={2.5} />
+              </div>
+            </button></Link>
         </div>
       </div>
     </section>

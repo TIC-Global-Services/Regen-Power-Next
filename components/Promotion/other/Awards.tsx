@@ -34,7 +34,7 @@ const Awards = ({
       <Fade>
         <div className="max-w-6xl mx-auto">
           {/* Flex row on tablet and desktop, vertical flex on mobile */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-3 max-w-4xl mx-auto ">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-3 max-w-4xl mx-auto ">
             {awards.map((award, i) => (
               <Reveal delay={i * 0.5} key={i}>
                 <div
@@ -65,7 +65,9 @@ const Awards = ({
                     </p>
                   )}
                 </div>
+                {i !== 1 && <div className='h-[0.5px] bg-[#00000033] w-full mt-5 mb-10 mx-auto'></div>}
               </Reveal>
+              
             ))}
           </div>
         </div>

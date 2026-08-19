@@ -19,16 +19,17 @@ const HybridSpecialtySection: React.FC<HybridSpecialtySectionProps> = ({
     <section className="py-16 md:py-24 bg-white border-t border-gray-50">
       <div className="px-[5%] md:px-[3%] mx-auto">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
-          <div className="flex flex-col justify-center text-left">
+          <div className="md:flex flex-col justify-center text-left hidden ">
             <SectionHeader
               subtitle={resolved.subtitle ?? ""}
               title={resolved.title ?? ""}
               align="left"
+              descClass="leading-[1.2]"
               subtitleClass="text-base md:text-2xl tracking-tight capitalize"
-              titleClass="text-4xl md:text-[3.125rem] font-normal tracking-tight text-[#63B846]"
+              titleClass="text-[2.5rem] md:text-[3.125rem] font-normal tracking-tight text-[#63B846]"
             />
             <Fade delay={0.2}>
-              <p className="text-sm md:text-xl leading-[1] tracking-tight">
+              <p className="text-sm md:text-xl leading-[1.2] tracking-tight">
                 {resolved.description ?? ""}
               </p>
             </Fade>
@@ -49,6 +50,21 @@ const HybridSpecialtySection: React.FC<HybridSpecialtySectionProps> = ({
               />
             )}
           </Reveal>
+          <div className="md:hidden flex-col justify-center text-left flex ">
+            <SectionHeader
+              subtitle={resolved.subtitle ?? ""}
+              title={resolved.title ?? ""}
+              align="left"
+              descClass="leading-[1.2]"
+              subtitleClass="text-base md:text-2xl tracking-tight capitalize"
+              titleClass="text-[2.5rem] md:text-[3.125rem] font-normal tracking-tight text-[#63B846]"
+            />
+            <Fade delay={0.2}>
+              <p className="text-sm md:text-xl leading-[1.2] tracking-tight">
+                {resolved.description ?? ""}
+              </p>
+            </Fade>
+          </div>
         </div>
       </div>
     </section>

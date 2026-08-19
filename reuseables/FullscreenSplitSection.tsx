@@ -67,11 +67,11 @@ const FullscreenSplitSection: React.FC<FullscreenSplitSectionProps> = ({
 
         {/* Image Column */}
         <Reveal
-          className={`w-full pt-6 px-5 md:px-16 lg:px-0 lg:py-0 min-h-[350px] lg:h-screen ${
+          className={`w-full pt-6 px-5 md:px-16 lg:px-0 lg:py-0 h-[450px] lg:h-screen ${
             isImageLeft ? 'lg:order-first' : 'lg:order-last'
           } ${imageColumnClassName}`}
         >
-          <div className={`relative w-full h-full min-h-[350px] rounded-[24px] lg:rounded-none overflow-hidden bg-gray-50 ${imageClassName}`}>
+          <div className={`relative w-full h-full min-h-[350px] rounded-[20px] lg:rounded-none overflow-hidden bg-gray-50 ${imageClassName}`}>
             <img
               src={imgSrc}
               alt={imageAlt}

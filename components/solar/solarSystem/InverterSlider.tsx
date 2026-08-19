@@ -62,7 +62,7 @@ const InverterSlider: React.FC<InverterSliderProps> = ({ resolved }) => {
           </div>
         </div>
 
-        <div className="relative rounded-[20px] overflow-hidden min-h-[550px] md:h-[580px] flex flex-col justify-between p-6 md:p-10 z-10">
+        <div className="relative rounded-[20px] overflow-hidden h-[700px] md:h-[580px] flex flex-col justify-between p-4 md:p-10 z-10">
           <div className="absolute inset-0 z-0">
             {slides[activeTab].background ? (
               <img
@@ -82,23 +82,27 @@ const InverterSlider: React.FC<InverterSliderProps> = ({ resolved }) => {
 
           <div className="relative z-10 mt-4">
             <h3
-              className="text-5xl md:text-7xl lg:text-[6rem] tracking-tight text-white "
+              className="text-5xl md:text-7xl lg:text-[6rem] tracking-tight text-black md:text-white mb-4 md:mb-0"
             >
               {slides[activeTab].title}
             </h3>
           </div>
 
-          <div className="relative z-30 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4 mt-auto">
+          <div className="relative z-30 grid grid-cols-2 lg:grid-cols-5 justify-items-center gap-2 md:gap-4 mt-auto">
             {slides[activeTab].infoCards.length > 0 ? (
-              slides[activeTab].infoCards.map((card, idx) => (
+              slides[activeTab].infoCards.map((card, idx, arr) => (
                 <div
                   key={idx}
-                  className="bg-white/30 backdrop-blur-md border border-white/15 rounded-[0.5rem] p-5 hover:bg-white/15 transition-colors"
+                  className={`bg-white/30 backdrop-blur-md border border-white/15 rounded-[0.5rem] p-3 md:p-5 hover:bg-white/15 transition-colors w-full ${
+                    arr.length % 2 !== 0 && idx === arr.length - 1
+                      ? "col-span-2 lg:col-span-1 max-w-full w-full lg:max-w-none"
+                      : ""
+                  }`}
                 >
-                  <h4 className="text-white text-[1.375rem] capitalize tracking-tight">
+                  <h4 className="text-black md:text-white text-xl md:text-[1.375rem] capitalize tracking-tight">
                     {card.label}
                   </h4>
-                  <p className="text-white text-sm leading-tight">{card.text}</p>
+                  <p className="text-black md:text-white text-sm leading-[1.2]">{card.text}</p>
                 </div>
               ))
             ) : (

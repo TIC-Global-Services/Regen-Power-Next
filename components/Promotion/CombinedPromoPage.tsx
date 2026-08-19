@@ -90,7 +90,8 @@ const CombinedPromoPage = () => {
           subtitle={mobileHeroData.subtitle}
           highlight={mobileHeroData.highlight}
           description={mobileHeroData.description}
-          cta={mobileHeroData.cta}
+        cta={mobileHeroData.cta}
+          
           backgroundImage={mobileHeroData.backgroundImage}
           onCtaClick={handleScrollToQuote}
         />
@@ -118,6 +119,7 @@ const CombinedPromoPage = () => {
             title={mobileQuoteFormData.title}
             noticeText={mobileQuoteFormData.noticeText}
             buttonText={mobileQuoteFormData.buttonText}
+            
           />
         </div>
 

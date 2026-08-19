@@ -10,8 +10,8 @@ interface SolarHeroProps {
 const HeroSection: React.FC<SolarHeroProps> = ({ heroProps }) => {
   return (
      <Hero
-      mediaSrc={heroProps.mediaSrc || fallback }
-      mediaType="image"
+      mediaSrc={heroProps.mediaSrc}
+      mediaType="video"
       topSubtitle={heroProps.topSubtitle || ""}
       mainTitle={heroProps.mainTitle || ""}
       description={heroProps.description || ""}

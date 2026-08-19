@@ -118,7 +118,7 @@ const FeatureSplitSection: React.FC<FeatureSplitSectionProps> = ({
                             description={introText}
                             align="left"
                             subtitleClass="text-base md:text-2xl text-black"
-                            titleClass="text-3xl md:text-[3.125rem] font-normal tracking-tight"
+                            titleClass="text-[2.5rem] md:text-[3.125rem] font-normal tracking-tight"
                             descClass="text-base md:text-xl leading-[1.2]"
                         />
                     </div>
@@ -157,7 +157,16 @@ const FeatureSplitSection: React.FC<FeatureSplitSectionProps> = ({
             </div>
 
             {/* Mobile & Tablet */}
-            <div className="lg:hidden flex flex-col px-[5%] md:px-[3%] py-16 md:py-24 gap-8">
+            <div className="lg:hidden flex flex-col px-[5%] md:px-[3%] py-16 md:py-24 gap-2">
+                <SectionHeader
+                    subtitle={subtitle}
+                    title={<span style={{ color: accentColor }}>{heading}</span>}
+                    description={introText}
+                    align="left"
+                    subtitleClass="text-base md:text-xl lg:text-2xl normal-case block text-black"
+                    titleClass="text-3xl md:text-4xl lg:text-[2.75rem] xl:text-[3.25rem] font-normal leading-none tracking-tight mb-6"
+                    descClass="mb-6 text-gray-600 leading-[1.2] font-light"
+                />
                 {features[0]?.image && (
                     <div className="relative w-full aspect-[4/3] rounded-2xl overflow-hidden shadow-lg bg-gray-50">
                         <img
@@ -177,15 +186,7 @@ const FeatureSplitSection: React.FC<FeatureSplitSectionProps> = ({
                         />
                     </div>
                 )}
-                <SectionHeader
-                    subtitle={subtitle}
-                    title={<span style={{ color: accentColor }}>{heading}</span>}
-                    description={introText}
-                    align="left"
-                    subtitleClass="text-base md:text-xl lg:text-2xl normal-case block text-black"
-                    titleClass="text-3xl md:text-4xl lg:text-[2.75rem] xl:text-[3.25rem] font-normal leading-none tracking-tight mb-6"
-                    descClass="mb-6 text-gray-600 leading-[1.2] font-light"
-                />
+                
 
                 <div className="flex flex-col gap-6">
                     {features.map((feature, index) => (

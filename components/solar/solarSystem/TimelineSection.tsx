@@ -60,7 +60,7 @@ const TimelineSection: React.FC<TimelineSectionProps> = ({ resolved }) => {
                 <h3 className="text-2xl md:text-[2rem] font-normal text-black mb-3 tracking-tight">
                   {resolved.consultationTitle}
                 </h3>
-                <p className="text-sm md:text-xl leading-[1] tracking-tight max-w-md">
+                <p className="text-base md:text-xl leading-[1] tracking-tight max-w-md">
                   {resolved.consultationText}
                 </p>
               </div>

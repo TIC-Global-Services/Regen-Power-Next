@@ -104,13 +104,23 @@ const FeatureCardGrid: React.FC<FeatureCardGridProps> = ({
           title={title}
           description={bottomSubtitle}
           align="center"
-          className="mb-5 md:mb-16"
+          className="mb-5 md:mb-16 hidden md:block"
+          subtitleClass="text-xl md:text-[2.125rem] text-black tracking-tight capitalize"
+          titleClass="text-[2.5rem] md:text-6xl tracking-tight leading-[1]"
+          descClass="text-base md:text-base text-black max-w-4xl mx-auto font-medium tracking-tight whitespace-pre-line"
+        />
+        <SectionHeader
+          subtitle={topSubtitle}
+          title={title}
+          description={bottomSubtitle}
+          align="left"
+          className="mb-5 md:mb-16 md:hidden"
           subtitleClass="text-xl md:text-[2.125rem] text-black tracking-tight capitalize"
           titleClass="text-[2.5rem] md:text-6xl tracking-tight leading-[1]"
           descClass="text-base md:text-base text-black max-w-4xl mx-auto font-medium tracking-tight whitespace-pre-line"
         />
 
-        <div ref={containerRef} className="flex  overflow-x-auto md:overflow-hidden md:flex-row -mx-[5%] pl-[5%] pr-[5%] gap-4 md:gap-4 w-[calc(100%+10%)] md:w-full md:mx-0 md:px-0 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none] pb-4 md:pb-0">
+        <div ref={containerRef} className="flex items-stretch overflow-x-auto md:overflow-hidden md:flex-row h-full -mx-[5%] pl-[5%] pr-[5%] gap-4 md:gap-4 w-[calc(100%+10%)] md:w-full md:mx-0 md:px-0 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none] pb-4 md:pb-0">
           {cards.map((card, index) => {
             const isActive = !isDesktop || activeIndex === index;
             const widthPx = getCardWidth(index);
@@ -129,8 +139,7 @@ const FeatureCardGrid: React.FC<FeatureCardGridProps> = ({
                   transform: 'translateZ(0)',
                   WebkitBackfaceVisibility: 'hidden',
                 }}
-                className={`relative rounded-[20px] overflow-hidden group flex-none cursor-pointer focus-visible:outline-none ${isActive ? 'md:min-h-[460px] h-full' : 'md:min-h-[460px] h-full'
-                  } w-[75vw] md:w-full shrink-0 snap-start md:snap-align-none`}
+                className={`relative rounded-[20px] overflow-hidden group flex-none cursor-pointer focus-visible:outline-none md:min-h-[460px] h-auto flex flex-col w-[75vw] md:w-full shrink-0 snap-start md:snap-align-none`}
               >
                 <div className="absolute inset-0 z-0 w-full h-full" style={{ transform: 'translateZ(0)' }}>
                   <Image
@@ -142,7 +151,7 @@ const FeatureCardGrid: React.FC<FeatureCardGridProps> = ({
                   <div className={`absolute inset-0 transition-all duration-700 ease-[cubic-bezier(0.4,0,0.2,1)] bg-gradient-to-b ${isActive ? 'from-black/60 via-black/20 to-black/80' : 'from-black/70 via-black/40 to-black/80'}`} />
                 </div>
 
-                <div className="relative z-10 h-full p-6 md:p-8 pt-5 flex flex-col">
+                <div className="relative z-10 flex-1 p-6 md:p-8 pt-5 flex flex-col">
                   {!isActive && <div className="flex-1" />}
 
                   <h4 className={`text-white font-normal tracking-tight transition-all duration-700 ease-[cubic-bezier(0.4,0,0.2,1)] ${isActive ? 'text-xl md:text-3xl mb-3' : 'text-[1.75rem] md:text-2xl mb-0'}`}>

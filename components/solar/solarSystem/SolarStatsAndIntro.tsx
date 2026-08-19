@@ -25,7 +25,7 @@ const SpacerIcon = () => (
 
 const SolarStatsAndIntro: React.FC<SolarStatsAndIntroProps> = ({ resolved }) => {
   return (
-    <section className="bg-white overflow-hidden py-10 md:py-16">
+    <section className="bg-white overflow-hidden py-5 md:py-16">
       {resolved.tickerTexts.length > 0 && (
         <div className="relative w-full bg-white py-4 overflow-hidden select-none">
           <Marquee speed={30} gap={32} pauseOnHover={false}>
@@ -54,7 +54,7 @@ const SolarStatsAndIntro: React.FC<SolarStatsAndIntroProps> = ({ resolved }) => 
         align="left"
         className="mt-0 md:mt-12 px-[5%] md:px-[3%]"
         subtitleClass="text-xl md:text-2xl text-black capitalize"
-        titleClass="text-[3.125rem] md:text-[5rem] mb-4"
+        titleClass="text-[2.5rem] md:text-[5rem] md:mb-4"
         paragraphsClass="text-left"
         revealEffect
       />

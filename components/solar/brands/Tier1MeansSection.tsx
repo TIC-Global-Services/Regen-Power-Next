@@ -20,9 +20,9 @@ const Tier1MeansSection: React.FC<Tier1MeansSectionProps> = ({ resolved }) => {
 
   return (
     <section className="bg-white border-t border-gray-50 min-h-screen flex items-stretch">
-      <div className="grid grid-cols-1 lg:grid-cols-2 items-stretch w-full min-h-screen">
+      <div className="grid grid-cols-1 lg:grid-cols-2 items-stretch w-full min-h-screen px-[3%]">
         <Reveal
-          className={`relative w-full min-h-[350px] lg:h-screen overflow-hidden ${isImageLeft ? "lg:order-first" : "lg:order-last"}`}
+          className={`relative  w-full h-[450px] rounded-[20px] md:rounded-none lg:h-screen overflow-hidden ${isImageLeft ? "lg:order-first" : "lg:order-last"}`}
         >
           {imgUrl ? (
             <Image
@@ -42,7 +42,7 @@ const Tier1MeansSection: React.FC<Tier1MeansSectionProps> = ({ resolved }) => {
         </Reveal>
 
         <div
-          className={`flex flex-col py-5 lg:py-24 px-5 md:px-[5%] md:px-[3%] ${isImageLeft ? "lg:pl-12 lg:pr-20" : "lg:pl-20 lg:pr-12"} text-left h-full lg:h-screen lg:min-h-screen justify-between`}
+          className={`flex flex-col py-5 lg:py-24 px-[3%] md:px-[5%] lg:px-[3%] ${isImageLeft ? "lg:pl-12 lg:pr-20" : "lg:pl-20 lg:pr-12"} text-left h-full lg:h-screen lg:min-h-screen justify-between`}
         >
           <div>
             {/* <SectionHeader

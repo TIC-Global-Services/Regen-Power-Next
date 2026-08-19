@@ -25,17 +25,17 @@ const SpecsRowCards: React.FC<SpecsRowCardsProps> = ({ resolved }) => {
           titleClass="text-[3.125rem] md:text-[5rem]"
           subtitleClass="text-xl md:text-[2.125rem] text-black capitalize"
           descClass="max-w-2xl"
-          className="mb-16"
+          className="mb-5 md:mb-16"
         />
 
         {specs.length === 0 ? (
           <MissingImage label="Specs rows" aspect="aspect-[3/1]" />
         ) : (
-          <div className="flex flex-col border-t border-gray-300">
+          <div className="flex flex-col md:border-t md:border-gray-300">
             {specs.map((spec, idx) => (
               <Reveal key={idx} delay={idx * 0.1}>
                 <div className={`${idx !== specs.length - 1 ? 'border-b' : ''} border-gray-300 py-8`}>
-                  <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-8">
+                  <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 md:gap-8">
                     <div className="lg:w-[280px] shrink-0">
                       <h3 className="text-2xl md:text-[2.5rem] text-black leading-tight capitalize">
                         {spec.title}

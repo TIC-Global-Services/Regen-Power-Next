@@ -12,7 +12,7 @@ const SolarProcessFlow: React.FC<SolarProcessFlowProps> = ({ resolved }) => {
   const steps = resolved.steps;
 
   return (
-    <section className="py-16 md:pb-24 bg-white">
+    <section className="py-5 md:py-10 md:pb-24 bg-white">
       <div className="px-[5%] md:px-[3%]">
         <SectionHeader
           subtitle={resolved.subtitle}
@@ -20,7 +20,7 @@ const SolarProcessFlow: React.FC<SolarProcessFlowProps> = ({ resolved }) => {
           align="center"
           className="mb-5 md:mb-32"
           subtitleClass="text-xl md:text-[2.125rem]"
-          titleClass="text-[5rem]"
+          titleClass="text-[2.5rem] md:text-[5rem]"
         />
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12">
@@ -49,7 +49,7 @@ const SolarProcessFlow: React.FC<SolarProcessFlowProps> = ({ resolved }) => {
                 <div className="grid grid-cols-[auto_1fr] gap-x-3">
                   <span className="text-2xl font-semibold text-[#63B846]">0{index + 1}</span>
                   <div className="relative self-baseline">
-                    <h3 className="text-lg md:text-2xl font-semibold md:font-medium text-black leading-tight">
+                    <h3 className="text-lg md:text-2xl font-medium md:font-medium text-black leading-tight">
                       <span>{step.title}</span>
                     </h3>
                     {index < steps.length - 1 && (

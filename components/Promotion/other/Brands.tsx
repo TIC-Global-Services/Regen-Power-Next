@@ -85,11 +85,11 @@ const Brands = ({
           {/* Batteries & Inverters Grid - 2 cols on mobile, 3 cols on tab, 6 cols on desktop */}
           {batteries.length > 0 && (
             <div className="overflow-hidden">
-              <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 divide-x divide-y lg:divide-y-0 divide-gray-200/80">
+              <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-[1px] bg-[#00000033]">
                 {batteries.map((battery, idx) => (
                   <div
                     key={idx}
-                    className="flex flex-col items-center justify-between p-6 hover:bg-gray-50/50 transition-colors duration-300 min-h-[260px] md:min-h-[300px]"
+                    className="flex flex-col items-center justify-between p-6 bg-white hover:bg-gray-50/50 transition-colors duration-300 min-h-[260px] md:min-h-[300px]"
                   >
                     {/* Battery Product Image */}
                     <div className="w-full flex-1 flex items-center justify-center mb-6">

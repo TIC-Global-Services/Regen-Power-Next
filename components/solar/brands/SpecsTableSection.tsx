@@ -21,10 +21,20 @@ const SpecsTableSection: React.FC<SpecsTableSectionProps> = ({ resolved }) => {
           title={resolved.title ?? ""}
           description={resolved.description ?? ""}
           align="center"
-          className="mb-8"
+          className="mb-8 hidden md:block"
           subtitleClass="text-base md:text-2xl tracking-tight text-black capitalize"
-          titleClass="text-4xl md:text-[5rem] font-normal tracking-tight text-[#63B846]"
-          descClass="text-xl leading-tight tracking-tight max-w-5xl whitespace-pre-line"
+          titleClass="text-[2.5rem] md:text-[5rem] font-normal tracking-tight text-[#63B846]"
+          descClass="text-sm md:text-xl leading-tight tracking-tight max-w-5xl whitespace-pre-line"
+        />
+        <SectionHeader
+          subtitle={resolved.subtitle ?? ""}
+          title={resolved.title ?? ""}
+          description={resolved.description ?? ""}
+          align="left"
+          className="mb-8 md:hidden"
+          subtitleClass="text-base md:text-2xl tracking-tight text-black capitalize"
+          titleClass="text-[2.5rem] md:text-[5rem] font-normal tracking-tight text-[#63B846]"
+          descClass="text-sm md:text-xl  leading-tight tracking-tight max-w-5xl whitespace-pre-line"
         />
 
         <SpecTable

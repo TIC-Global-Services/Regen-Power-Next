@@ -60,6 +60,12 @@ const WhyChooseUs = ({
     }
   ]
 }: WhyChooseUsProps) => {
+  const handleScrollToQuote = () => {
+    const element = document.getElementById('quote-form-section');
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
 
   const renderCard = (card: WhyChooseUsCard) => {
     // Standard function to split text by newline or space to allow custom wrapping
@@ -200,7 +206,7 @@ const WhyChooseUs = ({
             ))}
           </div>
           <div className='md:hidden flex justify-center py-8'>
-            <CtaButton text={ctatext}></CtaButton>
+            <CtaButton text={ctatext} onClick={handleScrollToQuote}></CtaButton>
           </div>
         </div>
       </Fade>
