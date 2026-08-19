@@ -16,7 +16,7 @@ interface Props {
 export default function DealsGridSection({ resolved }: Props) {
   return (
     <section className="py-16 md:py-24 bg-white border-t border-gray-50">
-      <div className="px-[3%] mx-auto">
+      <div className="px-[5%] md:px-[3%] mx-auto">
         <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-8 mb-12">
           <div className="">
             <SectionHeader

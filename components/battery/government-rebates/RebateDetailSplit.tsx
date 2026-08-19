@@ -35,7 +35,7 @@ const RebateDetailSplit: React.FC<{ data?: RebateDetailSplitData }> = ({ data })
     const bg = data.bgColor || 'bg-white';
 
     return (
-        <section className={`w-full px-[3%] py-12 md:py-20 ${bg}`}>
+        <section className={`w-full px-[5%] md:px-[3%] py-12 md:py-20 ${bg}`}>
             <div className="">
                 {/* Header Section */}
                 {(data.topSubtitle || data.title || data.description) && (
@@ -51,7 +51,7 @@ const RebateDetailSplit: React.FC<{ data?: RebateDetailSplitData }> = ({ data })
                             </h2>
                         )}
                         {data.description && (
-                            <p className="text-base md:text-xl text-black leading-[1.2] font-medium max-w-4xl mx-auto">
+                            <p className="text-base md:text-xl text-black leading-[1.2] font-medium max-w-5xl mx-auto whitespace-pre-line">
                                 {data.description}
                             </p>
                         )}

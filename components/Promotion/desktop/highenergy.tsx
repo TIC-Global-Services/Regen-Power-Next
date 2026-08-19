@@ -34,7 +34,7 @@ const HighEnergy = ({ data }: { data: HighEnergyProps }) => {
   return (
     <section className="bg-white py-16 md:py-10 overflow-hidden border-t border-gray-100">
       <Fade duration={5}>
-        <div className="px-[3%] mb-12">
+        <div className="px-[5%] md:px-[3%] mb-12">
           {/* Centered Header */}
           <div className="text-center mb-16">
             <h2 className="text-4xl md:text-[3.125rem] font-bold text-black tracking-tight leading-tight mb-2">
@@ -84,7 +84,7 @@ const HighEnergy = ({ data }: { data: HighEnergyProps }) => {
         </div>
 
         {/* Divider Line */}
-        <div className="px-[3%]"><div className="h-[1px] bg-[#00000033] my-10"></div></div>
+        <div className="px-[5%] md:px-[3%]"><div className="h-[1px] bg-[#00000033] my-10"></div></div>
 
 
         {/* Badges Marquee using Reusable Marquee */}

@@ -30,7 +30,7 @@ const ZeroInterestFinancing = ({ data }: ZeroInterestFinancingProps) => {
   return (
     <section className="py-10 md:py-20 bg-white overflow-hidden">
       <Fade>
-        <div className="md:px-[3%]">
+        <div className="md:px-[5%] md:px-[3%]">
           {/* Section Header */}
           <SectionHeader
             subtitle={data.subtitle}
@@ -79,14 +79,14 @@ const ZeroInterestFinancing = ({ data }: ZeroInterestFinancingProps) => {
                     )}
                   </div>
                 </div>
-                
+
               </Reveal>
             ))}
           </div>
 
           {/* Fixed position mobile CTA (doesn't scroll with cards) */}
           {cta?.ctaText && (
-            <div className="mt-4 flex justify-end md:hidden px-[3%] md:px-0">
+            <div className="mt-4 flex justify-end md:hidden px-[5%] md:px-[3%] md:px-0">
               <CtaButton text={cta?.ctaText ?? 'Check Your Eligibility'} textColor='text-white' />
             </div>
           )}

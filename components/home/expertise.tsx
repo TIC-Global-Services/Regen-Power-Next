@@ -53,7 +53,7 @@ const Expertise = ({ data }: ExpertiseProps) => {
         <div className="absolute inset-0 bg-[#0a1c30]/70" />
       </div>
 
-      <div className="lg:px-[3%] relative z-10 h-full flex flex-col justify-center">
+      <div className="lg:px-[5%] md:px-[3%] relative z-10 h-full flex flex-col justify-center">
 
         {/* Header */}
         <div className="mb-12 md:mb-10 flex justify-center">

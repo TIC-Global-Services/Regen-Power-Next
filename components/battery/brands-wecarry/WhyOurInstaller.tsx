@@ -23,7 +23,7 @@ const WhyOurInstaller: React.FC<{ data: WhyOurInstallerData }> = ({ data }) => {
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-0 items-stretch w-full">
         
         {/* Text Column */}
-        <div className="flex flex-col justify-between pt-4 pb-16 lg:py-24 px-5 md:px-10 lg:pl-12 lg:pr-20 text-left order-2 lg:order-1">
+        <div className="flex flex-col justify-between pt-4 pb-16 lg:py-10 px-5 md:px-10 lg:pl-12 lg:pr-20 text-left order-2 lg:order-1">
           {/* Top block: title + subtitle */}
           <div className="max-w-2xl">
             <h2 className="text-[2.5rem] md:text-5xl lg:text-[3.125rem] font-normal leading-none tracking-tight mb-2 text-[#63B846] whitespace-pre-line">

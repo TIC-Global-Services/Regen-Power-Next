@@ -60,7 +60,7 @@ const Areyoueligible = ({ data }: areyoueligibleProps) => {
                         </ol>
 
                         {data.additionalListTitle && (
-                            <p className="text-sm md:text-base font-medium tracking-tight leading-[1.2] mt-6 mb-2">
+                            <p className="text-sm md:text-xl font-medium tracking-tight leading-[1.2] mt-6 mb-2">
                                 {data.additionalListTitle}
                             </p>
                         )}
@@ -69,7 +69,7 @@ const Areyoueligible = ({ data }: areyoueligibleProps) => {
                             <ol className="flex flex-col gap-1 mb-8">
                                 {data.additionalItems.map((item, i) => (
                                     <li key={i} className="flex items-start text-sm md:text-base text-black font-normal tracking-tight leading-[1.2]">
-                                        <span className="mr-2 text-black">{data.items.length + i + 1}.</span>
+                                        <span className="mr-2 text-black">{i + 1}.</span>
                                         <span>{item.title}</span>
                                     </li>
                                 ))}

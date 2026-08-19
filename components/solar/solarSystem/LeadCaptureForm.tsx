@@ -121,7 +121,7 @@ const LeadCaptureForm: React.FC<LeadCaptureFormProps> = ({
 
     return (
         <section id="quote-form" className="py-16 md:py-24 bg-white border-t border-gray-50">
-            <div className="px-[3%] mx-auto">
+            <div className="px-[5%] md:px-[3%] mx-auto">
                 <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
 
                     {/* Left Column: Heading and 3D Graphic */}

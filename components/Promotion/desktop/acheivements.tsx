@@ -50,7 +50,7 @@ const Acheivements: React.FC<ComponentProps> = (props) => {
   }
 
   return (
-    <section className="bg-white py-16 md:py-20 px-[3%]">
+    <section className="bg-white py-16 md:py-20 px-[5%] md:px-[3%]">
       <Fade duration={5}>
         <div className="max-w-7xl mx-auto">
           {/* Header */}

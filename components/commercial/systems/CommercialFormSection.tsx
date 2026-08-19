@@ -58,8 +58,8 @@ const RadioGroup: React.FC<RadioGroupProps> = ({
                 >
                     <span
                         className={`w-4 h-4 rounded-full border flex items-center justify-center transition-colors ${isSelected
-                                ? 'border-black bg-[#63B846]/10'
-                                : 'border-gray-400'
+                            ? 'border-black bg-[#63B846]/10'
+                            : 'border-gray-400'
                             }`}
                     >
                         {isSelected && <span className="w-1.5 h-1.5 rounded-full bg-black" />}
@@ -106,7 +106,7 @@ export default function CommercialFormSection({ resolved }: Props) {
 
     return (
         <section className="py-16 md:py-24 bg-white">
-            <div className="px-[3%] mx-auto">
+            <div className="px-[5%] md:px-[3%] mx-auto">
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-start">
                     <div className="flex flex-col">
                         <SectionHeader

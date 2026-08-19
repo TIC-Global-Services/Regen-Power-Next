@@ -34,7 +34,7 @@ const StatsCardGrid: React.FC<StatsCardGridProps> = ({
 }) => {
     return (
         <section className={`py-16 md:py-24 bg-white ${className}`}>
-            <div className="px-[3%] mx-auto">
+            <div className="px-[5%] md:px-[3%] mx-auto">
                 <SectionHeader
                     subtitle={subtitle}
                     title={title}

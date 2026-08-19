@@ -107,7 +107,7 @@ const RealStories = ({ data }: RealStoriesProps) => {
             </div>
 
 
-            <div className="px-[3%] mb-12 md:mb-20">
+            <div className="px-[5%] md:px-[3%] mb-12 md:mb-20">
                 <div className="grid grid-cols-2 md:flex md:flex-wrap items-center justify-center gap-6 md:gap-10">
                     {data.badges.map((badge) => (
                         <div

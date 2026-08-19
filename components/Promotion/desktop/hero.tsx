@@ -31,7 +31,7 @@ export interface HeroProps {
 
 const Hero = ({ data }: { data: HeroProps }) => {
   return (
-    <section className="relative pt-36 pb-20 md:pt-30 md:pb-20 px-[3%] min-h-screen overflow-hidden">
+    <section className="relative pt-36 pb-20 md:pt-30 md:pb-20 px-[5%] md:px-[3%] min-h-screen overflow-hidden">
       {data.backgroundImage && (
         <img
           src={data.backgroundImage}

@@ -54,11 +54,11 @@ const ResidentialBattery: React.FC<ResidentialBatteryProps> = ({ data = [] }) =>
               ))}
             </ul>
             
-            <p className="text-base md:text-lg text-[#63B846] font-medium tracking-tight leading-[1.2] mb-4">
+            <p className="text-base md:text-lg text-[#63B846] font-medium tracking-tight leading-[1.2] max-w-lg mb-4">
               {item.timingText}
             </p>
             
-            <p className="text-base md:text-lg text-[#63B846] font-medium tracking-tight leading-[1.2]">
+            <p className="text-base md:text-lg text-[#63B846] font-medium tracking-tight leading-[1.2] max-w-lg">
               {item.taxText}
             </p>
           </div>

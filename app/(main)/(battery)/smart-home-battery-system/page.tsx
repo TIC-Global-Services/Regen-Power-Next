@@ -82,6 +82,7 @@ const SmartBatterySystemPage = async () => {
             ctaLink: heroProps.ctaLink,
             subtitleColor: "text-white",
             descriptionColor: "text-white",
+            heightClass:"h-[600px]",
             showOverlay: heroProps.showOverlay,
           }}
         />

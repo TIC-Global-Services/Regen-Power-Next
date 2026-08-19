@@ -78,7 +78,7 @@ const SevenBrand: React.FC<{ data: SevenBrandData }> = ({ data }) => {
   if (!data || !data.brands || data.brands.length === 0) return null;
 
   return (
-    <section className="bg-white py-16 md:py-24 px-[3%] w-full">
+    <section className="bg-white py-16 md:py-24 px-[5%] md:px-[3%] w-full">
       <style>{`
         .seven-brand-swiper .swiper-slide {
           height: auto !important;
@@ -120,7 +120,7 @@ const SevenBrand: React.FC<{ data: SevenBrandData }> = ({ data }) => {
             spaceBetween={30}
             slidesPerView={1}
             autoplay={{
-              delay: 5000,
+              delay: 3000,
               disableOnInteraction: false,
               pauseOnMouseEnter: true
             }}

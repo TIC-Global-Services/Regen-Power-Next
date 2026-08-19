@@ -28,7 +28,7 @@ const FederalRebates: React.FC<FederalRebatesProps> = ({ data = [] }) => {
   return (
     <>
       {data.map((item, index) => (
-        <section key={index} className="w-full bg-white px-[3%] py-12 md:py-20">
+        <section key={index} className="w-full bg-white px-[5%] md:px-[3%] py-12 md:py-20">
           {/* Header Section */}
           <div className="text-left md:text-center mb-12 md:mb-10">
             <h3 className="text-base md:text-xl font-medium text-black tracking-tight leading-tight">
@@ -43,10 +43,10 @@ const FederalRebates: React.FC<FederalRebatesProps> = ({ data = [] }) => {
           </div>
 
           {/* Grid Layout Container */}
-          <div className="flex flex-col gap-6">
+          <div className="flex flex-col gap-4">
 
             {/* Top Row */}
-            <div className="grid grid-cols-1 md:grid-cols-12 gap-6 items-stretch">
+            <div className="grid grid-cols-1 md:grid-cols-12 gap-4 items-stretch">
 
               {/* Key Specs Card (Span 5) */}
               <div className="md:col-span-5 bg-[#EEF6EB] rounded-3xl p-8 flex flex-col justify-center tracking-tight">
@@ -55,7 +55,7 @@ const FederalRebates: React.FC<FederalRebatesProps> = ({ data = [] }) => {
                 </h4>
                 <ul className="flex flex-col">
                   {item.keySpecsBulletPoints.map((spec, i) => (
-                    <li key={i} className="flex items-start text-base text-black font-medium leading-snug">
+                    <li key={i} className="flex items-start text-lg text-black font-medium leading-snug">
                       <span className="mr-2 mt-0.5">•</span>
                       <span>{spec}</span>
                     </li>
@@ -82,7 +82,7 @@ const FederalRebates: React.FC<FederalRebatesProps> = ({ data = [] }) => {
                   {item.eligibleCapacityText}
                 </p>
 
-                <h4 className="text-base md:text-xl font-normal text-black mb-3">
+                <h4 className="text-base md:text-2xl font-normal text-black mb-3">
                   {item.importantNoteTitle}
                 </h4>
                 <p className="text-base text-black font-medium leading-[1.2]">
@@ -93,7 +93,7 @@ const FederalRebates: React.FC<FederalRebatesProps> = ({ data = [] }) => {
             </div>
 
             {/* Bottom Row */}
-            <div className="grid grid-cols-1 md:grid-cols-12 gap-6 items-stretch">
+            <div className="grid grid-cols-1 md:grid-cols-12 gap-4 items-stretch">
 
               {/* Bottom Image (Span 3) */}
               <div className="md:col-span-3 relative rounded-3xl overflow-hidden">
@@ -113,13 +113,13 @@ const FederalRebates: React.FC<FederalRebatesProps> = ({ data = [] }) => {
               </div>
 
               {/* Eligibility Card (Span 4) */}
-              <div className="md:col-span-5 bg-[#EEF6EB] rounded-3xl p-8 flex flex-col justify-center tracking-tight leading-[1]">
+              <div className="md:col-span-5 bg-[#EEF6EB] rounded-3xl p-8 py-15 flex flex-col justify-center tracking-tight leading-[1]">
                 <h4 className="text-xl md:text-2xl font-normal text-black mb-6">
                   {item.eligibilityTitle}
                 </h4>
-                <ul className="flex flex-col">
+                <ul className="flex flex-col max-w-sm">
                   {item.eligibilityBulletPoints.map((eligibilityItem, i) => (
-                    <li key={i} className="flex items-start text-base text-black font-medium leading-[1.1]">
+                    <li key={i} className="flex items-start text-lg text-black font-medium leading-[1.1]">
                       <span className="mr-2 mt-0.5">•</span>
                       <span>{eligibilityItem}</span>
                     </li>

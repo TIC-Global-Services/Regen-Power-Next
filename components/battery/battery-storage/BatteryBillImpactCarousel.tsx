@@ -24,7 +24,7 @@ export const BatteryBillImpactCarousel = ({ cards }: { cards: JargonCard[] }) =>
     <div className="w-full relative mt-8 lg:mt-0">
       <div
         ref={scrollContainerRef}
-        className="flex gap-4 overflow-x-auto -mx-[5%] px-[3%] [&::-webkit-scrollbar]:hidden"
+        className="flex gap-4 overflow-x-auto -mx-[5%] px-[5%] md:px-[3%] [&::-webkit-scrollbar]:hidden"
         style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
       >
         {cards.map((card, idx) => (

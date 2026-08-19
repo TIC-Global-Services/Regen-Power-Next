@@ -69,7 +69,7 @@ const NewsFilter: React.FC<NewsFilterProps> = ({
     const nonAllCategories = categories.filter((c) => c.value !== 'All');
 
     return (
-        <div className="w-full px-[3%] py-8 md:py-10 relative">
+        <div className="w-full px-[5%] md:px-[3%] py-8 md:py-10 relative">
             <div className="flex items-center justify-between gap-4 max-w-7xl mx-auto">
                 <div className="flex flex-nowrap md:flex-wrap items-center gap-2 md:gap-3 overflow-x-auto md:overflow-visible whitespace-nowrap snap-x snap-mandatory md:snap-none [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
                     {categories.map((cat) => {
@@ -79,8 +79,8 @@ const NewsFilter: React.FC<NewsFilterProps> = ({
                                 key={cat.value}
                                 onClick={() => handleSelect(cat.value)}
                                 className={`shrink-0 snap-start px-4 md:px-5 py-2 md:py-2.5 rounded-full text-sm md:text-base font-medium tracking-tight transition-all duration-300 border whitespace-nowrap ${isActive
-                                        ? 'bg-[#D5E5C0] border-[#D5E5C0] text-black'
-                                        : 'bg-transparent border-transparent text-black hover:bg-black/5'
+                                    ? 'bg-[#D5E5C0] border-[#D5E5C0] text-black'
+                                    : 'bg-transparent border-transparent text-black hover:bg-black/5'
                                     }`}
                             >
                                 {cat.label}
@@ -92,8 +92,8 @@ const NewsFilter: React.FC<NewsFilterProps> = ({
                     aria-label="More filters"
                     onClick={() => setPanelOpen((open) => !open)}
                     className={`flex-shrink-0 w-10 h-10 md:w-11 md:h-11 rounded-full flex items-center justify-center transition-colors ${selectedMultiSelected.length > 0
-                            ? 'bg-[#63B846] text-white'
-                            : 'bg-[#D5E5C0] hover:bg-[#c5d8a8] text-black'
+                        ? 'bg-[#63B846] text-white'
+                        : 'bg-[#D5E5C0] hover:bg-[#c5d8a8] text-black'
                         }`}
                 >
                     <SlidersHorizontal size={16} strokeWidth={2.2} />

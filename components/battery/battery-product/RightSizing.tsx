@@ -52,7 +52,7 @@ const RightSizing: React.FC<{ data?: RightSizingData }> = ({ data }) => {
     };
 
     return (
-        <section className="w-full px-[3%] py-12 md:py-20 bg-white">
+        <section className="w-full px-[5%] md:px-[3%] py-12 md:py-20 bg-white">
             <div className="max-w-4xl mx-auto">
                 {/* Header */}
                 <div className="text-left md:text-center">

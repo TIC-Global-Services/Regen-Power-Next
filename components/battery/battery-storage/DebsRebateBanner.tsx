@@ -13,7 +13,7 @@ export interface DebsRebateData {
 
 const DebsRebateBanner = ({ data }: { data: DebsRebateData }) => {
   return (
-    <section className="bg-white py-12 md:py-20 px-[3%]">
+    <section className="bg-white py-12 md:py-20 px-[5%] md:px-[3%]">
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-center">
         {/* Right — Image (on top on mobile, right column on desktop) */}
         <div className="relative  aspect-[4/5] h-full w-full rounded-[20px] overflow-hidden order-1 lg:order-2 justify-self-center">

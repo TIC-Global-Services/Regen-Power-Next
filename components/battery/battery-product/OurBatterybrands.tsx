@@ -25,7 +25,7 @@ const OurBatterybrands: React.FC<{ data?: OurBatteryBrandsData }> = ({ data }) =
     if (!data || !data.brands || data.brands.length === 0) return null;
 
     return (
-        <section className="w-full px-[3%] py-12 md:py-20 bg-white">
+        <section className="w-full px-[5%] md:px-[3%] py-12 md:py-20 bg-white">
             <div>
                 {/* Brands Rows */}
                 <div className="flex flex-col gap-6 md:gap-8">
@@ -35,7 +35,7 @@ const OurBatterybrands: React.FC<{ data?: OurBatteryBrandsData }> = ({ data }) =
                         return (
                             <div
                                 key={idx}
-                                className="grid grid-cols-1 md:grid-cols-12 gap-5 md:gap-6 items-stretch"
+                                className="grid grid-cols-1 md:grid-cols-12 gap-5 md:gap-4 items-stretch"
                             >
                                 {/* Text Content Card */}
                                 <div
@@ -43,7 +43,7 @@ const OurBatterybrands: React.FC<{ data?: OurBatteryBrandsData }> = ({ data }) =
                                         }`}
                                 >
                                     {/* Arrow icon if link exists */}
-                                    {brand.link && (
+                                    {/* {brand.link && (
                                         <a
                                             href={brand.link}
                                             className="absolute top-6 right-6 text-black/60 hover:text-black transition-colors"
@@ -63,7 +63,7 @@ const OurBatterybrands: React.FC<{ data?: OurBatteryBrandsData }> = ({ data }) =
                                                 <polyline points="7 7 17 7 17 17" />
                                             </svg>
                                         </a>
-                                    )}
+                                    )} */}
 
                                     <div>
                                         {/* Logo */}

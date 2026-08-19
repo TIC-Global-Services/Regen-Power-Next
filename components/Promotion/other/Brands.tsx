@@ -46,7 +46,7 @@ const Brands = ({
 }: BrandsProps) => {
 
   return (
-    <section className="bg-white py-16 md:py-24 px-4 md:px-[3%] w-full border-t border-gray-100">
+    <section className="bg-white py-16 md:py-24 px-4 md:px-[5%] md:px-[3%] w-full border-t border-gray-100">
       <Fade duration={5}>
         <div className="max-w-7xl mx-auto">
           {/* Header */}

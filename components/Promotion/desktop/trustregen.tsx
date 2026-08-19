@@ -21,7 +21,7 @@ const TrustRegen = ({ data }: { data: TrustRegenProps }) => {
   const [activeIdx, setActiveIdx] = useState(0);
 
   return (
-    <section className="bg-white py-16 md:py-20 px-[3%]">
+    <section className="bg-white py-16 md:py-20 px-[5%] md:px-[3%]">
       <Fade>
         <div className="">
           <div className="text-center mb-14 md:mb-20">

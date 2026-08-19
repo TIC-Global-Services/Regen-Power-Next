@@ -117,14 +117,14 @@ export default function WhatSigningUp({ data }: WhatSigningUpProps) {
       >
         {/* Pinned Title Layer */}
         <div className="absolute inset-0 z-0 flex flex-col items-center justify-center pointer-events-none px-4">
-          <div className="px-6 py-10 md:px-16 md:py-12 text-left md:text-center max-w-3xl z-20">
+          <div className="px-6 py-10 md:px-16 md:py-12 text-left md:text-center z-20">
             <Reveal className="mb-4">
-              <h2 className="text-[2.5rem] sm:text-4xl md:text-5xl lg:text-6xl font-light tracking-tight leading-tight text-[#63B846]">
+              <h2 className="text-[2.5rem] sm:text-4xl md:text-5xl lg:text-[3.125rem] font-light tracking-tight leading-tight text-[#63B846]">
                 {title}
               </h2>
             </Reveal>
             <Reveal delay={0.3}>
-              <p className="text-neutral-800 font-medium text-base md:text-lg max-w-2xl mx-auto leading-[1.2]">
+              <p className="text-neutral-800 font-medium text-base md:text-xl max-w-4xl mx-auto leading-[1.2]">
                 {subtitle}
               </p>
             </Reveal>

@@ -51,7 +51,7 @@ const SpecTable: React.FC<SpecTableProps> = ({
                 className="hover:bg-[#EEF6EB]/80 transition-colors h-[100px]"
               >
                 <td
-                  className={`bg-[#A0CF44] text-black font-normal p-4 text-2xl border-r border-black ${
+                  className={`bg-[#A0CF44] text-black font-normal p- text-2xl border-r border-black ${
                     isLastRow ? "" : "border-b"
                   }`}
                 >
@@ -63,7 +63,7 @@ const SpecTable: React.FC<SpecTableProps> = ({
                   return (
                     <td
                       key={idx}
-                      className={`bg-[#EEF6EB]/30 p-4 text-black font-normal text-xl border-black ${
+                      className={`bg-[#EEF6EB]/30 p-0 text-black font-normal text-xl border-black ${
                         isLastRow ? "" : "border-b"
                       } ${isLastCol ? "" : "border-r"}`}
                     >

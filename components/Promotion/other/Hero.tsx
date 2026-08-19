@@ -40,7 +40,7 @@ const Hero = ({
 }: HeroProps) => {
 
   return (
-    <section className="relative w-full min-h-[100dvh] md:min-h-[100dvh] flex flex-col items-center justify-center text-center px-4 md:px-[3%] pt-32 pb-16 overflow-hidden">
+    <section className="relative w-full min-h-[100dvh] md:min-h-[100dvh] flex flex-col items-center justify-center text-center px-4 md:px-[5%] md:px-[3%] pt-32 pb-16 overflow-hidden">
       <img
         src={backgroundImage}
         alt=""

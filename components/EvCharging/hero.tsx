@@ -32,6 +32,7 @@ const EvHero = ({ data }: EvHeroProps) => {
       description={data.description}
       ctaText={data.ctaText}
       ctaLink={data.ctaLink}
+      heightClass='h-[600px]'
     />
   );
 };

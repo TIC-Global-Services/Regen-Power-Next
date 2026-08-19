@@ -76,7 +76,7 @@ const BlogGrid: React.FC<BlogGridProps> = ({
     });
 
     return (
-        <section className="w-full px-[3%] pb-20 md:pb-28">
+        <section className="w-full px-[5%] md:px-[3%] pb-20 md:pb-28">
             <CategoryFilter
                 categories={categories}
                 defaultCategory={activeCategory}
@@ -123,11 +123,10 @@ const BlogGrid: React.FC<BlogGridProps> = ({
                             <button
                                 key={page}
                                 onClick={() => setCurrentPage(page)}
-                                className={`min-w-[36px] h-9 rounded-lg text-sm font-medium tracking-tight transition-all cursor-pointer ${
-                                    safePage === page
+                                className={`min-w-[36px] h-9 rounded-lg text-sm font-medium tracking-tight transition-all cursor-pointer ${safePage === page
                                         ? 'bg-[#A0CF44] text-white'
                                         : 'text-black/70 hover:bg-[#E5EFD5]'
-                                }`}
+                                    }`}
                             >
                                 {page}
                             </button>

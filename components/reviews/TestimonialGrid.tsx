@@ -62,7 +62,7 @@ const TestimonialGrid: React.FC<TestimonialGridProps> = ({
     items = defaultGrid,
 }) => {
     return (
-        <section className="w-full px-[3%] pb-16 md:pb-24">
+        <section className="w-full px-[5%] md:px-[3%] pb-16 md:pb-24">
             {(subtitle || title) && (
                 <div className="text-center mb-10 md:mb-14">
                     {subtitle && (

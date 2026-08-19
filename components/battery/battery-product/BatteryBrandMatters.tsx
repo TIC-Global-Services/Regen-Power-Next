@@ -17,7 +17,7 @@ export interface BatteryBrandMattersData {
 
 const BatteryBrandMatters = ({ data }: { data: BatteryBrandMattersData }) => {
   return (
-    <section className="bg-white py-16 md:py-24 px-[3%]">
+    <section className="bg-white py-16 md:py-24 px-[5%] md:px-[3%]">
       <div className="">
         {/* Header */}
         <div className="text-left md:text-center mb-10 md:mb-16 max-w-4xl mx-auto">
@@ -35,7 +35,7 @@ const BatteryBrandMatters = ({ data }: { data: BatteryBrandMattersData }) => {
         </div>
 
         {/* Mobile: Horizontal Scroll */}
-        <div className="flex overflow-x-auto md:hidden gap-4 -mx-[5%] px-[3%] [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none] ">
+        <div className="flex overflow-x-auto md:hidden gap-4 -mx-[5%] px-[5%] md:px-[3%] [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none] ">
           {data.cards.map((card, idx) => (
             <div
               key={idx}

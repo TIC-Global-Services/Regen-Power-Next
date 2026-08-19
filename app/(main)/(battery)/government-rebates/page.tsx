@@ -91,6 +91,7 @@ const GovernmentRebatesPage = async () => {
             ctaLink: heroProps.ctaLink,
             subtitleColor: "text-white",
             descriptionColor: "text-white",
+            heightClass:"h-[600px]",
             showOverlay: heroProps.showOverlay,
           }}
         />
@@ -129,7 +130,7 @@ const GovernmentRebatesPage = async () => {
         />
       )}
 
-      {whatChangesProps && <WhatChanges data={whatChangesProps} />}
+      {/* {whatChangesProps && <WhatChanges data={whatChangesProps} />} */}
 
       {eligibleProps && (
         <AreYouEligible

@@ -24,7 +24,7 @@ interface PartnersProps {
 const Partners = ({ data }: PartnersProps) => {
   return (
     <section className="py-16 md:py-20 bg-white overflow-hidden">
-      <div className="px-[3%]">
+      <div className="px-[5%] md:px-[3%]">
         {/* Section Header */}
         <SectionHeader
           subtitle={data.subtitle}

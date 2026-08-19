@@ -27,7 +27,7 @@ const EvAccordion = ({ data }: EvAccordionProps) => {
   return (
     <Fade>
       <section className="py-16 md:py-24 bg-white overflow-hidden">
-        <div className="px-[3%]">
+        <div className="px-[5%] md:px-[3%]">
           {/* Header */}
           <div className="text-center mb-12 md:mb-10">
             <h2 className="text-xl md:text-[2rem] font-medium text-black tracking-tight ">

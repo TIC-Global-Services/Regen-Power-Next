@@ -26,7 +26,7 @@ const FindOutWhy = ({ data }: { data: FindOutWhyProps }) => {
   if (!data) return null;
 
   return (
-    <section className="bg-white py-16 md:py-20 px-[3%]">
+    <section className="bg-white py-16 md:py-20 px-[5%] md:px-[3%]">
       <Fade duration={5}>
         <div className="">
           {/* Header & Rating Summary */}

@@ -52,7 +52,7 @@ const FeaturedArticle: React.FC<FeaturedArticleProps> = ({
     );
 
     return (
-        <section className={`w-full px-[3%] py-12 md:py-20 ${className}`}>
+        <section className={`w-full px-[5%] md:px-[3%] py-12 md:py-20 ${className}`}>
             {href ? (
                 <Link
                     href={href}

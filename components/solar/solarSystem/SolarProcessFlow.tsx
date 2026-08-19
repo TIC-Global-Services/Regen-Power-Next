@@ -13,7 +13,7 @@ const SolarProcessFlow: React.FC<SolarProcessFlowProps> = ({ resolved }) => {
 
   return (
     <section className="py-16 md:pb-24 bg-white">
-      <div className="px-[3%]">
+      <div className="px-[5%] md:px-[3%]">
         <SectionHeader
           subtitle={resolved.subtitle}
           title={resolved.title}

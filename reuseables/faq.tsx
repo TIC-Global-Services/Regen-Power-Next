@@ -60,7 +60,7 @@ const FAQ = ({
 
     return (
         <Fade>
-            <section className="py-10 md:py-20 bg-white px-[3%]">
+            <section className="py-10 md:py-20 bg-white px-[5%] md:px-[3%]">
                 {faqSchema ? (
                     <script
                         type="application/ld+json"

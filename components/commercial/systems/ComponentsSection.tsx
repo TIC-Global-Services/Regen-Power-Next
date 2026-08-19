@@ -13,7 +13,7 @@ export default function ComponentsSection({ resolved }: Props) {
   const bgSrc = resolved.backgroundImage?.src ?? '/fallback.png';
 
   return (
-    <section className="px-[3%] py-12 md:py-20 bg-white">
+    <section className="px-[5%] md:px-[3%] py-12 md:py-20 bg-white">
       {/* ── Mobile layout ── */}
       <div className="md:hidden">
         {/* Text on white background */}

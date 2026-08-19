@@ -65,7 +65,7 @@ const OffGridStory: React.FC<OffGridStoryProps> = ({
 
     return (
         <section className="py-10 md:py-20 bg-white">
-            <div className="px-[3%]">
+            <div className="px-[5%] md:px-[3%]">
                 <div className="text-left md:text-center max-w-4xl mx-auto mb-12 md:mb-0 -space-y-2">
                     <p className="text-base md:text-2xl text-black font-light tracking-tight leading-none mb-2">
                         {subtitle}

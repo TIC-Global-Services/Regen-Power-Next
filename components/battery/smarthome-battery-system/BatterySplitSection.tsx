@@ -82,7 +82,7 @@ const BatterySplitSection = ({ data }: { data: BatterySplitData }) => {
   );
 
   return (
-    <section className="bg-white py-16 md:py-24 px-[3%] overflow-hidden">
+    <section className="bg-white py-16 md:py-24 px-[5%] md:px-[3%] overflow-hidden">
       <div className="flex flex-col lg:flex-row gap-12 lg:gap-16 items-center">
         {/* Left Content */}
         <div className="w-full lg:w-1/2 flex flex-col items-start shrink-0 lg:min-h-[500px]">

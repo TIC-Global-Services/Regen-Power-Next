@@ -12,7 +12,7 @@ export default function WatchSystemSection({ resolved }: Props) {
 
   return (
     <section className="py-16 md:py-24 bg-white">
-      <div className="px-[3%] mx-auto">
+      <div className="px-[5%] md:px-[3%] mx-auto">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-center">
 
           <Reveal className="relative w-full aspect-[3/4] rounded-[20px] overflow-hidden md:hidden">

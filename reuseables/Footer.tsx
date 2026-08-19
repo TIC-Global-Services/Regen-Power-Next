@@ -38,7 +38,7 @@ const socialLinks = [
 const Footer = () => {
   return (
     <footer
-      className="relative w-full bg-[#0a0a0a] text-white pt-16 pb-8 px-4 md:px-8 lg:px-[3%] bg-cover bg-center"
+      className="relative w-full bg-[#0a0a0a] text-white pt-16 pb-8 px-4 md:px-8 lg:px-[5%] md:px-[3%] bg-cover bg-center"
       style={{ backgroundImage: "url('/footer_bg.svg')" }}
     >
       <div className="">

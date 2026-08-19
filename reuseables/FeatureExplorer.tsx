@@ -114,7 +114,7 @@ const FeatureExplorer: React.FC<FeatureExplorerProps> = ({
                 <div className="grid grid-cols-1 lg:grid-cols-12 items-center h-full">
 
                     {/* Left Column (Content & Navigation) */}
-                    <div className="lg:col-span-6 flex flex-col justify-around px-[3%] h-full order-2 lg:order-1">
+                    <div className="lg:col-span-6 flex flex-col justify-around px-[5%] md:px-[3%] h-full order-2 lg:order-1">
 
                         {/* Header */}
                         <div className="flex flex-col hidden md:block">
@@ -171,8 +171,8 @@ const FeatureExplorer: React.FC<FeatureExplorerProps> = ({
                                     >
                                         <span
                                             className={`block rounded-full transition-all duration-300 ${idx === activeIndex
-                                                    ? 'w-8 h-2'
-                                                    : 'w-2 h-2 bg-black/20 hover:bg-black/40'
+                                                ? 'w-8 h-2'
+                                                : 'w-2 h-2 bg-black/20 hover:bg-black/40'
                                                 }`}
                                             style={idx === activeIndex ? { backgroundColor: accentColor } : undefined}
                                         />
@@ -188,7 +188,7 @@ const FeatureExplorer: React.FC<FeatureExplorerProps> = ({
 
                     {/* Right Column (Media + Pins) */}
                     <div className="lg:col-span-6 order-1 lg:order-2">
-                        <div className="flex flex-col md:hidden py-5 px-[3%]">
+                        <div className="flex flex-col md:hidden py-5 px-[5%] md:px-[3%]">
                             {/* {renderTagIcon()} */}
                             <div className="leading-[0.9]">
                                 <h2 className="text-2xl md:text-4xl leading-none lg:text-[2.125rem] font-medium text-black tracking-tight">

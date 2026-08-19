@@ -42,7 +42,7 @@ const Tier1MeansSection: React.FC<Tier1MeansSectionProps> = ({ resolved }) => {
         </Reveal>
 
         <div
-          className={`flex flex-col py-5 lg:py-24 px-5 md:px-[3%] ${isImageLeft ? "lg:pl-12 lg:pr-20" : "lg:pl-20 lg:pr-12"} text-left h-full lg:h-screen lg:min-h-screen justify-between`}
+          className={`flex flex-col py-5 lg:py-24 px-5 md:px-[5%] md:px-[3%] ${isImageLeft ? "lg:pl-12 lg:pr-20" : "lg:pl-20 lg:pr-12"} text-left h-full lg:h-screen lg:min-h-screen justify-between`}
         >
           <div>
             {/* <SectionHeader

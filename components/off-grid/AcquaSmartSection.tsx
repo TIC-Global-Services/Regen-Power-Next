@@ -58,7 +58,7 @@ const AcquaSmartSection: React.FC<AcquaSmartSectionProps> = ({
 
     return (
         <section className="py-16 md:py-24 bg-white">
-            <div className="px-[3%] mx-auto">
+            <div className="px-[5%] md:px-[3%] mx-auto">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-16 items-center max-w-7xl mx-auto mb-12 md:mb-16">
                     <div className="relative w-full aspect-square rounded-[24px] overflow-hidden">
                         <img

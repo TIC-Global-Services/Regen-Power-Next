@@ -48,7 +48,7 @@ const NewsGrid: React.FC<NewsGridProps> = ({ cards = [] }) => {
 
     return (
         <section className="w-full pb-20 md:pb-28">
-            <div className="px-[3%]">
+            <div className="px-[5%] md:px-[3%]">
                 {/* Results count */}
                 <div className="max-w-7xl mx-auto pt-2 pb-2">
                     <p className="text-sm text-black/50 tracking-tight">
@@ -88,7 +88,7 @@ const NewsGrid: React.FC<NewsGridProps> = ({ cards = [] }) => {
 
             {/* Pagination */}
             {totalPages > 1 && (
-                <div className="max-w-7xl mx-auto mt-10 md:mt-14 flex justify-center items-center gap-2 px-[3%]">
+                <div className="max-w-7xl mx-auto mt-10 md:mt-14 flex justify-center items-center gap-2 px-[5%] md:px-[3%]">
                     {/* Previous button */}
                     <button
                         onClick={() => setCurrentPage((p) => Math.max(1, p - 1))}
@@ -109,11 +109,10 @@ const NewsGrid: React.FC<NewsGridProps> = ({ cards = [] }) => {
                             <button
                                 key={page}
                                 onClick={() => setCurrentPage(page)}
-                                className={`min-w-[36px] h-9 rounded-lg text-sm font-medium tracking-tight transition-all cursor-pointer ${
-                                    safePage === page
+                                className={`min-w-[36px] h-9 rounded-lg text-sm font-medium tracking-tight transition-all cursor-pointer ${safePage === page
                                         ? 'bg-[#A0CF44] text-white'
                                         : 'text-black/70 hover:bg-[#E5EFD5]'
-                                }`}
+                                    }`}
                             >
                                 {page}
                             </button>

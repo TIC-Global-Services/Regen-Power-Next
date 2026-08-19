@@ -21,7 +21,7 @@ export interface BatteryCapacityData {
 const BatteryCapacityBlocks = ({ data }: { data: BatteryCapacityData }) => {
   return (
     <Fade>
-      <section className="bg-white py-16 md:py-24 px-[3%]">
+      <section className="bg-white py-16 md:py-24 px-[5%] md:px-[3%]">
         <div className="">
           {/* Section Header */}
           <div className="text-left md:text-center mb-10 md:mb-14 capitalize ">
@@ -37,7 +37,7 @@ const BatteryCapacityBlocks = ({ data }: { data: BatteryCapacityData }) => {
           </div>
 
           {/* Mobile: Horizontal Slider */}
-          <div className="flex overflow-x-auto md:hidden gap-4 -mx-[5%] px-[3%] [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none] pb-4 mb-10">
+          <div className="flex overflow-x-auto md:hidden gap-4 -mx-[5%] px-[5%] md:px-[3%] [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none] pb-4 mb-10">
             {data.cards.map((card, idx) => (
               <div
                 key={idx}

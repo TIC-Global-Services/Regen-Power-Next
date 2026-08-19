@@ -87,7 +87,7 @@ const ThreeSolutionsSection: React.FC<ThreeSolutionsSectionProps> = ({
 
     return (
         <section className="py-16 md:py-24 bg-white">
-            <div className="px-[3%] mx-auto">
+            <div className="px-[5%] md:px-[3%] mx-auto">
                 <div className="text-center max-w-7xl mx-auto mb-12 md:mb-16">
                     <p className="text-lg md:text-[2rem] text-black font-light tracking-tight ">
                         {subtitle}
@@ -111,7 +111,7 @@ const ThreeSolutionsSection: React.FC<ThreeSolutionsSectionProps> = ({
                 <div className="md:hidden">
                     <div
                         ref={sliderRef}
-                        className="flex gap-4 overflow-x-auto snap-x snap-mandatory scrollbar-hide pb-2 -mx-[2%] px-[3%]"
+                        className="flex gap-4 overflow-x-auto snap-x snap-mandatory scrollbar-hide pb-2 -mx-[2%] px-[5%] md:px-[3%]"
                         style={{ WebkitOverflowScrolling: 'touch', scrollbarWidth: 'none', msOverflowStyle: 'none' }}
                     >
                         {solutions.map((sol, idx) => (
@@ -132,8 +132,8 @@ const ThreeSolutionsSection: React.FC<ThreeSolutionsSectionProps> = ({
                                 aria-label={`Go to slide ${index + 1}`}
                                 onClick={() => scrollToIndex(index)}
                                 className={`rounded-full transition-all duration-300 ${index === activeIndex
-                                        ? 'w-7 h-2.5 bg-[#63B846]'
-                                        : 'w-2.5 h-2.5 bg-black/20'
+                                    ? 'w-7 h-2.5 bg-[#63B846]'
+                                    : 'w-2.5 h-2.5 bg-black/20'
                                     }`}
                             />
                         ))}

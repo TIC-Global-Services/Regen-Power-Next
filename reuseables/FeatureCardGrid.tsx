@@ -98,7 +98,7 @@ const FeatureCardGrid: React.FC<FeatureCardGridProps> = ({
 
   return (
     <Fade>
-      <section className="py-10 md:py-20 bg-white px-[3%] md:px-[3%] overflow-hidden">
+      <section className="py-10 md:py-20 bg-white px-[5%] md:px-[3%] md:px-[5%] md:px-[3%] overflow-hidden">
         <SectionHeader
           subtitle={topSubtitle}
           title={title}

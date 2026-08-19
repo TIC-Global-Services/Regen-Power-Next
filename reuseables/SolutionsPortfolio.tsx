@@ -69,7 +69,7 @@ const TextCardView: React.FC<{ card: TextCard; mobileScroll?: boolean }> = ({ ca
     const isDark = card.variant === 'dark';
     const titleLines = card.title.split('\n');
     return (
-        <div className={`${variantClass[card.variant]} rounded-2xl p-6 flex flex-col justify-between h-full min-h-[280px] ${mobileScroll ? 'shrink-0 w-[75vw] md:w-auto' : ''}`}>
+        <div className={`${variantClass[card.variant]} rounded-2xl p-6 flex flex-col justify-center gap-5 h-full min-h-[280px] ${mobileScroll ? 'shrink-0 w-[75vw] md:w-auto' : ''}`}>
             <h3 className="text-3xl md:text-[2.5rem] font-normal tracking-tight leading-[1] text-[#63B846] mb-2">
                 {titleLines.map((line, i) => (
                     <span key={i} className="block">{line}</span>
@@ -139,7 +139,7 @@ const SolutionsPortfolio: React.FC<SolutionsPortfolioProps> = ({
     mobileScroll = false,
 }) => {
     return (
-        <section className={`w-full px-[3%] py-12 md:py-20 ${className}`}>
+        <section className={`w-full px-[5%] md:px-[3%] py-12 md:py-20 ${className}`}>
             <div>
                 {showHeader && (subtitle || title) && (
                     <div className="text-center mb-10 md:mb-14">
@@ -162,7 +162,7 @@ const SolutionsPortfolio: React.FC<SolutionsPortfolioProps> = ({
                 )}
 
                 <div className={`${mobileScroll
-                    ? `flex overflow-x-auto md:grid ${desktopGridCols(layout)} snap-x snap-mandatory md:snap-none -mx-[5%] px-[3%] md:mx-0 md:px-0 gap-4 md:gap-6 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none] pb-4 md:pb-0`
+                    ? `flex overflow-x-auto md:grid ${desktopGridCols(layout)} snap-x snap-mandatory md:snap-none -mx-[5%] px-[5%] md:px-[3%] md:mx-0 md:px-0 gap-4 md:gap-6 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none] pb-4 md:pb-0`
                     : `grid ${gridCols[layout]} gap-5 md:gap-6`
                     }`}>
                     {cards.map((card, index) => {

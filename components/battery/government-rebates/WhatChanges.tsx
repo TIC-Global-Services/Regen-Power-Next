@@ -25,7 +25,7 @@ const WhatChanges: React.FC<WhatChangesProps> = ({ data }) => {
   const { title, subtitle, card1, card2, card3, card4 } = data;
 
   return (
-    <section className="w-full bg-white px-[3%] py-12 md:py-20 font-sans">
+    <section className="w-full bg-white px-[5%] md:px-[3%] py-12 md:py-20 font-sans">
       <div className="text-left md:text-center">
         {/* Header */}
         <div className="mb-10 md:mb-16 max-w-3xl mx-auto flex flex-col items-center">

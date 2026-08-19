@@ -16,7 +16,7 @@ const SpecsRowCards: React.FC<SpecsRowCardsProps> = ({ resolved }) => {
 
   return (
     <section className="py-16 md:py-20 bg-white">
-      <div className="px-[3%] mx-auto">
+      <div className="px-[5%] md:px-[3%] mx-auto">
         <SectionHeader
           subtitle={resolved.subtitle}
           title={resolved.title}

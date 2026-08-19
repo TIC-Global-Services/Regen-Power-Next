@@ -54,7 +54,7 @@ const ContactForm: React.FC<ContactFormProps> = ({
     const errorClass = 'text-red-600 text-xs mt-1';
 
     return (
-        <section className="w-full px-[3%] py-12 md:py-20">
+        <section className="w-full px-[5%] md:px-[3%] py-12 md:py-20">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 max-w-7xl mx-auto items-start">
                 <div>
                     <p className="text-2xl md:text-3xl font-light tracking-tight text-black mb-1">

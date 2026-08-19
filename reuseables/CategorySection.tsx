@@ -9,7 +9,7 @@ interface Props {
 
 export default function CategorySection({ resolved }: Props) {
   return (
-    <section className="py-16 md:py-24 bg-white px-[3%]">
+    <section className="py-16 md:py-24 bg-white px-[5%] md:px-[3%]">
       <SectionHeader
         subtitle={resolved.subtitle}
         title={resolved.title}

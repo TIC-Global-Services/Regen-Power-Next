@@ -18,7 +18,7 @@ const MicrogridSpecTable: React.FC<MicrogridSpecTableProps> = ({
     tableContent,
 }) => {
     return (
-        <section className="py-16 md:py-24 bg-white px-[3%]">
+        <section className="py-16 md:py-24 bg-white px-[5%] md:px-[3%]">
             <div className='bg-[#63B84666] border  border-[hsl(105,45%,50%)] flex  py-2 md:max-w-md mx-auto mb-10 justify-center gap-5 rounded-3xl'>
                 <h1 className='text-black font-bold text-xs md:text-base tracking-tight'>Microgrid spec table</h1>
                 <p className='text-black text-xs md:text-base tracking-tight'>Industries & applications card row</p>

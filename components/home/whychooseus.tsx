@@ -225,7 +225,7 @@ const WhyChooseUs: React.FC<WhyChooseUsProps> = ({
 }) => {
   return (
     <section className={`py-10 md:py-20 bg-white overflow-hidden ${className}`}>
-      <div className="px-[8%] md:px-[3%]">
+      <div className="px-[8%] md:px-[5%] md:px-[3%]">
         {(subtitle || title) && (
           <div className="flex flex-col justify-center items-center md:justify-start md:items-start mb-5 md:mb-20">
             {subtitle && (

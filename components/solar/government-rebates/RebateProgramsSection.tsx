@@ -44,7 +44,7 @@ export default function RebateProgramsSection({ resolved }: Props) {
 
   return (
     <section className="bg-white py-0 md:py-24">
-      <div className="mx-auto max-w-7xl px-[3%]">
+      <div className="mx-auto max-w-7xl px-[5%] md:px-[3%]">
         <SectionHeader
           subtitle={resolved.subtitle}
           title={resolved.title}
@@ -137,7 +137,7 @@ export default function RebateProgramsSection({ resolved }: Props) {
         })}
       </div>
 
-      <div className="space-y-4 lg:hidden px-[3%]">
+      <div className="space-y-4 lg:hidden px-[5%] md:px-[3%]">
         {programs.map((program) => {
           const isActive = program.label === activeId;
           const img = program.image;

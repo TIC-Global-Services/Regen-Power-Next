@@ -32,7 +32,7 @@ const AwardAndRecognations = ({ data }: AwardAndRecognationsProps) => {
         <h2 className="text-2xl md:text-3xl font-medium text-black">{data.title}</h2>
       </div>
 
-      <div className="lg:px-[3%]">
+      <div className="lg:px-[5%] md:px-[3%]">
         {/* Desktop View - Marquee */}
         <div className="hidden md:block w-full">
           <Marquee speed={25} gap={80} pauseOnHover={false}>
@@ -95,7 +95,7 @@ const AwardAndRecognations = ({ data }: AwardAndRecognationsProps) => {
       </div>
 
       {/* Dashed line at the bottom as shown in the design */}
-      {/* <div className="container mx-auto px-[3%] mt-16 max-w-7xl">
+      {/* <div className="container mx-auto px-[5%] md:px-[3%] mt-16 max-w-7xl">
         <div className="border-b-[1px] border-dashed border-[#8dc63f] w-full opacity-60" />
       </div> */}
     </section>

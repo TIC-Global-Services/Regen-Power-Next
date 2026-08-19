@@ -14,7 +14,7 @@ interface TimelineSectionProps {
 const TimelineSection: React.FC<TimelineSectionProps> = ({ resolved }) => {
   return (
     <section className="py-10 md:py-24 bg-white border-t border-gray-50 min-h-screen">
-      <div className="px-[3%] mx-auto">
+      <div className="px-[5%] md:px-[3%] mx-auto">
         <div className="lg:sticky lg:top-28 md:hidden justify-center mb-5">
           <div className="relative w-full aspect-[4/5]  max-w-[660px] rounded-[20px] overflow-hidden shadow-md">
             {resolved.image ? (

@@ -25,7 +25,7 @@ export default function CategorizedFaqSection({ resolved }: Props) {
   if (!activeCategory) return null;
 
   return (
-    <section className="bg-white px-[3%] py-16 md:py-24">
+    <section className="bg-white px-[5%] md:px-[3%] py-16 md:py-24">
       <div className="">
         <div className="overflow-x-auto pb-3">
           <div className="flex gap-2 md:gap-4">
@@ -45,8 +45,8 @@ export default function CategorizedFaqSection({ resolved }: Props) {
                     setOpenIndex(0);
                   }}
                   className={`whitespace-nowrap shrink-0 rounded-full text-sm md:text-xl px-4 py-2.5 md:px-7 md:py-4 tracking-tight transition-colors ${active
-                      ? "bg-[#CBEFB8] text-black"
-                      : "bg-transparent text-black/90 hover:bg-[#EEF6EB]"
+                    ? "bg-[#CBEFB8] text-black"
+                    : "bg-transparent text-black/90 hover:bg-[#EEF6EB]"
                     }`}
                 >
                   {category.label}

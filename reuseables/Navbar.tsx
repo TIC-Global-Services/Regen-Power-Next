@@ -187,7 +187,7 @@ const Navbar = () => {
 
   return (
     <header className={`fixed top-0 left-0 right-0 z-50 w-full py-6 px-4 md:px-8 transition-transform duration-300 ${isVisible ? 'translate-y-0' : '-translate-y-full'}`}>
-      <div className="px-[3%] flex items-center justify-between">
+      <div className="px-[5%] md:px-[3%] flex items-center justify-between">
         {/* Logo */}
         <Link href="/" className="flex-shrink-0 z-50">
           <Image
@@ -228,11 +228,10 @@ const Navbar = () => {
                   {/* Dropdown Menu */}
                   {item.subItems && (
                     <div
-                      className={`absolute left-0 top-full pt-4 transition-all duration-300 transform ${
-                        isHovered
+                      className={`absolute left-0 top-full pt-4 transition-all duration-300 transform ${isHovered
                           ? 'opacity-100 visible translate-y-0'
                           : 'opacity-0 invisible translate-y-2'
-                      }`}
+                        }`}
                     >
                       <div className="bg-white rounded-xl shadow-xl overflow-hidden min-w-[200px] border border-gray-100 p-2">
                         <ul className="flex flex-col">
@@ -317,9 +316,8 @@ const Navbar = () => {
                   {/* Mobile Submenu Accordion */}
                   {hasSubItems && (
                     <div
-                      className={`grid transition-all duration-300 ease-in-out ${
-                        isExpanded ? 'grid-rows-[1fr] opacity-100 mt-2' : 'grid-rows-[0fr] opacity-0 pointer-events-none'
-                      }`}
+                      className={`grid transition-all duration-300 ease-in-out ${isExpanded ? 'grid-rows-[1fr] opacity-100 mt-2' : 'grid-rows-[0fr] opacity-0 pointer-events-none'
+                        }`}
                     >
                       <div className="overflow-hidden">
                         <ul className="flex flex-col gap-3 pl-4 border-l border-white/10">

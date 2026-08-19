@@ -32,7 +32,7 @@ const SolarFinancing = ({ data }: { data: SolarFinancingProps }) => {
   const cards = gridItems;
 
   return (
-    <section className="relative w-full py-20 md:py-20 px-[3%] overflow-hidden min-h-screen flex justify-center items-center bg-black">
+    <section className="relative w-full py-20 md:py-20 px-[5%] md:px-[3%] overflow-hidden min-h-screen flex justify-center items-center bg-black">
       {/* Background Image with dark overlay */}
       <div className="absolute inset-0 z-0">
         <img
@@ -68,8 +68,8 @@ const SolarFinancing = ({ data }: { data: SolarFinancingProps }) => {
                   key={idx}
                   onMouseEnter={() => setHoveredIndex(idx)}
                   className={`rounded-[12px] p-8 flex flex-col items-center justify-center text-center transition-all duration-300 min-h-[220px] cursor-pointer shadow-xl ${isHovered
-                      ? "bg-white border border-white/20 text-black transform scale-[1.02]"
-                      : "bg-[#FFFFFF4D] hover:bg-white/15 border border-white/10 text-white backdrop-blur-md"
+                    ? "bg-white border border-white/20 text-black transform scale-[1.02]"
+                    : "bg-[#FFFFFF4D] hover:bg-white/15 border border-white/10 text-white backdrop-blur-md"
                     }`}
                 >
                   {isHovered ? (

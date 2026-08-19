@@ -25,7 +25,7 @@ const InverterSlider: React.FC<InverterSliderProps> = ({ resolved }) => {
   if (slides.length === 0) {
     return (
       <section className="py-16 md:py-24 bg-white">
-        <div className="px-[3%]">
+        <div className="px-[5%] md:px-[3%]">
           <SectionHeader
             subtitle={resolved.subtitle}
             title={resolved.title}
@@ -39,7 +39,7 @@ const InverterSlider: React.FC<InverterSliderProps> = ({ resolved }) => {
 
   return (
     <section className="py-16 md:py-24 bg-white">
-      <div className="px-[3%]">
+      <div className="px-[5%] md:px-[3%]">
         <div className="flex flex-col lg:flex-row items-center justify-between gap-10 mb-12">
           <div className="">
             {/* <SectionHeader

@@ -54,7 +54,7 @@ const Craftsmanship = ({ data }: CraftsmanshipProps) => {
 
   return (
     <section className="py-10 md:py-20 bg-white overflow-hidden">
-      <div className="px-[3%]">
+      <div className="px-[5%] md:px-[3%]">
         {/* <SectionHeader
           subtitle={data.subtitle}
           title={data.title}

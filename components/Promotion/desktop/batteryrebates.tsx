@@ -60,7 +60,7 @@ const BatteryRebates = ({ data }: { data: BatteryRebatesProps }) => {
   const currentRows = slides[slideIndex] ?? [];
 
   return (
-    <section className="relative w-full py-20 md:py-20 px-[3%] overflow-hidden min-h-screen flex items-start bg-black">
+    <section className="relative w-full py-20 md:py-20 px-[5%] md:px-[3%] overflow-hidden min-h-screen flex items-start bg-black">
       {/* Background Image */}
       <img
         src={bgImage || "/battery_rebates_fallback.png"}
@@ -112,8 +112,8 @@ const BatteryRebates = ({ data }: { data: BatteryRebatesProps }) => {
                     <div
                       key={idx}
                       className={`grid grid-cols-12 items-center p-4 md:p-8  transition-colors duration-200 ${idx === 0
-                          ? "bg-white  border border-[#EBEBEB] "
-                          : "hover:bg-white/5 border-b border-[#FFFFFF33]"
+                        ? "bg-white  border border-[#EBEBEB] "
+                        : "hover:bg-white/5 border-b border-[#FFFFFF33]"
                         }`}
                     >
                       {/* Title (right-aligned) */}

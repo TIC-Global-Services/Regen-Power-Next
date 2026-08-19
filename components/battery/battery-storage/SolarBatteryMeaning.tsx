@@ -19,7 +19,7 @@ const SolarBatteryMeaning = ({ data }: { data: SolarBatteryMeaningData }) => {
   const [activeIndex, setActiveIndex] = useState(0);
 
   return (
-    <section className="bg-white py-16 md:py-24 px-[3%]">
+    <section className="bg-white py-16 md:py-24 px-[5%] md:px-[3%]">
       <div className="text-left md:text-center capitalize mb-12 leading-[1.1]">
         <h3 className="text-base md:text-[2.125rem] text-black font-normal leading-[1] tracking-tight ">
           {data.topSubtitle}
@@ -33,7 +33,7 @@ const SolarBatteryMeaning = ({ data }: { data: SolarBatteryMeaningData }) => {
       </div>
 
       {/* Mobile: Horizontal Slider */}
-      <div className="flex overflow-x-auto md:hidden gap-4 -mx-[5%] px-[3%] [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none] pb-4 max-w-7xl">
+      <div className="flex overflow-x-auto md:hidden gap-4 -mx-[5%] px-[5%] md:px-[3%] [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none] pb-4 max-w-7xl">
         {data.cards.map((card, idx) => {
           return (
             <div

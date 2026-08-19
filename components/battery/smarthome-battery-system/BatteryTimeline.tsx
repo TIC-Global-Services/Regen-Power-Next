@@ -43,7 +43,7 @@ const BatteryTimeline = ({ data }: { data: BatteryTimelineData }) => {
   const activeEvent = data.events[activeIndex];
 
   return (
-    <section className="bg-white py-16 md:py-24 px-[3%] overflow-hidden">
+    <section className="bg-white py-16 md:py-24 px-[5%] md:px-[3%] overflow-hidden">
       <div className="">
         <div className="text-center mb-16">
           <h3 className="text-xl md:text-2xl text-black tracking-tight font-normal">

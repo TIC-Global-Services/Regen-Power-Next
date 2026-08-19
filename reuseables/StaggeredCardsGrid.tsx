@@ -107,7 +107,7 @@ const StaggeredCardsGrid: React.FC<StaggeredCardsGridProps> = ({
 }) => {
   return (
     <section className={`py-16 md:py-24 bg-white ${className}`}>
-      <div className="px-[3%] mx-auto">
+      <div className="px-[5%] md:px-[3%] mx-auto">
 
         {badge && (
           <div className={`mb-6 flex ${align === "left" ? "justify-start" : align === "right" ? "justify-end" : "justify-center"}`}>

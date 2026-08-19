@@ -17,7 +17,7 @@ const SolarPackages: React.FC<SolarPackagesProps> = ({ resolved }) => {
 
   return (
     <section className="py-10 md:py-20 bg-white border-t border-gray-50">
-      <div className="px-[3%] mx-auto">
+      <div className="px-[5%] md:px-[3%] mx-auto">
 
         {/* Header Section */}
         <SectionHeader

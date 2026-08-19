@@ -135,7 +135,7 @@ const CardItem = ({ card }: { card: LimitedSpotCard }) => {
 
 const LimitedSpot = ({ data }: { data: LimitedSpotProps }) => {
   return (
-    <section className="bg-white py-16 md:py-20 px-[3%]">
+    <section className="bg-white py-16 md:py-20 px-[5%] md:px-[3%]">
       <Fade>
         <div className="max-w-7xl mx-auto">
           {/* Section Header */}

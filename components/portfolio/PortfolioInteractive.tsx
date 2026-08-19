@@ -130,7 +130,7 @@ const PortfolioInteractive: React.FC<PortfolioInteractiveProps> = ({
       />
 
       {/* Results count */}
-      <section className="w-full px-[3%]">
+      <section className="w-full px-[5%] md:px-[3%]">
         <div className="max-w-7xl mx-auto pt-4 pb-2">
           <p className="text-sm text-black/50 tracking-tight">
             Showing {visibleItems.length} of {filteredItems.length} project{filteredItems.length !== 1 ? 's' : ''}
@@ -139,7 +139,7 @@ const PortfolioInteractive: React.FC<PortfolioInteractiveProps> = ({
       </section>
 
       {/* Grid */}
-      <section className="w-full px-[3%] py-8 md:py-12">
+      <section className="w-full px-[5%] md:px-[3%] py-8 md:py-12">
         <div className="max-w-7xl mx-auto">
           {visibleItems.length === 0 ? (
             <p className="text-center text-black/60 py-16 tracking-tight">
@@ -157,7 +157,7 @@ const PortfolioInteractive: React.FC<PortfolioInteractiveProps> = ({
 
       {/* Pagination */}
       {totalPages > 1 && (
-        <section className="w-full px-[3%] pb-12">
+        <section className="w-full px-[5%] md:px-[3%] pb-12">
           <div className="max-w-7xl mx-auto flex justify-center items-center gap-2">
             {/* Previous button */}
             <button
@@ -180,8 +180,8 @@ const PortfolioInteractive: React.FC<PortfolioInteractiveProps> = ({
                   key={page}
                   onClick={() => setCurrentPage(page)}
                   className={`min-w-[36px] h-9 rounded-lg text-sm font-medium tracking-tight transition-all cursor-pointer ${safePage === page
-                      ? 'bg-[#A0CF44] text-white'
-                      : 'text-black/70 hover:bg-[#E5EFD5]'
+                    ? 'bg-[#A0CF44] text-white'
+                    : 'text-black/70 hover:bg-[#E5EFD5]'
                     }`}
                 >
                   {page}

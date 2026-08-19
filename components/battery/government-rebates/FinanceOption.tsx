@@ -52,7 +52,7 @@ const FinanceOptionBlock: React.FC<{ data: FinanceOptionData }> = ({ data }) => 
   }, [data.sections.length]);
 
   return (
-    <section className="w-full px-[3%] py-12 md:py-20 bg-white">
+    <section className="w-full px-[5%] md:px-[3%] py-12 md:py-20 bg-white">
       {/* Scrolling Parent Container */}
       <div className="relative w-full max-w-[1400px] mx-auto" style={{ height: `${data.sections.length * 80}vh` }}>
 
@@ -98,7 +98,7 @@ const FinanceOptionBlock: React.FC<{ data: FinanceOptionData }> = ({ data }) => 
                     <h3 className={`text-2xl md:text-3xl font-normal mb-4 tracking-tight transition-colors duration-500 ${activeIndex === index ? 'text-black' : 'text-[#9CA3AF]'}`}>
                       {section.title}
                     </h3>
-                    <ul className="flex flex-col gap-1 ">
+                    <ul className="flex flex-col">
                       {section.listItems.map((item, i) => (
                         <li key={i} className={`flex items-start text-base md:text-lg font-normal leading-[1.2] transition-colors duration-500 ${activeIndex === index ? 'text-black' : 'text-[#9CA3AF]'}`}>
                           <span className="mr-2 mt-0.5">•</span>
@@ -110,7 +110,7 @@ const FinanceOptionBlock: React.FC<{ data: FinanceOptionData }> = ({ data }) => 
 
                   {/* Divider if not last */}
                   {index < data.sections.length - 1 && (
-                    <hr className="border-gray-200 w-full" />
+                    <hr className="border-black/30 w-full" />
                   )}
                 </div>
               ))}

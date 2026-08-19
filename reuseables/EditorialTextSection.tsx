@@ -162,7 +162,7 @@ const EditorialTextSection: React.FC<EditorialTextSectionProps> = ({
     return (
       <section
         ref={sectionRef}
-        className={`w-full bg-white relative overflow-hidden min-h-screen flex flex-col justify-center px-[3%]`}
+        className={`w-full bg-white relative overflow-hidden min-h-screen flex flex-col justify-center px-[5%] md:px-[3%]`}
       >
         <div className="w-full md:px-16">
           {headerSection}

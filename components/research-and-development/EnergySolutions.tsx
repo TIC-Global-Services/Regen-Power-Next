@@ -39,7 +39,7 @@ const EnergySolutions = ({ resolved }: Props) => {
   };
 
   return (
-    <section className="w-full px-[3%] py-10 md:py-20">
+    <section className="w-full px-[5%] md:px-[3%] py-10 md:py-20">
       <div >
         <div className="mb-8 md:mb-12 capitalize">
           <p className="text-base md:text-3xl leading-none font-light tracking-tight text-black ">
@@ -80,7 +80,7 @@ const EnergySolutions = ({ resolved }: Props) => {
         <div className="md:hidden">
           <div
             ref={sliderRef}
-            className="flex gap-4 overflow-x-auto scrollbar-hide pb-2 -mx-[5%] px-[3%]"
+            className="flex gap-4 overflow-x-auto scrollbar-hide pb-2 -mx-[5%] px-[5%] md:px-[3%]"
             style={{ WebkitOverflowScrolling: 'touch', scrollbarWidth: 'none', msOverflowStyle: 'none' }}
           >
             {items.map((item, index) => (
@@ -119,8 +119,8 @@ const EnergySolutions = ({ resolved }: Props) => {
                 aria-label={`Go to slide ${index + 1}`}
                 onClick={() => scrollToIndex(index)}
                 className={`rounded-full transition-all duration-300 ${index === activeIndex
-                    ? 'w-7 h-2.5 bg-[#63B846]'
-                    : 'w-2.5 h-2.5 bg-black/20'
+                  ? 'w-7 h-2.5 bg-[#63B846]'
+                  : 'w-2.5 h-2.5 bg-black/20'
                   }`}
               />
             ))}
