@@ -23,7 +23,7 @@ const SolarBrandsGrid: React.FC<SolarBrandsGridProps> = ({ resolved }) => {
           align="center"
           titleClass="text-[3.125rem] md:text-[5rem]"
           subtitleClass="font-normal text-xl md:text-[2.125rem]"
-          descClass="max-w-2xl "
+          descClass="max-w-2xl mx-auto"
           className="mb-12 hidden md:block"
         />
         <SectionHeader

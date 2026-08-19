@@ -50,7 +50,7 @@ const Hero: React.FC<HeroProps> = ({
                 <div className="absolute inset-0 z-0">
                     {mediaType === 'video' ? (
                         <video
-                            src={videoFile}
+                            src={typeof mediaSrc === 'string' ? mediaSrc : mediaSrc.src}
                             className="w-full h-full object-cover"
                             autoPlay
                             loop
