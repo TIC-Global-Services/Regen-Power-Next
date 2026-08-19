@@ -1,8 +1,16 @@
+'use client';
+
 import React from 'react'
 import CtaButton from './CtaButton'
 import { ArrowUpRight, CalculatorIcon } from 'lucide-react'
 
 const PromotionNav = () => {
+  const handleScrollToQuote = () => {
+    const element = document.getElementById('quote-form-section');
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
   return (
     <div className='absolute top-0 left-0 right-0 z-50 w-full py-6 px-[5%] md:px-[3%]'>
       <nav className='flex justify-between items-center max-w-7xl mx-auto'>
@@ -14,7 +22,7 @@ const PromotionNav = () => {
         </div>
         <div className='flex gap-4 items-center'>
           <div className='md:flex gap-2 hidden'>
-            <CtaButton text='Free Quote' textColor='text-white' />
+            <CtaButton text='Free Quote' textColor='text-white' onClick={handleScrollToQuote} />
             <CtaButton text='Call 08-9456-3491' textColor='text-white' textClass="text-xs md:text-sm" />
           </div>
           <div className='md:hidden'>

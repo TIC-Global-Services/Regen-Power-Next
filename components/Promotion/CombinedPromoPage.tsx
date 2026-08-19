@@ -69,7 +69,9 @@ const CombinedPromoPage = () => {
         <DesktopHero data={desktopHeroData} />
         <LimitedSpot data={desktopLimitedSpotData} />
         <TrustRegen data={desktopTrustRegenData} />
-        <FreeQuotation data={desktopFreeQuotationData} />
+        <div id='quote-form-section'>
+          <FreeQuotation data={desktopFreeQuotationData} />
+        </div>
         <BatteryRebates data={desktopBatteryRebatesData} />
         <DesktopBrands data={desktopBrandsData} />
         <HighEnergy data={desktopHighEnergyData} />

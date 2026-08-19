@@ -65,7 +65,7 @@ const Awards = ({
                     </p>
                   )}
                 </div>
-                {i !== 1 && <div className='h-[0.5px] bg-[#00000033] w-full mt-5 mb-10 mx-auto'></div>}
+                {i !== 1 && <div className='h-[0.5px] bg-[#00000033] w-full mt-5 mb-10 mx-auto md:hidden'></div>}
               </Reveal>
               
             ))}
