@@ -1,4 +1,6 @@
-import React from "react";
+'use client';
+
+import React, { useState } from "react";
 import Image from "next/image";
 import Reveal from "@/reuseables/Reveal";
 import CtaButton from "@/reuseables/CtaButton";
@@ -14,6 +16,10 @@ const SizingGuideTable: React.FC<SizingGuideTableProps> = ({ resolved }) => {
   const columns = resolved.columns;
   const rows = resolved.rows;
   const sizingCards = resolved.sizingCards;
+
+  // Mobile: currently selected column (hidden on desktop)
+  const [activeCol, setActiveCol] = useState(0);
+  const active = Math.min(activeCol, Math.max(columns.length - 1, 0));
 
   return (
     <section className="py-16 md:py-24 bg-white border-t border-gray-50">
@@ -40,7 +46,46 @@ const SizingGuideTable: React.FC<SizingGuideTableProps> = ({ resolved }) => {
         </div>
 
         {rows.length > 0 ? (
-          <div className="overflow-x-auto rounded-[24px] mt-12 mb-16 max-w-5xl mx-auto overflow-hidden">
+          <>
+            {/* Mobile: column pill picker + stacked rows */}
+            <div className="md:hidden mt-12 mb-16">
+              <div className="flex gap-2 mb-4 overflow-x-auto pb-2 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+                {columns.map((col, idx) => (
+                  <button
+                    key={idx}
+                    type="button"
+                    onClick={() => setActiveCol(idx)}
+                    className={`shrink-0 px-4 py-2 rounded-full text-sm font-medium transition-colors cursor-pointer ${
+                      idx === active
+                        ? "bg-[#63B846] text-white"
+                        : "bg-gray-100 text-black/60"
+                    }`}
+                  >
+                    {col.title}
+                  </button>
+                ))}
+              </div>
+              <div className="rounded-[24px] overflow-hidden border border-[#E5E7EB]">
+                {rows.map((row, rIdx) => (
+                  <div
+                    key={rIdx}
+                    className={`flex justify-between items-center gap-4 px-4 py-3 border-b border-[#E5E7EB] last:border-b-0 ${
+                      rIdx % 2 === 0 ? "bg-white" : "bg-[#F7FBF5]"
+                    }`}
+                  >
+                    <span className="text-sm font-semibold text-black">
+                      {row.label}
+                    </span>
+                    <span className="text-sm text-black/70 text-right max-w-[55%]">
+                      {row.values[active]?.text ?? ""}
+                    </span>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Desktop: full table */}
+            <div className="hidden md:block overflow-x-auto rounded-[24px] mt-12 mb-16 max-w-5xl mx-auto overflow-hidden">
             <table className="w-full border-collapse text-center bg-white">
               <thead>
                 <tr className="bg-[#A0CF44] text-black font-[var(--font-aeonik)] h-[120px]">
@@ -91,7 +136,8 @@ const SizingGuideTable: React.FC<SizingGuideTableProps> = ({ resolved }) => {
                 })}
               </tbody>
             </table>
-          </div>
+            </div>
+          </>
         ) : (
           <MissingImage label="Sizing table rows" aspect="aspect-[3/1] my-12 max-w-4xl mx-auto" />
         )}
