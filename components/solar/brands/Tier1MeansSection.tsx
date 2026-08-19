@@ -20,7 +20,7 @@ const Tier1MeansSection: React.FC<Tier1MeansSectionProps> = ({ resolved }) => {
 
   return (
     <section className="bg-white border-t border-gray-50 min-h-screen flex items-stretch">
-      <div className="grid grid-cols-1 lg:grid-cols-2 items-stretch w-full min-h-screen px-[3%]">
+      <div className="grid grid-cols-1 lg:grid-cols-2 items-stretch w-full min-h-screen px-[3%] md:px-[0%]">
         <Reveal
           className={`relative  w-full h-[450px] rounded-[20px] md:rounded-none lg:h-screen overflow-hidden ${isImageLeft ? "lg:order-first" : "lg:order-last"}`}
         >

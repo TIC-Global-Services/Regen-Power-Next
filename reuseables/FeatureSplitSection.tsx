@@ -6,6 +6,7 @@ import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/dist/ScrollTrigger';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Pagination } from 'swiper/modules';
+import { ChevronLeft, ChevronRight } from 'lucide-react';
 
 import 'swiper/css';
 import 'swiper/css/pagination';
@@ -45,6 +46,7 @@ const FeatureSplitSection: React.FC<FeatureSplitSectionProps> = ({
 }) => {
     const containerRef = useRef<HTMLDivElement>(null);
     const [activeIndex, setActiveIndex] = useState(0);
+    const [mobileActiveIndex, setMobileActiveIndex] = useState(0);
 
     useEffect(() => {
         gsap.registerPlugin(ScrollTrigger);
@@ -157,7 +159,7 @@ const FeatureSplitSection: React.FC<FeatureSplitSectionProps> = ({
             </div>
 
             {/* Mobile & Tablet */}
-            <div className="lg:hidden flex flex-col px-[5%] md:px-[3%] py-16 md:py-24 gap-2">
+            <div className="lg:hidden flex flex-col px-[5%] md:px-[3%] py-16 md:py-24 gap-4">
                 <SectionHeader
                     subtitle={subtitle}
                     title={<span style={{ color: accentColor }}>{heading}</span>}
@@ -167,41 +169,69 @@ const FeatureSplitSection: React.FC<FeatureSplitSectionProps> = ({
                     titleClass="text-3xl md:text-4xl lg:text-[2.75rem] xl:text-[3.25rem] font-normal leading-none tracking-tight mb-6"
                     descClass="mb-6 text-gray-600 leading-[1.2] font-light"
                 />
-                {features[0]?.image && (
+                {features[mobileActiveIndex]?.image && (
                     <div className="relative w-full aspect-[4/3] rounded-2xl overflow-hidden shadow-lg bg-gray-50">
                         <img
                             src={
-                                typeof features[0].image === 'object' && features[0].image !== null && 'src' in features[0].image
-                                    ? features[0].image.src
-                                    : typeof features[0].image === 'string'
-                                        ? features[0].image
+                                typeof features[mobileActiveIndex].image === 'object' && features[mobileActiveIndex].image !== null && 'src' in features[mobileActiveIndex].image
+                                    ? features[mobileActiveIndex].image.src
+                                    : typeof features[mobileActiveIndex].image === 'string'
+                                        ? features[mobileActiveIndex].image
                                         : ''
                             }
                             alt={
-                                typeof features[0].image === 'object' && features[0].image !== null && 'alt' in features[0].image
-                                    ? (features[0].image.alt || features[0].title)
-                                    : features[0].title
+                                typeof features[mobileActiveIndex].image === 'object' && features[mobileActiveIndex].image !== null && 'alt' in features[mobileActiveIndex].image
+                                    ? (features[mobileActiveIndex].image.alt || features[mobileActiveIndex].title)
+                                    : features[mobileActiveIndex].title
                             }
-                            className="object-cover w-full h-full"
+                            className="object-cover w-full h-full transition-all duration-300"
                         />
                     </div>
                 )}
-                
 
-                <div className="flex flex-col gap-6">
-                    {features.map((feature, index) => (
-                        <div key={index} className="flex flex-col gap-1">
-                            <h3 className="text-lg font-semibold text-black tracking-tight">
-                                {feature.title}
-                            </h3>
-                            <p className="text-sm leading-[1.3] text-gray-600">
-                                {feature.description}
-                            </p>
-                        </div>
-                    ))}
+                <div className="flex flex-col gap-4 mt-4">
+                    <div className="flex flex-col gap-1 min-h-[100px]">
+                        <h3 className="text-lg font-semibold text-black tracking-tight">
+                            {features[mobileActiveIndex]?.title}
+                        </h3>
+                        <p className="text-sm leading-[1.3] text-gray-600">
+                            {features[mobileActiveIndex]?.description}
+                        </p>
+                    </div>
+
+                    {/* Navigation Buttons */}
+                    <div className="flex items-center justify-center gap-4 mt-2">
+                        <button
+                            type="button"
+                            onClick={() => setMobileActiveIndex(prev => Math.max(0, prev - 1))}
+                            disabled={mobileActiveIndex === 0}
+                            style={mobileActiveIndex !== 0 ? { borderColor: accentColor, color: accentColor } : {}}
+                            className={`p-3 rounded-full border transition-all duration-300 flex items-center justify-center ${
+                                mobileActiveIndex === 0
+                                    ? 'border-gray-200 bg-black text-[#63B846] cursor-not-allowed'
+                                    : 'hover:bg-opacity-10 active:scale-95 bg-black text-[#63B846]'
+                            }`}
+                        >
+                            <ChevronLeft size={20} />
+                        </button>
+                        <span className="text-sm font-semibold text-black tracking-tight">
+                            {mobileActiveIndex + 1} <span className="text-gray-400">/</span> {features.length}
+                        </span>
+                        <button
+                            type="button"
+                            onClick={() => setMobileActiveIndex(prev => Math.min(features.length - 1, prev + 1))}
+                            disabled={mobileActiveIndex === features.length - 1}
+                            style={mobileActiveIndex !== features.length - 1 ? { borderColor: accentColor, color: accentColor } : {}}
+                            className={`p-3 rounded-full border transition-all duration-300 flex items-center justify-center ${
+                                mobileActiveIndex === features.length - 1
+                                    ? 'border-gray-200 bg-black text-[#63B846] cursor-not-allowed'
+                                    : 'hover:bg-opacity-10 active:scale-95 bg-black text-[#63B846]'
+                            }`}
+                        >
+                            <ChevronRight size={20} />
+                        </button>
+                    </div>
                 </div>
-
-
             </div>
         </section>
     );
