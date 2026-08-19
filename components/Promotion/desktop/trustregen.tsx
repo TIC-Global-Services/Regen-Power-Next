@@ -39,10 +39,10 @@ const TrustRegen = ({ data }: { data: TrustRegenProps }) => {
               const borderColor = isActive ? '#63B846' : 'rgba(99, 184, 70, 0.25)';
 
               return (
-                <Reveal key={idx}>
+                <Reveal key={idx} className="h-full">
                   <div
 
-                    className="relative flex flex-col items-center text-center cursor-pointer px-6 py-10 md:px-8 md:py-12 transition-all duration-300"
+                    className="relative h-full flex flex-col items-center text-center cursor-pointer px-6 py-10 md:px-8 md:py-12 transition-all duration-300"
                     onMouseEnter={() => setActiveIdx(idx)}
                     style={{
                       borderBottom: `2px solid ${borderColor}`,
