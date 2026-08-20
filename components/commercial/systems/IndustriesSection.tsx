@@ -27,7 +27,7 @@ export default function IndustriesSection({ resolved }: Props) {
             <Reveal
               key={idx}
               delay={idx * 0.08}
-              className="bg-[#E5EFD5] rounded-[20px] p-6 md:p-8 flex flex-col min-h-[320px] md:min-h-[360px] hover:bg-[#D7E5C0] transition-colors duration-300"
+              className="bg-[#EEF6EB] rounded-[20px] p-6 md:p-8 flex flex-col min-h-[320px] md:min-h-[440px] hover:bg-[#D7E5C0] transition-colors duration-300"
             >
               <div className="relative w-12 h-12 md:w-14 md:h-14">
                 <img

@@ -75,7 +75,7 @@ export default function FiveThingsSection({ resolved }: Props) {
                 ) : null}
 
                 <div
-                  className={`${bg} rounded-[20px] z-10 p-5 lg:p-6 lg:p-7 flex flex-col justify-center w-full h-[280px] lg:h-[340px] lg:h-[50dvh] transition-all duration-300 hover:scale-[1.02]`}
+                  className={`${bg} rounded-[20px] z-10 p-5 lg:p-6 lg:p-7 flex flex-col justify-center w-full h-[280px] lg:h-[50dvh] transition-all duration-300 hover:scale-[1.02]`}
                 >
                   <h3 className="text-lg lg:text-xl lg:text-3xl font-normal text-black tracking-tight leading-tight mb-3">
                     {item.title}

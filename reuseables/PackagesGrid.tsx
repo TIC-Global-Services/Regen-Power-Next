@@ -60,7 +60,7 @@ const PackagesGrid: React.FC<PackagesGridProps> = ({
             <Reveal
               key={idx}
               delay={idx * 0.1}
-              className={`rounded-[20px] p-8 md:p-10 flex flex-col justify-between  shadow-sm transition-all duration-300 hover:shadow-lg w-full lg:max-w-[434px] min-h-[380px] lg:h-[540px] overflow-hidden mx-auto
+              className={`rounded-[20px] p-8 md:p-10 flex flex-col justify-between  shadow-sm transition-all duration-300 hover:shadow-lg lg:w-full  min-h-[380px] lg:h-[540px] overflow-hidden mx-auto
                 bg-[#EEF6EB] hover:bg-[#A0CF44]
               `}
             >

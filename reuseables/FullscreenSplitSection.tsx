@@ -63,7 +63,7 @@ const FullscreenSplitSection: React.FC<FullscreenSplitSectionProps> = ({
 
   return (
     <section className={`min-h-screen flex items-stretch overflow-hidden ${className}`}>
-      <div className={`grid grid-cols-1 lg:grid-cols-2 items-stretch w-full min-h-screen ${gridClassName}`}>
+      <div className={`grid grid-cols-1 lg:grid-cols-2 items-stretch w-full lg:min-h-screen ${gridClassName}`}>
 
         {/* Image Column */}
         <Reveal
@@ -71,7 +71,7 @@ const FullscreenSplitSection: React.FC<FullscreenSplitSectionProps> = ({
             isImageLeft ? 'lg:order-first' : 'lg:order-last'
           } ${imageColumnClassName}`}
         >
-          <div className={`relative w-full h-full min-h-[350px] md:min-h-[450px] lg:min-h-0 rounded-[20px] md:rounded-[20px] lg:rounded-none overflow-hidden bg-gray-50 ${imageClassName}`}>
+          <div className={`relative w-full h-full min-h-[350px] md:h-[55dvh] lg:min-h-0 rounded-[20px] md:rounded-[20px] lg:rounded-none overflow-hidden bg-gray-50 ${imageClassName}`}>
             <img
               src={imgSrc}
               alt={imageAlt}
@@ -90,7 +90,7 @@ const FullscreenSplitSection: React.FC<FullscreenSplitSectionProps> = ({
             <>
               <div>
                 {badge && (
-                  <span className={`mb-3 md:mb-4 inline-flex rounded-full bg-[#E5DDD8] px-4 py-1.5 md:px-5 md:py-2 text-[10px] md:text-xs font-medium uppercase tracking-wide text-black ${badgeClassName}`}>
+                  <span className={`mb-3 lg:mb-4 inline-flex rounded-full bg-[#E5DDD8] px-4 py-1.5 md:px-5 md:py-2 text-[10px] md:text-xs font-medium uppercase tracking-wide text-black ${badgeClassName}`}>
                     {badge}
                   </span>
                 )}
@@ -103,9 +103,9 @@ const FullscreenSplitSection: React.FC<FullscreenSplitSectionProps> = ({
                 />
               </div>
 
-              <div className="mt-6 md:mt-12 lg:mt-24">
+              <div className="mt-6 md:mt-6 lg:mt-24">
                 <Fade delay={0.2}>
-                  <div className={`text-base md:text-xl lg:text-2xl tracking-tight leading-relaxed md:leading-tight ${descriptionClass}`}>
+                  <div className={`text-base md:text-xl lg:text-2xl tracking-tight leading-[1.2] md:leading-tight ${descriptionClass}`}>
                     {description}
                   </div>
                 </Fade>
@@ -114,7 +114,7 @@ const FullscreenSplitSection: React.FC<FullscreenSplitSectionProps> = ({
           ) : (
             <div>
               {badge && (
-                <span className={`mb-4 md:mb-6 inline-flex rounded-full bg-[#E5DDD8] px-4 py-1.5 md:px-5 md:py-2 text-[10px] md:text-xs font-medium uppercase tracking-wide text-black ${badgeClassName}`}>
+                <span className={`mb-4 lg:mb-6 inline-flex rounded-full bg-[#E5DDD8] px-4 py-1.5 md:px-5 md:py-2 text-[10px] md:text-xs font-medium uppercase tracking-wide text-black ${badgeClassName}`}>
                   {badge}
                 </span>
               )}
@@ -125,7 +125,7 @@ const FullscreenSplitSection: React.FC<FullscreenSplitSectionProps> = ({
                 subtitleClass={`text-base md:text-2xl font-medium normal-case ${subtitleClass}`}
                 titleClass={`text-4xl md:text-5xl lg:text-[4.5rem] font-normal leading-none tracking-tight mb-4 md:mb-6 text-[#63B846] ${titleClass}`}
               />
-              <div className="mt-4 md:mt-8 max-w-2xl">
+              <div className="mt-4 lg:mt-8 max-w-2xl">
                 <Fade delay={0.2}>
                   <p className={`text-sm md:text-xl lg:text-xl tracking-tight leading-relaxed ${descriptionClass}`}>
                     {description}

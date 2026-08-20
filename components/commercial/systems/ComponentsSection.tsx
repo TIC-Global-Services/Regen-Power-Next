@@ -77,10 +77,10 @@ export default function ComponentsSection({ resolved }: Props) {
 
           <div className="relative z-10 px-12 lg:px-10 pt-16 max-w-3xl">
             <Fade>
-              <p className="text-2xl font-light text-white tracking-tight mb-1">
+              <p className="text-[1.75rem] font-light text-white tracking-tight leading-none">
                 {subtitle}
               </p>
-              <h2 className="text-6xl lg:text-[4.5rem] text-[#63B846] font-normal tracking-tighter leading-none mb-5">
+              <h2 className="text-6xl lg:text-[3.75rem] text-[#63B846] font-normal tracking-tighter leading-none mb-5">
                 {title}
               </h2>
               <p className="text-base text-white/85 leading-[1.2] tracking-tight max-w-2xl font-light">
@@ -90,17 +90,17 @@ export default function ComponentsSection({ resolved }: Props) {
           </div>
 
           <div className="relative z-10 mt-auto p-10 lg:pt-30">
-            <div className="grid grid-cols-3 gap-4 max-w-4xl justify-start p-3 ">
+            <div className="grid grid-cols-3 gap-4 max-w-4xl justify-start">
               {items.map((item, idx) => (
                 <Reveal
                   key={idx}
                   delay={idx * 0.08}
-                  className="bg-white/10 backdrop-blur-md border pb-20 border-white/15 rounded-lg hover:bg-white/20 transition-colors duration-300 flex flex-col justify-start  px-4 py-5"
+                  className="bg-white/10 backdrop-blur-md border pb-20 border-white/15 rounded-lg hover:bg-white/20 transition-colors duration-300 flex flex-col justify-start  px-3 py-2"
                 >
-                  <span className="text-white text-3xl font-normal leading-none tracking-tight">
+                  <span className="text-white text-[3.5rem] font-normal leading-none tracking-tight">
                     {item.letter}
                   </span>
-                  <h3 className="text-white text-[1.375rem] text-center font-light leading-snug tracking-tight">
+                  <h3 className="text-white text-[1.375rem] text-center font-light leading-snug max-w-sm tracking-tight mt-4 whitespace-pre-line">
                     {item.title}
                   </h3>
                 </Reveal>

@@ -102,14 +102,14 @@ export default function TiersSection({ resolved }: Props) {
               <button
                 onClick={handlePrev}
                 aria-label="Previous tier"
-                className="w-12 h-12 rounded-full bg-black text-white flex items-center justify-center transition-all duration-300 hover:scale-105 active:scale-95"
+                className="w-12 h-12 rounded-full cursor-pointer bg-black text-white flex items-center justify-center transition-all duration-300 hover:scale-105 active:scale-95"
               >
                 <ArrowLeft size={20} style={{ color: '#63B846' }} />
               </button>
               <button
                 onClick={handleNext}
                 aria-label="Next tier"
-                className="w-12 h-12 rounded-full bg-black text-white flex items-center justify-center transition-all duration-300 hover:scale-105 active:scale-95"
+                className="w-12 h-12 rounded-full cursor-pointer bg-black text-white flex items-center justify-center transition-all duration-300 hover:scale-105 active:scale-95"
               >
                 <ArrowRight size={20} style={{ color: '#63B846' }} />
               </button>
