@@ -3,10 +3,12 @@
 import React from "react";
 import CtaButton from "@/reuseables/CtaButton";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Autoplay } from "swiper/modules";
+import { Autoplay, Pagination, Navigation } from "swiper/modules";
 import type { ResolvedRebatesLoanBenefits } from "@/lib/strapi/resolvers/rebates";
 
 import "swiper/css";
+import "swiper/css/pagination";
+import "swiper/css/navigation";
 
 interface Props {
   resolved: ResolvedRebatesLoanBenefits;
@@ -71,15 +73,21 @@ export default function LoanBenefitsSection({ resolved }: Props) {
           {/* Mobile: Autoplay Swiper slider */}
           <div className="block md:hidden w-full relative mt-8 -mx-[5vw]">
             <Swiper
-              modules={[Autoplay]}
+              modules={[Autoplay, Pagination]}
               spaceBetween={16}
               slidesPerView={1.25}
               autoplay={{
-                delay: 3000,
+                delay: 4000,
                 disableOnInteraction: false,
               }}
               loop={resolved.benefits.length > 1}
-              className="w-full px-[5vw]"
+              pagination={{ clickable: true }}
+              className="w-full px-[5vw] !pb-12"
+              style={{
+                "--swiper-pagination-color": "#63B846",
+                "--swiper-pagination-bullet-inactive-color": "#ffffff",
+                "--swiper-pagination-bullet-inactive-opacity": "0.4",
+              } as React.CSSProperties}
             >
               {resolved.benefits.map((benefit, idx) => (
                 <SwiperSlide key={idx} className="h-auto flex pb-2">

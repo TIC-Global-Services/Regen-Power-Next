@@ -5,6 +5,7 @@ import Image from "next/image";
 import SectionHeader from "@/reuseables/SectionHeader";
 import MissingImage from "@/reuseables/MissingImage";
 import type { ResolvedRebatesRebatePrograms } from "@/lib/strapi/resolvers/rebates";
+import { ArrowDown, ArrowUp, ChevronDown, ChevronUp } from "lucide-react";
 
 const CYCLE_DURATION = 5000; // ms per card
 
@@ -43,14 +44,24 @@ export default function RebateProgramsSection({ resolved }: Props) {
   };
 
   return (
-    <section className="bg-white py-0 md:py-24">
+    <section className="bg-white py-10 md:py-24">
       <div className="mx-auto max-w-7xl px-[5%] md:px-[3%]">
         <SectionHeader
           subtitle={resolved.subtitle}
           title={resolved.title}
           description={resolved.description}
           align="center"
-          className="mb-16"
+          className="mb-16 hidden md:block"
+          subtitleClass="text-xl md:text-[1.75rem] text-black"
+          titleClass="text-5xl md:text-6xl font-light leading-none"
+          descClass="mx-auto max-w-xl text-base md:text-xl text-black"
+        />
+        <SectionHeader
+          subtitle={resolved.subtitle}
+          title={resolved.title}
+          description={resolved.description}
+          align="left"
+          className="mb-16 md:hidden"
           subtitleClass="text-xl md:text-[1.75rem] text-black"
           titleClass="text-5xl md:text-6xl font-light leading-none"
           descClass="mx-auto max-w-xl text-base md:text-xl text-black"
@@ -157,7 +168,7 @@ export default function RebateProgramsSection({ resolved }: Props) {
                   {program.title}
                 </span>
                 <span className="text-sm uppercase tracking-wide text-black/55">
-                  {isActive ? "Open" : "View"}
+                  {isActive ? <ChevronUp size={20} /> : <ChevronDown size={20}/>}
                 </span>
               </button>
 
