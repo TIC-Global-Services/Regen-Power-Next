@@ -139,7 +139,7 @@ const InvertersSliderSection: React.FC<InvertersSliderSectionProps> = ({
           <div className="w-full lg:w-[78%]">
             <div
               ref={trackRef}
-              className="flex gap-4 md:gap-6 overflow-x-auto snap-x snap-mandatory pr-[10vw] lg:pr-[calc(50%-190px)] [&::-webkit-scrollbar]:hidden"
+              className="flex gap-4 md:gap-6 overflow-x-auto -mx-[5%] px-[5%] md:px-[3%] [&::-webkit-scrollbar]:hidden"
               style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
             >
               {inverters.map((item, idx) => (

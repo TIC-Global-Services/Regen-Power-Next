@@ -19,7 +19,7 @@ export default function NewHomebatterySplitSection({ resolved }: Props) {
       badge={resolved.badge}
       titleClass="text-[2.5rem] md:text-6xl font-normal leading-[1] tracking-tight text-[#63B846]"
       subtitleClass="text-xl md:text-[2.125rem] tracking-tight capitalize"
-      descriptionClass="text-base md:text-xl leading-tight tracking-tight capitalize"
+      descriptionClass="text-xl md:text-xl leading-tight tracking-tight capitalize"
       
     />
   );

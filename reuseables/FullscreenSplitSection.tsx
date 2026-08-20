@@ -71,7 +71,7 @@ const FullscreenSplitSection: React.FC<FullscreenSplitSectionProps> = ({
             isImageLeft ? 'lg:order-first' : 'lg:order-last'
           } ${imageColumnClassName}`}
         >
-          <div className={`relative w-full h-full min-h-[350px] md:min-h-[405px] lg:min-h-0 rounded-[20px] md:rounded-[20px] lg:rounded-none overflow-hidden bg-gray-50 ${imageClassName}`}>
+          <div className={`relative w-full h-full min-h-[350px] md:min-h-[450px] lg:min-h-0 rounded-[20px] md:rounded-[20px] lg:rounded-none overflow-hidden bg-gray-50 ${imageClassName}`}>
             <img
               src={imgSrc}
               alt={imageAlt}
@@ -82,7 +82,7 @@ const FullscreenSplitSection: React.FC<FullscreenSplitSectionProps> = ({
 
         {/* Text Column */}
         <div
-          className={`flex flex-col pt-6 lg:pt-12 pb-16 md:pb-20 lg:py-24 px-5 md:px-10 ${isImageLeft ? 'lg:pl-12 lg:pr-15' : 'lg:pl-15 lg:pr-12'
+          className={`flex flex-col pt-6 md:pt-0 lg:pt-12 pb-16 md:pb-20 lg:py-24 px-5 md:px-10 ${isImageLeft ? 'lg:pl-12 lg:pr-15' : 'lg:pl-15 lg:pr-12'
             } text-left h-full lg:h-screen lg:min-h-screen ${isSplit ? 'justify-center lg:justify-between' : 'justify-center'
             } ${textColumnClassName}`}
         >
@@ -127,7 +127,7 @@ const FullscreenSplitSection: React.FC<FullscreenSplitSectionProps> = ({
               />
               <div className="mt-4 md:mt-8 max-w-2xl">
                 <Fade delay={0.2}>
-                  <p className={`text-sm md:text-lg lg:text-xl tracking-tight leading-relaxed ${descriptionClass}`}>
+                  <p className={`text-sm md:text-xl lg:text-xl tracking-tight leading-relaxed ${descriptionClass}`}>
                     {description}
                   </p>
                 </Fade>

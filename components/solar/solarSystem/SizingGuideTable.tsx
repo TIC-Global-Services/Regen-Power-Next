@@ -48,14 +48,14 @@ const SizingGuideTable: React.FC<SizingGuideTableProps> = ({ resolved }) => {
         {rows.length > 0 ? (
           <>
             {/* Mobile: column pill picker + stacked rows */}
-            <div className="md:hidden mt-12 mb-16">
+            <div className="lg:hidden mt-12 mb-16">
               <div className="flex gap-2 mb-4 overflow-x-auto pb-2 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
                 {columns.map((col, idx) => (
                   <button
                     key={idx}
                     type="button"
                     onClick={() => setActiveCol(idx)}
-                    className={`shrink-0 px-4 py-2 rounded-full text-sm font-medium transition-colors cursor-pointer ${
+                    className={`shrink-0 px-4 py-2 rounded-full text-sm md:text-lg font-medium transition-colors cursor-pointer ${
                       idx === active
                         ? "bg-[#63B846] text-white"
                         : "bg-gray-100 text-black/60"
@@ -65,7 +65,7 @@ const SizingGuideTable: React.FC<SizingGuideTableProps> = ({ resolved }) => {
                   </button>
                 ))}
               </div>
-              <div className="rounded-[24px] overflow-hidden border border-[#E5E7EB]">
+              <div className="rounded-[20px] overflow-hidden border border-[#E5E7EB]">
                 {rows.map((row, rIdx) => (
                   <div
                     key={rIdx}
@@ -73,10 +73,10 @@ const SizingGuideTable: React.FC<SizingGuideTableProps> = ({ resolved }) => {
                       rIdx % 2 === 0 ? "bg-white" : "bg-[#F7FBF5]"
                     }`}
                   >
-                    <span className="text-sm font-semibold text-black">
+                    <span className="text-sm md:text-lg font-semibold text-black">
                       {row.label}
                     </span>
-                    <span className="text-sm text-black/70 text-right max-w-[55%]">
+                    <span className="text-sm md:text-lg text-black/70 text-right max-w-[55%]">
                       {row.values[active]?.text ?? ""}
                     </span>
                   </div>
@@ -85,7 +85,7 @@ const SizingGuideTable: React.FC<SizingGuideTableProps> = ({ resolved }) => {
             </div>
 
             {/* Desktop: full table */}
-            <div className="hidden md:block overflow-x-auto rounded-[24px] mt-12 mb-16 max-w-5xl mx-auto overflow-hidden">
+            <div className="hidden lg:block overflow-x-auto rounded-[24px] mt-12 mb-16 max-w-5xl mx-auto overflow-hidden">
             <table className="w-full border-collapse text-center bg-white">
               <thead>
                 <tr className="bg-[#A0CF44] text-black font-[var(--font-aeonik)] h-[120px]">
@@ -174,7 +174,7 @@ const SizingGuideTable: React.FC<SizingGuideTableProps> = ({ resolved }) => {
                     <h4 className="text-white text-xl leading-tight mb-2">
                       {card.title}
                     </h4>
-                    <p className="text-base text-white leading-tight font-light">
+                    <p className="text-base md:text-lg text-white leading-tight font-light">
                       {card.description}
                     </p>
                   </div>
@@ -188,7 +188,7 @@ const SizingGuideTable: React.FC<SizingGuideTableProps> = ({ resolved }) => {
                 <Reveal
                   key={idx}
                   delay={idx * 0.15}
-                  className="relative flex flex-col lg:justify-end rounded-[24px] overflow-hidden group min-h-[400px] max-w-full md:w-[320px]"
+                  className="relative flex flex-col lg:justify-end rounded-[24px] overflow-hidden group min-h-[400px] max-w-full md:w-full"
                 >
                   <div className="absolute inset-0 z-0">
                     {card.image ? (
