@@ -30,7 +30,7 @@ export const BatteryBillImpactCarousel = ({ cards }: { cards: JargonCard[] }) =>
         {cards.map((card, idx) => (
           <div
             key={idx}
-            className="relative rounded-[24px] overflow-hidden group min-h-[360px] md:min-h-[440px] min-w-[240px] md:min-w-[320px] snap-center shrink-0"
+            className="relative rounded-[24px] overflow-hidden group min-h-[400px] md:min-h-[440px] w-[65vw] md:w-[45vw] snap-center shrink-0"
           >
             <Image src={card.image} alt={card.title} fill className="object-cover transition-transform duration-700 group-hover:scale-105" />
             <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-black/30" />

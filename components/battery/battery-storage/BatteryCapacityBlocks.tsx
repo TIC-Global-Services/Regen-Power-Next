@@ -89,7 +89,7 @@ const BatteryCapacityBlocks = ({ data }: { data: BatteryCapacityData }) => {
           </div>
 
           {/* Footer Text + CTA */}
-          <div className="text-center">
+          <div className="text-left md:text-center">
             <p className="text-base md:text-xl text-black font-medium mb-6 max-w-4xl mx-auto capitalize tracking-tight leading-[1.2] whitespace-pre-line">
               {data.footerText}
             </p>

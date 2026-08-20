@@ -25,7 +25,7 @@ export interface BatteryBrandsGridData {
 
 const BatteryBrandsGrid = ({ data }: { data: BatteryBrandsGridData }) => {
   return (
-    <section className="bg-white py-16 md:py-24 px-[5%] md:px-[3%]">
+    <section className="bg-white py-8 md:py-16 px-[5%] md:px-[3%]">
       <div className="">
         <div className="text-left md:text-center mb-10 capitalize">
           <h3 className="text-xl md:text-[2rem] text-black font-normal tracking-tight mb-1">

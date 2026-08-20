@@ -16,7 +16,7 @@ export interface FourPillarsData {
 
 const FourPillars = ({ data }: { data: FourPillarsData }) => {
     return (
-        <section className="bg-white py-16 md:py-24 px-[5%] md:px-[3%]">
+        <section className="bg-white py-8 md:py-16 px-[5%] md:px-[3%]">
             {/* Centered Section Header */}
             <div className="text-left md:text-center mb-10 md:mb-14 capitalize">
                 {data.topSubtitle && (

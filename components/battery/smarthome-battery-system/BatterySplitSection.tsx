@@ -37,60 +37,53 @@ const BatterySplitSection = ({ data }: { data: BatterySplitData }) => {
 
   const slide = data.slides[currentSlide];
 
-  const renderImageAndNav = () => (
-    <div className="w-full flex flex-col items-end gap-6">
-      <div className="w-full relative min-h-[350px] max-w-full lg:w-[660px] lg:min-h-[770px] rounded-[20px] overflow-hidden bg-gray-100">
-        <AnimatePresence mode="wait">
-          <motion.div
-            key={currentSlide}
-            initial={{ opacity: 0, scale: 1.05 }}
-            animate={{ opacity: 1, scale: 1 }}
-            exit={{ opacity: 0, scale: 0.95 }}
-            transition={{ duration: 0.5, ease: "easeInOut" }}
-            className="absolute inset-0"
-          >
-            <Image
-              src={slide.image}
-              alt={slide.title}
-              fill
-              className="object-cover"
-            />
-          </motion.div>
-        </AnimatePresence>
-      </div>
-
-      {/* Slider Navigation */}
-      {data.slides.length > 1 && (
-        <div className="flex items-center gap-4">
-          <button
-            onClick={prevSlide}
-            className="w-12 h-12 rounded-full bg-black flex items-center justify-center hover:bg-black/80 transition-colors cursor-pointer"
-            aria-label="Previous slide"
-          >
-            <ArrowLeft className="w-5 h-5 text-white" />
-          </button>
-          <button
-            onClick={nextSlide}
-            className="w-12 h-12 rounded-full bg-black flex items-center justify-center hover:bg-black/80 transition-colors cursor-pointer"
-            aria-label="Next slide"
-          >
-            <ArrowRight className="w-5 h-5 text-white" />
-          </button>
-        </div>
-      )}
+  const renderImage = () => (
+    <div className="w-full relative min-h-[350px] max-w-full lg:w-[660px] lg:min-h-[770px] rounded-[20px] overflow-hidden bg-gray-100">
+      <AnimatePresence mode="wait">
+        <motion.div
+          key={currentSlide}
+          initial={{ opacity: 0, scale: 1.05 }}
+          animate={{ opacity: 1, scale: 1 }}
+          exit={{ opacity: 0, scale: 0.95 }}
+          transition={{ duration: 0.5, ease: "easeInOut" }}
+          className="absolute inset-0"
+        >
+          <Image
+            src={slide.image}
+            alt={slide.title}
+            fill
+            className="object-cover"
+          />
+        </motion.div>
+      </AnimatePresence>
     </div>
   );
 
-  return (
-    <section className="bg-white py-16 md:py-24 px-[5%] md:px-[3%] overflow-hidden">
-      <div className="flex flex-col lg:flex-row gap-12 lg:gap-16 items-center">
-        {/* Left Content */}
-        <div className="w-full lg:w-1/2 flex flex-col items-start shrink-0 lg:min-h-[500px]">
-          {/* Mobile Image & Nav (Visible only on small screens) */}
-          <div className="w-full block lg:hidden mb-8">
-            {renderImageAndNav()}
-          </div>
+  const renderNav = () =>
+    data.slides.length > 1 && (
+      <div className="flex items-center gap-4">
+        <button
+          onClick={prevSlide}
+          className="w-12 h-12 rounded-full bg-black flex items-center justify-center hover:bg-black/80 transition-colors cursor-pointer"
+          aria-label="Previous slide"
+        >
+          <ArrowLeft className="w-5 h-5 text-white" />
+        </button>
+        <button
+          onClick={nextSlide}
+          className="w-12 h-12 rounded-full bg-black flex items-center justify-center hover:bg-black/80 transition-colors cursor-pointer"
+          aria-label="Next slide"
+        >
+          <ArrowRight className="w-5 h-5 text-white" />
+        </button>
+      </div>
+    );
 
+  return (
+    <section className="bg-white py-8 md:py-16 px-[5%] md:px-[3%] overflow-hidden">
+      <div className="flex flex-col lg:flex-row gap-12 lg:gap-16 items-center">
+        {/* Content — first on mobile (order-1), left column on desktop */}
+        <div className="order-1 w-full lg:w-1/2 flex flex-col items-start shrink-0 lg:min-h-[500px]">
           <div className="relative w-full flex-1">
             <AnimatePresence mode="wait">
               <motion.div
@@ -135,9 +128,14 @@ const BatterySplitSection = ({ data }: { data: BatterySplitData }) => {
           </div>
         </div>
 
-        {/* Right Content - Image and Navigation (Visible only on lg screens) */}
-        <div className="hidden lg:flex w-full lg:w-1/2">
-          {renderImageAndNav()}
+        {/* Image + Nav — mobile: nav then image (order swapped); desktop: image then nav, right column */}
+        <div className="order-2 w-full lg:w-1/2 flex flex-col items-end gap-6">
+          <div className="order-1 lg:order-2 w-full flex justify-end">
+            {renderNav()}
+          </div>
+          <div className="order-2 lg:order-1 w-full flex justify-end">
+            {renderImage()}
+          </div>
         </div>
       </div>
     </section>
