@@ -278,6 +278,33 @@ export const getBlogArticles = async (): Promise<
     meta: first.meta,
   };
 };
+
+/** Build the querystring for a single blog-article by slug — full content + media. */
+function blogArticleQuery(slug: string): string {
+  const params = new URLSearchParams();
+  params.set("filters[slug][$eq]", slug);
+  params.set("fields[0]", "title");
+  params.set("fields[1]", "description");
+  params.set("fields[2]", "slug");
+  params.set("fields[3]", "categories");
+  params.set("fields[4]", "content");
+  params.set("fields[5]", "publishedAt");
+  params.set("populate[image]", "true");
+  return params.toString();
+}
+
+/** Fetch a single published blog-article by slug (revalidate 60). Returns null if not found. */
+export const getBlogArticle = async (
+  slug: string
+): Promise<BlogArticleData | null> => {
+  const res = await strapiFetch<StrapiResponse<BlogArticleData[]>>(
+    `/blog-articles?${blogArticleQuery(slug)}`
+  );
+  const arr = res.data;
+  if (!Array.isArray(arr) || arr.length === 0) return null;
+  return arr[0];
+};
+
 export const getPressMediaPage = () =>
   getSingleType(
     PAGE_SLUGS.pressMedia,

@@ -15,6 +15,10 @@ const SmoothScroller = ({ children }: LenisProviderProps) => {
 
   useEffect(() => {
     if (lenisRef.current) {
+      // Lenis owns the scroll position — reset it to the top on every
+      // route change so pages (e.g. a blog article) don't open mid-scroll.
+      lenisRef.current.scrollTo(0, { immediate: true });
+      window.scrollTo(0, 0);
       setTimeout(() => {
         lenisRef.current?.resize();
         ScrollTrigger.refresh();

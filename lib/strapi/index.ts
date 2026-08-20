@@ -20,6 +20,7 @@ export {
   getRebatesPage,
   getBlogPage,
   getBlogArticles,
+  getBlogArticle,
   getPressMediaPage,
   getPressArticles,
   getResearchDevelopmentPage,

@@ -37,6 +37,8 @@ export interface ResolvedBlogCard {
   categoryKey: string;
   /** every normalized category on the article, so a card matches all its pills */
   categoryKeys?: string[];
+  /** link target for the card */
+  href?: string;
 }
 export interface ResolvedBlogCategoryFilter {
   subtitle: string;
@@ -158,6 +160,7 @@ export function resolveBlogArticles(
       imagePosition: "right",
       categoryKey: categoryKeys[0] ?? "",
       categoryKeys,
+      href: a.slug ? `/blog/${a.slug}` : "#",
     };
   });
 
@@ -165,5 +168,43 @@ export function resolveBlogArticles(
     categories,
     defaultCategory: ALL_CATEGORIES_KEY,
     cards,
+  };
+}
+
+/* ─── single blog-article → article detail ─── */
+
+export interface ResolvedBlogArticleCategory {
+  key: string;
+  label: string;
+}
+
+export interface ResolvedBlogArticle {
+  title: string;
+  slug: string;
+  description: string;
+  content: string;
+  categories: ResolvedBlogArticleCategory[];
+  image: string;
+  publishedAt: string;
+}
+
+export function resolveBlogArticle(
+  article: BlogArticleData | null | undefined
+): ResolvedBlogArticle | null {
+  if (!article) return null;
+  const categories = (article.categories ?? [])
+    .filter((raw) => raw?.trim())
+    .map((raw) => ({
+      key: normalizeCategoryKey(raw),
+      label: normalizeCategoryLabel(raw),
+    }));
+  return {
+    title: article.title ?? "",
+    slug: article.slug ?? "",
+    description: article.description ?? "",
+    content: article.content ?? "",
+    categories,
+    image: article.image ? strapiImageData(article.image)?.src ?? "" : "",
+    publishedAt: article.publishedAt ?? "",
   };
 }

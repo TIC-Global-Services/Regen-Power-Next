@@ -38,7 +38,7 @@ const socialLinks = [
 const Footer = () => {
   return (
     <footer
-      className="relative w-full bg-[#0a0a0a] text-white pt-16 pb-8 px-4 md:px-8 lg:px-[5%] md:px-[3%] bg-cover bg-center"
+      className="relative w-full bg-[#0a0a0a] text-white pt-16 pb-8 px-4 md:px-8 lg:px-[5%] md:px-[3%] bg-cover bg-center "
       style={{ backgroundImage: "url('/footer_bg.svg')" }}
     >
       <div className="">
@@ -54,11 +54,11 @@ const Footer = () => {
         </div>
 
         {/* Content Section */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-12 mb-16">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-12 mb-16 text-center md:text-left">
           {/* Quick Links */}
           <div>
             <h3 className="text-[#8dc63f] text-xl mb-6 font-medium">Quick Links</h3>
-            <ul className="space-y-2 text-sm text-gray-300">
+            <ul className="space-y-2 text-sm text-gray-300 flex flex-col items-center md:items-start">
               {quickLinks.map((link, index) => (
                 <li key={index}>
                   <Link href={link.href} className="hover:text-white transition-colors">
@@ -72,7 +72,7 @@ const Footer = () => {
           {/* WA Head Office */}
           <div>
             <h3 className="text-[#8dc63f] text-xl mb-6 font-medium">WA Head Office</h3>
-            <div className="space-y-2 text-sm text-gray-300">
+            <div className="space-y-2 text-sm text-gray-300 flex flex-col items-center md:items-start">
               <p>{waHeadOffice.address}</p>
               <p>Phone: {waHeadOffice.phone}</p>
               <p>Direct Line: {waHeadOffice.directLine}</p>
@@ -84,9 +84,9 @@ const Footer = () => {
           {/* Other State Offices */}
           <div>
             <h3 className="text-[#8dc63f] text-xl mb-6 font-medium">Other State Offices</h3>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-4 gap-y-6 text-sm text-gray-300">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-4 gap-y-6 text-sm text-gray-300 text-center sm:text-left">
               {otherStateOffices.map((office, index) => (
-                <div key={index} className="flex flex-col">
+                <div key={index} className="flex flex-col items-center sm:items-start">
                   <p className="mb-1 text-gray-100">{office.state}</p>
                   <p>{office.phone}</p>
                   <a href={`mailto:${office.email}`} className="hover:text-white transition-colors break-all">{office.email}</a>
@@ -102,7 +102,7 @@ const Footer = () => {
             Copyright © 2026 <span className="text-[#8dc63f]">Regen Power</span> Pty Ltd. All rights reserved.
           </p>
 
-          <div className="flex gap-4">
+          <div className="flex gap-4 justify-center md:justify-start">
             {socialLinks.map((social, index) => {
               const Icon = social.icon;
               return (

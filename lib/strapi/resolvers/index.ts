@@ -388,6 +388,7 @@ export {
   resolveBlogHero,
   resolveBlogCategoryFilter,
   resolveBlogArticles,
+  resolveBlogArticle,
   ALL_CATEGORIES_KEY,
 } from "./blog";
 export type {
@@ -395,6 +396,8 @@ export type {
   ResolvedBlogCategoryFilter,
   ResolvedBlogCollection,
   ResolvedBlogCategoryOption,
+  ResolvedBlogArticle,
+  ResolvedBlogArticleCategory,
 } from "./blog";
 export { resolvePortfolioHero, resolvePortfolioFilters, resolvePortfolioProjects } from "./portfolio";
 export type { ResolvedPortfolioHero, ResolvedPortfolioFilters, ResolvedPortfolioCard, ResolvedPortfolioFilterOption } from "./portfolio";
