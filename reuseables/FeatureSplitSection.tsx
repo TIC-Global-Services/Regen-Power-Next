@@ -191,10 +191,10 @@ const FeatureSplitSection: React.FC<FeatureSplitSectionProps> = ({
 
                 <div className="flex flex-col gap-4 mt-4">
                     <div className="flex flex-col gap-1 min-h-[100px]">
-                        <h3 className="text-lg font-semibold text-black tracking-tight">
+                        <h3 className="text-lg md:text-xl font-semibold text-black tracking-tight">
                             {features[mobileActiveIndex]?.title}
                         </h3>
-                        <p className="text-sm leading-[1.3] text-gray-600">
+                        <p className="text-sm md:text-base leading-[1.3] text-gray-600">
                             {features[mobileActiveIndex]?.description}
                         </p>
                     </div>

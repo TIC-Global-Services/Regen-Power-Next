@@ -31,7 +31,7 @@ const SpecTable: React.FC<SpecTableProps> = ({
   return (
     <>
       {/* ── Mobile: brand/series pill picker + stacked rows ── */}
-      <div className="md:hidden mt-12 mb-16">
+      <div className="lg:hidden mt-12 mb-16 md:10">
         <div
           className="flex gap-2 mb-4 overflow-x-auto pb-2 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
         >
@@ -40,7 +40,7 @@ const SpecTable: React.FC<SpecTableProps> = ({
               key={idx}
               type="button"
               onClick={() => setActiveCol(idx)}
-              className={`shrink-0 px-4 py-2 rounded-full text-sm font-medium transition-colors cursor-pointer ${
+              className={`shrink-0 px-4 py-2 rounded-full text-sm md:text-base font-medium transition-colors cursor-pointer ${
                 idx === active
                   ? "bg-[#63B846] text-white"
                   : "bg-gray-100 text-black/60"
@@ -59,10 +59,10 @@ const SpecTable: React.FC<SpecTableProps> = ({
                 rIdx % 2 === 0 ? "bg-white" : "bg-[#F7FBF5]"
               }`}
             >
-              <span className="text-sm font-semibold text-black">
+              <span className="text-sm md:text-base font-semibold text-black">
                 {row.label}
               </span>
-              <span className="text-sm text-black/70 text-right max-w-[55%]">
+              <span className="text-sm md:text-base text-black/70 text-right max-w-[55%]">
                 {row.values[active]?.text ?? ""}
               </span>
             </div>
@@ -71,7 +71,7 @@ const SpecTable: React.FC<SpecTableProps> = ({
       </div>
 
       {/* ── Desktop: full table (unchanged) ── */}
-      <Reveal className="hidden md:block rounded-[24px] mt-12 mb-16 overflow-x-auto">
+      <Reveal className="hidden lg:block rounded-[24px] mt-12 mb-16 overflow-x-auto">
         <table className="w-full border-collapse text-center bg-white">
           <thead>
             <tr className="h-[100px]">

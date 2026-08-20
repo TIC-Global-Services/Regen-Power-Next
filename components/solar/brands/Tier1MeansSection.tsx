@@ -19,10 +19,10 @@ const Tier1MeansSection: React.FC<Tier1MeansSectionProps> = ({ resolved }) => {
   const secondPart = titleParts.length > 1 ? titleParts.slice(1).join(" \u2014 ") : "";
 
   return (
-    <section className="bg-white border-t border-gray-50 min-h-screen flex items-stretch">
-      <div className="grid grid-cols-1 lg:grid-cols-2 items-stretch w-full min-h-screen px-[3%] md:px-[0%]">
+    <section className="bg-white border-t border-gray-50 lg:min-h-screen flex items-stretch">
+      <div className="grid grid-cols-1 lg:grid-cols-2 items-stretch w-full min-h-screen px-[3%] lg:px-[0%]">
         <Reveal
-          className={`relative  w-full h-[450px] rounded-[20px] md:rounded-none lg:h-screen overflow-hidden ${isImageLeft ? "lg:order-first" : "lg:order-last"}`}
+          className={`relative  w-full h-[450px] md:h-[50dvh] rounded-[20px] lg:rounded-none lg:h-screen overflow-hidden ${isImageLeft ? "lg:order-first" : "lg:order-last"}`}
         >
           {imgUrl ? (
             <Image
@@ -42,12 +42,12 @@ const Tier1MeansSection: React.FC<Tier1MeansSectionProps> = ({ resolved }) => {
         </Reveal>
 
         <div
-          className={`flex flex-col py-5 lg:py-24 px-[3%] md:px-[5%] lg:px-[3%] ${isImageLeft ? "lg:pl-12 lg:pr-20" : "lg:pl-20 lg:pr-12"} text-left h-full lg:h-screen lg:min-h-screen justify-between`}
+          className={`flex flex-col py-5 lg:py-24 px-[3%] lg:px-[5%] lg:px-[3%] ${isImageLeft ? "lg:pl-12 lg:pr-20" : "lg:pl-20 lg:pr-12"} text-left h-full justify-start lg:h-screen lg:min-h-screen lg:justify-between`}
         >
           <div>
             {/* <SectionHeader
               subtitle={resolved.subtitle ?? ""}
-              subtitleClass="text-base md:text-xl lg:text-2xl normal-case mb-4 block text-black font-medium"
+              subtitleClass="text-base lg:text-xl lg:text-2xl normal-case mb-4 block text-black font-medium"
               title={
                 <>
                   <span className="text-[#63B846]">{firstPart}</span>
@@ -59,12 +59,12 @@ const Tier1MeansSection: React.FC<Tier1MeansSectionProps> = ({ resolved }) => {
                   )}
                 </>
               }
-              titleClass="text-4xl md:text-5xl lg:text-[3.125rem] font-normal leading-none tracking-tight mb-6"
+              titleClass="text-4xl lg:text-5xl lg:text-[3.125rem] font-normal leading-none tracking-tight mb-6"
               align="left"
             /> */}
-            <p className="text-base md:text-2xl capitalize mb-2 tracking-tight block text-black font-medium">{resolved.subtitle}</p>
-            <h1 className="text-[#63B846] text-4xl md:text-[3.125rem] font-normal leading-none tracking-tight">{firstPart}</h1>
-            <h2 className="text-4xl md:text-[3.125rem] font-normal leading-none tracking-tight mb-4">{secondPart}</h2>
+            <p className="text-base lg:text-2xl capitalize mb-2 tracking-tight block text-black font-medium">{resolved.subtitle}</p>
+            <h1 className="text-[#63B846] text-4xl lg:text-[3.125rem] font-normal leading-none tracking-tight">{firstPart}</h1>
+            <h2 className="text-4xl lg:text-[3.125rem] font-normal leading-none tracking-tight mb-4">{secondPart}</h2>
           </div>
 
           <div className="mt-5 lg:mt-24">
