@@ -164,11 +164,11 @@ export default function RebateProgramsSection({ resolved }: Props) {
               {isActive && (
                 <div className="px-5 pb-5">
                   {img && (
-                    <div className="relative aspect-[4/3] overflow-hidden rounded-[24px]">
+                    <div className="relative aspect-[4/3] md:aspect-[4/2] overflow-hidden rounded-[24px]">
                       <Image src={img.src} alt={img.alt} fill className="object-cover" />
                     </div>
                   )}
-                  <p className="mt-4 text-base leading-tight text-black/90">{program.summary}</p>
+                  <p className="mt-4 text-base md:text-xl leading-tight text-black/90">{program.summary}</p>
                 </div>
               )}
             </div>

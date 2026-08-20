@@ -38,7 +38,7 @@ export default function DealsGridSection({ resolved }: Props) {
         </div>
 
         {/* Desktop: Grid */}
-        <div className="hidden md:grid grid-cols-3 gap-5 mb-16">
+        <div className="hidden md:grid md:grid-cols-1 lg:grid-cols-3 gap-5 mb-16">
           {resolved.promotions.map((promo, idx) => (
             <Reveal
               key={idx}
@@ -49,7 +49,7 @@ export default function DealsGridSection({ resolved }: Props) {
                 <h3 className="text-2xl md:text-3xl mb-4 tracking-tight text-[#63B846] leading-tight">
                   {promo.title}
                 </h3>
-                <p className="text-sm text-[#888888] tracking-tight leading-tight font-light">
+                <p className="text-sm md:text-xl text-[#888888] tracking-tight leading-tight font-light">
                   {promo.description}
                 </p>
               </div>
