@@ -22,13 +22,15 @@ const ResidentialBattery: React.FC<ResidentialBatteryProps> = ({ data = [] }) =>
       {data.map((item, index) => (
         <div key={index} className="grid grid-cols-1 lg:grid-cols-2 gap-0 items-stretch w-full">
           {/* Left Side: Image — same inset rhythm as AreYouEligible/FullscreenSplitSection (bleeds at lg) */}
-          <div className="relative h-[450px] lg:h-screen overflow-hidden rounded-[20px] lg:rounded-none px-5 md:px-16 lg:px-0">
-            <Image
-              src={item.image}
-              alt="WA Residential Battery Scheme"
-              fill
-              className="object-cover"
-            />
+          <div className="h-[450px] lg:h-screen px-5 lg:px-0">
+            <div className="relative w-full h-full overflow-hidden rounded-[20px] lg:rounded-none">
+              <Image
+                src={item.image}
+                alt="WA Residential Battery Scheme"
+                fill
+                className="object-cover"
+              />
+            </div>
           </div>
 
           {/* Right Side: Content — same gutters as FullscreenSplitSection */}

@@ -30,8 +30,8 @@ const SpecTable: React.FC<SpecTableProps> = ({
 
   return (
     <>
-      {/* ── Mobile: brand/series pill picker + stacked rows ── */}
-      <div className="lg:hidden mt-12 mb-16 md:10">
+      {/* ── Mobile only: brand/series pill picker + stacked rows (below md) ── */}
+      <div className="md:hidden mt-12 mb-16 md:10">
         <div
           className="flex gap-2 mb-4 overflow-x-auto pb-2 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
         >
@@ -70,12 +70,12 @@ const SpecTable: React.FC<SpecTableProps> = ({
         </div>
       </div>
 
-      {/* ── Desktop: full table (unchanged) ── */}
-      <Reveal className="hidden lg:block rounded-[24px] mt-12 mb-16 overflow-x-auto">
+      {/* ── Full table — shows on iPad (md+) and desktop; phones get the picker above ── */}
+      <Reveal className="hidden md:block rounded-[24px] mt-16 overflow-x-auto">
         <table className="w-full border-collapse text-center bg-white">
           <thead>
-            <tr className="h-[100px]">
-              <th className="bg-[#A0CF44] text-black font-normal p-4 text-2xl tracking-tight border-r border-b border-black w-[15%]">
+            <tr className="h-[70px] lg:h-[100px]">
+              <th className="bg-[#A0CF44] text-black font-normal p-4 text-base lg:text-2xl tracking-tight border-r border-b border-black w-[15%]">
                 {labelColumnTitle}
               </th>
               {columns.map((col, idx) => {
@@ -83,7 +83,7 @@ const SpecTable: React.FC<SpecTableProps> = ({
                 return (
                   <th
                     key={idx}
-                    className={`bg-[#EEF6EB]/60 p-2 text-black font-normal text-xl tracking-tight border-b border-black ${
+                    className={`bg-[#EEF6EB]/60 p-2 text-black font-normal text-sm lg:text-xl tracking-tight border-b border-black ${
                       isLastCol ? "" : "border-r"
                     } overflow-hidden whitespace-pre-line `}
                   >
@@ -99,10 +99,10 @@ const SpecTable: React.FC<SpecTableProps> = ({
               return (
                 <tr
                   key={rIdx}
-                  className="hover:bg-[#EEF6EB]/80 transition-colors h-[100px]"
+                  className="hover:bg-[#EEF6EB]/80 transition-colors h-[60px] lg:h-[100px]"
                 >
                   <td
-                    className={`bg-[#A0CF44] text-black font-normal p- text-2xl border-r border-black ${
+                    className={`bg-[#A0CF44] text-black font-normal p- text-base lg:text-2xl border-r border-black ${
                       isLastRow ? "" : "border-b"
                     }`}
                   >
@@ -114,7 +114,7 @@ const SpecTable: React.FC<SpecTableProps> = ({
                     return (
                       <td
                         key={idx}
-                        className={`bg-[#EEF6EB]/30 p-0 text-black font-normal text-xl border-black ${
+                        className={`bg-[#EEF6EB]/30 p-0 text-black font-normal text-xs lg:text-xl border-black ${
                           isLastRow ? "" : "border-b"
                         } ${isLastCol ? "" : "border-r"}`}
                       >

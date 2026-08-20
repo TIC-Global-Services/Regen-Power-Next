@@ -128,7 +128,7 @@ const StaggeredCardsGrid: React.FC<StaggeredCardsGridProps> = ({
           className={headerClass || (align === "left" ? "max-w-3xl mb-12" : "mx-auto mb-12")}
         />
 
-        {/* Layout — Mobile: per-card snap slider (mirrors SmartInstallBento's slider) */}
+        {/* Layout — Mobile: per-card snap slider (mirrors BentoCardsGrid's slider) */}
         <div className="flex md:hidden gap-4 overflow-x-auto px-[5%] -mx-[5%] [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
           {columns
             .flatMap((column) => column.items)

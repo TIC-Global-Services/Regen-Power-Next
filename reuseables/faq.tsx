@@ -79,7 +79,7 @@ const FAQ = ({
 
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-20 items-start">
                     {/* Left Column - Image */}
-                    <div className={`w-full ${hideImageMobile ? 'hidden lg:block' : ''}`}>
+                    <div className={`w-full ${hideImageMobile ? 'hidden md:block' : ''}`}>
                         {image && (
                             <div className="relative w-full aspect-3/3 max-h-[540px] rounded-[24px] overflow-hidden shadow-sm">
                                 <img

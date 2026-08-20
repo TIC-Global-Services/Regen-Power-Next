@@ -33,7 +33,7 @@ const TrustCardItem = ({ card }: { card: TrustCard }) => (
         sizes="(max-width: 1024px) 100vw, 33vw"
       />
     </div>
-    <div className="w-full text-center md:text-left">
+    <div className="w-full text-center md:text-left capitalize">
       <h4 className="text-lg md:text-3xl font-normal text-black tracking-tight mb-2">
         {card.title}
       </h4>
@@ -47,7 +47,7 @@ const TrustCardItem = ({ card }: { card: TrustCard }) => (
 const OneLocalTeam = ({ data }: { data: OneLocalTeamData }) => {
   return (
     <Fade>
-      <section className="bg-white py-16 md:py-24 px-[5%] md:px-[3%]">
+      <section className="bg-white py-16 md:py-24 px-[5%] md:px-[3%] overflow-hidden">
         <div className="max-w-7xl mx-auto">
           {/* Section Header */}
           <div className="text-left md:text-center capitalize mb-10 md:mb-14">
@@ -86,7 +86,7 @@ const OneLocalTeam = ({ data }: { data: OneLocalTeamData }) => {
           </div>
 
           {/* Mobile Layout (Horizontal Slider) */}
-          <div className="flex overflow-x-auto lg:hidden gap-4 -mx-[5%] px-[5%] md:px-[3%] [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none] pb-4 mb-8">
+          <div className="flex overflow-x-auto lg:hidden gap-4 -mx-[5%] px-[5%] md:-mx-[3%] md:px-[3%] [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none] pb-4 mb-8">
             {data.cards.map((card, idx) => (
               <div key={idx} className="w-[75vw] shrink-0 snap-start">
                 <TrustCardItem card={card} />

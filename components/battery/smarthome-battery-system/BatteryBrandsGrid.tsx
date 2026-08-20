@@ -25,13 +25,13 @@ export interface BatteryBrandsGridData {
 
 const BatteryBrandsGrid = ({ data }: { data: BatteryBrandsGridData }) => {
   return (
-    <section className="bg-white py-16 md:py-24 px-[5%] md:px-[3%] min-h-screen">
+    <section className="bg-white py-16 md:py-24 px-[5%] md:px-[3%]">
       <div className="">
         <div className="text-left md:text-center mb-10 capitalize">
-          <h3 className="text-xl md:text-[2rem] text-black font-normal tracking-tight ">
+          <h3 className="text-xl md:text-[2rem] text-black font-normal tracking-tight mb-1">
             {data.topSubtitle}
           </h3>
-          <h2 className="text-[2.5rem] md:text-5xl lg:text-[5rem] text-[#63B846] font-normal tracking-tight">
+          <h2 className="text-[2.5rem] md:text-5xl lg:text-[5rem] text-[#63B846] font-normal tracking-tight mb-2">
             {data.title}
           </h2>
           <p className="text-base md:text-xl text-black tracking-tight leading-[1] max-w-4xl mx-auto font-medium">
@@ -40,12 +40,12 @@ const BatteryBrandsGrid = ({ data }: { data: BatteryBrandsGridData }) => {
         </div>
 
         {/* Mobile: Horizontal Slider */}
-        <div className="flex overflow-x-auto md:hidden gap-4 -mx-[5%] px-[5%] md:px-[3%] [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none] pb-4">
+        <div className="flex overflow-x-auto lg:hidden gap-4 -mx-[5%] px-[5%] md:-mx-[3%] md:px-[3%] [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none] pb-4">
           {data.brands.map((brand, idx) => {
             return (
               <div
                 key={idx}
-                className={`bg-[#EEF6EB] rounded-[20px] p-8 flex-col items-start w-[80vw] shrink-0 snap-start flex`}
+                className={`bg-[#EEF6EB] rounded-[20px] p-8 flex-col items-start w-[80vw] md:w-[60vw] shrink-0 snap-start flex`}
               >
                 {brand.logo && (
                   <div className="relative h-14 w-40 mb-6">
@@ -58,14 +58,14 @@ const BatteryBrandsGrid = ({ data }: { data: BatteryBrandsGridData }) => {
                   </div>
                 )}
 
-                <h4 className="text-2xl text-black font-normal mb-8 leading-tight tracking-tight">
+                <h4 className="text-2xl md:text-[2rem] text-black font-normal mb-8 leading-tight tracking-tight">
                   {brand.title}
                 </h4>
 
                 <div className="flex flex-col gap-6 mb-8 flex-1">
                   {brand.specification.map((spec, sIdx) => (
                     <div key={sIdx}>
-                      <p className="text-black text-sm leading-[1.2]">
+                      <p className="text-black text-sm md:text-xl leading-[1.2]">
                         <span className="font-bold">{spec.title} </span>
                         {spec.description}
                       </p>
@@ -78,7 +78,7 @@ const BatteryBrandsGrid = ({ data }: { data: BatteryBrandsGridData }) => {
         </div>
 
         {/* Desktop: Grid */}
-        <div className="hidden md:grid md:grid-cols-3 gap-6 md:gap-8">
+        <div className="hidden lg:grid lg:grid-cols-3 gap-6 md:gap-8">
           {data.brands.map((brand, idx) => {
             return (
               <div

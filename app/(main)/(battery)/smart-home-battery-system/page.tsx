@@ -34,7 +34,7 @@ import FourPillars from "@/components/battery/smarthome-battery-system/FourPilla
 import BatterySplitSection from "@/components/battery/smarthome-battery-system/BatterySplitSection";
 import BatteryTimeline from "@/components/battery/smarthome-battery-system/BatteryTimeline";
 import BatteryBrandsGrid from "@/components/battery/smarthome-battery-system/BatteryBrandsGrid";
-import SmartInstallBento from "@/components/battery/smarthome-battery-system/SmartInstallBento";
+import BentoCardsGrid from "@/reuseables/BentoCardsGrid";
 
 import heroBanner from "@/assets/evcharging/hero_banner.png";
 import businessBg from "@/assets/home/zerointrest/businessBg.jpg";
@@ -120,7 +120,7 @@ const SmartBatterySystemPage = async () => {
 
       {brandsProps && <BatteryBrandsGrid data={brandsProps} />}
 
-      {bentoProps && <SmartInstallBento data={bentoProps} />}
+      {bentoProps && <BentoCardsGrid data={bentoProps} />}
 
       {ctaBannerProps && (
         <GetSolar

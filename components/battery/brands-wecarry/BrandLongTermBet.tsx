@@ -40,10 +40,10 @@ const BrandLongTermBet: React.FC<BrandLongTermBetProps> = ({ data }) => {
             className="mb-12 md:mb-5 lg:-space-y-5"
           />
 
-          {/* Mobile: Horizontal Slider */}
-          <div className="flex overflow-x-auto md:hidden gap-4 -mx-[5%] px-[5%] md:px-[3%] [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none] pb-4">
+          {/* Slider: mobile + iPad */}
+          <div className="flex overflow-x-auto lg:hidden gap-4 -mx-[5%] px-[5%] md:-mx-[3%] md:px-[3%] [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none] pb-4">
             {data.cards.map((card, index) => (
-              <div key={index} className="relative rounded-[24px] overflow-hidden min-h-[420px] w-[75vw] shrink-0 snap-start group flex-none">
+              <div key={index} className="relative rounded-[24px] overflow-hidden min-h-[420px] w-[75vw] md:w-[45vw] shrink-0 snap-start group flex-none">
                 {/* Background Image */}
                 <div className="absolute inset-0 z-0">
                   <Image
@@ -71,8 +71,8 @@ const BrandLongTermBet: React.FC<BrandLongTermBetProps> = ({ data }) => {
             ))}
           </div>
 
-          {/* Desktop: Cards Grid */}
-          <div className="hidden md:grid md:grid-cols-3 gap-5 md:gap-6">
+          {/* Desktop: >Cards Grid (lg+) */}
+          <div className="hidden lg:grid lg:grid-cols-3 gap-5 md:gap-6">
             {data.cards.map((card, index) => (
               <Reveal key={index} className="relative rounded-[24px] overflow-hidden min-h-[420px] md:h-[60dvh] h-full group">
 

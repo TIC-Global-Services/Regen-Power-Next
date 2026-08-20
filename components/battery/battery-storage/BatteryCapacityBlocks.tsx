@@ -73,13 +73,13 @@ const BatteryCapacityBlocks = ({ data }: { data: BatteryCapacityData }) => {
                   }`}
               >
                 <h4
-                  className={`text-xl md:text-[2rem] text-center font-normal whitespace-pre-line leading-[1.1] tracking-tight mb-3 ${card.isPrimary ? 'text-black' : 'text-black'
+                  className={`text-2xl lg:text-[2rem] text-center font-normal whitespace-pre-line leading-[1.1] tracking-tight mb-3 ${card.isPrimary ? 'text-black' : 'text-black'
                     }`}
                 >
                   {card.title}
                 </h4>
                 <p
-                  className={`text-sm md:text-xl text-center leading-[1.2] ${card.isPrimary ? 'text-black' : 'text-black'
+                  className={`text-base lg:text-xl text-center leading-[1.2] ${card.isPrimary ? 'text-black' : 'text-black'
                     }`}
                 >
                   {card.description}

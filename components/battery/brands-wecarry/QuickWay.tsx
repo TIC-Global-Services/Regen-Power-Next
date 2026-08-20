@@ -19,11 +19,11 @@ const QuickWay: React.FC<{ data: QuickWayData }> = ({ data }) => {
   if (!data) return null;
 
   return (
-    <section className="bg-white w-full">
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-0 items-stretch w-full">
+    <section className="bg-white w-full py-16 ">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-0 items-stretch w-full px-5 lg:px-0">
 
         {/* Image Column — same full-bleed, full-height rhythm as other split sections */}
-        <div className="relative h-[450px] lg:h-screen overflow-hidden rounded-[20px] lg:rounded-none px-5 md:px-16 lg:px-0">
+        <div className="relative h-[450px] lg:h-screen overflow-hidden rounded-[20px] lg:rounded-none ">
           <Image
             src={data.image}
             alt={data.imageAlt || data.title}
@@ -34,7 +34,7 @@ const QuickWay: React.FC<{ data: QuickWayData }> = ({ data }) => {
         </div>
 
         {/* Text Column — same gutters as other split sections */}
-        <div className="flex flex-col justify-between pt-4 pb-16 lg:py-24 px-5 md:px-10 lg:pl-12 lg:pr-20 text-left">
+        <div className="flex flex-col justify-between pt-4 pb-16 py-4 lg:py-20 max-w-2xl px-5 lg:px-0 text-left">
           {/* Top block: title + subtitle */}
           <div className="max-w-xl">
             <h2 className="text-[2.5rem] md:text-5xl lg:text-[3.125rem] font-normal leading-tight tracking-tight mb-4 text-[#63B846]">

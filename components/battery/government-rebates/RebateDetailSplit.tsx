@@ -35,7 +35,7 @@ const RebateDetailSplit: React.FC<{ data?: RebateDetailSplitData }> = ({ data })
     const bg = data.bgColor || 'bg-white';
 
     return (
-        <section className={`w-full px-[5%] md:px-[3%] py-12 md:py-20 ${bg}`}>
+        <section className={`w-full px-[5%] md:px-[3%] py-12 md:py-20 max-w-7xl mx-auto ${bg}`}>
             <div className="">
                 {/* Header Section */}
                 {(data.topSubtitle || data.title || data.description) && (
@@ -87,7 +87,7 @@ const RebateDetailSplit: React.FC<{ data?: RebateDetailSplitData }> = ({ data })
                                     </h3>
                                 )}
                                 {data.topBoxItems && data.topBoxItems.length > 0 && (
-                                    <ol className="space-y-2">
+                                    <ol className="space-y-1">
                                         {data.topBoxItems.map((item, idx) => (
                                             <li
                                                 key={idx}
@@ -113,7 +113,7 @@ const RebateDetailSplit: React.FC<{ data?: RebateDetailSplitData }> = ({ data })
                                     </h3>
                                 )}
                                 {data.bottomBoxItems && data.bottomBoxItems.length > 0 && (
-                                    <ul className="grid grid-cols-1 sm:grid-cols-2 gap-x-4 gap-y-2">
+                                    <ul className="grid grid-cols-1 sm:grid-cols-2 gap-x-4 gap-y-1">
                                         {data.bottomBoxItems.map((item, idx) => (
                                             <li
                                                 key={idx}

@@ -73,7 +73,7 @@ const ComparisonColumns: React.FC<ComparisonColumnsProps> = ({
           )}
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-0">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 lg:gap-0">
           {/* Left Column */}
           <div className="bg-[#63B846] w-[335px] min-h-[478px] md:w-[400px] md:min-h-[460px] max-w-full rounded-[20px] p-8 justify-self-center flex flex-col">
             <h4 className="text-2xl font-medium mb-6 text-center text-black">

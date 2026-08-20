@@ -57,7 +57,7 @@ const BatteryRangeGrid = ({ data }: { data: BatteryRangeGridData }) => {
           return (
             <div
               key={idx}
-              className="w-full sm:w-[calc(50%-0.5rem)] lg:w-[calc(33.333%-0.85rem)] h-[280px] md:h-[500px]"
+              className="w-full sm:w-[calc(50%-0.5rem)] md:w-[calc(50%-0.625rem)] xl:w-[calc(33.333%-0.85rem)] h-[280px] md:h-[500px]"
             >
               <ImageCard card={card} />
             </div>

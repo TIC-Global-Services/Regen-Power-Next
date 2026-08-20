@@ -108,7 +108,7 @@ const EditorialTextSection: React.FC<EditorialTextSectionProps> = ({
       };
 
       mm.add("(min-width: 1280px)", () => createAnimation(1.35, 0.1));
-      mm.add("(min-width: 768px) and (max-width: 1279px)", () => createAnimation(1.1, 0.09));
+      mm.add("(min-width: 768px) and (max-width: 1279px)", () => createAnimation(0.85, 0.06)); // iPad = mobile behavior
       mm.add("(max-width: 767px)", () => createAnimation(0.85, 0.06));
     }, sectionEl);
 
@@ -162,11 +162,11 @@ const EditorialTextSection: React.FC<EditorialTextSectionProps> = ({
     return (
       <section
         ref={sectionRef}
-        className={`w-full bg-white relative overflow-hidden min-h-screen flex flex-col justify-center px-[5%] md:px-[3%]`}
+        className={`w-full bg-white relative overflow-hidden min-h-screen flex flex-col justify-center px-[5%] lg:px-[3%]`}
       >
-        <div className="w-full md:px-16">
+        <div className="w-full lg:px-16">
           {headerSection}
-          <div className={`text-lg md:text-3xl font-light leading-tight tracking-tight mt-8 md:ml-16 md:max-w-6xl ${paragraphsClass || (align === 'left' ? 'text-left' : align === 'right' ? 'text-right' : 'text-center')}`}>
+          <div className={`text-lg md:text-3xl font-light leading-tight tracking-tight mt-8 lg:ml-16 lg:max-w-6xl ${paragraphsClass || (align === 'left' ? 'text-left' : align === 'right' ? 'text-right' : 'text-center')}`}>
             {paragraphs.map(renderParagraph)}
           </div>
         </div>
@@ -177,7 +177,7 @@ const EditorialTextSection: React.FC<EditorialTextSectionProps> = ({
   return (<div className={``}>
     {headerSection}
     <Fade delay={0.2} duration={0.8}>
-      <div className={`mx-auto text-lg md:text-3xl font-light leading-tight tracking-tight mt-8 ${paragraphsClass || (align === 'left' ? 'text-left' : align === 'right' ? 'text-right' : 'text-center')}`}>
+      <div className={`mx-auto text-lg lg:text-3xl font-light leading-tight tracking-tight mt-8 ${paragraphsClass || (align === 'left' ? 'text-left' : align === 'right' ? 'text-right' : 'text-center')}`}>
         {paragraphs.map((para, idx) => (
           <p key={idx} className={para.isSecondary ? 'text-gray-400' : 'text-black'}>
             {para.text}

@@ -37,11 +37,11 @@ const FourPillars = ({ data }: { data: FourPillarsData }) => {
             </div>
 
             {/* Mobile: Horizontal Slider */}
-            <div className="flex overflow-x-auto md:hidden gap-4 -mx-[5%] px-[5%] md:px-[3%] [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none] pb-4">
+            <div className="flex overflow-x-auto lg:hidden gap-4 -mx-[5%] px-[5%] md:-mx-[3%] md:px-[3%] [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none] pb-4">
                 {data.cards.map((card, idx) => (
                     <div
                         key={idx}
-                        className="relative rounded-[20px] overflow-hidden h-[320px] w-[75vw] shrink-0 snap-start"
+                        className="relative rounded-[20px] overflow-hidden h-[320px] w-[75vw] md:w-[55vw] shrink-0 snap-start"
                     >
                         {/* Background image */}
                         {card.image && (
@@ -58,10 +58,10 @@ const FourPillars = ({ data }: { data: FourPillarsData }) => {
 
                         {/* Title pinned to top, description pinned to bottom */}
                         <div className="absolute inset-0 flex flex-col justify-between p-5">
-                            <h4 className="text-white text-xl font-medium tracking-tight leading-[1.2]">
+                            <h4 className="text-white text-xl md:text-2xl font-medium tracking-tight leading-[1.2]">
                                 {card.title}
                             </h4>
-                            <p className="text-white/85 text-xs tracking-tight leading-[1.3]">
+                            <p className="text-white text-xs md:text-base tracking-tight leading-[1.3]">
                                 {card.description}
                             </p>
                         </div>
@@ -70,7 +70,7 @@ const FourPillars = ({ data }: { data: FourPillarsData }) => {
             </div>
 
             {/* Desktop: Four Column Card Grid */}
-            <div className="hidden sm:grid sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-2">
+            <div className="hidden lg:grid lg:grid-cols-4 gap-4 lg:gap-2">
                 {data.cards.map((card, idx) => (
                     <div
                         key={idx}

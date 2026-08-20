@@ -34,7 +34,7 @@ const InstallationTimeline = ({ data }: { data: InstallationTimelineData }) => {
     <section className="bg-white py-16 md:py-24 px-[5%] md:px-[3%]">
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-center">
         {/* Right — Image (on top on mobile, right column on desktop) */}
-        <div className="relative w-[375px] md:w-[660px] max-w-full min-h-[450px] md:min-h-[770px] rounded-[20px] overflow-hidden bg-gray-100 order-1 lg:order-2 justify-self-center">
+        <div className="relative w-full aspect-[4/5] md:aspect-[6/7] rounded-[20px] overflow-hidden bg-gray-100 order-1 lg:order-2 justify-self-center">
           <AnimatePresence mode="wait">
             <motion.div
               key={activeIndex}

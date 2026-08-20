@@ -69,7 +69,7 @@ const TextCardView: React.FC<{ card: TextCard; mobileScroll?: boolean }> = ({ ca
     const isDark = card.variant === 'dark';
     const titleLines = card.title.split('\n');
     return (
-        <div className={`${variantClass[card.variant]} rounded-2xl p-6 flex flex-col justify-center gap-5 h-full min-h-[280px] ${mobileScroll ? 'shrink-0 w-[75vw] md:w-auto' : ''}`}>
+        <div className={`${variantClass[card.variant]} rounded-2xl p-6 flex flex-col justify-center gap-5 h-full ${mobileScroll ? 'shrink-0 w-[75vw] md:w-auto' : ''}`}>
             <h3 className="text-3xl md:text-[2.5rem] font-normal tracking-tight leading-[1] text-[#63B846] mb-2">
                 {titleLines.map((line, i) => (
                     <span key={i} className="block">{line}</span>
@@ -90,7 +90,7 @@ const TextCardView: React.FC<{ card: TextCard; mobileScroll?: boolean }> = ({ ca
 };
 
 const ImageCardView: React.FC<{ card: ImageCard; mobileScroll?: boolean }> = ({ card, mobileScroll }) => (
-    <div className={`${variantClass[card.variant]} rounded-2xl p-6 md:p-8 flex items-center justify-center h-full min-h-[280px] md:min-h-[300px] ${mobileScroll ? 'shrink-0 w-[75vw] md:w-auto' : ''}`}>
+    <div className={`${variantClass[card.variant]} rounded-2xl p-6 md:p-8 flex items-center justify-center h-full ${mobileScroll ? 'shrink-0 w-[75vw] md:w-auto' : ''}`}>
         <div className="relative w-32 h-32 md:w-40 md:h-40">
             <Image
                 src={card.image || gridDots}
@@ -162,7 +162,7 @@ const SolutionsPortfolio: React.FC<SolutionsPortfolioProps> = ({
                 )}
 
                 <div className={`${mobileScroll
-                    ? `flex overflow-x-auto md:grid ${desktopGridCols(layout)} snap-x snap-mandatory md:snap-none -mx-[5%] px-[5%] md:px-[3%] md:mx-0 md:px-0 gap-4 md:gap-6 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none] pb-4 md:pb-0`
+                    ? `flex items-stretch overflow-x-auto md:grid ${desktopGridCols(layout)} snap-x snap-mandatory md:snap-none -mx-[5%] px-[5%] md:px-[3%] md:mx-0 md:px-0 gap-4 md:gap-6 min-h-[280px] [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none] pb-4 md:pb-0`
                     : `grid ${gridCols[layout]} gap-5 md:gap-6`
                     }`}>
                     {cards.map((card, index) => {

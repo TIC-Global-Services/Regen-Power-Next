@@ -174,7 +174,7 @@ const BatteryTimeline = ({ data }: { data: BatteryTimelineData }) => {
           </div>
 
           {/* Right Big Time Text with Dot Pattern and Reflection (mobile after arrows) */}
-          <div className="flex-1 w-full md:col-span-3 md:col-start-9 md:row-start-2 flex justify-center items-center relative order-2 mt-10 md:translate-x-10">
+          <div className="flex-1 w-full md:col-span-2 md:col-start-9 lg:col-start-10 md:row-start-2 flex justify-center items-center relative order-2 mt-10">
             {/* Green dotted background — centered behind the text */}
             <div
               className="absolute opacity-[0.15] pointer-events-none"
@@ -185,7 +185,7 @@ const BatteryTimeline = ({ data }: { data: BatteryTimelineData }) => {
                 height: '250px',
                 left: '50%',
                 top: '50%',
-                transform: 'translate(-50%, -50%)',
+                transform: 'translate(-50%, -60%)',
                 zIndex: 0
               }}
             />
@@ -200,7 +200,7 @@ const BatteryTimeline = ({ data }: { data: BatteryTimelineData }) => {
                 transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
                 className="relative z-10"
               >
-                <div className="flex flex-col gap-3 items-center md:translate-y-6">
+                <div className="flex flex-col gap-3 items-center">
                   <div className="text-[5rem] md:text-[4.5rem] lg:text-[5rem] font-normal text-[#63B846] leading-none whitespace-nowrap tracking-tighter">
                     {activeEvent.time}
                   </div>
@@ -234,10 +234,10 @@ const BatteryTimeline = ({ data }: { data: BatteryTimelineData }) => {
                   transition={{ duration: 0.3 }}
                   className="absolute inset-0 flex flex-col capitalize"
                 >
-                  <h4 className="text-3xl md:text-[2.5rem] font-normal text-black mb-6 leading-[1] tracking-tight text-center md:text-left">
+                  <h4 className="text-3xl md:text-[2rem] lg:text-[2.5rem] font-normal text-black mb-6 leading-[1] tracking-tight text-center md:text-left">
                     {activeEvent.title}
                   </h4>
-                  <p className="text-sm md:text-2xl text-black leading-[1] tracking-tight font-normal text-center md:text-left pl-0 md:pl-8">
+                  <p className="text-base md:text-xl lg:text-2xl text-black leading-[1] tracking-tight font-normal text-center md:text-left pl-0 md:pl-8">
                     {activeEvent.description}
                   </p>
                 </motion.div>

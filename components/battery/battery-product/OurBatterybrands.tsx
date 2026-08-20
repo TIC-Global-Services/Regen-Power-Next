@@ -39,7 +39,7 @@ const OurBatterybrands: React.FC<{ data?: OurBatteryBrandsData }> = ({ data }) =
                             >
                                 {/* Text Content Card */}
                                 <div
-                                    className={`bg-[#EAF2E2] rounded-[1.25rem] p-6 md:p-8 flex flex-col justify-between relative md:col-span-8 ${isEven ? 'order-1 md:order-1' : 'order-1 md:order-2'
+                                    className={`bg-[#EAF2E2] rounded-[1.25rem] p-6 md:p-8 flex flex-col justify-between relative md:col-span-8 overflow-hidden ${isEven ? 'order-1 md:order-1' : 'order-1 md:order-2'
                                         }`}
                                 >
                                     {/* Arrow icon if link exists */}
@@ -68,7 +68,7 @@ const OurBatterybrands: React.FC<{ data?: OurBatteryBrandsData }> = ({ data }) =
                                     <div>
                                         {/* Logo */}
                                         {brand.logo && (
-                                            <div className="mb-2 h-full relative w-full flex items-center">
+                                            <div className="mb-4 h-14 md:h-32 relative w-full">
                                                 <Image
                                                     src={brand.logo}
                                                     alt={brand.title}

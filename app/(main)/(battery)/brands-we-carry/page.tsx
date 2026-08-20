@@ -35,7 +35,7 @@ import BrandLongTermBet from "@/components/battery/brands-wecarry/BrandLongTermB
 import WhatItTakes from "@/components/battery/brands-wecarry/WhatItTakes";
 import SevenBrand from "@/components/battery/brands-wecarry/SevenBrand";
 import QuickWay from "@/components/battery/brands-wecarry/QuickWay";
-import CECApproved from "@/components/battery/brands-wecarry/CECApproved";
+import BentoCardsGrid from "@/reuseables/BentoCardsGrid";
 import WhyOurInstaller from "@/components/battery/brands-wecarry/WhyOurInstaller";
 
 import heroBanner from "@/assets/evcharging/hero_banner.png";
@@ -149,7 +149,7 @@ const BrandsWeCarryPage = async () => {
         />
       )}
 
-      {cecApprovedProps && <CECApproved data={cecApprovedProps} />}
+      {cecApprovedProps && <BentoCardsGrid data={cecApprovedProps} headerColSpan={2} />}
 
       {whyOurInstallerProps && (
         <WhyOurInstaller

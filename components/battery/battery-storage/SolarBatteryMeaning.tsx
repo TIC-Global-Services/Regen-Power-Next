@@ -75,7 +75,7 @@ const SolarBatteryMeaning = ({ data }: { data: SolarBatteryMeaningData }) => {
                       animate={{ opacity: 1, height: 'auto' }}
                       exit={{ opacity: 0, height: 0 }}
                       transition={{ duration: 0.3 }}
-                      className="text-xl md:text-[1.75rem] font-normal text-black text-center"
+                      className="text-xl md:text-[1.75rem] font-normal text-black tracking-tight capitalize text-center"
                     >
                       {card.title}
                     </motion.h4>
@@ -88,7 +88,7 @@ const SolarBatteryMeaning = ({ data }: { data: SolarBatteryMeaningData }) => {
                       transition={{ duration: 0.3 }}
                       className="overflow-hidden"
                     >
-                      <p className="text-base md:text-lg text-black text-center leading-[1.2]">
+                      <p className="text-base md:text-lg text-black text-center capitalize tracking-tight leading-[1.2]">
                         {card.description}
                       </p>
                     </motion.div>

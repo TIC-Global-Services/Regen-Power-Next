@@ -210,7 +210,7 @@ export interface ResolvedInstallBentoBlock {
 export interface ResolvedSmartInstallBento {
   title: string;
   description: string;
-  blocks: ResolvedInstallBentoBlock[];
+  cards: ResolvedInstallBentoBlock[];
 }
 export function resolveSmartInstallBento(
   data: SmartHomeInstallBentoData | undefined
@@ -219,7 +219,7 @@ export function resolveSmartInstallBento(
   return {
     title: data.title ?? "",
     description: data.description ?? "",
-    blocks: (data.blocks ?? []).map((b) => ({
+    cards: (data.blocks ?? []).map((b) => ({
       title: b.title,
       description: b.description,
     })),

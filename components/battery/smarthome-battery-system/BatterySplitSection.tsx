@@ -39,7 +39,7 @@ const BatterySplitSection = ({ data }: { data: BatterySplitData }) => {
 
   const renderImageAndNav = () => (
     <div className="w-full flex flex-col items-end gap-6">
-      <div className="w-full relative min-h-[350px] max-w-full md:w-[660px] lg:min-h-[770px] rounded-[20px] overflow-hidden bg-gray-100">
+      <div className="w-full relative min-h-[350px] max-w-full lg:w-[660px] lg:min-h-[770px] rounded-[20px] overflow-hidden bg-gray-100">
         <AnimatePresence mode="wait">
           <motion.div
             key={currentSlide}

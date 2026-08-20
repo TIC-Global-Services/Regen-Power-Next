@@ -36,11 +36,11 @@ const RebatesStackGrid: React.FC<{ data?: RebatesStackGridData }> = ({ data }) =
                 </div>
 
                 {/* Cards Grid */}
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-5 md:gap-6">
+                <div className="grid grid-cols-1 lg:grid-cols-3 auto-rows-fr gap-5 md:gap-6">
                     {data.cards.map((card, idx) => (
                         <div
                             key={idx}
-                            className="bg-[#EEF6EB] rounded-3xl p-6 md:p-8 flex flex-col justify-start min-h-[50dvh]"
+                            className="bg-[#EEF6EB] rounded-3xl p-6 md:p-8 flex flex-col justify-center min-h-[30dvh] lg:min-h-[50dvh]"
                         >
                             <h3 className="text-xl md:text-3xl font-normal tracking-tight text-black mb-6 leading-tight">
                                 {card.title}

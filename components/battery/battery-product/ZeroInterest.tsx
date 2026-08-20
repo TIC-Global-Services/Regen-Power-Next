@@ -46,7 +46,7 @@ const ZeroInterest: React.FC<{ data: ZeroInterestData }> = ({ data }) => {
                 {/* Grid Layout */}
                 <div className="grid grid-cols-1 md:grid-cols-12 gap-5 md:gap-6">
                     {/* Row 1 — Key Terms (5 cols) + Top Image (7 cols) */}
-                    <div className="bg-[#EAF2E2] rounded-3xl md:col-span-5 p-6 flex flex-col justify-center">
+                    <div className="bg-[#EAF2E2] rounded-3xl md:col-span-5 p-6 flex flex-col justify-center max-md:order-1">
                         <h3 className="text-xl md:text-3xl font-normal tracking-tight text-black mb-6">
                             {data.keyTerms.title}
                         </h3>
@@ -59,7 +59,7 @@ const ZeroInterest: React.FC<{ data: ZeroInterestData }> = ({ data }) => {
                         </ul>
                     </div>
 
-                    <div className="md:col-span-7 rounded-3xl overflow-hidden  relative">
+                    <div className="md:col-span-7 rounded-3xl overflow-hidden relative min-h-[220px] md:min-h-[320px] max-md:order-2">
                         <Image
                             src={data.topImage ?? productReviewBg}
                             alt="Grid asset"
@@ -69,7 +69,7 @@ const ZeroInterest: React.FC<{ data: ZeroInterestData }> = ({ data }) => {
                     </div>
 
                     {/* Row 2 — Bottom Image (3 cols) + Eligibility (5 cols) + Summary (4 cols) */}
-                    <div className="md:col-span-3 rounded-3xl overflow-hidden relative">
+                    <div className="md:col-span-7 lg:col-span-3 rounded-3xl overflow-hidden relative min-h-[220px] md:min-h-[320px] max-md:order-4">
                         <Image
                             src={data.bottomImage ?? businessBg}
                             alt="Grid asset"
@@ -78,7 +78,7 @@ const ZeroInterest: React.FC<{ data: ZeroInterestData }> = ({ data }) => {
                         />
                     </div>
 
-                    <div className="bg-[#EAF2E2] md:col-span-5 rounded-3xl p-6 flex flex-col justify-center">
+                    <div className="bg-[#EAF2E2] md:col-span-5 rounded-3xl p-6 flex flex-col justify-center max-md:order-3">
                         <h3 className="text-xl md:text-3xl font-normal tracking-tight text-black mb-6">
                             {data.eligibility.title}
                         </h3>
@@ -91,7 +91,7 @@ const ZeroInterest: React.FC<{ data: ZeroInterestData }> = ({ data }) => {
                         </ul>
                     </div>
 
-                    <div className="bg-[#EAF2E2] md:col-span-4 rounded-3xl p-8 flex flex-col justify-center">
+                    <div className="bg-[#EAF2E2] md:col-span-12 lg:col-span-4 rounded-3xl p-8 flex flex-col justify-center max-md:order-5">
                         <p className="text-lg md:text-[1.375rem] font-normal tracking-tight text-black leading-[1.2]">
                             {data.summaryText}
                         </p>

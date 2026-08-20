@@ -34,12 +34,12 @@ const BatteryBrandMatters = ({ data }: { data: BatteryBrandMattersData }) => {
           )}
         </div>
 
-        {/* Mobile: Horizontal Scroll */}
-        <div className="flex overflow-x-auto md:hidden gap-4 -mx-[5%] px-[5%] md:px-[3%] [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none] ">
+        {/* Mobile + iPad: Horizontal Scroll */}
+        <div className="flex overflow-x-auto lg:hidden gap-4 -mx-[5%] px-[5%] md:-mx-[3%] md:px-[3%] [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none] ">
           {data.cards.map((card, idx) => (
             <div
               key={idx}
-              className="relative rounded-[24px] overflow-hidden min-h-[350px] w-[65vw] shrink-0 snap-start flex flex-col justify-start p-6 group"
+              className="relative rounded-[24px] overflow-hidden min-h-[350px] w-[65vw] md:w-[45vw] shrink-0 snap-start flex flex-col justify-start p-6 group"
             >
               {/* Background Image */}
               <Image
@@ -65,8 +65,8 @@ const BatteryBrandMatters = ({ data }: { data: BatteryBrandMattersData }) => {
           ))}
         </div>
 
-        {/* Desktop: Grid */}
-        <div className="hidden md:grid md:grid-cols-2 lg:grid-cols-4 gap-2 md:gap-4">
+        {/* Desktop (lg+): Grid */}
+        <div className="hidden lg:grid lg:grid-cols-4 gap-2 md:gap-4">
           {data.cards.map((card, idx) => (
             <div
               key={idx}

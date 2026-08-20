@@ -85,6 +85,9 @@ const FeatureCardGrid: React.FC<FeatureCardGridProps> = ({
   // Same ratio as before: active card = 2.5, others = 1
   const ACTIVE_FLEX = 1.8;
   const INACTIVE_FLEX = 1;
+  // Desktop min-height floor, matching md:min-h-[300px] / xl:min-h-[460px].
+  // Inline height is only applied when content would exceed this (fluid growth).
+  const MIN_HEIGHT = isDesktop ? 300 : 0;
   const gapPx = 20; // matches md:gap-5 (20px) — adjust if you change the gap class
   const totalGap = gapPx * (cards.length - 1);
   const usableWidth = Math.max(containerWidth - totalGap, 0);
@@ -95,6 +98,26 @@ const FeatureCardGrid: React.FC<FeatureCardGridProps> = ({
     const share = index === activeIndex ? ACTIVE_FLEX : INACTIVE_FLEX;
     return (usableWidth * share) / flexSum;
   };
+
+  // ── Fluid height, no transition glitch ────────────────────────────────
+  // Anchor every card to the ACTIVE card's natural content height (measured
+  // once, at the active card's final width). Height then only changes once per
+  // selection and animates smoothly — it never chases the text reflow that
+  // happens frame-by-frame while widths slide.
+  const probeRef = useRef<HTMLDivElement>(null);
+  const [probeH, setProbeH] = useState<number | null>(null);
+  const activeCard = cards[activeIndex];
+
+  useEffect(() => {
+    if (!probeRef.current) return;
+    const update = () => {
+      if (probeRef.current) setProbeH(probeRef.current.offsetHeight);
+    };
+    update();
+    const ro = new ResizeObserver(update);
+    ro.observe(probeRef.current);
+    return () => ro.disconnect();
+  }, [activeIndex, isDesktop, containerWidth]);
 
   return (
     <Fade>
@@ -107,7 +130,7 @@ const FeatureCardGrid: React.FC<FeatureCardGridProps> = ({
           className="mb-5 md:mb-16 hidden md:block"
           subtitleClass="text-xl md:text-[2.125rem] text-black tracking-tight capitalize"
           titleClass="text-[2.5rem] md:text-6xl tracking-tight leading-[1]"
-          descClass="text-base md:text-base text-black max-w-4xl mx-auto font-medium tracking-tight whitespace-pre-line"
+          descClass="text-base md:text-xl text-black max-w-4xl mx-auto font-medium tracking-tight whitespace-pre-line"
         />
         <SectionHeader
           subtitle={topSubtitle}
@@ -120,7 +143,7 @@ const FeatureCardGrid: React.FC<FeatureCardGridProps> = ({
           descClass="text-base md:text-base text-black max-w-4xl mx-auto font-medium tracking-tight whitespace-pre-line"
         />
 
-        <div ref={containerRef} className="flex items-stretch overflow-x-auto md:overflow-hidden md:flex-row h-full -mx-[5%] pl-[5%] pr-[5%] gap-4 md:gap-4 w-[calc(100%+10%)] md:w-full md:mx-0 md:px-0 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none] pb-4 md:pb-0">
+        <div ref={containerRef} className="relative flex items-stretch overflow-x-auto md:overflow-hidden md:flex-row h-full -mx-[5%] px-[5%] gap-4 md:gap-4 w-[calc(100%+10%)] md:w-full md:mx-0 md:px-0 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none] pb-4 md:pb-0">
           {cards.map((card, index) => {
             const isActive = !isDesktop || activeIndex === index;
             const widthPx = getCardWidth(index);
@@ -135,11 +158,16 @@ const FeatureCardGrid: React.FC<FeatureCardGridProps> = ({
                 onMouseEnter={() => window.innerWidth > 768 && setActiveIndex(index)}
                 style={{
                   width: widthPx ? `${widthPx}px` : undefined,
-                  transition: 'width 700ms cubic-bezier(0.4,0,0.2,1)',
+                  // Always pin every card to ONE height for the whole animation
+                  // cycle: max(active-content height, desktop floor). Content never
+                  // drives height frame-by-frame during the width slide, so there
+                  // is no reflow glitch — height only changes once per selection.
+                  height: isDesktop && probeH ? `${Math.max(probeH, MIN_HEIGHT)}px` : undefined,
+                  transition: 'width 700ms cubic-bezier(0.4,0,0.2,1), height 700ms cubic-bezier(0.4,0,0.2,1)',
                   transform: 'translateZ(0)',
                   WebkitBackfaceVisibility: 'hidden',
                 }}
-                className={`relative rounded-[20px] overflow-hidden group flex-none cursor-pointer focus-visible:outline-none md:min-h-[460px] h-auto flex flex-col w-[75vw] md:w-full shrink-0 snap-start md:snap-align-none`}
+                className={`relative rounded-[20px] overflow-hidden group flex-none cursor-pointer focus-visible:outline-none md:min-h-[300px] xl:min-h-[460px] flex flex-col w-[75vw] md:w-full shrink-0 snap-start md:snap-align-none`}
               >
                 <div className="absolute inset-0 z-0 w-full h-full" style={{ transform: 'translateZ(0)' }}>
                   <Image
@@ -193,6 +221,63 @@ const FeatureCardGrid: React.FC<FeatureCardGridProps> = ({
               </div>
             );
           })}
+
+          {/* Hidden height probe — mirrors the ACTIVE card's content at its final
+              width so the row height is fluid to content but stable during the
+              width animation (no frame-by-frame reflow chasing). */}
+          {isDesktop && activeCard && (
+            <div
+              ref={probeRef}
+              aria-hidden
+              style={{
+                position: 'absolute',
+                top: 0,
+                left: 0,
+                width: getCardWidth(activeIndex) ?? undefined,
+                visibility: 'hidden',
+                pointerEvents: 'none',
+                zIndex: -1,
+              }}
+            >
+              <div className="p-6 md:p-8 pt-5 flex flex-col">
+                <h4 className="text-white font-normal tracking-tight text-xl md:text-3xl mb-3">
+                  {activeCard.title}
+                </h4>
+                {activeCard.subtitle && (
+                  <p className="text-white text-[#63B846] text-[1.375rem] font-normal tracking-tight leading-tight mb-2">
+                    {activeCard.subtitle}
+                  </p>
+                )}
+                <p className="text-white text-xs md:text-base leading-tight max-w-[85%] tracking-tight">
+                  {activeCard.description}
+                </p>
+                {(activeCard.footerTitle || activeCard.footerDescription) && (
+                  <div className="mt-4">
+                    {activeCard.footerTitle && (
+                      <h5 className="text-white font-semibold tracking-tight text-xl mb-0.5 whitespace-nowrap">
+                        {activeCard.footerTitle}
+                      </h5>
+                    )}
+                    {activeCard.footerDescription && (
+                      <p className="text-white text-base tracking-tight">
+                        {activeCard.footerDescription}
+                      </p>
+                    )}
+                  </div>
+                )}
+                {showReadMore && (
+                  <div className="pt-4">
+                    <p className="text-[#63B846] flex gap-2 items-center">
+                      Read more
+                      <span className="text-lg">
+                        <MoveRight size={20} color="#63B846" strokeWidth={3} />
+                      </span>
+                    </p>
+                  </div>
+                )}
+              </div>
+            </div>
+          )}
         </div>
 
         {showPersonalisedquoteCta && (

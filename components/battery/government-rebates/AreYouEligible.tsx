@@ -24,11 +24,11 @@ interface areyoueligibleProps {
 const Areyoueligible = ({ data }: areyoueligibleProps) => {
     if (!data) return null;
     return (
-        <section className="bg-white border-t border-gray-50 flex items-stretch w-full">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-0 items-stretch w-full">
+        <section className="bg-white border-t border-gray-50 py-12 md:py-16 flex items-stretch w-full">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-0 items-stretch w-full px-[5%] md:px-[3%] lg:px-0">
 
                 {/* Image Column — same inset rhythm as FullscreenSplitSection (bleeds at lg) */}
-                <div className="relative h-[450px] lg:h-screen overflow-hidden rounded-[20px] lg:rounded-none px-5 md:px-16 lg:px-0">
+                <div className="relative h-[450px] lg:h-screen overflow-hidden rounded-[20px] lg:rounded-none ">
                     <Image
                         src={data.image}
                         alt={data.imageAlt || ''}
@@ -38,7 +38,7 @@ const Areyoueligible = ({ data }: areyoueligibleProps) => {
                     />
                 </div>
                 {/* Text Column — same gutters as FullscreenSplitSection */}
-                <div className="w-full flex flex-col justify-center pt-4 pb-16 lg:py-24 px-5 md:px-10 lg:pl-12 lg:pr-20">
+                <div className="w-full flex flex-col justify-center pt-4 lg:py-24 lg:pl-12 lg:pr-20">
                     <div className="capitalize">
                         <h3 className="text-xl md:text-2xl font-normal text-black tracking-tight mb-1">
                             {data.subtitle}

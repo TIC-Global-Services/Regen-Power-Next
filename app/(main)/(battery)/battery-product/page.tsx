@@ -36,7 +36,7 @@ import HeroSection from "@/reuseables/HeroSection";
 import GetSolar from "@/reuseables/getsolar";
 
 import BatteryBrandMatters from "@/components/battery/battery-product/BatteryBrandMatters";
-import HowYouUseIt from "@/components/battery/battery-product/HowYouUseIt";
+import BentoCardsGrid from "@/reuseables/BentoCardsGrid";
 import GreatFit from "@/components/battery/smarthome-battery-system/GreatFit";
 import { Minus } from "lucide-react";
 import SpecsTableSection from "@/components/solar/brands/SpecsTableSection";
@@ -110,7 +110,7 @@ const BatteryProductPage = async () => {
 
       {brandMattersProps && <BatteryBrandMatters data={brandMattersProps} />}
 
-      {howYouUseItProps && <HowYouUseIt data={howYouUseItProps} />}
+      {howYouUseItProps && <BentoCardsGrid data={howYouUseItProps} headerColSpan={2} />}
 
       {rightSizingProps && <RightSizing data={rightSizingProps} />}
 
