@@ -42,7 +42,7 @@ const SolarPackages: React.FC<SolarPackagesProps> = ({ resolved }) => {
         />
 
         {/* Card Layout: 2-col on desktop, stacked on mobile */}
-        <div className="md:grid grid-cols-1 md:grid-cols-3 gap-4 justify-center items-start">
+        <div className="md:grid grid-cols-1 lg:grid-cols-3 gap-4 justify-center items-start">
           {packages.map((pkg, idx) => (
             <Reveal
               key={idx}

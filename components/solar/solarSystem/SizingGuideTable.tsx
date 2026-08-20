@@ -188,7 +188,7 @@ const SizingGuideTable: React.FC<SizingGuideTableProps> = ({ resolved }) => {
                 <Reveal
                   key={idx}
                   delay={idx * 0.15}
-                  className="relative flex flex-col justify-end rounded-[24px] overflow-hidden group min-h-[400px] max-w-full md:w-[320px]"
+                  className="relative flex flex-col lg:justify-end rounded-[24px] overflow-hidden group min-h-[400px] max-w-full md:w-[320px]"
                 >
                   <div className="absolute inset-0 z-0">
                     {card.image ? (

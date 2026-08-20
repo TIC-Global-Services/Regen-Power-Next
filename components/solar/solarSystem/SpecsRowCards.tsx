@@ -42,17 +42,17 @@ const SpecsRowCards: React.FC<SpecsRowCardsProps> = ({ resolved }) => {
                       </h3>
                     </div>
 
-                    <div className="flex-grow max-w-sm">
-                      <span className="text-xl md:text-2xl text-black block mb-1 md:mb-3 font-[var(--font-aeonik)]">
+                    <div className="flex-grow lg: max-w-sm md:w-full">
+                      <span className="text-xl md:text-2xl text-black block mb-1 md:mb-3">
                         {spec.value}
                       </span>
-                      <p className="text-sm md:text-base tracking-tight leading-tight">
+                      <p className="text-sm md:text-xl lg:text-base tracking-tight leading-tight">
                         {spec.description}
                       </p>
                     </div>
 
                     <div className="w-full lg:w-[280px] shrink-0 flex lg:justify-end items-center">
-                      <div className="w-full h-[20dvh] md:w-[280px] md:h-[120px] rounded-[20px] overflow-hidden">
+                      <div className="w-full h-[20dvh] md:h-[30dvh] lg:w-[280px] lg:h-[120px] rounded-[20px] overflow-hidden">
                         {spec.image ? (
                           <Image
                             src={spec.image.src}

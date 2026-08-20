@@ -58,7 +58,7 @@ const StaggeredCardItem: React.FC<StaggeredCardItemProps> = ({
         } rounded-[14px] p-6 md:p-7 flex flex-col justify-between w-full  mx-auto shadow-sm hover:shadow-md transition-all duration-300 ${cardWidthClass} min-h-[280px] ${cardHeightClass}`}
     >
       <div className="flex flex-col">
-        <h3 className="text-[#63B846] text-[2.5rem] md:text-[3.125rem] leading-[1.0] tracking-tighter mb-1">
+        <h3 className="text-[#63B846] text-[2.5rem] lg:text-[3.125rem] leading-[1.0] tracking-tighter mb-1">
           {item.title}
         </h3>
         {item.subtitle && (
@@ -146,29 +146,43 @@ const StaggeredCardsGrid: React.FC<StaggeredCardsGridProps> = ({
 
         {/* Desktop: staggered grid */}
         <div className="hidden md:grid md:grid-cols-2 lg:grid-cols-3 gap-4 auto-rows-fr mx-auto max-w-7xl">
-          {columns.map((column, colIdx) => (
-            <div key={colIdx} className="flex flex-col gap-4 h-full justify-between">
-              {column.items.map((item, itemIdx) => {
-                if (item === "spacer") {
+          {columns.map((column, colIdx) => {
+            const isLastOddColumn = colIdx === columns.length - 1 && columns.length % 2 !== 0;
+            return (
+              <div
+                key={colIdx}
+                className={`flex flex-col gap-4 h-full justify-between ${
+                  isLastOddColumn ? "md:col-span-2 lg:col-span-1" : ""
+                }`}
+              >
+                {column.items.map((item, itemIdx) => {
+                  if (item === "spacer") {
+                    return (
+                      <div
+                        key={itemIdx}
+                        className={`hidden lg:block ${spacerHeightClass}`}
+                      />
+                    );
+                  }
+
+                  // If this is the last column (spanning 2 cols on md), we allow the card to stretch to full width on md screens,
+                  // and revert to cardWidthClass on lg screens.
+                  const dynamicCardWidthClass = isLastOddColumn 
+                    ? `${cardWidthClass} md:max-w-none lg:${cardWidthClass.replace('max-w-', 'max-w-')}`
+                    : cardWidthClass;
+
                   return (
-                    <div
+                    <StaggeredCardItem
                       key={itemIdx}
-                      className={`hidden lg:block ${spacerHeightClass}`}
+                      item={item}
+                      cardWidthClass={dynamicCardWidthClass}
+                      cardHeightClass={cardHeightClass}
                     />
                   );
-                }
-
-                return (
-                  <StaggeredCardItem
-                    key={itemIdx}
-                    item={item}
-                    cardWidthClass={cardWidthClass}
-                    cardHeightClass={cardHeightClass}
-                  />
-                );
-              })}
-            </div>
-          ))}
+                })}
+              </div>
+            );
+          })}
         </div>
 
       </div>
