@@ -164,11 +164,11 @@ export default function RebateProgramsSection({ resolved }: Props) {
                 onClick={() => handleManualClick(programs.indexOf(program))}
                 className="flex w-full items-center justify-between px-5 py-5 text-left"
               >
-                <span className="pr-4 text-[2.5rem] leading-tight tracking-tight text-black">
+                <span className="pr-4 text-2xl md:text-[2.5rem] leading-tight tracking-tight text-black">
                   {program.title}
                 </span>
                 <span className="text-sm uppercase tracking-wide text-black/55">
-                  {isActive ? <ChevronUp size={20} /> : <ChevronDown size={20}/>}
+                  {isActive ? <ChevronUp size={20} /> : <ChevronDown size={12}/>}
                 </span>
               </button>
 

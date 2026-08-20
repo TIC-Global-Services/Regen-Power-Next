@@ -1,9 +1,10 @@
 'use client';
 
-import React, { useState, useMemo, useCallback } from 'react';
+import React, { useState, useMemo, useCallback, useEffect } from 'react';
 import type { PortfolioItem } from '@/utils/portfolio.model';
 import PortfolioFilters from './PortfolioFilters';
 import PortfolioHoverRow from './PortfolioHoverRow';
+import { PortfolioCard } from './PortfolioCard';
 
 /* ─── Constants ─── */
 
@@ -90,6 +91,16 @@ const PortfolioInteractive: React.FC<PortfolioInteractiveProps> = ({
 }) => {
   const [filters, setFilters] = useState<FilterState>(INITIAL_FILTERS);
   const [currentPage, setCurrentPage] = useState(1);
+  const [itemsPerPage, setItemsPerPage] = useState(ITEMS_PER_PAGE);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setItemsPerPage(window.innerWidth < 768 ? 4 : ITEMS_PER_PAGE);
+    };
+    handleResize();
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
 
   /* Reset to page 1 when filters change */
   const handleFilterChange = useCallback(
@@ -107,10 +118,10 @@ const PortfolioInteractive: React.FC<PortfolioInteractiveProps> = ({
   );
 
   /* Pagination math */
-  const totalPages = Math.max(1, Math.ceil(filteredItems.length / ITEMS_PER_PAGE));
+  const totalPages = Math.max(1, Math.ceil(filteredItems.length / itemsPerPage));
   const safePage = Math.min(currentPage, totalPages);
-  const startIdx = (safePage - 1) * ITEMS_PER_PAGE;
-  const visibleItems = filteredItems.slice(startIdx, startIdx + ITEMS_PER_PAGE);
+  const startIdx = (safePage - 1) * itemsPerPage;
+  const visibleItems = filteredItems.slice(startIdx, startIdx + itemsPerPage);
   const pageNumbers = getPageNumbers(safePage, totalPages);
 
   /* Chunk the page into rows of 3 for the hover-expand card rows */
@@ -141,16 +152,32 @@ const PortfolioInteractive: React.FC<PortfolioInteractiveProps> = ({
       {/* Grid */}
       <section className="w-full px-[5%] md:px-[3%] py-8 md:py-12">
         <div className="max-w-7xl mx-auto">
-          {visibleItems.length === 0 ? (
+          {filteredItems.length === 0 ? (
             <p className="text-center text-black/60 py-16 tracking-tight">
               No projects match the current filters.
             </p>
           ) : (
-            <div className="flex flex-col gap-5 md:gap-6">
-              {rows.map((row, idx) => (
-                <PortfolioHoverRow key={idx} items={row} />
-              ))}
-            </div>
+            <>
+              {/* Mobile Layout: exactly 4 cards in a 1-column vertical grid per page */}
+              <div className="md:hidden grid grid-cols-1 gap-5">
+                {visibleItems.map((item) => (
+                  <PortfolioCard
+                    key={`mobile-${item.id}`}
+                    image={item.image}
+                    imageAlt={item.title}
+                    title={item.title}
+                    href={item.link}
+                  />
+                ))}
+              </div>
+
+              {/* Desktop Layout: rows of 3 cards */}
+              <div className="hidden md:flex flex-col gap-5 md:gap-6">
+                {rows.map((row, idx) => (
+                  <PortfolioHoverRow key={idx} items={row} />
+                ))}
+              </div>
+            </>
           )}
         </div>
       </section>

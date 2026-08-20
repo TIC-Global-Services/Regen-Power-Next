@@ -32,30 +32,32 @@ export default function LoanBenefitsSection({ resolved }: Props) {
         <div className="absolute inset-0 bg-black/40" />
       </div>
 
-      <div className="relative z-10 w-full px-[5%] md:px-[3%] mt-15">
+      <div className="relative z-10 w-full px-[0%] md:px-[3%] mt-15">
         <div className="mx-auto text-center flex flex-col items-center">
-          {resolved.badge && (
-            <span className="mb-4 inline-flex rounded-full bg-[#E5DDD8] px-5 py-2 text-xs font-medium uppercase tracking-wide text-black">
-              {resolved.badge}
-            </span>
-          )}
-
-          <h2 className="text-2xl md:text-3xl lg:text-[1.750rem] tracking-tighter leading-tight text-white">
-            {resolved.subtitle && (
-              <>{resolved.subtitle}<br /></>
-            )}
-            {resolved.title && (
-              <span className="text-[#63B846] font-medium text-4xl md:text-[3.75rem] tracking-tighter">
-                {resolved.title}
+          <div className="px-[5%]">
+            {resolved.badge && (
+              <span className="mb-4 inline-flex rounded-full bg-[#E5DDD8] px-5 py-2 text-xs font-medium uppercase tracking-wide text-black">
+                {resolved.badge}
               </span>
             )}
-          </h2>
 
-          {resolved.description && (
-            <p className="text-sm md:text-xl leading-tight tracking-tight mt-3 mb-5 text-white/90 max-w-4xl">
-              {resolved.description}
-            </p>
-          )}
+            <h2 className="text-2xl md:text-3xl lg:text-[1.750rem] tracking-tighter leading-tight text-white">
+              {resolved.subtitle && (
+                <>{resolved.subtitle}<br /></>
+              )}
+              {resolved.title && (
+                <span className="text-[#63B846] font-medium text-4xl md:text-[3.75rem] tracking-tighter">
+                  {resolved.title}
+                </span>
+              )}
+            </h2>
+
+            {resolved.description && (
+              <p className="text-sm md:text-xl leading-tight tracking-tight mt-3 mb-5 text-white/90 max-w-4xl">
+                {resolved.description}
+              </p>
+            )}
+          </div>
 
           {/* Desktop: grid of benefits */}
           <div className="hidden md:flex flex-wrap justify-center items-center gap-4 max-w-5xl mx-auto mt-12">
@@ -71,7 +73,7 @@ export default function LoanBenefitsSection({ resolved }: Props) {
           </div>
 
           {/* Mobile: Autoplay Swiper slider */}
-          <div className="block md:hidden w-full relative mt-8 -mx-[5vw]">
+          <div className="block md:hidden w-full relative mt-8 overflow-hidden">
             <Swiper
               modules={[Autoplay, Pagination]}
               spaceBetween={16}
@@ -82,7 +84,7 @@ export default function LoanBenefitsSection({ resolved }: Props) {
               }}
               loop={resolved.benefits.length > 1}
               pagination={{ clickable: true }}
-              className="w-full px-[5vw] !pb-12"
+              className="w-full !pb-12 !px-[3%]"
               style={{
                 "--swiper-pagination-color": "#63B846",
                 "--swiper-pagination-bullet-inactive-color": "#ffffff",
