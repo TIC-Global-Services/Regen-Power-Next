@@ -70,14 +70,14 @@ const BatterySplitSection = ({ data }: { data: BatterySplitData }) => {
           className="w-12 h-12 rounded-full bg-black flex items-center justify-center hover:bg-black/80 transition-colors cursor-pointer"
           aria-label="Previous slide"
         >
-          <ArrowLeft className="w-5 h-5 text-white" />
+          <ArrowLeft className="w-5 h-5 text-[#63B846]" />
         </button>
         <button
           onClick={nextSlide}
           className="w-12 h-12 rounded-full bg-black flex items-center justify-center hover:bg-black/80 transition-colors cursor-pointer"
           aria-label="Next slide"
         >
-          <ArrowRight className="w-5 h-5 text-white" />
+          <ArrowRight className="w-5 h-5 text-[#63B846]" />
         </button>
       </div>
     );
@@ -85,13 +85,14 @@ const BatterySplitSection = ({ data }: { data: BatterySplitData }) => {
   return (
     <section className="bg-white py-8 md:py-16 px-[5%] md:px-[3%] overflow-hidden">
       <div className="flex flex-col lg:flex-row gap-12 lg:gap-16 items-center">
-        {/* IMAGE — mobile/iPad: first (order-1); desktop: right column (lg:order-2) */}
+        {/* IMAGE — mobile/iPad: first (order-1); desktop: right column (lg:order-2).
+            Nav sits below the image on desktop only; on mobile/iPad it lives
+            inline with the "View more" toggle in the content column. */}
         <div className="order-1 w-full lg:order-2 lg:w-1/2 flex flex-col items-end gap-6">
-          {/* Nav above image on desktop only */}
+          {renderImage()}
           <div className="hidden lg:flex justify-end w-full">
             {renderNav()}
           </div>
-          {renderImage()}
         </div>
 
         {/* CONTENT — mobile/iPad: after image (order-2); desktop: left column (lg:order-1) */}
@@ -117,18 +118,21 @@ const BatterySplitSection = ({ data }: { data: BatterySplitData }) => {
                   {slide.mainDescription}
                 </p>
 
-                {/* View more toggle — mobile/iPad only */}
-                <button
-                  type="button"
-                  onClick={() => setExpanded((v) => !v)}
-                  aria-expanded={expanded}
-                  className="lg:hidden mt-2 mb-2 flex items-center gap-2 text-base font-medium text-black"
-                >
-                  {expanded ? 'View less' : 'View more'}
-                  <ArrowDown
-                    className={`w-4 h-4 transition-transform ${expanded ? 'rotate-180' : ''}`}
-                  />
-                </button>
+                {/* View more toggle + slide nav — mobile/iPad only, arrows to the right */}
+                <div className="lg:hidden mt-2 mb-2 w-full flex items-center justify-between gap-4">
+                  <button
+                    type="button"
+                    onClick={() => setExpanded((v) => !v)}
+                    aria-expanded={expanded}
+                    className="flex items-center gap-2 text-base font-medium text-black cursor-pointer"
+                  >
+                    {expanded ? 'View less' : 'View more'}
+                    <ArrowDown
+                      className={`w-4 h-4 transition-transform ${expanded ? 'rotate-180' : ''}`}
+                    />
+                  </button>
+                  {renderNav()}
+                </div>
 
                 {/* Expandable content — blocks + CTA; smooth on mobile, always open on desktop */}
                 <div
@@ -160,11 +164,6 @@ const BatterySplitSection = ({ data }: { data: BatterySplitData }) => {
               </motion.div>
             </AnimatePresence>
           </div>
-        </div>
-
-        {/* NAV — mobile/iPad only, shown below content (order-3) */}
-        <div className="order-3 w-full lg:hidden flex justify-start">
-          {renderNav()}
         </div>
       </div>
     </section>

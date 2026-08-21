@@ -127,7 +127,7 @@ const FAQ = ({
                                                     transition={{ duration: 0.3, ease: "easeInOut" }}
                                                     className="overflow-hidden"
                                                 >
-                                                    <p className="pb-6 text-xs md:text-sm text-black/70 tracking-tight leading-[1.2] pr-8">
+                                                    <p className="pb-6 text-sm md:text-base text-black/70 tracking-tight leading-[1.2] pr-8">
                                                         {item.answer}
                                                     </p>
                                                 </motion.div>

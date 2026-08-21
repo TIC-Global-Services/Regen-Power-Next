@@ -42,7 +42,7 @@ function BrandTextCard({ brand, className = '' }: { brand: BatteryBrandItem; cla
             <div>
                 {/* Logo */}
                 {brand.logo && (
-                    <div className="mb-4 h-14 md:h-32 relative w-full">
+                    <div className="mb-2 h-32 md:h-32 relative w-1/2">
                         <Image
                             src={brand.logo}
                             alt={brand.title}

@@ -48,12 +48,12 @@ const BatteryBrandsGrid = ({ data }: { data: BatteryBrandsGridData }) => {
                 className={`bg-[#EEF6EB] rounded-[20px] p-8 flex-col items-start w-[80vw] md:w-[60vw] shrink-0 snap-start flex`}
               >
                 {brand.logo && (
-                  <div className="relative h-14 w-40 mb-6">
+                  <div className="relative h-40 w-40 mb-2">
                     <Image
                       src={brand.logo}
                       alt={brand.title}
                       fill
-                      className="object-contain object-left"
+                      className="object-contain "
                     />
                   </div>
                 )}
@@ -86,12 +86,12 @@ const BatteryBrandsGrid = ({ data }: { data: BatteryBrandsGridData }) => {
                 className="bg-[#EEF6EB] rounded-[20px] p-8 md:p-10 flex-col items-start flex"
               >
                 {brand.logo && (
-                  <div className="relative h-14 w-40 mb-6">
+                  <div className="relative h-40 w-40 mb-2">
                     <Image
                       src={brand.logo}
                       alt={brand.title}
                       fill
-                      className="object-contain object-left"
+                      className="object-contain"
                     />
                   </div>
                 )}
