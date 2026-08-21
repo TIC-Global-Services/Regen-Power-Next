@@ -41,7 +41,10 @@ export type PortfolioFiltersData = z.infer<typeof PortfolioFiltersSchema>;
 
 /**
  * portfolio-project collection entry — `GET /api/portfolio-projects`
- * (fetched with fields: title, description, slug, filters, state, suburb, postcode + populate image)
+ *
+ * List queries fetch a lean subset (title, description, slug, filters,
+ * state, suburb, postcode + image); the detail-page query omits `fields`
+ * so every scalar field below comes through.
  */
 export const PortfolioProjectSchema = z.object({
   id: z.number(),
@@ -54,6 +57,28 @@ export const PortfolioProjectSchema = z.object({
   state: z.string().nullable(),
   postcode: z.string().nullable(),
   image: MediaSchema.nullable(),
+  /* ── extra fields wired for the project detail page ── */
+  /** Pre-combined location string, e.g. "Wellard, WA, 6170" */
+  location: z.string().nullable().optional(),
+  /** Long-form markdown-ish content ("**Label:** value" paragraphs) */
+  content: z.string().nullable().optional(),
+  /** Install category in prose, e.g. "Solar Battery Installation" */
+  task: z.string().nullable().optional(),
+  /** Free-text install date, e.g. "Oct 2022" */
+  date: z.string().nullable().optional(),
+  brand: z.string().nullable().optional(),
+  model: z.string().nullable().optional(),
+  panels: z.string().nullable().optional(),
+  panelModel: z.string().nullable().optional(),
+  inverter: z.string().nullable().optional(),
+  inverterModel: z.string().nullable().optional(),
+  batterySize: z.string().nullable().optional(),
+  systemSize: z.string().nullable().optional(),
+  industry: z.string().nullable().optional(),
+  featured: z.boolean().nullable().optional(),
+  /* Sparsely-populated in the CMS today — kept permissive */
+  energyYield: z.union([z.string(), z.number()]).nullable().optional(),
+  co2Saving: z.union([z.string(), z.number()]).nullable().optional(),
   createdAt: z.string().nullable().optional(),
   updatedAt: z.string().nullable().optional(),
   publishedAt: z.string().nullable().optional(),

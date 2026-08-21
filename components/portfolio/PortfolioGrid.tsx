@@ -42,7 +42,7 @@ const PortfolioGrid: React.FC<PortfolioGridProps> = ({ items }) => {
         {/* Desktop Layout */}
         <div className="hidden md:block">
           {/* First row: 1 featured (2-col span) + up to 2 regular cards */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-5 md:gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 md:gap-6">
             <FeaturedPortfolioCard
               image={featured.image}
               imageAlt={featured.title}
@@ -63,7 +63,7 @@ const PortfolioGrid: React.FC<PortfolioGridProps> = ({ items }) => {
 
           {/* Remaining rows */}
           {rest.length > 2 && (
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-5 md:gap-6 mt-5 md:mt-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 md:gap-6 mt-5 md:mt-6">
               {rest.slice(2).map((item) => (
                 <PortfolioCard
                   key={item.id}

@@ -208,3 +208,25 @@ export function resolveBlogArticle(
     publishedAt: article.publishedAt ?? "",
   };
 }
+
+/* ─── latest-articles sidebar list ─── */
+
+export interface ResolvedLatestBlogItem {
+  title: string;
+  href: string;
+  image: string;
+  publishedAt: string;
+}
+
+/** Latest blog-articles → minimal items for a "Latest Blogs" sidebar. */
+export function resolveLatestBlogItems(
+  articles: BlogArticleData[] | undefined | null
+): ResolvedLatestBlogItem[] {
+  if (!Array.isArray(articles)) return [];
+  return articles.map((a) => ({
+    title: a.title ?? "",
+    href: a.slug ? `/blog/${a.slug}` : "#",
+    image: a.image ? strapiImageData(a.image)?.src ?? "" : "",
+    publishedAt: a.publishedAt ?? "",
+  }));
+}

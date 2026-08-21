@@ -47,17 +47,17 @@ const BlogCard: React.FC<BlogCardProps> = ({ card, variant = 'text' }) => {
     return (
         <Link
             href={href}
-            className="block relative w-full h-[304px] md:h-[466px] bg-[#E5EFD5] rounded-[20px] p-6 md:p-8 flex flex-col justify-end transition-colors hover:bg-[#dceac6]"
+            className="block relative w-full h-[304px] md:h-[466px] bg-[#E5EFD5] rounded-[20px] p-6 md:p-8 flex flex-col justify-end overflow-hidden transition-colors hover:bg-[#dceac6]"
         >
             {/* ↗ arrow top right (plain, no bg circle) */}
             <span className="absolute top-5 right-5 md:top-7 md:right-7 flex items-center justify-center text-black">
                 <ArrowUpRight className="w-6 h-6 md:w-7 md:h-7" />
             </span>
 
-            <h3 className="text-xl md:text-2xl font-normal text-black tracking-tight leading-tight mb-3">
+            <h3 className="text-xl md:text-2xl font-normal text-black tracking-tight leading-tight mb-3 line-clamp-2 break-words">
                 {card.title}
             </h3>
-            <p className="text-sm md:text-base text-black/75 leading-snug tracking-tight">
+            <p className="text-sm md:text-base text-black/75 leading-snug tracking-tight line-clamp-4 break-words">
                 {card.description}
             </p>
         </Link>

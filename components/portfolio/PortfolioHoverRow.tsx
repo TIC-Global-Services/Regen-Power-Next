@@ -2,6 +2,7 @@
 
 import React, { useState, useRef, useEffect } from 'react';
 import Image from 'next/image';
+import { useRouter } from 'next/navigation';
 import type { PortfolioItem } from '@/utils/portfolio.model';
 
 const FALLBACK_IMAGE = '/fallback.png';
@@ -25,6 +26,7 @@ const PortfolioHoverRow: React.FC<PortfolioHoverRowProps> = ({ items }) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const [containerWidth, setContainerWidth] = useState(0);
   const [isDesktop, setIsDesktop] = useState(false);
+  const router = useRouter();
 
   useEffect(() => {
     const el = containerRef.current;
@@ -62,8 +64,14 @@ const PortfolioHoverRow: React.FC<PortfolioHoverRowProps> = ({ items }) => {
   };
 
   const handleClick = (index: number) => {
-    // Tap-to-toggle on touch devices; same toggle on desktop click
-    setActiveIndex((cur) => (cur === index ? -1 : index));
+    const item = items[index];
+    /* Desktop: hover already expanded the card, so a click means "open it".
+       Touch: first tap expands, tapping the expanded card opens its page. */
+    if (item?.link && (isDesktop || activeIndex === index)) {
+      router.push(item.link);
+      return;
+    }
+    setActiveIndex(index);
   };
 
   return (

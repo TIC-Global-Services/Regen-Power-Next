@@ -78,7 +78,7 @@ const FILTER_SLUG_TO_LABEL = new Map(
 /**
  * Map collection entries onto the existing PortfolioItem shape used by
  * PortfolioInteractive. `categories` (display labels) are derived from the
- * machine-slug `filters` array.
+ * machine-slug `filters` array. `link` points at the project detail page.
  */
 export function resolvePortfolioProjects(
   projects: PortfolioProjectData[] | undefined | null
@@ -93,7 +93,8 @@ export function resolvePortfolioProjects(
     return {
       id: p.id,
       title: p.title ?? "",
-      link: "",
+      slug: p.slug ?? "",
+      link: p.slug ? `/portfolio/${p.slug}` : "",
       image: p.image ? strapiImageData(p.image)?.src ?? "" : "",
       categories,
       filters,
@@ -103,4 +104,88 @@ export function resolvePortfolioProjects(
       description: p.description?.trim() || undefined,
     };
   });
+}
+
+/* ─── single project detail page ─── */
+
+export interface ResolvedPortfolioProjectDetail {
+  title: string;
+  slug: string;
+  description: string;
+  image: string;
+  categories: string[];
+  /** "Suburb, STATE, Postcode" built from parts; falls back to CMS `location` */
+  location: string;
+  /** Spec rows (label/value) — only non-empty fields, display-ready */
+  specs: { label: string; value: string }[];
+  /** Content field rendered to safe HTML (escaped, **bold** + paragraphs) */
+  contentHtml: string;
+}
+
+/** Minimal, XSS-safe markdown subset renderer: escape → **bold** → paragraphs. */
+function renderProjectContent(raw: string | null | undefined): string {
+  const text = (raw ?? "").trim();
+  if (!text) return "";
+  const escaped = text
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;");
+  return escaped
+    .split(/\n{2,}/)
+    .map(
+      (para) =>
+        `<p>${para
+          .replace(/\*\*(.+?)\*\*/g, "<strong>$1</strong>")
+          .replace(/\n/g, "<br/>")}</p>`
+    )
+    .join("");
+}
+
+const firstNonEmpty = (...values: (string | null | undefined)[]): string =>
+  values.map((v) => v?.trim() ?? "").find(Boolean) ?? "";
+
+export function resolvePortfolioProjectDetail(
+  project: PortfolioProjectData | null | undefined
+): ResolvedPortfolioProjectDetail | null {
+  if (!project) return null;
+
+  const filters = (project.filters ?? []).map((f) => f.trim()).filter(Boolean);
+  const categories = Array.from(
+    new Set(filters.map((f) => FILTER_SLUG_TO_LABEL.get(f) ?? f))
+  );
+
+  /* Spec rows in display order — only fields the CMS actually filled in. */
+  const specEntries: { label: string; value: string }[] = [
+    { label: "Task", value: firstNonEmpty(project.task) },
+    { label: "System Size", value: firstNonEmpty(project.systemSize) },
+    { label: "Battery Size", value: firstNonEmpty(project.batterySize) },
+    { label: "Brand", value: firstNonEmpty(project.brand) },
+    { label: "Model", value: firstNonEmpty(project.model) },
+    { label: "Panels", value: firstNonEmpty(project.panels) },
+    { label: "Panel Model", value: firstNonEmpty(project.panelModel) },
+    { label: "Inverter", value: firstNonEmpty(project.inverter) },
+    { label: "Inverter Model", value: firstNonEmpty(project.inverterModel) },
+    { label: "Industry", value: firstNonEmpty(project.industry) },
+    { label: "Energy Yield", value: firstNonEmpty(String(project.energyYield ?? "")) },
+    { label: "CO₂ Saving", value: firstNonEmpty(String(project.co2Saving ?? "")) },
+    { label: "Installed", value: firstNonEmpty(project.date) },
+  ].filter((s) => s.value !== "");
+
+  return {
+    title: project.title ?? "",
+    slug: project.slug ?? "",
+    description: project.description?.trim() ?? "",
+    image: project.image ? strapiImageData(project.image)?.src ?? "" : "",
+    categories,
+    location:
+      firstNonEmpty(project.location) ||
+      [
+        [project.suburb, project.state].filter(Boolean).join(", "),
+        project.postcode,
+      ]
+        .filter(Boolean)
+        .join(" "),
+    specs: specEntries,
+    contentHtml: renderProjectContent(project.content),
+  };
 }

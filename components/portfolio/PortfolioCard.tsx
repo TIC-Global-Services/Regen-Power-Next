@@ -35,7 +35,7 @@ export const FeaturedPortfolioCard: React.FC<FeaturedPortfolioCardProps> = ({
             alt={imageAlt || title}
             fill
             className="object-cover transition-transform duration-700 group-hover:scale-105"
-            sizes="(min-width: 768px) 66vw, 100vw"
+            sizes="(min-width: 1024px) 66vw, 100vw"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
         <div className="absolute bottom-0 left-0 right-0 p-5 md:p-7 text-white">
@@ -64,7 +64,7 @@ export const PortfolioCard: React.FC<PortfolioCardProps> = ({
             alt={imageAlt || title}
             fill
             className="object-cover transition-transform duration-700 group-hover:scale-105"
-            sizes="(min-width: 768px) 33vw, 100vw"
+            sizes="(min-width: 1024px) 33vw, (min-width: 768px) 50vw, 100vw"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
         <div className="absolute bottom-0 left-0 right-0 p-4 md:p-5 text-white">

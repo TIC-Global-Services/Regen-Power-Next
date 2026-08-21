@@ -1,6 +1,8 @@
 export interface PortfolioItem {
   id: number;
   title: string;
+  slug?: string;
+  /** Detail-page route, e.g. "/portfolio/<slug>" */
   link: string;
   image: string;
   categories: string[];   // display labels e.g. ["Storage"]

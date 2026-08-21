@@ -389,6 +389,7 @@ export {
   resolveBlogCategoryFilter,
   resolveBlogArticles,
   resolveBlogArticle,
+  resolveLatestBlogItems,
   ALL_CATEGORIES_KEY,
 } from "./blog";
 export type {
@@ -398,9 +399,10 @@ export type {
   ResolvedBlogCategoryOption,
   ResolvedBlogArticle,
   ResolvedBlogArticleCategory,
+  ResolvedLatestBlogItem,
 } from "./blog";
-export { resolvePortfolioHero, resolvePortfolioFilters, resolvePortfolioProjects } from "./portfolio";
-export type { ResolvedPortfolioHero, ResolvedPortfolioFilters, ResolvedPortfolioCard, ResolvedPortfolioFilterOption } from "./portfolio";
+export { resolvePortfolioHero, resolvePortfolioFilters, resolvePortfolioProjects, resolvePortfolioProjectDetail } from "./portfolio";
+export type { ResolvedPortfolioHero, ResolvedPortfolioFilters, ResolvedPortfolioCard, ResolvedPortfolioFilterOption, ResolvedPortfolioProjectDetail } from "./portfolio";
 export {
   resolvePressMediaHero,
   resolvePressMediaFeaturedArticle,

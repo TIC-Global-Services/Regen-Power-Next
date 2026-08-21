@@ -9,7 +9,9 @@ import { PortfolioCard } from './PortfolioCard';
 /* ─── Constants ─── */
 
 const ITEMS_PER_PAGE = 12;
-const ROW_SIZE = 3;
+/** Cards per hover-row: 2 on iPad-portrait-sized viewports (768–1023px), 3 on desktop */
+const ROW_SIZE_TABLET = 2;
+const ROW_SIZE_DESKTOP = 3;
 
 /* ─── Props ─── */
 
@@ -92,10 +94,14 @@ const PortfolioInteractive: React.FC<PortfolioInteractiveProps> = ({
   const [filters, setFilters] = useState<FilterState>(INITIAL_FILTERS);
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage, setItemsPerPage] = useState(ITEMS_PER_PAGE);
+  const [rowSize, setRowSize] = useState(ROW_SIZE_DESKTOP);
 
   useEffect(() => {
     const handleResize = () => {
-      setItemsPerPage(window.innerWidth < 768 ? 4 : ITEMS_PER_PAGE);
+      const width = window.innerWidth;
+      setItemsPerPage(width < 768 ? 4 : ITEMS_PER_PAGE);
+      /* iPad portrait (768–1023px) gets 2 cards per row, desktop gets 3 */
+      setRowSize(width < 1024 ? ROW_SIZE_TABLET : ROW_SIZE_DESKTOP);
     };
     handleResize();
     window.addEventListener('resize', handleResize);
@@ -124,11 +130,14 @@ const PortfolioInteractive: React.FC<PortfolioInteractiveProps> = ({
   const visibleItems = filteredItems.slice(startIdx, startIdx + itemsPerPage);
   const pageNumbers = getPageNumbers(safePage, totalPages);
 
-  /* Chunk the page into rows of 3 for the hover-expand card rows */
-  const rows: PortfolioItem[][] = [];
-  for (let i = 0; i < visibleItems.length; i += ROW_SIZE) {
-    rows.push(visibleItems.slice(i, i + ROW_SIZE));
-  }
+  /* Chunk the page into hover-expand card rows (2 per row on iPad portrait, 3 on desktop) */
+  const rows: PortfolioItem[][] = useMemo(() => {
+    const out: PortfolioItem[][] = [];
+    for (let i = 0; i < visibleItems.length; i += rowSize) {
+      out.push(visibleItems.slice(i, i + rowSize));
+    }
+    return out;
+  }, [visibleItems, rowSize]);
 
   return (
     <>
@@ -171,7 +180,7 @@ const PortfolioInteractive: React.FC<PortfolioInteractiveProps> = ({
                 ))}
               </div>
 
-              {/* Desktop Layout: rows of 3 cards */}
+              {/* Desktop Layout: hover-expand rows (2 cards on iPad portrait, 3 on desktop) */}
               <div className="hidden md:flex flex-col gap-5 md:gap-6">
                 {rows.map((row, idx) => (
                   <PortfolioHoverRow key={idx} items={row} />

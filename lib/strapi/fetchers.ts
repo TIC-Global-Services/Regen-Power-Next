@@ -293,6 +293,14 @@ function blogArticleQuery(slug: string): string {
   return params.toString();
 }
 
+/** Fetch the most recent published blog-articles — for sidebars / related lists. */
+export const getLatestBlogArticles = async (
+  limit = 6
+): Promise<BlogArticleData[]> => {
+  const res = await blogArticlesPage(1, limit);
+  return Array.isArray(res.data) ? res.data : [];
+};
+
 /** Fetch a single published blog-article by slug (revalidate 60). Returns null if not found. */
 export const getBlogArticle = async (
   slug: string
@@ -431,6 +439,26 @@ export const getPortfolioProjects = async (): Promise<
     meta: first.meta,
   };
 };
+
+/**
+ * Fetch one published portfolio-project by slug with EVERY field
+ * (no `fields` filter → Strapi returns all scalars + populated image).
+ * Used by the project detail page.
+ */
+export const getPortfolioProject = async (
+  slug: string
+): Promise<PortfolioProjectData | null> => {
+  const params = new URLSearchParams();
+  params.set("filters[slug][$eq]", slug);
+  params.set("populate[image]", "true");
+  const res = await strapiFetch<StrapiResponse<PortfolioProjectData[]>>(
+    `/portfolio-projects?${params.toString()}`
+  );
+  const arr = res.data;
+  if (!Array.isArray(arr) || arr.length === 0) return null;
+  return arr[0];
+};
+
 export const getContactPage = () =>
   getSingleType(
     PAGE_SLUGS.contact,
