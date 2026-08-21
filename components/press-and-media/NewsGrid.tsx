@@ -3,6 +3,7 @@
 import React, { useState } from 'react';
 import Image, { StaticImageData } from 'next/image';
 import Link from 'next/link';
+import { ArrowRight } from 'lucide-react';
 
 export interface PressCard {
     title: string;
@@ -53,7 +54,7 @@ const NewsGrid: React.FC<NewsGridProps> = ({ cards = [] }) => {
             <div className="px-[5%] md:px-[3%]">
                 {/* Results count */}
                 <div className="max-w-7xl mx-auto pt-2 pb-2">
-                    <p className="text-sm text-black/50 tracking-tight">
+                    <p className="text-base md:text-lg text-black/50 tracking-tight">
                         Showing {pageCards.length} of {cards.length} article{cards.length !== 1 ? 's' : ''}
                     </p>
                 </div>
@@ -75,12 +76,16 @@ const NewsGrid: React.FC<NewsGridProps> = ({ cards = [] }) => {
                             <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
                             <div className="absolute bottom-0 left-0 right-0 p-3 md:p-4 text-white">
                                 <div className="backdrop-blur-md bg-black/40 rounded-xl p-4">
-                                    <h3 className="text-xl md:text-2xl font-medium tracking-tight leading-tight mb-1.5">
+                                    <h3 className="text-xl md:text-2xl font-medium tracking-tight leading-tight mb-1.5 line-clamp-2 break-words">
                                         {card.title}
                                     </h3>
-                                    <p className="text-base leading-tight tracking-tight text-white/85">
+                                    <p className="text-base leading-tight tracking-tight text-white/85 line-clamp-2">
                                         {card.description}
                                     </p>
+                                    <span className="mt-2.5 inline-flex items-center gap-2 text-sm font-medium tracking-tight group-hover:gap-3 transition-all duration-300">
+                                        Read More
+                                        <ArrowRight size={16} strokeWidth={2.5} />
+                                    </span>
                                 </div>
                             </div>
                         </Link>

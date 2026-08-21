@@ -36,10 +36,10 @@ const FeaturedArticle: React.FC<FeaturedArticleProps> = ({
 
             <div className="absolute bottom-0 left-0 right-0 p-6 md:p-12 lg:p-16 max-w-3xl text-white capitalize">
                 <div className="backdrop-blur-md bg-black/40 rounded-2xl p-5 md:p-8">
-                    <h2 className="text-2xl md:text-3xl lg:text-4xl font-medium tracking-tight leading-tight mb-3 md:mb-4">
+                    <h2 className="text-2xl md:text-3xl lg:text-4xl font-medium tracking-tight leading-tight mb-3 md:mb-4 line-clamp-3 break-words">
                         {title}
                     </h2>
-                    <p className="text-base leading-snug tracking-tight text-white/90 mb-4 md:mb-6 max-w-2xl">
+                    <p className="text-base leading-snug tracking-tight text-white/90 mb-4 md:mb-6 max-w-2xl line-clamp-3">
                         {description}
                     </p>
                     {showReadMore && href && (
@@ -58,12 +58,12 @@ const FeaturedArticle: React.FC<FeaturedArticleProps> = ({
             {href ? (
                 <Link
                     href={href}
-                    className="group relative block w-full h-[400px] rounded-2xl overflow-hidden md:h-auto md:aspect-[2.4/1]"
+                    className="group relative block w-full h-[400px] rounded-2xl overflow-hidden lg:h-auto lg:aspect-[2.4/1]"
                 >
                     {content}
                 </Link>
             ) : (
-                <div className="relative w-full h-[400px] rounded-2xl overflow-hidden md:h-auto md:aspect-[2.4/1]">
+                <div className="relative w-full h-[400px] rounded-2xl overflow-hidden lg:h-auto lg:aspect-[2.4/1]">
                     {content}
                 </div>
             )}

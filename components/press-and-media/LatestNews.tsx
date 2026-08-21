@@ -1,6 +1,7 @@
 import React from 'react';
 import Image, { StaticImageData } from 'next/image';
 import Link from 'next/link';
+import { ArrowRight } from 'lucide-react';
 
 export interface LatestNewsItem {
     title: string;
@@ -35,39 +36,43 @@ const LatestNews: React.FC<LatestNewsProps> = ({
                 </h2>
             </div>
 
-            {/* Mobile: Horizontal Slider */}
-            <div className="flex overflow-x-auto md:hidden gap-4 -mx-[5%] px-[5%] md:px-[3%] [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none] pb-4">
+            {/* Mobile + Tablet: Horizontal Slider */}
+            <div className="flex overflow-x-auto lg:hidden gap-4 -mx-[5%] px-[5%] md:px-[3%] [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none] pb-4">
                 {items.map((item, index) => (
                     <Link
                         key={index}
                         href={item.href}
-                        className="group relative block w-[75vw] shrink-0 snap-start rounded-2xl overflow-hidden aspect-[3/4]"
+                        className="group relative block w-[75vw] md:w-[45vw] shrink-0 snap-start rounded-2xl overflow-hidden aspect-[3/4]"
                     >
                         <Image
                             src={item.image}
                             alt={item.imageAlt || item.title}
                             fill
                             className="object-cover transition-transform duration-700 group-hover:scale-105"
-                            sizes="100vw"
+                            sizes="(min-width: 768px) 40vw, 75vw"
                         />
                         <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
                         <div className="absolute bottom-0 left-0 right-0 p-4 text-white capitalize">
                             <div className="backdrop-blur-md bg-black/40 rounded-xl p-4">
-                                <h3 className="text-xl font-medium tracking-tight leading-tight mb-2">
+                                <h3 className="text-xl font-medium tracking-tight leading-tight mb-2 line-clamp-2 break-words">
                                     {item.title}
                                 </h3>
-                                <p className="text-base leading-tight tracking-tight text-white/85 max-w-full">
+                                <p className="text-base leading-tight tracking-tight text-white/85 max-w-full line-clamp-2">
                                     {item.description}
                                 </p>
+                                <span className="mt-3 inline-flex items-center gap-2 text-sm font-medium tracking-tight group-hover:gap-3 transition-all duration-300">
+                                    Read More
+                                    <ArrowRight size={16} strokeWidth={2.5} />
+                                </span>
                             </div>
                         </div>
                     </Link>
                 ))}
             </div>
 
-            {/* Desktop: Grid */}
+            {/* Desktop: Grid — column count follows item count (max 3) */}
             <div
-                className="hidden md:grid gap-5 md:gap-6 max-w-7xl mx-auto"
+                className="hidden lg:grid gap-5 md:gap-6 max-w-7xl mx-auto"
                 style={{ gridTemplateColumns: `repeat(${desktopCols}, minmax(0, 1fr))` }}
             >
                 {items.map((item, index) => (
@@ -81,17 +86,21 @@ const LatestNews: React.FC<LatestNewsProps> = ({
                             alt={item.imageAlt || item.title}
                             fill
                             className="object-cover transition-transform duration-700 group-hover:scale-105"
-                            sizes="(min-width: 768px) 33vw, 100vw"
+                            sizes="(min-width: 1024px) 33vw, 100vw"
                         />
                         <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
                         <div className="absolute bottom-0 left-0 right-0 p-5 text-white capitalize">
-                            <div className="backdrop-blur-md bg-black/40 rounded-xl p-4">
-                                <h3 className="text-xl font-medium tracking-tight leading-tight mb-2">
+                            <div className="backdrop-blur-md bg-black/40 rounded-xl p-4 md:p-5">
+                                <h3 className="text-xl font-medium tracking-tight leading-tight mb-2 line-clamp-2 break-words">
                                     {item.title}
                                 </h3>
-                                <p className="text-base leading-tight tracking-tight text-white/85 max-w-full">
+                                <p className="text-base leading-tight tracking-tight text-white/85 max-w-full line-clamp-2">
                                     {item.description}
                                 </p>
+                                <span className="mt-3 inline-flex items-center gap-2 text-sm font-medium tracking-tight group-hover:gap-3 transition-all duration-300">
+                                    Read More
+                                    <ArrowRight size={16} strokeWidth={2.5} />
+                                </span>
                             </div>
                         </div>
                     </Link>

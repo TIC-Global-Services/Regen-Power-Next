@@ -152,7 +152,7 @@ const PortfolioInteractive: React.FC<PortfolioInteractiveProps> = ({
       {/* Results count */}
       <section className="w-full px-[5%] md:px-[3%]">
         <div className="max-w-7xl mx-auto pt-4 pb-2">
-          <p className="text-sm text-black/50 tracking-tight">
+          <p className="text-base md:text-lg text-black/50 tracking-tight">
             Showing {visibleItems.length} of {filteredItems.length} project{filteredItems.length !== 1 ? 's' : ''}
           </p>
         </div>

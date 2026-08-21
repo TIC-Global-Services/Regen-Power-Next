@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
+import { Search, X } from 'lucide-react';
 import BlogCard, { BlogCardData } from './BlogCard';
 import CategoryFilter, { CategoryOption } from './CategoryFilter';
 
@@ -38,17 +39,30 @@ const BlogGrid: React.FC<BlogGridProps> = ({
 }) => {
     const [activeCategory, setActiveCategory] = useState<string>(defaultCategory ?? categories[0]?.value ?? '');
     const [currentPage, setCurrentPage] = useState<number>(1);
+    const [query, setQuery] = useState<string>('');
 
     const handleCategoryChange = (cat: string) => {
         setActiveCategory(cat);
         setCurrentPage(1);
     };
 
-    // Filter cards by the active category ('all' shows everything).
-    // Match against all of a card's categories, not just the first.
-    const filteredCards = activeCategory && activeCategory !== 'all'
+    const handleSearchChange = (value: string) => {
+        setQuery(value);
+        setCurrentPage(1);
+    };
+
+    // Filter cards by the active category ('all' shows everything) AND the
+    // search query (matched against title + description, case-insensitive).
+    // Category matching uses all of a card's categories, not just the first.
+    const q = query.trim().toLowerCase();
+    const filteredCards = (activeCategory && activeCategory !== 'all'
         ? cards.filter((c) => c.categoryKeys?.includes(activeCategory) ?? c.categoryKey === activeCategory)
-        : cards;
+        : cards
+    ).filter((c) =>
+        !q ||
+        c.title.toLowerCase().includes(q) ||
+        c.description.toLowerCase().includes(q)
+    );
 
     /* Pagination math */
     const totalPages = Math.max(1, Math.ceil(filteredCards.length / ITEMS_PER_PAGE));
@@ -83,18 +97,57 @@ const BlogGrid: React.FC<BlogGridProps> = ({
                 onChange={handleCategoryChange}
             />
 
+            {/* Search */}
+            <div className="max-w-7xl mx-auto flex justify-center pb-6">
+                <div className="relative w-full max-w-md">
+                    <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-black/40 pointer-events-none" />
+                    <input
+                        type="search"
+                        value={query}
+                        onChange={(e) => handleSearchChange(e.target.value)}
+                        placeholder="Search articles…"
+                        aria-label="Search articles"
+                        className="w-full rounded-full border border-black/10 bg-white py-2.5 pl-11 pr-10 text-sm md:text-base tracking-tight placeholder:text-black/35 focus:outline-none focus:border-[#A0CF44] focus:ring-2 focus:ring-[#A0CF44]/30 transition"
+                    />
+                    {query && (
+                        <button
+                            type="button"
+                            onClick={() => handleSearchChange('')}
+                            aria-label="Clear search"
+                            className="absolute right-3 top-1/2 -translate-y-1/2 p-1 text-black/40 hover:text-black transition-colors cursor-pointer"
+                        >
+                            <X className="w-4 h-4" />
+                        </button>
+                    )}
+                </div>
+            </div>
+
             {/* Results count — one article per row, so it matches the rows rendered */}
             <div className="max-w-7xl mx-auto pt-2 pb-2">
-                <p className="text-sm text-black/50 tracking-tight">
+                <p className="text-base md:text-lg text-black/50 tracking-tight">
                     Showing {pageCards.length} of {filteredCards.length} article{filteredCards.length !== 1 ? 's' : ''}
+                    {q && (
+                        <> for &ldquo;{query.trim()}&rdquo;</>
+                    )}
                 </p>
             </div>
 
             <div className="flex flex-col gap-5 md:gap-6 max-w-7xl mx-auto">
                 {rows.length === 0 ? (
-                    <p className="text-center text-black/60 py-16 tracking-tight">
-                        No articles match the current category.
-                    </p>
+                    <div className="text-center py-16 tracking-tight">
+                        <p className="text-black/60">
+                            No articles match {q ? <>your search for &ldquo;{query.trim()}&rdquo;</> : 'the current category'}.
+                        </p>
+                        {q && (
+                            <button
+                                type="button"
+                                onClick={() => handleSearchChange('')}
+                                className="mt-3 text-sm font-medium text-[#4d7a17] hover:underline cursor-pointer"
+                            >
+                                Clear search
+                            </button>
+                        )}
+                    </div>
                 ) : (
                     rows
                 )}
