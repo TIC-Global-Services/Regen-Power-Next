@@ -65,8 +65,8 @@ const OffGridStory: React.FC<OffGridStoryProps> = ({
 
     return (
         <section className="py-10 md:py-20 bg-white">
-            <div className="px-[5%] md:px-[3%]">
-                <div className="text-left md:text-center max-w-4xl mx-auto mb-12 md:mb-0 -space-y-2">
+            <div className="px-[0%] md:px-[3%]">
+                <div className="text-left lg:text-center max-w-4xl mx-auto mb-12 md:mb-0 -space-y-2 px-[5%]">
                     <p className="text-base md:text-2xl text-black font-light tracking-tight leading-none mb-2">
                         {subtitle}
                     </p>
@@ -93,7 +93,7 @@ const OffGridStory: React.FC<OffGridStoryProps> = ({
                             {featuredContent}
                         </Link>
                     ) : (
-                        <div className="relative w-full rounded-2xl overflow-hidden aspect-[3/4] md:aspect-[2.4/1]">
+                        <div className="relative w-full rounded-2xl overflow-hidden aspect-[3/4] md:aspect-[3/2]">
                             {featuredContent}
                         </div>
                     )}

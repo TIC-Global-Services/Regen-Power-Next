@@ -40,21 +40,31 @@ const StatsCardGrid: React.FC<StatsCardGridProps> = ({
                     title={title}
                     description={description}
                     align={headerAlign}
-                    descClass="text-left md:text-center md:text-base lg:max-w-4xl"
+                    descClass="text-left md:text-center md:text-base lg:max-w-4xl mx-auto"
                     subtitleClass="text-lg md:text-2xl font-light text-black tracking-tight text-left md:text-center"
                     titleClass="text-4xl md:text-6xl lg:text-[5rem] text-[#63B846] font-normal tracking-tighter leading-none text-left md:text-center"
-                    className='center'
+                    className='center hidden lg:block'
+                />
+                <SectionHeader
+                    subtitle={subtitle}
+                    title={title}
+                    description={description}
+                    align="left"
+                    descClass="text-left lg:text-center md:text-base lg:max-w-4xl"
+                    subtitleClass="text-lg md:text-2xl font-light text-black tracking-tight text-left lg:text-center"
+                    titleClass="text-4xl md:text-6xl lg:text-[5rem] text-[#63B846] font-normal tracking-tighter leading-none text-left lg:text-center"
+                    className='left lg:hidden' 
                 />
 
                 {/* ── Mobile layout: stacked vertical cards ── */}
-                <div className="flex flex-col gap-5 md:hidden max-w-sm mx-auto">
+                <div className="flex flex-col gap-5 lg:hidden max-w-sm md:max-w-full mt-4 mx-auto">
                     {stats.map((stat, idx) => {
                         // const mobileH = mobileHeightClasses[idx] ?? 'h-[300px]';
                         return (
                             <div key={idx}>
                                 <div
 
-                                    className={`relative h-75 rounded-[20px] overflow-hidden`}
+                                    className={`relative h-75 rounded-[20px] overflow-hidden mb-2`}
                                 >
                                     <Image
                                         src={cardBackground}
@@ -83,7 +93,7 @@ const StatsCardGrid: React.FC<StatsCardGridProps> = ({
                 </div>
 
                 {/* ── Desktop layout: side-by-side staggered heights ── */}
-                <div className="relative max-w-5xl mx-auto h-[50dvh] hidden md:block mt-10">
+                <div className="relative max-w-5xl mx-auto h-[50dvh] hidden lg:block mt-10">
                     {/* Card backgrounds */}
                     <div className="absolute inset-0 flex items-start gap-6">
                         {stats.map((stat, idx) => {

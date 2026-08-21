@@ -119,11 +119,7 @@ const FeatureCardGrid: React.FC<FeatureCardGridProps> = ({
     return (usableWidth * share) / flexSum;
   };
 
-  // ── Fluid height, no transition glitch ────────────────────────────────
-  // Anchor every card to the ACTIVE card's natural content height (measured
-  // once, at the active card's final width). Height then only changes once per
-  // selection and animates smoothly — it never chases the text reflow that
-  // happens frame-by-frame while widths slide.
+
   const probeRef = useRef<HTMLDivElement>(null);
   const [probeH, setProbeH] = useState<number | null>(null);
   const activeCard = cards[activeIndex];
@@ -153,10 +149,7 @@ const FeatureCardGrid: React.FC<FeatureCardGridProps> = ({
         onMouseEnter={() => window.innerWidth > 768 && setActiveIndex(index)}
         style={{
           width: widthPx ? `${widthPx}px` : undefined,
-          // Always pin every card to ONE height for the whole animation
-          // cycle: max(active-content height, desktop floor). Content never
-          // drives height frame-by-frame during the width slide, so there
-          // is no reflow glitch — height only changes once per selection.
+      
           height: isDesktop && probeH ? `${Math.max(probeH, MIN_HEIGHT)}px` : undefined,
           transition: 'width 700ms cubic-bezier(0.4,0,0.2,1), height 700ms cubic-bezier(0.4,0,0.2,1)',
           transform: 'translateZ(0)',
@@ -224,7 +217,7 @@ const FeatureCardGrid: React.FC<FeatureCardGridProps> = ({
           title={title}
           description={bottomSubtitle}
           align="center"
-          className="mb-5 md:mb-16 hidden md:block"
+          className="mb-5 md:mb-16 hidden lg:block"
           subtitleClass="text-xl md:text-[2.125rem] text-black tracking-tight capitalize"
           titleClass="text-[2.5rem] md:text-6xl tracking-tight leading-[1]"
           descClass="text-base md:text-xl text-black max-w-4xl mx-auto font-medium tracking-tight whitespace-pre-line"
@@ -234,7 +227,7 @@ const FeatureCardGrid: React.FC<FeatureCardGridProps> = ({
           title={title}
           description={bottomSubtitle}
           align="left"
-          className="mb-5 md:mb-16 md:hidden"
+          className="mb-5 md:mb-16 lg:hidden"
           subtitleClass="text-xl md:text-[2.125rem] text-black tracking-tight capitalize"
           titleClass="text-[2.5rem] md:text-6xl tracking-tight leading-[1]"
           descClass="text-base md:text-base text-black max-w-4xl mx-auto font-medium tracking-tight whitespace-pre-line"
@@ -270,9 +263,6 @@ const FeatureCardGrid: React.FC<FeatureCardGridProps> = ({
             )
           )}
 
-          {/* Hidden height probe — mirrors the ACTIVE card's content at its final
-              width so the row height is fluid to content but stable during the
-              width animation (no frame-by-frame reflow chasing). */}
           {isDesktop && activeCard && (
             <div
               ref={probeRef}
@@ -287,7 +277,7 @@ const FeatureCardGrid: React.FC<FeatureCardGridProps> = ({
                 zIndex: -1,
               }}
             >
-              <div className="p-6 md:p-8 pt-5 flex flex-col">
+              <div className="p-6 md:p-10 pt-5 flex flex-col">
                 <h4 className="text-white font-normal tracking-tight text-xl md:text-3xl mb-3">
                   {activeCard.title}
                 </h4>

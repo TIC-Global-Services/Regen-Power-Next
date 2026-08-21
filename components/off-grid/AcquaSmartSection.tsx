@@ -23,7 +23,7 @@ const getPerPage = () => {
     if (window.innerWidth < 1024) return 2;  // tablet
     return 3;                                // desktop
 };
-const AcquaSmartSection: React.FC<AcquaSmartSectionProps> = ({
+const   AcquaSmartSection: React.FC<AcquaSmartSectionProps> = ({
     subtitle,
     title,
     description,

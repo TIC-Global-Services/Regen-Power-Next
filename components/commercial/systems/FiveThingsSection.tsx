@@ -39,7 +39,7 @@ export default function FiveThingsSection({ resolved }: Props) {
   };
 
   return (
-    <section className="py-12 lg:py-8 bg-white min-h-[100dvh] flex flex-col justify-center overflow-hidden">
+    <section className="py-12 lg:py-8 bg-white lg:min-h-[100dvh] flex flex-col justify-center overflow-hidden">
       <div className="px-[5%] md:px-[3%] mx-auto w-full">
         <SectionHeader
           subtitle={resolved.subtitle}
@@ -102,7 +102,7 @@ export default function FiveThingsSection({ resolved }: Props) {
         <div className="lg:hidden mt-8">
           <div
             ref={sliderRef}
-            className="flex gap-4 overflow-x-auto snap-x snap-mandatory scrollbar-hide pb-2 -mx-[2%]"
+            className="flex gap-4 lg:gap-6 overflow-x-auto -mx-[3%] px-[5%] md:px-[3%] [&::-webkit-scrollbar]:hidden "
             style={{ WebkitOverflowScrolling: 'touch', scrollbarWidth: 'none', msOverflowStyle: 'none' }}
           >
             {items.map((item, idx) => {

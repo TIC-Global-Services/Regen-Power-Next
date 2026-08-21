@@ -37,7 +37,7 @@ export default function ProcessFlowSection({ resolved }: Props) {
   if (steps.length === 0) return null;
 
   return (
-    <section className="py-16 md:py-24 bg-white overflow-hidden">
+    <section className="py-16 lg:py-24 bg-white overflow-hidden">
       <div className=" mx-auto">
         <div className="px-[5%] md:px-[3%]">
           <SectionHeader

@@ -24,7 +24,7 @@ const HybridGenDetailSection: React.FC<HybridGenDetailSectionProps> = ({
     return (
         <section className="py-16 md:py-24 bg-white">
             <div className="px-[5%] md:px-[3%] mx-auto">
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-16 items-center ">
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 md:gap-16 items-center ">
                     <div className="relative w-full aspect-square rounded-[24px] overflow-hidden md:hidden">
                         <img
                             src={image || '/fallback.png'}
@@ -56,7 +56,7 @@ const HybridGenDetailSection: React.FC<HybridGenDetailSectionProps> = ({
                             </h2>
                         )}
                         {paragraphs.map((text, i) => (
-                            <p key={i} className={`text-sm md:text-xl text-black leading-[1.2] max-w-xl tracking-tight${i > 0 ? ' ' : ''}`}>
+                            <p key={i} className={`text-sm md:text-xl text-black leading-[1.2] lg:max-w-xl tracking-tight${i > 0 ? ' ' : ''}`}>
                                 {text}
                             </p>
                         ))}

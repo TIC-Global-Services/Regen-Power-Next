@@ -34,6 +34,7 @@ import type {
   SharedFaqData,
 } from '@/lib/strapi/schemas';
 import OffGridHero from '@/components/off-grid/OffGridHero';
+import SolutionCardGrid from '@/reuseables/solutiongrid'
 import StatsCardGrid from '@/reuseables/StatsCardGrid';
 import SolutionsPortfolio, { type PortfolioCard } from '@/reuseables/SolutionsPortfolio';
 import ThreeSolutionsSection from '@/components/off-grid/ThreeSolutionsSection';
@@ -128,7 +129,7 @@ const OffGridSolutionsPage = async () => {
       )}
 
       {iconGrid1 && (
-        <IconCardGrid
+        <SolutionCardGrid
           subtitle={iconGrid1.subtitle}
           title={iconGrid1.title}
           description={iconGrid1.description}

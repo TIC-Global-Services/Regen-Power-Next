@@ -41,7 +41,7 @@ const PackagesGrid: React.FC<PackagesGridProps> = ({
           align="left"
           subtitleClass="text-base md:text-2xl font-light text-black tracking-tight"
           titleClass="text-[2.5rem] md:text-6xl lg:text-[4.5rem] text-[#63B846] font-normal leading-none"
-          className="mb-16 md:hidden"
+          className="mb-16 lg:hidden"
         />
         <SectionHeader
           subtitle={subtitle}
@@ -51,16 +51,16 @@ const PackagesGrid: React.FC<PackagesGridProps> = ({
           descClass='mx-auto md:text-base'
           subtitleClass="text-base md:text-[1.75rem] font-light text-black tracking-tight"
           titleClass="text-[2.5rem] md:text-6xl text-[#63B846] font-normal leading-none"
-          className="mb-16 hidden md:block"
+          className="mb-16 hidden lg:block"
         />
 
         {/* 3-Column Card Layout */}
-        <div className="grid grid-cols-1 md:w-full lg:grid-cols-3 gap-4 lg:justify-center lg:items-start">
+        <div className="grid grid-cols-1 w-full lg:grid-cols-3 gap-4 lg:justify-center lg:items-start">
           {packages.map((pkg, idx) => (
             <Reveal
               key={idx}
               delay={idx * 0.1}
-              className={`rounded-[20px] p-8 md:p-10 flex flex-col justify-between  shadow-sm transition-all duration-300 hover:shadow-lg lg:w-full  min-h-[380px] lg:h-[540px] overflow-hidden mx-auto
+              className={`rounded-[20px] p-8 md:p-10 flex flex-col justify-between transition-all duration-300 w-full  min-h-[380px] lg:h-[540px] overflow-hidden mx-auto
                 bg-[#EEF6EB] hover:bg-[#A0CF44]
               `}
             >

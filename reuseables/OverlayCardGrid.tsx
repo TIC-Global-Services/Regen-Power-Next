@@ -55,7 +55,7 @@ const OverlayCardGrid: React.FC<OverlayCardGridProps> = ({
             </div>
 
             <div className="relative z-10 w-full px-[5%] md:px-[3%] py-16 md:py-24">
-                <div className="mx-auto text-center flex flex-col items-center">
+                <div className="mx-auto text-left lg:text-center flex flex-col items-start lg:items-center">
                     {badge && (
                         <span className="mb-4 inline-flex rounded-full bg-[#E5DDD8] px-5 py-2 text-xs font-medium uppercase tracking-wide text-black">
                             {badge}
@@ -63,17 +63,17 @@ const OverlayCardGrid: React.FC<OverlayCardGridProps> = ({
                     )}
 
                     {subtitle && (
-                        <p className="text-lg md:text-2xl text-white font-light tracking-tight mb-1">
+                        <p className="text-lg md:text-2xl text-white font-light tracking-tight mb-1 text-left lg:text-center">
                             {subtitle}
                         </p>
                     )}
 
-                    <h2 className="text-4xl md:text-6xl lg:text-[4.5rem] text-[#63B846] font-normal tracking-tighter leading-none">
+                    <h2 className="text-4xl md:text-6xl lg:text-[4.5rem] text-left lg:text-center text-[#63B846] font-normal tracking-tighter leading-none">
                         {title}
                     </h2>
 
                     {description && (
-                        <p className="text-sm md:text-base leading-snug tracking-tight mt-3 mb-5 text-white/90 max-w-3xl">
+                        <p className="text-sm md:text-base leading-snug tracking-tight mt-3 mb-5 text-white/90 max-w-3xl text-left lg:text-center">
                             {description}
                         </p>
                     )}
@@ -117,13 +117,13 @@ const OverlayCardGrid: React.FC<OverlayCardGridProps> = ({
                     {/* Mobile slider (no indicators) */}
                     <div className="mt-8 md:hidden w-full">
                         <div
-                            className="flex gap-4 overflow-x-auto snap-x snap-mandatory scrollbar-hide pb-2 -mx-[5%] px-[5%] md:px-[3%]"
+                            className="flex gap-4 md:gap-6 overflow-x-auto -mx-[5%] px-[5%] md:px-[3%] [&::-webkit-scrollbar]:hidden"
                             style={{ WebkitOverflowScrolling: 'touch', scrollbarWidth: 'none', msOverflowStyle: 'none' } as React.CSSProperties}
                         >
                             {cards.map((card, idx) => (
                                 <article
                                     key={idx}
-                                    className="snap-start shrink-0 w-[75%] rounded-[8px] border border-white/20 bg-white/12 p-4 backdrop-blur-md flex flex-col text-left"
+                                    className="snap-start shrink-0 w-[85%] rounded-[8px] border border-white/20 bg-white/12 p-4 py-5 backdrop-blur-md flex flex-col text-left"
                                 >
                                     <h3 className="text-base tracking-tight text-white mb-1">
                                         {card.title}

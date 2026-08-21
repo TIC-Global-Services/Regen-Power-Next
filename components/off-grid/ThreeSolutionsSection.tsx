@@ -19,7 +19,7 @@ interface ThreeSolutionsSectionProps {
 }
 
 const SolutionCard: React.FC<{ sol: Solution }> = ({ sol }) => (
-    <div className="relative h-[460px] md:h-[540px] rounded-[24px] overflow-hidden group">
+    <div className="relative h-[460px] md:h-[540px] rounded-[20px] overflow-hidden group">
         <img
             src={sol.image || '/fallback.png'}
             alt={sol.title}
@@ -36,7 +36,7 @@ const SolutionCard: React.FC<{ sol: Solution }> = ({ sol }) => (
             <p className="text-sm md:text-lg text-white/90 leading-[1.2] tracking-tight font-light max-w-[90%]">
                 {sol.description}
             </p>
-            <div className="mt-auto">
+            {/* <div className="mt-auto">
                 {sol.ctaText && (
                     <CtaButton
                         href={sol.ctaHref}
@@ -47,7 +47,7 @@ const SolutionCard: React.FC<{ sol: Solution }> = ({ sol }) => (
                         hoverClass="hover:bg-[#8dc63f] hover:text-white"
                     />
                 )}
-            </div>
+            </div> */}
         </div>
     </div>
 );
@@ -87,8 +87,8 @@ const ThreeSolutionsSection: React.FC<ThreeSolutionsSectionProps> = ({
 
     return (
         <section className="py-16 md:py-24 bg-white">
-            <div className="px-[5%] md:px-[3%] mx-auto">
-                <div className="text-center max-w-7xl mx-auto mb-12 md:mb-16">
+            <div className="lg:px-[3%] mx-auto">
+                <div className="text-left lg:text-center max-w-7xl mx-auto mb-12 md:mb-16 px-[5%]">
                     <p className="text-lg md:text-[2rem] text-black font-light tracking-tight ">
                         {subtitle}
                     </p>
@@ -101,7 +101,7 @@ const ThreeSolutionsSection: React.FC<ThreeSolutionsSectionProps> = ({
                 </div>
 
                 {/* Desktop grid */}
-                <div className="hidden md:grid md:grid-cols-3 gap-5 ">
+                <div className="hidden md:grid md:grid-cols-1 lg:grid-cols-3 gap-5 px-[3%]">
                     {solutions.map((sol, idx) => (
                         <SolutionCard key={idx} sol={sol} />
                     ))}
@@ -111,7 +111,7 @@ const ThreeSolutionsSection: React.FC<ThreeSolutionsSectionProps> = ({
                 <div className="md:hidden">
                     <div
                         ref={sliderRef}
-                        className="flex gap-4 overflow-x-auto snap-x snap-mandatory scrollbar-hide pb-2 -mx-[2%] px-[5%] md:px-[3%]"
+                        className="flex gap-4 overflow-x-auto pl-[5%] pr-[5%] [&::-webkit-scrollbar]:hidden"
                         style={{ WebkitOverflowScrolling: 'touch', scrollbarWidth: 'none', msOverflowStyle: 'none' }}
                     >
                         {solutions.map((sol, idx) => (
