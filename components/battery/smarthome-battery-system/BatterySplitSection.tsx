@@ -118,8 +118,9 @@ const BatterySplitSection = ({ data }: { data: BatterySplitData }) => {
                   {slide.mainDescription}
                 </p>
 
-                {/* View more toggle + slide nav — mobile/iPad only, arrows to the right */}
-                <div className="lg:hidden mt-2 mb-2 w-full flex items-center justify-between gap-4">
+                {/* View more toggle + slide nav — mobile/iPad only: toggle centered,
+                    arrows below it aligned to the right */}
+                <div className="lg:hidden mt-2 mb-2 w-full flex flex-col items-center gap-4">
                   <button
                     type="button"
                     onClick={() => setExpanded((v) => !v)}
@@ -131,7 +132,7 @@ const BatterySplitSection = ({ data }: { data: BatterySplitData }) => {
                       className={`w-4 h-4 transition-transform ${expanded ? 'rotate-180' : ''}`}
                     />
                   </button>
-                  {renderNav()}
+                  <div className="w-full flex justify-end">{renderNav()}</div>
                 </div>
 
                 {/* Expandable content — blocks + CTA; smooth on mobile, always open on desktop */}
