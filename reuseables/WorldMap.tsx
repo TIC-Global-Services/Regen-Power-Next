@@ -1,4 +1,6 @@
-import React from 'react';
+'use client';
+
+import React, { useState } from 'react';
 import Image, { StaticImageData } from 'next/image';
 import { MapPin } from 'lucide-react';
 import worldMap from '@/assets/contact/map.png';
@@ -31,6 +33,12 @@ const WorldMap: React.FC<WorldMapProps> = ({
     showHeader = true,
     className = '',
 }) => {
+    const [activeMarker, setActiveMarker] = useState<string | null>(null);
+
+    const handleMarkerClick = (markerName: string) => {
+        setActiveMarker((prev) => (prev === markerName ? null : markerName));
+    };
+
     return (
         <section className={`w-full px-[5%] md:px-[3%] py-12 md:py-20 ${className}`}>
             <div className="max-w-7xl mx-auto">
@@ -50,7 +58,11 @@ const WorldMap: React.FC<WorldMapProps> = ({
                     </div>
                 )}
 
-                <div className="relative w-full" style={{ aspectRatio }}>
+                <div
+                    className="relative w-full"
+                    style={{ aspectRatio }}
+                    onClick={() => setActiveMarker(null)}
+                >
                     <Image
                         src={mapImage}
                         alt="World map"
@@ -62,15 +74,24 @@ const WorldMap: React.FC<WorldMapProps> = ({
                     {markers.map((marker) => (
                         <div
                             key={marker.name}
-                            className="absolute flex items-center gap-1.5"
+                            className="absolute flex items-center gap-1.5 cursor-pointer md:cursor-default"
                             style={{ top: marker.top, left: marker.left, transform: 'translate(-50%, -50%)' }}
+                            onClick={(e) => {
+                                e.stopPropagation();
+                                handleMarkerClick(marker.name);
+                            }}
                         >
                             <MapPin
                                 size={18}
                                 strokeWidth={2.5}
-                                className={`fill-[#A0CF44] text-[#A0CF44]`}
+                                className="fill-[#A0CF44] text-[#A0CF44]"
                             />
-                            <span className="text-xs md:text-sm font-medium text-black whitespace-nowrap">
+                            {/* Desktop: always visible | Mobile: only when tapped */}
+                            <span
+                                className={`text-xs md:text-sm font-medium text-black whitespace-nowrap transition-opacity duration-200
+                                    ${activeMarker === marker.name ? 'opacity-100' : 'opacity-0 md:opacity-100'}
+                                    ${activeMarker === marker.name ? 'pointer-events-auto' : 'pointer-events-none md:pointer-events-auto'}`}
+                            >
                                 {marker.name}
                             </span>
                         </div>

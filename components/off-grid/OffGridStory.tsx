@@ -88,7 +88,7 @@ const OffGridStory: React.FC<OffGridStoryProps> = ({
                     {featuredHref ? (
                         <Link
                             href={featuredHref}
-                            className="group relative block w-full rounded-2xl overflow-hidden aspect-[16/9] md:aspect-[2.4/1]"
+                            className="group relative block w-full rounded-2xl overflow-hidden aspect-[16/9] md:aspect-[2.4/1] px-5"
                         >
                             {featuredContent}
                         </Link>
