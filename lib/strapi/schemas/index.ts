@@ -334,12 +334,16 @@ export type {
   ReviewsIntroSectionData,
   ReviewsTestimonialsSectionData,
   ReviewsCtaBannerData,
+  ReviewsImageCardData,
+  TestimonialEntryData,
 } from "./reviews";
 export {
   ReviewsHeroSchema,
   ReviewsIntroSectionSchema,
   ReviewsTestimonialsSectionSchema,
   ReviewsCtaBannerSchema,
+  ReviewsImageCardSchema,
+  TestimonialEntrySchema,
 } from "./reviews";
 
 export type { ContactHeroData } from "./contact";

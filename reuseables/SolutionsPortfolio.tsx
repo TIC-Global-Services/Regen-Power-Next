@@ -24,41 +24,6 @@ export interface ImageCard extends BaseCard {
 
 export type PortfolioCard = TextCard | ImageCard;
 
-const defaultCards: PortfolioCard[] = [
-    {
-        type: 'text',
-        variant: 'light-gray',
-        title: 'Summer Heat\nDerating',
-        description: 'Inverters Are Specified With Headroom For Sustained 40°C+ Rooftop Temperatures, We Don\'t Install On Capacity Limits.',
-    },
-    {
-        type: 'image',
-        variant: 'light-green',
-    },
-    {
-        type: 'text',
-        variant: 'light-gray',
-        title: 'Coastal\nCorrosion',
-        description: 'Stainless Steel Mounting Hardware And Marine-Grade Fastenings On Coastal Installs From Fremantle To Yanchep.',
-    },
-    {
-        type: 'text',
-        variant: 'light-gray',
-        title: 'Debs Feed-In\nOptimisation',
-        description: 'System Orientation And Battery Logic Tuned For The WA DEBS Tariff Structure, Maximising Peak-Period Self-Consumption.',
-    },
-    {
-        type: 'text',
-        variant: 'dark',
-        title: 'Paperwork And\nConnection',
-        description: 'Synergy, Western Power, DEBS, And STC Paperwork Is Managed End-To-End By Our Perth Office. You Never See A Form.',
-    },
-    {
-        type: 'image',
-        variant: 'light-green',
-    },
-];
-
 const variantClass: Record<CardVariant, string> = {
     'light-gray': 'bg-[#EBEBEB]',
     'light-green': 'bg-[#EEF6EB]',
@@ -69,18 +34,18 @@ const TextCardView: React.FC<{ card: TextCard; mobileScroll?: boolean }> = ({ ca
     const isDark = card.variant === 'dark';
     const titleLines = card.title.split('\n');
     return (
-        <div className={`${variantClass[card.variant]} rounded-2xl p-6 flex flex-col justify-center gap-5 ${mobileScroll ? 'shrink-0 w-[75vw] md:w-auto' : ''}`}>
-            <h3 className="text-3xl md:text-[2.5rem] font-normal tracking-tight leading-[1] text-[#63B846] mb-2">
+        <div className={`${variantClass[card.variant]} rounded-2xl p-6 flex flex-col justify-center gap-5 aspect-[4/3] overflow-hidden ${mobileScroll ? 'shrink-0 w-[75vw] md:w-[40vw] lg:w-auto' : ''}`}>
+            <h3 className="text-2xl lg:text-[2.5rem] font-normal tracking-tight leading-[1] text-[#63B846] mb-2">
                 {titleLines.map((line, i) => (
                     <span key={i} className="block">{line}</span>
                 ))}
             </h3>
             <div>
-                <p className={`text-sm md:text-base leading-[1.2] tracking-tight max-w-md ${isDark ? 'text-white/80' : 'text-black/80'}`}>
+                <p className={`text-sm lg:text-base leading-[1.2] tracking-tight max-w-md ${isDark ? 'text-white/80' : 'text-black/80'}`}>
                     {card.description}
                 </p>
                 {card.specs && (
-                    <p className={`text-sm md:text-base leading-[1.2] tracking-tight max-w-md ${isDark ? 'text-white/80' : 'text-black/80'}`}>
+                    <p className={`text-sm lg:text-base leading-[1.2] tracking-tight max-w-md ${isDark ? 'text-white/80' : 'text-black/80'}`}>
                         {card.specs}
                     </p>
                 )}
@@ -90,7 +55,7 @@ const TextCardView: React.FC<{ card: TextCard; mobileScroll?: boolean }> = ({ ca
 };
 
 const ImageCardView: React.FC<{ card: ImageCard; mobileScroll?: boolean }> = ({ card, mobileScroll }) => (
-    <div className={`${variantClass[card.variant]} rounded-2xl p-6 md:p-8 flex items-center justify-center ${mobileScroll ? 'shrink-0 w-[75vw] md:w-auto' : ''}`}>
+    <div className={`${variantClass[card.variant]} rounded-2xl p-6 md:p-8 flex items-center justify-center aspect-[4/3] overflow-hidden ${mobileScroll ? 'shrink-0 w-[75vw] md:w-[40vw] lg:w-auto' : ''}`}>
         <div className="relative w-32 h-32 md:w-40 md:h-40">
             <Image
                 src={card.image || gridDots}
@@ -121,23 +86,25 @@ const gridCols: Record<CardLayout, string> = {
     6: 'grid-cols-1 md:grid-cols-2 lg:grid-cols-3',
 };
 
-/** Desktop-only grid classes (md:/lg:) — used when mobileScroll renders the mobile row. */
+/** Desktop-only grid classes (lg:) — used when mobileScroll renders the swipe row below lg. */
 const desktopGridCols = (layout: CardLayout) =>
     gridCols[layout]
         .split(' ')
-        .filter((c) => c.startsWith('md:') || c.startsWith('lg:'))
+        .filter((c) => c.startsWith('lg:'))
         .join(' ');
 
 const SolutionsPortfolio: React.FC<SolutionsPortfolioProps> = ({
     subtitle,
     title,
     description,
-    cards = defaultCards,
+    cards,
     layout = 6,
     showHeader = true,
     className = '',
     mobileScroll = false,
 }) => {
+    if (!cards || cards.length === 0) return null;
+
     return (
         <section className={`w-full px-[5%] md:px-[3%] py-12 md:py-20 ${className}`}>
             <div>
@@ -154,7 +121,7 @@ const SolutionsPortfolio: React.FC<SolutionsPortfolioProps> = ({
                             </h2>
                         )}
                         {description && (
-                            <p className="text-sm md:text-xl text-black leading-[1.2] mt-4 max-w-7xl mx-auto">
+                            <p className="text-sm md:text-xl text-black leading-[1.2] tracking-tight mt-4 max-w-7xl mx-auto">
                                 {description}
                             </p>
                         )}
@@ -162,7 +129,7 @@ const SolutionsPortfolio: React.FC<SolutionsPortfolioProps> = ({
                 )}
 
                 <div className={`${mobileScroll
-                    ? `flex items-stretch overflow-x-auto md:grid ${desktopGridCols(layout)} snap-x snap-mandatory md:snap-none -mx-[5%] px-[5%] md:px-[3%] md:mx-0 md:px-0 gap-4 md:gap-6 min-h-[280px] [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none] pb-4 md:pb-0`
+                    ? `flex items-stretch overflow-x-auto lg:grid ${desktopGridCols(layout)} lg:snap-none -mx-[5%] px-[5%] md:px-[3%] lg:mx-0 lg:px-0 gap-4 min-h-[280px] [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none] pb-4 lg:pb-0`
                     : `grid ${gridCols[layout]} gap-5 md:gap-6`
                     }`}>
                     {cards.map((card, index) => {

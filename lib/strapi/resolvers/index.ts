@@ -375,10 +375,12 @@ export {
   resolveReviewsIntroSection,
   resolveReviewsTestimonialsSection,
   resolveReviewsCtaBanner,
+  resolveTestimonials,
 } from "./reviews";
 export type {
   ResolvedReviewsHero,
   ResolvedReviewsIntroSection,
+  ResolvedGridItem,
 } from "./reviews";
 
 export { resolveContactHero } from "./contact";

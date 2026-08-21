@@ -20,13 +20,13 @@ const WhyOurInstaller: React.FC<{ data: WhyOurInstallerData }> = ({ data }) => {
 
   return (
     <section className="bg-white border-t border-gray-50 flex items-stretch w-full">
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-0 items-stretch w-full px-5 lg:px-0">
-        
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 items-stretch w-full">
+
         {/* Text Column */}
-        <div className="flex flex-col justify-between pt-4 pb-16 py-4 lg:py-20 max-w-2xl px-5 lg:px-0 text-left order-2 lg:order-1">
+        <div className="flex flex-col justify-between py-4 lg:py-20 max-w-2xl px-5 lg:pl-[5%] lg:pr-0 text-left order-2 lg:order-1">
           {/* Top block: title + subtitle */}
           <div className="max-w-2xl">
-            <h2 className="text-[2.5rem] md:text-5xl lg:text-[3.125rem] font-normal leading-none tracking-tight mb-2 text-[#63B846] whitespace-pre-line">
+            <h2 className="text-[2.5rem] md:text-5xl lg:text-[3.125rem] font-normal leading-[1.05] tracking-tight mb-2 text-[#63B846] whitespace-pre-line">
               {data.title}
             </h2>
 
@@ -59,13 +59,13 @@ const WhyOurInstaller: React.FC<{ data: WhyOurInstallerData }> = ({ data }) => {
         </div>
 
         {/* Image Column */}
-        <div className="relative h-[450px] lg:h-screen overflow-hidden rounded-[20px] lg:rounded-none order-1 lg:order-2 ">
+        <div className="relative h-[450px] lg:h-auto lg:min-h-screen overflow-hidden rounded-[20px] lg:rounded-none mx-5 lg:mx-0 order-1 lg:order-2">
           <Image
             src={data.image}
             alt={data.imageAlt || 'Why Our Installer Certifications Matter'}
             fill
             className="object-cover"
-            priority
+            sizes="(min-width: 1024px) 50vw, calc(100vw - 2.5rem)"
           />
         </div>
 

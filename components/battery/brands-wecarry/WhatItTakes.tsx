@@ -28,17 +28,17 @@ const WhatItTakes: React.FC<WhatItTakesProps> = ({ data }) => {
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 items-stretch w-full">
 
                 {/* Image Column */}
-                <div className="relative h-[450px] lg:h-screen overflow-hidden rounded-[20px] lg:rounded-none mx-5 lg:mx-0">
+                <div className="relative h-[450px] lg:h-auto lg:min-h-screen overflow-hidden rounded-[20px] lg:rounded-none mx-5 lg:mx-0">
                     <Image
                         src={data.image}
-                        alt={data.imageAlt || 'Why Our Installer Certifications Matter'}
+                        alt={data.imageAlt || data.title}
                         fill
                         className="object-cover"
-                        priority
+                        sizes="(min-width: 1024px) 50vw, calc(100vw - 2.5rem)"
                     />
                 </div>
                 {/* Text Column */}
-                <div className="w-full  flex flex-col justify-between py-4 lg:py-20 max-w-2xl px-5 lg:px-0">
+                <div className="w-full flex flex-col justify-between py-4 lg:py-20 max-w-2xl px-5 lg:pl-[5%] lg:pr-0">
                     <div className="capitalize">
                         <h3 className="text-base md:text-2xl font-normal text-black tracking-tight mb-2">
                             {data.subtitle}

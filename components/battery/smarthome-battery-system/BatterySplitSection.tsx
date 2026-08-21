@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import Image, { StaticImageData } from 'next/image';
 import CtaButton from '@/reuseables/CtaButton';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ArrowLeft, ArrowRight } from 'lucide-react';
+import { ArrowLeft, ArrowRight, ArrowDown } from 'lucide-react';
 
 export interface SplitSectionBlock {
   title: string;
@@ -26,13 +26,16 @@ export interface BatterySplitData {
 
 const BatterySplitSection = ({ data }: { data: BatterySplitData }) => {
   const [currentSlide, setCurrentSlide] = useState(0);
+  const [expanded, setExpanded] = useState(false);
 
   const nextSlide = () => {
     setCurrentSlide((prev) => (prev + 1) % data.slides.length);
+    setExpanded(false);
   };
 
   const prevSlide = () => {
     setCurrentSlide((prev) => (prev - 1 + data.slides.length) % data.slides.length);
+    setExpanded(false);
   };
 
   const slide = data.slides[currentSlide];
@@ -82,8 +85,17 @@ const BatterySplitSection = ({ data }: { data: BatterySplitData }) => {
   return (
     <section className="bg-white py-8 md:py-16 px-[5%] md:px-[3%] overflow-hidden">
       <div className="flex flex-col lg:flex-row gap-12 lg:gap-16 items-center">
-        {/* Content — first on mobile (order-1), left column on desktop */}
-        <div className="order-1 w-full lg:w-1/2 flex flex-col items-start shrink-0 lg:min-h-[500px]">
+        {/* IMAGE — mobile/iPad: first (order-1); desktop: right column (lg:order-2) */}
+        <div className="order-1 w-full lg:order-2 lg:w-1/2 flex flex-col items-end gap-6">
+          {/* Nav above image on desktop only */}
+          <div className="hidden lg:flex justify-end w-full">
+            {renderNav()}
+          </div>
+          {renderImage()}
+        </div>
+
+        {/* CONTENT — mobile/iPad: after image (order-2); desktop: left column (lg:order-1) */}
+        <div className="order-2 w-full lg:order-1 lg:w-1/2 flex flex-col items-start shrink-0 lg:min-h-[500px]">
           <div className="relative w-full flex-1">
             <AnimatePresence mode="wait">
               <motion.div
@@ -94,48 +106,65 @@ const BatterySplitSection = ({ data }: { data: BatterySplitData }) => {
                 transition={{ duration: 0.4, ease: "easeInOut" }}
                 className="flex flex-col items-start w-full"
               >
+                {/* Header — always visible (subtitle, title, description) */}
                 <h3 className="text-xl md:text-2xl text-black font-normal mb-1">
                   {slide.topSubtitle}
                 </h3>
                 <h2 className="text-4xl md:text-[5rem] text-[#63B846] font-normal leading-[1] mb-6 lg:mb-8 tracking-tight">
                   {slide.title}
                 </h2>
-
                 <p className="text-base md:text-2xl text-black font-normal leading-[1] tracking-tight mb-8">
                   {slide.mainDescription}
                 </p>
 
-                <div className="space-y-2 mb-8 w-full capitalize">
-                  {slide.blocks.map((block, idx) => (
-                    <div key={idx}>
-                      <h4 className="text-lg md:text-xl font-semibold text-black mb-1 tracking-tight">
-                        {block.title}
-                      </h4>
-                      <p className="text-base md:text-xl font-normal leading-[1] tracking-tight text-black whitespace-pre-line">
-                        {block.description}
-                      </p>
-                    </div>
-                  ))}
-                </div>
+                {/* View more toggle — mobile/iPad only */}
+                <button
+                  type="button"
+                  onClick={() => setExpanded((v) => !v)}
+                  aria-expanded={expanded}
+                  className="lg:hidden mt-2 mb-2 flex items-center gap-2 text-base font-medium text-black"
+                >
+                  {expanded ? 'View less' : 'View more'}
+                  <ArrowDown
+                    className={`w-4 h-4 transition-transform ${expanded ? 'rotate-180' : ''}`}
+                  />
+                </button>
 
-                <CtaButton
-                  href={slide.ctaLink}
-                  text={slide.ctaText}
-                  textColor="text-black"
-                />
+                {/* Expandable content — blocks + CTA; smooth on mobile, always open on desktop */}
+                <div
+                  className={`grid transition-[grid-template-rows] duration-300 ease-in-out w-full ${
+                    expanded ? 'grid-rows-[1fr]' : 'grid-rows-[0fr]'
+                  } lg:grid-rows-[1fr]`}
+                >
+                  <div className="overflow-hidden">
+                    <div className="space-y-2 mb-8 w-full capitalize">
+                      {slide.blocks.map((block, idx) => (
+                        <div key={idx}>
+                          <h4 className="text-lg md:text-xl font-semibold text-black mb-1 tracking-tight">
+                            {block.title}
+                          </h4>
+                          <p className="text-base md:text-xl font-normal leading-[1] tracking-tight text-black whitespace-pre-line">
+                            {block.description}
+                          </p>
+                        </div>
+                      ))}
+                    </div>
+
+                    <CtaButton
+                      href={slide.ctaLink}
+                      text={slide.ctaText}
+                      textColor="text-black"
+                    />
+                  </div>
+                </div>
               </motion.div>
             </AnimatePresence>
           </div>
         </div>
 
-        {/* Image + Nav — mobile: nav then image (order swapped); desktop: image then nav, right column */}
-        <div className="order-2 w-full lg:w-1/2 flex flex-col items-end gap-6">
-          <div className="order-1 lg:order-2 w-full flex justify-end">
-            {renderNav()}
-          </div>
-          <div className="order-2 lg:order-1 w-full flex justify-end">
-            {renderImage()}
-          </div>
+        {/* NAV — mobile/iPad only, shown below content (order-3) */}
+        <div className="order-3 w-full lg:hidden flex justify-start">
+          {renderNav()}
         </div>
       </div>
     </section>

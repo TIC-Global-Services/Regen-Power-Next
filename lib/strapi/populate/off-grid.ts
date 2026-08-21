@@ -12,7 +12,7 @@ export const threeSolutionsSection =
   "populate[sections][on][off-grid.three-solutions-section][populate][solutions][populate]=image";
 
 export const iconCardGrid =
-  "populate[sections][on][off-grid.icon-card-grid][populate][cards]=true";
+  "populate[sections][on][off-grid.icon-card-grid][populate][cards][populate]=icon";
 
 export const hybridGenDetail =
   "populate[sections][on][off-grid.hybrid-gen-detail][populate][logo]=true" +

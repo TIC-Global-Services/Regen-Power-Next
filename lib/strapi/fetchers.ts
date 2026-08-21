@@ -3,6 +3,7 @@ import type { StrapiResponse, StrapiSingleTypePage } from "./types";
 import type { BlogArticleData } from "./schemas/blog";
 import type { PressArticleData } from "./schemas/press-media";
 import type { PortfolioProjectData } from "./schemas/portfolio";
+import type { TestimonialEntryData } from "./schemas/reviews";
 import { populate } from "./populate/index";
 import * as solar from "./populate/solar";
 import * as brands from "./populate/brands";
@@ -190,6 +191,14 @@ export const getReviewsPage = () =>
       reviews.testimonialsSection,
       shared.ctaBanner
     )
+  );
+
+/** Fetch published testimonials (collection) — the review quotes for the grid. */
+export const getTestimonials = async (): Promise<
+  StrapiResponse<TestimonialEntryData[]>
+> =>
+  strapiFetch<StrapiResponse<TestimonialEntryData[]>>(
+    "/testimonials?sort[0]=id:asc&pagination[pageSize]=100"
   );
 
 // Not yet migrated — minimal populate for future use

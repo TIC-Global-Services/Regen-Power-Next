@@ -5,6 +5,7 @@ import type {
   ReviewsIntroSectionData,
   ReviewsTestimonialsSectionData,
   ReviewsCtaBannerData,
+  TestimonialEntryData,
 } from "../schemas/reviews";
 
 export interface ResolvedReviewsHero {
@@ -48,7 +49,14 @@ export function resolveReviewsIntroSection(
 
 export type ResolvedTestimonialRow = {
   type: "testimonial";
-  data: { location: string; name: string; quote: string };
+  data: {
+    location: string;
+    name: string;
+    quote: string;
+    /** Display label for third-party attribution, e.g. "Google" — null for first-party */
+    source: string | null;
+    rating: number | null;
+  };
 };
 export type ResolvedImageRow = {
   type: "image";
@@ -60,42 +68,64 @@ export type ResolvedGridItem = ResolvedTestimonialRow | ResolvedImageRow;
 export interface ResolvedReviewsTestimonialsSection {
   subtitle: string | undefined;
   title: string | undefined;
-  items: ResolvedGridItem[];
+  /** Decorative image tiles — placed into even grid rows (2-col span) by the UI */
+  imageCards: ResolvedImageRow[];
 }
 export function resolveReviewsTestimonialsSection(
   data: ReviewsTestimonialsSectionData | undefined
 ): ResolvedReviewsTestimonialsSection | null {
   if (!data) return null;
-  const items = (data.cards ?? []).reduce<ResolvedGridItem[]>(
-    (items, card) => {
-      if (card.type === "image") {
-        const image = card.image ? strapiImageData(card.image) : null;
-        items.push({
-          type: "image",
-          image: image?.src || "/fallback.png",
-          alt: card.imageAlt || image?.alt || "Regen Power installation",
-        });
-        return items;
-      }
-
-      if (!card.location || !card.name || !card.quote) return items;
-      items.push({
-        type: "testimonial",
-        data: {
-          location: card.location,
-          name: card.name,
-          quote: card.quote,
-        },
+  const imageCards = (data.cards ?? []).reduce<ResolvedImageRow[]>(
+    (cards, card) => {
+      const image = card.image ? strapiImageData(card.image) : null;
+      cards.push({
+        type: "image",
+        image: image?.src || "/fallback.png",
+        alt: card.imageAlt || image?.alt || "Regen Power installation",
       });
-      return items;
+      return cards;
     },
     []
   );
   return {
     subtitle: data.subtitle ?? undefined,
     title: data.title ?? undefined,
-    items,
+    imageCards,
   };
+}
+
+/* ─── testimonial collection → grid items ─── */
+
+const SOURCE_LABELS: Record<string, string> = {
+  google: "Google",
+  productreview: "ProductReview.com.au",
+};
+
+/**
+ * Map published testimonial collection entries onto grid items.
+ * Entries missing a name or quote are skipped.
+ */
+export function resolveTestimonials(
+  entries: TestimonialEntryData[] | undefined | null
+): ResolvedGridItem[] {
+  if (!Array.isArray(entries)) return [];
+  return entries.reduce<ResolvedGridItem[]>((items, entry) => {
+    if (!entry.name || !entry.quote) return items;
+    items.push({
+      type: "testimonial",
+      data: {
+        location: entry.location ?? "",
+        name: entry.name,
+        quote: entry.quote,
+        source:
+          entry.source && SOURCE_LABELS[entry.source]
+            ? SOURCE_LABELS[entry.source]
+            : null,
+        rating: entry.rating ?? null,
+      },
+    });
+    return items;
+  }, []);
 }
 
 export interface ResolvedReviewsCtaBanner {
