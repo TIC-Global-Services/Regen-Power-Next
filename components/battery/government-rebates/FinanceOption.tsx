@@ -191,13 +191,13 @@ const FinanceOptionBlock: React.FC<{ data: FinanceOptionData }> = ({ data }) => 
                 <div className="hidden md:flex flex-col">
                   {data.sections.map((section, index) => (
                     <div key={index} className="flex flex-col justify-between">
-                      <div className="pb-5 transition-all duration-500 ease-in-out">
+                      <div className="pb-5 transition-all duration-500 ease-in-out ">
                         <h3 className={`text-2xl md:text-3xl font-normal mb-4 tracking-tight transition-colors duration-500 ${activeIndex === index ? 'text-black' : 'text-[#9CA3AF]'}`}>
                           {section.title}
                         </h3>
                         <ul className="flex flex-col">
                           {section.listItems.map((item, i) => (
-                            <li key={i} className={`flex items-start text-base md:text-lg font-normal leading-[1.2] transition-colors duration-500 ${activeIndex === index ? 'text-black' : 'text-[#9CA3AF]'}`}>
+                            <li key={i} className={`flex items-start text-base md:text-lg font-normal leading-[1] transition-colors duration-500 ${activeIndex === index ? 'text-black' : 'text-[#9CA3AF]'}`}>
                               <span className="mr-2 mt-0.5">•</span>
                               <span>{item}</span>
                             </li>

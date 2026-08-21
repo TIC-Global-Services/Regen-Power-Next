@@ -230,7 +230,7 @@ const FeatureExplorer: React.FC<FeatureExplorerProps> = ({
                                             alt={activeFeature.title || titleAccent || "Feature illustration"}
                                             fill
                                             className="object-cover"
-                                            priority
+                                            preload
                                         />
                                     </motion.div>
                                 </AnimatePresence>

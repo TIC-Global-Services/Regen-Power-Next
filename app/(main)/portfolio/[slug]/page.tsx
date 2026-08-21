@@ -89,7 +89,7 @@ const PortfolioProjectPage = async ({ params }: PortfolioProjectPageProps) => {
               alt={resolved.title}
               fill
               className="object-cover"
-              priority
+              preload
               sizes="(min-width: 1024px) 50vw, 100vw"
             />
           </div>

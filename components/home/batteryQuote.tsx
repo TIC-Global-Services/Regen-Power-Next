@@ -140,7 +140,7 @@ const BatteryQuote = ({ data }: BatteryQuoteProps) => {
                                 src={data.image}
                                 alt="Solar powered city illustration"
                                 className="w-full h-auto object-contain"
-                                priority
+                                preload
                                 width={600}
                                 height={400}
                             />

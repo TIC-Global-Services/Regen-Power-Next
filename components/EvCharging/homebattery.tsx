@@ -35,7 +35,7 @@ const HomeBattery = ({ data }: HomeBatteryProps) => {
                   alt={data.imageAlt}
                   fill
                   className="object-cover"
-                  priority
+                  preload
                 />
               </div>
             </Reveal>

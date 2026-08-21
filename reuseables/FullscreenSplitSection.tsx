@@ -67,7 +67,7 @@ const FullscreenSplitSection: React.FC<FullscreenSplitSectionProps> = ({
 
         {/* Image Column */}
         <Reveal
-          className={`w-full pt-6 md:pt-10 px-5 md:px-10 lg:px-0 lg:py-0 h-[450px] md:h-[50vh] lg:h-screen ${
+          className={`w-full pt-6 md:pt-10 px-5 md:px-10 lg:px-0 lg:py-0 h-[450px] md:h-[50vh] lg:min-h-screen ${
             isImageLeft ? 'lg:order-first' : 'lg:order-last'
           } ${imageColumnClassName}`}
         >
@@ -83,7 +83,7 @@ const FullscreenSplitSection: React.FC<FullscreenSplitSectionProps> = ({
         {/* Text Column */}
         <div
           className={`flex flex-col pt-4 md:pt-0 lg:pt-12 pb-16 md:pb-20 lg:py-24 px-5 md:px-10 ${isImageLeft ? 'lg:pl-12 lg:pr-15' : 'lg:pl-15 lg:pr-12'
-            } text-left h-full lg:h-screen lg:min-h-screen ${isSplit ? 'justify-center lg:justify-between' : 'justify-center'
+            } text-left h-full lg:min-h-screen ${isSplit ? 'justify-center lg:justify-between' : 'justify-center'
             } ${textColumnClassName}`}
         >
           {isSplit ? (

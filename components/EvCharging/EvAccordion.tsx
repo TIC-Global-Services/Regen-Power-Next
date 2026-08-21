@@ -68,7 +68,7 @@ const EvAccordion = ({ data }: EvAccordionProps) => {
                             fill
                             className="object-cover"
                             sizes="(max-width: 1024px) 100vw, 30vw"
-                            priority
+                            preload
                           />
                         </div>
                         {/* Text inside active layout */}

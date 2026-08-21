@@ -22,7 +22,7 @@ const Tier1MeansSection: React.FC<Tier1MeansSectionProps> = ({ resolved }) => {
     <section className="bg-white border-t border-gray-50 lg:min-h-screen flex items-stretch">
       <div className="grid grid-cols-1 lg:grid-cols-2 items-stretch w-full py-5 lg:min-h-screen px-[3%] lg:px-[0%]">
         <Reveal
-          className={`relative  w-full h-[450px] md:h-[50dvh] rounded-[20px] lg:rounded-none lg:h-screen overflow-hidden ${isImageLeft ? "lg:order-first" : "lg:order-last"}`}
+          className={`relative  w-full h-[450px] md:h-[50dvh] rounded-[20px] lg:rounded-none lg:min-h-screen overflow-hidden ${isImageLeft ? "lg:order-first" : "lg:order-last"}`}
         >
           {imgUrl ? (
             <Image
@@ -30,7 +30,8 @@ const Tier1MeansSection: React.FC<Tier1MeansSectionProps> = ({ resolved }) => {
               alt="Tier-1 Solar Panels"
               fill
               className="object-cover"
-              priority
+              preload
+              sizes="(min-width: 1024px) 50vw, 100vw"
             />
           ) : (
             <MissingImage
@@ -42,7 +43,7 @@ const Tier1MeansSection: React.FC<Tier1MeansSectionProps> = ({ resolved }) => {
         </Reveal>
 
         <div
-          className={`flex flex-col py-5 lg:py-24 px-[3%] lg:px-[5%] lg:px-[3%] ${isImageLeft ? "lg:pl-12 lg:pr-20" : "lg:pl-20 lg:pr-12"} text-left h-full justify-start lg:h-screen lg:min-h-screen lg:justify-between`}
+          className={`flex flex-col py-5 lg:py-24 px-[3%] lg:px-[5%] lg:px-[3%] ${isImageLeft ? "lg:pl-12 lg:pr-20" : "lg:pl-20 lg:pr-12"} text-left h-full justify-start lg:min-h-screen lg:justify-between`}
         >
           <div>
             {/* <SectionHeader

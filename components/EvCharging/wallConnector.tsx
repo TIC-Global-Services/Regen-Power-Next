@@ -32,7 +32,7 @@ const WallConnector = ({ data }: WallConnectorProps) => {
                 fill
                 className="object-cover"
                 sizes="100vw"
-                priority
+                preload
               />
             </div>
           </Reveal>
@@ -85,7 +85,7 @@ const WallConnector = ({ data }: WallConnectorProps) => {
                 fill
                 className="object-cover"
                 sizes="50vw"
-                priority
+                preload
               />
             </div>
           </Reveal>

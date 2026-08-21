@@ -27,14 +27,16 @@ const Areyoueligible = ({ data }: areyoueligibleProps) => {
         <section className="bg-white border-t border-gray-50 py-12 md:py-16 flex items-stretch w-full">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-0 items-stretch w-full px-[5%] md:px-[3%] lg:px-0">
 
-                {/* Image Column — same inset rhythm as FullscreenSplitSection (bleeds at lg) */}
-                <div className="relative h-[450px] lg:h-screen overflow-hidden rounded-[20px] lg:rounded-none ">
+                {/* Image Column — same full-height rhythm as QuickWay
+                    (h-auto + min-h-screen so the image stretches with a taller text column) */}
+                <div className="relative h-[450px] lg:h-auto lg:min-h-screen overflow-hidden rounded-[20px] lg:rounded-none">
                     <Image
                         src={data.image}
-                        alt={data.imageAlt || ''}
+                        alt={data.imageAlt || data.title}
                         fill
                         className="object-cover"
-                        priority
+                        preload
+                        sizes="(min-width: 1024px) 50vw, calc(100vw - 10%)"
                     />
                 </div>
                 {/* Text Column — same gutters as FullscreenSplitSection */}

@@ -47,7 +47,7 @@ const Expertise = ({ data }: ExpertiseProps) => {
           alt="Expertise background"
           fill
           className="object-cover object-center"
-          priority
+          preload
         />
         {/* Dark overlay for readability */}
         <div className="absolute inset-0 bg-[#0a1c30]/70" />
