@@ -44,6 +44,7 @@ const navItems = [
     ]
   },
   { name: 'About Us', href: '#' },
+  { name: 'Blog', href: '/blog' },
   { name: 'Reviews', href: '/reviews' },
   { name: 'Press&Media', href: '/press-media' },
 ];
@@ -411,7 +412,7 @@ const Navbar = () => {
             </ul>
 
             {/* CTA */}
-            <div ref={ctaRef} className="mt-10 w-full max-w-md flex justify-center">
+            <div ref={ctaRef} className="mt-10 w-full max-w-md mx-auto flex justify-center">
               <CtaButton
                 href="/contact"
                 text="Contact Us"

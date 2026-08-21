@@ -130,12 +130,19 @@ export interface ResolvedPressCard {
   categoryKey: string;
   /** every normalized category on the article */
   categoryKeys: string[];
+  /** link target for the article page */
+  href: string;
 }
 
 export interface ResolvedPressCollection {
   categories: { label: string; value: string }[];
   defaultCategory: string;
   cards: ResolvedPressCard[];
+}
+
+/** "/press-media/<slug>" — or "#" when the article has no slug. */
+function pressArticleHref(a: PressArticleData): string {
+  return a.slug ? `/press-media/${a.slug}` : "#";
 }
 
 export function resolvePressArticles(
@@ -173,6 +180,7 @@ export function resolvePressArticles(
       imagePosition: "right",
       categoryKey: categoryKeys[0] ?? "",
       categoryKeys,
+      href: pressArticleHref(a),
     };
   });
 
@@ -181,4 +189,64 @@ export function resolvePressArticles(
     defaultCategory: ALL_CATEGORIES_KEY,
     cards,
   };
+}
+
+/* ─── single press-article → article detail ─── */
+
+export interface ResolvedPressArticleCategory {
+  key: string;
+  label: string;
+}
+
+export interface ResolvedPressArticle {
+  title: string;
+  slug: string;
+  description: string;
+  content: string;
+  categories: ResolvedPressArticleCategory[];
+  image: string;
+  publishedAt: string;
+}
+
+export function resolvePressArticle(
+  article: PressArticleData | null | undefined
+): ResolvedPressArticle | null {
+  if (!article) return null;
+  const categories = (article.categories ?? [])
+    .filter((raw) => raw?.trim())
+    .map((raw) => ({
+      key: normalizeCategoryKey(raw),
+      label: normalizeCategoryLabel(raw),
+    }));
+  return {
+    title: article.title ?? "",
+    slug: article.slug ?? "",
+    description: article.description ?? "",
+    content: article.content ?? "",
+    categories,
+    image: article.image ? strapiImageData(article.image)?.src ?? "" : "",
+    publishedAt: article.publishedAt ?? "",
+  };
+}
+
+/* ─── latest-articles sidebar list ─── */
+
+export interface ResolvedLatestPressItem {
+  title: string;
+  href: string;
+  image: string;
+  publishedAt: string;
+}
+
+/** Latest press-articles → minimal items for a "Latest News" sidebar. */
+export function resolveLatestPressItems(
+  articles: PressArticleData[] | undefined | null
+): ResolvedLatestPressItem[] {
+  if (!Array.isArray(articles)) return [];
+  return articles.map((a) => ({
+    title: a.title ?? "",
+    href: pressArticleHref(a),
+    image: a.image ? strapiImageData(a.image)?.src ?? "" : "",
+    publishedAt: a.publishedAt ?? "",
+  }));
 }

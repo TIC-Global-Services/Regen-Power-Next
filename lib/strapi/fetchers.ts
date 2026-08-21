@@ -331,6 +331,7 @@ function pressArticlesQuery(page: number, pageSize: number): string {
   params.set("fields[2]", "slug");
   params.set("fields[3]", "categories");
   params.set("fields[4]", "featured");
+  params.set("fields[5]", "publishedAt");
   params.set("populate[image]", "true");
   params.set("sort[0]", "publishedAt:desc");
   params.set("pagination[page]", String(page));
@@ -375,6 +376,33 @@ export const getPressArticles = async (): Promise<
     meta: first.meta,
   };
 };
+
+/** Build the querystring for a single press-article by slug — full content + media. */
+function pressArticleQuery(slug: string): string {
+  const params = new URLSearchParams();
+  params.set("filters[slug][$eq]", slug);
+  params.set("fields[0]", "title");
+  params.set("fields[1]", "description");
+  params.set("fields[2]", "slug");
+  params.set("fields[3]", "categories");
+  params.set("fields[4]", "content");
+  params.set("fields[5]", "publishedAt");
+  params.set("populate[image]", "true");
+  return params.toString();
+}
+
+/** Fetch a single published press-article by slug (revalidate 60). Returns null if not found. */
+export const getPressArticle = async (
+  slug: string
+): Promise<PressArticleData | null> => {
+  const res = await strapiFetch<StrapiResponse<PressArticleData[]>>(
+    `/press-articles?${pressArticleQuery(slug)}`
+  );
+  const arr = res.data;
+  if (!Array.isArray(arr) || arr.length === 0) return null;
+  return arr[0];
+};
+
 export const getPortfolioPage = () =>
   getSingleType(
     PAGE_SLUGS.portfolio,

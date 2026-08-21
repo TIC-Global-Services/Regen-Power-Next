@@ -1,9 +1,9 @@
 import React from 'react';
 import { getPressMediaPage, getPressArticles } from '@/lib/strapi';
+import { strapiImageData } from '@/lib/strapi/media';
 import { findSection } from '@/lib/strapi/section-utils';
 import {
   resolvePressMediaHero,
-  resolvePressMediaFeaturedArticle,
   resolvePressMediaLatestNewsSection,
   resolvePressArticles,
   resolveSharedCtaBanner,
@@ -11,7 +11,6 @@ import {
 } from '@/lib/strapi/resolvers';
 import type {
   PressMediaHeroData,
-  PressMediaFeaturedArticleData,
   PressMediaLatestNewsSectionData,
   BlogCtaBannerData,
   SharedCategorySectionData,
@@ -25,6 +24,9 @@ import CategorySection from '@/reuseables/CategorySection';
 
 export const revalidate = 60;
 
+/** How many articles the "Latest News" strip shows (desktop grid is 3 columns). */
+const LATEST_NEWS_COUNT = 3;
+
 const PressMediaPage = async () => {
   const [{ data }, { data: articles }] = await Promise.all([
     getPressMediaPage(),
@@ -33,17 +35,45 @@ const PressMediaPage = async () => {
   const sections = data.sections ?? [];
 
   const heroSection = findSection<PressMediaHeroData>(sections, 'press-and-media.hero');
-  const featuredSection = findSection<PressMediaFeaturedArticleData>(sections, 'press-and-media.featured-article');
   const latestNewsSection = findSection<PressMediaLatestNewsSectionData>(sections, 'press-and-media.latest-news-section');
   const categorySection = findSection<SharedCategorySectionData>(sections, 'shared.category-section');
   const ctaSection = findSection<BlogCtaBannerData>(sections, 'shared.cta-banner');
 
   const heroProps = resolvePressMediaHero(heroSection);
-  const featuredProps = resolvePressMediaFeaturedArticle(featuredSection);
-  const latestNewsProps = resolvePressMediaLatestNewsSection(latestNewsSection);
-  const newsProps = resolvePressArticles(articles);
   const categorySectionProps = resolveSharedCategorySection(categorySection);
   const ctaProps = resolveSharedCtaBanner(ctaSection);
+
+  /* Latest-news heading labels stay CMS-editable; the articles themselves are dynamic. */
+  const latestNewsLabels = resolvePressMediaLatestNewsSection(latestNewsSection);
+
+  /*
+   * Dynamic split of the press-article collection (already sorted publishedAt:desc):
+   *   [0]            → Featured Article
+   *   [1..4)         → Latest News strip
+   *   [4..]          → News grid (filterable + paginated)
+   */
+  const published = Array.isArray(articles) ? articles : [];
+  const [featured, ...rest] = published;
+  const latestItemsRaw = rest.slice(0, LATEST_NEWS_COUNT);
+  const gridArticles = rest.slice(LATEST_NEWS_COUNT);
+
+  const featuredProps = featured
+    ? {
+        image: (featured.image && strapiImageData(featured.image)?.src) || '/FeaturedArticle_fallback.png',
+        title: featured.title ?? '',
+        description: featured.description ?? '',
+        href: featured.slug ? `/press-media/${featured.slug}` : '#',
+      }
+    : null;
+
+  const latestNewsItems = latestItemsRaw.map((a) => ({
+    title: a.title ?? '',
+    description: a.description ?? '',
+    image: (a.image && strapiImageData(a.image)?.src) || '/fallback.png',
+    href: a.slug ? `/press-media/${a.slug}` : '#',
+  }));
+
+  const newsProps = resolvePressArticles(gridArticles);
 
   return (
     <div className="bg-white min-h-screen text-black">
@@ -68,11 +98,11 @@ const PressMediaPage = async () => {
         />
       )}
 
-      {latestNewsProps && (
+      {latestNewsItems.length > 0 && (
         <LatestNews
-          subtitle={latestNewsProps.subtitle}
-          title={latestNewsProps.title}
-          items={latestNewsProps.items}
+          subtitle={latestNewsLabels?.subtitle || 'Latest'}
+          title={latestNewsLabels?.title || 'News'}
+          items={latestNewsItems}
         />
       )}
 

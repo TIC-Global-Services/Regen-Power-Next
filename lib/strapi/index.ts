@@ -24,6 +24,7 @@ export {
   getLatestBlogArticles,
   getPressMediaPage,
   getPressArticles,
+  getPressArticle,
   getResearchDevelopmentPage,
   getPortfolioPage,
   getPortfolioProjects,

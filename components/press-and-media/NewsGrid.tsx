@@ -2,6 +2,7 @@
 
 import React, { useState } from 'react';
 import Image, { StaticImageData } from 'next/image';
+import Link from 'next/link';
 
 export interface PressCard {
     title: string;
@@ -9,6 +10,7 @@ export interface PressCard {
     image: StaticImageData | string;
     categoryKey?: string;
     categoryKeys?: string[];
+    href?: string;
 }
 
 interface NewsGridProps {
@@ -58,8 +60,9 @@ const NewsGrid: React.FC<NewsGridProps> = ({ cards = [] }) => {
 
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 md:gap-6 max-w-7xl mx-auto">
                     {pageCards.map((card, idx) => (
-                        <div
+                        <Link
                             key={idx}
+                            href={card.href || '#'}
                             className="group relative block rounded-2xl overflow-hidden h-[320px] md:aspect-[3/4] md:h-auto"
                         >
                             <Image
@@ -69,16 +72,18 @@ const NewsGrid: React.FC<NewsGridProps> = ({ cards = [] }) => {
                                 className="object-cover transition-transform duration-700 group-hover:scale-105"
                                 sizes="(min-width: 768px) 33vw, 100vw"
                             />
-                            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent" />
-                            <div className="absolute bottom-0 left-0 right-0 p-4 md:p-5 text-white">
-                                <h3 className="text-xl md:text-2xl font-medium tracking-tight leading-tight mb-1.5">
-                                    {card.title}
-                                </h3>
-                                <p className="text-base leading-tight tracking-tight text-white/85">
-                                    {card.description}
-                                </p>
+                            <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
+                            <div className="absolute bottom-0 left-0 right-0 p-3 md:p-4 text-white">
+                                <div className="backdrop-blur-md bg-black/40 rounded-xl p-4">
+                                    <h3 className="text-xl md:text-2xl font-medium tracking-tight leading-tight mb-1.5">
+                                        {card.title}
+                                    </h3>
+                                    <p className="text-base leading-tight tracking-tight text-white/85">
+                                        {card.description}
+                                    </p>
+                                </div>
                             </div>
-                        </div>
+                        </Link>
                     ))}
                 </div>
                 {pageCards.length === 0 && (

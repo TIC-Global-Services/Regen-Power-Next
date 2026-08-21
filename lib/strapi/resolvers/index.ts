@@ -409,6 +409,8 @@ export {
   resolvePressMediaLatestNewsSection,
   resolvePressMediaNewsSection,
   resolvePressArticles,
+  resolvePressArticle,
+  resolveLatestPressItems,
 } from "./press-media";
 export type {
   ResolvedPressMediaHero,
@@ -416,6 +418,9 @@ export type {
   ResolvedPressMediaLatestNewsSection,
   ResolvedPressMediaNewsSection,
   ResolvedPressCollection,
+  ResolvedPressArticle,
+  ResolvedPressArticleCategory,
+  ResolvedLatestPressItem,
 } from "./press-media";
 export {
   resolveOffGridHero,

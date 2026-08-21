@@ -21,6 +21,9 @@ const LatestNews: React.FC<LatestNewsProps> = ({
     subtitle = 'Latest',
     title = 'News',
 }) => {
+    /* Desktop columns follow the item count (max 3) so the row never has empty cells. */
+    const desktopCols = Math.max(1, Math.min(items.length, 3));
+
     return (
         <section className="w-full px-[5%] md:px-[3%] py-12 md:py-20">
             <div className="text-left md:text-center mb-10 md:mb-14 capitalize">
@@ -47,21 +50,26 @@ const LatestNews: React.FC<LatestNewsProps> = ({
                             className="object-cover transition-transform duration-700 group-hover:scale-105"
                             sizes="100vw"
                         />
-                        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent" />
-                        <div className="absolute bottom-0 left-0 right-0 p-5 text-white capitalize">
-                            <h3 className="text-xl font-medium tracking-tight leading-tight mb-2">
-                                {item.title}
-                            </h3>
-                            <p className="text-base leading-tight tracking-tight text-white/85 max-w-full">
-                                {item.description}
-                            </p>
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
+                        <div className="absolute bottom-0 left-0 right-0 p-4 text-white capitalize">
+                            <div className="backdrop-blur-md bg-black/40 rounded-xl p-4">
+                                <h3 className="text-xl font-medium tracking-tight leading-tight mb-2">
+                                    {item.title}
+                                </h3>
+                                <p className="text-base leading-tight tracking-tight text-white/85 max-w-full">
+                                    {item.description}
+                                </p>
+                            </div>
                         </div>
                     </Link>
                 ))}
             </div>
 
             {/* Desktop: Grid */}
-            <div className="hidden md:grid md:grid-cols-3 gap-5 md:gap-6 max-w-7xl mx-auto">
+            <div
+                className="hidden md:grid gap-5 md:gap-6 max-w-7xl mx-auto"
+                style={{ gridTemplateColumns: `repeat(${desktopCols}, minmax(0, 1fr))` }}
+            >
                 {items.map((item, index) => (
                     <Link
                         key={index}
@@ -75,14 +83,16 @@ const LatestNews: React.FC<LatestNewsProps> = ({
                             className="object-cover transition-transform duration-700 group-hover:scale-105"
                             sizes="(min-width: 768px) 33vw, 100vw"
                         />
-                        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent" />
-                        <div className="absolute bottom-0 left-0 right-0 p-6 text-white capitalize">
-                            <h3 className="text-xl font-medium tracking-tight leading-tight mb-2">
-                                {item.title}
-                            </h3>
-                            <p className="text-base leading-tight tracking-tight text-white/85 max-w-full">
-                                {item.description}
-                            </p>
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
+                        <div className="absolute bottom-0 left-0 right-0 p-5 text-white capitalize">
+                            <div className="backdrop-blur-md bg-black/40 rounded-xl p-4">
+                                <h3 className="text-xl font-medium tracking-tight leading-tight mb-2">
+                                    {item.title}
+                                </h3>
+                                <p className="text-base leading-tight tracking-tight text-white/85 max-w-full">
+                                    {item.description}
+                                </p>
+                            </div>
                         </div>
                     </Link>
                 ))}

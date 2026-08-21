@@ -32,21 +32,23 @@ const FeaturedArticle: React.FC<FeaturedArticleProps> = ({
                 sizes="100vw"
             />
 
-            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/10 to-transparent" />
 
             <div className="absolute bottom-0 left-0 right-0 p-6 md:p-12 lg:p-16 max-w-3xl text-white capitalize">
-                <h2 className="text-2xl md:text-3xl lg:text-4xl font-medium tracking-tight leading-tight mb-3 md:mb-4">
-                    {title}
-                </h2>
-                <p className="text-base leading-snug tracking-tight text-white/90 mb-4 md:mb-6 max-w-2xl">
-                    {description}
-                </p>
-                {showReadMore && href && (
-                    <span className="inline-flex items-center gap-2 text-sm md:text-base tracking-tight group-hover:gap-3 transition-all duration-300">
-                        Read More
-                        <ArrowRight size={18} strokeWidth={2.5} />
-                    </span>
-                )}
+                <div className="backdrop-blur-md bg-black/40 rounded-2xl p-5 md:p-8">
+                    <h2 className="text-2xl md:text-3xl lg:text-4xl font-medium tracking-tight leading-tight mb-3 md:mb-4">
+                        {title}
+                    </h2>
+                    <p className="text-base leading-snug tracking-tight text-white/90 mb-4 md:mb-6 max-w-2xl">
+                        {description}
+                    </p>
+                    {showReadMore && href && (
+                        <span className="inline-flex items-center gap-2 text-sm md:text-base tracking-tight group-hover:gap-3 transition-all duration-300">
+                            Read More
+                            <ArrowRight size={18} strokeWidth={2.5} />
+                        </span>
+                    )}
+                </div>
             </div>
         </>
     );
