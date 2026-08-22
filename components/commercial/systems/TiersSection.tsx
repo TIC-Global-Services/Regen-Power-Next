@@ -34,7 +34,7 @@ export default function TiersSection({ resolved }: Props) {
           subtitleClass="text-lg md:text-2xl font-light text-black tracking-tight"
           descClass="md:text-base md:max-w-4xl"
           titleClass="text-4xl md:text-6xl lg:text-[4.5rem] text-[#63B846] font-normal tracking-tighter leading-none"
-          className="max-w-6xl mb-5 md:mb-16"
+          className="max-w-6xl mb-5 lg:mb-16"
         />
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-stretch">
@@ -98,7 +98,7 @@ export default function TiersSection({ resolved }: Props) {
             </AnimatePresence>
 
             {/* Prev / Next */}
-            <div className="flex gap-3  md:mt-10">
+            <div className="flex gap-3  lg:mt-10">
               <button
                 onClick={handlePrev}
                 aria-label="Previous tier"

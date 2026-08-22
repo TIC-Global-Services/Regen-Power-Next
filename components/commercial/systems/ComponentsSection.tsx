@@ -32,7 +32,7 @@ export default function ComponentsSection({ resolved }: Props) {
         </div>
 
         {/* Image card with tiles */}
-        <div className="relative rounded-[24px] overflow-hidden min-h-[460px] flex flex-col  justify-start items-start">
+        <div className="relative rounded-[24px] overflow-hidden min-h-[460px] flex flex-col justify-end items-start">
           <div className="absolute inset-0 z-0">
             <img
               src={bgSrc}
@@ -42,8 +42,8 @@ export default function ComponentsSection({ resolved }: Props) {
             <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-black/15 to-black/50" />
           </div>
 
-          <div className="relative z-10 pt-8 p-5">
-            <div className="grid grid-cols-3 gap-3">
+          <div className="relative z-10 mt-auto p-5">
+            <div className="grid grid-cols-3 gap-3 ">
               {items.map((item, idx) => (
                 <Reveal
                   key={idx}
@@ -90,7 +90,7 @@ export default function ComponentsSection({ resolved }: Props) {
           </div>
 
           <div className="relative z-10 mt-auto p-10 lg:pt-30">
-            <div className="grid grid-cols-3 gap-4 max-w-4xl justify-start">
+            <div className="grid grid-cols-3 gap-4 max-w-4xl justify-end lg:justify-start">
               {items.map((item, idx) => (
                 <Reveal
                   key={idx}

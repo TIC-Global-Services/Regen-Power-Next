@@ -1,4 +1,5 @@
-import React from 'react';
+'use client';
+import React, { useState } from 'react';
 import Image, { StaticImageData } from 'next/image';
 import gridDots from '@/assets/commercial-off-grid/gridDots.png';
 
@@ -30,11 +31,15 @@ const variantClass: Record<CardVariant, string> = {
     'dark': 'bg-[#3B3B33] text-white',
 };
 
-const TextCardView: React.FC<{ card: TextCard; mobileScroll?: boolean }> = ({ card, mobileScroll }) => {
-    const isDark = card.variant === 'dark';
+const TextCardView: React.FC<{ card: TextCard; mobileScroll?: boolean; isHovered?: boolean; onMouseEnter?: () => void; onMouseLeave?: () => void }> = ({ card, mobileScroll, isHovered, onMouseEnter, onMouseLeave }) => {
+    const isDark = card.variant === 'dark' || isHovered;
     const titleLines = card.title.split('\n');
     return (
-        <div className={`${variantClass[card.variant]} rounded-2xl p-6 flex flex-col justify-center gap-5 aspect-[4/3] overflow-hidden ${mobileScroll ? 'shrink-0 w-[75vw] md:w-[40vw] lg:w-auto' : ''}`}>
+        <div
+            className={`${isHovered ? 'bg-[#3B3B33] text-white' : variantClass[card.variant]} rounded-2xl p-6 flex flex-col justify-center gap-5 aspect-[4/3] overflow-hidden transition-colors duration-300 ${mobileScroll ? 'shrink-0 w-[75vw] md:w-[40vw] lg:w-auto' : ''}`}
+            onMouseEnter={onMouseEnter}
+            onMouseLeave={onMouseLeave}
+        >
             <h3 className="text-2xl lg:text-[2.5rem] font-normal tracking-tight leading-[1] text-[#63B846] mb-2">
                 {titleLines.map((line, i) => (
                     <span key={i} className="block">{line}</span>
@@ -54,8 +59,12 @@ const TextCardView: React.FC<{ card: TextCard; mobileScroll?: boolean }> = ({ ca
     );
 };
 
-const ImageCardView: React.FC<{ card: ImageCard; mobileScroll?: boolean }> = ({ card, mobileScroll }) => (
-    <div className={`${variantClass[card.variant]} rounded-2xl p-6 md:p-8 flex items-center justify-center aspect-[4/3] overflow-hidden ${mobileScroll ? 'shrink-0 w-[75vw] md:w-[40vw] lg:w-auto' : ''}`}>
+const ImageCardView: React.FC<{ card: ImageCard; mobileScroll?: boolean; isHovered?: boolean; onMouseEnter?: () => void; onMouseLeave?: () => void }> = ({ card, mobileScroll, isHovered, onMouseEnter, onMouseLeave }) => (
+    <div
+        className={`${isHovered ? 'bg-[#3B3B33] text-white' : variantClass[card.variant]} rounded-2xl p-6 md:p-8 flex items-center justify-center aspect-[4/3] overflow-hidden transition-colors duration-300 ${mobileScroll ? 'shrink-0 w-[75vw] md:w-[40vw] lg:w-auto' : ''}`}
+        onMouseEnter={onMouseEnter}
+        onMouseLeave={onMouseLeave}
+    >
         <div className="relative w-32 h-32 md:w-40 md:h-40">
             <Image
                 src={card.image || gridDots}
@@ -78,6 +87,8 @@ export interface SolutionsPortfolioProps {
     className?: string;
     /** When true, render cards as a horizontal swipe scroll on mobile instead of a stacked grid. */
     mobileScroll?: boolean;
+    /** Index of the card that should appear hovered by default. Defaults to 4 (second row, second card in a 3-col grid). */
+    defaultHoveredIndex?: number;
 }
 
 const gridCols: Record<CardLayout, string> = {
@@ -102,7 +113,11 @@ const SolutionsPortfolio: React.FC<SolutionsPortfolioProps> = ({
     showHeader = true,
     className = '',
     mobileScroll = false,
+    defaultHoveredIndex = 4,
 }) => {
+    const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
+    const activeIndex = hoveredIndex !== null ? hoveredIndex : defaultHoveredIndex;
+
     if (!cards || cards.length === 0) return null;
 
     return (
@@ -133,10 +148,16 @@ const SolutionsPortfolio: React.FC<SolutionsPortfolioProps> = ({
                     : `grid ${gridCols[layout]} gap-5 md:gap-6`
                     }`}>
                     {cards.map((card, index) => {
+                        const isActive = index === activeIndex;
+                        const hoverProps = {
+                            isHovered: isActive,
+                            onMouseEnter: () => setHoveredIndex(index),
+                            onMouseLeave: () => setHoveredIndex(null),
+                        };
                         if (card.type === 'image') {
-                            return <ImageCardView key={index} card={card} mobileScroll={mobileScroll} />;
+                            return <ImageCardView key={index} card={card} mobileScroll={mobileScroll} {...hoverProps} />;
                         }
-                        return <TextCardView key={index} card={card} mobileScroll={mobileScroll} />;
+                        return <TextCardView key={index} card={card} mobileScroll={mobileScroll} {...hoverProps} />;
                     })}
                 </div>
             </div>

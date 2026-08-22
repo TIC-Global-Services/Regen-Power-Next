@@ -59,22 +59,18 @@ const StatsCardGrid: React.FC<StatsCardGridProps> = ({
                 {/* ── Mobile layout: stacked vertical cards ── */}
                 <div className="flex flex-col gap-5 lg:hidden max-w-sm md:max-w-full mt-4 mx-auto">
                     {stats.map((stat, idx) => {
-                        // const mobileH = mobileHeightClasses[idx] ?? 'h-[300px]';
                         return (
-                            <div key={idx}>
-                                <div
-
-                                    className={`relative h-75 rounded-[20px] overflow-hidden mb-2`}
-                                >
-                                    <Image
-                                        src={cardBackground}
-                                        alt=""
-                                        fill
-                                        className="object-cover"
-                                    />
-                                </div>
-
-                                <div className="text-left">
+                            <div
+                                key={idx}
+                                className="relative h-75 rounded-[20px] overflow-hidden"
+                            >
+                                <Image
+                                    src={cardBackground}
+                                    alt=""
+                                    fill
+                                    className="object-cover"
+                                />
+                                <div className="absolute left-5 right-5 bottom-6">
                                     <div
                                         className={`text-[2.5rem] font-normal tracking-tighter leading-none mb-2 ${idx === 0 ? 'text-[#63B846]' : 'text-black'}`}
                                     >
@@ -87,7 +83,6 @@ const StatsCardGrid: React.FC<StatsCardGridProps> = ({
                                     </p>
                                 </div>
                             </div>
-
                         );
                     })}
                 </div>

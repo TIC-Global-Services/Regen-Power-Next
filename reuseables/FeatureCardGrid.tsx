@@ -105,10 +105,10 @@ const FeatureCardGrid: React.FC<FeatureCardGridProps> = ({
   // Same ratio as before: active card = 2.5, others = 1
   const ACTIVE_FLEX = 1.8;
   const INACTIVE_FLEX = 1;
-  // Desktop min-height floor, matching md:min-h-[300px] / xl:min-h-[460px].
+  // Desktop min-height floor, matching lg:min-h-[300px] / xl:min-h-[460px].
   // Inline height is only applied when content would exceed this (fluid growth).
   const MIN_HEIGHT = isDesktop ? 300 : 0;
-  const gapPx = 20; // matches md:gap-4 (20px) — adjust if you change the gap class
+  const gapPx = 20; // matches lg:gap-4 (20px) — adjust if you change the gap class
   const totalGap = gapPx * (count - 1);
   const usableWidth = Math.max(containerWidth - totalGap, 0);
   const flexSum = ACTIVE_FLEX + INACTIVE_FLEX * (count - 1);
@@ -155,7 +155,7 @@ const FeatureCardGrid: React.FC<FeatureCardGridProps> = ({
           transform: 'translateZ(0)',
           WebkitBackfaceVisibility: 'hidden',
         }}
-        className={`relative rounded-[20px] overflow-hidden group flex-none cursor-pointer focus-visible:outline-none md:min-h-[300px] xl:min-h-[460px] flex flex-col w-[55vw] md:w-full shrink-0 snap-start md:snap-align-none`}
+        className={`relative rounded-[20px] overflow-hidden group flex-none cursor-pointer focus-visible:outline-none lg:min-h-[300px] xl:min-h-[460px] flex flex-col w-[55vw] lg:w-full shrink-0 snap-start lg:snap-align-none`}
       >
         <div className="absolute inset-0 z-0 w-full h-full" style={{ transform: 'translateZ(0)' }}>
           <Image
@@ -167,10 +167,10 @@ const FeatureCardGrid: React.FC<FeatureCardGridProps> = ({
           <div className={`absolute inset-0 transition-all duration-700 ease-[cubic-bezier(0.4,0,0.2,1)] bg-gradient-to-b ${isActive ? 'from-black/60 via-black/20 to-black/80' : 'from-black/70 via-black/40 to-black/80'}`} />
         </div>
 
-        <div className="relative z-10 flex-1 p-6 md:p-8 pt-5 flex flex-col">
+        <div className="relative z-10 flex-1 p-6 lg:p-8 pt-5 flex flex-col">
           {!isActive && <div className="flex-1" />}
 
-          <h4 className={`text-white font-normal tracking-tight transition-all duration-700 ease-[cubic-bezier(0.4,0,0.2,1)] ${isActive ? 'text-xl md:text-3xl mb-3' : 'text-[1.75rem] md:text-2xl mb-0'}`}>
+          <h4 className={`text-white font-normal tracking-tight transition-all duration-700 ease-[cubic-bezier(0.4,0,0.2,1)] ${isActive ? 'text-xl lg:text-3xl mb-3' : 'text-[1.75rem] lg:text-2xl mb-0'}`}>
             {card.title}
           </h4>
 
@@ -180,7 +180,7 @@ const FeatureCardGrid: React.FC<FeatureCardGridProps> = ({
             </p>
           )}
 
-          <p className={`text-white text-xs md:text-base leading-tight max-w-[85%] tracking-tight transition-all duration-700 ease-[cubic-bezier(0.4,0,0.2,1)] ${isActive ? '' : showDescriptionInactive ? 'mt-1.5' : 'opacity-0 h-0 overflow-hidden m-0'}`}>
+          <p className={`text-white text-xs lg:text-base leading-tight max-w-[85%] tracking-tight transition-all duration-700 ease-[cubic-bezier(0.4,0,0.2,1)] ${isActive ? '' : showDescriptionInactive ? 'mt-1.5' : 'opacity-0 h-0 overflow-hidden m-0'}`}>
             {card.description}
           </p>
 
@@ -211,29 +211,29 @@ const FeatureCardGrid: React.FC<FeatureCardGridProps> = ({
 
   return (
     <Fade>
-      <section className="py-8 md:py-16 bg-white px-[5%] md:px-[3%] md:px-[5%] md:px-[3%] overflow-hidden">
+      <section className="py-8 lg:py-16 bg-white px-[5%] lg:px-[3%] lg:px-[5%] lg:px-[3%] overflow-hidden">
         <SectionHeader
           subtitle={topSubtitle}
           title={title}
           description={bottomSubtitle}
           align="center"
-          className="mb-5 md:mb-16 hidden lg:block"
-          subtitleClass="text-xl md:text-[2.125rem] text-black tracking-tight capitalize"
-          titleClass="text-[2.5rem] md:text-6xl tracking-tight leading-[1]"
-          descClass="text-base md:text-xl text-black max-w-4xl mx-auto font-medium tracking-tight whitespace-pre-line"
+          className="mb-5 lg:mb-16 hidden lg:block"
+          subtitleClass="text-xl lg:text-[2.125rem] text-black tracking-tight capitalize"
+          titleClass="text-[2.5rem] lg:text-6xl tracking-tight leading-[1]"
+          descClass="text-base lg:text-xl text-black max-w-4xl mx-auto font-medium tracking-tight whitespace-pre-line"
         />
         <SectionHeader
           subtitle={topSubtitle}
           title={title}
           description={bottomSubtitle}
           align="left"
-          className="mb-5 md:mb-16 lg:hidden"
-          subtitleClass="text-xl md:text-[2.125rem] text-black tracking-tight capitalize"
-          titleClass="text-[2.5rem] md:text-6xl tracking-tight leading-[1]"
-          descClass="text-base md:text-base text-black max-w-4xl mx-auto font-medium tracking-tight whitespace-pre-line"
+          className="mb-5 lg:mb-16 lg:hidden"
+          subtitleClass="text-xl lg:text-[2.125rem] text-black tracking-tight capitalize"
+          titleClass="text-[2.5rem] lg:text-6xl tracking-tight leading-[1]"
+          descClass="text-base lg:text-base text-black max-w-4xl mx-auto font-medium tracking-tight whitespace-pre-line"
         />
 
-        <div ref={containerRef} className="relative flex items-stretch overflow-x-auto md:overflow-hidden md:flex-row h-full -mx-[5%] px-[5%] gap-4 md:gap-4 w-[calc(100%+10%)] md:w-full md:mx-0 md:px-0 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none] pb-4 md:pb-0">
+        <div ref={containerRef} className="relative flex items-stretch overflow-x-auto lg:overflow-hidden lg:flex-row h-full -mx-[5%] px-[5%] gap-4 lg:gap-4 w-[calc(100%+10%)] lg:w-full lg:mx-0 lg:px-0 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none] pb-4 lg:pb-0">
           {showPagination ? (
             /* Paginated desktop: pages slide in/out like the cards are moving */
             <AnimatePresence mode="wait" initial={false} custom={direction}>
@@ -277,8 +277,8 @@ const FeatureCardGrid: React.FC<FeatureCardGridProps> = ({
                 zIndex: -1,
               }}
             >
-              <div className="p-6 md:p-10 pt-5 flex flex-col">
-                <h4 className="text-white font-normal tracking-tight text-xl md:text-3xl mb-3">
+              <div className="p-6 lg:p-10 pt-5 flex flex-col">
+                <h4 className="text-white font-normal tracking-tight text-xl lg:text-3xl mb-3">
                   {activeCard.title}
                 </h4>
                 {activeCard.subtitle && (
@@ -286,7 +286,7 @@ const FeatureCardGrid: React.FC<FeatureCardGridProps> = ({
                     {activeCard.subtitle}
                   </p>
                 )}
-                <p className="text-white text-xs md:text-base leading-tight max-w-[85%] tracking-tight">
+                <p className="text-white text-xs lg:text-base leading-tight max-w-[85%] tracking-tight">
                   {activeCard.description}
                 </p>
                 {(activeCard.footerTitle || activeCard.footerDescription) && (
@@ -343,12 +343,12 @@ const FeatureCardGrid: React.FC<FeatureCardGridProps> = ({
 
         {showPersonalisedquoteCta && (
           <div className='flex flex-wrap justify-end items-center gap-3 mt-10' >
-            <p className='w-full md:w-auto max-w-lg text-xs tracking-tight lg:text-sm'>{ctaDescription}</p>
+            <p className='w-full lg:w-auto max-w-lg text-xs tracking-tight lg:text-sm'>{ctaDescription}</p>
             <CtaButton text={ctaText} href={ctaLink} />
           </div>
         )}
         {centerButton && (
-          <div className={`${hideCenterButtonMobile ? 'hidden md:flex' : 'flex'} justify-end md:justify-center items-center gap-3 mt-4 md:mt-10`} >
+          <div className={`${hideCenterButtonMobile ? 'hidden lg:flex' : 'flex'} justify-end lg:justify-center items-center gap-3 mt-4 lg:mt-10`} >
             <CtaButton text={centerButtonText} href={centerButtonLink} className="max-w-full whitespace-normal" buttonTextClass="whitespace-normal" />
           </div>
         )}
