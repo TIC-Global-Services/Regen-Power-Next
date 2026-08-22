@@ -51,7 +51,7 @@ export const desktopLimitedSpotData = {
       type: "image" as const,
       value: "YES",
       title: "We are Local WA Born\nand Bred Company",
-      bgImage: "/wa_born_fallback.svg",
+      bgImage: "/perthcity3.png",
     },
     {
       type: "black" as const,
@@ -227,16 +227,16 @@ export const desktopBrandsData = {
 export const desktopHighEnergyData = {
   title: "High Energy Bills? Here's Why It's Time To Add A Battery With Us:",
   bullets: [
-    "WA-Based Team – Local Experts You Can Trust",
-    "Over 23 Years Of Renewable Energy Experience",
-    "Installed 45,000+ Solar Systems Across Perth Homes",
-    "Battery-Ready And Retrofit Options Available",
-    "Exclusive Access To State And Federal Battery Rebates",
-    "Partnered With Top Battery Brands – Tesla Powerwall, IStore, Goodwe, Sigenergy",
-    "Expert Guidance On Interest-Free Loans Up To $10K Under WA Scheme",
-    "10-Year Warranty On Batteries And Hybrid Inverters",
-    "Friendly, Knowledgeable Support From Quote To Installation And Beyond",
-    "Tailored Energy Solutions For Maximum Savings And Energy Independence",
+    "WA-based team – local experts you can trust",
+    "Over 23 years of renewable energy experience",
+    "Installed 45,000+ solar systems across Perth homes",
+    "Battery-ready and retrofit options available",
+    "Exclusive access to state and federal battery rebates",
+    "Partnered with top battery brands – Tesla Powerwall, IStore, Goodwe, Sigenergy",
+    "Expert guidance on interest-free loans up to $10K under WA scheme",
+    "10-Year warranty on batteries and hybrid inverters",
+    "Friendly, knowledgeable support from quote to installation and beyond",
+    "Tailored energy solutions for maximum savings and energy independence",
   ],
   badges: [
     {
@@ -465,7 +465,7 @@ export const desktopAchievementsData = {
       ],
     },
     {
-      title: "Google Rating",
+      title: "Top Rated on Google",
       awards: [
         {
           name: "google-rating",
@@ -547,7 +547,7 @@ export const mobileHeroData = {
   description: "Back In Rebate",
   cta: {
     label: "See What's Included & Get A Quote",
-    href: "#quote-form-section-mobile",
+    href: "#why-regen-power-mobile",
   },
   backgroundImage: "/landing_page_hero.png",
 };
@@ -570,7 +570,7 @@ export const mobileWhyChooseUsData = {
       type: "image" as const,
       value: "YES",
       title: "We are Local WA Born and Bred Company",
-      bgImage: "/wa_born_fallback.svg",
+      bgImage: "/perthcity.png",
     },
     {
       id: "installations",
@@ -584,7 +584,7 @@ export const mobileWhyChooseUsData = {
       type: "nested-reverse" as const,
       value: "3k+",
       title: "Number of battery\ninstallations in WA",
-      icon: "/battery_fallback.png",
+      icon: "/battery-promotion.png",
     },
   ],
 };

@@ -60,8 +60,8 @@ const WhyChooseUs = ({
     }
   ]
 }: WhyChooseUsProps) => {
-  const handleScrollToQuote = () => {
-    const elements = document.querySelectorAll('#quote-form-section-mobile');
+  const handleScrollToPackages = () => {
+    const elements = document.querySelectorAll('#battery-packages-mobile');
     const visibleElement = Array.from(elements).find(el => (el as HTMLElement).offsetParent !== null);
     if (visibleElement) {
       visibleElement.scrollIntoView({ behavior: 'smooth' });
@@ -183,7 +183,7 @@ const WhyChooseUs = ({
   };
 
   return (
-    <section className="bg-white py-16 md:py-24 px-4 md:px-[5%] md:px-[3%] w-full">
+    <section id="why-regen-power-mobile" className="bg-white py-16 md:py-24 px-4 md:px-[5%] md:px-[3%] w-full">
       <Fade duration={5}>
         <div className="max-w-7xl mx-auto">
           {/* Section Heading */}
@@ -207,7 +207,7 @@ const WhyChooseUs = ({
             ))}
           </div>
           <div className='md:hidden flex justify-center py-8'>
-            <CtaButton text={ctatext} onClick={handleScrollToQuote}></CtaButton>
+            <CtaButton text={ctatext} onClick={handleScrollToPackages}></CtaButton>
           </div>
         </div>
       </Fade>

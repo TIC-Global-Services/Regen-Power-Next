@@ -16,6 +16,7 @@ import SolarFinancing from '@/components/Promotion/desktop/solarfinancing';
 import AboutRegen from '@/components/Promotion/desktop/aboutregen';
 import FindOutWhy from '@/components/Promotion/desktop/findoutwhy';
 import Acheivements from '@/components/Promotion/desktop/acheivements';
+import IndustryRecognition from '@/components/Promotion/desktop/industryrecognition';
 import FAQ from '@/components/Promotion/desktop/faq';
 
 // ─── Mobile / Tablet Components ──────────────────────────────
@@ -54,15 +55,15 @@ import {
   mobileContactInfoData,
 } from '@/app/(promotion)/promotionPageData';
 
+// Desktop recognitions (SunWiz first, then Google & SolarQuotes) — rendered as
+// two separate ordered sections before the Achievements band.
+const desktopRecognitions = desktopAchievementsData.recognitions ?? [];
+const sunwizRecognitions = desktopRecognitions.slice(0, 1);
+const googleSolarquotesRecognitions = desktopRecognitions.slice(1);
+
 const CombinedPromoPage = () => {
-  const handleScrollToQuote = () => {
-    const element = document.getElementById('quote-form-section');
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
-    }
-  };
-  const mobilehandleScrollToQuote = () => {
-    const element = document.getElementById('quote-form-section-mobile');
+  const mobilehandleScrollToWhy = () => {
+    const element = document.getElementById('why-regen-power-mobile');
     if (element) {
       element.scrollIntoView({ behavior: 'smooth' });
     }
@@ -86,7 +87,13 @@ const CombinedPromoPage = () => {
         <ReadyToBegin data={desktopReadyToBeginData} />
         <SolarFinancing data={desktopSolarFinancingData} />
         <AboutRegen data={desktopAboutRegenData} />
+        {/* Product Reviews */}
         <FindOutWhy data={desktopFindOutWhyData} />
+        {/* Sunwiz Recognition */}
+        <IndustryRecognition recognitions={sunwizRecognitions} variant="single" />
+        {/* Google & SolarQuotes Logo */}
+        <IndustryRecognition recognitions={googleSolarquotesRecognitions} variant="grid" />
+        {/* Achievements */}
         <Acheivements data={desktopAchievementsData} />
         <FAQ data={desktopFaqData} />
       </div>
@@ -101,7 +108,7 @@ const CombinedPromoPage = () => {
           description={mobileHeroData.description}
           cta={mobileHeroData.cta}
           backgroundImage={mobileHeroData.backgroundImage}
-          onCtaClick={mobilehandleScrollToQuote}
+          onCtaClick={mobilehandleScrollToWhy}
         />
 
         {/* 2. Why Choose Us */}

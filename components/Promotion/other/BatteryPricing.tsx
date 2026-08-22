@@ -2,6 +2,7 @@
 
 import React from 'react';
 import Fade from '@/reuseables/fade';
+import CtaButton from '@/reuseables/CtaButton';
 import { MinusCircle } from 'lucide-react';
 
 // ─── Interfaces ───────────────────────────────────────────────
@@ -198,8 +199,19 @@ const BatteryPricing = ({
     },
   ],
 }: PromotionGridProps) => {
+  const handleScrollToId = (id: string) => {
+    const elements = document.querySelectorAll(`#${id}`);
+    const visibleElement = Array.from(elements).find(el => (el as HTMLElement).offsetParent !== null);
+    if (visibleElement) {
+      visibleElement.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+  const handleScrollToNextPackage = () => handleScrollToId('battery-package-1');
+  const handleScrollToQuote = () => handleScrollToId('quote-form-section-mobile');
+
   return (
     <section
+      id="battery-packages-mobile"
       className="relative w-full py-16 md:py-24 px-[5%] md:px-[3%] md:px-[5%] md:px-[3%] overflow-hidden bg-cover bg-center bg-no-repeat"
       style={{
         backgroundImage: `url('${backgroundImage}')`,
@@ -211,7 +223,7 @@ const BatteryPricing = ({
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 md:gap-0 items-center">
             {/* Left Card */}
             {items[0] && (
-              <div className="w-full bg-white/90 backdrop-blur-sm rounded-[12px] p-6 md:p-6 flex flex-col shadow-xl transition-all duration-300">
+              <div id="battery-package-0" className="w-full bg-white/90 backdrop-blur-sm rounded-[12px] p-6 md:p-6 flex flex-col shadow-xl transition-all duration-300">
                 {/* Card Title */}
                 <h3 className="text-[2.5rem]  font-black text-black text-center pb-4 border-b tracking-tight">
                   {items[0].title}
@@ -221,6 +233,15 @@ const BatteryPricing = ({
                 {items[0].sections.map((section, idx) =>
                   renderSection(section, idx)
                 )}
+                {/* CTA → next package */}
+                <div className="pt-5 pb-1 flex justify-center">
+                  <CtaButton
+                    text='Explore More Packages & Get Quote'
+                    onClick={handleScrollToNextPackage}
+                    className="justify-center"
+                    buttonTextClass="whitespace-normal"
+                  />
+                </div>
               </div>
             )}
 
@@ -242,7 +263,7 @@ const BatteryPricing = ({
 
             {/* Right Card */}
             {items[1] && (
-              <div className="w-full bg-white/90 backdrop-blur-sm rounded-[12px] p-4 md:p-6 flex flex-col shadow-xl transition-all duration-300">
+              <div id="battery-package-1" className="w-full bg-white/90 backdrop-blur-sm rounded-[12px] p-4 md:p-6 flex flex-col shadow-xl transition-all duration-300">
                 {/* Card Title */}
                 <h3 className="text-[2.5rem] font-black text-black text-center pb-4 border-b tracking-tight">
                   {items[1].title}
@@ -252,6 +273,15 @@ const BatteryPricing = ({
                 {items[1].sections.map((section, idx) =>
                   renderSection(section, idx)
                 )}
+                {/* CTA → quote form */}
+                <div className="pt-5 pb-1 flex justify-center">
+                  <CtaButton
+                    text='Get a Free Quote'
+                    onClick={handleScrollToQuote}
+                    className="justify-center"
+                    buttonTextClass="whitespace-normal"
+                  />
+                </div>
               </div>
             )}
           </div>
