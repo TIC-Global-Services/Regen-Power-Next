@@ -126,7 +126,7 @@ const solutionCardGrid: React.FC<solutionCardGridProps> = ({
                             </h2>
                         )}
                         {description && (
-                            <p className="text-sm text-left  md:text-base text-black leading-[1.2] mt-4 lg:max-w-4xl lg:mx-auto">
+                            <p className="text-sm text-left lg:text-center  md:text-base text-black leading-[1.2] mt-4 lg:max-w-4xl lg:mx-auto">
                                 {description}
                             </p>
                         )}

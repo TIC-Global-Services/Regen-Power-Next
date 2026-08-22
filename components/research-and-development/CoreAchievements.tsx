@@ -30,6 +30,15 @@ const CoreAchievements = ({ resolved }: Props) => {
 
     const slides = Array.from(track.children) as HTMLElement[];
     const N = items.length;
+    let currentIndex = N;
+    let lastActiveIndex = -1;
+
+    // Cache slide sub-elements once to avoid expensive DOM queries during scroll/drag
+    const slideItems = slides.map((s) => ({
+      el: s,
+      gradient: s.querySelector('.slide-gradient') as HTMLElement | null,
+      content: s.querySelector('.slide-content') as HTMLElement | null,
+    }));
 
     // Cache each slide's horizontal center (layout-based, unaffected by the
     // coverflow transforms) and re-measure only when the container resizes.
@@ -43,18 +52,45 @@ const CoreAchievements = ({ resolved }: Props) => {
     const applyCoverflow = () => {
       const half = track.clientWidth / 2;
       const scroll = track.scrollLeft;
-      slides.forEach((s, i) => {
-        const progress = gsap.utils.clamp(-1, 1, (centers[i] - (scroll + half)) / track.clientWidth);
+      const trackWidth = track.clientWidth;
+      let closestIndex = N;
+      let minDistance = Infinity;
+
+      for (let i = 0; i < slides.length; i++) {
+        const dist = centers[i] - (scroll + half);
+        const absDist = Math.abs(dist);
+        if (absDist < minDistance) {
+          minDistance = absDist;
+          closestIndex = i;
+        }
+
+        const progress = gsap.utils.clamp(-1, 1, dist / trackWidth);
         const abs = Math.abs(progress);
-        gsap.set(s, {
-          // positive progress (right of center) → +rotationY tilts the right edge
-          // toward the viewer; negative → left edge toward viewer. Fans outward.
+
+        gsap.set(slides[i], {
           rotationY: progress * 30,
           scale: 1 - abs * 0.15,
           translateZ: abs * -40,
           zIndex: Math.round(100 - abs * 50),
+          force3D: true,
         });
-      });
+      }
+
+      // Only animate overlay changes when the active slide actually changes
+      if (closestIndex !== lastActiveIndex) {
+        if (lastActiveIndex >= 0 && slideItems[lastActiveIndex]) {
+          const prev = slideItems[lastActiveIndex];
+          if (prev.gradient) gsap.to(prev.gradient, { opacity: 0, duration: 0.3, overwrite: 'auto' });
+          if (prev.content) gsap.to(prev.content, { opacity: 0, y: 15, duration: 0.3, pointerEvents: 'none', overwrite: 'auto' });
+        }
+        if (slideItems[closestIndex]) {
+          const curr = slideItems[closestIndex];
+          if (curr.gradient) gsap.to(curr.gradient, { opacity: 1, duration: 0.3, overwrite: 'auto' });
+          if (curr.content) gsap.to(curr.content, { opacity: 1, y: 0, duration: 0.3, pointerEvents: 'auto', overwrite: 'auto' });
+        }
+        lastActiveIndex = closestIndex;
+        currentIndex = closestIndex;
+      }
     };
 
     const onScroll = () => applyCoverflow();
@@ -82,7 +118,6 @@ const CoreAchievements = ({ resolved }: Props) => {
     }
 
     // Autoplay: advance one slide every 4.5s; wrap seamlessly at the window edge.
-    let currentIndex = N;
     let timer: ReturnType<typeof setInterval> | undefined;
     const startAutoplay = () => {
       stopAutoplay();
@@ -120,11 +155,11 @@ const CoreAchievements = ({ resolved }: Props) => {
     applyCoverflow();
     startAutoplay();
 
-    // Pause autoplay while the user interacts, resume after (Swiper's
-    // disableOnInteraction:false behavior).
+    // Pause autoplay while the user interacts, resume after
     const pause = () => {
       stopAutoplay();
-      gsap.killTweensOf(track); // stop an in-flight autoplay tween so it can't fight the user
+      gsap.killTweensOf(track);
+      gsap.killTweensOf(proxy);
     };
     const resume = () => startAutoplay();
     track.addEventListener('pointerdown', pause);
@@ -132,9 +167,7 @@ const CoreAchievements = ({ resolved }: Props) => {
     track.addEventListener('wheel', pause, { passive: true });
     window.addEventListener('wheel', resume, { passive: true });
 
-    // Desktop mouse grab-drag (parity with Swiper's grabCursor). Uses an invisible
-    // proxy element so Draggable's transform never moves the track itself — only
-    // the scroll position is driven.
+    // Desktop mouse grab-drag (parity with Swiper's grabCursor).
     let draggable: Draggable | undefined;
     if (window.matchMedia('(hover: hover) and (pointer: fine)').matches) {
       draggable = Draggable.create(proxy, {
@@ -143,10 +176,15 @@ const CoreAchievements = ({ resolved }: Props) => {
         cursor: 'grab',
         activeCursor: 'grabbing',
         allowNativeTouchScroll: true,
+        dragClickables: true,
         inertia: true,
         onPress() {
           gsap.killTweensOf(proxy);
-          track.style.scrollSnapType = 'none'; // let Draggable own the scroll while dragging
+          gsap.killTweensOf(track);
+          // Sync proxy position to current scroll position so dragging doesn't jump
+          gsap.set(proxy, { x: -track.scrollLeft });
+          this.update();
+          track.style.scrollSnapType = 'none';
         },
         onDrag: function (this: any) {
           track.scrollLeft = -this.x;
@@ -154,14 +192,9 @@ const CoreAchievements = ({ resolved }: Props) => {
         onThrowUpdate: function (this: any) {
           track.scrollLeft = -this.x;
         },
-        onRelease() {
-          track.style.scrollSnapType = '';
-        },
         onThrowComplete() {
           track.style.scrollSnapType = '';
         },
-        // gsap's SnapObject typing omits `duration`/`ease`, but Draggable supports
-        // both at runtime in the snap config (see official GSAP docs) — hence the cast.
         snap: ({
           x: (value: number) => {
             let best = centers[0] ?? 0;
@@ -200,7 +233,7 @@ const CoreAchievements = ({ resolved }: Props) => {
   if (items.length === 0) return null;
 
   return (
-    <section className="w-full py-10 md:py-20 overflow-hidden">
+    <section className="w-full py-10 md:py-20 overflow-hidden select-none">
       <div className="max-w-7xl mx-auto px-[3%]">
         <div className="text-center mb-10 md:mb-14">
           <p className="text-2xl md:text-3xl font-light tracking-tight text-black leading-none">
@@ -214,13 +247,13 @@ const CoreAchievements = ({ resolved }: Props) => {
 
       <div className="relative">
         {/* Invisible proxy for Draggable so the track itself is never transformed */}
-        <div ref={proxyRef} className="absolute top-0 left-0 w-0 h-0" aria-hidden="true" />
+        <div ref={proxyRef} className="absolute top-0 left-0 w-0 h-0 pointer-events-none" aria-hidden="true" />
 
         {/* Scroll track: native scroll handles touch/trackpad/wheel + snap-centering;
             GSAP supplies the coverflow pose, autoplay and (desktop) grab-drag. */}
         <div
           ref={trackRef}
-          className="relative flex overflow-x-auto snap-x snap-mandatory gap-6 [perspective:1200px] [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]"
+          className="relative flex overflow-x-auto snap-x snap-mandatory [perspective:1200px] [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none] cursor-grab active:cursor-grabbing select-none"
         >
           {Array.from({ length: COPIES }).map((_, copyIdx) => (
             <React.Fragment key={copyIdx}>
@@ -230,28 +263,32 @@ const CoreAchievements = ({ resolved }: Props) => {
                   <div
                     key={`${copyIdx}-${i}`}
                     aria-hidden={isDuplicate}
-                    className="snap-center shrink-0 w-[78%] md:w-[36%] h-[180px] md:h-[423px]"
+                    className="snap-center shrink-0 w-[70%] md:w-[70%] h-[50dvh] md:h-[50dvh] mx-1 md:-mx-3 lg:-mx-12 select-none"
                   >
-                    <Link
-                      href={item.href}
+                    <div
+                      // href={item.href}
                       tabIndex={isDuplicate ? -1 : undefined}
-                      className="group relative block w-full h-full rounded-2xl overflow-hidden"
+                      draggable={false}
+                      className="group relative block w-full h-full rounded-2xl overflow-hidden select-none"
                     >
                       <img
                         src={item.image?.src || '/fallback.png'}
                         alt={item.image?.alt ?? item.title}
-                        className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                        draggable={false}
+                        className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 pointer-events-none select-none"
                       />
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/25 to-transparent" />
-                      <div className="absolute bottom-0 left-0 right-0 p-5 md:p-10 text-white">
-                        <h3 className="text-xl md:text-3xl lg:text-4xl font-medium tracking-tight leading-tight mb-2 md:mb-3">
-                          {item.title}
-                        </h3>
-                        <p className="text-sm md:text-base lg:text-lg leading-snug tracking-tight text-white/85 max-w-xl">
-                          {item.description}
-                        </p>
+                      <div className="slide-gradient absolute inset-0 bg-gradient-to-t from-black/75 via-black/25 to-transparent opacity-0 pointer-events-none" />
+                      <div className="slide-content absolute bottom-0 left-0 right-0 p-5 md:p-10 text-white flex flex-col md:flex-row md:items-end md:justify-between gap-4 opacity-0 pointer-events-none">
+                        <div className="max-w-xl text-left">
+                          <h3 className="text-xl md:text-3xl lg:text-4xl font-medium tracking-tight leading-tight mb-2 md:mb-3">
+                            {item.title}
+                          </h3>
+                          <p className="text-sm md:text-base lg:text-lg leading-snug tracking-tight text-white/85">
+                            {item.description}
+                          </p>
+                        </div>
                       </div>
-                    </Link>
+                    </div>
                   </div>
                 );
               })}

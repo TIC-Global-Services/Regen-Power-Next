@@ -1,7 +1,7 @@
-import React from 'react';
+'use client';
+import React, { useRef, useState, useCallback, useEffect } from 'react';
 import Link from 'next/link';
 import { ArrowRight } from 'lucide-react';
-import IconCardGrid, { IconCard } from '@/reuseables/IconCardGrid';
 
 export type StoryCardVariant = 'default' | 'highlighted' | 'light';
 
@@ -36,6 +36,33 @@ const OffGridStory: React.FC<OffGridStoryProps> = ({
     featuredHref,
     showReadMore = false,
 }) => {
+    const sliderRef = useRef<HTMLDivElement>(null);
+    const [activeIndex, setActiveIndex] = useState(0);
+
+    const handleScroll = useCallback(() => {
+        const slider = sliderRef.current;
+        if (!slider) return;
+        const scrollLeft = slider.scrollLeft;
+        const cardWidth = slider.children[0]?.clientWidth ?? 1;
+        const gap = 16;
+        const index = Math.round(scrollLeft / (cardWidth + gap));
+        setActiveIndex(Math.min(index, cards.length - 1));
+    }, [cards.length]);
+
+    useEffect(() => {
+        const slider = sliderRef.current;
+        if (!slider) return;
+        slider.addEventListener('scroll', handleScroll, { passive: true });
+        return () => slider.removeEventListener('scroll', handleScroll);
+    }, [handleScroll]);
+
+    const scrollToIndex = (index: number) => {
+        const slider = sliderRef.current;
+        if (!slider || !slider.children[index]) return;
+        const child = slider.children[index] as HTMLElement;
+        slider.scrollTo({ left: child.offsetLeft - slider.offsetLeft, behavior: 'smooth' });
+    };
+
     const featuredContent = (
         <>
             <img
@@ -78,22 +105,81 @@ const OffGridStory: React.FC<OffGridStoryProps> = ({
                     </p>
                 </div>
 
-                <IconCardGrid
-                    cards={cards as IconCard[]}
-                    layout={4}
-                    showHeader={false}
-                />
+                {/* Desktop grid */}
+                <div className="hidden sm:grid sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-5 mt-8 md:mt-10 px-[5%] md:px-0 min-h-[50dvh] mb-10">
+                    {cards.map((card, idx) => {
+                        const isGreen = idx % 2 === 0;
+                        return (
+                            <div
+                                key={idx}
+                                className={`${isGreen ? 'bg-[#63B846]' : 'bg-[#EEF6EB]'} rounded-[20px] overflow-hidden flex flex-col h-full p-8`}
+                            >
+                                <h3 className={`text-lg md:text-2xl tracking-tight leading-[1.2] mb-auto ${isGreen ? 'text-white' : 'text-black'}`}>
+                                    {card.title}
+                                </h3>
+                                <p className={`text-xs md:text-base leading-[1.2] tracking-tight font-light mt-6 ${isGreen ? 'text-white/90' : 'text-black/80'}`}>
+                                    {card.description}
+                                </p>
+                            </div>
+                        );
+                    })}
+                </div>
 
-                <div className="mt-0 md:mt-5">
+                {/* Mobile slider */}
+                <div className="sm:hidden mt-8 mb-10">
+                    <div
+                        ref={sliderRef}
+                        className="flex gap-4 overflow-x-auto -mx-[0%] px-[5%] [&::-webkit-scrollbar]:hidden"
+                        style={{ WebkitOverflowScrolling: 'touch', scrollbarWidth: 'none', msOverflowStyle: 'none' }}
+                    >
+                        {cards.map((card, idx) => {
+                            const isGreen = idx % 2 === 0;
+                            return (
+                                <div
+                                    key={idx}
+                                    className="snap-start shrink-0 w-[85%]"
+                                >
+                                    <div
+                                        className={`${isGreen ? 'bg-[#63B846]' : 'bg-[#EEF6EB]'} rounded-[20px] overflow-hidden flex flex-col h-full p-8 min-h-[250px]`}
+                                    >
+                                        <h3 className={`text-lg tracking-tight leading-[1.2] mb-auto ${isGreen ? 'text-white' : 'text-black'}`}>
+                                            {card.title}
+                                        </h3>
+                                        <p className={`text-xs leading-[1.2] tracking-tight font-light mt-6 ${isGreen ? 'text-white/90' : 'text-black/80'}`}>
+                                            {card.description}
+                                        </p>
+                                    </div>
+                                </div>
+                            );
+                        })}
+                    </div>
+
+                    {/* Dot indicators */}
+                    <div className="flex justify-center gap-2 mt-5">
+                        {cards.map((_, index) => (
+                            <button
+                                key={index}
+                                aria-label={`Go to slide ${index + 1}`}
+                                onClick={() => scrollToIndex(index)}
+                                className={`rounded-full transition-all duration-300 ${index === activeIndex
+                                    ? 'w-7 h-2.5 bg-[#63B846]'
+                                    : 'w-2.5 h-2.5 bg-black/20'
+                                    }`}
+                            />
+                        ))}
+                    </div>
+                </div>
+
+                <div className="mt-0 md:mt-20 px-[5%] md:px-[0%]">
                     {featuredHref ? (
                         <Link
                             href={featuredHref}
-                            className="group relative block w-full rounded-2xl overflow-hidden aspect-[16/9] md:aspect-[2.4/1] px-5"
+                            className="group relative block w-full rounded-2xl overflow-hidden aspect-[16/9] md:aspect-[2.4/2] px-5"
                         >
                             {featuredContent}
                         </Link>
                     ) : (
-                        <div className="relative w-full rounded-2xl overflow-hidden aspect-[3/4] md:aspect-[3/2]">
+                        <div className="relative w-full rounded-2xl overflow-hidden aspect-[3/4] md:h-[80dvh] w-full">
                             {featuredContent}
                         </div>
                     )}

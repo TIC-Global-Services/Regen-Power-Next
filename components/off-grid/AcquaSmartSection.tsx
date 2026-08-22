@@ -59,8 +59,8 @@ const   AcquaSmartSection: React.FC<AcquaSmartSectionProps> = ({
     return (
         <section className="py-16 md:py-24 bg-white">
             <div className="px-[5%] md:px-[3%] mx-auto">
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-16 items-center max-w-7xl mx-auto mb-12 md:mb-16">
-                    <div className="relative w-full aspect-square rounded-[24px] overflow-hidden">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-16 items-center mb-12 md:mb-10">
+                    <div className="relative w-full aspect-square lg:aspect-[6/5] rounded-[24px] overflow-hidden">
                         <img
                             src={image || '/fallback.png'}
                             alt={imageAlt}
@@ -80,8 +80,8 @@ const   AcquaSmartSection: React.FC<AcquaSmartSectionProps> = ({
                     </div>
                 </div>
 
-                <div className="max-w-7xl mx-auto">
-                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-5">
+                <div className="">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-3 lg:gap-3">
                         <AnimatePresence mode="wait">
                             {visibleCards.map((card, idx) => (
                                 <motion.div

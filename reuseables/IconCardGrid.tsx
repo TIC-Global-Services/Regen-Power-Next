@@ -83,32 +83,6 @@ const IconCardGrid: React.FC<IconCardGridProps> = ({
     className = '',
     footer,
 }) => {
-    const sliderRef = useRef<HTMLDivElement>(null);
-    const [activeIndex, setActiveIndex] = useState(0);
-
-    const handleScroll = useCallback(() => {
-        const slider = sliderRef.current;
-        if (!slider) return;
-        const scrollLeft = slider.scrollLeft;
-        const cardWidth = slider.children[0]?.clientWidth ?? 1;
-        const gap = 20;
-        const index = Math.round(scrollLeft / (cardWidth + gap));
-        setActiveIndex(Math.min(index, cards.length - 1));
-    }, [cards.length]);
-
-    useEffect(() => {
-        const slider = sliderRef.current;
-        if (!slider) return;
-        slider.addEventListener('scroll', handleScroll, { passive: true });
-        return () => slider.removeEventListener('scroll', handleScroll);
-    }, [handleScroll]);
-
-    const scrollToIndex = (index: number) => {
-        const slider = sliderRef.current;
-        if (!slider || !slider.children[index]) return;
-        const child = slider.children[index] as HTMLElement;
-        slider.scrollTo({ left: child.offsetLeft - slider.offsetLeft, behavior: 'smooth' });
-    };
 
     return (
         <section className={`py-10 md:py-24 bg-white ${className}`}>
@@ -133,44 +107,11 @@ const IconCardGrid: React.FC<IconCardGridProps> = ({
                     </div>
                 )}
 
-                {/* Desktop grid */}
-                <div className={`hidden sm:grid ${gridCols[layout]} gap-4 md:gap-5`}>
+                {/* Grid layout for all screen sizes */}
+                <div className={`grid grid-cols-1 ${gridCols[layout]} gap-4 md:gap-5`}>
                     {cards.map((card, idx) => (
                         <IconCardView key={idx} card={card} variant={variant} />
                     ))}
-                </div>
-
-                {/* Mobile slider */}
-                <div className="sm:hidden -mx-[5%]">
-                    <div
-                        ref={sliderRef}
-                        className="flex gap-4 overflow-x-auto pl-[5%] pr-[5%] [&::-webkit-scrollbar]:hidden"
-                        style={{ WebkitOverflowScrolling: 'touch', scrollbarWidth: 'none', msOverflowStyle: 'none' }}
-                    >
-                        {cards.map((card, idx) => (
-                            <div
-                                key={idx}
-                                className="snap-start shrink-0 w-[80%]"
-                            >
-                                <IconCardView card={card} variant={variant} />
-                            </div>
-                        ))}
-                    </div>
-
-                    {/* Dot indicators */}
-                    <div className="flex justify-center gap-2 mt-5">
-                        {cards.map((_, index) => (
-                            <button
-                                key={index}
-                                aria-label={`Go to slide ${index + 1}`}
-                                onClick={() => scrollToIndex(index)}
-                                className={`rounded-full transition-all duration-300 ${index === activeIndex
-                                    ? 'w-7 h-2.5 bg-[#63B846]'
-                                    : 'w-2.5 h-2.5 bg-black/20'
-                                    }`}
-                            />
-                        ))}
-                    </div>
                 </div>
 
                 {footer && (

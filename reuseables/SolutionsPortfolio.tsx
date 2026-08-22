@@ -124,7 +124,7 @@ const SolutionsPortfolio: React.FC<SolutionsPortfolioProps> = ({
         <section className={`w-full px-[5%] md:px-[3%] py-12 md:py-20 ${className}`}>
             <div>
                 {showHeader && (subtitle || title) && (
-                    <div className="text-center mb-10 md:mb-14">
+                    <div className="text-left lg:text-center mb-10 md:mb-14">
                         {subtitle && (
                             <p className="text-2xl md:text-3xl font-light tracking-tight text-black leading-none">
                                 {subtitle}

@@ -25,8 +25,8 @@ const MicrogridSpecTable: React.FC<MicrogridSpecTableProps> = ({
             </div>
             <div className=" mx-auto max-w-3xl">
                 <div className="rounded-[20px] overflow-hidden border border-[#A0CF44]/30">
-                    <div className="grid grid-cols-2 bg-[#A0CF44]">
-                        <div className="p-4 md:p-5 text-black font-medium text-base md:text-lg tracking-tight">
+                    <div className="grid grid-cols-2 bg-[#A0CF44] ">
+                        <div className="p-4 md:p-5 text-black font-medium text-base md:text-lg tracking-tight border-r border-black">
                             {headers.col1}
                         </div>
                         <div className="p-4 md:p-5 text-black font-medium text-base md:text-lg tracking-tight">

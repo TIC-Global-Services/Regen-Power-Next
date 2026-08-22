@@ -51,12 +51,12 @@ const EnergySolutions = ({ resolved }: Props) => {
         </div>
 
         {/* Desktop grid */}
-        <div className="hidden md:grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-2 md:gap-2">
+        <div className="hidden md:grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-2 md:gap-6">
           {items.map((item, index) => (
             <Link
               key={index}
               href={item.href}
-              className="group relative block rounded-2xl overflow-hidden aspect-[3/4] md:h-[440px] w-[320px]"
+              className="group relative block rounded-2xl overflow-hidden md:h-[30dvh] lg:h-[60dvh] w-full"
             >
               <img
                 src={item.image?.src || '/fallback.png'}
@@ -64,11 +64,11 @@ const EnergySolutions = ({ resolved }: Props) => {
                 className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/20 to-transparent" />
-              <div className="absolute bottom-0 left-0 right-0 p-5 md:p-6 text-white">
-                <h3 className="text-lg md:text-xl font-medium tracking-tight leading-tight mb-2">
+              <div className="absolute bottom-0 left-0 right-0 p-5 md:p-10 text-white">
+                <h3 className="text-lg md:text-2xl font-medium tracking-tight leading-tight mb-2">
                   {item.title}
                 </h3>
-                <p className="text-xs md:text-sm leading-snug tracking-tight text-white/85 max-w-full">
+                <p className="text-xs md:text-base leading-[1.2] tracking-tight text-white/85 max-w-full">
                   {item.description}
                 </p>
               </div>

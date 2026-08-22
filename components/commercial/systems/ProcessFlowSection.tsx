@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import SectionHeader from '@/reuseables/SectionHeader';
 import type { ResolvedCommercialSystemsProcessFlow } from '@/lib/strapi/resolvers/commercial';
@@ -19,6 +19,7 @@ export default function ProcessFlowSection({ resolved }: Props) {
   const { steps } = resolved;
   const [activeIndex, setActiveIndex] = useState(0);
   const [isHovered, setIsHovered] = useState(false);
+  const touchStartXRef = useRef<number | null>(null);
 
   // Auto-rotation effect
   useEffect(() => {
@@ -28,6 +29,28 @@ export default function ProcessFlowSection({ resolved }: Props) {
     }, 4000);
     return () => clearInterval(timer);
   }, [steps.length, isHovered]);
+
+  const handleTouchStart = (e: React.TouchEvent) => {
+    setIsHovered(true);
+    touchStartXRef.current = e.touches[0].clientX;
+  };
+
+  const handleTouchEnd = (e: React.TouchEvent) => {
+    setIsHovered(false);
+    if (touchStartXRef.current === null) return;
+    const touchEndX = e.changedTouches[0].clientX;
+    const diff = touchStartXRef.current - touchEndX;
+    const threshold = 35;
+
+    if (diff > threshold) {
+      // Swiped left -> next step
+      setActiveIndex((prev) => (prev === steps.length - 1 ? 0 : prev + 1));
+    } else if (diff < -threshold) {
+      // Swiped right -> prev step
+      setActiveIndex((prev) => (prev === 0 ? steps.length - 1 : prev - 1));
+    }
+    touchStartXRef.current = null;
+  };
 
   // Calculate dynamic positioning values to ensure infinite seamless loop
   const numLeft = Math.floor(steps.length / 2);
@@ -53,14 +76,23 @@ export default function ProcessFlowSection({ resolved }: Props) {
         </div>
 
         <div
-          className="relative w-full max-w-full"
+          className="relative w-full max-w-full touch-pan-y"
           onMouseEnter={() => setIsHovered(true)}
           onMouseLeave={() => setIsHovered(false)}
+          onTouchStart={handleTouchStart}
+          onTouchEnd={handleTouchEnd}
         >
           {/* Marquee viewport — clips overflow */}
-          <div
+          <motion.div
             className="relative w-full overflow-hidden"
             style={{ height: ACTIVE_H + 40 }}
+            onPanEnd={(_e, info) => {
+              if (info.offset.x < -30) {
+                setActiveIndex((prev) => (prev === steps.length - 1 ? 0 : prev + 1));
+              } else if (info.offset.x > 30) {
+                setActiveIndex((prev) => (prev === 0 ? steps.length - 1 : prev - 1));
+              }
+            }}
           >
             {/* Row — positioned so the active card's center is at the viewport's center */}
             <div
@@ -130,6 +162,7 @@ export default function ProcessFlowSection({ resolved }: Props) {
                 );
               })}
             </div>
+          </motion.div>
           </div>
 
           {/* Step number */}
@@ -148,7 +181,6 @@ export default function ProcessFlowSection({ resolved }: Props) {
             </AnimatePresence>
           </div>
         </div>
-      </div>
     </section>
   );
 }
