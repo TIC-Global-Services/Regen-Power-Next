@@ -44,7 +44,7 @@ const OneCharger = ({ data }: OneChargerProps) => {
       <section className="py-16 md:py-24 bg-white overflow-hidden">
         <div className="pl-[5%] pr-[5%] lg:pr-0">
           {/* Header */}
-          <div className="text-center mb-12 md:mb-16 pr-[5%]">
+          <div className="lg:text-center mb-12 md:mb-16 pr-[5%]">
             <h2 className="text-xl md:text-[2rem] font-medium text-black tracking-tight mb-1">
               {data.subtitle}
             </h2>

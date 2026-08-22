@@ -24,8 +24,8 @@ const WallConnector = ({ data }: WallConnectorProps) => {
       <section className="bg-white overflow-hidden w-full relative">
         <div className="grid grid-cols-1 lg:grid-cols-2 min-h-[50vh] lg:min-h-screen">
           {/* Mobile Image (shown only on mobile) */}
-          <Reveal delay={0.2} className="lg:hidden w-full">
-            <div className="relative w-full aspect-[4/5] overflow-hidden">
+          <Reveal delay={0.2} className="lg:hidden w-full px-[3%] pt-5">
+            <div className="relative w-full aspect-[4/5] overflow-hidden rounded-[20px] ">
               <Image
                 src={data.image}
                 alt={data.imageAlt}
@@ -38,9 +38,9 @@ const WallConnector = ({ data }: WallConnectorProps) => {
           </Reveal>
 
           {/* Left Side — Text Content */}
-          <div className="flex flex-col justify-center px-[10%] py-12 lg:py-24">
+          <div className="flex flex-col justify-center px-[5%] py-10 lg:py-24">
             <Reveal>
-              <div className="flex flex-col gap-8 md:gap-20 ">
+              <div className="flex flex-col gap-2 md:gap-20 ">
                 {/* Title */}
                 <div className="leading-[0.85]">
                   <h2 className="text-2xl md:text-3xl font-medium text-black tracking-tight mb-2">

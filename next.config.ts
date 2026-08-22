@@ -5,6 +5,7 @@ const STRAPI_URL =
 
 const nextConfig: NextConfig = {
   images: {
+    unoptimized: true,
     remotePatterns: [
       {
         protocol: "https",

@@ -40,7 +40,7 @@ const WhyChargeAtHome = ({ data }: WhyChargeAtHomeProps) => {
           </div>
 
           {/* Desktop Layout (Flex Grid) */}
-          <div className="hidden md:flex gap-3 items-stretch">
+          <div className="hidden lg:flex gap-3 items-stretch">
             {data.benefits.map((benefit, index) => (
               <Reveal key={index} delay={index * 0.1} className="flex-1 flex flex-col">
                 <div className="bg-[#EEF6EB] rounded-[24px] overflow-hidden group hover:shadow-lg transition-all duration-500 flex flex-col h-full w-full">
@@ -70,7 +70,7 @@ const WhyChargeAtHome = ({ data }: WhyChargeAtHomeProps) => {
 
           {/* Mobile Layout (Swiper Slider) */}
           <div
-            className="md:hidden w-full relative"
+            className="lg:hidden w-full relative"
             style={{
               '--swiper-pagination-color': '#63B846',
               '--swiper-pagination-bullet-inactive-color': '#d1d5db',
@@ -88,13 +88,14 @@ const WhyChargeAtHome = ({ data }: WhyChargeAtHomeProps) => {
                 clickable: true,
                 el: paginationEl,
               }}
-              className="w-full"
+              className="w-full !items-stretch"
             >
               {data.benefits.map((benefit, index) => (
-                <SwiperSlide key={index} className="h-auto flex">
+                <SwiperSlide key={index} className="!h-auto flex">
                   <div className="bg-[#EEF6EB] rounded-[24px] overflow-hidden group hover:shadow-lg transition-all duration-500 flex flex-col w-full h-full">
+
                     {/* Image */}
-                    <div className="relative w-full aspect-[16/10] overflow-hidden flex justify-center items-center">
+                    <div className="relative w-full aspect-[16/10] overflow-hidden flex justify-center items-center shrink-0">
                       <Image
                         src={benefit.image}
                         alt={benefit.title}
@@ -105,10 +106,11 @@ const WhyChargeAtHome = ({ data }: WhyChargeAtHomeProps) => {
 
                     {/* Text */}
                     <div className="p-6 flex flex-col gap-2 flex-grow">
-                      <h3 className="text-xl font-medium text-black tracking-tight leading-snug">
+                      <h3 className="text-xl md:text-3xl font-medium text-black tracking-tight leading-snug">
                         {benefit.title}
                       </h3>
-                      <p className="text-sm tracking-tight leading-snug max-w-sm">
+
+                      <p className="text-sm md:text-lg tracking-tight leading-snug max-w-sm">
                         {benefit.description}
                       </p>
                     </div>

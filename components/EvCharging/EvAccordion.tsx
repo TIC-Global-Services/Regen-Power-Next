@@ -3,6 +3,7 @@
 import React, { useState } from 'react';
 import Image, { StaticImageData } from 'next/image';
 import Fade from '@/reuseables/fade';
+import Reveal from '@/reuseables/Reveal';
 
 export interface AccordionStep {
   number: string;
@@ -38,8 +39,45 @@ const EvAccordion = ({ data }: EvAccordionProps) => {
             </p>
           </div>
 
-          {/* Steps Accordion */}
-          <div className="flex flex-col lg:flex-row gap-6 lg:gap-8 w-full items-stretch">
+          {/* Mobile & Tablet Static View */}
+          <div className="flex flex-col gap-8 md:gap-12 lg:hidden w-full">
+            {data.steps.map((step, index) => (
+              <Reveal key={index} delay={index * 0.1} className="flex flex-col w-full">
+                {/* Step Number */}
+                <span className="text-sm md:text-xl font-semibold mb-2 block">
+                  [{step.number}]
+                </span>
+
+                {/* Card Container */}
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6 items-center">
+                  {/* Image */}
+                  <div className="relative w-full aspect-[4/3] rounded-[20px] md:rounded-[24px] overflow-hidden bg-gray-50 min-h-[220px]">
+                    <Image
+                      src={step.image}
+                      alt={step.title}
+                      fill
+                      className="object-cover"
+                      sizes="(max-width: 768px) 100vw, 50vw"
+                    />
+                  </div>
+
+                  {/* Text */}
+                  <div className="flex flex-col justify-center items-start gap-2 pt-1 md:pt-0">
+                    <h3 className="text-xl md:text-2xl font-bold text-black tracking-tight leading-snug">
+                      {step.title}
+                    </h3>
+                    <p
+                      className="text-sm md:text-base text-left leading-[1.3] text-black/80"
+                      dangerouslySetInnerHTML={{ __html: step.description }}
+                    />
+                  </div>
+                </div>
+              </Reveal>
+            ))}
+          </div>
+
+          {/* Desktop Interactive Accordion */}
+          <div className="hidden lg:flex flex-row gap-6 lg:gap-8 w-full items-stretch">
             {data.steps.map((step, index) => {
               const isActive = activeIndex === index;
               const img = step.image;
@@ -72,7 +110,7 @@ const EvAccordion = ({ data }: EvAccordionProps) => {
                           />
                         </div>
                         {/* Text inside active layout */}
-                        <div className="flex flex-col justify-center md:items-start items-center  gap-2 pr-4">
+                        <div className="flex flex-col justify-center md:items-start items-center gap-2 pr-4">
                           <h3 className="text-xl md:text-2xl font-bold text-black tracking-tight leading-snug">
                             {step.title}
                           </h3>

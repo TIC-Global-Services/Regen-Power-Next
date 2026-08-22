@@ -120,20 +120,20 @@ const DesktopAwardCard = ({ card }: { card: WhyChooseCard }) => (
     {/* Counter + text */}
     <div className="mt-auto py-4 px-4">
       {card.count !== undefined && (
-        <h3 className="text-[4rem] lg:text-[6.25rem] font-bold text-black mb-2 tracking-tight leading-none">
+        <h3 className="text-[4rem] lg:text-[3.125rem] font-normal text-black tracking-tight leading-none">
           <AnimatedCounter from={0} to={card.count} />
-          <span className="text-[3rem] lg:text-[6.25rem]">
+          <span className="text-[3rem] lg:text-[2.125rem]">
             {card.countSuffix}
           </span>
         </h3>
       )}
       {card.title && (
-        <h4 className="text-2xl lg:text-3xl text-black font-medium tracking-tight leading-tight">
+        <h4 className="text-2xl lg:text-[3.125rem] leading-none text-black font-medium tracking-tight leading-tight">
           {card.title}
         </h4>
       )}
       {card.description && (
-        <p className="text-lg text-black leading-tight mt-1">
+        <p className="text-2xl text-black leading-[1.2] mt-1 tracking-tight">
           {card.description}
         </p>
       )}
@@ -149,7 +149,7 @@ const DesktopInstallationsCard = ({ card }: { card: WhyChooseCard }) => (
   >
     {/* Combined stat text */}
     {card.combinedText && (
-      <p className="text-2xl py-5 px-4 lg:text-[2.375rem] text-black font-normal leading-[1.1] tracking-tight relative z-10">
+      <p className="text-2xl py-6 px-6 lg:text-[2.375rem] text-black font-normal leading-[1.1] tracking-tight relative z-10">
         {card.combinedText}
       </p>
     )}
@@ -178,12 +178,12 @@ const DesktopYearsCard = ({ card }: { card: WhyChooseCard }) => (
   >
     {/* Background image */}
     {card.backgroundImage && (
-      <div className="absolute inset-0 -right-10 -top-30 z-0">
+      <div className="absolute inset-0 -right-5 top-0  z-0">
         <Image
           src={card.backgroundImage}
           alt="Background"
           fill
-          className="object-contain object-right-top opacity-50"
+          className="object-contain object-right-top opacity-90"
         />
       </div>
     )}
@@ -191,7 +191,7 @@ const DesktopYearsCard = ({ card }: { card: WhyChooseCard }) => (
     {/* Text overlay */}
     <div className="relative z-10 w-full">
       {card.yearsText && (
-        <p className="text-2xl lg:text-[2.375rem] text-black font-normal leading-[1.1]">
+        <p className="text-2xl lg:text-[2.375rem] text-black font-normal tracking-tight leading-[1.1]">
           {card.yearsText}
         </p>
       )}
@@ -203,18 +203,18 @@ const DesktopYearsCard = ({ card }: { card: WhyChooseCard }) => (
 
 const MobileAwardCard = ({ card }: { card: WhyChooseCard }) => (
   <div
-    className="rounded-[24px] p-6 flex flex-col items-start"
+    className="rounded-[24px] p-4 flex flex-col items-start"
     style={{ backgroundColor: card.bgColor }}
   >
     {/* Logo pill */}
-    {card.mobileLogo && (
-      <div className="bg-[#63B846]/15 rounded-[20px] py-4 px-8 w-full flex items-center justify-center mb-6 max-w-[280px] self-center">
+    {card.logoBg && (
+      <div className="rounded-[20px] py-4 px-2 w-full flex items-center justify-center mb-6 self-center">
         <Image
-          src={card.mobileLogo}
+          src={card.logoBg}
           alt="Logo"
           width={160}
           height={40}
-          className="object-contain h-10 w-auto"
+          className="object-contain h-full w-full"
         />
       </div>
     )}
@@ -238,21 +238,12 @@ const MobileAwardCard = ({ card }: { card: WhyChooseCard }) => (
 
 const MobileInstallationsCard = ({ card }: { card: WhyChooseCard }) => (
   <div
-    className="rounded-[24px] p-6 relative flex flex-col overflow-hidden min-h-[380px]"
+    className="rounded-[24px] p-0 relative flex flex-col overflow-hidden min-h-[380px]"
     style={{ backgroundColor: card.bgColor }}
   >
-    {/* Plus button */}
-    {card.showPlusButton && (
-      <div className="absolute top-4 right-4 z-10">
-        <div className="w-10 h-10 bg-black rounded-full flex items-center justify-center text-white text-2xl font-light shadow-md">
-          +
-        </div>
-      </div>
-    )}
-
     {/* Combined stat text */}
     {card.combinedText && (
-      <p className="text-[1.25rem] text-black font-semibold leading-snug pr-12 max-w-[85%] mb-4 text-left">
+      <p className="text-[1.25rem] p-6 text-black font-normal leading-[1.2] pr-12 max-w-[85%] text-left">
         {card.combinedText}
       </p>
     )}
@@ -260,7 +251,7 @@ const MobileInstallationsCard = ({ card }: { card: WhyChooseCard }) => (
     {/* Product image */}
     {card.productImage && (
       <div className="relative w-full flex-1 mt-auto flex justify-center items-end">
-        <div className="relative w-full h-[220px]">
+        <div className="relative w-full h-[260px]">
           <Image
             src={card.productImage}
             alt="Product"
@@ -280,7 +271,7 @@ const MobileYearsCard = ({ card }: { card: WhyChooseCard }) => (
   >
     {/* Background image at top */}
     {card.backgroundImage && (
-      <div className="relative w-full h-[200px]">
+      <div className="relative w-full h-[200px] md:h-[30dvh]">
         <Image
           src={card.backgroundImage}
           alt="Background"
@@ -293,7 +284,7 @@ const MobileYearsCard = ({ card }: { card: WhyChooseCard }) => (
     {/* Text at bottom */}
     <div className="p-6 mt-auto">
       {card.yearsText && (
-        <p className="text-xl font-medium text-black text-left leading-snug">
+        <p className="text-xl md:text-2xl md:max-w-xl font-medium text-black text-left leading-snug">
           {card.yearsText}
         </p>
       )}
