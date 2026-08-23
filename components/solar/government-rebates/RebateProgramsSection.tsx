@@ -5,7 +5,7 @@ import Image from "next/image";
 import SectionHeader from "@/reuseables/SectionHeader";
 import MissingImage from "@/reuseables/MissingImage";
 import type { ResolvedRebatesRebatePrograms } from "@/lib/strapi/resolvers/rebates";
-import { ArrowDown, ArrowUp, ChevronDown, ChevronUp } from "lucide-react";
+import { ChevronDown } from "lucide-react";
 
 const CYCLE_DURATION = 5000; // ms per card
 
@@ -168,20 +168,28 @@ export default function RebateProgramsSection({ resolved }: Props) {
                   {program.title}
                 </span>
                 <span className="text-sm uppercase tracking-wide text-black/55">
-                  {isActive ? <ChevronUp size={20} /> : <ChevronDown size={12}/>}
+                  <ChevronDown
+                    size={isActive ? 20 : 12}
+                    className={`transition-transform duration-500 ease-in-out ${isActive ? "rotate-180" : ""}`}
+                  />
                 </span>
               </button>
 
-              {isActive && (
-                <div className="px-5 pb-5">
-                  {img && (
-                    <div className="relative aspect-[4/3] md:aspect-[4/2] overflow-hidden rounded-[24px]">
-                      <Image src={img.src} alt={img.alt} fill className="object-cover" />
-                    </div>
-                  )}
-                  <p className="mt-4 text-base md:text-xl leading-tight text-black/90">{program.summary}</p>
+              {/* Always mounted; animates open/closed so switching cards is smooth */}
+              <div
+                className={`grid transition-[grid-template-rows,opacity] duration-500 ease-in-out ${isActive ? "grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0"}`}
+              >
+                <div className="min-h-0 overflow-hidden">
+                  <div className="px-5 pb-5">
+                    {img && (
+                      <div className="relative aspect-[4/3] md:aspect-[4/2] overflow-hidden rounded-[24px]">
+                        <Image src={img.src} alt={img.alt} fill className="object-cover" />
+                      </div>
+                    )}
+                    <p className="mt-4 text-base md:text-xl leading-tight text-black/90">{program.summary}</p>
+                  </div>
                 </div>
-              )}
+              </div>
             </div>
           );
         })}

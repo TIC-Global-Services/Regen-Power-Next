@@ -55,6 +55,16 @@ const CtaButton: React.FC<CtaButtonProps> = ({
 
   const combinedClasses = `inline-flex items-center gap-3 ${bgClass} ${borderClass} ${textColor} px-1.5 py-2 md:py-1.5 rounded-full ${hoverClass} transition-all duration-300 group ${className} ${disabled ? 'opacity-50 pointer-events-none' : ''}`;
 
+  // Protocol links (tel:, mailto:) must bypass the Next.js client-side router
+  // and render as plain anchors so the OS handles them natively.
+  if (href && /^(tel:|mailto:)/i.test(href)) {
+    return (
+      <a href={href} onClick={onClick as React.MouseEventHandler<HTMLAnchorElement>} className={combinedClasses}>
+        {content}
+      </a>
+    );
+  }
+
   if (href) {
     return (
       <Link href={href} onClick={onClick as React.MouseEventHandler<HTMLAnchorElement>} className={combinedClasses}>

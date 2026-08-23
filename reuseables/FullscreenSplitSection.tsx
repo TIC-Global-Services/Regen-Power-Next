@@ -71,7 +71,7 @@ const FullscreenSplitSection: React.FC<FullscreenSplitSectionProps> = ({
             isImageLeft ? 'lg:order-first' : 'lg:order-last'
           } ${imageColumnClassName}`}
         >
-          <div className={`relative w-full h-full min-h-[50dvh] md:h-[55dvh] lg:min-h-0 rounded-[20px] md:rounded-[20px] lg:rounded-none overflow-hidden bg-gray-50 ${imageClassName}`}>
+          <div className={`relative w-full h-full min-h-[50dvh] md:h-[55dvh] lg:h-full rounded-[20px] md:rounded-[20px] lg:rounded-none overflow-hidden bg-gray-50 ${imageClassName}`}>
             <img
               src={imgSrc}
               alt={imageAlt}

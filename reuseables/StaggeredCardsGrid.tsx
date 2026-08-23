@@ -40,17 +40,20 @@ interface StaggeredCardItemProps {
   item: StaggeredCard;
   cardWidthClass: string;
   cardHeightClass: string;
+  animate?: boolean;
 }
 
 const StaggeredCardItem: React.FC<StaggeredCardItemProps> = ({
   item,
   cardWidthClass,
   cardHeightClass,
+  animate = true,
 }) => {
   const [hovered, setHovered] = useState(false);
 
   return (
     <Reveal
+      enabled={animate}
       delay={item.delay || 0.1}
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
@@ -139,6 +142,7 @@ const StaggeredCardsGrid: React.FC<StaggeredCardsGridProps> = ({
                   item={item}
                   cardWidthClass={cardWidthClass}
                   cardHeightClass={cardHeightClass}
+                  animate={false}
                 />
               </div>
             ))}

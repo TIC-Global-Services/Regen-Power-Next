@@ -21,7 +21,17 @@ const CategoryFilter: React.FC<CategoryFilterProps> = ({
 }) => {
     const [active, setActive] = useState<string>(defaultCategory ?? categories[0]?.value ?? '');
     const scrollRef = useRef<HTMLDivElement>(null);
+    const pillRefs = useRef<Record<string, HTMLButtonElement | null>>({});
     const [canScrollRight, setCanScrollRight] = useState(false);
+
+    // Smoothly slide the pill row so the active category is centered in view.
+    useEffect(() => {
+        pillRefs.current[active]?.scrollIntoView({
+            behavior: 'smooth',
+            inline: 'center',
+            block: 'nearest',
+        });
+    }, [active]);
 
     /** True while there is still hidden content beyond the right edge of the slider. */
     const updateCanScrollRight = useCallback(() => {
@@ -60,6 +70,9 @@ const CategoryFilter: React.FC<CategoryFilterProps> = ({
                     return (
                         <button
                             key={cat.value}
+                            ref={(el) => {
+                                pillRefs.current[cat.value] = el;
+                            }}
                             onClick={() => handleSelect(cat.value)}
                             className={`shrink-0 snap-start px-5 md:px-6 py-2.5 md:py-3 rounded-full text-sm md:text-base font-medium tracking-tight transition-all duration-300 border ${isActive
                                 ? 'bg-[#D5E5C0] border-[#D5E5C0] text-black'

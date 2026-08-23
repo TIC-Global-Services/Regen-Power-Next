@@ -25,18 +25,18 @@ const SolarProcessFlow: React.FC<SolarProcessFlowProps> = ({ resolved }) => {
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12">
           {steps.map((step, index) => (
-            <div key={index} className="relative flex flex-col">
+            <div key={index} className="relative flex flex-col group">
               <Reveal
                 delay={index * 0.15}
                 className="flex flex-col"
               >
                 <div className="mb-6">
                   {step.image ? (
-                    <div className="relative w-full aspect-[4/3] rounded-2xl overflow-hidden flex items-center justify-center">
+                    <div className="relative w-full aspect-[4/3] rounded-2xl overflow-hidden flex items-center justify-center bg-white">
                       <img
                         src={step.image.src}
                         alt={step.image.alt}
-                        className="absolute inset-0 w-full h-full object-contain"
+                        className="absolute inset-0 w-full h-full object-contain transition-transform duration-500 ease-out group-hover:scale-105"
                       />
                     </div>
                   ) : (
@@ -47,7 +47,7 @@ const SolarProcessFlow: React.FC<SolarProcessFlowProps> = ({ resolved }) => {
                   )}
                 </div>
                 <div className="grid grid-cols-[auto_1fr] gap-x-3">
-                  <span className="text-2xl font-semibold text-[#63B846]">0{index + 1}</span>
+                  <span className="text-2xl font-semibold text-[#63B846] transition-colors duration-300 group-hover:text-[#4d7a17]">0{index + 1}</span>
                   <div className="relative self-baseline">
                     <h3 className="text-lg md:text-2xl font-medium md:font-medium text-black leading-tight">
                       <span>{step.title}</span>
@@ -55,7 +55,7 @@ const SolarProcessFlow: React.FC<SolarProcessFlowProps> = ({ resolved }) => {
                     {index < steps.length - 1 && (
                       <span
                         aria-hidden
-                        className="hidden lg:flex absolute top-[0.9375rem] right-[-1.75rem] -translate-y-1/2 leading-none text-black font-bold tracking-tighter text-3xl z-10"
+                        className="hidden lg:flex absolute top-[0.9375rem] right-[-1.75rem] -translate-y-1/2 leading-none text-black font-bold tracking-tighter text-3xl z-10 transition-transform duration-300 group-hover:translate-x-1"
                         title="Arrow aligned to the first line of the title"
                       >
                         &raquo;
@@ -69,7 +69,7 @@ const SolarProcessFlow: React.FC<SolarProcessFlowProps> = ({ resolved }) => {
                 </div>
                 {index < steps.length - 1 && (
                   <div className="flex justify-center mt-6 md:mt-8 lg:hidden">
-                    <span className="text-black font-bold tracking-tighter text-4xl rotate-90">
+                    <span className="text-black font-bold tracking-tighter text-4xl rotate-90 transition-transform duration-300 group-hover:translate-y-1">
                       &raquo;
                     </span>
                   </div>

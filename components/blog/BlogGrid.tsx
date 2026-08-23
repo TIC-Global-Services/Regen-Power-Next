@@ -4,6 +4,7 @@ import React, { useState } from 'react';
 import { Search, X } from 'lucide-react';
 import BlogCard, { BlogCardData } from './BlogCard';
 import CategoryFilter, { CategoryOption } from './CategoryFilter';
+import FadeSwap from '@/reuseables/FadeSwap';
 
 interface BlogGridProps {
     categories: CategoryOption[];
@@ -132,7 +133,8 @@ const BlogGrid: React.FC<BlogGridProps> = ({
                 </p>
             </div>
 
-            <div className="flex flex-col gap-5 md:gap-6 max-w-7xl mx-auto">
+            <FadeSwap swapKey={`${activeCategory}|${safePage}`}>
+              <div className="flex flex-col gap-5 md:gap-6 max-w-7xl mx-auto">
                 {rows.length === 0 ? (
                     <div className="text-center py-16 tracking-tight">
                         <p className="text-black/60">
@@ -151,7 +153,8 @@ const BlogGrid: React.FC<BlogGridProps> = ({
                 ) : (
                     rows
                 )}
-            </div>
+              </div>
+            </FadeSwap>
 
             {/* Pagination */}
             {totalPages > 1 && (

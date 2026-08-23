@@ -1,7 +1,7 @@
 import React from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { DiscAlbum, Link2Icon, Mail, } from 'lucide-react';
+import { Mail, Phone } from 'lucide-react';
 
 const quickLinks = [
   { name: 'Solar', href: '/solar' },
@@ -15,24 +15,45 @@ const quickLinks = [
 ];
 
 const waHeadOffice = {
-  address: 'Head Office: Address TBC',
+  address: 'Head Office: 4/90 Catalano Circuit, Canning Vale WA 6155',
   phone: '1800 073 436',
   directLine: '08 9456 3491',
-  email: 'Sales@Regenpower.com',
+  email: 'sales@regenpower.com',
   hours: 'Mon – Fri 8:00am – 5:00pm AWST',
 };
 
 const otherStateOffices = [
-  { state: 'South Australia', phone: '08 8311 1403', email: 'Sales.Sa@Regenpower.com' },
-  { state: 'New South Wales', phone: '02 8077 4232', email: 'Sales.Nsw@Regenpower.com' },
-  { state: 'Queensland', phone: '07 3036 7421', email: 'Sales.Qld@Regenpower.com' },
-  { state: 'Victoria', phone: '03 8676 8807', email: 'Sales.Vic@Regenpower.com' },
+  {
+    state: 'South Australia',
+    address: 'Level 2, 70 Hindmarsh Square, Adelaide SA 5000',
+    phone: '08 8311 1403',
+    email: 'sales.sa@regenpower.com',
+  },
+  {
+    state: 'New South Wales',
+    address: 'Level 17, 123 Pitt St, Sydney NSW 2000',
+    phone: '02 8077 4232',
+    email: 'sales.nsw@regenpower.com',
+  },
+  {
+    state: 'Queensland',
+    address: '15 Burke Street, Woolloongabba QLD 4102',
+    phone: '07 3036 7421',
+    email: 'sales.qld@regenpower.com',
+  },
+  {
+    state: 'Victoria',
+    address: 'Level 23, Collins Square Tower Five, 727 Collins St, Melbourne VIC 3008',
+    phone: '03 8676 8807',
+    email: 'sales.vic@regenpower.com',
+  },
 ];
 
 const socialLinks = [
-  { icon: Link2Icon, href: '#' },
-  { icon: Mail, href: '#' },
-  { icon: DiscAlbum, href: '#' },
+  { name: 'Facebook', icon: '/facebook_logo.svg', href: 'https://www.facebook.com/regenpowerperth' },
+  { name: 'Instagram', icon: '/instagram_logo.svg', href: 'https://www.instagram.com/regenpowerperth/' },
+  { name: 'LinkedIn', icon: '/linkedin_logo.svg', href: 'https://www.linkedin.com/company/regen-power' },
+  { name: 'Twitter / X', icon: '/twitter_logo.svg', href: 'https://twitter.com/RegenPower2003' },
 ];
 
 const Footer = () => {
@@ -51,6 +72,20 @@ const Footer = () => {
             height={100}
             className="h-auto w-[250px] object-contain"
           />
+        </div>
+
+        {/* Highlighted Contact Number */}
+        <div className="flex justify-center mb-12">
+          <a
+            href="tel:0894563491"
+            className="inline-flex items-center gap-2 text-base md:text-lg text-gray-200 border border-[#8dc63f]/40 rounded-full px-6 py-2.5 hover:bg-white/5 transition-colors"
+          >
+            <Phone size={18} className="text-[#8dc63f]" />
+            <span>
+              Need help? Call our expert team on{' '}
+              <span className="text-[#8dc63f] font-medium">08 9456 3491</span>
+            </span>
+          </a>
         </div>
 
         {/* Content Section */}
@@ -74,8 +109,8 @@ const Footer = () => {
             <h3 className="text-[#8dc63f] text-xl mb-6 font-medium">WA Head Office</h3>
             <div className="space-y-2 text-sm text-gray-300 flex flex-col items-center md:items-start">
               <p>{waHeadOffice.address}</p>
-              <p>Phone: {waHeadOffice.phone}</p>
-              <p>Direct Line: {waHeadOffice.directLine}</p>
+              <p>Phone: <a href="tel:1800073436" className="hover:text-white transition-colors">{waHeadOffice.phone}</a></p>
+              <p>Direct Line: <a href="tel:0894563491" className="hover:text-white transition-colors">{waHeadOffice.directLine}</a></p>
               <p>Email: <a href={`mailto:${waHeadOffice.email}`} className="hover:text-white transition-colors">{waHeadOffice.email}</a></p>
               <p>Hours: {waHeadOffice.hours}</p>
             </div>
@@ -88,7 +123,8 @@ const Footer = () => {
               {otherStateOffices.map((office, index) => (
                 <div key={index} className="flex flex-col items-center sm:items-start">
                   <p className="mb-1 text-gray-100">{office.state}</p>
-                  <p>{office.phone}</p>
+                  <p>{office.address}</p>
+                  <a href={`tel:${office.phone.replace(/\s/g, '')}`} className="hover:text-white transition-colors">{office.phone}</a>
                   <a href={`mailto:${office.email}`} className="hover:text-white transition-colors break-all">{office.email}</a>
                 </div>
               ))}
@@ -103,14 +139,28 @@ const Footer = () => {
           </p>
 
           <div className="flex gap-4 justify-center md:justify-start">
-            {socialLinks.map((social, index) => {
-              const Icon = social.icon;
-              return (
-                <Link key={index} href={social.href} className="border border-gray-600 rounded p-1.5 hover:bg-gray-800 hover:text-white transition-all">
-                  <Icon size={16} strokeWidth={1.5} />
-                </Link>
-              );
-            })}
+            {socialLinks.map((social, index) => (
+              <a
+                key={index}
+                href={social.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label={social.name}
+                title={social.name}
+                className="border border-gray-600 rounded p-1.5 hover:bg-gray-800 transition-all"
+              >
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img src={social.icon} alt={social.name} width={16} height={16} />
+              </a>
+            ))}
+            <a
+              href={`mailto:${waHeadOffice.email}`}
+              aria-label="Email"
+              title="Email"
+              className="border border-gray-600 rounded p-1.5 hover:bg-gray-800 hover:text-white transition-all"
+            >
+              <Mail size={16} strokeWidth={1.5} />
+            </a>
           </div>
 
           <p className="text-center md:text-right">

@@ -116,6 +116,7 @@ const OffGridSolutionsPage = async () => {
           description={portfolio.description}
           cards={portfolio.cards as PortfolioCard[]}
           layout={6}
+          mobileScroll
         />
       )}
 

@@ -11,9 +11,19 @@ interface RevealProps {
   style?: CSSProperties;
   onMouseEnter?: () => void;
   onMouseLeave?: () => void;
+  /** Set to false to disable the reveal animation (renders statically, hover handlers still work). */
+  enabled?: boolean;
 }
 
-export default function Reveal({ children, delay = 0, className = "", style, onMouseEnter, onMouseLeave }: RevealProps) {
+export default function Reveal({ children, delay = 0, className = "", style, onMouseEnter, onMouseLeave, enabled = true }: RevealProps) {
+  if (!enabled) {
+    return (
+      <div className={className} style={style} onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave}>
+        {children}
+      </div>
+    );
+  }
+
   return (
     <motion.div
       className={className}

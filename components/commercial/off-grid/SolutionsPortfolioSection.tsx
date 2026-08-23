@@ -32,6 +32,7 @@ export default function SolutionsPortfolioSection({ resolved }: Props) {
       description={resolved.description}
       cards={cards}
       layout={resolved.layout}
+      mobileScroll
     />
   );
 }

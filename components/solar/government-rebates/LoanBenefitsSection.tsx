@@ -82,7 +82,7 @@ export default function LoanBenefitsSection({ resolved }: Props) {
                 delay: 4000,
                 disableOnInteraction: false,
               }}
-              loop={resolved.benefits.length > 1}
+
               pagination={{ clickable: true }}
               className="w-full !pb-12 !px-[3%]"
               style={{

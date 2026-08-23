@@ -4,12 +4,7 @@ import React, { useRef, useEffect, useState } from 'react';
 import Image, { StaticImageData } from 'next/image';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/dist/ScrollTrigger';
-import { Swiper, SwiperSlide } from 'swiper/react';
-import { Pagination } from 'swiper/modules';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
-
-import 'swiper/css';
-import 'swiper/css/pagination';
 
 import SectionHeader from '@/reuseables/SectionHeader';
 

@@ -26,9 +26,9 @@ const navItems = [
     subItems: [
       { name: 'Battery Storage', href: '/battery-storage' },
       { name: 'Battery Product', href: '/battery-product' },
-      { name: 'Smart home battery system', href: '/smart-home-battery-system' },
-      { name: 'government rebates', href: '/government-rebates' },
-      { name: 'Brands we carry', href: '/brands-we-carry' },
+      { name: 'Smart Home Battery System', href: '/smart-home-battery-system' },
+      { name: 'Government Rebates', href: '/government-rebates' },
+      { name: 'Brands We Carry', href: '/brands-we-carry' },
     ],
   },
   { name: 'EV Charging', href: '/ev-charging' },
@@ -44,14 +44,19 @@ const navItems = [
     ]
   },
   { name: 'About Us', href: '#' },
-  { name: 'Blog', href: '/blog' },
   { name: 'Reviews', href: '/reviews' },
-  { name: 'Press&Media', href: '/press-media' },
+  { name: 'Press & Media', 
+    href: '/press-media',
+    subItems :[
+      { name: 'Blogs', href: '/blog' },
+      { name: 'Press Releases', href: '/press-media' },
+      ]
+   },
+   { name: 'Contact Us', href: '/contact' },
 ];
 
 const Navbar = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const [isVisible, setIsVisible] = useState(true);
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
   const [expandedMobileItem, setExpandedMobileItem] = useState<number | null>(null);
 
@@ -61,7 +66,6 @@ const Navbar = () => {
   const ctaRef = useRef<HTMLDivElement | null>(null);
   const menuBtnRef = useRef<HTMLButtonElement | null>(null);
   const revealOriginRef = useRef({ x: 95, y: 5 });
-  const lastScrollY = useRef(0);
   const isMobileMenuOpenRef = useRef(false);
 
   // Scroll lock while the mobile menu is open (html + body for iOS reliability),
@@ -78,22 +82,6 @@ const Navbar = () => {
       document.documentElement.style.overflow = '';
       document.body.style.overflow = '';
     };
-  }, [isMobileMenuOpen]);
-
-  useEffect(() => {
-    const handleScroll = () => {
-      const currentY = window.scrollY;
-      // Don't hide navbar if mobile menu is open
-      if (currentY > lastScrollY.current && currentY > 80 && !isMobileMenuOpen) {
-        setIsVisible(false);
-      } else {
-        setIsVisible(true);
-      }
-      lastScrollY.current = currentY;
-    };
-
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    return () => window.removeEventListener('scroll', handleScroll);
   }, [isMobileMenuOpen]);
 
   // Initial hidden state — the overlay ALSO carries this in inline styles so it is
@@ -230,7 +218,7 @@ const Navbar = () => {
           A transform on an ancestor makes it the containing block for any
           position:fixed descendant (shrinking it to that ancestor's box), so the
           mobile overlay is rendered as a SIBLING below, outside this <header>. */}
-      <header className={`fixed top-0 left-0 right-0 z-50 w-full py-6 px-4 md:px-8 transition-transform duration-300 ${isVisible ? 'translate-y-0' : '-translate-y-full'}`}>
+      <header className="fixed top-0 left-0 right-0 z-50 w-full py-6 px-4 md:px-8">
         <div className="px-[5%] md:px-[3%] flex items-center justify-between">
         {/* Logo — swap to the white variant while the dark overlay is open */}
         <Link href="/" className="flex-shrink-0 z-50">
@@ -239,7 +227,7 @@ const Navbar = () => {
             alt="Regen Power"
             width={180}
             height={60}
-            className="h-10 w-auto object-contain"
+            className="h-12 w-auto object-contain"
           />
         </Link>
 
@@ -300,11 +288,11 @@ const Navbar = () => {
           </ul>
         </nav>
 
-        {/* Contact Us Button (Desktop) — uniform green hover + arrow animation */}
+        {/* Speak to Us Button (Desktop) — opens device dialer */}
         <div className="hidden lg:flex">
           <CtaButton
-            href="/contact"
-            text="Contact Us"
+            href="tel:+61894563491"
+            text="Speak to Us"
             textColor="text-white"
             iconTextColor="text-white"
           />
@@ -411,11 +399,11 @@ const Navbar = () => {
               })}
             </ul>
 
-            {/* CTA */}
+            {/* CTA — opens device dialer */}
             <div ref={ctaRef} className="mt-10 w-full max-w-md mx-auto flex justify-center">
               <CtaButton
-                href="/contact"
-                text="Contact Us"
+                href="tel:+61894563491"
+                text="Speak to Us"
                 textColor="text-white"
                 bgClass="bg-[#8dc63f]"
                 borderClass="border border-[#7ebd35]"

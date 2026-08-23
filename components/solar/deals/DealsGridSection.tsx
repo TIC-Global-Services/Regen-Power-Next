@@ -4,16 +4,18 @@ import React from "react";
 import SectionHeader from "@/reuseables/SectionHeader";
 import Reveal from "@/reuseables/Reveal";
 import CtaButton from "@/reuseables/CtaButton";
-import { Swiper, SwiperSlide } from "swiper/react";
 import type { ResolvedDealsGrid } from "@/lib/strapi/resolvers/deals";
 
-import "swiper/css";
 import Link from "next/link";
+import Image from "next/image";
 import { ArrowUpRight, Icon } from "lucide-react";
 
 interface Props {
   resolved: ResolvedDealsGrid;
 }
+
+// TODO: temporary fallback for testing — remove once real promotion images are uploaded in Strapi
+const FALLBACK_IMAGE = "/solar_house_render.png";
 
 export default function DealsGridSection({ resolved }: Props) {
   return (
@@ -53,36 +55,45 @@ export default function DealsGridSection({ resolved }: Props) {
                   {promo.description}
                 </p>
               </div>
+              <div className="relative w-full aspect-[3/2] rounded-[14px] overflow-hidden mt-6">
+                <Image
+                  src={promo.image?.src || FALLBACK_IMAGE}
+                  alt={promo.image?.alt || promo.title}
+                  fill
+                  sizes="(max-width: 768px) 80vw, 33vw"
+                  className="object-cover"
+                />
+              </div>
             </Reveal>
           ))}
         </div>
 
-        {/* Mobile: Swiper Carousel */}
-        <div className="block md:hidden w-full relative mb-12 mx-[5vw] z-10">
-          <Swiper
-            spaceBetween={16}
-            slidesPerView={1.15}
-            breakpoints={{
-              480: { slidesPerView: 1.25 },
-              640: { slidesPerView: 1.8 },
-            }}
-            className="w-full px-[0vw]"
-          >
-            {resolved.promotions.map((promo, idx) => (
-              <SwiperSlide key={idx} className="h-auto flex pb-4">
-                <div className="rounded-[20px] p-8 flex flex-col justify-between shadow-sm bg-[#EEF6EB] border border-gray-100 w-full h-full min-h-[320px]">
-                  <div>
-                    <h3 className="text-2xl mb-4 tracking-tight text-[#63B846] leading-tight font-normal">
-                      {promo.title}
-                    </h3>
-                    <p className="text-sm text-[#888888] leading-tight font-light">
-                      {promo.description}
-                    </p>
-                  </div>
-                </div>
-              </SwiperSlide>
-            ))}
-          </Swiper>
+        {/* Mobile: Native scroll slider (same pattern as FeatureCardGrid) */}
+        <div className="relative z-10 mb-12 flex md:hidden items-stretch gap-4 overflow-x-auto pb-4 px-[5vw] [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
+          {resolved.promotions.map((promo, idx) => (
+            <div
+              key={idx}
+              className="flex-none w-[85vw] min-[480px]:w-[76vw] sm:w-[55vw] shrink-0 snap-start rounded-[20px] p-8 flex flex-col justify-between shadow-sm bg-[#EEF6EB] border border-gray-100 min-h-[320px]"
+            >
+              <div>
+                <h3 className="text-2xl mb-4 tracking-tight text-[#63B846] leading-tight font-normal">
+                  {promo.title}
+                </h3>
+                <p className="text-sm text-[#888888] leading-tight font-light">
+                  {promo.description}
+                </p>
+              </div>
+              <div className="relative w-full aspect-[3/2] rounded-[14px] overflow-hidden mt-6">
+                <Image
+                  src={promo.image?.src || FALLBACK_IMAGE}
+                  alt={promo.image?.alt || promo.title}
+                  fill
+                  sizes="(max-width: 768px) 80vw"
+                  className="object-cover"
+                />
+              </div>
+            </div>
+          ))}
         </div>
 
         <div className="flex justify-center">

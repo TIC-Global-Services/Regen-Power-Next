@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useRef } from 'react';
+import React from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Autoplay, Pagination } from 'swiper/modules';
 
@@ -29,57 +29,12 @@ export interface SevenBrandData {
 }
 
 const SevenBrand: React.FC<{ data: SevenBrandData }> = ({ data }) => {
-  const containerRef = useRef<HTMLDivElement>(null);
-
-  const measure = () => {
-    const container = containerRef.current;
-    if (!container) return;
-
-    const slides = container.querySelectorAll('.swiper-slide');
-    let max = 0;
-
-    slides.forEach(slide => {
-      (slide as HTMLElement).style.height = 'auto';
-      const h = (slide as HTMLElement).getBoundingClientRect().height;
-      if (h > max) max = h;
-    });
-
-    slides.forEach(slide => {
-      (slide as HTMLElement).style.height = `${max}px`;
-    });
-  };
-
-  useEffect(() => {
-    const container = containerRef.current;
-    if (!container) return;
-
-    const attempts = [100, 300, 600];
-    const timers: ReturnType<typeof setTimeout>[] = [];
-
-    attempts.forEach(delay => {
-      timers.push(setTimeout(() => {
-        measure();
-      }, delay));
-    });
-
-    const observer = new MutationObserver(() => {
-      requestAnimationFrame(measure);
-    });
-    observer.observe(container, { childList: true, subtree: true, attributes: true, characterData: true });
-
-    window.addEventListener('resize', measure);
-    return () => {
-      timers.forEach(clearTimeout);
-      observer.disconnect();
-      window.removeEventListener('resize', measure);
-    };
-  }, [data]);
-
   if (!data || !data.brands || data.brands.length === 0) return null;
 
   return (
     <section className="bg-white py-16 md:py-24 px-[5%] md:px-[3%] w-full">
       <style>{`
+        /* Equal slide heights via flexbox stretch — replaces the old JS measuring loop */
         .seven-brand-swiper .swiper-slide {
           height: auto !important;
           display: flex !important;
@@ -105,7 +60,7 @@ const SevenBrand: React.FC<{ data: SevenBrandData }> = ({ data }) => {
           opacity: 1;
         }
       `}</style>
-      <div ref={containerRef}>
+      <div>
         {/* Title */}
         <div className="text-center mb-4 md:mb-16">
           <h2 className="text-[2.5rem] md:text-[5rem] font-normal text-[#63B846] leading-tight tracking-tight">
@@ -126,8 +81,6 @@ const SevenBrand: React.FC<{ data: SevenBrandData }> = ({ data }) => {
             }}
             pagination={{ clickable: true }}
             className="w-full pb-16 seven-brand-swiper"
-            onInit={() => setTimeout(measure, 50)}
-            onSlideChange={() => setTimeout(measure, 50)}
           >
             {data.brands.map((brand, idx) => {
               const spec0 = brand.specification[0]; // Key Specs

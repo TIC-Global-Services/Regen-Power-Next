@@ -25,6 +25,7 @@ export const DealsPromotionSchema = z.object({
   id: z.number(),
   title: z.string(),
   description: z.string(),
+  image: MediaSchema.nullable(),
 });
 
 export const DealsGridSchema = z.object({

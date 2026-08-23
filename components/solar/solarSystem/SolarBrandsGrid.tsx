@@ -85,7 +85,7 @@ const SolarBrandsGrid: React.FC<SolarBrandsGridProps> = ({ resolved }) => {
               <Reveal
                 key={index}
                 delay={index * 0.1}
-                className={`flex items-center justify-center p-8 md:p-12 hover:bg-gray-50 transition-colors h-[180px] md:h-[220px] relative
+                className={`group flex items-center justify-center p-8 md:p-12 hover:bg-gray-50 transition-colors h-[180px] md:h-[220px] relative
                   ${showBorderBottomDesktop ? "md:border-b border-[#00000033]" : "md:border-b-0"}
                   ${showBorderRightDesktop ? "md:border-r border-[#00000033]" : "md:border-r-0"}
                 `}
@@ -95,7 +95,7 @@ const SolarBrandsGrid: React.FC<SolarBrandsGridProps> = ({ resolved }) => {
                     <img
                       src={brand.logo.src}
                       alt={brand.logo.alt}
-                      className="absolute inset-0 w-full h-full object-contain"
+                      className="absolute inset-0 w-full h-full object-contain transition-transform duration-500 ease-out group-hover:scale-105"
                     />
                   ) : (
                     <MissingImage

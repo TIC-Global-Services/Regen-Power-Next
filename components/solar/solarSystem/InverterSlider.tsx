@@ -4,6 +4,7 @@ import React, { useState, useEffect } from "react";
 import Fade from "@/reuseables/fade";
 import SectionHeader from "@/reuseables/SectionHeader";
 import MissingImage from "@/reuseables/MissingImage";
+import FadeSwap from "@/reuseables/FadeSwap";
 import type { ResolvedSolarInverterSlider } from "@/lib/strapi/resolvers/solar";
 
 interface InverterSliderProps {
@@ -14,13 +15,15 @@ const InverterSlider: React.FC<InverterSliderProps> = ({ resolved }) => {
   const slides = resolved.inverters;
   const [activeTab, setActiveTab] = useState(0);
 
+  // Autoplay: self-resetting timeout so manual dot clicks restart the countdown
+  // instead of racing against the old interval.
   useEffect(() => {
     if (slides.length <= 1) return;
-    const timer = setInterval(() => {
+    const timer = setTimeout(() => {
       setActiveTab((prev) => (prev + 1) % slides.length);
     }, 5000);
-    return () => clearInterval(timer);
-  }, [slides.length]);
+    return () => clearTimeout(timer);
+  }, [activeTab, slides.length]);
 
   if (slides.length === 0) {
     return (
@@ -64,31 +67,33 @@ const InverterSlider: React.FC<InverterSliderProps> = ({ resolved }) => {
 
         <div className="relative rounded-[20px] overflow-hidden h-[700px] md:h-[580px] flex flex-col justify-between p-4 md:p-10 z-10">
           <div className="absolute inset-0 z-0">
-            {slides[activeTab].background ? (
+            {/* All backgrounds rendered stacked and preloaded; only opacity changes,
+                so the image genuinely crossfades in sync with the text. */}
+            {slides.map((slide, idx) => (
               <img
-                src={slides[activeTab].background.src}
-                alt={slides[activeTab].background.alt}
-                className="absolute inset-0 w-full h-full object-cover transition-all duration-700 ease-in-out"
+                key={idx}
+                src={slide.background?.src ?? "/fallback.png"}
+                alt={slide.background?.alt ?? slide.title}
+                className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-700 ease-in-out ${
+                  idx === activeTab ? "opacity-100" : "opacity-0"
+                }`}
               />
-            ) : (
-              <img
-                src="/fallback.png"
-                alt="fallback"
-                className="absolute inset-0 w-full h-full object-cover transition-all duration-700 ease-in-out"
-              />
-            )}
+            ))}
             <div className="absolute inset-0 bg-gradient-to-t from-black/55 via-black/15 to-black/35" />
           </div>
 
           <div className="relative z-10 mt-4">
-            <h3
-              className="text-5xl md:text-7xl lg:text-[6rem] tracking-tight text-black md:text-white mb-4 md:mb-0"
-            >
-              {slides[activeTab].title}
-            </h3>
+            <FadeSwap swapKey={activeTab}>
+              <h3 className="text-5xl md:text-7xl lg:text-[6rem] tracking-tight text-black md:text-white mb-4 md:mb-0">
+                {slides[activeTab].title}
+              </h3>
+            </FadeSwap>
           </div>
 
-          <div className="relative z-30 grid grid-cols-2 lg:grid-cols-5 justify-items-center gap-2 md:gap-4 mt-auto">
+          <FadeSwap
+            swapKey={activeTab}
+            className="relative z-30 grid grid-cols-2 lg:grid-cols-5 justify-items-center gap-2 md:gap-4 mt-auto"
+          >
             {slides[activeTab].infoCards.length > 0 ? (
               slides[activeTab].infoCards.map((card, idx, arr) => (
                 <div
@@ -111,7 +116,7 @@ const InverterSlider: React.FC<InverterSliderProps> = ({ resolved }) => {
               </div>
             )
             }
-          </div>
+          </FadeSwap>
         </div>
 
         {slides.length > 1 && (

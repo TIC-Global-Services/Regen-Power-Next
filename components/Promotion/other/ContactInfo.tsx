@@ -44,10 +44,10 @@ const ContactInfo = ({
     }
   ],
   socials = [
-    { name: "Instagram", url: "https://instagram.com/regenpower" },
-    { name: "LinkedIn", url: "https://linkedin.com/company/regenpower" },
-    { name: "Facebook", url: "https://facebook.com/regenpower" },
-    { name: "Twitter", url: "https://twitter.com/regenpower" }
+    { name: "Instagram", url: "https://www.instagram.com/regenpowerperth/" },
+    { name: "LinkedIn", url: "https://www.linkedin.com/company/regen-power" },
+    { name: "Facebook", url: "https://www.facebook.com/regenpowerperth" },
+    { name: "Twitter", url: "https://twitter.com/RegenPower2003" }
   ]
 }: ContactInfoProps) => {
 

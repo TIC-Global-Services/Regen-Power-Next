@@ -55,6 +55,7 @@ export function resolveDealsPhilosophy(
 export interface ResolvedDealsGridPromotion {
   title: string;
   description: string;
+  image: StrapiImageData | null;
 }
 export interface ResolvedDealsGrid {
   subtitle: string;
@@ -77,6 +78,7 @@ export function resolveDealsGrid(
     promotions: (data.promotions ?? []).map((p) => ({
       title: p.title,
       description: p.description,
+      image: p.image ? strapiImageData(p.image) : null,
     })),
   };
 }
