@@ -50,7 +50,11 @@ export interface WhyChooseUsProps {
 
 export const AnimatedCounter = ({ from, to }: { from: number; to: number }) => {
   const ref = useRef<HTMLSpanElement>(null);
-  const inView = useInView(ref, { once: true, margin: "-100px" });
+  // Trigger via intersection threshold (amount), NOT rootMargin ("margin"):
+  // rootMargin is silently ignored by iOS Safari < 15.4 and some Android WebViews,
+  // which made this fire at the viewport edge so the count-up finished before the
+  // card was ever seen. Thresholds behave identically in every engine.
+  const inView = useInView(ref, { once: true, amount: 0.5 });
   const count = useMotionValue(from);
   const rounded = useTransform(count, (latest) =>
     Math.round(latest).toLocaleString()
@@ -240,7 +244,10 @@ const WhyChooseUs: React.FC<WhyChooseUsProps> = ({
           variants={containerVariants}
           initial="hidden"
           whileInView="show"
-          viewport={{ once: true, margin: "-100px" }}
+          // Threshold-based trigger (see AnimatedCounter): rootMargin ("margin") is
+          // ignored by older iOS Safari / WebViews, so use amount for identical
+          // cross-browser reveal timing.
+          viewport={{ once: true, amount: 0.15 }}
           className="grid grid-cols-1 lg:grid-cols-3 gap-4 lg:gap-6 lg:auto-rows-fr"
         >
           {/* Award — tall left */}
