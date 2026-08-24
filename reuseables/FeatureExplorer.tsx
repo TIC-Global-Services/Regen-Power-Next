@@ -133,7 +133,7 @@ const FeatureExplorer: React.FC<FeatureExplorerProps> = ({
                         </div>
 
                         {/* Dynamic feature display and nav controls */}
-                        <div className="min-h-[220px] md:min-h-[260px] flex flex-col justify-between">
+                        <div className="min-h-[260px] md:min-h-[260px] flex flex-col justify-between max-md:justify-start max-md:gap-5">
                             <AnimatePresence mode="wait">
                                 <motion.div
                                     key={activeIndex}
@@ -141,7 +141,7 @@ const FeatureExplorer: React.FC<FeatureExplorerProps> = ({
                                     animate={{ opacity: 1, x: 0 }}
                                     exit={{ opacity: 0, x: scrollDirection === 'right' ? -30 : 30 }}
                                     transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
-                                    className="flex-grow"
+                                    className="flex-grow max-md:grow-0 max-md:h-[200px]"
                                 >
                                     <div className="flex items-center gap-4 md:gap-4 mb-4">
                                         <span className="text-[4rem] md:text-[5rem] lg:text-[6rem] font-normal text-black/90 leading-none tracking-tighter select-none">
@@ -151,14 +151,14 @@ const FeatureExplorer: React.FC<FeatureExplorerProps> = ({
                                             {activeFeature.title}
                                         </h3>
                                     </div>
-                                    <p className="text-sm md:text-lg leading-[1.2] max-w-sm">
+                                    <p className="text-base md:text-lg leading-[1.2] tracking-tight max-w-sm">
                                         {activeFeature.description}
                                     </p>
                                 </motion.div>
                             </AnimatePresence>
 
                             {/* Dot indicators */}
-                            <div className="flex items-center gap-3 mt-6">
+                            <div className="flex items-center gap-3 ">
                                 {features.map((_, idx) => (
                                     <button
                                         key={idx}
@@ -202,7 +202,7 @@ const FeatureExplorer: React.FC<FeatureExplorerProps> = ({
                                 </p>
                             </div>
                         </div>
-                        <div className="relative w-full aspect-square md:min-h-screen">
+                        <div className="relative w-[90%] aspect-square md:w-full md:min-h-screen mx-auto md:mx-0 mt-4 md:mt-0 rounded-2xl overflow-hidden md:rounded-none">
 
                             {/* Media Content */}
                             {activeFeature.mediaType === 'video' && activeFeature.mediaSrc ? (

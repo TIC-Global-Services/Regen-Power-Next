@@ -239,6 +239,7 @@ function blogArticlesQuery(page: number, pageSize: number): string {
   params.set("fields[1]", "description");
   params.set("fields[2]", "slug");
   params.set("fields[3]", "categories");
+  params.set("fields[4]", "publishedAt");
   params.set("populate[image]", "true");
   params.set("sort[0]", "publishedAt:desc");
   params.set("pagination[page]", String(page));

@@ -39,7 +39,7 @@ const Expertise = ({ data }: ExpertiseProps) => {
   };
 
   return (
-    <section className="py-20 md:py-20 relative overflow-hidden maxh-h-screen min-h-screen">
+    <section className="py-20 md:py-20 relative overflow-hidden max-h-screen min-h-screen">
       {/* Background Image */}
       <div className="absolute inset-0 z-0">
         <Image
@@ -67,14 +67,14 @@ const Expertise = ({ data }: ExpertiseProps) => {
         <div className='relative w-full h-full'>
           <div
             ref={carouselRef}
-            className="flex overflow-x-auto items-stretch snap-x snap-mandatory lg:grid lg:grid-cols-4 gap-4 md:gap-6 pl-5  pt-4 pb-6 lg:pb-0 scrollbar-hide"
+            className="flex overflow-x-auto items-stretch lg:grid lg:grid-cols-4 gap-4 md:gap-6 px-[5%] pt-4 pb-6 lg:pb-0 scrollbar-hide"
             style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
           >
             {data.items.map((item, index) => (
               <Reveal
                 key={index}
                 delay={index * 0.1}
-                className="min-w-[45vw] sm:min-w-[45vw] lg:min-w-0 snap-center shrink-0 flex flex-col h-auto"
+                className="min-w-[60vw] md:min-w-[45vw] lg:min-w-0 snap-center shrink-0 flex flex-col h-auto"
               >
                 <div
                   className={`bg-[#f0f6ec] rounded-[20px] p-6 lg:p-8 flex flex-col w-full h-[420px] md:h-[480px] lg:h-[58dvh] hover:bg-[#8dc63f] shadow-2xl hover:-translate-y-2 transition-transform duration-300 group`}

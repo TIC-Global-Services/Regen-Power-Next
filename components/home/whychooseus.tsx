@@ -94,13 +94,13 @@ const cardTextColor = (card: WhyChooseUsCard): string => {
 
 
 
-const StatCard = ({card,className = "",emphasizeTitle = false,blurredBgImage = false,}: {card: WhyChooseUsCard;className?: string;emphasizeTitle?: boolean;blurredBgImage?: boolean;}) => (
+const StatCard = ({card,className = "",emphasizeTitle = false,blurredBgImage = false,inlineContent = false,contentBottom = false,}: {card: WhyChooseUsCard;className?: string;emphasizeTitle?: boolean;blurredBgImage?: boolean;inlineContent?: boolean;contentBottom?: boolean;}) => (
   <motion.div
     variants={itemVariants}
     className={`relative rounded-[20px] overflow-hidden flex flex-col p-4 md:p-6 ${className}`}
     style={{
       backgroundColor: cardBackgroundColor(card),
-      color: cardTextColor(card),
+      color: inlineContent ? "#FFFFFF" : cardTextColor(card),
     }}
   >
     {/* Image + overlay logo (boxed, top) */}
@@ -124,7 +124,7 @@ const StatCard = ({card,className = "",emphasizeTitle = false,blurredBgImage = f
     ) : null}
 
     {/* Content */}
-    <div className="relative z-20 mt-auto pt-4">
+    <div className={`relative z-20 ${contentBottom ? "mt-auto pt-4" : "my-auto"}`}>
       {card.stats && card.stats.length > 0 ? (
         card.stats.map((row) => (
           <div key={row.id} className="mb-2 last:mb-0">
@@ -142,7 +142,7 @@ const StatCard = ({card,className = "",emphasizeTitle = false,blurredBgImage = f
         <>
           {card.icon ? (
           
-            <div className={`flex items-start gap-2 md:gap-3 ${card.id=="card-15" ? "flex-row text-white" : "flex-col text-black"}`}>
+            <div className={`flex items-start gap-2 md:gap-3 ${inlineContent ? "flex-row items-center text-white" : "flex-col text-black"}`}>
               <div className="flex  items-center gap-2 md:gap-3">
                 {card.count != null && (
                   <span className="text-[3.5rem] lg:text-[5.5rem] font-bold leading-none tracking-tighter whitespace-nowrap ">
@@ -151,13 +151,13 @@ const StatCard = ({card,className = "",emphasizeTitle = false,blurredBgImage = f
                     {card.suffix}
                   </span>
                 )}
-                {card.id=="card-15" &&
+                {inlineContent &&
                   <Image
                   src={card.icon}
                   alt=""
                   width={30}
                   height={30}
-                  className="w-7 h-7 md:w-7 md:h-7"
+                  className="w-7 h-7 md:w-7 md:h-7 shrink-0"
                 />}
               
               </div>
@@ -250,7 +250,7 @@ const WhyChooseUs: React.FC<WhyChooseUsProps> = ({
 
           {/* Installations — tall middle */}
           {cards[1] && (
-            <StatCard card={cards[1]} className="md:h-full min-h-[280px]" />
+            <StatCard card={cards[1]} className="md:h-full min-h-[280px]" contentBottom />
           )}
 
           {/* Right column — Years (grows) + Rating (fixed) */}
@@ -262,7 +262,7 @@ const WhyChooseUs: React.FC<WhyChooseUsProps> = ({
                 emphasizeTitle
                 blurredBgImage
               />
-              <StatCard card={cards[3]} className="h-[140px] md:h-[160px]" />
+              <StatCard card={cards[3]} className="h-[140px] md:h-[160px]" inlineContent />
             </div>
           )}
         </motion.div>

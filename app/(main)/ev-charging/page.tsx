@@ -143,21 +143,9 @@ const EvChargingPage = async () => {
         />
       )}
 
-      {/* Section 3: Charger Products */}
-      {chargerProductsProps && (
-        <OneCharger
-          data={{
-            ...chargerProductsProps,
-            products: chargerProductsProps.products.map((p) => ({
-              ...p,
-              image:
-                p.image || (p.name.includes("Three") ? threePhase : singlePhase),
-            })),
-          }}
-        />
-      )}
+      
 
-      {/* Section 4: Installer Brands */}
+      {/* Section 3: Installer Brands */}
       {installerBrandsProps && (
         <TrustedInstaller
           data={{
@@ -170,7 +158,7 @@ const EvChargingPage = async () => {
         />
       )}
 
-      {/* Section 5: Why Charge At Home */}
+      {/* Section 4: Why Charge At Home */}
       {benefitCardsProps && (
         <WhyChargeAtHome
           data={{
@@ -178,6 +166,20 @@ const EvChargingPage = async () => {
             benefits: benefitCardsProps.benefits.map((b, idx) => ({
               ...b,
               image: b.image || [cheaperPerKm, alwaysFullCharge, youAreInControl][idx % 3],
+            })),
+          }}
+        />
+      )}
+
+      {/* Section 5: Charger Products */}
+      {chargerProductsProps && (
+        <OneCharger
+          data={{
+            ...chargerProductsProps,
+            products: chargerProductsProps.products.map((p) => ({
+              ...p,
+              image:
+                p.image || (p.name.includes("Three") ? threePhase : singlePhase),
             })),
           }}
         />

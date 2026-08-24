@@ -37,6 +37,8 @@ export interface FeatureCardGridProps {
   ctaLink?: string;
   /** Keep the description visible on inactive (narrow) cards too. */
   showDescriptionInactive?: boolean;
+  /** Frosted-glass panel behind the card text. Off = text sits directly on the gradient overlay. */
+  textBg?: boolean;
 }
 
 const FeatureCardGrid: React.FC<FeatureCardGridProps> = ({
@@ -53,7 +55,8 @@ const FeatureCardGrid: React.FC<FeatureCardGridProps> = ({
   ctaDescription = "",
   ctaText = "",
   ctaLink,
-  showDescriptionInactive = false
+  showDescriptionInactive = false,
+  textBg = false
 }) => {
   const [activeIndex, setActiveIndex] = useState(0);
   const [page, setPage] = useState(0);
@@ -124,6 +127,10 @@ const FeatureCardGrid: React.FC<FeatureCardGridProps> = ({
   const [probeH, setProbeH] = useState<number | null>(null);
   const activeCard = cards[activeIndex];
 
+  // Frosted-glass text panel behind card copy. Toggle per section via `textBg`;
+  // the height-probe below mirrors these exact classes so measurements stay accurate.
+  const textPanelClasses = textBg ? 'backdrop-blur-md bg-black/40 rounded-xl p-4 lg:p-5' : '';
+
   useEffect(() => {
     if (!probeRef.current) return;
     const update = () => {
@@ -155,7 +162,7 @@ const FeatureCardGrid: React.FC<FeatureCardGridProps> = ({
           transform: 'translateZ(0)',
           WebkitBackfaceVisibility: 'hidden',
         }}
-        className={`relative rounded-[20px] overflow-hidden group flex-none cursor-pointer focus-visible:outline-none lg:min-h-[300px] xl:min-h-[460px] flex flex-col w-[55vw] lg:w-full shrink-0 snap-start lg:snap-align-none`}
+        className={`relative rounded-[20px] overflow-hidden group flex-none cursor-pointer focus-visible:outline-none min-h-[300px] lg:min-h-[300px] xl:min-h-[460px] flex flex-col w-[75vw] lg:w-full shrink-0 snap-start lg:snap-align-none`}
       >
         <div className="absolute inset-0 z-0 w-full h-full" style={{ transform: 'translateZ(0)' }}>
           <Image
@@ -170,38 +177,42 @@ const FeatureCardGrid: React.FC<FeatureCardGridProps> = ({
         <div className="relative z-10 flex-1 p-6 lg:p-8 pt-5 flex flex-col">
           {!isActive && <div className="flex-1" />}
 
-          <h4 className={`text-white font-normal tracking-tight transition-all duration-700 ease-[cubic-bezier(0.4,0,0.2,1)] ${isActive ? 'text-xl lg:text-3xl mb-3' : 'text-[1.75rem] lg:text-2xl mb-0'}`}>
-            {card.title}
-          </h4>
+          {/* Frosted-glass text panel (mirrors the press-media news cards)
+              so copy stays readable over any image */}
+          <div className={textPanelClasses}>
+            <h4 className={`text-white font-normal tracking-tight transition-all duration-700 ease-[cubic-bezier(0.4,0,0.2,1)] ${isActive ? 'text-xl lg:text-3xl mb-3' : 'text-[1.75rem] lg:text-2xl mb-0'}`}>
+              {card.title}
+            </h4>
 
-          {isActive && card.subtitle && (
-            <p className="text-white text-[#63B846] text-[1.375rem] font-normal tracking-tight leading-tight mb-2 transition-all duration-700 ease-[cubic-bezier(0.4,0,0.2,1)] opacity-100">
-              {card.subtitle}
+            {isActive && card.subtitle && (
+              <p className="text-[#63B846] text-[1.375rem] font-normal tracking-tight leading-tight mb-2 transition-all duration-700 ease-[cubic-bezier(0.4,0,0.2,1)] opacity-100">
+                {card.subtitle}
+              </p>
+            )}
+
+            <p className={`text-white text-sm lg:text-base leading-tight max-w-[85%] tracking-tight transition-all duration-700 ease-[cubic-bezier(0.4,0,0.2,1)] ${isActive ? '' : showDescriptionInactive ? 'mt-1.5' : 'opacity-0 h-0 overflow-hidden m-0'}`}>
+              {card.description}
             </p>
-          )}
 
-          <p className={`text-white text-xs lg:text-base leading-tight max-w-[85%] tracking-tight transition-all duration-700 ease-[cubic-bezier(0.4,0,0.2,1)] ${isActive ? '' : showDescriptionInactive ? 'mt-1.5' : 'opacity-0 h-0 overflow-hidden m-0'}`}>
-            {card.description}
-          </p>
-
-          {isActive && (card.footerTitle || card.footerDescription) && (
-            <div className="mt-4">
-              {card.footerTitle && (
-                <h5 className="text-white font-semibold tracking-tight text-xl mb-0.5 whitespace-nowrap">
-                  {card.footerTitle}
-                </h5>
-              )}
-              {card.footerDescription && (
-                <p className="text-white text-base tracking-tight ">
-                  {card.footerDescription}
-                </p>
-              )}
-            </div>
-          )}
+            {isActive && (card.footerTitle || card.footerDescription) && (
+              <div className="mt-4">
+                {card.footerTitle && (
+                  <h5 className="text-white font-semibold tracking-tight text-xl mb-0.5 whitespace-nowrap">
+                    {card.footerTitle}
+                  </h5>
+                )}
+                {card.footerDescription && (
+                  <p className="text-white text-base tracking-tight ">
+                    {card.footerDescription}
+                  </p>
+                )}
+              </div>
+            )}
+          </div>
 
           {showReadMore && isActive && (
-            <div className="flex items-end mt-auto">
-              <p className="text-[#63B846] flex gap-2 items-center">Read more <span className="text-lg"><MoveRight size={20} color='#63B846' strokeWidth={3} /></span></p>
+            <div className="flex items-end mt-auto pt-3">
+              <p className="text-[#63B846] flex gap-2 items-center backdrop-blur-md bg-black/40 rounded-xl px-4 py-2">Read more <span className="text-lg"><MoveRight size={20} color='#63B846' strokeWidth={3} /></span></p>
             </div>
           )}
         </div>
@@ -278,31 +289,34 @@ const FeatureCardGrid: React.FC<FeatureCardGridProps> = ({
               }}
             >
               <div className="p-6 lg:p-10 pt-5 flex flex-col">
-                <h4 className="text-white font-normal tracking-tight text-xl lg:text-3xl mb-3">
-                  {activeCard.title}
-                </h4>
-                {activeCard.subtitle && (
-                  <p className="text-white text-[#63B846] text-[1.375rem] font-normal tracking-tight leading-tight mb-2">
-                    {activeCard.subtitle}
+                {/* Mirror of the card's glass panel — keeps probe heights accurate */}
+                <div className={textPanelClasses}>
+                  <h4 className="text-white font-normal tracking-tight text-xl lg:text-3xl mb-3">
+                    {activeCard.title}
+                  </h4>
+                  {activeCard.subtitle && (
+                    <p className="text-[#63B846] text-[1.375rem] font-normal tracking-tight leading-tight mb-2">
+                      {activeCard.subtitle}
+                    </p>
+                  )}
+                  <p className="text-white text-sm lg:text-base leading-tight max-w-[85%] tracking-tight">
+                    {activeCard.description}
                   </p>
-                )}
-                <p className="text-white text-xs lg:text-base leading-tight max-w-[85%] tracking-tight">
-                  {activeCard.description}
-                </p>
-                {(activeCard.footerTitle || activeCard.footerDescription) && (
-                  <div className="mt-4">
-                    {activeCard.footerTitle && (
-                      <h5 className="text-white font-semibold tracking-tight text-xl mb-0.5 whitespace-nowrap">
-                        {activeCard.footerTitle}
-                      </h5>
-                    )}
-                    {activeCard.footerDescription && (
-                      <p className="text-white text-base tracking-tight">
-                        {activeCard.footerDescription}
-                      </p>
-                    )}
-                  </div>
-                )}
+                  {(activeCard.footerTitle || activeCard.footerDescription) && (
+                    <div className="mt-4">
+                      {activeCard.footerTitle && (
+                        <h5 className="text-white font-semibold tracking-tight text-xl mb-0.5 whitespace-nowrap">
+                          {activeCard.footerTitle}
+                        </h5>
+                      )}
+                      {activeCard.footerDescription && (
+                        <p className="text-white text-base tracking-tight">
+                          {activeCard.footerDescription}
+                        </p>
+                      )}
+                    </div>
+                  )}
+                </div>
                 {showReadMore && (
                   <div className="pt-4">
                     <p className="text-[#63B846] flex gap-2 items-center">

@@ -41,14 +41,14 @@ const Partners = ({ data }: PartnersProps) => {
               <h3 className="text-xl md:text-4xl font-light text-black text-center mb-4 md:mb-8 tracking-tight">
                 {data.partnersTitle}
               </h3>
-              <div className="grid grid-cols-6 border-b border-gray-200">
+              <div className="grid grid-cols-6 border-gray-200 md:border-b">
                 {data.partners.map((partner, index) => (
                   <div
                     key={index}
-                    className={`col-span-3 flex items-center justify-center p-0 md:p-8 hover:-translate-y-0.5 transition-all duration-300 ${index > 0 ? "border-l border-gray-200" : ""
+                    className={`col-span-3 flex items-center justify-center p-0 md:p-8 hover:-translate-y-0.5 transition-all duration-300 ${index > 0 ? "md:border-l md:border-gray-200" : ""
                       }`}
                   >
-                    <div className="relative h-[20dvh] md:h-40 w-[12dvh] md:w-40">
+                    <div className="relative aspect-[4/5] w-full max-w-[120px] mx-auto md:aspect-auto md:h-40 md:w-40">
                       <Image
                         src={partner.image}
                         alt={partner.name}
@@ -66,19 +66,19 @@ const Partners = ({ data }: PartnersProps) => {
               <h3 className="text-xl md:text-4xl font-light text-black text-center mb-4 md:mb-8 tracking-tight">
                 {data.membershipsTitle}
               </h3>
-              <div className="grid grid-cols-6 border-b border-gray-200">
+              <div className="grid grid-cols-6 border-gray-200 md:border-b">
                 {data.memberships.map((membership, index) => (
                   <div
                     key={index}
-                    className={`col-span-2 flex items-center justify-center p-3 md:p-8 hover:-translate-y-0.5 transition-all duration-300 ${index > 0 ? "border-l border-gray-200" : ""
+                    className={`col-span-2 flex items-center justify-center p-3 md:p-8 hover:-translate-y-0.5 transition-all duration-300 ${index > 0 ? "md:border-l md:border-gray-200" : ""
                       }`}
                   >
-                    <div className="relative h-[20dvh] md:h-40 w-[12dvh] md:w-full">
+                    <div className="relative aspect-[4/5] w-full max-w-[120px] mx-auto md:aspect-auto md:h-40 md:w-full md:max-w-none">
                       <Image
                         src={membership.image}
                         alt={membership.name}
                         fill
-                        className="md:object-contain"
+                        className="object-contain"
                       />
                     </div>
                   </div>

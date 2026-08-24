@@ -52,25 +52,23 @@ const UnderOneRoof = ({ data }: UnderOneRoofProps) => {
             {/* Card 1: Solar Surplus Diversion */}
             {data.cards[0] && (
               <Reveal delay={0.1} className="md:col-span-2">
-                <div className="bg-white rounded-[20px] p-8 md:p-10 relative overflow-hidden flex flex-col  justify-between items-stretch min-h-[40dvh]   group hover:shadow-md transition-all duration-300 gap-6">
-                  {/* Left: Content */}
-                  <div className="flex flex-col gap-3 justify-center md:w-[85%] relative z-10">
+                <div className="bg-white rounded-[20px] p-8 md:p-10 relative overflow-hidden flex flex-col justify-center min-h-[40dvh]   group hover:shadow-md transition-all duration-300">
+                  {/* Card background image */}
+                  <Image
+                    src={data.cards[0].image}
+                    alt={data.cards[0].imageAlt}
+                    fill
+                    className="object-cover z-0 pointer-events-none group-hover:scale-102 transition-transform duration-700"
+                  />
+
+                  {/* Content */}
+                  <div className="flex flex-col gap-3 relative z-10">
                     <h3 className="text-xl md:text-2xl font-medium text-black tracking-tight leading-snug">
                       {data.cards[0].title}
                     </h3>
                     <p className="text-lg text-black leading-[1.2] tracking-tight">
                       {data.cards[0].description}
                     </p>
-                  </div>
-
-                  {/* Right: Image */}
-                  <div className="relative w-full md:w-[40%] h-40 md:h-auto rounded-[16px] overflow-hidden pointer-events-none self-stretch">
-                    <Image
-                      src={data.cards[0].image}
-                      alt={data.cards[0].imageAlt}
-                      fill
-                      className="object-cover group-hover:scale-102 transition-transform duration-700"
-                    />
                   </div>
                 </div>
               </Reveal>
@@ -103,8 +101,8 @@ const UnderOneRoof = ({ data }: UnderOneRoofProps) => {
             {/* Card 3: One App */}
             {data.cards[2] && (
               <Reveal delay={0.3}>
-                <div className="bg-white rounded-[20px]  md:px-10 relative overflow-hidden flex flex-col justify-between min-h-[380px]  hover:shadow-md transition-shadow duration-300">
-                  <div className="flex flex-col gap-3 p-10">
+                <div className="bg-white rounded-[20px] p-8 md:p-10 relative overflow-hidden flex flex-col justify-between min-h-[380px]  hover:shadow-md transition-shadow duration-300">
+                  <div className="flex flex-col gap-3 z-10">
                     <h3 className="text-xl md:text-2xl font-medium text-black tracking-tight leading-snug">
                       {data.cards[2].title}
                     </h3>

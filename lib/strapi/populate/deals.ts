@@ -5,7 +5,7 @@ export const philosophy =
   "populate[sections][on][deals.philosophy][populate][paragraphs]=true";
 
 export const dealsGrid =
-  "populate[sections][on][deals.deals-grid][populate][promotions]=true";
+  "populate[sections][on][deals.deals-grid][populate][promotions][populate]=image";
 
 export const waysToPay =
   "populate[sections][on][deals.ways-to-pay][populate][cards][populate]=image";
