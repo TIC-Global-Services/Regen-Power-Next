@@ -483,6 +483,7 @@ export const desktopFaqData = {
     "Here Are Your Answers To Some Of The Most Frequently Asked Questions About Battery Rebates And Solar Installations.",
   highlightCard: {
     title: "Contact us now to reserve your place!",
+    bgImage: "/promotion/faq.png",
     items: [
       {
         question: "What is the battery rebate scheme?",

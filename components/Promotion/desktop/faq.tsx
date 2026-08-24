@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
+import type { StaticImageData } from 'next/image';
 import Fade from '@/reuseables/fade';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Plus, Minus } from 'lucide-react';
@@ -24,6 +25,12 @@ export interface FaqProps {
     title: string;
     items: FaqHighlight[];
     ctaText?: string;
+    /**
+     * Optional image rendered as the highlight card's background.
+     * A tinted scrim keeps the text readable; omit it for the plain card.
+     * Accepts a URL string or an imported static asset.
+     */
+    bgImage?: string | StaticImageData;
   };
   faqItems: FaqItem[];
 }
@@ -64,6 +71,7 @@ const FAQItem = ({ question, answer, isOpen, onClick }: { question: string; answ
 
 const FAQ = ({ data }: { data: FaqProps }) => {
   const [openIndex, setOpenIndex] = useState<number | null>(1);
+  const { bgImage } = data.highlightCard;
 
   const toggleFAQ = (index: number) => {
     setOpenIndex(openIndex === index ? null : index);
@@ -88,21 +96,33 @@ const FAQ = ({ data }: { data: FaqProps }) => {
 
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-0 items-stretch">
             {/* Left Highlights Box */}
-            <div className="lg:col-span-6 bg-[#EEF6EB] rounded-[16px] p-6 md:p-12 text-black flex flex-col justify-between ">
-              <div className="space-y-5 ">
+            <div className="lg:col-span-6 relative overflow-hidden bg-[#EEF6EB] rounded-[16px] p-6 md:p-12 text-black flex flex-col justify-between">
+              {bgImage && (
+                <div className="absolute inset-0 z-0" aria-hidden="true">
+                  <img
+                    src={typeof bgImage === 'string' ? bgImage : bgImage.src}
+                    alt=""
+                    className="absolute inset-0 w-full h-full object-cover"
+                  />
+                  {/* Tinted scrim so the card text stays readable over the image */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-black/30 to-black/20" />
+                </div>
+              )}
+
+              <div className="relative z-10 space-y-5">
                 {data.highlightCard.items.map((item, idx) => (
                   <div key={idx} className="space-y-2 border-b border-black/10 pb-5 last:border-b-0 last:pb-0">
                     <h4 className="font-bold text-sm md:text-[1.625rem] tracking-tight leading-[1.2] text-[#63B846]">
                       {item.question}
                     </h4>
                     {item.bulletPoints ? (
-                      <ul className="list-disc pl-4 space-y-1 mt-1 text-xs md:text-xl leading-[1.2] font-normal text-black/80">
+                      <ul className="list-disc pl-4 space-y-1 mt-1 text-xs md:text-xl leading-[1.2] font-normal text-white">
                         {item.bulletPoints.map((point, i) => (
                           <li key={i}>{point}</li>
                         ))}
                       </ul>
                     ) : (
-                      <div className="text-xs md:text-xl leading-[1.2] font-normal text-black/80">
+                      <div className="text-xs md:text-xl leading-[1.2] font-normal text-white">
                         {item.answer}
                       </div>
                     )}
@@ -110,7 +130,7 @@ const FAQ = ({ data }: { data: FaqProps }) => {
                 ))}
               </div>
 
-              <h3 className="text-base md:text-[1.625rem] font-bold tracking-tight text-[#63B846]">
+              <h3 className="relative z-10 text-base md:text-[1.625rem] font-bold tracking-tight text-[#63B846]">
                 {data.highlightCard.title}
               </h3>
             </div>
