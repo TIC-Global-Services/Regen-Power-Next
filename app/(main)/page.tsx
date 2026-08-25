@@ -26,7 +26,7 @@ import type {
   HomeSmartSolarData,
   HomeBatteryQuoteData,
 } from "@/lib/strapi/schemas";
-import HeroSection from "@/components/home/Hero";
+import Home3dHero from "@/components/home/home3d/Home3dHero";
 import AwardAndRecognations from "@/components/home/awardandrecognations";
 import WhyChooseUs from "@/components/home/whychooseus";
 import Expertise from "@/components/home/expertise";
@@ -39,7 +39,6 @@ import FeatureExplorer from "@/reuseables/FeatureExplorer";
 import FeatureCardGrid from "@/reuseables/FeatureCardGrid";
 
 // ─── Fallback images (used until real media is uploaded in Strapi) ──────
-import heroBg from "@/assets/home/home_hero_bg.png";
 import atlogo from "@/assets/home/awardandrecognations/at_logo.png";
 import belmont from "@/assets/home/awardandrecognations/belmont_logo.jpg";
 import eupd from "@/assets/home/awardandrecognations/eupd_logo.png";
@@ -143,15 +142,15 @@ const Home = async () => {
   console.log("heroProps",heroProps)
 
   return (
-    <div className="overflow-hidden">
-      {heroProps && (
-        <HeroSection
-          data={{
-            ...heroProps,
-            mediaSrc: heroProps.mediaSrc || heroBg,
-          }}
-        />
-      )}
+    <div>
+      <Home3dHero
+        topSubtitle={heroProps?.topSubtitle}
+        mainTitle={heroProps?.mainTitle}
+        description={heroProps?.description}
+        ctaText={heroProps?.ctaText}
+        ctaLink={heroProps?.ctaLink}
+        ctaTextColor={heroProps?.CtatextColor}
+      />
 
       {awardsProps && (
         <AwardAndRecognations

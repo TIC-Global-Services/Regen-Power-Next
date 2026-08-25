@@ -212,13 +212,29 @@ const Navbar = () => {
     return () => window.removeEventListener('keydown', onKeyDown);
   }, [isMobileMenuOpen, closeMenu]);
 
+  // Sync header chrome with the 3D hero pin: fades out during the scrub so the
+  // full-bleed image breathes edge-to-edge, fades back at the very end.
+  // Hero writes document.documentElement.dataset.heroChrome = "visible"|"hidden".
+  useEffect(() => {
+    const header = document.querySelector("header[data-hero-chrome]") as HTMLElement | null;
+    if (!header) return;
+    const obs = new MutationObserver(() => {
+      const v = document.documentElement.dataset.heroChrome ?? "visible";
+      header.dataset.heroChrome = v;
+    });
+    // Initialize from current value (hero may have mounted first)
+    header.dataset.heroChrome = document.documentElement.dataset.heroChrome ?? "visible";
+    obs.observe(document.documentElement, { attributes: true, attributeFilter: ["data-hero-chrome"] });
+    return () => obs.disconnect();
+  }, []);
+
   return (
     <>
       {/* Fixed header — NOTE: the hide-on-scroll uses a transform (translate-y).
           A transform on an ancestor makes it the containing block for any
           position:fixed descendant (shrinking it to that ancestor's box), so the
           mobile overlay is rendered as a SIBLING below, outside this <header>. */}
-      <header className="fixed top-0 left-0 right-0 z-50 w-full py-6 px-4 md:px-8">
+      <header className="fixed top-0 left-0 right-0 z-50 w-full py-6 px-4 md:px-6 transition-all duration-500 data-[hero-chrome=hidden]:pointer-events-none data-[hero-chrome=hidden]:-translate-y-4 data-[hero-chrome=hidden]:opacity-0" data-hero-chrome="visible">
         <div className="px-[5%] md:px-[3%] flex items-center justify-between">
         {/* Logo — swap to the white variant while the dark overlay is open */}
         <Link href="/" className="flex-shrink-0 z-50">
@@ -227,7 +243,7 @@ const Navbar = () => {
             alt="Regen Power"
             width={180}
             height={60}
-            className="h-12 w-auto object-contain"
+            className="h-14 w-auto object-contain"
           />
         </Link>
 
