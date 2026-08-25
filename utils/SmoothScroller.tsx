@@ -4,6 +4,7 @@ import Lenis from "lenis";
 import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
 import gsap from "gsap";
 import { usePathname } from "next/navigation";
+import { setLenis } from "./lenisBridge";
 
 interface LenisProviderProps {
   children: ReactNode;
@@ -49,6 +50,7 @@ const SmoothScroller = ({ children }: LenisProviderProps) => {
       });
 
       lenisRef.current = lenis;
+      setLenis(lenis);
 
       lenis.on("scroll", () => ScrollTrigger.update());
 
@@ -88,6 +90,7 @@ const SmoothScroller = ({ children }: LenisProviderProps) => {
     });
 
     return () => {
+      setLenis(null);
       lenisRef.current?.destroy();
       ScrollTrigger.killAll();
     };
