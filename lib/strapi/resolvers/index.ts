@@ -383,8 +383,8 @@ export type {
   ResolvedGridItem,
 } from "./reviews";
 
-export { resolveContactHero } from "./contact";
-export type { ResolvedContactHero } from "./contact";
+export { resolveContactHero, resolveContactFormSection } from "./contact";
+export type { ResolvedContactHero, ResolvedContactFormSection } from "./contact";
 
 export {
   resolveBlogHero,

@@ -78,12 +78,12 @@ const Footer = () => {
         <div className="flex justify-center mb-12">
           <a
             href="tel:0894563491"
-            className="inline-flex items-center gap-2 text-base md:text-lg text-gray-200 border border-[#8dc63f]/40 rounded-full px-6 py-2.5 hover:bg-white/5 transition-colors"
+            className="inline-flex items-center justify-center gap-2 max-w-full text-sm md:text-lg text-gray-200 border border-[#8dc63f]/40 rounded-full px-4 py-2.5 md:px-6 hover:bg-white/5 transition-colors"
           >
-            <Phone size={18} className="text-[#8dc63f]" />
-            <span>
+            <Phone size={18} className="shrink-0 text-[#8dc63f]" />
+            <span className="text-center">
               Need help? Call our expert team on{' '}
-              <span className="text-[#8dc63f] font-medium">08 9456 3491</span>
+              <span className="text-[#8dc63f] font-medium whitespace-nowrap">08 9456 3491</span>
             </span>
           </a>
         </div>

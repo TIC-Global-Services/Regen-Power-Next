@@ -500,7 +500,7 @@ export const getPortfolioProject = async (
 export const getContactPage = () =>
   getSingleType(
     PAGE_SLUGS.contact,
-    populate(contact.hero)
+    populate(contact.hero, contact.quoteForm)
   );
 
 export const getGovernmentRebatesPage = () =>

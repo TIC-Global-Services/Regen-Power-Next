@@ -11,3 +11,11 @@ export const ContactHeroSchema = z.object({
   backgroundImage: MediaSchema.nullable(),
 });
 export type ContactHeroData = z.infer<typeof ContactHeroSchema>;
+
+/** Matches the `contact.contact-form-section` component in Strapi. */
+export const ContactFormSectionSchema = z.object({
+  __component: z.literal("contact.contact-form-section"),
+  title: z.string().nullable(),
+  description: z.string().nullable(),
+});
+export type ContactFormSectionData = z.infer<typeof ContactFormSectionSchema>;

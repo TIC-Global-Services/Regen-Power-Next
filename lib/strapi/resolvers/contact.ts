@@ -1,5 +1,5 @@
 import { strapiImageData } from "../media";
-import type { ContactHeroData } from "../schemas/contact";
+import type { ContactHeroData, ContactFormSectionData } from "../schemas/contact";
 
 export interface ResolvedContactHero {
   subtitle: string;
@@ -21,5 +21,19 @@ export function resolveContactHero(
     ctaText: data.ctaText ?? "Get Your Free Quote",
     ctaLink: data.ctaLink ?? "#quote-form",
     backgroundImage: img?.src ?? "",
+  };
+}
+
+export interface ResolvedContactFormSection {
+  title: string;
+  description: string;
+}
+export function resolveContactFormSection(
+  data: ContactFormSectionData | undefined
+): ResolvedContactFormSection | null {
+  if (!data) return null;
+  return {
+    title: data.title ?? "",
+    description: data.description ?? "",
   };
 }
