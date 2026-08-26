@@ -1,7 +1,8 @@
 'use client';
 
-import React, { useRef, useState, useEffect, useCallback } from 'react';
+import React from 'react';
 import CtaButton from '@/reuseables/CtaButton';
+import { SliderDots, SliderArrows, useSnapSlider } from '@/reuseables/MobileSliderControls';
 
 interface Solution {
     title: string;
@@ -58,32 +59,7 @@ const ThreeSolutionsSection: React.FC<ThreeSolutionsSectionProps> = ({
     description,
     solutions,
 }) => {
-    const sliderRef = useRef<HTMLDivElement>(null);
-    const [activeIndex, setActiveIndex] = useState(0);
-
-    const handleScroll = useCallback(() => {
-        const slider = sliderRef.current;
-        if (!slider) return;
-        const scrollLeft = slider.scrollLeft;
-        const cardWidth = slider.children[0]?.clientWidth ?? 1;
-        const gap = 16; // gap-4 = 1rem = 16px
-        const index = Math.round(scrollLeft / (cardWidth + gap));
-        setActiveIndex(Math.min(index, solutions.length - 1));
-    }, [solutions.length]);
-
-    useEffect(() => {
-        const slider = sliderRef.current;
-        if (!slider) return;
-        slider.addEventListener('scroll', handleScroll, { passive: true });
-        return () => slider.removeEventListener('scroll', handleScroll);
-    }, [handleScroll]);
-
-    const scrollToIndex = (index: number) => {
-        const slider = sliderRef.current;
-        if (!slider || !slider.children[index]) return;
-        const child = slider.children[index] as HTMLElement;
-        slider.scrollTo({ left: child.offsetLeft - slider.offsetLeft, behavior: 'smooth' });
-    };
+    const { trackRef, sync, active, canPrev, canNext, goTo, next, prev } = useSnapSlider(solutions.length);
 
     return (
         <section className="py-16 lg:py-24 bg-white">
@@ -110,9 +86,10 @@ const ThreeSolutionsSection: React.FC<ThreeSolutionsSectionProps> = ({
                 {/* Mobile slider */}
                 <div className="lg:hidden">
                     <div
-                        ref={sliderRef}
-                        className="flex gap-4 overflow-x-auto pl-[5%] pr-[5%] [&::-webkit-scrollbar]:hidden"
-                        style={{ WebkitOverflowScrolling: 'touch', scrollbarWidth: 'none', msOverflowStyle: 'none' }}
+                        ref={trackRef}
+                        onScroll={sync}
+                        className="flex gap-4 overflow-x-auto  pl-[5%] pr-[5%] [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]"
+                        style={{ WebkitOverflowScrolling: 'touch' }}
                     >
                         {solutions.map((sol, idx) => (
                             <div
@@ -124,20 +101,8 @@ const ThreeSolutionsSection: React.FC<ThreeSolutionsSectionProps> = ({
                         ))}
                     </div>
 
-                    {/* Dot indicators */}
-                    <div className="flex justify-center gap-2 mt-5">
-                        {solutions.map((_, index) => (
-                            <button
-                                key={index}
-                                aria-label={`Go to slide ${index + 1}`}
-                                onClick={() => scrollToIndex(index)}
-                                className={`rounded-full transition-all duration-300 ${index === activeIndex
-                                    ? 'w-7 h-2.5 bg-[#63B846]'
-                                    : 'w-2.5 h-2.5 bg-black/20'
-                                    }`}
-                            />
-                        ))}
-                    </div>
+                    <SliderDots count={solutions.length} active={active} onSelect={goTo} className="mt-5" />
+                    <SliderArrows canPrev={canPrev} canNext={canNext} onPrev={prev} onNext={next} className="mt-4 px-[5%]" />
                 </div>
             </div>
         </section>

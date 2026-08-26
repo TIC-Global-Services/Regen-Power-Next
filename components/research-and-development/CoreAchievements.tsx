@@ -253,7 +253,7 @@ const CoreAchievements = ({ resolved }: Props) => {
             GSAP supplies the coverflow pose, autoplay and (desktop) grab-drag. */}
         <div
           ref={trackRef}
-          className="relative flex overflow-x-auto snap-x snap-mandatory [perspective:1200px] [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none] cursor-grab active:cursor-grabbing select-none"
+          className="relative flex overflow-x-auto  [perspective:1200px] [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none] cursor-grab active:cursor-grabbing select-none"
         >
           {Array.from({ length: COPIES }).map((_, copyIdx) => (
             <React.Fragment key={copyIdx}>

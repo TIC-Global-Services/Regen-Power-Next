@@ -1,9 +1,9 @@
 'use client';
 
-import React, { useRef } from 'react';
+import React from 'react';
 import Image, { StaticImageData } from 'next/image';
-import { ArrowLeft, ArrowRight } from 'lucide-react';
 import Reveal from '@/reuseables/Reveal';
+import { SliderDots, SliderArrows, useSnapSlider } from '@/reuseables/MobileSliderControls';
 
 export interface ExpertiseItem {
   title: string;
@@ -24,22 +24,11 @@ interface ExpertiseProps {
 }
 
 const Expertise = ({ data }: ExpertiseProps) => {
-  const carouselRef = useRef<HTMLDivElement>(null);
-
-  const scrollNext = () => {
-    if (carouselRef.current) {
-      carouselRef.current.scrollBy({ left: 320, behavior: 'smooth' });
-    }
-  };
-
-  const scrollPrev = () => {
-    if (carouselRef.current) {
-      carouselRef.current.scrollBy({ left: -320, behavior: 'smooth' });
-    }
-  };
+  // Dark section (navy overlay) — dots use the white variant.
+  const { trackRef, sync, active, canPrev, canNext, goTo, next, prev } = useSnapSlider(data.items.length);
 
   return (
-    <section className="py-20 md:py-20 relative overflow-hidden max-h-screen min-h-screen">
+    <section className="py-20 md:py-20 relative overflow-hidden lg:min-h-screen lg:max-h-screen">
       {/* Background Image */}
       <div className="absolute inset-0 z-0">
         <Image
@@ -66,8 +55,9 @@ const Expertise = ({ data }: ExpertiseProps) => {
         {/* Cards Carousel/Grid */}
         <div className='relative w-full h-full'>
           <div
-            ref={carouselRef}
-            className="flex overflow-x-auto items-stretch lg:grid lg:grid-cols-4 gap-4 md:gap-6 px-[5%] pt-4 pb-6 lg:pb-0 scrollbar-hide"
+            ref={trackRef}
+            onScroll={sync}
+            className="flex overflow-x-auto items-stretch lg:grid lg:snap-none lg:grid-cols-4 gap-4 md:gap-6 px-[5%] md:px-[0%] pt-4 pb-6 lg:pb-0 scrollbar-hide"
             style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
           >
             {data.items.map((item, index) => (
@@ -105,23 +95,10 @@ const Expertise = ({ data }: ExpertiseProps) => {
             ))}
           </div>
 
-          {/* Mobile Navigation Buttons */}
-          <div className="flex justify-end mt-2 lg:hidden gap-3 pr-2">
-            <button
-              onClick={scrollPrev}
-              className="bg-[#f0f6ec] hover:bg-[#8dc63f] transition-colors p-3 rounded-full text-black hover:text-white shadow-md focus:outline-none"
-              aria-label="Previous items"
-            >
-              <ArrowLeft size={24} />
-            </button>
-            <button
-              onClick={scrollNext}
-              className="bg-[#f0f6ec] hover:bg-[#8dc63f] transition-colors p-3 rounded-full text-black hover:text-white shadow-md focus:outline-none"
-              aria-label="Next items"
-            >
-              <ArrowRight size={24} />
-            </button>
-          </div>
+          {/* Mobile controls — same dots/arrows as the other native sliders.
+              px-[5%] matches the track's gutter (this section has no outer padding). */}
+          <SliderDots count={data.items.length} active={active} onSelect={goTo} className="mt-4 lg:hidden" dark />
+          <SliderArrows canPrev={canPrev} canNext={canNext} onPrev={prev} onNext={next} className="mt-2 lg:hidden px-[5%]" />
 
         </div>
       </div>

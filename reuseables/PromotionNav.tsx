@@ -24,8 +24,8 @@ const PromotionNav = () => {
         </div>
         <div className='flex gap-4 items-center'>
           <div className='lg:flex gap-2 hidden'>
-            <CtaButton text='About Us' textColor='text-white' textClass="text-xs md:text-sm" onClick={() => handleScrollToSection('about-us')} />
-            <CtaButton text='Battery Packages' textColor='text-white' textClass="text-xs md:text-sm" onClick={() => handleScrollToSection('battery-packages')} />
+            <CtaButton text='About Us' icon={null} textColor='text-white' textClass="text-xs md:text-sm" onClick={() => handleScrollToSection('about-us')} />
+            <CtaButton text='Battery Packages' icon={null} textColor='text-white' textClass="text-xs md:text-sm" onClick={() => handleScrollToSection('battery-packages')} />
             <CtaButton text='Free Quote' textColor='text-white' onClick={handleScrollToQuote} />
             <CtaButton text='Call 08-9456-3491' textColor='text-white' textClass="text-xs md:text-sm" href="tel:0894563491" icon={Phone} />
           </div>

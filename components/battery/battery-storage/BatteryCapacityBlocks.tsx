@@ -1,6 +1,9 @@
+"use client";
+
 import React from 'react';
 import CtaButton from '@/reuseables/CtaButton';
 import Fade from '@/reuseables/fade';
+import { SliderDots, SliderArrows, useSnapSlider } from '@/reuseables/MobileSliderControls';
 
 export interface CapacityCard {
   title: string;
@@ -19,6 +22,7 @@ export interface BatteryCapacityData {
 }
 
 const BatteryCapacityBlocks = ({ data }: { data: BatteryCapacityData }) => {
+  const { trackRef, sync, active, canPrev, canNext, goTo, next, prev } = useSnapSlider(data.cards.length);
   return (
     <Fade>
       <section className="bg-white py-16 md:py-24 px-[5%] md:px-[3%]">
@@ -37,7 +41,7 @@ const BatteryCapacityBlocks = ({ data }: { data: BatteryCapacityData }) => {
           </div>
 
           {/* Mobile: Horizontal Slider */}
-          <div className="flex overflow-x-auto md:hidden gap-4 -mx-[5%] px-[5%] md:px-[3%] [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none] pb-4 mb-10">
+          <div ref={trackRef} onScroll={sync} className="flex overflow-x-auto md:hidden gap-4  -mx-[5%] px-[5%] md:px-[3%] [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none] pb-4 mb-10">
             {data.cards.map((card, idx) => (
               <div
                 key={idx}
@@ -61,6 +65,9 @@ const BatteryCapacityBlocks = ({ data }: { data: BatteryCapacityData }) => {
               </div>
             ))}
           </div>
+
+          <SliderDots count={data.cards.length} active={active} onSelect={goTo} className="mt-5 md:hidden" />
+          <SliderArrows canPrev={canPrev} canNext={canNext} onPrev={prev} onNext={next} className="mt-4 md:hidden" />
 
           {/* Desktop: Cards Grid */}
           <div className="hidden md:grid md:grid-cols-3 gap-5 md:gap-2 mb-10 justify-center max-w-6xl mx-auto">

@@ -2,6 +2,7 @@
 
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { SliderDots, SliderArrows, useSnapSlider } from '@/reuseables/MobileSliderControls';
 
 export interface MeaningCard {
   title: string;
@@ -17,6 +18,7 @@ export interface SolarBatteryMeaningData {
 
 const SolarBatteryMeaning = ({ data }: { data: SolarBatteryMeaningData }) => {
   const [activeIndex, setActiveIndex] = useState(0);
+  const { trackRef, sync, active, canPrev, canNext, goTo, next, prev } = useSnapSlider(data.cards.length);
 
   return (
     <section className="bg-white py-16 md:py-24 px-[5%] md:px-[3%]">
@@ -33,7 +35,7 @@ const SolarBatteryMeaning = ({ data }: { data: SolarBatteryMeaningData }) => {
       </div>
 
       {/* Mobile: Horizontal Slider */}
-      <div className="flex overflow-x-auto md:hidden gap-4 -mx-[5%] px-[5%] md:px-[3%] [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none] pb-4 max-w-7xl">
+      <div ref={trackRef} onScroll={sync} className="flex overflow-x-auto md:hidden gap-4  -mx-[5%] px-[5%] md:px-[3%] [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none] pb-4 max-w-7xl">
         {data.cards.map((card, idx) => {
           return (
             <div
@@ -53,6 +55,9 @@ const SolarBatteryMeaning = ({ data }: { data: SolarBatteryMeaningData }) => {
           );
         })}
       </div>
+
+      <SliderDots count={data.cards.length} active={active} onSelect={goTo} className="mt-5 md:hidden" />
+      <SliderArrows canPrev={canPrev} canNext={canNext} onPrev={prev} onNext={next} className="mt-4 md:hidden" />
 
       {/* Desktop: Grid */}
       <div className="hidden sm:grid sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-4">

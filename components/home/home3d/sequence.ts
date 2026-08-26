@@ -3,6 +3,12 @@ export const FRAME_COUNT = 674;
 export const FRAME_SRC = (index: number) =>
   `/sequence/frame_${String(index + 1).padStart(4, "0")}.webp`;
 
+// Native resolution of the exported frames — used to size decode-time
+// downscaling so cached frames never hold more resolution than the device
+// can actually display.
+export const FRAME_NATIVE_WIDTH = 1920;
+export const FRAME_NATIVE_HEIGHT = 1080;
+
 // Frames 1-91: plays once on load.
 export const INTRO_RANGE = { start: 0, end: 90 };
 export const INTRO_FPS = 30;

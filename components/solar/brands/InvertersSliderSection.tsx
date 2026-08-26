@@ -1,9 +1,11 @@
 "use client";
 
-import React, { useRef } from "react";
+import React from "react";
+import type { StaticImageData } from "next/image";
 import Reveal from "@/reuseables/Reveal";
 import SectionHeader from "@/reuseables/SectionHeader";
 import { ArrowLeft, ArrowRight } from "lucide-react";
+import { SliderDots, useSnapSlider } from "@/reuseables/MobileSliderControls";
 import type {
   ResolvedBrandsInverter,
   ResolvedBrandsInvertersSlider,
@@ -14,22 +16,12 @@ import sungrowLogo from "@/assets/solar/brands-tech/sungrow.png";
 import goodweLogo from "@/assets/solar/brands-tech/goodwe.png";
 import istoreLogo from "@/assets/solar/brands-tech/istore.png";
 
-const logoMap: Record<string, any> = {
+const logoMap: Record<string, StaticImageData | undefined> = {
   Fronius: froniusLogo,
   Sungrow: sungrowLogo,
   GoodWe: goodweLogo,
   iStore: istoreLogo,
 };
-
-/** Gap between cards — must match the `gap-6` on the track. */
-const CARD_GAP = 24;
-
-/**
- * Scroll offset per button press — one full card (380px) + the gap.
- * Fixed and recalculated to the card pitch, mirroring how BatteryJargon
- * scrolls by a fixed 380. `snap-center` then lands the next card centered.
- */
-const CARD_STEP = 380 + CARD_GAP; // 404px
 
 /* --------------------------------- Card --------------------------------- */
 
@@ -43,7 +35,7 @@ const InverterCard: React.FC<{ item: ResolvedBrandsInverter }> = ({ item }) => {
         <div className="relative w-[150px] h-[100px] mb-10 flex items-center">
           {logo ? (
             <img
-              src={logo?.src || logo}
+              src={logo.src}
               alt={item.name}
               style={{ objectFit: "contain", width: "auto", height: "100%" }}
             />
@@ -108,14 +100,11 @@ const InvertersSliderSection: React.FC<InvertersSliderSectionProps> = ({
   resolved,
 }) => {
   const inverters = resolved.inverters ?? [];
-  const trackRef = useRef<HTMLDivElement>(null);
-
-  const scrollByStep = (dir: 1 | -1) => {
-    trackRef.current?.scrollBy({
-      left: dir * CARD_STEP,
-      behavior: "smooth",
-    });
-  };
+  // Hook measures the real card pitch, so arrows/dots work on both the 80vw
+  // mobile cards and the fixed-width desktop ones (the old hardcoded 404px
+  // step was wrong on phones).
+  const { trackRef, sync, active, canPrev, canNext, goTo, next, prev } =
+    useSnapSlider(inverters.length);
 
   if (inverters.length === 0) return null;
 
@@ -139,7 +128,8 @@ const InvertersSliderSection: React.FC<InvertersSliderSectionProps> = ({
           <div className="w-full lg:w-[78%]">
             <div
               ref={trackRef}
-              className="flex gap-4 md:gap-6 overflow-x-auto -mx-[5%] px-[5%] md:px-[3%] [&::-webkit-scrollbar]:hidden"
+              onScroll={sync}
+              className="flex gap-4 md:gap-6 overflow-x-auto  -mx-[5%] px-[5%] md:px-[3%] [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]"
               style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
             >
               {inverters.map((item, idx) => (
@@ -155,19 +145,29 @@ const InvertersSliderSection: React.FC<InvertersSliderSectionProps> = ({
           </div>
         </div>
 
+        {/* Mobile dots — desktop keeps its arrow-only controls */}
+        <SliderDots
+          count={inverters.length}
+          active={active}
+          onSelect={goTo}
+          className="mt-5 lg:hidden"
+        />
+
         {/* Controls */}
         <div className="flex justify-end gap-2 md:gap-4 mt-8 pr-[5%]">
           <button
-            onClick={() => scrollByStep(-1)}
+            onClick={prev}
+            disabled={!canPrev}
             aria-label="Previous inverter"
-            className="p-2 md:p-4 rounded-full border border-gray-200 transition-colors cursor-pointer text-white bg-black hover:bg-black/60"
+            className="p-2 md:p-4 rounded-full border border-gray-200 transition-colors cursor-pointer text-white bg-black hover:bg-black/60 disabled:opacity-30 disabled:cursor-not-allowed"
           >
             <ArrowLeft size={20} />
           </button>
           <button
-            onClick={() => scrollByStep(1)}
+            onClick={next}
+            disabled={!canNext}
             aria-label="Next inverter"
-            className="p-2 md:p-4 rounded-full border border-gray-200 transition-colors cursor-pointer text-white bg-black hover:bg-black/60"
+            className="p-2 md:p-4 rounded-full border border-gray-200 transition-colors cursor-pointer text-white bg-black hover:bg-black/60 disabled:opacity-30 disabled:cursor-not-allowed"
           >
             <ArrowRight size={20} />
           </button>

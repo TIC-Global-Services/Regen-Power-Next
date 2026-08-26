@@ -1,7 +1,8 @@
 'use client';
-import React, { useRef, useState, useCallback, useEffect } from 'react';
+import React from 'react';
 import Link from 'next/link';
 import { ArrowRight } from 'lucide-react';
+import { SliderDots, SliderArrows, useSnapSlider } from '@/reuseables/MobileSliderControls';
 
 export type StoryCardVariant = 'default' | 'highlighted' | 'light';
 
@@ -36,32 +37,7 @@ const OffGridStory: React.FC<OffGridStoryProps> = ({
     featuredHref,
     showReadMore = false,
 }) => {
-    const sliderRef = useRef<HTMLDivElement>(null);
-    const [activeIndex, setActiveIndex] = useState(0);
-
-    const handleScroll = useCallback(() => {
-        const slider = sliderRef.current;
-        if (!slider) return;
-        const scrollLeft = slider.scrollLeft;
-        const cardWidth = slider.children[0]?.clientWidth ?? 1;
-        const gap = 16;
-        const index = Math.round(scrollLeft / (cardWidth + gap));
-        setActiveIndex(Math.min(index, cards.length - 1));
-    }, [cards.length]);
-
-    useEffect(() => {
-        const slider = sliderRef.current;
-        if (!slider) return;
-        slider.addEventListener('scroll', handleScroll, { passive: true });
-        return () => slider.removeEventListener('scroll', handleScroll);
-    }, [handleScroll]);
-
-    const scrollToIndex = (index: number) => {
-        const slider = sliderRef.current;
-        if (!slider || !slider.children[index]) return;
-        const child = slider.children[index] as HTMLElement;
-        slider.scrollTo({ left: child.offsetLeft - slider.offsetLeft, behavior: 'smooth' });
-    };
+    const { trackRef, sync, active, canPrev, canNext, goTo, next, prev } = useSnapSlider(cards.length);
 
     const featuredContent = (
         <>
@@ -128,9 +104,10 @@ const OffGridStory: React.FC<OffGridStoryProps> = ({
                 {/* Mobile slider */}
                 <div className="sm:hidden mt-8 mb-10">
                     <div
-                        ref={sliderRef}
-                        className="flex gap-4 overflow-x-auto -mx-[0%] px-[5%] [&::-webkit-scrollbar]:hidden"
-                        style={{ WebkitOverflowScrolling: 'touch', scrollbarWidth: 'none', msOverflowStyle: 'none' }}
+                        ref={trackRef}
+                        onScroll={sync}
+                        className="flex gap-4 overflow-x-auto  -mx-[0%] px-[5%] [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]"
+                        style={{ WebkitOverflowScrolling: 'touch' }}
                     >
                         {cards.map((card, idx) => {
                             const isGreen = idx % 2 === 0;
@@ -154,20 +131,8 @@ const OffGridStory: React.FC<OffGridStoryProps> = ({
                         })}
                     </div>
 
-                    {/* Dot indicators */}
-                    <div className="flex justify-center gap-2 mt-5">
-                        {cards.map((_, index) => (
-                            <button
-                                key={index}
-                                aria-label={`Go to slide ${index + 1}`}
-                                onClick={() => scrollToIndex(index)}
-                                className={`rounded-full transition-all duration-300 ${index === activeIndex
-                                    ? 'w-7 h-2.5 bg-[#63B846]'
-                                    : 'w-2.5 h-2.5 bg-black/20'
-                                    }`}
-                            />
-                        ))}
-                    </div>
+                    <SliderDots count={cards.length} active={active} onSelect={goTo} className="mt-5" />
+                    <SliderArrows canPrev={canPrev} canNext={canNext} onPrev={prev} onNext={next} className="mt-4" />
                 </div>
 
                 <div className="mt-0 md:mt-20 px-[5%] md:px-[0%]">

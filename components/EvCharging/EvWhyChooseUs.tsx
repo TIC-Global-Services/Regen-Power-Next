@@ -56,18 +56,14 @@ export interface WhyChooseCard {
   /** Award card — logo images */
   logoBg?: StaticImageData | string;
   logo?: StaticImageData | string;
-  mobileLogo?: string;
 
   /** Award card — counter */
   count?: number;
   countSuffix?: string;
-  mobileCount?: number;
-  mobileCountSuffix?: string;
 
   /** Award card — text */
   title?: string;
   description?: string;
-  mobileTitle?: string;
 
   /** Installations card */
   combinedText?: string;
@@ -89,51 +85,51 @@ interface EvWhyChooseUsProps {
   data: EvWhyChooseUsData;
 }
 
-/* ─── Desktop Card Components ──────────────────────────── */
+/* ─── Card Components (unified — breakpoints swap the look) ─── */
 
-const DesktopAwardCard = ({ card }: { card: WhyChooseCard }) => (
+const AwardCard = ({ card }: { card: WhyChooseCard }) => (
   <motion.div
     variants={itemVariants}
-    className="rounded-[20px] p-4 flex flex-col h-full"
+    className="rounded-[24px] lg:rounded-[20px] p-4 flex flex-col items-start lg:h-full"
     style={{ backgroundColor: card.bgColor }}
   >
-    {/* Logo badge */}
+    {/* Logo badge — contained pill below lg, full-bleed cover badge with
+        overlaid logo at lg+ */}
     {card.logoBg && (
-      <div className="w-full relative aspect-[2/1] rounded-3xl overflow-hidden mb-4 lg:mb-8 flex items-center justify-center">
+      <div className="relative w-full self-center rounded-[20px] py-4 px-2 mb-6 lg:mb-8 lg:py-0 lg:px-0 lg:aspect-[2/1] lg:rounded-3xl lg:overflow-hidden flex items-center justify-center">
         <Image
           src={card.logoBg}
           alt="Award Background"
-          fill
-          className="object-cover z-0"
+          width={800}
+          height={400}
+          className="w-full h-auto object-contain lg:absolute lg:inset-0 lg:h-full lg:object-cover"
         />
         {card.logo && (
           <Image
             src={card.logo}
             alt="Award Logo"
             fill
-            className="object-contain p-4 z-10 relative"
+            className="hidden lg:block object-contain p-4 z-10"
           />
         )}
       </div>
     )}
 
     {/* Counter + text */}
-    <div className="mt-auto py-4 px-4">
+    <div className="w-full px-2 lg:px-4 lg:py-4 lg:mt-auto">
       {card.count !== undefined && (
-        <h3 className="text-[4rem] lg:text-[3.125rem] font-normal text-black tracking-tight leading-none">
+        <h3 className="text-5xl lg:text-[3.125rem] font-bold lg:font-normal text-black mb-1 lg:mb-0 tracking-tight leading-none">
           <AnimatedCounter from={0} to={card.count} />
-          <span className="text-[3rem] lg:text-[2.125rem]">
-            {card.countSuffix}
-          </span>
+          <span className="lg:text-[2.125rem]">{card.countSuffix}</span>
         </h3>
       )}
       {card.title && (
-        <h4 className="text-2xl lg:text-[3.125rem] leading-none text-black font-medium tracking-tight leading-tight">
+        <h4 className="text-xl lg:text-[3.125rem] font-medium text-black text-left leading-tight tracking-tight">
           {card.title}
         </h4>
       )}
       {card.description && (
-        <p className="text-2xl text-black leading-[1.2] mt-1 tracking-tight">
+        <p className="text-base lg:text-2xl text-black leading-[1.2] mt-1 tracking-tight">
           {card.description}
         </p>
       )}
@@ -141,23 +137,23 @@ const DesktopAwardCard = ({ card }: { card: WhyChooseCard }) => (
   </motion.div>
 );
 
-const DesktopInstallationsCard = ({ card }: { card: WhyChooseCard }) => (
+const InstallationsCard = ({ card }: { card: WhyChooseCard }) => (
   <motion.div
     variants={itemVariants}
-    className="rounded-[20px] p- relative flex flex-col h-full min-h-[450px] lg:min-h-[500px] overflow-hidden"
+    className="rounded-[24px] lg:rounded-[20px] relative flex flex-col overflow-hidden min-h-[340px] lg:min-h-[450px] lg:h-full"
     style={{ backgroundColor: card.bgColor }}
   >
     {/* Combined stat text */}
     {card.combinedText && (
-      <p className="text-2xl py-6 px-6 lg:text-[2.375rem] text-black font-normal leading-[1.1] tracking-tight relative z-10">
+      <p className="text-[1.25rem] lg:text-[2.375rem] p-6 pr-12 lg:pr-6 max-w-[85%] lg:max-w-none text-black font-normal leading-[1.2] lg:leading-[1.1] tracking-tight relative z-10">
         {card.combinedText}
       </p>
     )}
 
     {/* Product image */}
     {card.productImage && (
-      <div className="relative w-full flex-1 flex items-end justify-center">
-        <div className="relative w-full h-full min-h-[200px]">
+      <div className="relative w-full flex-1 mt-auto flex items-end justify-center">
+        <div className="relative w-full h-[220px] lg:h-full lg:min-h-[200px]">
           <Image
             src={card.productImage}
             alt="Product"
@@ -170,28 +166,39 @@ const DesktopInstallationsCard = ({ card }: { card: WhyChooseCard }) => (
   </motion.div>
 );
 
-const DesktopYearsCard = ({ card }: { card: WhyChooseCard }) => (
+const YearsCard = ({ card }: { card: WhyChooseCard }) => (
   <motion.div
     variants={itemVariants}
-    className="rounded-[20px] p-6 relative overflow-hidden flex flex-col justify-end h-full min-h-[350px] lg:min-h-[500px]"
+    className="rounded-[24px] lg:rounded-[20px] p-6 relative overflow-hidden flex flex-col justify-end min-h-[320px] lg:min-h-[450px] lg:h-full"
     style={{ backgroundColor: card.bgColor }}
   >
-    {/* Background image */}
+    {/* Background image — stacked banner below lg, full-bleed backdrop at lg+
+        (the two treatments need different DOM, hence the visibility toggle) */}
     {card.backgroundImage && (
-      <div className="absolute inset-0 -right-5 top-0  z-0">
-        <Image
-          src={card.backgroundImage}
-          alt="Background"
-          fill
-          className="object-contain object-right-top opacity-90"
-        />
-      </div>
+      <>
+        <div className="relative w-full h-[200px] md:h-[20dvh] lg:hidden -mx-6 mt-[-24px] mb-6">
+          <Image
+            src={card.backgroundImage}
+            alt="Background"
+            fill
+            className="object-cover object-center"
+          />
+        </div>
+        <div className="absolute inset-0 -right-5 top-0 z-0 hidden lg:block">
+          <Image
+            src={card.backgroundImage}
+            alt="Background"
+            fill
+            className="object-contain object-right-top opacity-90"
+          />
+        </div>
+      </>
     )}
 
-    {/* Text overlay */}
+    {/* Text */}
     <div className="relative z-10 w-full">
       {card.yearsText && (
-        <p className="text-2xl lg:text-[2.375rem] text-black font-normal tracking-tight leading-[1.1]">
+        <p className="text-xl md:text-2xl lg:text-[2.375rem] md:max-w-xl lg:max-w-none font-medium lg:font-normal text-black text-left tracking-tight leading-snug lg:leading-[1.1]">
           {card.yearsText}
         </p>
       )}
@@ -199,117 +206,15 @@ const DesktopYearsCard = ({ card }: { card: WhyChooseCard }) => (
   </motion.div>
 );
 
-/* ─── Mobile Card Components ───────────────────────────── */
+/* ─── Render Map ───────────────────────────────────────── */
 
-const MobileAwardCard = ({ card }: { card: WhyChooseCard }) => (
-  <div
-    className="rounded-[24px] p-4 flex flex-col items-start"
-    style={{ backgroundColor: card.bgColor }}
-  >
-    {/* Logo pill */}
-    {card.logoBg && (
-      <div className="rounded-[20px] py-4 px-2 w-full flex items-center justify-center mb-6 self-center">
-        <Image
-          src={card.logoBg}
-          alt="Logo"
-          width={160}
-          height={40}
-          className="object-contain h-full w-full"
-        />
-      </div>
-    )}
-
-    {/* Counter + text */}
-    <div className="flex flex-col items-start w-full px-2">
-      {(card.mobileCount ?? card.count) !== undefined && (
-        <h3 className="text-5xl font-bold text-black mb-1 tracking-tight leading-none">
-          <AnimatedCounter from={0} to={(card.mobileCount ?? card.count)!} />
-          {card.mobileCountSuffix ?? card.countSuffix}
-        </h3>
-      )}
-      {(card.mobileTitle ?? card.title) && (
-        <p className="text-xl font-medium text-black text-left leading-tight">
-          {card.mobileTitle ?? card.title}
-        </p>
-      )}
-    </div>
-  </div>
-);
-
-const MobileInstallationsCard = ({ card }: { card: WhyChooseCard }) => (
-  <div
-    className="rounded-[24px] p-0 relative flex flex-col overflow-hidden min-h-[380px]"
-    style={{ backgroundColor: card.bgColor }}
-  >
-    {/* Combined stat text */}
-    {card.combinedText && (
-      <p className="text-[1.25rem] p-6 text-black font-normal leading-[1.2] pr-12 max-w-[85%] text-left">
-        {card.combinedText}
-      </p>
-    )}
-
-    {/* Product image */}
-    {card.productImage && (
-      <div className="relative w-full flex-1 mt-auto flex justify-center items-end">
-        <div className="relative w-full h-[260px]">
-          <Image
-            src={card.productImage}
-            alt="Product"
-            fill
-            className="object-contain object-bottom"
-          />
-        </div>
-      </div>
-    )}
-  </div>
-);
-
-const MobileYearsCard = ({ card }: { card: WhyChooseCard }) => (
-  <div
-    className="rounded-[24px] overflow-hidden flex flex-col min-h-[360px]"
-    style={{ backgroundColor: card.bgColor }}
-  >
-    {/* Background image at top */}
-    {card.backgroundImage && (
-      <div className="relative w-full h-[200px] md:h-[30dvh]">
-        <Image
-          src={card.backgroundImage}
-          alt="Background"
-          fill
-          className="object-cover object-center"
-        />
-      </div>
-    )}
-
-    {/* Text at bottom */}
-    <div className="p-6 mt-auto">
-      {card.yearsText && (
-        <p className="text-xl md:text-2xl md:max-w-xl font-medium text-black text-left leading-snug">
-          {card.yearsText}
-        </p>
-      )}
-    </div>
-  </div>
-);
-
-/* ─── Render Maps ──────────────────────────────────────── */
-
-const DESKTOP_RENDERERS: Record<
+const CARD_RENDERERS: Record<
   WhyChooseCard['variant'],
   React.FC<{ card: WhyChooseCard }>
 > = {
-  award: DesktopAwardCard,
-  installations: DesktopInstallationsCard,
-  years: DesktopYearsCard,
-};
-
-const MOBILE_RENDERERS: Record<
-  WhyChooseCard['variant'],
-  React.FC<{ card: WhyChooseCard }>
-> = {
-  award: MobileAwardCard,
-  installations: MobileInstallationsCard,
-  years: MobileYearsCard,
+  award: AwardCard,
+  installations: InstallationsCard,
+  years: YearsCard,
 };
 
 /* ─── Main Component ───────────────────────────────────── */
@@ -328,27 +233,21 @@ const EvWhyChooseUs = ({ data }: EvWhyChooseUsProps) => {
           </p>
         </div>
 
-        {/* Desktop — 3-column grid */}
+        {/* Cards — one grid, one renderer set:
+            phones stack · iPad = 2 cols (odd trailing card spans full row)
+            · desktop = 3 cols */}
         <motion.div
           variants={containerVariants}
           initial="hidden"
           whileInView="show"
           viewport={{ once: true, margin: '-100px' }}
-          className="hidden lg:grid lg:grid-cols-3 gap-6 auto-rows-fr"
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 auto-rows-fr md:[&>*:last-child:nth-child(odd)]:col-span-2"
         >
           {data.cards.map((card, index) => {
-            const Component = DESKTOP_RENDERERS[card.variant];
+            const Component = CARD_RENDERERS[card.variant];
             return <Component key={index} card={card} />;
           })}
         </motion.div>
-
-        {/* Mobile — stacked cards */}
-        <div className="lg:hidden flex flex-col gap-6">
-          {data.cards.map((card, index) => {
-            const Component = MOBILE_RENDERERS[card.variant];
-            return <Component key={index} card={card} />;
-          })}
-        </div>
       </div>
     </section>
   );

@@ -1,4 +1,4 @@
-import { getHomePage } from "@/lib/strapi";
+import { getHomePage, getTestimonials, getLatestBlogArticles } from "@/lib/strapi";
 import { findSection } from "@/lib/strapi/section-utils";
 import {
   resolveHomeHero,
@@ -10,6 +10,8 @@ import {
   resolveHomeThreeWaysToPay,
   resolveHomeCraftmanship,
   resolveHomeRealStories,
+  resolveHomeReviewsFromCollection,
+  resolveSmartSolarCardsFromArticles,
   resolveHomeSmartSolar,
   resolveHomeBatteryQuote,
 } from "@/lib/strapi/resolvers";
@@ -34,7 +36,7 @@ import Partners from "@/components/home/partners";
 import ZeroInterestFinancing from "@/components/home/zerointerestfinancing";
 import Craftsmanship from "@/components/home/craftmanship";
 import RealStories from "@/components/home/realStories";
-import BatteryQuote from "@/components/home/batteryQuote";
+import QuoteSection from "@/reuseables/QuoteSection";
 import FeatureExplorer from "@/reuseables/FeatureExplorer";
 import FeatureCardGrid from "@/reuseables/FeatureCardGrid";
 
@@ -77,12 +79,20 @@ import bestRatedBatch from "@/assets/home/realstories/best_rated_batch.png";
 import topPanelInstallers from "@/assets/home/realstories/top_panel_installers.png";
 import topRated from "@/assets/home/realstories/top_rated.jpg";
 import googleLogo from "@/assets/home/realstories/google_logo.svg";
+import productReviewLogo from "@/assets/home/realstories/productReview.svg";
 import batteryQuoteImg from "@/assets/home/batteryquote/battery_quote_temp.png";
 
 export const revalidate = 60;
 
 const Home = async () => {
-  const { data } = await getHomePage();
+  // Testimonials for the Real Stories marquee come from the shared
+  // `testimonial` collection (same source as the reviews page grid), and the
+  // Smart Solar cards show the latest `blog-article` entries.
+  const [{ data }, { data: testimonialEntries }, latestArticles] = await Promise.all([
+    getHomePage(),
+    getTestimonials(),
+    getLatestBlogArticles(3),
+  ]);
   const sections = data.sections ?? [];
 
   const hero = findSection<HomeHeroData>(sections, "home.hero");
@@ -121,7 +131,12 @@ const Home = async () => {
   const threeWaysProps = resolveHomeThreeWaysToPay(threeWays);
   const craftProps = resolveHomeCraftmanship(craftsmanship);
   const realStoriesProps = resolveHomeRealStories(realStories);
+  const collectionReviews = resolveHomeReviewsFromCollection(testimonialEntries);
   const smartSolarProps = resolveHomeSmartSolar(smartSolar);
+  // Smart Solar cards: latest blog entries, falling back to the CMS cards.
+  const latestSmartSolarCards = resolveSmartSolarCardsFromArticles(latestArticles);
+  const smartSolarCards =
+    latestSmartSolarCards.length > 0 ? latestSmartSolarCards : (smartSolarProps?.cards ?? []);
   const batteryQuoteProps = resolveHomeBatteryQuote(batteryQuote);
 
   const awardFallbacks = [atlogo, fast100, eupd, financialtimes, belmont];
@@ -241,9 +256,21 @@ const Home = async () => {
           data={{
             ...realStoriesProps,
             googleLogo: realStoriesProps.googleLogo || googleLogo,
+            productReviewLogo,
             badges: realStoriesProps.badges.map((b, i) => ({
               ...b,
               src: b.src || realBadgeFallbacks[i % realBadgeFallbacks.length],
+            })),
+            // Prefer the shared testimonial collection; fall back to the
+            // section's inline reviews if the collection is empty.
+            // Source badges alternate google / productreview by card position.
+            reviews: (
+              collectionReviews.length > 0
+                ? collectionReviews
+                : realStoriesProps.reviews
+            ).map((r, i) => ({
+              ...r,
+              source: i % 2 === 0 ? ("google" as const) : ("productreview" as const),
             })),
           }}
         />
@@ -254,7 +281,8 @@ const Home = async () => {
           topSubtitle={smartSolarProps.topSubtitle}
           title={smartSolarProps.title}
           bottomSubtitle={smartSolarProps.bottomSubtitle}
-          cards={smartSolarProps.cards}
+          cards={smartSolarCards}
+          textBg
           centerButton={!!smartSolarProps.centerButtonText}
           centerButtonText={smartSolarProps.centerButtonText}
           centerButtonLink={smartSolarProps.centerButtonLink}
@@ -262,11 +290,12 @@ const Home = async () => {
       )}
 
       {batteryQuoteProps && (
-        <BatteryQuote
-          data={{
-            ...batteryQuoteProps,
-            image: batteryQuoteProps.image || batteryQuoteImg,
-          }}
+        <QuoteSection
+          variant="classic"
+          subtitle={batteryQuoteProps.subtitle}
+          title={batteryQuoteProps.title}
+          description={batteryQuoteProps.description}
+          image={batteryQuoteProps.image || batteryQuoteImg}
         />
       )}
     </div>

@@ -12,7 +12,7 @@ interface CtaButtonProps {
   hoverClass?: string;
   className?: string;
   onClick?: (e: React.MouseEvent<HTMLAnchorElement | HTMLButtonElement>) => void;
-  icon?: LucideIcon;
+  icon?: LucideIcon | null;
   iconBgClass?: string;
   iconTextColor?: string;
   disabled?: boolean;
@@ -42,19 +42,22 @@ const CtaButton: React.FC<CtaButtonProps> = ({
   textClass = 'text-sm ',
   buttonTextClass = '',
 }) => {
+  const hasIcon = !!Icon;
   const content = (
     <>
-      <span className={`pl-4 ${textClass} tracking-tight whitespace-nowrap min-w-0 flex-1 ${buttonTextClass}`}>
+      <span className={`${hasIcon ? 'pl-4' : 'px-1'} ${textClass} tracking-tight whitespace-nowrap min-w-0 flex-1 ${buttonTextClass}`}>
         {text}
       </span>
-      {/* Icon chip: turns black w/ white glyph when the button is hovered */}
-      <div className={`${iconBgClass} ${iconTextColor} group-hover:bg-black group-hover:text-white p-2 rounded-full shrink-0 group-hover:scale-110 transition-all duration-300 flex items-center justify-center`}>
-        <Icon size={16} strokeWidth={2.5} />
-      </div>
+      {/* Icon chip: turns black w/ white glyph when the button is hovered — hidden when icon={null} */}
+      {hasIcon && (
+        <div className={`${iconBgClass} ${iconTextColor} group-hover:bg-black group-hover:text-white p-2 rounded-full shrink-0 group-hover:scale-110 transition-all duration-300 flex items-center justify-center`}>
+          <Icon size={16} strokeWidth={2.5} />
+        </div>
+      )}
     </>
   );
 
-  const combinedClasses = `inline-flex items-center gap-3 ${bgClass} ${borderClass} ${textColor} px-1.5 py-2 md:py-1.5 rounded-full ${hoverClass} transition-all duration-300 group ${className} ${disabled ? 'opacity-50 pointer-events-none' : ''}`;
+  const combinedClasses = `inline-flex items-center ${hasIcon ? 'gap-3 px-1.5' : 'px-5'} ${bgClass} ${borderClass} ${textColor} py-2 md:py-1.5 rounded-full ${hoverClass} transition-all duration-300 group ${className} ${disabled ? 'opacity-50 pointer-events-none' : ''}`;
 
   // Protocol links (tel:, mailto:) must bypass the Next.js client-side router
   // and render as plain anchors so the OS handles them natively.

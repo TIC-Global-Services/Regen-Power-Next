@@ -1,7 +1,8 @@
 'use client';
-import React, { useRef, useState, useCallback, useEffect } from 'react';
+import React from 'react';
 import Image, { StaticImageData } from 'next/image';
 import CtaButton from '@/reuseables/CtaButton';
+import { SliderDots, SliderArrows, useSnapSlider } from '@/reuseables/MobileSliderControls';
 
 export interface OverlayCard {
     title: string;
@@ -37,32 +38,8 @@ const OverlayCardGrid: React.FC<OverlayCardGridProps> = ({
     overlayOpacity = 60,
     className = '',
 }) => {
-    const sliderRef = useRef<HTMLDivElement>(null);
-    const [activeIndex, setActiveIndex] = useState(0);
-
-    const handleScroll = useCallback(() => {
-        const slider = sliderRef.current;
-        if (!slider) return;
-        const scrollLeft = slider.scrollLeft;
-        const cardWidth = slider.children[0]?.clientWidth ?? 1;
-        const gap = 16;
-        const index = Math.round(scrollLeft / (cardWidth + gap));
-        setActiveIndex(Math.min(index, cards.length - 1));
-    }, [cards.length]);
-
-    useEffect(() => {
-        const slider = sliderRef.current;
-        if (!slider) return;
-        slider.addEventListener('scroll', handleScroll, { passive: true });
-        return () => slider.removeEventListener('scroll', handleScroll);
-    }, [handleScroll]);
-
-    const scrollToIndex = (index: number) => {
-        const slider = sliderRef.current;
-        if (!slider || !slider.children[index]) return;
-        const child = slider.children[index] as HTMLElement;
-        slider.scrollTo({ left: child.offsetLeft - slider.offsetLeft, behavior: 'smooth' });
-    };
+    // Dark section — dots use the white variant so they stay visible.
+    const { trackRef, sync, active, canPrev, canNext, goTo, next, prev } = useSnapSlider(cards.length);
 
     return (
         <section className={`relative w-full min-h-screen flex items-center justify-center overflow-hidden ${className}`}>
@@ -145,9 +122,10 @@ const OverlayCardGrid: React.FC<OverlayCardGridProps> = ({
                     {/* Mobile slider */}
                     <div className="mt-8 md:hidden w-full">
                         <div
-                            ref={sliderRef}
-                            className="flex gap-4 md:gap-6 overflow-x-auto -mx-[5%] px-[5%] md:px-[3%] [&::-webkit-scrollbar]:hidden"
-                            style={{ WebkitOverflowScrolling: 'touch', scrollbarWidth: 'none', msOverflowStyle: 'none' } as React.CSSProperties}
+                            ref={trackRef}
+                            onScroll={sync}
+                            className="flex gap-4 md:gap-6 overflow-x-auto  -mx-[5%] px-[5%] md:px-[3%] [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]"
+                            style={{ WebkitOverflowScrolling: 'touch' } as React.CSSProperties}
                         >
                             {cards.map((card, idx) => (
                                 <article
@@ -164,20 +142,8 @@ const OverlayCardGrid: React.FC<OverlayCardGridProps> = ({
                             ))}
                         </div>
 
-                        {/* Dot indicators */}
-                        <div className="flex justify-center gap-2 mt-5">
-                            {cards.map((_, index) => (
-                                <button
-                                    key={index}
-                                    aria-label={`Go to slide ${index + 1}`}
-                                    onClick={() => scrollToIndex(index)}
-                                    className={`rounded-full transition-all duration-300 ${index === activeIndex
-                                        ? 'w-7 h-2.5 bg-[#63B846]'
-                                        : 'w-2.5 h-2.5 bg-white/30'
-                                        }`}
-                                />
-                            ))}
-                        </div>
+                        <SliderDots count={cards.length} active={active} onSelect={goTo} className="mt-5" dark />
+                        <SliderArrows canPrev={canPrev} canNext={canNext} onPrev={prev} onNext={next} className="mt-4" />
                     </div>
                 </div>
             </div>

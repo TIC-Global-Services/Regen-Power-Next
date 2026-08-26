@@ -6,6 +6,7 @@ import Image, { StaticImageData } from 'next/image';
 import Fade from '@/reuseables/fade';
 import Reveal from '@/reuseables/Reveal';
 import SectionHeader from '@/reuseables/SectionHeader';
+import { SliderDots, SliderArrows, useSnapSlider } from '@/reuseables/MobileSliderControls';
 
 export interface BetCard {
   title: string;
@@ -26,6 +27,8 @@ export interface BrandLongTermBetProps {
 const BrandLongTermBet: React.FC<BrandLongTermBetProps> = ({ data }) => {
   if (!data) return null;
 
+  const { trackRef, sync, active, canPrev, canNext, goTo, next, prev } = useSnapSlider(data.cards.length);
+
   return (
     <section className="py-16 md:py-20 bg-white overflow-hidden">
       <Fade>
@@ -41,7 +44,7 @@ const BrandLongTermBet: React.FC<BrandLongTermBetProps> = ({ data }) => {
           />
 
           {/* Slider: mobile + iPad */}
-          <div className="flex overflow-x-auto lg:hidden gap-4 -mx-[5%] px-[5%] md:-mx-[3%] md:px-[3%] [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none] pb-4">
+          <div ref={trackRef} onScroll={sync} className="flex overflow-x-auto lg:hidden gap-4  -mx-[5%] px-[5%] md:-mx-[3%] md:px-[3%] [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none] pb-4">
             {data.cards.map((card, index) => (
               <div key={index} className="relative rounded-[24px] overflow-hidden min-h-[420px] w-[75vw] md:w-[45vw] shrink-0 snap-start group flex-none">
                 {/* Background Image */}
@@ -70,6 +73,9 @@ const BrandLongTermBet: React.FC<BrandLongTermBetProps> = ({ data }) => {
               </div>
             ))}
           </div>
+
+          <SliderDots count={data.cards.length} active={active} onSelect={goTo} className="mt-5 lg:hidden" />
+          <SliderArrows canPrev={canPrev} canNext={canNext} onPrev={prev} onNext={next} className="mt-4 lg:hidden" />
 
           {/* Desktop: >Cards Grid (lg+) */}
           <div className="hidden lg:grid lg:grid-cols-3 gap-5 md:gap-6">

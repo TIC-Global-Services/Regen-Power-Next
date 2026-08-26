@@ -149,7 +149,7 @@ const StatCard = ({card,className = "",emphasizeTitle = false,blurredBgImage = f
             <div className={`flex items-start gap-2 md:gap-3 ${inlineContent ? "flex-row items-center text-white" : "flex-col text-black"}`}>
               <div className="flex  items-center gap-2 md:gap-3">
                 {card.count != null && (
-                  <span className="text-[3.5rem] lg:text-[5.5rem] font-bold leading-none tracking-tighter whitespace-nowrap ">
+                  <span className="text-[3.5rem] md:text-[4.5rem] lg:text-[5.5rem] font-bold leading-none tracking-tighter whitespace-nowrap ">
                     {card.prefix}
                     <AnimatedCounter from={0} to={card.count} />
                     {card.suffix}
@@ -161,12 +161,12 @@ const StatCard = ({card,className = "",emphasizeTitle = false,blurredBgImage = f
                   alt=""
                   width={30}
                   height={30}
-                  className="w-7 h-7 md:w-7 md:h-7 shrink-0"
+                  className="w-7 h-7 md:w-9 md:h-9 lg:w-7 lg:h-7 shrink-0"
                 />}
               
               </div>
               {card.title && (
-                <span className="text-2xl lg:text-4xl  leading-[1.2] tracking-tight font-normal whitespace-pre-line">
+                <span className="text-2xl md:text-3xl lg:text-4xl  leading-[1.2] tracking-tight font-normal whitespace-pre-line">
                   {card.title}
                 </span>
               )}
@@ -248,11 +248,11 @@ const WhyChooseUs: React.FC<WhyChooseUsProps> = ({
           // ignored by older iOS Safari / WebViews, so use amount for identical
           // cross-browser reveal timing.
           viewport={{ once: true, amount: 0.15 }}
-          className="grid grid-cols-1 lg:grid-cols-3 gap-4 lg:gap-6 lg:auto-rows-fr"
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6 lg:auto-rows-fr"
         >
           {/* Award — tall left */}
           {cards[0] && (
-            <StatCard card={cards[0]} className="md:h-full md:min-h-[55dvh]" />
+            <StatCard card={cards[0]} className="md:h-full md:min-h-[35dvh]" />
           )}
 
           {/* Installations — tall middle */}
@@ -262,14 +262,14 @@ const WhyChooseUs: React.FC<WhyChooseUsProps> = ({
 
           {/* Right column — Years (grows) + Rating (fixed) */}
           {cards[2] && cards[3] && (
-            <div className="flex flex-col gap-4 lg:gap-6 lg:h-full">
+            <div className="grid gap-4 md:gap-6 md:grid-cols-2 md:col-span-2 lg:col-span-1 lg:grid-cols-1 lg:h-full lg:grid-rows-[1fr_auto]">
               <StatCard
                 card={cards[2]}
-                className="flex-grow min-h-[220px] md:min-h-[250px]"
+                className="min-h-[220px] md:min-h-[250px]"
                 emphasizeTitle
                 blurredBgImage
               />
-              <StatCard card={cards[3]} className="h-[140px] md:h-[160px]" inlineContent />
+              <StatCard card={cards[3]} className="h-[140px] md:h-auto lg:h-[160px]" inlineContent />
             </div>
           )}
         </motion.div>

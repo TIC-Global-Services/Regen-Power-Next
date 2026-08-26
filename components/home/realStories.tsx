@@ -8,12 +8,13 @@ import SectionHeader from "@/reuseables/SectionHeader";
 
 export interface ReviewItem {
     id: string;
+    /** Optional headline — collection-sourced reviews have no headline field. */
     systemTitle: string;
     quote: string;
     author: string;
     location: string;
     rating: number;
-    source: "google";
+    source: "google" | "productreview" | "website";
 }
 
 export interface BadgeItem {
@@ -28,6 +29,7 @@ export interface RealStoriesData {
     badges: BadgeItem[];
     reviews: ReviewItem[];
     googleLogo: StaticImageData | string;
+    productReviewLogo: StaticImageData | string;
 }
 
 interface RealStoriesProps {
@@ -54,14 +56,46 @@ const StarRating: React.FC<{ count: number }> = ({ count }) => (
 );
 
 
-const ReviewCard: React.FC<{ review: ReviewItem; googleLogo: StaticImageData | string }> = ({ review, googleLogo }) => (
+const SourceLogo: React.FC<{
+    source: ReviewItem["source"];
+    googleLogo: StaticImageData | string;
+    productReviewLogo: StaticImageData | string;
+}> = ({ source, googleLogo, productReviewLogo }) => {
+    if (source === "google") {
+        return (
+            <Image
+                src={googleLogo}
+                alt="Google"
+                className="h-8 w-auto"
+                height={24}
+                width={72}
+            />
+        );
+    }
+    if (source === "productreview") {
+        return (
+            <Image
+                src={productReviewLogo}
+                alt="ProductReview.com.au"
+                className="h-8 w-auto"
+                height={24}
+                width={72}
+            />
+        );
+    }
+    return null;
+};
+
+const ReviewCard: React.FC<{ review: ReviewItem; googleLogo: StaticImageData | string; productReviewLogo: StaticImageData | string }> = ({ review, googleLogo, productReviewLogo }) => (
     <div className="flex-shrink-0 w-[340px] md:w-[450px] bg-[#F0F6EC] rounded-2xl p-6 md:p-6 flex flex-col justify-between">
         {/* Header */}
         <div>
-            <h4 className="text-lg md:text-[2rem] tracking-tight text-black mb-3 leading-[1]">
-                {review.systemTitle}
-            </h4>
-            <p className="text-sm md:text-lg text-black tracking-tight leading-[1] mb-4">
+            {review.systemTitle ? (
+                <h4 className="text-lg md:text-[2rem] tracking-tight text-black mb-3 leading-[1]">
+                    {review.systemTitle}
+                </h4>
+            ) : null}
+            <p className="text-sm md:text-lg text-black tracking-tight leading-[1] mb-4 line-clamp-4">
                 &ldquo;{review.quote}&rdquo;
             </p>
             <p className="text-sm md:text-xl font-bold text-black">
@@ -71,15 +105,7 @@ const ReviewCard: React.FC<{ review: ReviewItem; googleLogo: StaticImageData | s
 
 
         <div className="flex items-center gap-3 mt-6 pt-4 ">
-            {review.source === "google" && (
-                <Image
-                    src={googleLogo}
-                    alt="Google"
-                    className="h-8 w-auto"
-                    height={24}
-                    width={72}
-                />
-            )}
+            <SourceLogo source={review.source} googleLogo={googleLogo} productReviewLogo={productReviewLogo} />
             <StarRating count={review.rating} />
         </div>
     </div>
@@ -128,7 +154,12 @@ const RealStories = ({ data }: RealStoriesProps) => {
 
             <Marquee direction="left" speed={40} gap={20} pauseOnHover>
                 {data.reviews.map((review) => (
-                    <ReviewCard key={review.id} review={review} googleLogo={data.googleLogo} />
+                    <ReviewCard
+                        key={review.id}
+                        review={review}
+                        googleLogo={data.googleLogo}
+                        productReviewLogo={data.productReviewLogo}
+                    />
                 ))}
             </Marquee>
         </section>

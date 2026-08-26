@@ -2,13 +2,9 @@
 
 import React from 'react';
 import Image, { StaticImageData } from 'next/image';
-import { Swiper, SwiperSlide } from 'swiper/react';
-import { Pagination } from 'swiper/modules';
 import Fade from '@/reuseables/fade';
 import Reveal from '@/reuseables/Reveal';
-
-import 'swiper/css';
-import 'swiper/css/pagination';
+import { SliderArrows, SliderDots, useSnapSlider } from '@/reuseables/MobileSliderControls';
 
 export interface Benefit {
   title: string;
@@ -26,7 +22,10 @@ interface WhyChargeAtHomeProps {
 }
 
 const WhyChargeAtHome = ({ data }: WhyChargeAtHomeProps) => {
-  const [paginationEl, setPaginationEl] = React.useState<HTMLDivElement | null>(null);
+  // Native scroll-snap slider (< lg) — same shared pattern as Expertise /
+  // FeatureCardGrid: free-scroll track with snap points + dots/arrows.
+  const { trackRef, sync, active, canPrev, canNext, goTo, next, prev } =
+    useSnapSlider(data.benefits.length);
 
   return (
     <Fade>
@@ -68,31 +67,20 @@ const WhyChargeAtHome = ({ data }: WhyChargeAtHomeProps) => {
             ))}
           </div>
 
-          {/* Mobile Layout (Swiper Slider) */}
-          <div
-            className="lg:hidden w-full relative"
-            style={{
-              '--swiper-pagination-color': '#63B846',
-              '--swiper-pagination-bullet-inactive-color': '#d1d5db',
-              '--swiper-pagination-bullet-inactive-opacity': '1',
-            } as React.CSSProperties}
-          >
-            <Swiper
-              modules={[Pagination]}
-              spaceBetween={20}
-              slidesPerView={1}
-              breakpoints={{
-                640: { slidesPerView: 2 },
-              }}
-              pagination={{
-                clickable: true,
-                el: paginationEl,
-              }}
-              className="w-full !items-stretch"
+          {/* Mobile / iPad Layout (native snap slider) */}
+          <div className="lg:hidden w-full relative">
+            <div
+              ref={trackRef}
+              onScroll={sync}
+              className="flex items-stretch overflow-x-auto -mx-[5%] px-[5%] md:-mx-[3%] md:px-[3%]  gap-5 pb-2 scrollbar-hide [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]"
             >
               {data.benefits.map((benefit, index) => (
-                <SwiperSlide key={index} className="!h-auto flex">
-                  <div className="bg-[#EEF6EB] rounded-[24px] overflow-hidden group hover:shadow-lg transition-all duration-500 flex flex-col w-full h-full">
+                <Reveal
+                  key={index}
+                  delay={index * 0.1}
+                  className="shrink-0 snap-start w-full sm:w-[calc(50%-10px)] flex flex-col"
+                >
+                  <div className="bg-[#EEF6EB] rounded-[24px] overflow-hidden group hover:shadow-lg transition-all duration-500 flex flex-col w-full flex-1">
 
                     {/* Image */}
                     <div className="relative w-full aspect-[16/10] overflow-hidden flex justify-center items-center shrink-0">
@@ -115,15 +103,13 @@ const WhyChargeAtHome = ({ data }: WhyChargeAtHomeProps) => {
                       </p>
                     </div>
                   </div>
-                </SwiperSlide>
+                </Reveal>
               ))}
-            </Swiper>
+            </div>
 
-            {/* Custom Pagination container placed outside Swiper wrapper to prevent overlapping */}
-            <div
-              ref={setPaginationEl}
-              className="swiper-pagination !relative !bottom-0 !mt-6 flex justify-center gap-1.5"
-            />
+            {/* Shared slider controls */}
+            <SliderDots count={data.benefits.length} active={active} onSelect={goTo} className="mt-6" />
+            <SliderArrows canPrev={canPrev} canNext={canNext} onPrev={prev} onNext={next} className="mt-3" />
           </div>
         </div>
       </section>

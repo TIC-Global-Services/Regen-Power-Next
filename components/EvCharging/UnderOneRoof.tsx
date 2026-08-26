@@ -87,12 +87,12 @@ const UnderOneRoof = ({ data }: UnderOneRoofProps) => {
                     </p>
                   </div>
 
-                  {/* Battery Render Image */}
+                  {/* Battery Render Image — flush with the card's bottom edge */}
                   <Image
                     src={data.cards[1].image}
                     alt={data.cards[1].imageAlt}
                     fill
-                    className="object-contain absolute bottom-10 pointer-events-none"
+                    className="object-contain object-bottom absolute inset-x-0 bottom-0 pointer-events-none"
                   />
                 </div>
               </Reveal>
@@ -111,17 +111,15 @@ const UnderOneRoof = ({ data }: UnderOneRoofProps) => {
                     </p>
                   </div>
 
-                  {/* Phone App Mockup Image with centered logo */}
-                  <div className="relative w-full h-[15dvh] mt-6 overflow-hidden pointer-events-none">
-                    <div className="absolute inset-x-0 bottom-0 flex justify-center">
-                      <div className="relative w-36 h-90 translate-y-10">
-                        <Image
-                          src={data.cards[2].image}
-                          alt={data.cards[2].imageAlt}
-                          fill
-                          className="object-cover"
-                        />
-                      </div>
+                  {/* Phone App Mockup — centered strip flush with the card's bottom edge */}
+                  <div className="absolute inset-x-0 bottom-0 flex justify-center pointer-events-none">
+                    <div className="relative w-72 h-72">
+                      <Image
+                        src={data.cards[2].image}
+                        alt={data.cards[2].imageAlt}
+                        fill
+                        className="object-cover object-top "
+                      />
                     </div>
                   </div>
                 </div>

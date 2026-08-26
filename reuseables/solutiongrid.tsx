@@ -1,8 +1,9 @@
 'use client';
 
-import React, { useRef, useState, useEffect, useCallback } from 'react';
+import React from 'react';
 import Image, { StaticImageData } from 'next/image';
 import SectionHeader from '@/reuseables/SectionHeader';
+import { SliderDots, SliderArrows, useSnapSlider } from '@/reuseables/MobileSliderControls';
 
 export type solutionCardVariant = 'light' | 'highlighted';
 export type solutionCardLayout = 4 | 6 | 8;
@@ -72,7 +73,8 @@ const SolutionCardView: React.FC<{ card: solutionCard; variant: solutionCardVari
     );
 };
 
-const solutionCardGrid: React.FC<solutionCardGridProps> = ({
+// Uppercase so calling useSnapSlider() inside satisfies the Rules of Hooks.
+const SolutionCardGrid: React.FC<solutionCardGridProps> = ({
     subtitle,
     title,
     description,
@@ -83,32 +85,7 @@ const solutionCardGrid: React.FC<solutionCardGridProps> = ({
     className = '',
     footer,
 }) => {
-    const sliderRef = useRef<HTMLDivElement>(null);
-    const [activeIndex, setActiveIndex] = useState(0);
-
-    const handleScroll = useCallback(() => {
-        const slider = sliderRef.current;
-        if (!slider) return;
-        const scrollLeft = slider.scrollLeft;
-        const cardWidth = slider.children[0]?.clientWidth ?? 1;
-        const gap = 20;
-        const index = Math.round(scrollLeft / (cardWidth + gap));
-        setActiveIndex(Math.min(index, cards.length - 1));
-    }, [cards.length]);
-
-    useEffect(() => {
-        const slider = sliderRef.current;
-        if (!slider) return;
-        slider.addEventListener('scroll', handleScroll, { passive: true });
-        return () => slider.removeEventListener('scroll', handleScroll);
-    }, [handleScroll]);
-
-    const scrollToIndex = (index: number) => {
-        const slider = sliderRef.current;
-        if (!slider || !slider.children[index]) return;
-        const child = slider.children[index] as HTMLElement;
-        slider.scrollTo({ left: child.offsetLeft - slider.offsetLeft, behavior: 'smooth' });
-    };
+    const { trackRef, sync, active, canPrev, canNext, goTo, next, prev } = useSnapSlider(cards.length);
 
     return (
         <section className={`py-10 md:py-24 bg-white ${className}`}>
@@ -143,9 +120,10 @@ const solutionCardGrid: React.FC<solutionCardGridProps> = ({
                 {/* Mobile slider */}
                 <div className="sm:hidden">
                     <div
-                        ref={sliderRef}
-                        className="flex gap-4 md:gap-6 overflow-x-auto -mx-[5%] px-[5%] md:px-[3%] [&::-webkit-scrollbar]:hidden"
-                        style={{ WebkitOverflowScrolling: 'touch', scrollbarWidth: 'none', msOverflowStyle: 'none' }}
+                        ref={trackRef}
+                        onScroll={sync}
+                        className="flex gap-4 md:gap-6 overflow-x-auto  -mx-[5%] px-[5%] md:px-[3%] [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]"
+                        style={{ WebkitOverflowScrolling: 'touch' }}
                     >
                         {cards.map((card, idx) => (
                             <div
@@ -157,20 +135,8 @@ const solutionCardGrid: React.FC<solutionCardGridProps> = ({
                         ))}
                     </div>
 
-                    {/* Dot indicators */}
-                    <div className="flex justify-center gap-2 mt-5">
-                        {cards.map((_, index) => (
-                            <button
-                                key={index}
-                                aria-label={`Go to slide ${index + 1}`}
-                                onClick={() => scrollToIndex(index)}
-                                className={`rounded-full transition-all duration-300 ${index === activeIndex
-                                    ? 'w-7 h-2.5 bg-[#63B846]'
-                                    : 'w-2.5 h-2.5 bg-black/20'
-                                    }`}
-                            />
-                        ))}
-                    </div>
+                    <SliderDots count={cards.length} active={active} onSelect={goTo} className="mt-5" />
+                    <SliderArrows canPrev={canPrev} canNext={canNext} onPrev={prev} onNext={next} className="mt-4" />
                 </div>
 
                 {footer && (
@@ -183,5 +149,5 @@ const solutionCardGrid: React.FC<solutionCardGridProps> = ({
     );
 };
 
-export default solutionCardGrid;
+export default SolutionCardGrid;
 

@@ -1,6 +1,9 @@
+"use client";
+
 import React from 'react';
 import Image, { StaticImageData } from 'next/image';
 import CtaButton from '@/reuseables/CtaButton';
+import { SliderDots, SliderArrows, useSnapSlider } from '@/reuseables/MobileSliderControls';
 
 export interface BrandSpecification {
   title: string;
@@ -24,6 +27,8 @@ export interface BatteryBrandsGridData {
 }
 
 const BatteryBrandsGrid = ({ data }: { data: BatteryBrandsGridData }) => {
+  const { trackRef, sync, active, canPrev, canNext, goTo, next, prev } = useSnapSlider(data.brands.length);
+
   return (
     <section className="bg-white py-8 md:py-16 px-[5%] md:px-[3%]">
       <div className="">
@@ -40,7 +45,11 @@ const BatteryBrandsGrid = ({ data }: { data: BatteryBrandsGridData }) => {
         </div>
 
         {/* Mobile: Horizontal Slider */}
-        <div className="flex overflow-x-auto lg:hidden gap-4 -mx-[5%] px-[5%] md:-mx-[3%] md:px-[3%] [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none] pb-4">
+        <div
+          ref={trackRef}
+          onScroll={sync}
+          className="flex overflow-x-auto lg:hidden gap-4 -mx-[5%] px-[5%] md:-mx-[3%] md:px-[3%] [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none] pb-4 "
+        >
           {data.brands.map((brand, idx) => {
             return (
               <div
@@ -75,6 +84,11 @@ const BatteryBrandsGrid = ({ data }: { data: BatteryBrandsGridData }) => {
               </div>
             );
           })}
+        </div>
+
+        <div className="lg:hidden">
+          <SliderDots count={data.brands.length} active={active} onSelect={goTo} className="mt-5" />
+          <SliderArrows canPrev={canPrev} canNext={canNext} onPrev={prev} onNext={next} className="mt-4" />
         </div>
 
         {/* Desktop: Grid */}

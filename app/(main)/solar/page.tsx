@@ -45,7 +45,7 @@ import EngineeringCustomizations from "@/components/solar/solarSystem/Engineerin
 
 import FAQ from "@/reuseables/faq";
 import GetSolar from "@/reuseables/getsolar";
-import LeadCaptureForm from "@/components/solar/solarSystem/LeadCaptureForm";
+import QuoteSection from "@/reuseables/QuoteSection";
 
 export const revalidate = 60;
 
@@ -105,14 +105,14 @@ const SolarPage = async () => {
       )}
 
       {formProps && (
-        <div id="quote-form">
-          <LeadCaptureForm
-            subtitle={formProps.subtitle}
-            title={formProps.title}
-            description={formProps.description}
-            image={formProps.image}
-          />
-        </div>
+        <QuoteSection
+          id="quote-form"
+          variant="solar"
+          subtitle={formProps.subtitle}
+          title={formProps.title}
+          description={formProps.description}
+          image={formProps.image}
+        />
       )}
 
       {ctaBannerProps && (

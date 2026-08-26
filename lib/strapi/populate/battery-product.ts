@@ -30,7 +30,7 @@ export const whatWeCheck =
   "populate[sections][on][battery-product.what-we-check][populate][paragraphs]=true";
 
 export const warrantyCoverage =
-  "populate[sections][on][battery-product.warranty-coverage][populate][cards]=true";
+  "populate[sections][on][battery-product.warranty-coverage][populate][cards][populate]=image";
 
 export const zeroInterest =
   "populate[sections][on][battery-product.zero-interest][populate][keyTerms][populate][items]=true" +

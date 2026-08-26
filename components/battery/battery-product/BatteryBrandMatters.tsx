@@ -1,6 +1,9 @@
+"use client";
+
 import React from 'react';
 import Image, { StaticImageData } from 'next/image';
 import businessBg from '@/assets/home/zerointrest/businessBg.jpg';
+import { SliderDots, SliderArrows, useSnapSlider } from '@/reuseables/MobileSliderControls';
 
 export interface BrandMatterCard {
   title: string;
@@ -16,6 +19,7 @@ export interface BatteryBrandMattersData {
 }
 
 const BatteryBrandMatters = ({ data }: { data: BatteryBrandMattersData }) => {
+  const { trackRef, sync, active, canPrev, canNext, goTo, next, prev } = useSnapSlider(data.cards.length);
   return (
     <section className="bg-white py-16 md:py-24 px-[5%] md:px-[3%]">
       <div className="">
@@ -35,7 +39,7 @@ const BatteryBrandMatters = ({ data }: { data: BatteryBrandMattersData }) => {
         </div>
 
         {/* Mobile + iPad: Horizontal Scroll */}
-        <div className="flex overflow-x-auto lg:hidden gap-4 -mx-[5%] px-[5%] md:-mx-[3%] md:px-[3%] [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none] ">
+        <div ref={trackRef} onScroll={sync} className="flex overflow-x-auto lg:hidden gap-4  -mx-[5%] px-[5%] md:-mx-[3%] md:px-[3%] [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none] ">
           {data.cards.map((card, idx) => (
             <div
               key={idx}
@@ -64,6 +68,9 @@ const BatteryBrandMatters = ({ data }: { data: BatteryBrandMattersData }) => {
             </div>
           ))}
         </div>
+
+        <SliderDots count={data.cards.length} active={active} onSelect={goTo} className="mt-5 lg:hidden" />
+        <SliderArrows canPrev={canPrev} canNext={canNext} onPrev={prev} onNext={next} className="mt-4 lg:hidden" />
 
         {/* Desktop (lg+): Grid */}
         <div className="hidden lg:grid lg:grid-cols-4 gap-2 md:gap-4">

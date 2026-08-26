@@ -36,7 +36,7 @@ const TextCardView: React.FC<{ card: TextCard; mobileScroll?: boolean; isHovered
     const titleLines = card.title.split('\n');
     return (
         <div
-            className={`${isHovered ? 'bg-[#3B3B33] text-white' : variantClass[card.variant]} rounded-2xl p-6 flex flex-col justify-center gap-5 aspect-[4/3] overflow-hidden transition-colors duration-300 ${mobileScroll ? 'shrink-0 w-[75vw] md:w-[40vw] lg:w-auto' : ''}`}
+            className={`${isHovered ? 'bg-[#3B3B33] text-white' : variantClass[card.variant]} rounded-2xl p-6 flex flex-col justify-between gap-5 aspect-[4/3] overflow-hidden transition-colors duration-300 ${mobileScroll ? 'shrink-0 w-[75vw] md:w-[40vw] lg:w-auto' : ''}`}
             onMouseEnter={onMouseEnter}
             onMouseLeave={onMouseLeave}
         >

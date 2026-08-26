@@ -40,9 +40,9 @@ const HomeBattery = ({ data }: HomeBatteryProps) => {
               </div>
             </Reveal>
 
-            {/* Right Side: Text & Details */}
+            {/* Right Side: Text & Details — full width below lg */}
             <Reveal delay={0.15}>
-              <div className="flex flex-col gap-2 max-w-[620px] justify-start">
+              <div className="flex flex-col gap-2 max-w-none lg:max-w-[620px] justify-start">
                 {/* Heading */}
                 <div className="leading-[1.1]">
                   <h2 className="text-2xl md:text-[2.125rem] font-medium text-black tracking-tight mb-1">
@@ -54,7 +54,7 @@ const HomeBattery = ({ data }: HomeBatteryProps) => {
                 </div>
 
                 {/* Description Paragraphs */}
-                <div className="flex flex-col gap-4 text-sm md:text-sm  leading-[1.2] font-normal">
+                <div className="flex flex-col gap-4 text-sm md:text-base lg:text-sm  leading-[1.2] font-normal">
                   {data.paragraphs.map((paragraph, index) => (
                     <p key={index}>
                       {paragraph}
@@ -67,7 +67,7 @@ const HomeBattery = ({ data }: HomeBatteryProps) => {
                   {data.bulletPoints.map((point, index) => (
                     <li
                       key={index}
-                      className="text-sm md:text-sm font-semibold text-black tracking-tight flex items-center gap-2"
+                      className="text-sm md:text-base lg:text-sm font-semibold text-black tracking-tight flex items-center gap-2"
                     >
                       <span className="w-1.5 h-1.5 rounded-full bg-black flex-shrink-0" />
                       {point}

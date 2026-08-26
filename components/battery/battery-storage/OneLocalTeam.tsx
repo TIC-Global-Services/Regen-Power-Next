@@ -5,6 +5,7 @@ import Image, { StaticImageData } from 'next/image';
 
 import CtaButton from '@/reuseables/CtaButton';
 import Fade from '@/reuseables/fade';
+import { SliderDots, SliderArrows, useSnapSlider } from '@/reuseables/MobileSliderControls';
 
 export interface TrustCard {
   image: StaticImageData | string;
@@ -45,6 +46,7 @@ const TrustCardItem = ({ card }: { card: TrustCard }) => (
 );
 
 const OneLocalTeam = ({ data }: { data: OneLocalTeamData }) => {
+  const { trackRef, sync, active, canPrev, canNext, goTo, next, prev } = useSnapSlider(data.cards.length);
   return (
     <Fade>
       <section className="bg-white py-16 md:py-24 px-[5%] md:px-[3%] overflow-hidden">
@@ -86,13 +88,16 @@ const OneLocalTeam = ({ data }: { data: OneLocalTeamData }) => {
           </div>
 
           {/* Mobile Layout (Horizontal Slider) */}
-          <div className="flex overflow-x-auto lg:hidden gap-4 -mx-[5%] px-[5%] md:-mx-[3%] md:px-[3%] [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none] pb-4 mb-8">
+          <div ref={trackRef} onScroll={sync} className="flex overflow-x-auto lg:hidden gap-4  -mx-[5%] px-[5%] md:-mx-[3%] md:px-[3%] [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none] pb-4 mb-8">
             {data.cards.map((card, idx) => (
               <div key={idx} className="w-[75vw] shrink-0 snap-start">
                 <TrustCardItem card={card} />
               </div>
             ))}
           </div>
+
+          <SliderDots count={data.cards.length} active={active} onSelect={goTo} className="mt-5 lg:hidden" />
+          <SliderArrows canPrev={canPrev} canNext={canNext} onPrev={prev} onNext={next} className="mt-4 lg:hidden" />
 
           {/* Mobile CTA */}
           <div className="lg:hidden text-center">

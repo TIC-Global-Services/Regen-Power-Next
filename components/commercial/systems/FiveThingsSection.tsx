@@ -1,8 +1,9 @@
 'use client';
 
-import React, { useRef, useState, useEffect, useCallback } from 'react';
+import React from 'react';
 import SectionHeader from '@/reuseables/SectionHeader';
 import Reveal from '@/reuseables/Reveal';
+import { SliderDots, SliderArrows, useSnapSlider } from '@/reuseables/MobileSliderControls';
 import type { ResolvedCommercialSystemsFiveThingsSection } from '@/lib/strapi/resolvers/commercial';
 
 interface Props {
@@ -11,32 +12,7 @@ interface Props {
 
 export default function FiveThingsSection({ resolved }: Props) {
   const { items } = resolved;
-  const sliderRef = useRef<HTMLDivElement>(null);
-  const [activeIndex, setActiveIndex] = useState(0);
-
-  const handleScroll = useCallback(() => {
-    const slider = sliderRef.current;
-    if (!slider) return;
-    const scrollLeft = slider.scrollLeft;
-    const cardWidth = slider.children[0]?.clientWidth ?? 1;
-    const gap = 16;
-    const index = Math.round(scrollLeft / (cardWidth + gap));
-    setActiveIndex(Math.min(index, items.length - 1));
-  }, [items.length]);
-
-  useEffect(() => {
-    const slider = sliderRef.current;
-    if (!slider) return;
-    slider.addEventListener('scroll', handleScroll, { passive: true });
-    return () => slider.removeEventListener('scroll', handleScroll);
-  }, [handleScroll]);
-
-  const scrollToIndex = (index: number) => {
-    const slider = sliderRef.current;
-    if (!slider || !slider.children[index]) return;
-    const child = slider.children[index] as HTMLElement;
-    slider.scrollTo({ left: child.offsetLeft - slider.offsetLeft, behavior: 'smooth' });
-  };
+  const { trackRef, sync, active, canPrev, canNext, goTo, next, prev } = useSnapSlider(items.length);
 
   return (
     <section className="py-12 lg:py-8 bg-white lg:min-h-[100dvh] flex flex-col justify-center overflow-hidden">
@@ -101,9 +77,10 @@ export default function FiveThingsSection({ resolved }: Props) {
         {/* Mobile slider */}
         <div className="lg:hidden mt-8">
           <div
-            ref={sliderRef}
-            className="flex gap-4 lg:gap-6 overflow-x-auto -mx-[3%] px-[5%] md:px-[3%] [&::-webkit-scrollbar]:hidden "
-            style={{ WebkitOverflowScrolling: 'touch', scrollbarWidth: 'none', msOverflowStyle: 'none' }}
+            ref={trackRef}
+            onScroll={sync}
+            className="flex gap-4 lg:gap-6 overflow-x-auto  -mx-[3%] px-[5%] md:px-[3%] [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]"
+            style={{ WebkitOverflowScrolling: 'touch' }}
           >
             {items.map((item, idx) => {
               const bg = item.highlight ? 'bg-[#63B846]' : 'bg-[#EEF6EB]';
@@ -130,20 +107,8 @@ export default function FiveThingsSection({ resolved }: Props) {
             })}
           </div>
 
-          {/* Dot indicators */}
-          <div className="flex justify-center gap-2 mt-5">
-            {items.map((_, index) => (
-              <button
-                key={index}
-                aria-label={`Go to slide ${index + 1}`}
-                onClick={() => scrollToIndex(index)}
-                className={`rounded-full transition-all duration-300 ${index === activeIndex
-                  ? 'w-7 h-2.5 bg-[#63B846]'
-                  : 'w-2.5 h-2.5 bg-black/20'
-                  }`}
-              />
-            ))}
-          </div>
+          <SliderDots count={items.length} active={active} onSelect={goTo} className="mt-5" />
+          <SliderArrows canPrev={canPrev} canNext={canNext} onPrev={prev} onNext={next} className="mt-4" />
         </div>
       </div>
     </section>

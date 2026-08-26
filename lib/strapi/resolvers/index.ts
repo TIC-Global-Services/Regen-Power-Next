@@ -33,6 +33,8 @@ export {
   resolveHomeThreeWaysToPay,
   resolveHomeCraftmanship,
   resolveHomeRealStories,
+  resolveHomeReviewsFromCollection,
+  resolveSmartSolarCardsFromArticles,
   resolveHomeSmartSolar,
   resolveHomeBatteryQuote,
 } from "./home";
@@ -55,6 +57,7 @@ export type {
   ResolvedHomeRealStories,
   ResolvedHomeBadgeItem,
   ResolvedHomeReview,
+  ResolvedHomeCollectionReview,
   ResolvedHomeSmartSolar,
   ResolvedHomeSmartSolarCard,
   ResolvedHomeBatteryQuote,

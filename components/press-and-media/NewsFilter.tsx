@@ -71,7 +71,7 @@ const NewsFilter: React.FC<NewsFilterProps> = ({
     return (
         <div className="w-full px-[5%] md:px-[3%] py-8 md:py-10 relative">
             <div className="flex items-center justify-between gap-4 max-w-7xl mx-auto">
-                <div className="flex flex-nowrap md:flex-wrap items-center gap-2 md:gap-3 overflow-x-auto md:overflow-visible whitespace-nowrap snap-x snap-mandatory md:snap-none [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
+                <div className="flex flex-nowrap md:flex-wrap items-center gap-2 md:gap-3 overflow-x-auto md:overflow-visible whitespace-nowrap  md:snap-none [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
                     {categories.map((cat) => {
                         const isActive = active === cat.value;
                         return (

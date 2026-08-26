@@ -2,10 +2,12 @@
 
 import { useEffect, useRef, useState } from "react";
 import { LoadingScreen } from "./LoadingScreen";
-import { createSequenceRenderer, type SequenceRenderer } from "./webglRenderer";
+import { createSequenceRenderer, type SequenceRenderer } from "./canvas2dRenderer";
 import {
   FRAME_COUNT,
   FRAME_SRC,
+  FRAME_NATIVE_WIDTH,
+  FRAME_NATIVE_HEIGHT,
   INTRO_RANGE,
   INTRO_FPS,
   LOOP_RANGE,
@@ -18,6 +20,16 @@ import {
 import CtaButton from "@/reuseables/CtaButton";
 import { CtaIcon } from "@/components/icons/CtaIcons";
 import { getLenis } from "@/utils/lenisBridge";
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Emergency kill-switch for the image sequence. The sequence is currently
+// ENABLED (false) and running on the ported Canvas2D renderer + pooled,
+// device-aware preload (see canvas2dRenderer.ts and the preload effect).
+// Flip to `true` to temporarily fall back to a static first-frame hero —
+// StaticSequenceFallback below is only used while true and can be deleted if
+// the kill-switch is removed entirely.
+// ─────────────────────────────────────────────────────────────────────────────
+const IMGSEQ_DISABLED = false;
 
 type Phase = "intro" | "loop" | "scroll";
 
@@ -42,6 +54,17 @@ const SCROLL_EASE = 0.14;
 const ZOOM_VELOCITY_EASE = 0.15;
 const ZOOM_SETTLE_EASE = 0.06;
 const ZOOM_MAX = 0.018;
+
+// Preload tuning (ported from regen-home-3d v5). Frames are decoded at
+// 1920x1080 native, which is ~7.9MB of raw pixel data per bitmap uncompressed
+// — holding all 674 at native resolution is ~5GB and reliably crashes mobile
+// browsers on memory pressure partway through loading. Decoding at just the
+// resolution the device can actually display (with modest headroom for
+// resize/rotation) cuts that proportionally to device size with no visible
+// quality loss. Firing all 674 fetch+decode operations at once also spikes
+// transient memory/CPU, so loads are pooled instead.
+const CONCURRENT_LOADS = 6;
+const RESIZE_HEADROOM = 1.25;
 
 const GRAIN_SVG =
   "<svg xmlns='http://www.w3.org/2000/svg'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%' height='100%' filter='url(#n)'/></svg>";
@@ -76,7 +99,83 @@ export interface Home3dHeroProps {
   ctaTextColor?: string;
 }
 
-export default function Home3dHero({
+// TEMPORARY: frozen first-frame hero used while IMGSEQ_DISABLED is true.
+// Delete this whole component once the flag is flipped back / removed.
+function StaticSequenceFallback({
+  topSubtitle,
+  mainTitle,
+  description,
+  ctaText,
+  ctaLink,
+  ctaTextColor = "text-white",
+}: Home3dHeroProps) {
+  const hasHeroContent = !!(topSubtitle || mainTitle || description || ctaText);
+
+  return (
+    <div className="relative h-screen w-full overflow-hidden bg-black">
+      {/* eslint-disable-next-line @next/next/no-img-element -- temporary static fallback */}
+      <img
+        src={FRAME_SRC(0)}
+        alt=""
+        className="absolute inset-0 h-full w-full object-cover"
+      />
+
+      {/* Vignette — matches the sequence hero's overlay so the frame reads the same */}
+      <div
+        className="pointer-events-none absolute inset-0 z-10"
+        style={{
+          background:
+            "radial-gradient(ellipse at center, transparent 40%, rgba(0,0,0,0.6) 100%)",
+        }}
+      />
+
+      {hasHeroContent && (
+        <div className="absolute inset-x-0 bottom-16 z-20 flex flex-col gap-8 px-[5%] md:bottom-24 md:flex-row md:items-end md:justify-between md:px-[3%]">
+          <div className="max-w-3xl">
+            {topSubtitle ? (
+              <p className="text-2xl font-light tracking-tighter drop-shadow-md text-white/90 md:text-3xl">
+                {topSubtitle}
+              </p>
+            ) : null}
+            {mainTitle ? (
+              <h1 className="mb-2 text-5xl font-medium leading-none tracking-tight drop-shadow-md text-[#63B846] md:text-7xl lg:text-[3.75rem]">
+                {mainTitle}
+              </h1>
+            ) : null}
+            {description ? (
+              <div className="max-w-xl whitespace-pre-line text-base font-light leading-[1.2] tracking-tight drop-shadow-sm text-white/80 md:text-xl">
+                {description}
+              </div>
+            ) : null}
+          </div>
+
+          {ctaText && ctaLink ? (
+            <div className="flex-shrink-0 pb-2">
+              <CtaButton
+                href={ctaLink}
+                text={ctaText}
+                textColor={ctaTextColor}
+                icon={CtaIcon}
+                iconTextColor="text-white"
+              />
+            </div>
+          ) : null}
+        </div>
+      )}
+    </div>
+  );
+}
+
+export default function Home3dHero(props: Home3dHeroProps) {
+  // TEMP: image sequence disabled — render the static fallback instead.
+  if (IMGSEQ_DISABLED) {
+    return <StaticSequenceFallback {...props} />;
+  }
+  return <Home3dSequenceHero {...props} />;
+}
+
+// Full image-sequence experience — only mounted while IMGSEQ_DISABLED is false.
+function Home3dSequenceHero({
   topSubtitle,
   mainTitle,
   description,
@@ -155,27 +254,66 @@ export default function Home3dHero({
 
     const supportsBitmap = typeof createImageBitmap === "function";
 
-    for (let i = 0; i < FRAME_COUNT; i++) {
+    // Decode at just the resolution this device can show (plus headroom),
+    // capped to never upscale beyond native. On a tall portrait phone this
+    // "cover" scale is actually >=1 — the 16:9 source is shorter than the
+    // device's full-height crop needs, so no downscale would apply at all,
+    // which is exactly the case that was crashing. Mobile-class devices get
+    // an additional hard cap on top, trading a bit of extra softness for
+    // staying far under the memory ceiling that a full 674-frame native-res
+    // resident set blows through (~5GB uncompressed at 1920x1080).
+    const dpr = Math.min(window.devicePixelRatio || 1, 2);
+    const coverScale = Math.max(
+      (window.innerWidth * dpr) / FRAME_NATIVE_WIDTH,
+      (window.innerHeight * dpr) / FRAME_NATIVE_HEIGHT,
+    );
+    const isMobileClass =
+      window.matchMedia("(pointer: coarse)").matches || window.innerWidth < 768;
+    const MOBILE_MAX_LONG_EDGE = 960;
+    const capScale = isMobileClass ? MOBILE_MAX_LONG_EDGE / FRAME_NATIVE_WIDTH : 1;
+    const scale = Math.min(1, coverScale * RESIZE_HEADROOM, capScale);
+    const resizeOptions: ImageBitmapOptions | undefined =
+      scale < 1
+        ? {
+            resizeWidth: Math.max(1, Math.round(FRAME_NATIVE_WIDTH * scale)),
+            resizeHeight: Math.max(1, Math.round(FRAME_NATIVE_HEIGHT * scale)),
+            resizeQuality: "high",
+          }
+        : undefined;
+
+    let nextIndex = 0;
+    const startNext = () => {
+      if (cancelled) return;
+      const i = nextIndex++;
+      if (i >= FRAME_COUNT) return;
+
+      const advance = () => {
+        onReady();
+        startNext();
+      };
+
       if (supportsBitmap) {
         fetch(FRAME_SRC(i))
           .then((res) => res.blob())
-          .then((blob) => createImageBitmap(blob))
+          .then((blob) => createImageBitmap(blob, resizeOptions))
           .then((bitmap) => {
             if (cancelled) return;
             framesRef.current[i] = bitmap;
-            onReady();
+            advance();
           })
-          .catch(onReady);
+          .catch(advance);
       } else {
         const img = new Image();
         img.onload = () => {
           framesRef.current[i] = img;
-          onReady();
+          advance();
         };
-        img.onerror = onReady;
+        img.onerror = advance;
         img.src = FRAME_SRC(i);
       }
-    }
+    };
+
+    for (let k = 0; k < CONCURRENT_LOADS; k++) startNext();
 
     return () => {
       cancelled = true;

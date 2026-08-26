@@ -13,6 +13,8 @@ import type {
   HomeSmartSolarData,
   HomeBatteryQuoteData,
 } from "../schemas/home";
+import type { TestimonialEntryData } from "../schemas/reviews";
+import type { BlogArticleData } from "../schemas/blog";
 
 // ─── Helpers ────────────────────────────────────────────────────────────
 
@@ -359,6 +361,39 @@ export function resolveHomeRealStories(
   };
 }
 
+/**
+ * Map the shared `testimonial` collection (same source as the reviews page
+ * grid) onto the home Real Stories marquee cards. Entries missing a name or
+ * quote are skipped, mirroring resolveTestimonials on the reviews side.
+ */
+export interface ResolvedHomeCollectionReview {
+  id: string;
+  systemTitle: string;
+  quote: string;
+  author: string;
+  location: string;
+  rating: number;
+  source: "google" | "productreview" | "website";
+}
+export function resolveHomeReviewsFromCollection(
+  entries: TestimonialEntryData[] | undefined | null
+): ResolvedHomeCollectionReview[] {
+  if (!Array.isArray(entries)) return [];
+  return entries.reduce<ResolvedHomeCollectionReview[]>((items, entry) => {
+    if (!entry.name || !entry.quote) return items;
+    items.push({
+      id: `testimonial-${entry.id}`,
+      systemTitle: "", // collection has no headline field — card hides it
+      quote: entry.quote,
+      author: entry.name,
+      location: entry.location ?? "",
+      rating: entry.rating ?? 0,
+      source: entry.source ?? "google",
+    });
+    return items;
+  }, []);
+}
+
 // ─── Smart Solar (FeatureCardGrid) ──────────────────────────────────────
 
 export interface ResolvedHomeSmartSolarCard {
@@ -396,6 +431,27 @@ export function resolveHomeSmartSolar(
       ...(c.footerDescription ? { footerDescription: c.footerDescription } : {}),
     })),
   };
+}
+
+// ─── Smart Solar cards ← latest blog-articles ───────────────────────────
+
+/**
+ * Map the most recent `blog-article` entries onto the Smart Solar
+ * FeatureCardGrid card shape. Text position alternates top/bottom to keep
+ * the section's staggered look. Articles are already sorted newest-first
+ * by the fetcher (publishedAt:desc).
+ */
+export function resolveSmartSolarCardsFromArticles(
+  articles: BlogArticleData[] | undefined | null,
+  limit = 3
+): ResolvedHomeSmartSolarCard[] {
+  if (!Array.isArray(articles)) return [];
+  return articles.slice(0, limit).map((a, i) => ({
+    title: a.title ?? "",
+    description: a.description ?? "",
+    image: a.image ? src(a.image) : null,
+    ...(i % 2 === 0 ? { textPosition: "top" as const } : { textPosition: "bottom" as const }),
+  }));
 }
 
 // ─── Battery Quote ──────────────────────────────────────────────────────

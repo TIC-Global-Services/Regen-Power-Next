@@ -114,17 +114,17 @@ const FeatureExplorer: React.FC<FeatureExplorerProps> = ({
                 <div className="grid grid-cols-1 lg:grid-cols-12 items-center h-full">
 
                     {/* Left Column (Content & Navigation) */}
-                    <div className="lg:col-span-6 flex flex-col justify-around px-[5%] md:px-[3%] h-full order-2 lg:order-1">
+                    <div className="lg:col-span-6 flex flex-col justify-around px-[5%] lg:px-[3%] h-full order-2 lg:order-1">
 
                         {/* Header */}
-                        <div className="flex flex-col hidden md:block">
+                        <div className="flex flex-col hidden lg:block">
                             {/* {renderTagIcon()} */}
                             <div className="mb-8 leading-[0.9]">
-                                <h2 className="text-3xl md:text-4xl leading-none lg:text-[2.125rem] font-medium text-black tracking-tight">
+                                <h2 className="text-3xl leading-none lg:text-[2.125rem] font-medium text-black tracking-tight">
                                     {titleNormal}
                                 </h2>
                                 <p
-                                    className="font-light text-[2.5rem] md:text-[3.5rem] lg:text-[5rem] tracking-tighter leading-none"
+                                    className="font-light text-[2.5rem] lg:text-[5rem] tracking-tighter leading-none"
                                     style={{ color: accentColor }}
                                 >
                                     {titleAccent}
@@ -133,7 +133,7 @@ const FeatureExplorer: React.FC<FeatureExplorerProps> = ({
                         </div>
 
                         {/* Dynamic feature display and nav controls */}
-                        <div className="min-h-[260px] md:min-h-[260px] flex flex-col justify-between max-md:justify-start max-md:gap-5">
+                        <div className="min-h-[260px] flex flex-col justify-between max-lg:justify-start max-lg:gap-5">
                             <AnimatePresence mode="wait">
                                 <motion.div
                                     key={activeIndex}
@@ -141,10 +141,10 @@ const FeatureExplorer: React.FC<FeatureExplorerProps> = ({
                                     animate={{ opacity: 1, x: 0 }}
                                     exit={{ opacity: 0, x: scrollDirection === 'right' ? -30 : 30 }}
                                     transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
-                                    className="flex-grow max-md:grow-0 max-md:h-[200px]"
+                                    className="flex-grow max-lg:grow-0 h-[200px] lg:h-auto"
                                 >
-                                    <div className="flex items-center gap-4 md:gap-4 mb-4">
-                                        <span className="text-[4rem] md:text-[5rem] lg:text-[6rem] font-normal text-black/90 leading-none tracking-tighter select-none">
+                                    <div className="flex items-center gap-4 mb-4">
+                                        <span className="text-[4rem] md:text-[4.5rem] lg:text-[6rem] font-normal text-black/90 leading-none tracking-tighter select-none">
                                             0{activeIndex + 1}
                                         </span>
                                         <h3 className="text-xl md:text-2xl whitespace-pre-line lg:text-[2.5rem] font-medium text-black leading-none pt-1 max-w-sm">
@@ -178,7 +178,7 @@ const FeatureExplorer: React.FC<FeatureExplorerProps> = ({
                                         />
                                     </button>
                                 ))}
-                                <span className="ml-3 text-xs text-black/40 select-none hidden md:inline">
+                                <span className="ml-3 text-xs text-black/40 select-none hidden lg:inline">
                                     Scroll to explore
                                 </span>
                             </div>
@@ -188,21 +188,21 @@ const FeatureExplorer: React.FC<FeatureExplorerProps> = ({
 
                     {/* Right Column (Media + Pins) */}
                     <div className="lg:col-span-6 order-1 lg:order-2">
-                        <div className="flex flex-col md:hidden py-5 px-[5%] md:px-[3%]">
+                        <div className="flex flex-col lg:hidden py-5 px-[5%] lg:px-[3%]">
                             {/* {renderTagIcon()} */}
                             <div className="leading-[0.9]">
-                                <h2 className="text-2xl md:text-4xl leading-none lg:text-[2.125rem] font-medium text-black tracking-tight">
+                                <h2 className="text-2xl leading-none lg:text-[2.125rem] font-medium text-black tracking-tight">
                                     {titleNormal}
                                 </h2>
                                 <p
-                                    className="font-light text-[3.750rem] md:text-[3.5rem] lg:text-[5rem] tracking-tighter leading-none"
+                                    className="font-light text-[3.750rem] lg:text-[5rem] tracking-tighter leading-none"
                                     style={{ color: accentColor }}
                                 >
                                     {titleAccent}
                                 </p>
                             </div>
                         </div>
-                        <div className="relative w-[90%] aspect-square md:w-full md:min-h-screen mx-auto md:mx-0 mt-4 md:mt-0 rounded-2xl overflow-hidden md:rounded-none">
+                        <div className="relative w-[90%] aspect-square mx-auto mt-4 rounded-2xl overflow-hidden lg:w-full lg:min-h-screen lg:mx-0 lg:mt-0 lg:rounded-none">
 
                             {/* Media Content */}
                             {activeFeature.mediaType === 'video' && activeFeature.mediaSrc ? (

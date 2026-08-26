@@ -1,12 +1,13 @@
 'use client';
 
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef, useEffect, useCallback } from 'react';
 import Image, { StaticImageData } from 'next/image';
 import { ArrowLeft, ArrowRight, MoveRight } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Fade from './fade';
 import CtaButton from './CtaButton';
 import SectionHeader from './SectionHeader';
+import { SliderDots, SliderArrows, useSnapSlider } from './MobileSliderControls';
 
 export interface FeatureCardItem {
   title: string;
@@ -65,13 +66,25 @@ const FeatureCardGrid: React.FC<FeatureCardGridProps> = ({
   const [containerWidth, setContainerWidth] = useState(0);
   const [isDesktop, setIsDesktop] = useState(false);
 
+  // Shared native snap-slider (same pattern as Expertise / Real Stories):
+  // free-scroll row with snap points + dots/arrows below the track (< lg).
+  // At lg+ the layout switches to the desktop accordion, where nothing
+  // overflows — so the controls are hidden there.
+  const { trackRef, sync, active, canPrev, canNext, goTo, next, prev } = useSnapSlider(cards.length);
+  // One element, two refs: containerRef feeds the accordion width math,
+  // trackRef drives the mobile snap slider.
+  const setTrackRefs = useCallback((el: HTMLDivElement | null) => {
+    containerRef.current = el;
+    trackRef.current = el;
+  }, []);
+
   useEffect(() => {
     const el = containerRef.current;
     if (!el) return;
 
     const update = () => {
       setContainerWidth(el.offsetWidth);
-      setIsDesktop(window.innerWidth >= 768);
+      setIsDesktop(window.innerWidth >= 1024);
     };
 
     update();
@@ -153,7 +166,7 @@ const FeatureCardGrid: React.FC<FeatureCardGridProps> = ({
         tabIndex={0}
         onClick={() => handleCardClick(index)}
         onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') handleCardClick(index); }}
-        onMouseEnter={() => window.innerWidth > 768 && setActiveIndex(index)}
+        onMouseEnter={() => window.innerWidth >= 1024 && setActiveIndex(index)}
         style={{
           width: widthPx ? `${widthPx}px` : undefined,
       
@@ -162,7 +175,7 @@ const FeatureCardGrid: React.FC<FeatureCardGridProps> = ({
           transform: 'translateZ(0)',
           WebkitBackfaceVisibility: 'hidden',
         }}
-        className={`relative rounded-[20px] overflow-hidden group flex-none cursor-pointer focus-visible:outline-none min-h-[300px] lg:min-h-[300px] xl:min-h-[460px] flex flex-col w-[75vw] lg:w-full shrink-0 snap-start lg:snap-align-none`}
+        className={`relative rounded-[20px] overflow-hidden group flex-none cursor-pointer focus-visible:outline-none min-h-[300px] lg:min-h-[300px] xl:min-h-[460px] flex flex-col w-[75vw] md:w-[45vw] lg:w-full shrink-0 snap-start lg:snap-align-none`}
       >
         <div className="absolute inset-0 z-0 w-full h-full" style={{ transform: 'translateZ(0)' }}>
           <Image
@@ -244,7 +257,7 @@ const FeatureCardGrid: React.FC<FeatureCardGridProps> = ({
           descClass="text-base lg:text-base text-black max-w-4xl mx-auto font-medium tracking-tight whitespace-pre-line"
         />
 
-        <div ref={containerRef} className="relative flex items-stretch overflow-x-auto lg:overflow-hidden lg:flex-row h-full -mx-[5%] px-[5%] gap-4 lg:gap-4 w-[calc(100%+10%)] lg:w-full lg:mx-0 lg:px-0 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none] pb-4 lg:pb-0">
+        <div ref={setTrackRefs} onScroll={sync} className="relative flex items-stretch overflow-x-auto lg:overflow-hidden lg:flex-row h-full -mx-[5%] px-[5%] gap-4 lg:gap-4 w-[calc(100%+10%)] lg:w-full lg:mx-0 lg:px-0 lg:snap-none [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none] pb-4 lg:pb-0">
           {showPagination ? (
             /* Paginated desktop: pages slide in/out like the cards are moving */
             <AnimatePresence mode="wait" initial={false} custom={direction}>
@@ -331,6 +344,15 @@ const FeatureCardGrid: React.FC<FeatureCardGridProps> = ({
             </div>
           )}
         </div>
+
+        {/* Snap-slider controls — visible below lg (phone + iPad); hidden where
+            the desktop accordion takes over. Section's px-[5%] aligns them. */}
+        {cards.length > 1 && (
+          <>
+            <SliderDots count={cards.length} active={active} onSelect={goTo} className="mt-3 lg:hidden" />
+            <SliderArrows canPrev={canPrev} canNext={canNext} onPrev={prev} onNext={next} className="mt-2 lg:hidden" />
+          </>
+        )}
 
         {showPagination && (
           <div className="flex justify-end items-center gap-3 mt-10">

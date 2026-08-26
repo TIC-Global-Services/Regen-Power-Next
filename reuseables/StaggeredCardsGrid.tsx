@@ -3,6 +3,7 @@
 import React, { useState } from "react";
 import Reveal from "@/reuseables/Reveal";
 import SectionHeader from "@/reuseables/SectionHeader";
+import { SliderDots, SliderArrows, useSnapSlider } from "@/reuseables/MobileSliderControls";
 import { text } from "stream/consumers";
 
 export interface StaggeredCard {
@@ -108,6 +109,10 @@ const StaggeredCardsGrid: React.FC<StaggeredCardsGridProps> = ({
   spacerHeightClass = "h-[280px]",
   badge,
 }) => {
+  const { trackRef, sync, active, canPrev, canNext, goTo, next, prev } = useSnapSlider(
+    columns.flatMap((column) => column.items).filter((item): item is StaggeredCard => item !== "spacer").length
+  );
+
   return (
     <section className={`py-16 md:py-24 bg-white ${className}`}>
       <div className="px-[5%] md:px-[3%] mx-auto">
@@ -132,7 +137,11 @@ const StaggeredCardsGrid: React.FC<StaggeredCardsGridProps> = ({
         />
 
         {/* Layout — Mobile: per-card snap slider (mirrors BentoCardsGrid's slider) */}
-        <div className="flex md:hidden gap-4 overflow-x-auto px-[5%] -mx-[5%] [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
+        <div
+          ref={trackRef}
+          onScroll={sync}
+          className="flex md:hidden gap-4 overflow-x-auto px-[5%] -mx-[5%] [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none] "
+        >
           {columns
             .flatMap((column) => column.items)
             .filter((item): item is StaggeredCard => item !== "spacer")
@@ -146,6 +155,16 @@ const StaggeredCardsGrid: React.FC<StaggeredCardsGridProps> = ({
                 />
               </div>
             ))}
+        </div>
+
+        <div className="md:hidden">
+          <SliderDots
+            count={columns.flatMap((column) => column.items).filter((item): item is StaggeredCard => item !== "spacer").length}
+            active={active}
+            onSelect={goTo}
+            className="mt-5"
+          />
+          <SliderArrows canPrev={canPrev} canNext={canNext} onPrev={prev} onNext={next} className="mt-4" />
         </div>
 
         {/* Desktop: staggered grid */}

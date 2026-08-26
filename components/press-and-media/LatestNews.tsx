@@ -1,7 +1,10 @@
+"use client";
+
 import React from 'react';
 import Image, { StaticImageData } from 'next/image';
 import Link from 'next/link';
 import { ArrowRight } from 'lucide-react';
+import { SliderDots, SliderArrows, useSnapSlider } from '@/reuseables/MobileSliderControls';
 
 export interface LatestNewsItem {
     title: string;
@@ -24,6 +27,7 @@ const LatestNews: React.FC<LatestNewsProps> = ({
 }) => {
     /* Desktop columns follow the item count (max 3) so the row never has empty cells. */
     const desktopCols = Math.max(1, Math.min(items.length, 3));
+    const { trackRef, sync, active, canPrev, canNext, goTo, next, prev } = useSnapSlider(items.length);
 
     return (
         <section className="w-full px-[5%] md:px-[3%] py-12 md:py-20">
@@ -37,7 +41,11 @@ const LatestNews: React.FC<LatestNewsProps> = ({
             </div>
 
             {/* Mobile + Tablet: Horizontal Slider */}
-            <div className="flex overflow-x-auto lg:hidden gap-4 -mx-[5%] px-[5%] md:px-[3%] [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none] pb-4">
+            <div
+                ref={trackRef}
+                onScroll={sync}
+                className="flex overflow-x-auto lg:hidden gap-4 -mx-[5%] px-[5%] md:px-[3%] [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none] pb-4 "
+            >
                 {items.map((item, index) => (
                     <Link
                         key={index}
@@ -68,6 +76,11 @@ const LatestNews: React.FC<LatestNewsProps> = ({
                         </div>
                     </Link>
                 ))}
+            </div>
+
+            <div className="lg:hidden">
+                <SliderDots count={items.length} active={active} onSelect={goTo} className="mt-5" />
+                <SliderArrows canPrev={canPrev} canNext={canNext} onPrev={prev} onNext={next} className="mt-4" />
             </div>
 
             {/* Desktop: Grid — column count follows item count (max 3) */}

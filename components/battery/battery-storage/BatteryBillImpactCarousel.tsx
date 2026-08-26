@@ -3,10 +3,93 @@
 import React, { useEffect, useRef, useState } from 'react';
 import Image from 'next/image';
 import { ArrowLeft, ArrowRight } from 'lucide-react';
+import { SliderDots, SliderArrows, useSnapSlider } from '@/reuseables/MobileSliderControls';
 import { JargonCard } from './BatteryJargon';
 
 /** Shared motion tuning */
 const DURATION_MS = 400;
+
+/** Shared card face so the mobile slider and the desktop deck render identically. */
+const JargonCardFace = ({ card, index }: { card: JargonCard; index: number }) => (
+  <>
+    <Image
+      src={card.image}
+      alt={card.title}
+      fill
+      className="object-cover"
+      sizes="(min-width: 768px) 45vw, 90vw"
+    />
+    <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-black/30" />
+
+    {/* Large Number — tied to the card itself */}
+    <div className="absolute top-6 left-6 text-white/50 text-7xl font-light leading-none">
+      {index + 1}
+    </div>
+
+    <div className="absolute bottom-0 left-0 p-6 w-full">
+      <h4 className="text-xl text-white font-medium tracking-tight leading-tight capitalize mb-3">
+        {card.title}
+      </h4>
+      <p className="text-white text-base capitalize leading-[1.2]">
+        {card.description}
+      </p>
+    </div>
+  </>
+);
+
+/**
+ * Mobile (< md): a plain native scroll-snap slider — no slider library.
+ * Native touch momentum + snap points do the heavy lifting; the buttons and
+ * dots just drive scrollTo/scrollBy. Desktop/tablet (md+) keeps the original
+ * stack deck, unchanged.
+ */
+export const BatteryBillImpactCarousel = ({ cards }: { cards: JargonCard[] }) => {
+  return (
+    <div className="w-full relative mt-8 lg:mt-0">
+      {/* ── Mobile: normal slider ── */}
+      <div className="md:hidden" data-mobile-slider>
+        <MobileSlider cards={cards} />
+      </div>
+
+      {/* ── Tablet/Desktop: stack deck (original behaviour) ── */}
+      <div className="hidden md:block">
+        <Deck cards={cards} />
+      </div>
+    </div>
+  );
+};
+
+/** Native scroll-snap slider used below `md` — shared controls, zero deps. */
+const MobileSlider = ({ cards }: { cards: JargonCard[] }) => {
+  const { trackRef, sync, active, canPrev, canNext, goTo, next, prev } =
+    useSnapSlider(cards.length);
+
+  return (
+    <>
+      {/* Native horizontal scroll + snap points; scrollbar visually hidden */}
+      <div
+        ref={trackRef}
+        onScroll={sync}
+        className="flex gap-4 overflow-x-auto  -mx-[5%] px-[5%] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+      >
+        {cards.map((card, idx) => (
+          <div
+            key={idx}
+            className="relative h-[400px] w-[75vw] shrink-0 snap-center rounded-[24px] overflow-hidden bg-black/5"
+          >
+            <JargonCardFace card={card} index={idx} />
+          </div>
+        ))}
+      </div>
+
+      {/* Pagination dots */}
+      <SliderDots count={cards.length} active={active} onSelect={goTo} className="mt-5" />
+
+      {/* Navigation Buttons — same look/position as the desktop deck's */}
+      <SliderArrows canPrev={canPrev} canNext={canNext} onPrev={prev} onNext={next} className="mt-4" />
+    </>
+  );
+};
 
 /**
  * Stack-style deck with GPU-only motion:
@@ -16,7 +99,7 @@ const DURATION_MS = 400;
  * - "Prev": the previous card fades/scales back in at the front.
  * - The deck does NOT loop: once the last card is at the front, Next disables.
  */
-export const BatteryBillImpactCarousel = ({ cards }: { cards: JargonCard[] }) => {
+const Deck = ({ cards }: { cards: JargonCard[] }) => {
   /** Index of the card currently at the front of the stack. */
   const [start, setStart] = useState(0);
   /** Card index animating out (next) / animating in (prev). */
@@ -69,9 +152,9 @@ export const BatteryBillImpactCarousel = ({ cards }: { cards: JargonCard[] }) =>
   }
 
   return (
-    <div className="w-full relative mt-8 lg:mt-0">
+    <>
       {/* Slot geometry lives in CSS vars so breakpoints stay in stylesheet-land */}
-      <div className="relative h-[400px] md:h-[440px] [--card-w:65vw] md:[--card-w:45vw] lg:[--card-w:20vw] [--gap:1rem]">
+      <div className="relative h-[400px] md:h-[440px] [--card-w:45vw] lg:[--card-w:20vw] [--gap:1rem]">
         {visible.map((cardIdx) => {
           const card = cards[cardIdx];
           const isExiting = exiting === cardIdx;
@@ -106,7 +189,7 @@ export const BatteryBillImpactCarousel = ({ cards }: { cards: JargonCard[] }) =>
                 alt={card.title}
                 fill
                 className="object-cover transition-transform duration-700 group-hover:scale-105"
-                sizes="(min-width: 1024px) 20vw, (min-width: 768px) 45vw, 65vw"
+                sizes="(min-width: 1024px) 20vw, 45vw"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-black/30" />
 
@@ -147,6 +230,6 @@ export const BatteryBillImpactCarousel = ({ cards }: { cards: JargonCard[] }) =>
           <ArrowRight className="w-5 h-5" />
         </button>
       </div>
-    </div>
+    </>
   );
 };

@@ -1,5 +1,6 @@
 "use client";
 import React, { useState } from "react";
+import { SliderDots, SliderArrows, useSnapSlider } from "@/reuseables/MobileSliderControls";
 
 // ─── Types ──────────────────────────────────────────────────────────────
 
@@ -36,6 +37,7 @@ export interface BentoCardsGridProps {
 // Hover toggles each card between light gray and dark (JS state).
 
 const BentoCardsGrid = ({ data, headerColSpan = 1 }: BentoCardsGridProps) => {
+  const { trackRef, sync, active, canPrev, canNext, goTo, next, prev } = useSnapSlider(data?.cards?.length ?? 0);
   const [hoveredIdx, setHoveredIdx] = useState<number | null>(null);
 
   if (!data || data.cards.length === 0) return null;
@@ -66,7 +68,11 @@ const BentoCardsGrid = ({ data, headerColSpan = 1 }: BentoCardsGridProps) => {
       )}
 
       {/* Slider (phones + iPad) / Grid (desktop) */}
-      <div className="flex lg:grid lg:grid-cols-3 gap-4 overflow-x-auto lg:overflow-x-visible -mx-[5%] px-[5%] md:-mx-[3%] md:px-[3%] pb-6 lg:pb-0 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
+      <div
+      ref={trackRef}
+      onScroll={sync}
+      className="flex lg:grid lg:grid-cols-3 gap-4 overflow-x-auto lg:overflow-x-visible -mx-[5%] px-[5%] md:-mx-[3%] md:px-[3%] pb-6 lg:pb-0 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none] "
+    >
         {/* Title Block as First Grid Cell (iPad + Desktop) */}
         {hasHeader && (
           <div className={`hidden lg:flex p-6 lg:p-2 flex-col justify-center ${headerColSpan === 2 ? "lg:col-span-2" : ""}`}>
@@ -114,6 +120,11 @@ const BentoCardsGrid = ({ data, headerColSpan = 1 }: BentoCardsGridProps) => {
             </div>
           );
         })}
+      </div>
+
+      <div className="lg:hidden">
+        <SliderDots count={data.cards.length} active={active} onSelect={goTo} className="mt-5" />
+        <SliderArrows canPrev={canPrev} canNext={canNext} onPrev={prev} onNext={next} className="mt-4" />
       </div>
     </section>
   );

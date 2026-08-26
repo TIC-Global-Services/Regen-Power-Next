@@ -53,7 +53,7 @@ const Partners = ({ data }: PartnersProps) => {
                         src={partner.image}
                         alt={partner.name}
                         fill
-                        className="md:object-cover object-contain"
+                        className="object-contain"
                       />
                     </div>
                   </div>

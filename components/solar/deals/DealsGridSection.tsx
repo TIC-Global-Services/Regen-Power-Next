@@ -4,6 +4,7 @@ import React from "react";
 import SectionHeader from "@/reuseables/SectionHeader";
 import Reveal from "@/reuseables/Reveal";
 import CtaButton from "@/reuseables/CtaButton";
+import { SliderDots, SliderArrows, useSnapSlider } from "@/reuseables/MobileSliderControls";
 import type { ResolvedDealsGrid } from "@/lib/strapi/resolvers/deals";
 
 import Link from "next/link";
@@ -18,6 +19,8 @@ interface Props {
 const FALLBACK_IMAGE = "/solar_house_render.png";
 
 export default function DealsGridSection({ resolved }: Props) {
+  const { trackRef, sync, active, canPrev, canNext, goTo, next, prev } = useSnapSlider(resolved.promotions.length);
+
   return (
     <section className="py-16 md:py-24 bg-white border-t border-gray-50">
       <div className="md:px-[3%] mx-auto">
@@ -69,7 +72,11 @@ export default function DealsGridSection({ resolved }: Props) {
         </div>
 
         {/* Mobile: Native scroll slider (same pattern as FeatureCardGrid) */}
-        <div className="relative z-10 mb-12 flex md:hidden items-stretch gap-4 overflow-x-auto pb-4 px-[5vw] [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
+        <div
+        ref={trackRef}
+        onScroll={sync}
+        className="relative z-10 mb-12 flex md:hidden items-stretch gap-4 overflow-x-auto pb-4 px-[5vw] [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none] "
+      >
           {resolved.promotions.map((promo, idx) => (
             <div
               key={idx}
@@ -94,6 +101,11 @@ export default function DealsGridSection({ resolved }: Props) {
               </div>
             </div>
           ))}
+        </div>
+
+        <div className="md:hidden">
+          <SliderDots count={resolved.promotions.length} active={active} onSelect={goTo} className="mt-5" />
+          <SliderArrows canPrev={canPrev} canNext={canNext} onPrev={prev} onNext={next} className="mt-4" />
         </div>
 
         <div className="flex justify-center">

@@ -1,5 +1,8 @@
+"use client";
+
 import React from 'react';
 import Image, { StaticImageData } from 'next/image';
+import { SliderDots, SliderArrows, useSnapSlider } from '@/reuseables/MobileSliderControls';
 
 export interface FourPillarsCard {
     title: string;
@@ -15,6 +18,8 @@ export interface FourPillarsData {
 }
 
 const FourPillars = ({ data }: { data: FourPillarsData }) => {
+    const { trackRef, sync, active, canPrev, canNext, goTo, next, prev } = useSnapSlider(data.cards.length);
+
     return (
         <section className="bg-white py-8 md:py-16 px-[5%] md:px-[3%]">
             {/* Centered Section Header */}
@@ -37,7 +42,11 @@ const FourPillars = ({ data }: { data: FourPillarsData }) => {
             </div>
 
             {/* Mobile: Horizontal Slider */}
-            <div className="flex overflow-x-auto lg:hidden gap-4 -mx-[5%] px-[5%] md:-mx-[3%] md:px-[3%] [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none] pb-4">
+            <div
+                ref={trackRef}
+                onScroll={sync}
+                className="flex overflow-x-auto lg:hidden gap-4 -mx-[5%] px-[5%] md:-mx-[3%] md:px-[3%] [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none] pb-4 "
+            >
                 {data.cards.map((card, idx) => (
                     <div
                         key={idx}
@@ -67,6 +76,11 @@ const FourPillars = ({ data }: { data: FourPillarsData }) => {
                         </div>
                     </div>
                 ))}
+            </div>
+
+            <div className="lg:hidden">
+                <SliderDots count={data.cards.length} active={active} onSelect={goTo} className="mt-5" />
+                <SliderArrows canPrev={canPrev} canNext={canNext} onPrev={prev} onNext={next} className="mt-4" />
             </div>
 
             {/* Desktop: Four Column Card Grid */}

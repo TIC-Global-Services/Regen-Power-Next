@@ -1,6 +1,9 @@
+"use client";
+
 import React from 'react';
 import Image, { StaticImageData } from 'next/image';
 import CtaButton from '@/reuseables/CtaButton';
+import { SliderDots, SliderArrows, useSnapSlider } from '@/reuseables/MobileSliderControls';
 
 export interface BatteryRangeCard {
   title: string;
@@ -24,6 +27,7 @@ export interface BatteryRangeGridData {
  * default background image (see battery-storage/page.tsx).
  */
 const BatteryRangeGrid = ({ data }: { data: BatteryRangeGridData }) => {
+  const { trackRef, sync, active, canPrev, canNext, goTo, next, prev } = useSnapSlider(data.batteries.length);
   return (
     <section className="bg-white py-16 md:py-24 px-[5%] md:px-[3%]">
       {/* Section Header */}
@@ -38,7 +42,7 @@ const BatteryRangeGrid = ({ data }: { data: BatteryRangeGridData }) => {
       </div>
 
       {/* Mobile: Horizontal Slider */}
-      <div className="flex overflow-x-auto md:hidden gap-4 -mx-[5%] px-[5%] md:px-[3%] [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none] pb-4">
+      <div ref={trackRef} onScroll={sync} className="flex overflow-x-auto md:hidden gap-4  -mx-[5%] px-[5%] md:px-[3%] [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none] pb-4">
         {data.batteries.map((card, idx) => {
           return (
             <div
@@ -50,6 +54,9 @@ const BatteryRangeGrid = ({ data }: { data: BatteryRangeGridData }) => {
           );
         })}
       </div>
+
+      <SliderDots count={data.batteries.length} active={active} onSelect={goTo} className="mt-5 md:hidden" />
+      <SliderArrows canPrev={canPrev} canNext={canNext} onPrev={prev} onNext={next} className="mt-4 md:hidden" />
 
       {/* Desktop: Bento Grid converted to Flex to center bottom row */}
       <div className="hidden md:flex flex-wrap justify-center gap-4 md:gap-5">

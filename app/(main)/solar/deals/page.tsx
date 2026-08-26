@@ -35,7 +35,7 @@ import WaysToPaySection from "@/components/solar/deals/WaysToPaySection";
 import WhyMattersSection from "@/components/solar/deals/WhyMattersSection";
 import FaqSection from "@/components/solar/deals/FaqSection";
 import CtaBannerSection from "@/components/solar/deals/CtaBannerSection";
-import LeadCaptureForm from "@/components/solar/solarSystem/LeadCaptureForm";
+import QuoteSection from "@/reuseables/QuoteSection";
 
 export const revalidate = 60;
 
@@ -85,14 +85,14 @@ export default async function SolarDealsPage() {
       {faqProps && <FaqSection resolved={faqProps} />}
 
       {formProps && (
-        <div id="quote-form">
-          <LeadCaptureForm
-            subtitle={formProps.subtitle}
-            title={formProps.title}
-            description={formProps.description}
-            image={formProps.image}
-          />
-        </div>
+        <QuoteSection
+          id="quote-form"
+          variant="solar"
+          subtitle={formProps.subtitle}
+          title={formProps.title}
+          description={formProps.description}
+          image={formProps.image}
+        />
       )}
 
       {ctaBannerProps && <CtaBannerSection resolved={ctaBannerProps} />}
