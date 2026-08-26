@@ -248,7 +248,7 @@ const Navbar = () => {
         </Link>
 
         {/* Desktop Navigation */}
-        <nav className="hidden lg:flex items-center bg-[#63B84666] backdrop-blur-md rounded-full px-2 py-1.5 shadow-sm border border-[#63B846]">
+        <nav className="hidden xl:flex items-center bg-[#63B84666] backdrop-blur-md rounded-full px-2 py-1.5 shadow-sm border border-[#63B846]">
           <ul className="flex items-center text-sm font-medium text-white">
             {navItems.map((item, index) => {
               const isHovered = hoveredIndex === index;
@@ -305,7 +305,7 @@ const Navbar = () => {
         </nav>
 
         {/* Speak to Us Button (Desktop) — opens device dialer */}
-        <div className="hidden lg:flex">
+        <div className="hidden xl:flex">
           <CtaButton
             href="tel:+61894563491"
             text="Speak to Us"
@@ -317,7 +317,7 @@ const Navbar = () => {
         {/* Mobile Menu Toggle */}
         <button
           ref={menuBtnRef}
-          className="lg:hidden z-50 text-[#8dc63f] bg-white h-10 w-10 flex items-center justify-center rounded-full shadow-md hover:scale-105 transition-transform"
+          className="xl:hidden z-50 text-[#8dc63f] bg-white h-10 w-10 flex items-center justify-center rounded-full shadow-md hover:scale-105 transition-transform"
           onClick={toggleMenu}
           aria-label={isMobileMenuOpen ? 'Close menu' : 'Toggle menu'}
           aria-expanded={isMobileMenuOpen}
@@ -346,7 +346,7 @@ const Navbar = () => {
         id="mobile-nav-overlay"
         ref={overlayRef}
         aria-hidden={!isMobileMenuOpen}
-        className="fixed inset-0 z-40 bg-[#63B84666] backdrop-blur-xl lg:hidden overflow-y-auto"
+        className="fixed inset-0 z-40 bg-[#63B84666] backdrop-blur-xl xl:hidden overflow-y-auto"
           style={{
             clipPath: "circle(0% at 95% 5%)",
             visibility: "hidden",
