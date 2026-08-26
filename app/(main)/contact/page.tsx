@@ -1,8 +1,8 @@
 import React from 'react';
 import { getContactPage } from '@/lib/strapi';
 import { findSection } from '@/lib/strapi/section-utils';
-import { resolveContactHero } from '@/lib/strapi/resolvers';
-import type { ContactHeroData } from '@/lib/strapi/schemas';
+import { resolveContactHero, resolveContactFormSection } from '@/lib/strapi/resolvers';
+import type { ContactFormSectionData, ContactHeroData } from '@/lib/strapi/schemas';
 
 import ContactHero from '@/components/contact/ContactHero';
 import ContactForm from '@/components/contact/ContactForm';
@@ -16,6 +16,8 @@ const ContactPage = async () => {
 
   const hero = findSection<ContactHeroData>(sections, 'contact.hero');
   const heroProps = resolveContactHero(hero);
+  const formSection = findSection<ContactFormSectionData>(sections, 'contact.contact-form-section');
+  const formSectionProps = resolveContactFormSection(formSection);
 
   return (
     <div className="bg-white min-h-screen text-black">
@@ -30,7 +32,10 @@ const ContactPage = async () => {
         />
       )}
 
-      <ContactForm />
+      <ContactForm
+        title={formSectionProps?.title}
+        description={formSectionProps?.description}
+      />
 
       <LocationMap />
     </div>
