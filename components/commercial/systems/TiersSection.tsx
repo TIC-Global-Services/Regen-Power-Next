@@ -75,13 +75,13 @@ export default function TiersSection({ resolved }: Props) {
                 <p className="text-xl md:text-[2.125rem] text-black font-light tracking-tight mb-6">
                   {tiers[activeIndex].subtitle}
                 </p>
-                <p className="text-sm md:text-base text-black/80 leading-[1.2] tracking-tight mb-6 max-w-xl">
+                <p className="text-sm md:text-lg lg:text-base text-black/80 leading-[1.2] tracking-tight mb-6 max-w-none lg:max-w-xl">
                   {tiers[activeIndex].description}
                 </p>
 
                 <div className="space-y-1 mb-8">
                   {tiers[activeIndex].details.map((detail, idx) => (
-                    <p key={idx} className="text-sm md:text-base text-black leading-[1.2] tracking-tight">
+                    <p key={idx} className="text-sm md:text-lg lg:text-base text-black leading-[1.2] tracking-tight">
                       <span className="font-semibold text-black">{detail.label}:</span> {detail.value}
                     </p>
                   ))}

@@ -1,7 +1,6 @@
 import React from 'react';
 import Image, { StaticImageData } from 'next/image';
 import SectionHeader from '@/reuseables/SectionHeader';
-import { id } from 'zod/locales';
 
 export interface StatItem {
     value: string;
@@ -33,7 +32,7 @@ const StatsCardGrid: React.FC<StatsCardGridProps> = ({
     headerAlign = 'center',
 }) => {
     return (
-        <section className={`py-16 md:py-24 bg-white ${className}`}>
+        <section className={`pt-16 md:pt-24 pb-8 md:pb-12 bg-white ${className}`}>
             <div className="px-[5%] md:px-[3%] mx-auto">
                 <SectionHeader
                     subtitle={subtitle}
@@ -56,8 +55,8 @@ const StatsCardGrid: React.FC<StatsCardGridProps> = ({
                     className='left lg:hidden' 
                 />
 
-                {/* ── Mobile layout: stacked vertical cards ── */}
-                <div className="flex flex-col gap-5 lg:hidden max-w-sm md:max-w-full mt-4 mx-auto">
+                {/* ── Mobile / iPad layout: 1 col on phones, 3 cols on iPad (< lg) ── */}
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-5 lg:hidden max-w-sm md:max-w-full mt-12 mx-auto">
                     {stats.map((stat, idx) => {
                         return (
                             <div
@@ -71,14 +70,10 @@ const StatsCardGrid: React.FC<StatsCardGridProps> = ({
                                     className="object-cover"
                                 />
                                 <div className="absolute left-5 right-5 bottom-6">
-                                    <div
-                                        className={`text-[2.5rem] font-normal tracking-tighter leading-none mb-2 ${idx === 0 ? 'text-[#63B846]' : 'text-black'}`}
-                                    >
+                                    <div className="text-[2.5rem] font-normal tracking-tighter leading-none mb-2 text-black">
                                         {stat.value}
                                     </div>
-                                    <p
-                                        className={`text-base tracking-tight font-light ${idx !== 2 ? 'text-[#63B846]' : 'text-black'}`}
-                                    >
+                                    <p className="text-base tracking-tight font-light text-black">
                                         {stat.label}
                                     </p>
                                 </div>
@@ -88,7 +83,7 @@ const StatsCardGrid: React.FC<StatsCardGridProps> = ({
                 </div>
 
                 {/* ── Desktop layout: side-by-side staggered heights ── */}
-                <div className="relative max-w-5xl mx-auto h-[50dvh] hidden lg:block mt-10">
+                <div className="relative max-w-5xl mx-auto h-[50dvh] hidden lg:block mt-14">
                     {/* Card backgrounds */}
                     <div className="absolute inset-0 flex items-start gap-6">
                         {stats.map((stat, idx) => {

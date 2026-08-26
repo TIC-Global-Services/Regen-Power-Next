@@ -43,7 +43,7 @@ const IconCardView: React.FC<{ card: IconCard; variant: IconCardVariant }> = ({ 
     const cardVariant = card.variant || variant;
     return (
         <div
-            className={`bg-[#EEF6EB] rounded-[20px] p-6 md:p-5 flex flex-col justify-between h-full`}
+            className={`bg-[#EEF6EB] hover:bg-[#EBEBEB] transition-colors duration-300 rounded-[20px] p-6 md:p-5 flex flex-col justify-between h-full`}
         >
             <div className="relative w-12 h-12 md:w-15 p-3  md:h-15 mb-5 flex items-center justify-center bg-white rounded-full">
                  <img

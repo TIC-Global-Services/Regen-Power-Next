@@ -77,24 +77,25 @@ const ThreeSolutionsSection: React.FC<ThreeSolutionsSectionProps> = ({
                 </div>
 
                 {/* Desktop grid */}
-                <div className="hidden lg:grid lg:grid-cols-1 lg:grid-cols-3 gap-5 px-[3%]">
+                <div className="hidden lg:grid lg:grid-cols-3 gap-5 px-[3%]">
                     {solutions.map((sol, idx) => (
                         <SolutionCard key={idx} sol={sol} />
                     ))}
                 </div>
 
-                {/* Mobile slider */}
-                <div className="lg:hidden">
+                {/* Mobile slider — standard bleed pattern: padded wrapper,
+                    track escapes it edge-to-edge */}
+                <div className="lg:hidden px-[5%]">
                     <div
                         ref={trackRef}
                         onScroll={sync}
-                        className="flex gap-4 overflow-x-auto  pl-[5%] pr-[5%] [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]"
+                        className="flex gap-4 overflow-x-auto -mx-[5%] px-[5%] [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]"
                         style={{ WebkitOverflowScrolling: 'touch' }}
                     >
                         {solutions.map((sol, idx) => (
                             <div
                                 key={idx}
-                                className="snap-start shrink-0 w-[85%]"
+                                className="snap-start shrink-0 w-[75vw] md:w-[45vw]"
                             >
                                 <SolutionCard sol={sol} />
                             </div>
@@ -102,7 +103,7 @@ const ThreeSolutionsSection: React.FC<ThreeSolutionsSectionProps> = ({
                     </div>
 
                     <SliderDots count={solutions.length} active={active} onSelect={goTo} className="mt-5" />
-                    <SliderArrows canPrev={canPrev} canNext={canNext} onPrev={prev} onNext={next} className="mt-4 px-[5%]" />
+                    <SliderArrows canPrev={canPrev} canNext={canNext} onPrev={prev} onNext={next} className="mt-4" />
                 </div>
             </div>
         </section>

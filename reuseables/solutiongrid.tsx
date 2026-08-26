@@ -44,7 +44,7 @@ const SolutionCardView: React.FC<{ card: solutionCard; variant: solutionCardVari
     const cardVariant = card.variant || variant;
     return (
         <div
-            className={`bg-[#EEF6EB] rounded-[20px] p-6 md:p-5 flex flex-col justify-between h-full md:h-[30dvh] lg:h-[50dvh]`}
+            className={`bg-[#EBEBEB] hover:bg-[#EEF6EB] transition-colors duration-300 rounded-[20px] p-6 md:p-5 flex flex-col justify-between h-full md:h-[30dvh] lg:h-[50dvh]`}
         >
             <div className="relative w-12 h-12 lg:w-25  lg:h-25 flex items-center justify-center">
                  <img

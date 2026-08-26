@@ -79,7 +79,7 @@ export default function FiveThingsSection({ resolved }: Props) {
           <div
             ref={trackRef}
             onScroll={sync}
-            className="flex gap-4 lg:gap-6 overflow-x-auto  -mx-[3%] px-[5%] md:px-[3%] [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]"
+            className="flex gap-4 lg:gap-6 overflow-x-auto  -mx-[5%] md:-mx-[3%] px-[5%] md:px-[3%] [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]"
             style={{ WebkitOverflowScrolling: 'touch' }}
           >
             {items.map((item, idx) => {
@@ -87,7 +87,7 @@ export default function FiveThingsSection({ resolved }: Props) {
               return (
                 <div
                   key={idx}
-                  className="snap-start shrink-0 w-[62%]"
+                  className="snap-start shrink-0 w-[65vw] md:w-[45vw]"
                 >
                   <div
                     className={`${bg} rounded-[20px] p-6 flex flex-col min-h-[320px] justify-center`}
@@ -98,7 +98,7 @@ export default function FiveThingsSection({ resolved }: Props) {
                     <h3 className="text-lg font-normal text-black tracking-tight leading-tight mb-2">
                       {item.title}
                     </h3>
-                    <p className="text-xs text-black/80 leading-snug tracking-tight">
+                    <p className="text-sm text-black/80 leading-snug tracking-tight">
                       {item.description}
                     </p>
                   </div>

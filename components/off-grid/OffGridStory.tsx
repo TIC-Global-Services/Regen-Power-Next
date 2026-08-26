@@ -88,7 +88,7 @@ const OffGridStory: React.FC<OffGridStoryProps> = ({
                         return (
                             <div
                                 key={idx}
-                                className={`${isGreen ? 'bg-[#63B846]' : 'bg-[#EEF6EB]'} rounded-[20px] overflow-hidden flex flex-col h-full p-8`}
+                                className={`${isGreen ? 'bg-[#63B846]' : 'bg-[#EEF6EB]'} rounded-[20px] overflow-hidden flex flex-col h-full p-8 transition-all duration-300 hover:-translate-y-1.5 hover:shadow-xl`}
                             >
                                 <h3 className={`text-lg md:text-2xl tracking-tight leading-[1.2] mb-auto ${isGreen ? 'text-white' : 'text-black'}`}>
                                     {card.title}
@@ -117,7 +117,7 @@ const OffGridStory: React.FC<OffGridStoryProps> = ({
                                     className="snap-start shrink-0 w-[85%]"
                                 >
                                     <div
-                                        className={`${isGreen ? 'bg-[#63B846]' : 'bg-[#EEF6EB]'} rounded-[20px] overflow-hidden flex flex-col h-full p-8 min-h-[250px]`}
+                                        className={`${isGreen ? 'bg-[#63B846]' : 'bg-[#EEF6EB]'} rounded-[20px] overflow-hidden flex flex-col h-full p-8 min-h-[250px] transition-all duration-300 hover:-translate-y-1.5 hover:shadow-xl`}
                                     >
                                         <h3 className={`text-lg tracking-tight leading-[1.2] mb-auto ${isGreen ? 'text-white' : 'text-black'}`}>
                                             {card.title}

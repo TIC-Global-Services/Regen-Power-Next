@@ -68,6 +68,15 @@ export interface WorldMapProps {
     titleColor?: 'green' | 'black';
     showHeader?: boolean;
     className?: string;
+    /**
+     * Below `lg`, zoom the map into a region instead of showing the whole
+     * world (which makes small screens' pins overlap).
+     * - `true` → default window framed around the India-ocean → Australia band.
+     * - `{ x, y, w, h }` → explicit window in image percentages (w === h keeps
+     *   the map's aspect ratio, so the zoom never distorts).
+     * Opt-in per usage — pages whose pins span the whole world can omit it.
+     */
+    focusMarkers?: boolean | { x: number; y: number; w: number; h: number };
 }
 
 /** Keyless Google Maps embed — `output=embed` requires no API key. */
@@ -88,11 +97,33 @@ const WorldMap: React.FC<WorldMapProps> = ({
     titleColor = 'green',
     showHeader = true,
     className = '',
+    focusMarkers = false,
 }) => {
     const [activeMarker, setActiveMarker] = useState<string | null>(null);
     // Markers whose map iframe has been shown — kept mounted so re-hovering
     // is instant instead of reloading the embed every time.
     const [loadedMaps, setLoadedMaps] = useState<string[]>([]);
+
+    // Crop window (percentages of the map image) used below `lg` when
+    // `focusMarkers` is set. w === h keeps the image's aspect ratio, so the
+    // zoomed view never distorts. Window chosen to frame the India-ocean →
+    // Australia marker band with breathing room on every side.
+    const [compact, setCompact] = useState(false);
+
+    useEffect(() => {
+        const mq = window.matchMedia('(max-width: 1023px)');
+        const apply = () => setCompact(mq.matches);
+        apply();
+        mq.addEventListener('change', apply);
+        return () => mq.removeEventListener('change', apply);
+    }, []);
+
+    const crop =
+        focusMarkers && compact
+            ? typeof focusMarkers === 'object'
+                ? focusMarkers
+                : { x: 60, y: 38, w: 32, h: 32 }
+            : null;
 
     useEffect(() => {
         if (activeMarker && !loadedMaps.includes(activeMarker)) {
@@ -131,7 +162,7 @@ const WorldMap: React.FC<WorldMapProps> = ({
                 )}
 
                 <div
-                    className="relative w-full"
+                    className={`relative w-full ${crop ? 'overflow-hidden' : ''}`}
                     style={{ aspectRatio: ratio }}
                     onClick={() => setActiveMarker(null)}
                 >
@@ -141,6 +172,19 @@ const WorldMap: React.FC<WorldMapProps> = ({
                         fill
                         className="object-contain"
                         sizes="100vw"
+                        style={
+                            crop
+                                ? {
+                                      // Zoom so the crop window fills the wrapper:
+                                      // translate the window's top-left corner to the
+                                      // origin, then scale about it. The pin remap
+                                      // below uses the identical formula, so pins stay
+                                      // glued to their geography.
+                                      transform: `scale(${100 / crop.w}) translate(-${crop.x}%, -${crop.y}%)`,
+                                      transformOrigin: '0 0',
+                                  }
+                                : undefined
+                        }
                     />
 
                     {markers.map((marker) => {
@@ -156,8 +200,15 @@ const WorldMap: React.FC<WorldMapProps> = ({
                                     left: parseFloat(marker.left ?? '50%') || 0,
                                     top: parseFloat(marker.top ?? '50%') || 0,
                                 };
-                        const { left, top } = projected;
+                        const { left: rawLeft, top: rawTop } = projected;
+                        // Re-express raw image-% positions in the cropped
+                        // window's coordinate space (no-op when not cropped).
+                        const left = crop ? ((rawLeft - crop.x) / crop.w) * 100 : rawLeft;
+                        const top = crop ? ((rawTop - crop.y) / crop.h) * 100 : rawTop;
                         const isActive = activeMarker === marker.name;
+                        // On a cropped (zoomed) view, a pin near the top edge has no
+                        // room above it for the info card — open it below instead.
+                        const cardBelow = crop !== null && top < 30;
 
                         // Flip the card near the container edges so it never overflows.
                         const cardPosition =
@@ -195,7 +246,7 @@ const WorldMap: React.FC<WorldMapProps> = ({
                                 {/* Info card — hover on desktop, tap on mobile */}
                                 {(marker.address || marker.phone || marker.email || marker.mapsUrl) && (
                                     <div
-                                        className={`absolute bottom-full z-10 mb-3 w-72 max-w-[75vw] rounded-xl bg-white p-3 text-left shadow-[0_8px_30px_rgba(0,0,0,0.12)] ring-1 ring-black/5 transition-all duration-200 ${cardPosition} ${isActive
+                                        className={`absolute ${cardBelow ? 'top-full pt-3' : 'bottom-full mb-3'} z-10 w-72 max-w-[75vw] rounded-xl bg-white p-3 text-left shadow-[0_8px_30px_rgba(0,0,0,0.12)] ring-1 ring-black/5 transition-all duration-200 ${cardPosition} ${isActive
                                             ? 'pointer-events-auto opacity-100 translate-y-0'
                                             : 'pointer-events-none opacity-0 translate-y-1'
                                             }`}

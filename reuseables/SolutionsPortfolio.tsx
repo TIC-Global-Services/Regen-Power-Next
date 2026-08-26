@@ -2,6 +2,7 @@
 import React, { useState } from 'react';
 import Image, { StaticImageData } from 'next/image';
 import gridDots from '@/assets/commercial-off-grid/gridDots.png';
+import { SliderArrows, SliderDots, useSnapSlider } from './MobileSliderControls';
 
 export type CardVariant = 'light-gray' | 'light-green' | 'dark';
 export type CardLayout = 3 | 4 | 6;
@@ -31,16 +32,16 @@ const variantClass: Record<CardVariant, string> = {
     'dark': 'bg-[#3B3B33] text-white',
 };
 
-const TextCardView: React.FC<{ card: TextCard; mobileScroll?: boolean; isHovered?: boolean; onMouseEnter?: () => void; onMouseLeave?: () => void }> = ({ card, mobileScroll, isHovered, onMouseEnter, onMouseLeave }) => {
+const TextCardView: React.FC<{ card: TextCard; mobileScroll?: boolean; isHovered?: boolean; onMouseEnter?: () => void; onMouseLeave?: () => void; tabletOrder?: string }> = ({ card, mobileScroll, isHovered, onMouseEnter, onMouseLeave, tabletOrder }) => {
     const isDark = card.variant === 'dark' || isHovered;
     const titleLines = card.title.split('\n');
     return (
         <div
-            className={`${isHovered ? 'bg-[#3B3B33] text-white' : variantClass[card.variant]} rounded-2xl p-6 flex flex-col justify-between gap-5 aspect-[4/3] overflow-hidden transition-colors duration-300 ${mobileScroll ? 'shrink-0 w-[75vw] md:w-[40vw] lg:w-auto' : ''}`}
+            className={`${isHovered ? 'bg-[#3B3B33] text-white' : variantClass[card.variant]} rounded-2xl p-6 flex flex-col justify-between gap-5 aspect-[4/3] overflow-hidden transition-colors duration-300 ${mobileScroll ? 'shrink-0 w-[60vw] snap-start md:w-auto' : ''} ${tabletOrder ?? ''}`}
             onMouseEnter={onMouseEnter}
             onMouseLeave={onMouseLeave}
         >
-            <h3 className="text-2xl lg:text-[2.5rem] font-normal tracking-tight leading-[1] text-[#63B846] mb-2">
+            <h3 className="text-2xl md:text-[2.5rem] lg:text-[3.125rem] font-normal tracking-tight leading-[1] text-[#63B846]">
                 {titleLines.map((line, i) => (
                     <span key={i} className="block">{line}</span>
                 ))}
@@ -59,9 +60,9 @@ const TextCardView: React.FC<{ card: TextCard; mobileScroll?: boolean; isHovered
     );
 };
 
-const ImageCardView: React.FC<{ card: ImageCard; mobileScroll?: boolean; isHovered?: boolean; onMouseEnter?: () => void; onMouseLeave?: () => void }> = ({ card, mobileScroll, isHovered, onMouseEnter, onMouseLeave }) => (
+const ImageCardView: React.FC<{ card: ImageCard; mobileScroll?: boolean; isHovered?: boolean; onMouseEnter?: () => void; onMouseLeave?: () => void; tabletOrder?: string }> = ({ card, mobileScroll, isHovered, onMouseEnter, onMouseLeave, tabletOrder }) => (
     <div
-        className={`${isHovered ? 'bg-[#3B3B33] text-white' : variantClass[card.variant]} rounded-2xl p-6 md:p-8 flex items-center justify-center aspect-[4/3] overflow-hidden transition-colors duration-300 ${mobileScroll ? 'shrink-0 w-[75vw] md:w-[40vw] lg:w-auto' : ''}`}
+        className={`${isHovered ? 'bg-[#3B3B33] text-white' : variantClass[card.variant]} rounded-2xl p-6 md:p-8 flex items-center justify-center aspect-[4/3] overflow-hidden transition-colors duration-300 ${mobileScroll ? 'shrink-0 w-[60vw] snap-start md:w-auto' : ''} ${tabletOrder ?? ''}`}
         onMouseEnter={onMouseEnter}
         onMouseLeave={onMouseLeave}
     >
@@ -118,6 +119,13 @@ const SolutionsPortfolio: React.FC<SolutionsPortfolioProps> = ({
     const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
     const activeIndex = hoveredIndex !== null ? hoveredIndex : defaultHoveredIndex;
 
+    // Native snap slider drives the swipe row on phones (< md); iPad and up
+    // render grids where these controls are hidden.
+    const {
+        trackRef, sync, active,
+        canPrev, canNext, goTo, next, prev,
+    } = useSnapSlider(cards?.length ?? 0);
+
     if (!cards || cards.length === 0) return null;
 
     return (
@@ -143,23 +151,38 @@ const SolutionsPortfolio: React.FC<SolutionsPortfolioProps> = ({
                     </div>
                 )}
 
-                <div className={`${mobileScroll
-                    ? `flex items-stretch overflow-x-auto lg:grid ${desktopGridCols(layout)} lg:snap-none -mx-[5%] px-[5%] md:px-[3%] lg:mx-0 lg:px-0 gap-4 min-h-[280px] [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none] pb-4 lg:pb-0`
+                <div ref={trackRef} onScroll={sync} className={`${mobileScroll
+                    ? `flex items-stretch overflow-x-auto md:overflow-visible md:grid md:grid-cols-2 lg:grid ${desktopGridCols(layout)} md:snap-none -mx-[5%] px-[5%] md:mx-0 md:px-0 gap-4 min-h-[280px] [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none] pb-4 md:pb-0`
                     : `grid ${gridCols[layout]} gap-5 md:gap-6`
                     }`}>
                     {cards.map((card, index) => {
                         const isActive = index === activeIndex;
+                        // iPad (md–lg): show the final two cards swapped, so the
+                        // image card sits in column 1 of the last row. Data order,
+                        // phone slider and desktop grid stay untouched.
+                        const tabletOrder =
+                            mobileScroll && index === cards.length - 2 ? 'md:order-[2] lg:order-[0]'
+                            : mobileScroll && index === cards.length - 1 ? 'md:order-[1] lg:order-[0]'
+                            : '';
                         const hoverProps = {
                             isHovered: isActive,
                             onMouseEnter: () => setHoveredIndex(index),
                             onMouseLeave: () => setHoveredIndex(null),
                         };
                         if (card.type === 'image') {
-                            return <ImageCardView key={index} card={card} mobileScroll={mobileScroll} {...hoverProps} />;
+                            return <ImageCardView key={index} card={card} mobileScroll={mobileScroll} tabletOrder={tabletOrder} {...hoverProps} />;
                         }
-                        return <TextCardView key={index} card={card} mobileScroll={mobileScroll} {...hoverProps} />;
+                        return <TextCardView key={index} card={card} mobileScroll={mobileScroll} tabletOrder={tabletOrder} {...hoverProps} />;
                     })}
                 </div>
+
+                {/* Slider controls — phones only; iPad renders the 2-col grid */}
+                {mobileScroll && cards.length > 1 && (
+                    <>
+                        <SliderDots count={cards.length} active={active} onSelect={goTo} className="mt-6 md:hidden" />
+                        <SliderArrows canPrev={canPrev} canNext={canNext} onPrev={prev} onNext={next} className="mt-2 md:hidden" />
+                    </>
+                )}
             </div>
         </section>
     );

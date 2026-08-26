@@ -66,7 +66,7 @@ const PackagesGrid: React.FC<PackagesGridProps> = ({
             >
               {/* Title & Desc */}
               <div className="mb-6">
-                <h3 className="text-3xl md:text-[2.125rem] font-bold mb-1 tracking-tight">
+                <h3 className="text-3xl md:text-[2.5rem] mb-1 tracking-tight max-w-xs">
                   {pkg.title}
                 </h3>
                 <p className={`text-sm md:text-base leading-tight text-black max-w-xs`}>

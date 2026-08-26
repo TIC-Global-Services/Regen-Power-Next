@@ -41,7 +41,33 @@ import ThreeSolutionsSection from '@/components/off-grid/ThreeSolutionsSection';
 import IconCardGrid from '@/reuseables/IconCardGrid';
 import HybridGenDetailSection from '@/components/off-grid/HybridGenDetailSection';
 import EditorialTextSection from '@/reuseables/EditorialTextSection';
-import WorldMap from '@/reuseables/WorldMap';
+import WorldMap, { type MapMarker } from '@/reuseables/WorldMap';
+
+/**
+ * Real-world coordinates per CMS marker name — mapped the same way as the
+ * contact page's LocationMap: WorldMap projects lat/lng through the map
+ * image's calibrated bounds, so pins land geographically exact instead of
+ * relying on hand-tuned top/left percentages.
+ */
+const MARKER_COORDS: Record<
+    string,
+    { lat: number; lng: number; labelPosition?: MapMarker['labelPosition'] }
+> = {
+    india: { lat: 20.5937, lng: 78.9629 },
+    maldives: { lat: 3.2028, lng: 73.2207, labelPosition: 'left' }, // right label collides with Sri Lanka
+    'sri lanka': { lat: 5, lng: 80.7718 }, 
+    vietnam: { lat: 14.0583, lng: 108.2772 },
+    singapore: { lat: 1.3521, lng: 103.8198, labelPosition: 'bottom' }, // tight SE-Asia cluster
+    indonesia: { lat: -0.7893, lng: 113.9213 },
+    australia: { lat: -25.2744, lng: 133.7751 },
+};
+
+/** Attach coordinates to any CMS marker whose name matches the table above. */
+const withCoordinates = (markers: MapMarker[]): MapMarker[] =>
+    markers.map((m) => {
+        const coords = MARKER_COORDS[m.name?.trim().toLowerCase() ?? ''];
+        return coords ? { ...m, ...coords } : m;
+    });
 import MicrogridSpecTable from '@/components/off-grid/MicrogridSpecTable';
 import AcquaSmartSection from '@/components/off-grid/AcquaSmartSection';
 import OffGridStory from '@/components/off-grid/OffGridStory';
@@ -188,8 +214,9 @@ const OffGridSolutionsPage = async () => {
       {worldMap && (
         <WorldMap
           title={worldMap.title}
-          markers={worldMap.markers}
+          markers={withCoordinates(worldMap.markers)}
           titleColor="black"
+          focusMarkers
         />
       )}
 

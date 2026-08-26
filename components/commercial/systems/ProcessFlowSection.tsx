@@ -3,6 +3,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import SectionHeader from '@/reuseables/SectionHeader';
+import { SliderArrows } from '@/reuseables/MobileSliderControls';
 import type { ResolvedCommercialSystemsProcessFlow } from '@/lib/strapi/resolvers/commercial';
 
 interface Props {
@@ -163,6 +164,22 @@ export default function ProcessFlowSection({ resolved }: Props) {
               })}
             </div>
           </motion.div>
+          </div>
+
+          {/* Navigation arrows — mobile/tablet (< lg): step the carousel like a swipe */}
+          <div className="lg:hidden mt-4 flex justify-center">
+            <SliderArrows
+              canPrev={steps.length > 1}
+              canNext={steps.length > 1}
+              onPrev={() =>
+                setActiveIndex((prev) => (prev === 0 ? steps.length - 1 : prev - 1))
+              }
+              onNext={() =>
+                setActiveIndex((prev) =>
+                  prev === steps.length - 1 ? 0 : prev + 1
+                )
+              }
+            />
           </div>
 
           {/* Step number */}
