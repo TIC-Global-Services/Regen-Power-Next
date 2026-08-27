@@ -16,6 +16,7 @@ import type {
 import FaqHeroSection from "@/components/solar/faq/FaqHeroSection";
 import CategorizedFaqSection from "@/components/solar/faq/CategorizedFaqSection";
 import CtaBannerSection from "@/components/solar/deals/CtaBannerSection";
+import QuoteSection from "@/reuseables/QuoteSection";
 
 export const revalidate = 60;
 
@@ -43,6 +44,8 @@ export default async function SolarFaqPage() {
       {heroProps && <FaqHeroSection resolved={heroProps} />}
 
       {categorizedFaqProps && <CategorizedFaqSection resolved={categorizedFaqProps} />}
+
+      <QuoteSection formType="contact" video="/form-icon-video.mp4" />
 
       {ctaBannerProps && <CtaBannerSection resolved={ctaBannerProps} />}
 

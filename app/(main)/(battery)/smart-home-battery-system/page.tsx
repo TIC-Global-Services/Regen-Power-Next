@@ -28,6 +28,7 @@ import type { SharedCtaBannerData } from "@/lib/strapi/schemas/commercial";
 
 import HeroSection from "@/reuseables/HeroSection";
 import GetSolar from "@/reuseables/getsolar";
+import QuoteSection from "@/reuseables/QuoteSection";
 import BatteryMarquee from "@/components/battery/battery-storage/BatteryMarquee";
 import GreatFit from "@/components/battery/smarthome-battery-system/GreatFit";
 import FourPillars from "@/components/battery/smarthome-battery-system/FourPillars";
@@ -121,6 +122,8 @@ const SmartBatterySystemPage = async () => {
       {brandsProps && <BatteryBrandsGrid data={brandsProps} />}
 
       {bentoProps && <BentoCardsGrid data={bentoProps} />}
+
+      <QuoteSection formType="contact" video="/form-icon-video.mp4" />
 
       {ctaBannerProps && (
         <GetSolar

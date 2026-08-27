@@ -46,6 +46,7 @@ import type { EvAccordionData } from "@/components/EvCharging/EvAccordion";
 import EvWhyChooseUs from "@/components/EvCharging/EvWhyChooseUs";
 import FAQ from "@/reuseables/faq";
 import GetSolar from "@/reuseables/getsolar";
+import QuoteSection from "@/reuseables/QuoteSection";
 
 // Fallback images (used until real media is uploaded in Strapi)
 import evHeroBg from "@/assets/evcharging/hero_banner.png";
@@ -237,6 +238,8 @@ const EvChargingPage = async () => {
       )}
 
       {/* Section 11: CTA Banner */}
+      <QuoteSection formType="contact" video="/form-icon-video.mp4" />
+
       {ctaProps && (
         <GetSolar
           subtitle={ctaProps.subtitle}

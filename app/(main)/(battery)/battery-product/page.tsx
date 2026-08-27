@@ -34,6 +34,7 @@ import type {
 
 import HeroSection from "@/reuseables/HeroSection";
 import GetSolar from "@/reuseables/getsolar";
+import QuoteSection from "@/reuseables/QuoteSection";
 
 import BatteryBrandMatters from "@/components/battery/battery-product/BatteryBrandMatters";
 import BentoCardsGrid from "@/reuseables/BentoCardsGrid";
@@ -144,6 +145,8 @@ const BatteryProductPage = async () => {
       {zeroInterestProps && <ZeroInterest data={zeroInterestProps} />}
 
       {homeownersProps && <Homeowners data={homeownersProps} />}
+
+      <QuoteSection formType="contact" video="/form-icon-video.mp4" />
 
       {ctaBannerProps && (
         <GetSolar

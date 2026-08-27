@@ -2,7 +2,7 @@
 
 import React from "react";
 import Image, { StaticImageData } from "next/image";
-import { useForm } from "react-hook-form";
+import { useForm, UseFormRegister } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { ArrowRight } from "lucide-react";
@@ -59,6 +59,18 @@ const quoteSchema = z.object({
     message: z.string().max(500, "Message is too long").optional(),
 });
 
+/** Field set mirrors components/contact/ContactForm.tsx exactly. */
+export const contactSectionSchema = z.object({
+    fullName: z.string().min(2, "Name must be at least 2 characters").max(80, "Name is too long"),
+    phone: z.string().min(8, "Enter a valid contact number").max(15, "Contact number is too long"),
+    email: z.string().email("Enter a valid email address"),
+    suburb: z.string().min(2, "Enter your suburb or postcode").max(80, "Suburb is too long"),
+    address: z.string().min(5, "Enter your full installation address").max(200, "Address is too long"),
+    message: z.string().max(500, "Message is too long").optional(),
+});
+
+export type QuoteSectionContactData = z.infer<typeof contactSectionSchema>;
+
 const BILL_TIER_OPTIONS = [
     { value: "<200", label: "< $200" },
     { value: "200-400", label: "$200 – $400" },
@@ -101,6 +113,11 @@ export interface QuoteSectionProps {
     variant?: "solar" | "classic";
     /** Form card skin. Defaults follow `variant`. */
     tone?: "mint" | "lime";
+
+    /* Fields */
+    /** "quote" = full quote qualifier; "contact" = the /contact page field set
+     *  (name, phone, email, suburb, address, message). Default "quote". */
+    formType?: "quote" | "contact";
 
     /* Behavior */
     /** Defaults to console.log + thank-you alert (previous placeholder behavior). */
@@ -155,10 +172,11 @@ const RadioOption: React.FC<RadioOptionProps> = ({
 
 /* ── Input field ── */
 interface FieldProps {
-    name: "fullName" | "phone" | "email" | "address";
+    name: "fullName" | "phone" | "email" | "address" | "suburb";
     placeholder: string;
     type?: string;
-    register: ReturnType<typeof useForm<QuoteFormData>>["register"];
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    register: UseFormRegister<any>;
     error?: string;
     inputClass: string;
 }
@@ -193,6 +211,7 @@ const QuoteSection: React.FC<QuoteSectionProps> = ({
     centerMedia = true,
     variant = "solar",
     tone,
+    formType = "quote",
     onSubmit,
     id,
     className = "",
@@ -357,7 +376,11 @@ const QuoteSection: React.FC<QuoteSectionProps> = ({
 
                     {/* Right column: form */}
                     <div className={rightColClass}>
-                        {isSolar ? (
+                        {formType === "contact" ? (
+                            <div className={panelClass}>
+                                <ContactFormFields inputClass={inputClass} />
+                            </div>
+                        ) : isSolar ? (
                             <div className={panelClass}>
                                 <form
                                     onSubmit={handleSubmit(handleSubmitQuote)}
@@ -625,6 +648,103 @@ const FormFields: React.FC<FormFieldsProps> = ({
                 </button>
             </div>
         </>
+    );
+};
+
+/* ── Contact field set (mirrors the /contact page form) ── */
+
+const ContactFormFields: React.FC<{ inputClass: string }> = ({ inputClass }) => {
+    const {
+        register,
+        handleSubmit,
+        formState: { errors, isSubmitting },
+    } = useForm<QuoteSectionContactData>({
+        resolver: zodResolver(contactSectionSchema),
+        defaultValues: {
+            fullName: "",
+            phone: "",
+            email: "",
+            suburb: "",
+            address: "",
+            message: "",
+        },
+    });
+
+    const submit = async (data: QuoteSectionContactData) => {
+        console.log("Contact submission:", data);
+        alert("Thank you! Your enquiry has been submitted. Our team will be in touch shortly.");
+    };
+
+    return (
+        <form onSubmit={handleSubmit(submit)} className="space-y-5">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-5">
+                <TextField
+                    name="fullName"
+                    placeholder="Your Full Name"
+                    register={register}
+                    error={errors.fullName?.message}
+                    inputClass={inputClass}
+                />
+                <TextField
+                    name="phone"
+                    type="tel"
+                    placeholder="Your Contact Number"
+                    register={register}
+                    error={errors.phone?.message}
+                    inputClass={inputClass}
+                />
+                <TextField
+                    name="email"
+                    type="email"
+                    placeholder="Your Email Address"
+                    register={register}
+                    error={errors.email?.message}
+                    inputClass={inputClass}
+                />
+                <TextField
+                    name="suburb"
+                    placeholder="Your Suburb Or Postcode"
+                    register={register}
+                    error={errors.suburb?.message}
+                    inputClass={inputClass}
+                />
+            </div>
+
+            <TextField
+                name="address"
+                placeholder="Type Your Address Here..."
+                register={register}
+                error={errors.address?.message}
+                inputClass={inputClass}
+            />
+
+            <div>
+                <textarea
+                    {...register("message")}
+                    rows={3}
+                    placeholder="Type Your Message Here..."
+                    className={`${inputClass} w-full resize-none`}
+                />
+                {errors.message && (
+                    <span className="text-red-500 text-xs mt-1">
+                        {errors.message.message}
+                    </span>
+                )}
+            </div>
+
+            <div className="pt-2">
+                <button
+                    type="submit"
+                    disabled={isSubmitting}
+                    className="group inline-flex items-center gap-3 bg-white text-black px-6 py-2.5 rounded-full text-sm md:text-base font-medium hover:text-white hover:bg-gray-900 transition-all duration-300 cursor-pointer disabled:opacity-60 disabled:cursor-not-allowed"
+                >
+                    {isSubmitting ? "Submitting..." : "Request Your Free Quote"}
+                    <span className="inline-flex items-center justify-center w-10 h-10 rounded-full bg-[#A0CF44] group-hover:translate-x-1 transition-transform duration-300">
+                        <ArrowRight className="w-5 h-5 text-white" />
+                    </span>
+                </button>
+            </div>
+        </form>
     );
 };
 

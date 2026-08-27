@@ -18,6 +18,7 @@ import ReviewsHero from '@/components/reviews/ReviewsHero';
 import ReviewsIntro from '@/components/reviews/ReviewsIntro';
 import TestimonialGrid from '@/components/reviews/TestimonialGrid';
 import CtaSection from '@/reuseables/CtaSection';
+import QuoteSection from "@/reuseables/QuoteSection";
 
 export const revalidate = 60;
 
@@ -74,6 +75,8 @@ export default async function ReviewsPage() {
                     images={testimonialsProps.imageCards}
                 />
             )}
+
+      <QuoteSection formType="contact" video="/form-icon-video.mp4" />
 
             {ctaBannerProps && (
                 <CtaSection

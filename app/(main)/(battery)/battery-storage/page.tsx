@@ -38,6 +38,7 @@ import type {
 
 import HeroSection from "@/reuseables/HeroSection";
 import GetSolar from "@/reuseables/getsolar";
+import QuoteSection from "@/reuseables/QuoteSection";
 import BatteryMarquee from "@/components/battery/battery-storage/BatteryMarquee";
 import DebsRebateBanner from "@/components/battery/battery-storage/DebsRebateBanner";
 import BatteryJargon from "@/components/battery/battery-storage/BatteryJargon";
@@ -219,6 +220,8 @@ const BatteryStoragePage = async () => {
           }}
         />
       )}
+
+      <QuoteSection formType="contact" video="/form-icon-video.mp4" />
 
       {ctaBannerProps && (
         <GetSolar

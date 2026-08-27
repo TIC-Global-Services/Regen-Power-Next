@@ -19,6 +19,7 @@ import PressHero from '@/components/press-and-media/PressHero';
 import FeaturedArticle from '@/components/press-and-media/FeaturedArticle';
 import LatestNews from '@/components/press-and-media/LatestNews';
 import NewsGrid from '@/components/press-and-media/NewsGrid';
+import QuoteSection from "@/reuseables/QuoteSection";
 import GetSolar from '@/reuseables/getsolar';
 import CategorySection from '@/reuseables/CategorySection';
 
@@ -111,6 +112,8 @@ const PressMediaPage = async () => {
       )}
 
       {categorySectionProps && <CategorySection resolved={categorySectionProps} />}
+
+      <QuoteSection formType="contact" video="/form-icon-video.mp4" />
 
       {ctaProps && (
         <GetSolar

@@ -34,6 +34,7 @@ import LoanBenefitsSection from "@/components/solar/government-rebates/LoanBenef
 import EligibilityCheckerSection from "@/components/solar/government-rebates/EligibilityCheckerSection";
 import FaqSection from "@/components/solar/deals/FaqSection";
 import CtaBannerSection from "@/components/solar/deals/CtaBannerSection";
+import QuoteSection from "@/reuseables/QuoteSection";
 
 export const revalidate = 60;
 
@@ -92,6 +93,8 @@ export default async function GovernmentRebatesPage() {
       {paperworkSectionProps && <NewHomebatterySplitSection resolved={paperworkSectionProps} />}
 
       {faqProps && <FaqSection resolved={faqProps} />}
+
+      <QuoteSection formType="contact" video="/form-icon-video.mp4" />
 
       {ctaBannerProps && <CtaBannerSection resolved={ctaBannerProps} />}
 

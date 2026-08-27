@@ -29,6 +29,7 @@ import type {
 import HeroSection from "@/reuseables/HeroSection";
 import FAQ from "@/reuseables/faq";
 import GetSolar from "@/reuseables/getsolar";
+import QuoteSection from "@/reuseables/QuoteSection";
 import SpecsTableSection from "@/components/solar/brands/SpecsTableSection";
 
 import BrandLongTermBet from "@/components/battery/brands-wecarry/BrandLongTermBet";
@@ -169,6 +170,8 @@ const BrandsWeCarryPage = async () => {
           items={faqProps.items}
         />
       )}
+
+      <QuoteSection formType="contact" video="/form-icon-video.mp4" />
 
       {ctaBannerProps && (
         <GetSolar

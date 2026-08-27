@@ -21,6 +21,7 @@ import { PORTFOLIO_DATA } from '@/utils/portfolio-data-';
 import PortfolioHero from '@/components/portfolio/PortfolioHero';
 import PortfolioInteractive from '@/components/portfolio/PortfolioInteractive';
 import CtaSection from '@/reuseables/CtaSection';
+import QuoteSection from "@/reuseables/QuoteSection";
 import CategorySection from '@/reuseables/CategorySection';
 
 export const revalidate = 60;
@@ -84,6 +85,8 @@ const PortfolioPage = async () => {
       />
 
       {categorySectionProps && <CategorySection resolved={categorySectionProps} />}
+
+      <QuoteSection formType="contact" video="/form-icon-video.mp4" />
 
       {ctaProps && (
         <CtaSection

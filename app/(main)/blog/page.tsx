@@ -14,6 +14,7 @@ import type {
 } from '@/lib/strapi/schemas';
 import BlogHero from '@/components/blog/BlogHero';
 import BlogGrid from '@/components/blog/BlogGrid';
+import QuoteSection from "@/reuseables/QuoteSection";
 import GetSolar from '@/reuseables/getsolar';
 import CategorySection from '@/reuseables/CategorySection';
 
@@ -57,6 +58,8 @@ const BlogPage = async () => {
       )}
 
       {categorySectionProps && <CategorySection resolved={categorySectionProps} />}
+
+      <QuoteSection formType="contact" video="/form-icon-video.mp4" />
 
       {ctaBannerProps && (
         <GetSolar

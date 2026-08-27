@@ -18,6 +18,7 @@ import HeroSection from "@/components/commercial/off-grid/HeroSection";
 import EditorialSection from "@/components/commercial/off-grid/EditorialSectionSection";
 import SolutionsPortfolioSection from "@/components/commercial/off-grid/SolutionsPortfolioSection";
 import CtaBannerSection from "@/components/commercial/off-grid/CtaBannerSection";
+import QuoteSection from "@/reuseables/QuoteSection";
 
 export const revalidate = 60;
 
@@ -42,6 +43,8 @@ export default async function CommercialOffGridPage() {
       {editorialProps && <EditorialSection resolved={editorialProps} />}
 
       {portfolioProps && <SolutionsPortfolioSection resolved={portfolioProps} />}
+
+      <QuoteSection formType="contact" video="/form-icon-video.mp4" />
 
       {ctaBannerProps && (
         <div id="quote-form">

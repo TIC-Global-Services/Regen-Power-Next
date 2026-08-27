@@ -31,6 +31,7 @@ import type {
 import HeroSection from "@/reuseables/HeroSection";
 import FAQ from "@/reuseables/faq";
 import GetSolar from "@/reuseables/getsolar";
+import QuoteSection from "@/reuseables/QuoteSection";
 
 import RebatesStackGrid from "@/components/battery/government-rebates/RebatesStackGrid";
 import RebateDetailSplit from "@/components/battery/government-rebates/RebateDetailSplit";
@@ -162,6 +163,8 @@ const GovernmentRebatesPage = async () => {
           hideImageMobile
         />
       )}
+
+      <QuoteSection formType="contact" video="/form-icon-video.mp4" />
 
       {ctaBannerProps && (
         <div id="quote" className="scroll-mt-20">

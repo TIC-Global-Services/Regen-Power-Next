@@ -21,6 +21,7 @@ import DrivenByInnovation from '@/components/research-and-development/DrivenByIn
 import EnergySolutions from '@/components/research-and-development/EnergySolutions';
 import CoreAchievements from '@/components/research-and-development/CoreAchievements';
 import CtaSection from '@/reuseables/CtaSection';
+import QuoteSection from "@/reuseables/QuoteSection";
 
 export const revalidate = 60;
 
@@ -49,6 +50,8 @@ export default async function ResearchAndDevelopmentPage() {
       {energySolutionsProps && <EnergySolutions resolved={energySolutionsProps} />}
 
       {coreAchievementsProps && <CoreAchievements resolved={coreAchievementsProps} />}
+
+      <QuoteSection formType="contact" video="/form-icon-video.mp4" />
 
       {ctaBannerProps && (
         <CtaSection
