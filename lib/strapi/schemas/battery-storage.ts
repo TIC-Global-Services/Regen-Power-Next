@@ -109,11 +109,21 @@ export type BatteryStorageMarqueeData = z.infer<
 
 // ─── Debs Rebate Banner ─────────────────────────────────────────────────
 
+export const BatteryStorageRebateHighlightSchema = z.object({
+  id: z.number(),
+  label: z.string().nullable(),
+  description: z.string().nullable(),
+});
+export type BatteryStorageRebateHighlightData = z.infer<
+  typeof BatteryStorageRebateHighlightSchema
+>;
+
 export const BatteryStorageDebsRebateSchema = z.object({
   __component: z.literal("battery-storage.debs-rebate"),
   subtitle: z.string().nullable(),
   title: z.string().nullable(),
   description: z.string().nullable(),
+  highlights: z.array(BatteryStorageRebateHighlightSchema).nullable(),
   image: MediaSchema.nullable(),
   ctaText: z.string().nullable(),
   ctaLink: z.string().nullable(),

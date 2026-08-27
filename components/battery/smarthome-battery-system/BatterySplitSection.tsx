@@ -85,14 +85,9 @@ const BatterySplitSection = ({ data }: { data: BatterySplitData }) => {
   return (
     <section className="bg-white py-8 md:py-16 px-[5%] md:px-[3%] overflow-hidden">
       <div className="flex flex-col lg:flex-row gap-12 lg:gap-16 items-center">
-        {/* IMAGE — mobile/iPad: first (order-1); desktop: right column (lg:order-2).
-            Nav sits below the image on desktop only; on mobile/iPad it lives
-            inline with the "View more" toggle in the content column. */}
+        {/* IMAGE — mobile/iPad: first (order-1); desktop: right column (lg:order-2). */}
         <div className="order-1 w-full lg:order-2 lg:w-1/2 flex flex-col items-end gap-6">
           {renderImage()}
-          <div className="hidden lg:flex justify-end w-full">
-            {renderNav()}
-          </div>
         </div>
 
         {/* CONTENT — mobile/iPad: after image (order-2); desktop: left column (lg:order-1) */}
@@ -155,15 +150,21 @@ const BatterySplitSection = ({ data }: { data: BatterySplitData }) => {
                       ))}
                     </div>
 
-                    <CtaButton
-                      href={slide.ctaLink}
-                      text={slide.ctaText}
-                      textColor="text-black"
-                    />
+                    {currentSlide === 0 && (
+                      <CtaButton
+                        href={slide.ctaLink}
+                        text={slide.ctaText}
+                        textColor="text-black"
+                      />
+                    )}
                   </div>
                 </div>
               </motion.div>
             </AnimatePresence>
+          </div>
+          {/* Desktop arrows — left-aligned below the content */}
+          <div className="hidden lg:flex justify-start w-full mt-8">
+            {renderNav()}
           </div>
         </div>
       </div>

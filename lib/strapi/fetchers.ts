@@ -497,6 +497,14 @@ export const getPortfolioProject = async (
   return arr[0];
 };
 
+/** Fetch the latest N portfolio-projects — sorted by createdAt desc. */
+export const getLatestPortfolioProjects = async (
+  limit = 6
+): Promise<PortfolioProjectData[]> => {
+  const res = await portfolioProjectsPage(1, limit);
+  return Array.isArray(res.data) ? res.data : [];
+};
+
 export const getContactPage = () =>
   getSingleType(
     PAGE_SLUGS.contact,

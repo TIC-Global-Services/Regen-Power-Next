@@ -81,6 +81,9 @@ const LocationMap: React.FC<LocationMapProps> = ({
             subtitle={subtitle}
             title={title}
             markers={markers}
+            // Small screens: zoom into the Dubai → Australia office band.
+            // Window verified to contain all six offices with label room.
+            focusMarkers={{ x: 56, y: 34, w: 44, h: 44 }}
         />
     );
 };

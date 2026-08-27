@@ -2,16 +2,24 @@ import React from 'react';
 import Image, { StaticImageData } from 'next/image';
 import CtaButton from '@/reuseables/CtaButton';
 
+export interface DebsRebateHighlight {
+  label: string;
+  description: string;
+}
+
 export interface DebsRebateData {
   subtitle: string;
   title: string;
   description: string;
+  highlights?: DebsRebateHighlight[];
   image: StaticImageData | string;
   ctaText: string;
   ctaLink: string;
 }
 
 const DebsRebateBanner = ({ data }: { data: DebsRebateData }) => {
+  const highlights = data.highlights ?? [];
+
   return (
     <section className="bg-white py-12 md:py-20 px-[5%] md:px-[3%]">
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-center">
@@ -34,9 +42,24 @@ const DebsRebateBanner = ({ data }: { data: DebsRebateData }) => {
           <h2 className="text-5xl md:text-6xl lg:text-[5rem] text-[#63B846] font-medium leading-[1.05] tracking-tight mb-6">
             {data.title}
           </h2>
-          <p className="text-base md:text-xl text-black leading-[1.2] tracking-tight mb-10 max-w-2xl capitalize ">
+          <p className="text-base md:text-xl text-black leading-[1.2] tracking-tight mb-6 max-w-2xl">
             {data.description}
           </p>
+
+          {highlights.length > 0 && (
+            <ul className="space-y-4 max-w-2xl mb-10">
+              {highlights.map((item, idx) => (
+                <li key={`${item.label}-${idx}`} className="flex gap-3 text-sm md:text-base leading-snug text-black">
+                  <span className="mt-1.5 h-2 w-2 rounded-full bg-[#63B846] shrink-0" aria-hidden="true" />
+                  <span>
+                    <strong className="font-semibold">{item.label}</strong>
+                    {item.description ? ` — ${item.description}` : ''}
+                  </span>
+                </li>
+              ))}
+            </ul>
+          )}
+
           <div>
             <CtaButton href={data.ctaLink} text={data.ctaText} textColor="text-black" />
           </div>

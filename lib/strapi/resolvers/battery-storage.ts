@@ -57,10 +57,15 @@ export function resolveBatteryStorageMarquee(
 
 // ─── Debs Rebate Banner → DebsRebateData ────────────────────────────────
 
+export interface ResolvedRebateHighlight {
+  label: string;
+  description: string;
+}
 export interface ResolvedDebsRebate {
   subtitle: string;
   title: string;
   description: string;
+  highlights: ResolvedRebateHighlight[];
   image: string | null;
   ctaText: string;
   ctaLink: string;
@@ -74,6 +79,10 @@ export function resolveDebsRebate(
     subtitle: data.subtitle ?? "",
     title: data.title ?? "",
     description: data.description ?? "",
+    highlights: (data.highlights ?? []).map((h) => ({
+      label: h.label ?? "",
+      description: h.description ?? "",
+    })),
     image: img?.src ?? null,
     ctaText: data.ctaText ?? "Get Your Free Quote",
     ctaLink: data.ctaLink ?? "/contact",

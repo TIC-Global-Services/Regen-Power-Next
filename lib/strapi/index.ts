@@ -30,6 +30,7 @@ export {
   getPortfolioPage,
   getPortfolioProjects,
   getPortfolioProject,
+  getLatestPortfolioProjects,
   getReviewsPage,
   getContactPage,
   getFaqPage,

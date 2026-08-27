@@ -1,6 +1,7 @@
 import React from "react";
-import { getBatteryProductPage } from "@/lib/strapi";
+import { getBatteryProductPage, getLatestPortfolioProjects } from "@/lib/strapi";
 import { findSection } from "@/lib/strapi/section-utils";
+import { strapiImageData } from "@/lib/strapi/media";
 import {
   resolveBatteryProductHero,
   resolveBatteryMarquee,
@@ -55,7 +56,10 @@ import businessBg from "@/assets/home/zerointrest/businessBg.jpg";
 export const revalidate = 60;
 
 const BatteryProductPage = async () => {
-  const { data } = await getBatteryProductPage();
+  const [{ data }, latestProjects] = await Promise.all([
+    getBatteryProductPage(),
+    getLatestPortfolioProjects(6),
+  ]);
   const sections = data.sections ?? [];
 
   const hero = findSection<BatteryProductHeroData>(sections, "battery-product.hero");
@@ -83,7 +87,34 @@ const BatteryProductPage = async () => {
   const whatWeCheckProps = resolveWhatWeCheck(whatWeCheck);
   const warrantyProps = resolveWarrantyCoverage(warranty);
   const zeroInterestProps = resolveZeroInterest(zeroInterest);
-  const homeownersProps = resolveHomeowners(homeowners);
+  let homeownersProps = resolveHomeowners(homeowners);
+  // Cards come from the portfolio-project collection (latest 6, newest first).
+  // Header/button copy stays from the Strapi homeowners section when present.
+  if (latestProjects.length > 0) {
+    const stories = latestProjects.map((p: (typeof latestProjects)[number]) => {
+      const loc = [p.suburb, p.state].filter(Boolean).join(", ");
+      const sizeLabel = [p.systemSize, p.batterySize].filter(Boolean).join(" · ");
+      return {
+        title: p.title?.trim() || "Untitled project",
+        description: p.description?.trim() || "",
+        image: p.image ? strapiImageData(p.image)?.src ?? null : null,
+        footerTitle: loc || undefined,
+        footerDescription: sizeLabel || (p.postcode ? String(p.postcode) : undefined),
+      };
+    });
+    if (homeownersProps) {
+      homeownersProps = { ...homeownersProps, stories };
+    } else {
+      homeownersProps = {
+        topSubtitle: "Our portfolio",
+        title: "Latest installs",
+        showReadMore: true,
+        centerButton: true,
+        centerButtonText: "View all projects",
+        stories,
+      };
+    }
+  }
   const ctaBannerProps = resolveSharedCtaBanner(ctaBanner);
 
   return (

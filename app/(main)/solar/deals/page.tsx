@@ -84,16 +84,7 @@ export default async function SolarDealsPage() {
 
       {faqProps && <FaqSection resolved={faqProps} />}
 
-      {formProps && (
-        <QuoteSection
-          id="quote-form"
-          variant="solar"
-          subtitle={formProps.subtitle}
-          title={formProps.title}
-          description={formProps.description}
-          image={formProps.image}
-        />
-      )}
+      <QuoteSection formType="contact" video="/form-icon-video.mp4" />
 
       {ctaBannerProps && <CtaBannerSection resolved={ctaBannerProps} />}
 

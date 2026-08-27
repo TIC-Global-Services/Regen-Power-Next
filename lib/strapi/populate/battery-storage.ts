@@ -5,7 +5,8 @@ export const marquee =
   "populate[sections][on][battery-storage.marquee][populate][items]=true";
 
 export const debsRebate =
-  "populate[sections][on][battery-storage.debs-rebate][populate]=image";
+  "populate[sections][on][battery-storage.debs-rebate][populate][image]=true" +
+  "&populate[sections][on][battery-storage.debs-rebate][populate][highlights]=true";
 
 export const jargon =
   "populate[sections][on][battery-storage.jargon][populate][cards][populate][image]=true";
