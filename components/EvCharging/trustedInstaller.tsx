@@ -50,9 +50,9 @@ const TrustedInstaller = ({ data }: TrustedInstallerProps) => {
               const colSpan = index % 4 === 0 || index % 4 === 3 ? 'lg:col-span-8' : 'lg:col-span-4';
               return (
                 <Reveal key={index} delay={index * 0.1} className={colSpan}>
-                  <div className="bg-[#EEF6EB] rounded-[24px] p-8 md:p-10 flex flex-col justify-between min-h-[340px] md:min-h-[380px] h-full hover:shadow-md transition-shadow duration-300">
-                    {/* Top: Logo */}
-                    <div className="relative w-[60%] h-[30%] mb-8">
+                  <div className="bg-[#EEF6EB] rounded-[24px] p-8 md:p-10 flex flex-col items-start justify-between min-h-[340px] md:min-h-[380px] h-full hover:shadow-md transition-shadow duration-300">
+                    {/* Top: Logo — self-start pins the box left; object-left pins the image left inside the box */}
+                    <div className="relative self-start w-[70%] h-full mb-8">
                       <Image
                         src={brand.logo}
                         alt={`${brand.name} logo`}
@@ -61,12 +61,12 @@ const TrustedInstaller = ({ data }: TrustedInstallerProps) => {
                       />
                     </div>
 
-                    {/* Bottom: Text Content */}
-                    <div className="flex flex-col gap-2 mt-auto">
-                      <h3 className="text-xl md:text-[1.90rem] font-medium text-black tracking-tight leading-snug">
+                    {/* Bottom: Text Content — items-start + text-left */}
+                    <div className="flex flex-col items-start gap-2 mt-auto w-full text-left">
+                      <h3 className="text-xl md:text-[1.875rem] font-medium text-black tracking-tight leading-snug text-left">
                         {brand.title}
                       </h3>
-                      <p className="text-sm md:text-lg text-black/70 max-w-2xl leading-[1.2]">
+                      <p className="text-sm md:text-lg text-black max-w-2xl leading-[1.2] tracking-tight text-left">
                         {brand.description}
                       </p>
                       {/* {brand.specs && (

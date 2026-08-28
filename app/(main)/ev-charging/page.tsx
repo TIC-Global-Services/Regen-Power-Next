@@ -186,16 +186,6 @@ const EvChargingPage = async () => {
         />
       )}
 
-      {/* Section 6: Home Battery (V2H) */}
-      {homeBatteryProps && (
-        <HomeBattery
-          data={{
-            ...homeBatteryProps,
-            image: homeBatteryProps.image || sigenSetup,
-          }}
-        />
-      )}
-
       {/* Section 7: Under One Roof */}
       {featureCardsProps && (
         <UnderOneRoof
@@ -209,6 +199,18 @@ const EvChargingPage = async () => {
           }}
         />
       )}
+
+      {/* Section 6: Home Battery (V2H) */}
+      {homeBatteryProps && (
+        <HomeBattery
+          data={{
+            ...homeBatteryProps,
+            image: homeBatteryProps.image || sigenSetup,
+          }}
+        />
+      )}
+
+      
 
       {/* Section 8: Installation Steps */}
       {installationStepsProps && (

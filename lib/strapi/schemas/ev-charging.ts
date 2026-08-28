@@ -73,13 +73,6 @@ export const EvChargingChargerProductsSchema = z.object({
   subtitle: z.string().nullable(),
   title: z.string().nullable(),
   products: z.array(EvChargingChargerProductSchema),
-  brands: z.array(
-    z.object({
-      id: z.number(),
-      name: z.string().nullable(),
-      image: MediaSchema.nullable(),
-    })
-  ),
 });
 export type EvChargingChargerProductsData = z.infer<
   typeof EvChargingChargerProductsSchema
@@ -131,7 +124,7 @@ export type EvChargingBenefitCardsData = z.infer<
   typeof EvChargingBenefitCardsSchema
 >;
 
-// ─── Home Battery ────────────────────────────────────────────────────
+// ─── Home Battery ───────────────────────────────────────────────────
 
 export const EvChargingHomeBatterySchema = z.object({
   __component: z.literal("ev-charging.home-battery"),
@@ -193,27 +186,15 @@ export type EvChargingInstallationStepsData = z.infer<
   typeof EvChargingInstallationStepsSchema
 >;
 
-// ─── Stats (Why Choose Us) — matches frontend card model ─────────────
+// ─── Stats (Why Choose Us) — title/description/image/counterValue/counterSuffix ─
 
 export const EvChargingWhyChooseCardSchema = z.object({
   id: z.number(),
-  variant: z.enum(["award", "installations", "years"]).nullable(),
-  bgColor: z.string().nullable(),
-  logoBg: MediaSchema.nullable(),
-  logo: MediaSchema.nullable(),
-  mobileLogo: z.string().nullable(),
-  count: z.number().nullable(),
-  countSuffix: z.string().nullable(),
-  mobileCount: z.number().nullable(),
-  mobileCountSuffix: z.string().nullable(),
   title: z.string().nullable(),
   description: z.string().nullable(),
-  mobileTitle: z.string().nullable(),
-  combinedText: z.string().nullable(),
-  productImage: MediaSchema.nullable(),
-  showPlusButton: z.boolean().nullable(),
-  backgroundImage: MediaSchema.nullable(),
-  yearsText: z.string().nullable(),
+  image: MediaSchema.nullable(),
+  counterValue: z.number().nullable(),
+  counterSuffix: z.string().nullable(),
 });
 export type EvChargingWhyChooseCardData = z.infer<
   typeof EvChargingWhyChooseCardSchema

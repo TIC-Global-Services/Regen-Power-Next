@@ -67,7 +67,7 @@ const BatteryCapacityBlocks = ({ data }: { data: BatteryCapacityData }) => {
           </div>
 
           <SliderDots count={data.cards.length} active={active} onSelect={goTo} className="mt-5 md:hidden" />
-          <SliderArrows canPrev={canPrev} canNext={canNext} onPrev={prev} onNext={next} className="mt-4 md:hidden" />
+          <SliderArrows canPrev={canPrev} canNext={canNext} onPrev={prev} onNext={next} className="my-4 md:hidden" />
 
           {/* Desktop: Cards Grid */}
           <div className="hidden md:grid md:grid-cols-3 gap-5 md:gap-2 mb-10 justify-center max-w-6xl mx-auto">

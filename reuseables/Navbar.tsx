@@ -43,7 +43,7 @@ const navItems = [
       { name: 'Portfolio', href: '/portfolio' },
     ]
   },
-  { name: 'About Us', href: '#' },
+  { name: 'About Us', href: '/about' },
   { name: 'Reviews', href: '/reviews' },
   { name: 'Press & Media', 
     href: '/press-media',

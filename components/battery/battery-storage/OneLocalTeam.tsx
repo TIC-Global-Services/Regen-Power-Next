@@ -97,7 +97,7 @@ const OneLocalTeam = ({ data }: { data: OneLocalTeamData }) => {
           </div>
 
           <SliderDots count={data.cards.length} active={active} onSelect={goTo} className="mt-5 lg:hidden" />
-          <SliderArrows canPrev={canPrev} canNext={canNext} onPrev={prev} onNext={next} className="mt-4 lg:hidden" />
+          <SliderArrows canPrev={canPrev} canNext={canNext} onPrev={prev} onNext={next} className="my-4 lg:hidden" />
 
           {/* Mobile CTA */}
           <div className="lg:hidden text-center">

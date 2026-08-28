@@ -48,7 +48,7 @@ const Partners = ({ data }: PartnersProps) => {
                     className={`col-span-3 flex items-center justify-center p-0 md:p-8 hover:-translate-y-0.5 transition-all duration-300 ${index > 0 ? "md:border-l md:border-gray-200" : ""
                       }`}
                   >
-                    <div className="relative aspect-[4/5] w-full max-w-[120px] mx-auto md:aspect-auto md:h-40 md:w-40">
+                    <div className="relative aspect-[4/5] w-full max-w-[200px] mx-auto md:aspect-auto md:h-42 md:w-42">
                       <Image
                         src={partner.image}
                         alt={partner.name}

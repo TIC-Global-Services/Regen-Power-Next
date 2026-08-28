@@ -49,7 +49,7 @@ const WhyChargeAtHome = ({ data }: WhyChargeAtHomeProps) => {
                       src={benefit.image}
                       alt={benefit.title}
                       fill
-                      className="object-contain group-hover:scale-105 transition-transform duration-700"
+                      className="object-contain group-hover:scale-105 transition-transform duration-700 p-8"
                     />
                   </div>
 
@@ -98,7 +98,7 @@ const WhyChargeAtHome = ({ data }: WhyChargeAtHomeProps) => {
                         {benefit.title}
                       </h3>
 
-                      <p className="text-sm md:text-lg tracking-tight leading-snug max-w-sm">
+                      <p className="text-sm md:text-lg tracking-tight leading-tight max-w-sm">
                         {benefit.description}
                       </p>
                     </div>

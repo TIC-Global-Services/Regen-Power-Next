@@ -455,3 +455,46 @@ export type {
   ResolvedOverlayCardGrid,
   ResolvedOffGridForm,
 } from "./off-grid";
+
+export {
+  resolvePromotionHero,
+  resolvePromotionLimitedSpots,
+  resolvePromotionTrustRegen,
+  resolvePromotionFreeQuotation,
+  resolvePromotionBatteryRebates,
+  resolvePromotionTrustedBrands,
+  resolvePromotionHighEnergy,
+  resolvePromotionBatteryPackage,
+  resolvePromotionReadyToBegin,
+  resolvePromotionSolarFinancing,
+  resolvePromotionAboutRegen,
+  resolvePromotionFindOutWhy,
+  resolvePromotionAchievements,
+  resolvePromotionIndustryRecognition,
+  resolvePromotionFaqSection,
+  resolvePromotionAwardsSection,
+  deriveMobileAwards,
+  deriveMobileContactInfo,
+  deriveMobileBatteryPricing,
+} from "./promotion";
+export type {
+  ResolvedPromotionHero,
+  ResolvedPromotionLimitedSpots,
+  ResolvedPromotionTrustRegen,
+  ResolvedPromotionFreeQuotation,
+  ResolvedPromotionBatteryRebates,
+  ResolvedPromotionTrustedBrands,
+  ResolvedPromotionHighEnergy,
+  ResolvedPromotionBatteryPackage,
+  ResolvedPromotionReadyToBegin,
+  ResolvedPromotionSolarFinancing,
+  ResolvedPromotionAboutRegen,
+  ResolvedPromotionFindOutWhy,
+  ResolvedPromotionAchievements,
+  ResolvedPromotionIndustryRecognition,
+  ResolvedPromotionFaqSection,
+  ResolvedPromotionAwardsSection,
+} from "./promotion";
+
+export { resolveAboutHero, resolveAboutAwards } from "./about";
+export type { ResolvedAboutHero, ResolvedAboutAwardCard, ResolvedAboutAwards } from "./about";

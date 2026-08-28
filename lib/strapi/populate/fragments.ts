@@ -1,6 +1,8 @@
 export { populate } from "./index";
 
 export * as solar from "./solar";
+export * as about from "./about";
+export * as promotion from "./promotion";
 export * as brands from "./brands";
 export * as deals from "./deals";
 export * as shared from "./shared";

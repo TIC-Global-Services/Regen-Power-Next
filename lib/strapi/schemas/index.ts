@@ -453,3 +453,47 @@ export {
   OverlayCardGridSchema,
   OffGridFormSchema,
 } from "./off-grid";
+
+export type {
+  PromotionHeroData,
+  PromotionLimitedSpotsData,
+  PromotionTrustRegenData,
+  PromotionFreeQuotationData,
+  PromotionBatteryRebatesData,
+  PromotionTrustedBrandsData,
+  PromotionHighEnergyData,
+  PromotionBatteryPackageData,
+  PromotionReadyToBeginData,
+  PromotionSolarFinancingData,
+  PromotionAboutRegenData,
+  PromotionFindOutWhyData,
+  PromotionAchievementsData,
+  PromotionIndustryRecognitionData,
+  PromotionFaqSectionData,
+  PromotionAwardsSectionData,
+  PromotionBatteryPricingData,
+  PromotionContactInfoData,
+} from "./promotion";
+export {
+  PromotionHeroSchema,
+  PromotionLimitedSpotsSchema,
+  PromotionTrustRegenSchema,
+  PromotionFreeQuotationSchema,
+  PromotionBatteryRebatesSchema,
+  PromotionTrustedBrandsSchema,
+  PromotionHighEnergySchema,
+  PromotionBatteryPackageSchema,
+  PromotionReadyToBeginSchema,
+  PromotionSolarFinancingSchema,
+  PromotionAboutRegenSchema,
+  PromotionFindOutWhySchema,
+  PromotionAchievementsSchema,
+  PromotionIndustryRecognitionSchema,
+  PromotionFaqSectionSchema,
+  PromotionAwardsSectionSchema,
+  PromotionBatteryPricingSchema,
+  PromotionContactInfoSchema,
+} from "./promotion";
+
+export type { AboutHeroData, AboutAwardCardData, AboutAwardsData } from "./about";
+export { AboutHeroSchema, AboutAwardCardSchema, AboutAwardsSchema } from "./about";

@@ -255,22 +255,15 @@ export function resolveEvChargingInstallationSteps(
   };
 }
 
-// ─── Stats (Why Choose Us) — card model ───────────────────────────────
+// ─── Stats (Why Choose Us) ────────────────────────────────────────────
 
 export interface ResolvedEvChargingWhyChooseCard {
-  variant: "award" | "installations" | "years";
-  bgColor: string;
-  logoBg?: string;
-  logo?: string;
-  count?: number;
-  countSuffix?: string;
-  title?: string;
-  description?: string;
-  combinedText?: string;
-  productImage?: string;
-  showPlusButton?: boolean;
-  backgroundImage?: string;
-  yearsText?: string;
+  id: string;
+  title: string;
+  description: string;
+  image: string | null;
+  counterValue?: number;
+  counterSuffix?: string;
 }
 export interface ResolvedEvChargingStats {
   headerSubtitle: string;
@@ -284,23 +277,13 @@ export function resolveEvChargingStats(
   return {
     headerSubtitle: data.headerSubtitle ?? "",
     headerTitle: data.headerTitle ?? "",
-    cards: (data.cards ?? []).map((c) => {
-      const card: ResolvedEvChargingWhyChooseCard = {
-        variant: (c.variant ?? "award") as "award",
-        bgColor: c.bgColor ?? "",
-      };
-      if (c.logoBg) card.logoBg = src(c.logoBg);
-      if (c.logo) card.logo = src(c.logo);
-      if (c.count != null) card.count = c.count;
-      if (c.countSuffix) card.countSuffix = c.countSuffix;
-      if (c.title) card.title = c.title;
-      if (c.description) card.description = c.description;
-      if (c.combinedText) card.combinedText = c.combinedText;
-      if (c.productImage) card.productImage = src(c.productImage);
-      if (c.showPlusButton != null) card.showPlusButton = c.showPlusButton;
-      if (c.backgroundImage) card.backgroundImage = src(c.backgroundImage);
-      if (c.yearsText) card.yearsText = c.yearsText;
-      return card;
-    }),
+    cards: (data.cards ?? []).map((c) => ({
+      id: String(c.id),
+      title: c.title ?? "",
+      description: c.description ?? "",
+      image: c.image ? src(c.image) : null,
+      ...(c.counterValue != null ? { counterValue: c.counterValue } : {}),
+      ...(c.counterSuffix ? { counterSuffix: c.counterSuffix } : {}),
+    })),
   };
 }

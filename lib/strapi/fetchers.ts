@@ -26,6 +26,8 @@ import * as blog from "./populate/blog";
 import * as portfolio from "./populate/portfolio";
 import * as pressMedia from "./populate/press-media";
 import * as offGrid from "./populate/off-grid";
+import * as about from "./populate/about";
+import * as promotion from "./populate/promotion";
 
 const PAGE_SLUGS = {
   solar: "solar-page",
@@ -49,6 +51,8 @@ const PAGE_SLUGS = {
   brandsWeCarry: "battery-brands-page",
   evCharging: "ev-charging-page",
   home: "home-page",
+  promotion: "promotion-page",
+  about: "about-page",
 } as const;
 
 async function getSingleType(
@@ -638,3 +642,31 @@ export const getEvChargingPage = () =>
       evCharging.ctaBanner
     )
   );
+
+export const getPromotionPage = () =>
+  getSingleType(
+    PAGE_SLUGS.promotion,
+    populate(
+      promotion.hero,
+      promotion.limitedSpots,
+      promotion.trustRegen,
+      promotion.freeQuotation,
+      promotion.batteryRebates,
+      promotion.trustedBrands,
+      promotion.highEnergy,
+      promotion.batteryPackage,
+      promotion.readyToBegin,
+      promotion.solarFinancing,
+      promotion.aboutRegen,
+      promotion.findOutWhy,
+      promotion.achievements,
+      promotion.industryRecognition,
+      promotion.faqSection,
+      promotion.awardsSection,
+      promotion.batteryPricing,
+      promotion.contactInfo
+    )
+  );
+
+export const getAboutPage = () =>
+  getSingleType(PAGE_SLUGS.about, populate(about.hero, about.awards));

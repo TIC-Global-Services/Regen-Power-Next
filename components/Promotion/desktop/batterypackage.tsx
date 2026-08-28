@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React from 'react';
 import Fade from '@/reuseables/fade';
 import CtaButton from '@/reuseables/CtaButton';
 import { Calculator } from 'lucide-react';
@@ -51,7 +51,13 @@ const MinusCircle = ({ size = 18 }: { size?: number }) => (
   </svg>
 );
 
-const BatteryPackageCard = ({ pkg }: { pkg: BatteryPackageItem }) => {
+const BatteryPackageCard = ({
+  pkg,
+  onCtaClick,
+}: {
+  pkg: BatteryPackageItem;
+  onCtaClick?: () => void;
+}) => {
   const title = pkg.capacity || pkg.name || 'Battery';
   const rebates =
     pkg.rebates && pkg.rebates.length > 0
@@ -99,6 +105,21 @@ const BatteryPackageCard = ({ pkg }: { pkg: BatteryPackageItem }) => {
         </span>
         <span className="text-lg font-normal block leading-none mt-5">{installationText}</span>
         <p className="text-lg font-bold leading-none">{pricingNote}</p>
+        {onCtaClick && (
+          <div className="mt-6 flex justify-center">
+            <CtaButton
+              text="Get a Free Quote"
+              bgClass="bg-[#BEE5B2] border-0"
+              hoverClass="hover:bg-[#A9D89D]"
+              textColor="text-black font-semibold"
+              textClass="text-sm"
+              icon={Calculator}
+              onClick={onCtaClick}
+              className="justify-center"
+              buttonTextClass="whitespace-nowrap"
+            />
+          </div>
+        )}
       </div>
     </div>
   );
@@ -107,14 +128,8 @@ const BatteryPackageCard = ({ pkg }: { pkg: BatteryPackageItem }) => {
 const BatteryPackage = ({ data }: { data: BatteryPackageSection }) => {
   const { title, centerImage, packages } = data;
 
-  const [currentIndex, setCurrentIndex] = useState(0);
-  const [isFading, setIsFading] = useState(false);
-
   const centerImageSource = centerImage?.url || packages[0]?.image || '/sig_energy.png';
   const centerImageAlt = centerImage?.alt || 'Battery system';
-
-  const currentPkg = packages[currentIndex] ?? packages[0];
-  const nextPkg = packages[(currentIndex + 1) % packages.length];
 
   const handleScrollToQuote = () => {
     const elements = document.querySelectorAll('#quote-form-section');
@@ -123,19 +138,6 @@ const BatteryPackage = ({ data }: { data: BatteryPackageSection }) => {
     );
     if (visibleElement) visibleElement.scrollIntoView({ behavior: 'smooth' });
   };
-
-  const goToPackage = (nextIndex: number) => {
-    if (isFading || nextIndex === currentIndex || !packages[nextIndex]) return;
-    setIsFading(true);
-    setTimeout(() => {
-      setCurrentIndex(nextIndex);
-      requestAnimationFrame(() => {
-        requestAnimationFrame(() => setIsFading(false));
-      });
-    }, 200);
-  };
-
-  const handleNext = () => goToPackage((currentIndex + 1) % packages.length);
 
   if (!packages || packages.length === 0) return null;
 
@@ -147,15 +149,9 @@ const BatteryPackage = ({ data }: { data: BatteryPackageSection }) => {
             {title}
           </h2>
 
-          <div className="grid grid-cols-1 md:grid-cols-[1fr_2fr_1fr] gap-6 md:gap-6 items-center">
-            {/* Current package card (cycles via slider) */}
-            <div
-              className={`transition-opacity duration-200 ${
-                isFading ? 'opacity-0' : 'opacity-100'
-              }`}
-            >
-              <BatteryPackageCard pkg={currentPkg} />
-            </div>
+          <div className="grid grid-cols-1 md:grid-cols-[1fr_2fr_1fr] gap-6 md:gap-6 items-stretch">
+            {/* Left: first package */}
+            <BatteryPackageCard pkg={packages[0]} />
 
             {/* Center image */}
             <div className="hidden bg-[#EEF6EB] h-full rounded-[10px] md:flex items-center justify-center py-8">
@@ -166,49 +162,8 @@ const BatteryPackage = ({ data }: { data: BatteryPackageSection }) => {
               />
             </div>
 
-            {/* Explore / controls panel */}
-            <div className="bg-[#EEF6EB] rounded-[10px] border border-gray-100 p-6 md:p-8 flex flex-col items-center text-center gap-5 h-full justify-center">
-              <span className="text-xl md:text-[1.875rem] font-bold text-black leading-none">
-                Explore More Packages
-              </span>
-              <p className="text-sm md:text-base text-black/70">
-                Next up: {nextPkg.name} at {formatPrice(nextPkg.finalPrice)}
-              </p>
-
-              {/* Pagination indicator */}
-              <div className="flex items-center justify-center gap-2">
-                {packages.map((_, idx) => (
-                  <button
-                    key={idx}
-                    onClick={() => goToPackage(idx)}
-                    aria-label={`Go to package ${idx + 1}`}
-                    aria-current={idx === currentIndex}
-                    className={`h-2.5 rounded-full transition-all duration-300 cursor-pointer ${
-                      idx === currentIndex
-                        ? 'w-8 bg-[#63B846]'
-                        : 'w-2.5 bg-black/20 hover:bg-black/40'
-                    }`}
-                  />
-                ))}
-              </div>
-
-              <CtaButton
-                text="Explore More Packages & Get Quote"
-                onClick={handleNext}
-                className="justify-center"
-                buttonTextClass="whitespace-normal"
-              />
-              <CtaButton
-                text="Get a Free Quote"
-                bgClass="bg-[#BEE5B2] border-0"
-                hoverClass="hover:bg-[#A9D89D]"
-                textColor="text-black font-semibold"
-                icon={Calculator}
-                onClick={handleScrollToQuote}
-                className="justify-center"
-                buttonTextClass="whitespace-normal"
-              />
-            </div>
+            {/* Right: second package with CTA inside the card */}
+            <BatteryPackageCard pkg={packages[1] ?? packages[0]} onCtaClick={handleScrollToQuote} />
           </div>
         </div>
       </Fade>
