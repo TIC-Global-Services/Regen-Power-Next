@@ -60,7 +60,7 @@ export default function LoanBenefitsSection({ resolved }: Props) {
           </div>
 
           {/* Desktop: grid of benefits */}
-          <div className="hidden md:flex flex-wrap justify-center items-center gap-4 max-w-5xl mx-auto mt-12">
+          <div className="hidden md:flex flex-wrap justify-center items-center gap-4 max-w-5xl mx-auto my-4">
             {resolved.benefits.map((benefit, idx) => (
               <article
                 key={idx}

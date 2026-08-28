@@ -77,9 +77,9 @@ const HorizontalCards = forwardRef<
             key={item.id}
             className={`flex w-[82vw] flex-shrink-0 flex-col gap-3 md:w-[50vw] ${isTop ? "-translate-y-10 md:-translate-y-16" : "translate-y-10 md:translate-y-16"}`}
           >
-            {/* text always left, badge always right — only text-align alternates */}
-            <div className="flex items-stretch gap-4 md:gap-5">
-              <div className={`flex min-w-0 flex-1 flex-col gap-2 ${textAlign}`}>
+            {/* 2-col grid: text | image — equal text-col width across all cards */}
+            <div className="grid grid-cols-2 items-center gap-4 md:gap-2">
+              <div className={`flex min-w-0 flex-col gap-2 ${textAlign}`}>
                 <h3 className={`whitespace-pre-line text-[2.5rem] font-normal leading-[1] tracking-tight text-[#63B846] ${textAlign}`}>
                   {item.title}
                 </h3>
@@ -88,9 +88,9 @@ const HorizontalCards = forwardRef<
                 </p>
               </div>
 
-              {/* badge — only when provided, per-card badgeSizeClass controls container */}
-              {item.badgeSrc && (
-                <div className="flex shrink-0 items-center">
+              {/* image col — fixed 50% width; empty when no badge so text col stays equal */}
+              <div className="flex items-center justify-center">
+                {item.badgeSrc && (
                   <div
                     className={`relative shrink-0 overflow-hidden rounded-xl ${item.badgeSizeClass ?? "h-28 w-28 md:h-64 md:w-64"}`}
                   >
@@ -102,8 +102,8 @@ const HorizontalCards = forwardRef<
                       unoptimized
                     />
                   </div>
-                </div>
-              )}
+                )}
+              </div>
             </div>
           </div>
         );

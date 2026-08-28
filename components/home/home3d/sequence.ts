@@ -21,7 +21,7 @@ export const LOOP_FPS = 30;
 export const SCROLL_START = 241;
 
 // Scroll distance (in viewport heights) the scroll-driven portion plays over.
-export const SCROLL_LENGTH_VH = 1100;
+export const SCROLL_LENGTH_VH = 400;
 
 // After the main scroll sequence ends, continued scrolling scrubs back through
 // frames 1-91 (the intro range), then loops the same range as LOOP_RANGE while
@@ -30,4 +30,4 @@ export const SCROLL_LENGTH_VH = 1100;
 export const OUTRO_RANGE = { start: 0, end: 90 };
 
 // Scroll distance (in viewport heights) the outro portion plays over.
-export const OUTRO_LENGTH_VH = 420;
+export const OUTRO_LENGTH_VH = 100;

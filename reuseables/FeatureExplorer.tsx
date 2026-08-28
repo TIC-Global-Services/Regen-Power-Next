@@ -58,6 +58,7 @@ const FeatureExplorer: React.FC<FeatureExplorerProps> = ({
             start: "top top",
             end: `+=${features.length * 100}%`,
             pin: true,
+            anticipatePin: 1,
             scrub: true,
             onUpdate: (self) => {
                 const progress = self.progress;

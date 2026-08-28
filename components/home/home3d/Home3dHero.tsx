@@ -19,17 +19,20 @@ import {
 } from "./sequence";
 import CtaButton from "@/reuseables/CtaButton";
 import { CtaIcon } from "@/components/icons/CtaIcons";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { getLenis } from "@/utils/lenisBridge";
 
-// ─────────────────────────────────────────────────────────────────────────────
-// Emergency kill-switch for the image sequence. The sequence is currently
-// ENABLED (false) and running on the ported Canvas2D renderer + pooled,
-// device-aware preload (see canvas2dRenderer.ts and the preload effect).
-// Flip to `true` to temporarily fall back to a static first-frame hero —
-// StaticSequenceFallback below is only used while true and can be deleted if
-// the kill-switch is removed entirely.
-// ─────────────────────────────────────────────────────────────────────────────
-const IMGSEQ_DISABLED = false;
+if (typeof window !== "undefined") gsap.registerPlugin(ScrollTrigger);
+
+export interface Home3dHeroProps {
+  topSubtitle?: React.ReactNode;
+  mainTitle?: React.ReactNode;
+  description?: React.ReactNode;
+  ctaText?: string;
+  ctaLink?: string;
+  ctaTextColor?: string;
+}
 
 type Phase = "intro" | "loop" | "scroll";
 
@@ -39,32 +42,33 @@ const OUTRO_FRAME_COUNT = Math.max(0, OUTRO_RANGE.end - OUTRO_RANGE.start + 1);
 
 const SCROLL_FRAME_COUNT = Math.max(0, FRAME_COUNT - SCROLL_START);
 
-// Cursor parallax tuning: max shift as a fraction of viewport size, lerp ease.
-// Scale must cover 2x the max shift (both directions) or corners will clip.
+// Cursor parallax tuning: max shift as a fraction of viewport size.
+// Scale must cover 2x the max shift (both directions) or corners will clip.`
+// Smoothing is expressed as a time constant (ms) rather than a flat per-frame
+// ratio so motion converges at the same real-world speed regardless of the
+// display's refresh rate (a flat ratio applied every rAF settles ~2x faster
+// on a 120Hz screen than on 60Hz, which reads as inconsistent "smoothness"
+// across devices).
 const PARALLAX_MAX_SHIFT = 0.008;
 const PARALLAX_SCALE = 1 + PARALLAX_MAX_SHIFT * 2.5;
-const PARALLAX_EASE = 0.035;
+const PARALLAX_TAU_MS = 220;
 
-// How quickly the displayed frame chases the raw scroll position — lower is
-// smoother/laggier, higher tracks the scrollbar more tightly.
-const SCROLL_EASE = 0.14;
-
-// Subtle scroll-speed "dolly" zoom: a faint push-in while scrolling fast,
-// settling back to rest — kept tiny and slow so it reads as depth, not motion.
-const ZOOM_VELOCITY_EASE = 0.15;
-const ZOOM_SETTLE_EASE = 0.06;
-const ZOOM_MAX = 0.018;
-
-// Preload tuning (ported from regen-home-3d v5). Frames are decoded at
-// 1920x1080 native, which is ~7.9MB of raw pixel data per bitmap uncompressed
-// — holding all 674 at native resolution is ~5GB and reliably crashes mobile
-// browsers on memory pressure partway through loading. Decoding at just the
-// resolution the device can actually display (with modest headroom for
-// resize/rotation) cuts that proportionally to device size with no visible
-// quality loss. Firing all 674 fetch+decode operations at once also spikes
-// transient memory/CPU, so loads are pooled instead.
+// Preload tuning. Frames are decoded at 1920x1080 native, which is ~7.9MB of
+// raw pixel data per bitmap uncompressed — holding all 674 at native
+// resolution is ~5GB and reliably crashes mobile browsers on memory pressure
+// partway through loading. Decoding at just the resolution the device can
+// actually display (with modest headroom for resize/rotation) cuts that
+// proportionally to device size with no visible quality loss. Firing all 674
+// fetch+decode operations at once also spikes transient memory/CPU, so loads
+// are pooled instead.
 const CONCURRENT_LOADS = 6;
 const RESIZE_HEADROOM = 1.25;
+
+// Converts a time-constant (ms) into a per-tick exponential smoothing factor
+// for the elapsed frame delta, so `current += (target - current) * factor`
+// converges at the same rate independent of frame rate.
+const smoothingFactor = (tauMs: number, dtMs: number) =>
+  1 - Math.exp(-dtMs / tauMs);
 
 const GRAIN_SVG =
   "<svg xmlns='http://www.w3.org/2000/svg'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%' height='100%' filter='url(#n)'/></svg>";
@@ -90,92 +94,7 @@ function frameFloatForProgress(clamped: number): number {
   );
 }
 
-export interface Home3dHeroProps {
-  topSubtitle?: React.ReactNode;
-  mainTitle?: React.ReactNode;
-  description?: React.ReactNode;
-  ctaText?: string;
-  ctaLink?: string;
-  ctaTextColor?: string;
-}
-
-// TEMPORARY: frozen first-frame hero used while IMGSEQ_DISABLED is true.
-// Delete this whole component once the flag is flipped back / removed.
-function StaticSequenceFallback({
-  topSubtitle,
-  mainTitle,
-  description,
-  ctaText,
-  ctaLink,
-  ctaTextColor = "text-white",
-}: Home3dHeroProps) {
-  const hasHeroContent = !!(topSubtitle || mainTitle || description || ctaText);
-
-  return (
-    <div className="relative h-screen w-full overflow-hidden bg-black">
-      {/* eslint-disable-next-line @next/next/no-img-element -- temporary static fallback */}
-      <img
-        src={FRAME_SRC(0)}
-        alt=""
-        className="absolute inset-0 h-full w-full object-cover"
-      />
-
-      {/* Vignette — matches the sequence hero's overlay so the frame reads the same */}
-      <div
-        className="pointer-events-none absolute inset-0 z-10"
-        style={{
-          background:
-            "radial-gradient(ellipse at center, transparent 40%, rgba(0,0,0,0.6) 100%)",
-        }}
-      />
-
-      {hasHeroContent && (
-        <div className="absolute inset-x-0 bottom-16 z-20 flex flex-col gap-8 px-[5%] md:bottom-24 md:flex-row md:items-end md:justify-between md:px-[3%]">
-          <div className="max-w-3xl">
-            {topSubtitle ? (
-              <p className="text-2xl font-light tracking-tighter drop-shadow-md text-white/90 md:text-3xl">
-                {topSubtitle}
-              </p>
-            ) : null}
-            {mainTitle ? (
-              <h1 className="mb-2 text-5xl font-medium leading-none tracking-tight drop-shadow-md text-[#63B846] md:text-7xl lg:text-[3.75rem]">
-                {mainTitle}
-              </h1>
-            ) : null}
-            {description ? (
-              <div className="max-w-xl whitespace-pre-line text-base font-light leading-[1.2] tracking-tight drop-shadow-sm text-white/80 md:text-xl">
-                {description}
-              </div>
-            ) : null}
-          </div>
-
-          {ctaText && ctaLink ? (
-            <div className="flex-shrink-0 pb-2">
-              <CtaButton
-                href={ctaLink}
-                text={ctaText}
-                textColor={ctaTextColor}
-                icon={CtaIcon}
-                iconTextColor="text-white"
-              />
-            </div>
-          ) : null}
-        </div>
-      )}
-    </div>
-  );
-}
-
-export default function Home3dHero(props: Home3dHeroProps) {
-  // TEMP: image sequence disabled — render the static fallback instead.
-  if (IMGSEQ_DISABLED) {
-    return <StaticSequenceFallback {...props} />;
-  }
-  return <Home3dSequenceHero {...props} />;
-}
-
-// Full image-sequence experience — only mounted while IMGSEQ_DISABLED is false.
-function Home3dSequenceHero({
+export default function Home3dHero({
   topSubtitle,
   mainTitle,
   description,
@@ -191,23 +110,19 @@ function Home3dSequenceHero({
   const phaseRef = useRef<Phase>("intro");
   const parallaxTargetRef = useRef({ x: 0, y: 0 });
   const parallaxCurrentRef = useRef({ x: 0, y: 0 });
-  const scrollVelocityRef = useRef(0);
-  const zoomCurrentRef = useRef(0);
   const audioRef = useRef<HTMLAudioElement>(null);
+
+  const hasHeroContent = !!(topSubtitle || mainTitle || description || ctaText);
 
   const [loadedCount, setLoadedCount] = useState(0);
   const [ready, setReady] = useState(false);
   const [hideLoader, setHideLoader] = useState(false);
   const [phase, setPhase] = useState<Phase>("intro");
   const [muted, setMuted] = useState(false);
-  const [showHeroText, setShowHeroText] = useState(false);
-  // Visible at start (over hero image) and again only at the very end of the
-  // 1520vh pin — hidden during the scrub so the image breathes edge-to-edge.
-  // Drives both the in-hero copy/CTA and the global fixed nav (via data attribute).
+  // Hero chrome (overlay + navbar): visible during intro/loop, hidden during scrub,
+  // visible again at the very end of the 500vh sequence.
   const [heroChromeVisible, setHeroChromeVisibleState] = useState(true);
   const heroChromeVisibleRef = useRef(true);
-
-  const hasHeroContent = !!(topSubtitle || mainTitle || description || ctaText);
 
   const setChromeVisible = (v: boolean) => {
     if (heroChromeVisibleRef.current === v) return;
@@ -217,6 +132,10 @@ function Home3dSequenceHero({
       document.documentElement.dataset.heroChrome = v ? "visible" : "hidden";
     }
   };
+
+  // Keep document dataset in sync on mount (navbar MutationObserver reads it)
+  // and ensure visible before scroll starts.
+  // eslint-disable-next-line react-hooks/exhaustive-deps
 
   const setPhaseBoth = (p: Phase) => {
     phaseRef.current = p;
@@ -322,11 +241,7 @@ function Home3dSequenceHero({
 
   useEffect(() => {
     if (!ready) return;
-    const t = window.setTimeout(() => {
-      setHideLoader(true);
-      // reveal hero text shortly after loader fades
-      window.setTimeout(() => setShowHeroText(true), 400);
-    }, 700);
+    const t = window.setTimeout(() => setHideLoader(true), 700);
     return () => window.clearTimeout(t);
   }, [ready]);
 
@@ -412,19 +327,20 @@ function Home3dSequenceHero({
     if (!canvas) return;
 
     let raf = 0;
-    const tick = () => {
+    let last = performance.now();
+    const tick = (now: number) => {
+      const dt = Math.min(64, now - last); // clamp so a tab-switch stall doesn't snap
+      last = now;
+
       const target = parallaxTargetRef.current;
       const current = parallaxCurrentRef.current;
-      current.x += (target.x - current.x) * PARALLAX_EASE;
-      current.y += (target.y - current.y) * PARALLAX_EASE;
-
-      const zoomTarget = scrollVelocityRef.current * ZOOM_MAX;
-      zoomCurrentRef.current += (zoomTarget - zoomCurrentRef.current) * ZOOM_SETTLE_EASE;
+      const posFactor = smoothingFactor(PARALLAX_TAU_MS, dt);
+      current.x += (target.x - current.x) * posFactor;
+      current.y += (target.y - current.y) * posFactor;
 
       const tx = current.x * PARALLAX_MAX_SHIFT * window.innerWidth;
       const ty = current.y * PARALLAX_MAX_SHIFT * window.innerHeight;
-      const scale = PARALLAX_SCALE + zoomCurrentRef.current;
-      canvas.style.transform = `scale(${scale}) translate(${tx}px, ${ty}px)`;
+      canvas.style.transform = `scale(${PARALLAX_SCALE}) translate(${tx}px, ${ty}px)`;
 
       raf = requestAnimationFrame(tick);
     };
@@ -505,13 +421,13 @@ function Home3dSequenceHero({
     return () => cancelAnimationFrame(raf);
   }, [phase]);
 
-  // Detect the first scroll interaction and flip into scroll-driven scrubbing.
-  // With Lenis present the actual scroll offset is virtualised, so listeners
-  // must not preventDefault() — that would just fight the smooth scroller.
+  // detect scroll intent during intro/loop
+  // Regen blocks native scroll with preventDefault during intro/loop.
+  // With Lenis active (SmoothScroller), preventDefault fights the virtual
+  // scroller and breaks ScrollTrigger pin below (FeatureExplorer). So when
+  // Lenis is present we take over passively instead.
   useEffect(() => {
     if (!ready) return;
-    // Ensure chrome is visible while we are still in intro/loop.
-    setChromeVisible(true);
 
     const takeOver = () => {
       if (phaseRef.current === "scroll") return;
@@ -519,10 +435,24 @@ function Home3dSequenceHero({
       setChromeVisible(false);
     };
 
-    const onWheel = () => {
+    const hasLenis = () => !!getLenis();
+
+    const onWheel = (e: WheelEvent) => {
+      if (phaseRef.current === "scroll") return;
+      if (hasLenis()) {
+        takeOver();
+        return;
+      }
+      e.preventDefault();
       takeOver();
     };
-    const onTouchMove = () => {
+    const onTouchMove = (e: TouchEvent) => {
+      if (phaseRef.current === "scroll") return;
+      if (hasLenis()) {
+        takeOver();
+        return;
+      }
+      e.preventDefault();
       takeOver();
     };
     const onKeyDown = (e: KeyboardEvent) => {
@@ -532,12 +462,22 @@ function Home3dSequenceHero({
           e.key,
         )
       ) {
+        if (!hasLenis()) e.preventDefault();
         takeOver();
       }
     };
 
-    window.addEventListener("wheel", onWheel, { passive: true });
-    window.addEventListener("touchmove", onTouchMove, { passive: true });
+    // passive:false only when we actually call preventDefault (no Lenis)
+    // otherwise passive:true so Lenis gets the wheel
+    const wheelOpt: AddEventListenerOptions = hasLenis()
+      ? { passive: true }
+      : { passive: false };
+    const touchOpt: AddEventListenerOptions = hasLenis()
+      ? { passive: true }
+      : { passive: false };
+
+    window.addEventListener("wheel", onWheel, wheelOpt);
+    window.addEventListener("touchmove", onTouchMove, touchOpt);
     window.addEventListener("keydown", onKeyDown);
     return () => {
       window.removeEventListener("wheel", onWheel);
@@ -546,149 +486,142 @@ function Home3dSequenceHero({
     };
   }, [ready]);
 
-
   // scroll-driven playback once handed over
   useEffect(() => {
     if (phase !== "scroll") return;
     if (SCROLL_FRAME_COUNT <= 0) return;
 
-    // raw scroll position, updated on every scroll event
-    const targetProgressRef = { current: 0 };
-    // eased position the renderer actually draws — chases targetProgressRef
-    // every animation frame so playback stays smooth even between scroll
-    // events (momentum, trackpad jitter, etc.)
-    const smoothProgressRef = { current: 0 };
+    // No easing here on purpose: the displayed frame is a pure function of
+    // the real scroll position, read fresh every time. Smoothing this toward
+    // a target (as an earlier version did) makes playback keep drifting for
+    // a beat after the user stops scrolling, which reads as the animation
+    // "moving on its own" instead of a direct scrub. Sub-frame smoothness
+    // instead comes entirely from crossfading the two frames the current
+    // float position falls between.
+    let scheduledRaf: number | null = null;
 
-    const readProgress = () => {
+    // once scrolled all the way to the end, free-run the same loop range the
+    // mid-sequence loop uses instead of freezing — runs independently of
+    // scroll events so it keeps animating while the user holds position, and
+    // never blocks scroll (still "scroll" phase throughout, so native scroll
+    // can carry on into whatever section follows).
+    let endLoopRaf: number | null = null;
+    let endLoopLast = 0;
+    let endLoopAcc = 0;
+    const endLoopFrameDuration = 1000 / LOOP_FPS;
+
+    const stopEndLoop = () => {
+      if (endLoopRaf !== null) {
+        cancelAnimationFrame(endLoopRaf);
+        endLoopRaf = null;
+      }
+    };
+
+    const endLoopTick = (now: number) => {
+      endLoopAcc += now - endLoopLast;
+      endLoopLast = now;
+      while (endLoopAcc >= endLoopFrameDuration) {
+        endLoopAcc -= endLoopFrameDuration;
+        frameRef.current =
+          frameRef.current >= LOOP_RANGE.end ? LOOP_RANGE.start : frameRef.current + 1;
+      }
+      const next =
+        frameRef.current >= LOOP_RANGE.end ? LOOP_RANGE.start : frameRef.current + 1;
+      drawBlend(frameRef.current, next, endLoopAcc / endLoopFrameDuration);
+      endLoopRaf = requestAnimationFrame(endLoopTick);
+    };
+
+    const startEndLoop = () => {
+      if (endLoopRaf !== null) return;
+      frameRef.current = LOOP_RANGE.start;
+      draw(frameRef.current);
+      endLoopLast = performance.now();
+      endLoopAcc = 0;
+      endLoopRaf = requestAnimationFrame(endLoopTick);
+    };
+
+    const applyProgress = () => {
+      scheduledRaf = null;
       const container = containerRef.current;
-      if (!container) return 0;
+      if (!container) return;
+
       const rect = container.getBoundingClientRect();
       const scrollable = rect.height - window.innerHeight;
       const progress = scrollable > 0 ? -rect.top / scrollable : 0;
-      return Math.min(1, Math.max(0, progress));
+      const clamped = Math.min(1, Math.max(0, progress));
+
+      // Chrome: visible at both ends of the runway, hidden during scrub.
+      // Hysteresis (dead-zone 0.015–0.03 / 0.97–0.985) avoids flicker when Lenis
+      // jitters clamped at the boundaries.
+      const shouldShow = clamped <= 0.015 || clamped >= 0.985;
+      const shouldHide = clamped > 0.03 && clamped < 0.97;
+      if (shouldShow && !heroChromeVisibleRef.current) setChromeVisible(true);
+      else if (shouldHide && heroChromeVisibleRef.current) setChromeVisible(false);
+
+      if (clamped >= 1) {
+        startEndLoop();
+        return;
+      }
+      stopEndLoop();
+
+      const f = frameFloatForProgress(clamped);
+      const a = Math.floor(f);
+      const b = Math.min(a + 1, FRAME_COUNT - 1);
+      const mix = f - a;
+      frameRef.current = a;
+      if (mix > 0) {
+        drawBlend(a, b, mix);
+      } else {
+        draw(a);
+      }
     };
 
-    const syncFromLenisOrWindow = () => {
-      const lenis = getLenis();
-      if (lenis) {
-        // Lenis exposes scroll as a virtual value — use it together with the
-        // container height. window.scrollY is the lerped visual position lagging behind.
-        const y = lenis.scroll;
-        const h = containerRef.current ? containerRef.current.offsetHeight : window.innerHeight;
-        const scrollable = Math.max(1, h - window.innerHeight);
-        targetProgressRef.current = Math.min(1, Math.max(0, y / scrollable));
-        const lenisAny = lenis as unknown as { velocity?: number };
-        const v = lenisAny.velocity ?? 0;
-        scrollVelocityRef.current +=
-          (Math.min(1, Math.abs(v) / 120) - scrollVelocityRef.current) * ZOOM_VELOCITY_EASE;
-      } else {
-        targetProgressRef.current = readProgress();
-      }
-    };
-    const onScroll = syncFromLenisOrWindow;
-    syncFromLenisOrWindow();
-    smoothProgressRef.current = targetProgressRef.current;
-
-    // once scrolled all the way to the end, loop the same range the
-    // mid-sequence loop uses instead of freezing — still "scroll" phase
-    // throughout, so native scroll can carry on into whatever section
-    // follows the hero.
-    let loopAcc = 0;
-    let inEndLoop = false;
-    const loopFrameDuration = 1000 / LOOP_FPS;
-
-    let raf = 0;
-    let last = performance.now();
-
-    const tick = (now: number) => {
-      const dt = now - last;
-      last = now;
-
-      const diff = targetProgressRef.current - smoothProgressRef.current;
-      const settled = Math.abs(diff) < 0.0004;
-      smoothProgressRef.current = settled
-        ? targetProgressRef.current
-        : smoothProgressRef.current + diff * SCROLL_EASE;
-      const sp = smoothProgressRef.current;
-
-      if (!getLenis()) {
-        const rawSpeed = Math.min(1, Math.abs(diff) * 20);
-        scrollVelocityRef.current +=
-          (rawSpeed - scrollVelocityRef.current) * ZOOM_VELOCITY_EASE;
-      }
-
-      // Chrome visibility: hide during the scrub, reveal again only at the
-      // very end (and at the very start so intro/loop still read as a hero).
-      // Hysteresis avoids flicker at the boundaries: hide quickly, reveal late.
-      const shouldShowChrome = sp <= 0.015 || sp >= 0.985;
-      const shouldHideChrome = sp > 0.05 && sp < 0.94;
-      if (shouldHideChrome && heroChromeVisibleRef.current) setChromeVisible(false);
-      else if (shouldShowChrome && !heroChromeVisibleRef.current) setChromeVisible(true);
-
-      if (targetProgressRef.current >= 1 && sp > 0.995) {
-        if (!inEndLoop) {
-          inEndLoop = true;
-          loopAcc = 0;
-          frameRef.current = LOOP_RANGE.start;
-          draw(frameRef.current);
-        }
-        loopAcc += dt;
-        while (loopAcc >= loopFrameDuration) {
-          loopAcc -= loopFrameDuration;
-          frameRef.current =
-            frameRef.current >= LOOP_RANGE.end ? LOOP_RANGE.start : frameRef.current + 1;
-        }
-        const next =
-          frameRef.current >= LOOP_RANGE.end ? LOOP_RANGE.start : frameRef.current + 1;
-        drawBlend(frameRef.current, next, loopAcc / loopFrameDuration);
-      } else {
-        inEndLoop = false;
-        const f = frameFloatForProgress(sp);
-        if (settled) {
-          // scroll has come to rest — snap to a single hard frame instead of
-          // holding a cross-fade, or the stopped frame looks like a double
-          // exposure of its two neighbors.
-          const a = Math.round(f);
-          frameRef.current = a;
-          draw(a);
-        } else {
-          const a = Math.floor(f);
-          const b = Math.min(a + 1, FRAME_COUNT - 1);
-          const mix = f - a;
-          frameRef.current = a;
-          drawBlend(a, b, mix);
-        }
-      }
-
-      raf = requestAnimationFrame(tick);
+    // coalesce bursts of scroll events into at most one draw per animation
+    // frame, without waiting for or smoothing toward anything
+    const onScroll = () => {
+      if (scheduledRaf !== null) return;
+      scheduledRaf = requestAnimationFrame(applyProgress);
     };
 
     window.addEventListener("scroll", onScroll, { passive: true });
-    const lenis = getLenis();
-    const offScroll = lenis
-      ? (lenis as unknown as { on: (e: string, cb: () => void) => void; off: (e: string, cb: () => void) => void }).on.bind(lenis)
-      : null;
-    const offOff = lenis
-      ? (lenis as unknown as { off: (e: string, cb: () => void) => void }).off.bind(lenis)
-      : null;
-    if (offScroll) offScroll("scroll", syncFromLenisOrWindow);
-    raf = requestAnimationFrame(tick);
+    onScroll();
     return () => {
       window.removeEventListener("scroll", onScroll);
-      if (offOff) offOff("scroll", syncFromLenisOrWindow);
-      cancelAnimationFrame(raf);
+      if (scheduledRaf !== null) cancelAnimationFrame(scheduledRaf);
+      stopEndLoop();
     };
   }, [phase]);
 
-  // Keep the scroll track at full height from mount so ScrollTrigger pinning
-  // below (FeatureExplorer etc.) measures correctly and Lenis doesn't see a
-  // 1520vh jump on first takeover. Intro/loop are held in place by the takeover
-  // listeners — the pin itself must already exist.
+  // Sync initial chrome state to the document so Navbar picks it up even before first scroll
+  useEffect(() => {
+    document.documentElement.dataset.heroChrome = heroChromeVisibleRef.current ? "visible" : "hidden";
+    return () => {
+      document.documentElement.dataset.heroChrome = "visible";
+    };
+  }, []);
+
+  // Always full runway from mount — conditional `100vh → 500vh` on takeover
+  // (regen-3d's standalone page) janks ScrollTrigger below: FeatureExplorer's
+  // `pin:true` measures its `top top` trigger at 100vh, then the track jumps
+  // +400vh on first wheel and the pin fires mid-viewport / overlaps the sticky.
+  // Keeping the track stable + refreshing ScrollTrigger on takeover eliminates
+  // the clash while keeping the regen engine 1:1 otherwise.
   const scrollHeight = `calc(100vh + ${TOTAL_SCROLL_VH}vh)`;
 
+  // After the sticky track expands (phase intro→scroll), tell ScrollTrigger below
+  // to re-measure — otherwise FeatureExplorer's pin start is stale.
+  useEffect(() => {
+    if (phase !== "scroll") return;
+    const raf = requestAnimationFrame(() => {
+      getLenis()?.resize();
+      ScrollTrigger.refresh();
+    });
+    return () => cancelAnimationFrame(raf);
+  }, [phase]);
+
   return (
-    <div ref={containerRef} style={{ height: scrollHeight }} className="relative">
-      <div className="sticky top-0 h-screen w-screen overflow-hidden bg-black">
+    <div ref={containerRef} style={{ height: scrollHeight }} className="relative bg-black">
+      <div className="sticky top-0 h-screen w-full overflow-hidden bg-black">
         <canvas ref={canvasRef} className="h-full w-full will-change-transform" />
 
         <div
@@ -705,16 +638,10 @@ function Home3dSequenceHero({
 
         <audio ref={audioRef} src="/wind_copyright_free.mp3" loop muted={muted} />
 
-        {/* Hero text overlay — Strapi-driven, fades in after loader; hidden during scrub */}
+        {/* Overlay content — Strapi-driven, visible before scroll and after sequence */}
         {hasHeroContent && (
           <div
-            className={`absolute inset-x-0 bottom-16 z-20 flex flex-col gap-8 px-[5%] transition-all duration-500 md:bottom-24 md:flex-row md:items-end md:justify-between md:px-[3%] ${
-              !heroChromeVisible
-                ? "pointer-events-none opacity-0 translate-y-4"
-                : showHeroText
-                  ? "opacity-100 translate-y-0"
-                  : "pointer-events-none opacity-0 translate-y-6"
-            }`}
+            className={`absolute inset-x-0 bottom-16 z-20 flex flex-col gap-8 px-[5%] transition-all duration-500 md:bottom-24 md:flex-row md:items-end md:justify-between md:px-[3%] ${heroChromeVisible ? "opacity-100 translate-y-0" : "pointer-events-none opacity-0 translate-y-4"}`}
           >
             <div className="max-w-3xl">
               {topSubtitle ? (
@@ -745,13 +672,6 @@ function Home3dSequenceHero({
                 />
               </div>
             ) : null}
-          </div>
-        )}
-
-        {/* Scroll hint — only during loop phase to nudge the user */}
-        {ready && phase === "loop" && (
-          <div className="pointer-events-none absolute bottom-8 left-1/2 z-20 -translate-x-1/2 animate-pulse text-center">
-            <p className="text-[11px] tracking-[0.3em] text-white/50 uppercase">Scroll to explore</p>
           </div>
         )}
 
