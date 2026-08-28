@@ -98,7 +98,7 @@ const cardTextColor = (card: WhyChooseUsCard): string => {
 
 
 
-const StatCard = ({card,className = "",emphasizeTitle = false,blurredBgImage = false,inlineContent = false,contentBottom = false,}: {card: WhyChooseUsCard;className?: string;emphasizeTitle?: boolean;blurredBgImage?: boolean;inlineContent?: boolean;contentBottom?: boolean;}) => (
+const StatCard = ({card,className = "", emphasizeTitle = false,blurredBgImage = false,inlineContent = false,contentBottom = false,}: {card: WhyChooseUsCard;className?: string;emphasizeTitle?: boolean;blurredBgImage?: boolean;inlineContent?: boolean;contentBottom?: boolean;}) => (
   <motion.div
     variants={itemVariants}
     className={`relative rounded-[20px] overflow-hidden flex flex-col p-4 md:p-6 ${className}`}

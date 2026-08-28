@@ -8,6 +8,10 @@ import {
   FRAME_SRC,
   FRAME_NATIVE_WIDTH,
   FRAME_NATIVE_HEIGHT,
+  MOBILE_FRAME_COUNT,
+  MOBILE_FRAME_SRC,
+  MOBILE_FRAME_NATIVE_WIDTH,
+  MOBILE_FRAME_NATIVE_HEIGHT,
   INTRO_RANGE,
   INTRO_FPS,
   LOOP_RANGE,
@@ -40,16 +44,13 @@ const TOTAL_SCROLL_VH = SCROLL_LENGTH_VH + OUTRO_LENGTH_VH;
 const MAIN_SCROLL_FRAC = SCROLL_LENGTH_VH / TOTAL_SCROLL_VH;
 const OUTRO_FRAME_COUNT = Math.max(0, OUTRO_RANGE.end - OUTRO_RANGE.start + 1);
 
-const SCROLL_FRAME_COUNT = Math.max(0, FRAME_COUNT - SCROLL_START);
-
-// Preload tuning. Frames are decoded at 1920x1080 native, which is ~7.9MB of
-// raw pixel data per bitmap uncompressed — holding all 674 at native
-// resolution is ~5GB and reliably crashes mobile browsers on memory pressure
-// partway through loading. Decoding at just the resolution the device can
-// actually display (with modest headroom for resize/rotation) cuts that
-// proportionally to device size with no visible quality loss. Firing all 674
-// fetch+decode operations at once also spikes transient memory/CPU, so loads
-// are pooled instead.
+// Preload tuning. Frames are decoded at native resolution, which is ~7.9MB of
+// raw pixel data per bitmap uncompressed — holding several hundred at native
+// resolution reliably crashes mobile browsers on memory pressure. Decoding at
+// just the resolution the device can actually display (with modest headroom
+// for resize/rotation) cuts that proportionally to device size with no
+// visible quality loss. Firing every fetch+decode operation at once also
+// spikes transient memory/CPU, so loads are pooled instead.
 const CONCURRENT_LOADS = 6;
 const RESIZE_HEADROOM = 1.25;
 
@@ -57,15 +58,43 @@ const GRAIN_SVG =
   "<svg xmlns='http://www.w3.org/2000/svg'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%' height='100%' filter='url(#n)'/></svg>";
 const GRAIN_URL = `url("data:image/svg+xml,${encodeURIComponent(GRAIN_SVG)}")`;
 
+interface SequenceConfig {
+  frameCount: number;
+  frameSrc: (index: number) => string;
+  nativeWidth: number;
+  nativeHeight: number;
+  isMobile: boolean;
+}
+
+const DESKTOP_SEQUENCE: SequenceConfig = {
+  frameCount: FRAME_COUNT,
+  frameSrc: FRAME_SRC,
+  nativeWidth: FRAME_NATIVE_WIDTH,
+  nativeHeight: FRAME_NATIVE_HEIGHT,
+  isMobile: false,
+};
+
+const MOBILE_SEQUENCE: SequenceConfig = {
+  frameCount: MOBILE_FRAME_COUNT,
+  frameSrc: MOBILE_FRAME_SRC,
+  nativeWidth: MOBILE_FRAME_NATIVE_WIDTH,
+  nativeHeight: MOBILE_FRAME_NATIVE_HEIGHT,
+  isMobile: true,
+};
+
+const isMobileClass = () =>
+  typeof window !== "undefined" &&
+  (window.matchMedia("(pointer: coarse)").matches || window.innerWidth < 768);
+
 // Maps a 0..1 scroll progress (within the two-segment main+outro range,
 // excluding the trailing end-loop hold) to a frame index.
-function frameForProgress(clamped: number): number {
+function frameForProgress(clamped: number, scrollFrameCount: number): number {
   if (clamped <= MAIN_SCROLL_FRAC) {
     const subProgress = MAIN_SCROLL_FRAC > 0 ? clamped / MAIN_SCROLL_FRAC : 0;
     return (
       SCROLL_START +
       Math.round(
-        Math.min(SCROLL_FRAME_COUNT - 1, subProgress * (SCROLL_FRAME_COUNT - 1)),
+        Math.min(scrollFrameCount - 1, subProgress * (scrollFrameCount - 1)),
       )
     );
   }
@@ -91,6 +120,10 @@ export default function Home3dHero({
   const framesRef = useRef<(ImageBitmap | HTMLImageElement)[]>([]);
   const frameRef = useRef(0);
   const phaseRef = useRef<Phase>("intro");
+
+  const [seq] = useState<SequenceConfig>(() =>
+    isMobileClass() ? MOBILE_SEQUENCE : DESKTOP_SEQUENCE,
+  );
 
   const hasHeroContent = !!(topSubtitle || mainTitle || description || ctaText);
 
@@ -134,34 +167,34 @@ export default function Home3dHero({
       if (cancelled) return;
       count += 1;
       setLoadedCount(count);
-      if (count >= FRAME_COUNT) setReady(true);
+      if (count >= seq.frameCount) setReady(true);
     };
 
     const supportsBitmap = typeof createImageBitmap === "function";
 
     // Decode at just the resolution this device can show (plus headroom),
-    // capped to never upscale beyond native. On a tall portrait phone this
-    // "cover" scale is actually >=1 — the 16:9 source is shorter than the
-    // device's full-height crop needs, so no downscale would apply at all,
-    // which is exactly the case that was crashing. Mobile-class devices get
-    // an additional hard cap on top, trading a bit of extra softness for
-    // staying far under the memory ceiling that a full 674-frame native-res
-    // resident set blows through (~5GB uncompressed at 1920x1080).
+    // capped to never upscale beyond native. On mobile the source is already
+    // a native portrait export (see MOBILE_SEQUENCE), but at the same total
+    // pixel count as the desktop frames, so holding several hundred of them
+    // resident at native res is just as capable of getting iOS Safari
+    // jetsam-killed ("A problem repeatedly occurred") as the desktop set was.
+    // The hard cap below keeps each resident bitmap around ~0.5MB regardless
+    // of source orientation, at the cost of extra softness once upscaled to
+    // fill the screen.
     const dpr = Math.min(window.devicePixelRatio || 1, 2);
     const coverScale = Math.max(
-      (window.innerWidth * dpr) / FRAME_NATIVE_WIDTH,
-      (window.innerHeight * dpr) / FRAME_NATIVE_HEIGHT,
+      (window.innerWidth * dpr) / seq.nativeWidth,
+      (window.innerHeight * dpr) / seq.nativeHeight,
     );
-    const isMobileClass =
-      window.matchMedia("(pointer: coarse)").matches || window.innerWidth < 768;
-    const MOBILE_MAX_LONG_EDGE = 960;
-    const capScale = isMobileClass ? MOBILE_MAX_LONG_EDGE / FRAME_NATIVE_WIDTH : 1;
+    const MOBILE_MAX_LONG_EDGE = 480;
+    const longEdgeNative = Math.max(seq.nativeWidth, seq.nativeHeight);
+    const capScale = seq.isMobile ? MOBILE_MAX_LONG_EDGE / longEdgeNative : 1;
     const scale = Math.min(1, coverScale * RESIZE_HEADROOM, capScale);
     const resizeOptions: ImageBitmapOptions | undefined =
       scale < 1
         ? {
-            resizeWidth: Math.max(1, Math.round(FRAME_NATIVE_WIDTH * scale)),
-            resizeHeight: Math.max(1, Math.round(FRAME_NATIVE_HEIGHT * scale)),
+            resizeWidth: Math.max(1, Math.round(seq.nativeWidth * scale)),
+            resizeHeight: Math.max(1, Math.round(seq.nativeHeight * scale)),
             resizeQuality: "high",
           }
         : undefined;
@@ -170,7 +203,7 @@ export default function Home3dHero({
     const startNext = () => {
       if (cancelled) return;
       const i = nextIndex++;
-      if (i >= FRAME_COUNT) return;
+      if (i >= seq.frameCount) return;
 
       const advance = () => {
         onReady();
@@ -178,7 +211,7 @@ export default function Home3dHero({
       };
 
       if (supportsBitmap) {
-        fetch(FRAME_SRC(i))
+        fetch(seq.frameSrc(i))
           .then((res) => res.blob())
           .then((blob) => createImageBitmap(blob, resizeOptions))
           .then((bitmap) => {
@@ -194,7 +227,7 @@ export default function Home3dHero({
           advance();
         };
         img.onerror = advance;
-        img.src = FRAME_SRC(i);
+        img.src = seq.frameSrc(i);
       }
     };
 
@@ -203,7 +236,7 @@ export default function Home3dHero({
     return () => {
       cancelled = true;
     };
-  }, []);
+  }, [seq]);
 
   useEffect(() => {
     if (!ready) return;
@@ -369,7 +402,8 @@ export default function Home3dHero({
   // scroll-driven playback once handed over
   useEffect(() => {
     if (phase !== "scroll") return;
-    if (SCROLL_FRAME_COUNT <= 0) return;
+    const scrollFrameCount = Math.max(0, seq.frameCount - SCROLL_START);
+    if (scrollFrameCount <= 0) return;
 
     // No easing here on purpose: the displayed frame is a pure function of
     // the real scroll position, read fresh every time. Smoothing this toward
@@ -440,7 +474,7 @@ export default function Home3dHero({
       }
       stopEndLoop();
 
-      const f = frameForProgress(clamped);
+      const f = frameForProgress(clamped, scrollFrameCount);
       frameRef.current = f;
       draw(f);
     };
@@ -459,7 +493,7 @@ export default function Home3dHero({
       if (scheduledRaf !== null) cancelAnimationFrame(scheduledRaf);
       stopEndLoop();
     };
-  }, [phase]);
+  }, [phase, seq]);
 
   // Sync initial chrome state to the document so Navbar picks it up even before first scroll
   useEffect(() => {
@@ -543,7 +577,7 @@ export default function Home3dHero({
         )}
 
         {!hideLoader && (
-          <LoadingScreen progress={loadedCount / FRAME_COUNT} fadeOut={ready} />
+          <LoadingScreen progress={loadedCount / seq.frameCount} fadeOut={ready} />
         )}
       </div>
     </div>

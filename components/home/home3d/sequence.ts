@@ -9,6 +9,19 @@ export const FRAME_SRC = (index: number) =>
 export const FRAME_NATIVE_WIDTH = 1920;
 export const FRAME_NATIVE_HEIGHT = 1080;
 
+// Mobile-specific sequence: a native portrait export (vs. the desktop set's
+// 16:9 landscape) so phones get a direct crop instead of the heavy cover-crop
+// loss a 16:9 frame takes when fit to a tall viewport. 3 frames shorter than
+// the desktop export (671 vs 674) — negligible against the shared timing
+// ranges below (INTRO/LOOP/SCROLL_START all sit well under 671).
+export const MOBILE_FRAME_COUNT = 671;
+
+export const MOBILE_FRAME_SRC = (index: number) =>
+  `/mobile-sequence/frame_${String(index + 1).padStart(4, "0")}.webp`;
+
+export const MOBILE_FRAME_NATIVE_WIDTH = 1080;
+export const MOBILE_FRAME_NATIVE_HEIGHT = 1920;
+
 // Frames 1-91: plays once on load.
 export const INTRO_RANGE = { start: 0, end: 90 };
 export const INTRO_FPS = 30;
