@@ -44,15 +44,17 @@ const TOTAL_SCROLL_VH = SCROLL_LENGTH_VH + OUTRO_LENGTH_VH;
 const MAIN_SCROLL_FRAC = SCROLL_LENGTH_VH / TOTAL_SCROLL_VH;
 const OUTRO_FRAME_COUNT = Math.max(0, OUTRO_RANGE.end - OUTRO_RANGE.start + 1);
 
-// Preload tuning. Frames are decoded at native resolution, which is ~7.9MB of
-// raw pixel data per bitmap uncompressed — holding several hundred at native
-// resolution reliably crashes mobile browsers on memory pressure. Decoding at
-// just the resolution the device can actually display (with modest headroom
-// for resize/rotation) cuts that proportionally to device size with no
-// visible quality loss. Firing every fetch+decode operation at once also
-// spikes transient memory/CPU, so loads are pooled instead.
-const CONCURRENT_LOADS = 6;
-const RESIZE_HEADROOM = 1.25;
+// Preload concurrency. Frames load as plain <img> elements — no
+// fetch()+blob()+createImageBitmap() resize step. That combo is a known-flaky
+// path on WebKit/iOS at this frame count (it's what was still crashing iOS
+// Safari after capping per-frame resolution); plain Image() decode is the
+// battle-tested path browsers optimize for. There's no client-side resize
+// anymore, so decode cost is whatever the source file is — the mobile
+// sequence is currently served at native 1080x1920 (see MOBILE_SEQUENCE),
+// which is a real resident-memory risk at this frame count; if iOS crashes
+// resurface, that's the first thing to revisit. Firing every load at once
+// still spikes transient memory/CPU, so loads are pooled instead.
+const CONCURRENT_LOADS = 10;
 
 // Frames 0..LOOP_RANGE.end are needed continuously (intro plays once, then
 // loops indefinitely until the user scrolls), so they're preloaded eagerly
@@ -130,7 +132,7 @@ export default function Home3dHero({
   const containerRef = useRef<HTMLDivElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const rendererRef = useRef<SequenceRenderer | null>(null);
-  const framesRef = useRef<(ImageBitmap | HTMLImageElement)[]>([]);
+  const framesRef = useRef<HTMLImageElement[]>([]);
   const frameRef = useRef(0);
   const phaseRef = useRef<Phase>("intro");
   // Set by the preload effect once resize/decode options are known; lets the
@@ -191,57 +193,19 @@ export default function Home3dHero({
       if (count >= coreCount) setReady(true);
     };
 
-    const supportsBitmap = typeof createImageBitmap === "function";
-
-    // Decode at just the resolution this device can show (plus headroom),
-    // capped to never upscale beyond native. On mobile the source is already
-    // a native portrait export (see MOBILE_SEQUENCE), but at the same total
-    // pixel count as the desktop frames, so holding many of them resident at
-    // native res is just as capable of getting iOS Safari jetsam-killed
-    // ("A problem repeatedly occurred"/"can't open the page") as the desktop
-    // set was. The hard cap below keeps each resident bitmap around ~0.5MB
-    // regardless of source orientation, at the cost of extra softness once
-    // upscaled to fill the screen.
-    const dpr = Math.min(window.devicePixelRatio || 1, 2);
-    const coverScale = Math.max(
-      (window.innerWidth * dpr) / seq.nativeWidth,
-      (window.innerHeight * dpr) / seq.nativeHeight,
-    );
-    const MOBILE_MAX_LONG_EDGE = 480;
-    const longEdgeNative = Math.max(seq.nativeWidth, seq.nativeHeight);
-    const capScale = seq.isMobile ? MOBILE_MAX_LONG_EDGE / longEdgeNative : 1;
-    const scale = Math.min(1, coverScale * RESIZE_HEADROOM, capScale);
-    const resizeOptions: ImageBitmapOptions | undefined =
-      scale < 1
-        ? {
-            resizeWidth: Math.max(1, Math.round(seq.nativeWidth * scale)),
-            resizeHeight: Math.max(1, Math.round(seq.nativeHeight * scale)),
-            resizeQuality: "high",
-          }
-        : undefined;
-
     // shared by the eager core loader below and the scroll effect's on-demand loader
-    const decodeOne = (i: number): Promise<void> => {
-      if (supportsBitmap) {
-        return fetch(seq.frameSrc(i))
-          .then((res) => res.blob())
-          .then((blob) => createImageBitmap(blob, resizeOptions))
-          .then((bitmap) => {
-            if (cancelled) return;
-            framesRef.current[i] = bitmap;
-          })
-          .catch(() => {});
-      }
-      return new Promise((resolve) => {
+    const decodeOne = (i: number): Promise<void> =>
+      new Promise((resolve) => {
         const img = new Image();
+        img.decoding = "async";
         img.onload = () => {
+          if (cancelled) return resolve();
           framesRef.current[i] = img;
           resolve();
         };
         img.onerror = () => resolve();
         img.src = seq.frameSrc(i);
       });
-    };
     decodeFrameRef.current = decodeOne;
 
     let nextIndex = 0;
@@ -439,11 +403,11 @@ export default function Home3dHero({
 
     // Decode frames within SCROLL_WINDOW_RADIUS of the given index (skipping
     // ones already loaded or in flight), and free ones now further than
-    // SCROLL_EVICT_RADIUS away — bitmap.close() releases the pixel data
-    // immediately rather than waiting on GC, which matters on iOS where
-    // memory pressure is what's been crashing the tab. The gap between the
-    // two radii is hysteresis so frames near the edge of the window aren't
-    // repeatedly decoded/evicted as the position wobbles by a frame or two.
+    // SCROLL_EVICT_RADIUS away — clearing an <img>'s src drops the browser's
+    // decoded surface for it instead of waiting on GC, which matters on iOS
+    // where memory pressure is what's been crashing the tab. The gap between
+    // the two radii is hysteresis so frames near the edge of the window
+    // aren't repeatedly decoded/evicted as the position wobbles by a frame.
     const loaded = scrollLoadedRef.current;
     const inFlight = scrollInFlightRef.current;
     const ensureScrollWindow = (center: number) => {
@@ -465,7 +429,7 @@ export default function Home3dHero({
       for (const i of loaded) {
         if (Math.abs(i - center) > SCROLL_EVICT_RADIUS) {
           const frame = framesRef.current[i];
-          if (frame && "close" in frame) frame.close();
+          if (frame) frame.removeAttribute("src");
           delete framesRef.current[i];
           loaded.delete(i);
         }

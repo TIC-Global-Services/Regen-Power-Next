@@ -1,17 +1,8 @@
 // Canvas2D frame renderer for the image sequence: hard-cuts to a cover-fit
 // crop of one frame per draw call. No manual GPU texture cache — the
-// browser's own image cache backs decoded ImageBitmap/HTMLImageElement
-// sources, avoiding the unbounded VRAM growth a hand-rolled WebGL texture
-// cache carries at full-res frames. (Ported from regen-home-3d, replaces
-// webglRenderer.ts.)
-
-function getDims(source: TexImageSource): { w: number; h: number } {
-  if (source instanceof HTMLImageElement) {
-    return { w: source.naturalWidth, h: source.naturalHeight };
-  }
-  const s = source as { width: number; height: number };
-  return { w: s.width, h: s.height };
-}
+// browser's own image cache backs decoded <img> sources, avoiding the
+// unbounded VRAM growth a hand-rolled WebGL texture cache carries at
+// full-res frames. (Ported from regen-home-3d, replaces webglRenderer.ts.)
 
 // Computes the source-rect crop that makes `drawImage` behave like CSS
 // `background-size: cover` — fill the destination, cropping overflow instead
@@ -29,7 +20,7 @@ function coverRect(srcW: number, srcH: number, dstW: number, dstH: number) {
 
 export interface SequenceRenderer {
   setSize(width: number, height: number): void;
-  draw(source: TexImageSource | undefined): void;
+  draw(source: HTMLImageElement | undefined): void;
   dispose(): void;
 }
 
@@ -62,11 +53,12 @@ export function createSequenceRenderer(
     },
 
     draw(source) {
-      if (!source) return;
-      const { w, h } = getDims(source);
+      if (!source || !source.complete) return;
+      const w = source.naturalWidth;
+      const h = source.naturalHeight;
       if (!w || !h) return;
       const { sx, sy, sw, sh } = coverRect(w, h, cw, ch);
-      ctx.drawImage(source as CanvasImageSource, sx, sy, sw, sh, 0, 0, cw, ch);
+      ctx.drawImage(source, sx, sy, sw, sh, 0, 0, cw, ch);
     },
 
     dispose() {
