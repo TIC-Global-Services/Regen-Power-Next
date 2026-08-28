@@ -42,17 +42,6 @@ const OUTRO_FRAME_COUNT = Math.max(0, OUTRO_RANGE.end - OUTRO_RANGE.start + 1);
 
 const SCROLL_FRAME_COUNT = Math.max(0, FRAME_COUNT - SCROLL_START);
 
-// Cursor parallax tuning: max shift as a fraction of viewport size.
-// Scale must cover 2x the max shift (both directions) or corners will clip.`
-// Smoothing is expressed as a time constant (ms) rather than a flat per-frame
-// ratio so motion converges at the same real-world speed regardless of the
-// display's refresh rate (a flat ratio applied every rAF settles ~2x faster
-// on a 120Hz screen than on 60Hz, which reads as inconsistent "smoothness"
-// across devices).
-const PARALLAX_MAX_SHIFT = 0.008;
-const PARALLAX_SCALE = 1 + PARALLAX_MAX_SHIFT * 2.5;
-const PARALLAX_TAU_MS = 220;
-
 // Preload tuning. Frames are decoded at 1920x1080 native, which is ~7.9MB of
 // raw pixel data per bitmap uncompressed — holding all 674 at native
 // resolution is ~5GB and reliably crashes mobile browsers on memory pressure
@@ -64,33 +53,27 @@ const PARALLAX_TAU_MS = 220;
 const CONCURRENT_LOADS = 6;
 const RESIZE_HEADROOM = 1.25;
 
-// Converts a time-constant (ms) into a per-tick exponential smoothing factor
-// for the elapsed frame delta, so `current += (target - current) * factor`
-// converges at the same rate independent of frame rate.
-const smoothingFactor = (tauMs: number, dtMs: number) =>
-  1 - Math.exp(-dtMs / tauMs);
-
 const GRAIN_SVG =
   "<svg xmlns='http://www.w3.org/2000/svg'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%' height='100%' filter='url(#n)'/></svg>";
 const GRAIN_URL = `url("data:image/svg+xml,${encodeURIComponent(GRAIN_SVG)}")`;
 
 // Maps a 0..1 scroll progress (within the two-segment main+outro range,
-// excluding the trailing end-loop hold) to a continuous (fractional) frame
-// index so playback can crossfade between neighboring frames instead of
-// snapping — this is what makes scrubbing feel smooth at any scroll speed.
-function frameFloatForProgress(clamped: number): number {
+// excluding the trailing end-loop hold) to a frame index.
+function frameForProgress(clamped: number): number {
   if (clamped <= MAIN_SCROLL_FRAC) {
     const subProgress = MAIN_SCROLL_FRAC > 0 ? clamped / MAIN_SCROLL_FRAC : 0;
     return (
       SCROLL_START +
-      Math.min(SCROLL_FRAME_COUNT - 1, subProgress * (SCROLL_FRAME_COUNT - 1))
+      Math.round(
+        Math.min(SCROLL_FRAME_COUNT - 1, subProgress * (SCROLL_FRAME_COUNT - 1)),
+      )
     );
   }
   const subProgress =
     MAIN_SCROLL_FRAC < 1 ? (clamped - MAIN_SCROLL_FRAC) / (1 - MAIN_SCROLL_FRAC) : 1;
   return (
     OUTRO_RANGE.start +
-    Math.min(OUTRO_FRAME_COUNT - 1, subProgress * (OUTRO_FRAME_COUNT - 1))
+    Math.round(Math.min(OUTRO_FRAME_COUNT - 1, subProgress * (OUTRO_FRAME_COUNT - 1)))
   );
 }
 
@@ -108,9 +91,6 @@ export default function Home3dHero({
   const framesRef = useRef<(ImageBitmap | HTMLImageElement)[]>([]);
   const frameRef = useRef(0);
   const phaseRef = useRef<Phase>("intro");
-  const parallaxTargetRef = useRef({ x: 0, y: 0 });
-  const parallaxCurrentRef = useRef({ x: 0, y: 0 });
-  const audioRef = useRef<HTMLAudioElement>(null);
 
   const hasHeroContent = !!(topSubtitle || mainTitle || description || ctaText);
 
@@ -118,7 +98,6 @@ export default function Home3dHero({
   const [ready, setReady] = useState(false);
   const [hideLoader, setHideLoader] = useState(false);
   const [phase, setPhase] = useState<Phase>("intro");
-  const [muted, setMuted] = useState(false);
   // Hero chrome (overlay + navbar): visible during intro/loop, hidden during scrub,
   // visible again at the very end of the 500vh sequence.
   const [heroChromeVisible, setHeroChromeVisibleState] = useState(true);
@@ -142,21 +121,8 @@ export default function Home3dHero({
     setPhase(p);
   };
 
-  // hard-cut draw (integer frame, no blend) — used by intro/loop autoplay
   const draw = (index: number) => {
-    rendererRef.current?.draw(index, framesRef.current[index], index, undefined, 0);
-  };
-
-  // crossfades between the two frames straddling a fractional index — used
-  // by scroll scrubbing for sub-frame smoothness
-  const drawBlend = (indexA: number, indexB: number, mix: number) => {
-    rendererRef.current?.draw(
-      indexA,
-      framesRef.current[indexA],
-      indexB,
-      framesRef.current[indexB],
-      mix,
-    );
+    rendererRef.current?.draw(framesRef.current[index]);
   };
 
   // preload + decode ahead of time so scrubbing never stalls on a first-draw decode
@@ -245,37 +211,6 @@ export default function Home3dHero({
     return () => window.clearTimeout(t);
   }, [ready]);
 
-  // background music: autoplays once ready; if the browser blocks unmuted
-  // autoplay, retry on the first user gesture (always allowed by then)
-  useEffect(() => {
-    if (!ready) return;
-    const audio = audioRef.current;
-    if (!audio) return;
-    audio.volume = 0.7;
-
-    const tryPlay = () => audio.play().catch(() => {});
-    tryPlay();
-
-    const onGesture = () => {
-      tryPlay();
-      window.removeEventListener("pointerdown", onGesture);
-      window.removeEventListener("keydown", onGesture);
-      window.removeEventListener("wheel", onGesture);
-    };
-    window.addEventListener("pointerdown", onGesture);
-    window.addEventListener("keydown", onGesture);
-    window.addEventListener("wheel", onGesture);
-    return () => {
-      window.removeEventListener("pointerdown", onGesture);
-      window.removeEventListener("keydown", onGesture);
-      window.removeEventListener("wheel", onGesture);
-    };
-  }, [ready]);
-
-  useEffect(() => {
-    if (audioRef.current) audioRef.current.muted = muted;
-  }, [muted]);
-
   // canvas sizing + WebGL renderer setup
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -301,53 +236,6 @@ export default function Home3dHero({
     };
   }, []);
 
-  // cursor parallax: track normalized pointer position, settle back to center on leave
-  useEffect(() => {
-    const onMouseMove = (e: MouseEvent) => {
-      parallaxTargetRef.current = {
-        x: (e.clientX / window.innerWidth) * 2 - 1,
-        y: (e.clientY / window.innerHeight) * 2 - 1,
-      };
-    };
-    const onMouseLeave = () => {
-      parallaxTargetRef.current = { x: 0, y: 0 };
-    };
-
-    window.addEventListener("mousemove", onMouseMove);
-    window.addEventListener("mouseleave", onMouseLeave);
-    return () => {
-      window.removeEventListener("mousemove", onMouseMove);
-      window.removeEventListener("mouseleave", onMouseLeave);
-    };
-  }, []);
-
-  // cursor parallax: smoothly lerp toward the target offset and apply as a CSS transform
-  useEffect(() => {
-    const canvas = canvasRef.current;
-    if (!canvas) return;
-
-    let raf = 0;
-    let last = performance.now();
-    const tick = (now: number) => {
-      const dt = Math.min(64, now - last); // clamp so a tab-switch stall doesn't snap
-      last = now;
-
-      const target = parallaxTargetRef.current;
-      const current = parallaxCurrentRef.current;
-      const posFactor = smoothingFactor(PARALLAX_TAU_MS, dt);
-      current.x += (target.x - current.x) * posFactor;
-      current.y += (target.y - current.y) * posFactor;
-
-      const tx = current.x * PARALLAX_MAX_SHIFT * window.innerWidth;
-      const ty = current.y * PARALLAX_MAX_SHIFT * window.innerHeight;
-      canvas.style.transform = `scale(${PARALLAX_SCALE}) translate(${tx}px, ${ty}px)`;
-
-      raf = requestAnimationFrame(tick);
-    };
-    raf = requestAnimationFrame(tick);
-    return () => cancelAnimationFrame(raf);
-  }, []);
-
   // intro autoplay: plays once on load, then hands off to the loop autoplay
   useEffect(() => {
     if (!ready) return;
@@ -370,6 +258,7 @@ export default function Home3dHero({
 
         if (frameRef.current < INTRO_RANGE.end) {
           frameRef.current += 1;
+          draw(frameRef.current);
         } else {
           frameRef.current = LOOP_RANGE.start;
           draw(frameRef.current);
@@ -377,12 +266,6 @@ export default function Home3dHero({
           return;
         }
       }
-
-      // crossfade toward the next frame within the current tick's window
-      // instead of hard-cutting at the frame boundary — keeps the step
-      // between individual frames from ever being visible.
-      const next = Math.min(frameRef.current + 1, INTRO_RANGE.end);
-      drawBlend(frameRef.current, next, acc / frameDuration);
 
       raf = requestAnimationFrame(tick);
     };
@@ -408,11 +291,8 @@ export default function Home3dHero({
         acc -= frameDuration;
         frameRef.current =
           frameRef.current >= LOOP_RANGE.end ? LOOP_RANGE.start : frameRef.current + 1;
+        draw(frameRef.current);
       }
-
-      const next =
-        frameRef.current >= LOOP_RANGE.end ? LOOP_RANGE.start : frameRef.current + 1;
-      drawBlend(frameRef.current, next, acc / frameDuration);
 
       raf = requestAnimationFrame(tick);
     };
@@ -495,9 +375,7 @@ export default function Home3dHero({
     // the real scroll position, read fresh every time. Smoothing this toward
     // a target (as an earlier version did) makes playback keep drifting for
     // a beat after the user stops scrolling, which reads as the animation
-    // "moving on its own" instead of a direct scrub. Sub-frame smoothness
-    // instead comes entirely from crossfading the two frames the current
-    // float position falls between.
+    // "moving on its own" instead of a direct scrub.
     let scheduledRaf: number | null = null;
 
     // once scrolled all the way to the end, free-run the same loop range the
@@ -524,10 +402,8 @@ export default function Home3dHero({
         endLoopAcc -= endLoopFrameDuration;
         frameRef.current =
           frameRef.current >= LOOP_RANGE.end ? LOOP_RANGE.start : frameRef.current + 1;
+        draw(frameRef.current);
       }
-      const next =
-        frameRef.current >= LOOP_RANGE.end ? LOOP_RANGE.start : frameRef.current + 1;
-      drawBlend(frameRef.current, next, endLoopAcc / endLoopFrameDuration);
       endLoopRaf = requestAnimationFrame(endLoopTick);
     };
 
@@ -564,16 +440,9 @@ export default function Home3dHero({
       }
       stopEndLoop();
 
-      const f = frameFloatForProgress(clamped);
-      const a = Math.floor(f);
-      const b = Math.min(a + 1, FRAME_COUNT - 1);
-      const mix = f - a;
-      frameRef.current = a;
-      if (mix > 0) {
-        drawBlend(a, b, mix);
-      } else {
-        draw(a);
-      }
+      const f = frameForProgress(clamped);
+      frameRef.current = f;
+      draw(f);
     };
 
     // coalesce bursts of scroll events into at most one draw per animation
@@ -636,8 +505,6 @@ export default function Home3dHero({
           style={{ backgroundImage: GRAIN_URL, backgroundSize: "180px 180px" }}
         />
 
-        <audio ref={audioRef} src="/wind_copyright_free.mp3" loop muted={muted} />
-
         {/* Overlay content — Strapi-driven, visible before scroll and after sequence */}
         {hasHeroContent && (
           <div
@@ -673,29 +540,6 @@ export default function Home3dHero({
               </div>
             ) : null}
           </div>
-        )}
-
-        {ready && (
-          <button
-            type="button"
-            onClick={() => setMuted((m) => !m)}
-            aria-label={muted ? "Unmute background sound" : "Mute background sound"}
-            className="absolute right-5 bottom-5 z-30 flex h-10 w-10 items-center justify-center rounded-full border border-white/15 bg-black/40 text-white/70 backdrop-blur transition-colors hover:text-white"
-          >
-            {muted ? (
-              <svg viewBox="0 0 24 24" width={18} height={18} fill="none" stroke="currentColor" strokeWidth={1.5}>
-                <path d="M3 9v6h4l5 5V4L7 9H3z" />
-                <line x1="16" y1="9" x2="21" y2="14" />
-                <line x1="21" y1="9" x2="16" y2="14" />
-              </svg>
-            ) : (
-              <svg viewBox="0 0 24 24" width={18} height={18} fill="none" stroke="currentColor" strokeWidth={1.5}>
-                <path d="M3 9v6h4l5 5V4L7 9H3z" />
-                <path d="M16 8.5a5 5 0 0 1 0 7" />
-                <path d="M18.5 6a8.5 8.5 0 0 1 0 12" />
-              </svg>
-            )}
-          </button>
         )}
 
         {!hideLoader && (
