@@ -54,6 +54,19 @@ const OUTRO_FRAME_COUNT = Math.max(0, OUTRO_RANGE.end - OUTRO_RANGE.start + 1);
 const CONCURRENT_LOADS = 6;
 const RESIZE_HEADROOM = 1.25;
 
+// Frames 0..LOOP_RANGE.end are needed continuously (intro plays once, then
+// loops indefinitely until the user scrolls), so they're preloaded eagerly
+// and kept resident for the component's whole lifetime. The much larger
+// scroll-driven range beyond it is only ever needed a couple of frames at a
+// time, so those are decoded on demand as scroll position reaches them and
+// evicted once far enough behind/ahead — holding all of them resident
+// alongside the core range was still enough to get iOS Safari killed even
+// after capping per-frame size, since total resident memory scales with
+// frame *count* regardless of per-frame resolution.
+const CORE_FRAME_END = LOOP_RANGE.end;
+const SCROLL_WINDOW_RADIUS = 90;
+const SCROLL_EVICT_RADIUS = 140;
+
 const GRAIN_SVG =
   "<svg xmlns='http://www.w3.org/2000/svg'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%' height='100%' filter='url(#n)'/></svg>";
 const GRAIN_URL = `url("data:image/svg+xml,${encodeURIComponent(GRAIN_SVG)}")`;
@@ -120,6 +133,11 @@ export default function Home3dHero({
   const framesRef = useRef<(ImageBitmap | HTMLImageElement)[]>([]);
   const frameRef = useRef(0);
   const phaseRef = useRef<Phase>("intro");
+  // Set by the preload effect once resize/decode options are known; lets the
+  // scroll effect decode on-demand frames the same way the eager core loader does.
+  const decodeFrameRef = useRef<((index: number) => Promise<void>) | null>(null);
+  const scrollLoadedRef = useRef<Set<number>>(new Set());
+  const scrollInFlightRef = useRef<Set<number>>(new Set());
 
   const [seq] = useState<SequenceConfig>(() =>
     isMobileClass() ? MOBILE_SEQUENCE : DESKTOP_SEQUENCE,
@@ -158,16 +176,19 @@ export default function Home3dHero({
     rendererRef.current?.draw(framesRef.current[index]);
   };
 
-  // preload + decode ahead of time so scrubbing never stalls on a first-draw decode
+  // preload the core (intro+loop) range eagerly, and set up an on-demand
+  // decoder the scroll effect uses to fetch further frames as needed
   useEffect(() => {
     let cancelled = false;
     let count = 0;
+    const coreEnd = Math.min(CORE_FRAME_END, seq.frameCount - 1);
+    const coreCount = coreEnd + 1;
 
-    const onReady = () => {
+    const onCoreReady = () => {
       if (cancelled) return;
       count += 1;
       setLoadedCount(count);
-      if (count >= seq.frameCount) setReady(true);
+      if (count >= coreCount) setReady(true);
     };
 
     const supportsBitmap = typeof createImageBitmap === "function";
@@ -175,12 +196,12 @@ export default function Home3dHero({
     // Decode at just the resolution this device can show (plus headroom),
     // capped to never upscale beyond native. On mobile the source is already
     // a native portrait export (see MOBILE_SEQUENCE), but at the same total
-    // pixel count as the desktop frames, so holding several hundred of them
-    // resident at native res is just as capable of getting iOS Safari
-    // jetsam-killed ("A problem repeatedly occurred") as the desktop set was.
-    // The hard cap below keeps each resident bitmap around ~0.5MB regardless
-    // of source orientation, at the cost of extra softness once upscaled to
-    // fill the screen.
+    // pixel count as the desktop frames, so holding many of them resident at
+    // native res is just as capable of getting iOS Safari jetsam-killed
+    // ("A problem repeatedly occurred"/"can't open the page") as the desktop
+    // set was. The hard cap below keeps each resident bitmap around ~0.5MB
+    // regardless of source orientation, at the cost of extra softness once
+    // upscaled to fill the screen.
     const dpr = Math.min(window.devicePixelRatio || 1, 2);
     const coverScale = Math.max(
       (window.innerWidth * dpr) / seq.nativeWidth,
@@ -199,42 +220,46 @@ export default function Home3dHero({
           }
         : undefined;
 
-    let nextIndex = 0;
-    const startNext = () => {
-      if (cancelled) return;
-      const i = nextIndex++;
-      if (i >= seq.frameCount) return;
-
-      const advance = () => {
-        onReady();
-        startNext();
-      };
-
+    // shared by the eager core loader below and the scroll effect's on-demand loader
+    const decodeOne = (i: number): Promise<void> => {
       if (supportsBitmap) {
-        fetch(seq.frameSrc(i))
+        return fetch(seq.frameSrc(i))
           .then((res) => res.blob())
           .then((blob) => createImageBitmap(blob, resizeOptions))
           .then((bitmap) => {
             if (cancelled) return;
             framesRef.current[i] = bitmap;
-            advance();
           })
-          .catch(advance);
-      } else {
+          .catch(() => {});
+      }
+      return new Promise((resolve) => {
         const img = new Image();
         img.onload = () => {
           framesRef.current[i] = img;
-          advance();
+          resolve();
         };
-        img.onerror = advance;
+        img.onerror = () => resolve();
         img.src = seq.frameSrc(i);
-      }
+      });
+    };
+    decodeFrameRef.current = decodeOne;
+
+    let nextIndex = 0;
+    const startNext = () => {
+      if (cancelled) return;
+      const i = nextIndex++;
+      if (i > coreEnd) return;
+      decodeOne(i).then(() => {
+        onCoreReady();
+        startNext();
+      });
     };
 
     for (let k = 0; k < CONCURRENT_LOADS; k++) startNext();
 
     return () => {
       cancelled = true;
+      decodeFrameRef.current = null;
     };
   }, [seq]);
 
@@ -412,6 +437,41 @@ export default function Home3dHero({
     // "moving on its own" instead of a direct scrub.
     let scheduledRaf: number | null = null;
 
+    // Decode frames within SCROLL_WINDOW_RADIUS of the given index (skipping
+    // ones already loaded or in flight), and free ones now further than
+    // SCROLL_EVICT_RADIUS away — bitmap.close() releases the pixel data
+    // immediately rather than waiting on GC, which matters on iOS where
+    // memory pressure is what's been crashing the tab. The gap between the
+    // two radii is hysteresis so frames near the edge of the window aren't
+    // repeatedly decoded/evicted as the position wobbles by a frame or two.
+    const loaded = scrollLoadedRef.current;
+    const inFlight = scrollInFlightRef.current;
+    const ensureScrollWindow = (center: number) => {
+      const decodeFrame = decodeFrameRef.current;
+      if (!decodeFrame) return;
+
+      const lo = Math.max(CORE_FRAME_END + 1, center - SCROLL_WINDOW_RADIUS);
+      const hi = Math.min(seq.frameCount - 1, center + SCROLL_WINDOW_RADIUS);
+      for (let i = lo; i <= hi; i++) {
+        if (loaded.has(i) || inFlight.has(i)) continue;
+        inFlight.add(i);
+        decodeFrame(i).then(() => {
+          inFlight.delete(i);
+          loaded.add(i);
+          if (frameRef.current === i) draw(i);
+        });
+      }
+
+      for (const i of loaded) {
+        if (Math.abs(i - center) > SCROLL_EVICT_RADIUS) {
+          const frame = framesRef.current[i];
+          if (frame && "close" in frame) frame.close();
+          delete framesRef.current[i];
+          loaded.delete(i);
+        }
+      }
+    };
+
     // once scrolled all the way to the end, free-run the same loop range the
     // mid-sequence loop uses instead of freezing — runs independently of
     // scroll events so it keeps animating while the user holds position, and
@@ -476,6 +536,7 @@ export default function Home3dHero({
 
       const f = frameForProgress(clamped, scrollFrameCount);
       frameRef.current = f;
+      if (f > CORE_FRAME_END) ensureScrollWindow(f);
       draw(f);
     };
 
@@ -577,7 +638,10 @@ export default function Home3dHero({
         )}
 
         {!hideLoader && (
-          <LoadingScreen progress={loadedCount / seq.frameCount} fadeOut={ready} />
+          <LoadingScreen
+            progress={loadedCount / (Math.min(CORE_FRAME_END, seq.frameCount - 1) + 1)}
+            fadeOut={ready}
+          />
         )}
       </div>
     </div>

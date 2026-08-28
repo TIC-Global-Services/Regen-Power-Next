@@ -36,9 +36,11 @@ export interface SequenceRenderer {
 export function createSequenceRenderer(
   canvas: HTMLCanvasElement,
 ): SequenceRenderer | null {
+  // desynchronized rendering has known WebKit stability issues on iOS Safari
+  // (implicated in tab crashes), so it's left off despite the latency win it
+  // gives on browsers where it's solid.
   const ctx = canvas.getContext("2d", {
     alpha: false,
-    desynchronized: true,
   }) as CanvasRenderingContext2D | null;
   if (!ctx) return null;
 
