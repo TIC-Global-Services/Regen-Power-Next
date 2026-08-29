@@ -12,9 +12,9 @@ import {
   resolveCommercialSystemsPackagesGrid,
   resolveCommercialSystemsProcessFlow,
   resolveCommercialSystemsFiveThingsSection,
-  resolveCommercialSystemsCommercialForm,
   resolveSharedFaq,
   resolveSharedCtaBanner,
+  resolveSharedFormSection,
 } from "@/lib/strapi/resolvers";
 import type {
   CommercialSystemsHeroData,
@@ -28,8 +28,8 @@ import type {
   CommercialSystemsProcessFlowData,
   CommercialSystemsFiveThingsSectionData,
   SharedFaqData,
-  CommercialSystemsCommercialFormData,
   SharedCtaBannerData,
+  SharedFormSectionData,
 } from "@/lib/strapi/schemas";
 
 import HeroSection from "@/components/commercial/systems/HeroSection";
@@ -43,8 +43,8 @@ import PackagesGridSection from "@/components/commercial/systems/PackagesGridSec
 import ProcessFlowSection from "@/components/commercial/systems/ProcessFlowSection";
 import FiveThingsSection from "@/components/commercial/systems/FiveThingsSection";
 import FaqSection from "@/components/commercial/systems/FaqSection";
-import CommercialFormSection from "@/components/commercial/systems/CommercialFormSection";
 import CtaBannerSection from "@/components/commercial/systems/CtaBannerSection";
+import UnifiedFormSection from "@/reuseables/UnifiedFormSection";
 
 export const revalidate = 60;
 
@@ -63,7 +63,7 @@ export default async function CommercialSystemsPage() {
   const processFlow = findSection<CommercialSystemsProcessFlowData>(sections, "commercial-systems.process-flow");
   const fiveThings = findSection<CommercialSystemsFiveThingsSectionData>(sections, "commercial-systems.five-things-section");
   const faq = findSection<SharedFaqData>(sections, "shared.faq");
-  const commercialForm = findSection<CommercialSystemsCommercialFormData>(sections, "commercial-systems.commercial-form");
+  const formSection = findSection<SharedFormSectionData>(sections, "shared.form-section");
   const ctaBanner = findSection<SharedCtaBannerData>(sections, "shared.cta-banner");
 
   const heroProps = resolveCommercialSystemsHero(hero);
@@ -77,7 +77,7 @@ export default async function CommercialSystemsPage() {
   const processFlowProps = resolveCommercialSystemsProcessFlow(processFlow);
   const fiveThingsProps = resolveCommercialSystemsFiveThingsSection(fiveThings);
   const faqProps = resolveSharedFaq(faq);
-  const commercialFormProps = resolveCommercialSystemsCommercialForm(commercialForm);
+  const formProps = resolveSharedFormSection(formSection);
   const ctaBannerProps = resolveSharedCtaBanner(ctaBanner);
   
 
@@ -105,11 +105,13 @@ export default async function CommercialSystemsPage() {
 
       {faqProps && <FaqSection resolved={faqProps} />}
 
-      {commercialFormProps && (
-        <div id="quote-form">
-          <CommercialFormSection resolved={commercialFormProps} />
-        </div>
-      )}
+      <UnifiedFormSection
+        resolved={formProps}
+        title={formProps?.title}
+        description={formProps?.description}
+        video={formProps?.videoSrc}
+        image={formProps?.imageSrc}
+      />
 
       {ctaBannerProps && <CtaBannerSection resolved={ctaBannerProps} />}
     </div>

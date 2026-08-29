@@ -13,9 +13,9 @@ import {
   resolveAcquaSmartSection,
   resolveOffGridStory,
   resolveOverlayCardGrid,
-  resolveOffGridForm,
   resolveSharedEditorialSection,
   resolveSharedFaq,
+  resolveSharedFormSection,
 } from '@/lib/strapi/resolvers';
 import type {
   OffGridHeroData,
@@ -28,10 +28,10 @@ import type {
   AcquaSmartSectionData,
   OffGridStoryData,
   OverlayCardGridData,
-  OffGridFormData,
   CommercialSystemsStatsCardGridData,
   SharedEditorialSectionData,
   SharedFaqData,
+  SharedFormSectionData,
 } from '@/lib/strapi/schemas';
 import OffGridHero from '@/components/off-grid/OffGridHero';
 import SolutionCardGrid from '@/reuseables/solutiongrid'
@@ -72,7 +72,7 @@ import MicrogridSpecTable from '@/components/off-grid/MicrogridSpecTable';
 import AcquaSmartSection from '@/components/off-grid/AcquaSmartSection';
 import OffGridStory from '@/components/off-grid/OffGridStory';
 import OverlayCardGrid from '@/reuseables/OverlayCardGrid';
-import OffGridForm from '@/components/off-grid/OffGridForm';
+import UnifiedFormSection from '@/reuseables/UnifiedFormSection';
 import FAQ from '@/reuseables/faq';
 import getValidMediaSrc from '@/utils/getValidsrc';
 
@@ -103,7 +103,7 @@ const OffGridSolutionsPage = async () => {
   const story = resolveOffGridStory(findSection<OffGridStoryData>(sections, 'off-grid.off-grid-story'));
   const overlayGrid = resolveOverlayCardGrid(findSection<OverlayCardGridData>(sections, 'off-grid.overlay-card-grid'));
   const faq = resolveSharedFaq(findSection<SharedFaqData>(sections, 'shared.faq'));
-  const form = resolveOffGridForm(findSection<OffGridFormData>(sections, 'off-grid.off-grid-form'));
+  const formProps = resolveSharedFormSection(findSection<SharedFormSectionData>(sections, 'shared.form-section'));
 
   const validBackgroundImage = await getValidMediaSrc(
     hero?.backgroundImage ?? '',
@@ -257,26 +257,23 @@ const OffGridSolutionsPage = async () => {
       )}
 
       {faq && (
-        <div id="quote-form">
-          <FAQ
-            topTitle={faq.title}
-            title={faq.sectionTitle}
-            listTitle={faq.listTitle}
-            image={faq.image?.src ?? undefined}
-            items={faq.items}
-            defaultOpenIndex={1}
-          />
-        </div>
-      )}
-
-      {form && (
-        <OffGridForm
-          subtitle={form.subtitle}
-          title={form.title}
-          description={form.description}
-          image={form.image}
+        <FAQ
+          topTitle={faq.title}
+          title={faq.sectionTitle}
+          listTitle={faq.listTitle}
+          image={faq.image?.src ?? undefined}
+          items={faq.items}
+          defaultOpenIndex={1}
         />
       )}
+
+      <UnifiedFormSection
+        resolved={formProps}
+        title={formProps?.title}
+        description={formProps?.description}
+        video={formProps?.videoSrc}
+        image={formProps?.imageSrc}
+      />
     </div>
   );
 };

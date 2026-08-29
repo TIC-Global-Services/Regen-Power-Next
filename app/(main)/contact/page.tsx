@@ -1,11 +1,11 @@
 import React from 'react';
 import { getContactPage } from '@/lib/strapi';
 import { findSection } from '@/lib/strapi/section-utils';
-import { resolveContactHero, resolveContactFormSection } from '@/lib/strapi/resolvers';
-import type { ContactFormSectionData, ContactHeroData } from '@/lib/strapi/schemas';
+import { resolveContactHero, resolveSharedFormSection } from '@/lib/strapi/resolvers';
+import type { ContactHeroData, SharedFormSectionData } from '@/lib/strapi/schemas';
 
 import ContactHero from '@/components/contact/ContactHero';
-import ContactForm from '@/components/contact/ContactForm';
+import UnifiedFormSection from '@/reuseables/UnifiedFormSection';
 import LocationMap from '@/components/contact/LocationMap';
 
 export const revalidate = 60;
@@ -16,8 +16,8 @@ const ContactPage = async () => {
 
   const hero = findSection<ContactHeroData>(sections, 'contact.hero');
   const heroProps = resolveContactHero(hero);
-  const formSection = findSection<ContactFormSectionData>(sections, 'contact.contact-form-section');
-  const formSectionProps = resolveContactFormSection(formSection);
+  const formSection = findSection<SharedFormSectionData>(sections, 'shared.form-section');
+  const formProps = resolveSharedFormSection(formSection);
 
   return (
     <div className="bg-white min-h-screen text-black">
@@ -32,9 +32,12 @@ const ContactPage = async () => {
         />
       )}
 
-      <ContactForm
-        title={formSectionProps?.title}
-        description={formSectionProps?.description}
+      <UnifiedFormSection
+        resolved={formProps}
+        title={formProps?.title || "Contact Us"}
+        description={formProps?.description || "Have a question, need a quote, or want to discuss your project? Fill in the form and our team will get back to you shortly."}
+        video={formProps?.videoSrc}
+        image={formProps?.imageSrc}
       />
 
       <LocationMap />

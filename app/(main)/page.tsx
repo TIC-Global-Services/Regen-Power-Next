@@ -14,6 +14,7 @@ import {
   resolveSmartSolarCardsFromArticles,
   resolveHomeSmartSolar,
   resolveHomeBatteryQuote,
+  resolveSharedFormSection,
 } from "@/lib/strapi/resolvers";
 import type {
   HomeHeroData,
@@ -27,6 +28,7 @@ import type {
   HomeRealStoriesData,
   HomeSmartSolarData,
   HomeBatteryQuoteData,
+  SharedFormSectionData,
 } from "@/lib/strapi/schemas";
 import Home3dHero from "@/components/home/home3d/Home3dHero";
 import AwardAndRecognations from "@/components/home/awardandrecognations";
@@ -36,7 +38,7 @@ import Partners from "@/components/home/partners";
 import ZeroInterestFinancing from "@/components/home/zerointerestfinancing";
 import Craftsmanship from "@/components/home/craftmanship";
 import RealStories from "@/components/home/realStories";
-import QuoteSection from "@/reuseables/QuoteSection";
+import UnifiedFormSection from "@/reuseables/UnifiedFormSection";
 import FeatureExplorer from "@/reuseables/FeatureExplorer";
 import FeatureCardGrid from "@/reuseables/FeatureCardGrid";
 
@@ -137,7 +139,14 @@ const Home = async () => {
   const latestSmartSolarCards = resolveSmartSolarCardsFromArticles(latestArticles);
   const smartSolarCards =
     latestSmartSolarCards.length > 0 ? latestSmartSolarCards : (smartSolarProps?.cards ?? []);
-  const batteryQuoteProps = resolveHomeBatteryQuote(batteryQuote);
+  const sharedForm = findSection<SharedFormSectionData>(sections, "shared.form-section");
+  const sharedProps = resolveSharedFormSection(sharedForm);
+  const bqProps = resolveHomeBatteryQuote(batteryQuote);
+  // prefer shared when present
+  const formTitle = sharedProps?.title || bqProps?.title || "Battery Quote";
+  const formDesc = sharedProps?.description || bqProps?.description || "";
+  const formVideo = sharedProps?.videoSrc || null;
+  const formImage = sharedProps?.imageSrc || bqProps?.image;
 
   const awardFallbacks = [atlogo, fast100, eupd, financialtimes, belmont];
   const whyCardImageFallbacks = [productReviewBg, null, businessBg, productReviewRatingBg] as const;
@@ -289,13 +298,13 @@ const Home = async () => {
         />
       )}
 
-      {batteryQuoteProps && (
-        <QuoteSection
-          variant="classic"
-          subtitle={batteryQuoteProps.subtitle}
-          title={batteryQuoteProps.title}
-          description={batteryQuoteProps.description}
-          image={batteryQuoteProps.image || batteryQuoteImg}
+      {(sharedProps || bqProps) && (
+        <UnifiedFormSection
+          resolved={sharedProps}
+          title={formTitle}
+          description={formDesc}
+          video={formVideo}
+          image={formImage || batteryQuoteImg}
         />
       )}
     </div>

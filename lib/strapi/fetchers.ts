@@ -159,7 +159,8 @@ export const getCommercialSystemsPage = () =>
       commercial.systemsFiveThingsSection,
       shared.faq,
       commercial.systemsCommercialForm,
-      shared.ctaBanner
+      shared.ctaBanner,
+      shared.formSection
     )
   );
 
@@ -223,7 +224,8 @@ export const getOffGridSolutionsPage = () =>
       offGrid.offGridStory,
       offGrid.overlayCardGrid,
       shared.faq,
-      offGrid.offGridForm
+      offGrid.offGridForm,
+      shared.formSection
     )
   );
 export const getBlogPage = () =>
@@ -512,7 +514,7 @@ export const getLatestPortfolioProjects = async (
 export const getContactPage = () =>
   getSingleType(
     PAGE_SLUGS.contact,
-    populate(contact.hero, contact.quoteForm)
+    populate(contact.hero, contact.quoteForm, shared.formSection)
   );
 
 export const getGovernmentRebatesPage = () =>
@@ -621,7 +623,8 @@ export const getHomePage = () =>
       home.craftmanship,
       home.realStories,
       home.smartsolar,
-      home.batteryQuote
+      home.batteryQuote,
+      shared.formSection
     )
   );
 
