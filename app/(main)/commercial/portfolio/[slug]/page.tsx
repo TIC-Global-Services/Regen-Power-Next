@@ -46,7 +46,7 @@ const PortfolioProjectPage = async ({ params }: PortfolioProjectPageProps) => {
     <div className="bg-white min-h-screen text-black">
       <div className="max-w-7xl mx-auto px-[5%] md:px-[3%] pt-28 md:pt-32 pb-12 md:pb-20">
         <Link
-          href="/portfolio"
+          href="/commercial/portfolio"
           className="inline-flex items-center gap-2 text-sm text-black/60 hover:text-black transition-colors mb-8"
         >
           &larr; Back to portfolio

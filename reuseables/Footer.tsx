@@ -5,9 +5,9 @@ import { Mail, Phone } from 'lucide-react';
 
 const quickLinks = [
   { name: 'Solar', href: '/solar' },
-  { name: 'Battery Storage', href: '/battery-storage' },
+  { name: 'Battery Storage', href: '/battery/battery-storage' },
   { name: 'EV Charging', href: '/ev-charging' },
-  { name: 'Commercial systems', href: '/commercial-systems' },
+  { name: 'Commercial systems', href: '/commercial/case-studies' },
   { name: 'About Us', href: '/about' },
   { name: 'Contact', href: '/contact' },
   { name: 'Blog', href: '/blog' },

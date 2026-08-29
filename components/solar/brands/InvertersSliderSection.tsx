@@ -109,8 +109,8 @@ const InvertersSliderSection: React.FC<InvertersSliderSectionProps> = ({
   if (inverters.length === 0) return null;
 
   return (
-    <section className="py-16 md:py-20  overflow-hidden border-t border-gray-50">
-      <div className="pl-[5%] pr-0 mx-auto">
+    <section className="py-16 md:py-20 border-t border-gray-50 overflow-clip">
+      <div className="pl-[5%] pr-[5%] lg:pr-0 mx-auto">
         <div className="flex flex-col lg:flex-row gap-8 lg:gap-12 items-start lg:items-center">
           {/* Heading */}
           <div className="w-full lg:w-[22%] shrink-0 pr-8 lg:pr-0">
@@ -129,8 +129,8 @@ const InvertersSliderSection: React.FC<InvertersSliderSectionProps> = ({
             <div
               ref={trackRef}
               onScroll={sync}
-              className="flex gap-4 md:gap-6 overflow-x-auto  -mx-[5%] px-[5%] md:px-[3%] [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]"
-              style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
+              className="flex gap-4 md:gap-6 overflow-x-auto pr-[5%] lg:pr-[6%] [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]"
+              style={{ scrollbarWidth: "none", msOverflowStyle: "none", scrollPaddingRight: "6%", scrollSnapType: "x mandatory" } as React.CSSProperties}
             >
               {inverters.map((item, idx) => (
                 <Reveal
@@ -141,6 +141,8 @@ const InvertersSliderSection: React.FC<InvertersSliderSectionProps> = ({
                   <InverterCard item={item} />
                 </Reveal>
               ))}
+              {/* trailing spacer so the last card's right edge clears the viewport */}
+              <div className="shrink-0 w-[6%]" aria-hidden />
             </div>
           </div>
         </div>

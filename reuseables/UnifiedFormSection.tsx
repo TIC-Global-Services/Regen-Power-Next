@@ -61,7 +61,7 @@ export default function UnifiedFormSection({
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
           {/* Left: header + media */}
           <div className="lg:col-span-5 flex flex-col">
-            <SectionHeader subtitle={sub} title={t} description={desc} align="left" />
+            <SectionHeader subtitle={sub} title={t} description={desc} align="left" subtitleClass="text-[2.125rem] leading-tight tracking-tight" />
             {(resolvedVideo || resolvedImage || staticImage) && (
               <div className="relative w-full aspect-square max-w-[420px] mt-8 rounded-2xl overflow-hidden bg-gray-50">
                 {resolvedVideo ? (

@@ -41,11 +41,11 @@ const Partners = ({ data }: PartnersProps) => {
               <h3 className="text-xl md:text-4xl font-light text-black text-center mb-4 md:mb-8 tracking-tight">
                 {data.partnersTitle}
               </h3>
-              <div className="grid grid-cols-6 border-gray-200 md:border-b">
+              <div className="grid grid-cols-6 gap-4 md:gap-0 border-gray-200 md:border-b">
                 {data.partners.map((partner, index) => (
                   <div
                     key={index}
-                    className={`col-span-3 flex items-center justify-center p-0 md:p-8 hover:-translate-y-0.5 transition-all duration-300 ${index > 0 ? "md:border-l md:border-gray-200" : ""
+                    className={`col-span-3 flex items-center justify-center p-4 md:p-8 hover:-translate-y-0.5 transition-all duration-300 ${index > 0 ? "md:border-l md:border-gray-200" : ""
                       }`}
                   >
                     <div className="relative aspect-[4/5] w-full max-w-[200px] mx-auto md:aspect-auto md:h-42 md:w-42">
@@ -66,14 +66,14 @@ const Partners = ({ data }: PartnersProps) => {
               <h3 className="text-xl md:text-4xl font-light text-black text-center mb-4 md:mb-8 tracking-tight">
                 {data.membershipsTitle}
               </h3>
-              <div className="grid grid-cols-6 border-gray-200 md:border-b">
+              <div className="grid grid-cols-6 gap-4 md:gap-0 border-gray-200 md:border-b">
                 {data.memberships.map((membership, index) => (
                   <div
                     key={index}
-                    className={`col-span-2 flex items-center justify-center p-3 md:p-8 hover:-translate-y-0.5 transition-all duration-300 ${index > 0 ? "md:border-l md:border-gray-200" : ""
+                    className={`col-span-2 flex items-center justify-center p-4 md:p-8 hover:-translate-y-0.5 transition-all duration-300 ${index > 0 ? "md:border-l md:border-gray-200" : ""
                       }`}
                   >
-                    <div className="relative aspect-[4/5] w-full max-w-[120px] mx-auto md:aspect-auto md:h-40 md:w-full md:max-w-none">
+                    <div className="relative aspect-[4/5] w-full max-w-[150px] mx-auto md:aspect-auto md:h-40 md:w-full md:max-w-none">
                       <Image
                         src={membership.image}
                         alt={membership.name}
