@@ -110,6 +110,16 @@ const WorldMap: React.FC<WorldMapProps> = ({
     // Australia marker band with breathing room on every side.
     const [compact, setCompact] = useState(false);
 
+    const [canHover, setCanHover] = useState(false);
+
+    useEffect(() => {
+        const mq = window.matchMedia('(hover: hover) and (pointer: fine)');
+        const update = () => setCanHover(mq.matches);
+        update();
+        mq.addEventListener('change', update);
+        return () => mq.removeEventListener('change', update);
+    }, []);
+
     useEffect(() => {
         const mq = window.matchMedia('(max-width: 1023px)');
         const apply = () => setCompact(mq.matches);
@@ -162,30 +172,33 @@ const WorldMap: React.FC<WorldMapProps> = ({
                 )}
 
                 <div
-                    className={`relative w-full ${crop ? 'overflow-hidden' : ''}`}
+                    className="relative w-full"
                     style={{ aspectRatio: ratio }}
                     onClick={() => setActiveMarker(null)}
                 >
-                    <Image
-                        src={mapImage}
-                        alt="World map"
-                        fill
-                        className="object-contain"
-                        sizes="100vw"
-                        style={
-                            crop
-                                ? {
-                                      // Zoom so the crop window fills the wrapper:
-                                      // translate the window's top-left corner to the
-                                      // origin, then scale about it. The pin remap
-                                      // below uses the identical formula, so pins stay
-                                      // glued to their geography.
-                                      transform: `scale(${100 / crop.w}) translate(-${crop.x}%, -${crop.y}%)`,
-                                      transformOrigin: '0 0',
-                                  }
-                                : undefined
-                        }
-                    />
+                    {/* Image layer clipped when cropped — cards sit outside this so they never get cut off */}
+                    <div className={`absolute inset-0 ${crop ? 'overflow-hidden' : ''}`}>
+                        <Image
+                            src={mapImage}
+                            alt="World map"
+                            fill
+                            className="object-contain"
+                            sizes="100vw"
+                            style={
+                                crop
+                                    ? {
+                                          // Zoom so the crop window fills the wrapper:
+                                          // translate the window's top-left corner to the
+                                          // origin, then scale about it. The pin remap
+                                          // below uses the identical formula, so pins stay
+                                          // glued to their geography.
+                                          transform: `scale(${100 / crop.w}) translate(-${crop.x}%, -${crop.y}%)`,
+                                          transformOrigin: '0 0',
+                                      }
+                                    : undefined
+                            }
+                        />
+                    </div>
 
                     {markers.map((marker) => {
                         // Equirectangular projection onto the image's bounds,
@@ -232,8 +245,8 @@ const WorldMap: React.FC<WorldMapProps> = ({
                                 key={marker.name}
                                 className={`absolute z-10 ${isActive ? 'z-30' : ''}`}
                                 style={{ top: `${top}%`, left: `${left}%` }}
-                                onMouseEnter={() => setActiveMarker(marker.name)}
-                                onMouseLeave={() => setActiveMarker((prev) => (prev === marker.name ? null : prev))}
+                                onMouseEnter={canHover ? () => setActiveMarker(marker.name) : undefined}
+                                onMouseLeave={canHover ? () => setActiveMarker((prev) => (prev === marker.name ? null : prev)) : undefined}
                                 onClick={(e) => {
                                     e.stopPropagation();
                                     handleMarkerClick(marker.name);
@@ -246,7 +259,7 @@ const WorldMap: React.FC<WorldMapProps> = ({
                                 {/* Info card — hover on desktop, tap on mobile */}
                                 {(marker.address || marker.phone || marker.email || marker.mapsUrl) && (
                                     <div
-                                        className={`absolute ${cardBelow ? 'top-full pt-3' : 'bottom-full mb-3'} z-10 w-72 max-w-[75vw] rounded-xl bg-white p-3 text-left shadow-[0_8px_30px_rgba(0,0,0,0.12)] ring-1 ring-black/5 transition-all duration-200 ${cardPosition} ${isActive
+                                        className={`absolute ${cardBelow ? 'top-full pt-2 md:pt-3' : 'bottom-full mb-2 md:mb-3'} z-10 w-48 max-w-[62vw] md:w-72 md:max-w-[75vw] rounded-lg md:rounded-xl bg-white p-2 md:p-3 text-left shadow-[0_8px_30px_rgba(0,0,0,0.12)] ring-1 ring-black/5 transition-all duration-200 ${cardPosition} ${isActive
                                             ? 'pointer-events-auto opacity-100 translate-y-0'
                                             : 'pointer-events-none opacity-0 translate-y-1'
                                             }`}
@@ -261,19 +274,19 @@ const WorldMap: React.FC<WorldMapProps> = ({
                                                     loading="lazy"
                                                     referrerPolicy="no-referrer-when-downgrade"
                                                     allowFullScreen
-                                                    className="h-36 w-full border-0"
+                                                    className="h-20 md:h-36 w-full border-0"
                                                 />
                                             ) : (
-                                                <div className="h-36 w-full animate-pulse bg-gray-100" />
+                                                <div className="h-20 md:h-36 w-full animate-pulse bg-gray-100" />
                                             )}
                                         </div>
                                         {marker.address && (
-                                            <p className="mt-2.5 text-xs leading-relaxed text-gray-800">{marker.address}</p>
+                                            <p className="mt-1.5 md:mt-2.5 text-[11px] md:text-xs leading-snug md:leading-relaxed text-gray-800">{marker.address}</p>
                                         )}
                                         {marker.phone && (
                                             <a
                                                 href={`tel:${marker.phone.replace(/[^+\d]/g, '')}`}
-                                                className="mt-2 block text-xs text-gray-800 hover:text-[#63B846]"
+                                                className="mt-1.5 md:mt-2 block text-[11px] md:text-xs text-gray-800 hover:text-[#63B846]"
                                             >
                                                 Tel: {marker.phone}
                                             </a>
@@ -281,7 +294,7 @@ const WorldMap: React.FC<WorldMapProps> = ({
                                         {marker.email && (
                                             <a
                                                 href={`mailto:${marker.email}`}
-                                                className="mt-0.5 block break-all text-xs text-gray-800 hover:text-[#63B846]"
+                                                className="mt-0.5 block break-all text-[11px] md:text-xs text-gray-800 hover:text-[#63B846]"
                                             >
                                                 {marker.email}
                                             </a>
@@ -291,7 +304,7 @@ const WorldMap: React.FC<WorldMapProps> = ({
                                                 href={marker.mapsUrl}
                                                 target="_blank"
                                                 rel="noopener noreferrer"
-                                                className="mt-2 inline-block text-xs font-medium text-[#63B846] hover:underline"
+                                                className="mt-1.5 md:mt-2 inline-block text-[11px] md:text-xs font-medium text-[#63B846] hover:underline"
                                             >
                                                 Get Directions →
                                             </a>

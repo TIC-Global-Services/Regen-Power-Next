@@ -77,11 +77,19 @@ export type HowYouUseItData = z.infer<typeof HowYouUseItSchema>;
 
 // ─── Right Sizing ───────────────────────────────────────────────────────
 
+export const RightSizingOptionSchema = z.object({
+  id: z.number(),
+  label: z.string(),
+  value: z.string(),
+});
+export type RightSizingOptionData = z.infer<typeof RightSizingOptionSchema>;
+
 export const RightSizingStepSchema = z.object({
   id: z.number(),
   icon: MediaSchema.nullable(),
   title: z.string(),
   placeholder: z.string().nullable(),
+  options: z.array(RightSizingOptionSchema).optional(),
 });
 
 export const RightSizingSchema = z.object({
