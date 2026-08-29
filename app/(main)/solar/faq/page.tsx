@@ -7,16 +7,18 @@ import {
   resolveFaqCategorizedFaq,
   resolveSharedCtaBanner,
 } from "@/lib/strapi/resolvers";
+import { resolveSharedFormSection } from "@/lib/strapi/resolvers/shared";
 import type {
   FaqHeroData,
   FaqCategorizedFaqData,
   FaqCtaBannerData,
+  SharedFormSectionData,
 } from "@/lib/strapi/schemas";
 
 import FaqHeroSection from "@/components/solar/faq/FaqHeroSection";
 import CategorizedFaqSection from "@/components/solar/faq/CategorizedFaqSection";
 import CtaBannerSection from "@/components/solar/deals/CtaBannerSection";
-import QuoteSection from "@/reuseables/QuoteSection";
+import UnifiedFormSection from "@/reuseables/UnifiedFormSection";
 
 export const revalidate = 60;
 
@@ -32,10 +34,12 @@ export default async function SolarFaqPage() {
 
   const hero = findSection<FaqHeroData>(sections, "faq.hero");
   const categorizedFaq = findSection<FaqCategorizedFaqData>(sections, "faq.categorized-faq");
+  const formSection = findSection<SharedFormSectionData>(sections, "shared.form-section");
   const ctaBanner = findSection<FaqCtaBannerData>(sections, "shared.cta-banner");
 
   const heroProps = resolveFaqHero(hero);
   const categorizedFaqProps = resolveFaqCategorizedFaq(categorizedFaq);
+  const formProps = resolveSharedFormSection(formSection);
   const ctaBannerProps = resolveSharedCtaBanner(ctaBanner);
 
   return (
@@ -45,7 +49,13 @@ export default async function SolarFaqPage() {
 
       {categorizedFaqProps && <CategorizedFaqSection resolved={categorizedFaqProps} />}
 
-      <QuoteSection formType="contact" video="/form-icon-video.mp4" />
+      <UnifiedFormSection
+        resolved={formProps}
+        video={formProps?.videoSrc ?? "/form-icon-video.mp4"}
+        image={formProps?.imageSrc}
+        title={formProps?.title ?? undefined}
+        description={formProps?.description ?? undefined}
+      />
 
       {ctaBannerProps && <CtaBannerSection resolved={ctaBannerProps} />}
 

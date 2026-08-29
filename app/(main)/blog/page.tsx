@@ -7,14 +7,16 @@ import {
   resolveSharedCtaBanner,
   resolveSharedCategorySection,
 } from '@/lib/strapi/resolvers';
+import { resolveSharedFormSection } from '@/lib/strapi/resolvers/shared';
 import type {
   BlogHeroData,
   BlogCtaBannerData,
   SharedCategorySectionData,
+  SharedFormSectionData,
 } from '@/lib/strapi/schemas';
 import BlogHero from '@/components/blog/BlogHero';
 import BlogGrid from '@/components/blog/BlogGrid';
-import QuoteSection from "@/reuseables/QuoteSection";
+import UnifiedFormSection from "@/reuseables/UnifiedFormSection";
 import GetSolar from '@/reuseables/getsolar';
 import CategorySection from '@/reuseables/CategorySection';
 
@@ -29,11 +31,13 @@ const BlogPage = async () => {
 
   const hero = findSection<BlogHeroData>(sections, 'blog.hero');
   const categorySection = findSection<SharedCategorySectionData>(sections, 'shared.category-section');
+  const formSection = findSection<SharedFormSectionData>(sections, 'shared.form-section');
   const ctaBanner = findSection<BlogCtaBannerData>(sections, 'shared.cta-banner');
 
   const heroProps = resolveBlogHero(hero);
   const gridProps = resolveBlogArticles(articles);
   const categorySectionProps = resolveSharedCategorySection(categorySection);
+  const formProps = resolveSharedFormSection(formSection);
   const ctaBannerProps = resolveSharedCtaBanner(ctaBanner);
 
   return (
@@ -59,7 +63,13 @@ const BlogPage = async () => {
 
       {categorySectionProps && <CategorySection resolved={categorySectionProps} />}
 
-      <QuoteSection formType="contact" video="/form-icon-video.mp4" />
+      <UnifiedFormSection
+        resolved={formProps}
+        video={formProps?.videoSrc ?? "/form-icon-video.mp4"}
+        image={formProps?.imageSrc}
+        title={formProps?.title ?? undefined}
+        description={formProps?.description ?? undefined}
+      />
 
       {ctaBannerProps && (
         <GetSolar

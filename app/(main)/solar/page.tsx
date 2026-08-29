@@ -45,7 +45,7 @@ import EngineeringCustomizations from "@/components/solar/solarSystem/Engineerin
 
 import FAQ from "@/reuseables/faq";
 import GetSolar from "@/reuseables/getsolar";
-import QuoteSection from "@/reuseables/QuoteSection";
+import UnifiedFormSection from "@/reuseables/UnifiedFormSection";
 
 export const revalidate = 60;
 
@@ -104,7 +104,13 @@ const SolarPage = async () => {
         />
       )}
 
-      <QuoteSection formType="contact" video="/form-icon-video.mp4" />
+      <UnifiedFormSection
+        resolved={formProps}
+        video={formProps?.videoSrc ?? "/form-icon-video.mp4"}
+        image={formProps?.imageSrc}
+        title={formProps?.title ?? undefined}
+        description={formProps?.description ?? undefined}
+      />
 
       {ctaBannerProps && (
         <GetSolar

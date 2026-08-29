@@ -17,6 +17,7 @@ import {
   resolveHomeowners,
   resolveSharedCtaBanner,
 } from "@/lib/strapi/resolvers";
+import { resolveSharedFormSection } from "@/lib/strapi/resolvers/shared";
 import type {
   BatteryProductHeroData,
   BatteryMarqueeData,
@@ -31,11 +32,12 @@ import type {
   ZeroInterestData,
   HomeownersData,
   SharedCtaBannerData,
+  SharedFormSectionData,
 } from "@/lib/strapi/schemas";
 
 import HeroSection from "@/reuseables/HeroSection";
 import GetSolar from "@/reuseables/getsolar";
-import QuoteSection from "@/reuseables/QuoteSection";
+import UnifiedFormSection from "@/reuseables/UnifiedFormSection";
 
 import BatteryBrandMatters from "@/components/battery/battery-product/BatteryBrandMatters";
 import BentoCardsGrid from "@/reuseables/BentoCardsGrid";
@@ -74,6 +76,7 @@ const BatteryProductPage = async () => {
   const warranty = findSection<WarrantyCoverageData>(sections, "battery-product.warranty-coverage");
   const zeroInterest = findSection<ZeroInterestData>(sections, "battery-product.zero-interest");
   const homeowners = findSection<HomeownersData>(sections, "battery-product.homeowners");
+  const formSection = findSection<SharedFormSectionData>(sections, "shared.form-section");
   const ctaBanner = findSection<SharedCtaBannerData>(sections, "shared.cta-banner");
 
   const heroProps = resolveBatteryProductHero(hero);
@@ -116,6 +119,7 @@ const BatteryProductPage = async () => {
     }
   }
   const ctaBannerProps = resolveSharedCtaBanner(ctaBanner);
+  const formProps = resolveSharedFormSection(formSection);
 
   return (
     <main className="w-full min-h-screen">
@@ -177,7 +181,13 @@ const BatteryProductPage = async () => {
 
       {homeownersProps && <Homeowners data={homeownersProps} />}
 
-      <QuoteSection formType="contact" video="/form-icon-video.mp4" />
+      <UnifiedFormSection
+        resolved={formProps}
+        video={formProps?.videoSrc ?? "/form-icon-video.mp4"}
+        image={formProps?.imageSrc}
+        title={formProps?.title ?? undefined}
+        description={formProps?.description ?? undefined}
+      />
 
       {ctaBannerProps && (
         <GetSolar

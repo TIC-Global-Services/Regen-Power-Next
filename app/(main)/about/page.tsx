@@ -1,8 +1,14 @@
 import { getAboutPage } from "@/lib/strapi";
 import { findSection } from "@/lib/strapi/section-utils";
 import { resolveAboutHero, resolveAboutAwards } from "@/lib/strapi/resolvers";
-import type { AboutHeroData, AboutAwardsData } from "@/lib/strapi/schemas";
+import { resolveSharedFormSection } from "@/lib/strapi/resolvers/shared";
+import type {
+  AboutHeroData,
+  AboutAwardsData,
+  SharedFormSectionData,
+} from "@/lib/strapi/schemas";
 import AboutBackground from "@/components/about/AboutBackground";
+import UnifiedFormSection from "@/reuseables/UnifiedFormSection";
 import { FALLBACK_ITEMS } from "@/components/about/AboutHorizontalScroll";
 import type { HorizontalCardItem } from "@/components/about/AboutHorizontalScroll";
 
@@ -25,9 +31,11 @@ export default async function AboutPage() {
 
   const hero = findSection<AboutHeroData>(sections, "about.hero");
   const awards = findSection<AboutAwardsData>(sections, "about.awards");
+  const formSection = findSection<SharedFormSectionData>(sections, "shared.form-section");
 
   const heroProps = resolveAboutHero(hero);
   const awardsProps = resolveAboutAwards(awards);
+  const formProps = resolveSharedFormSection(formSection);
 
   const heroEyebrow = heroProps?.eyebrow || "Regen Power";
   const heroTitle = heroProps?.title || "At A Glance";
@@ -54,6 +62,14 @@ export default async function AboutPage() {
         heroVideoSrc={heroVideoSrc}
         items={cmsItems}
         fallbackItems={fallbackItems}
+      />
+
+      <UnifiedFormSection
+        resolved={formProps}
+        video={formProps?.videoSrc ?? "/form-icon-video.mp4"}
+        image={formProps?.imageSrc}
+        title={formProps?.title ?? undefined}
+        description={formProps?.description ?? undefined}
       />
     </div>
   );

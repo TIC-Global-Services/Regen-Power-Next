@@ -14,6 +14,7 @@ import {
   resolveSharedFaq,
   resolveSharedCtaBanner,
 } from "@/lib/strapi/resolvers";
+import { resolveSharedFormSection } from "@/lib/strapi/resolvers/shared";
 import type {
   EvChargingHeroData,
   EvChargingWallConnectorData,
@@ -26,6 +27,7 @@ import type {
   EvChargingStatsData,
   SharedFaqData,
   SharedCtaBannerData,
+  SharedFormSectionData,
 } from "@/lib/strapi/schemas";
 import EvHero from "@/components/EvCharging/hero";
 import type { EvHeroData } from "@/components/EvCharging/hero";
@@ -46,7 +48,7 @@ import type { EvAccordionData } from "@/components/EvCharging/EvAccordion";
 import EvWhyChooseUs from "@/components/EvCharging/EvWhyChooseUs";
 import FAQ from "@/reuseables/faq";
 import GetSolar from "@/reuseables/getsolar";
-import QuoteSection from "@/reuseables/QuoteSection";
+import UnifiedFormSection from "@/reuseables/UnifiedFormSection";
 
 // Fallback images (used until real media is uploaded in Strapi)
 import evHeroBg from "@/assets/evcharging/hero_banner.png";
@@ -109,6 +111,7 @@ const EvChargingPage = async () => {
     sections,
     "shared.cta-banner"
   );
+  const formSection = findSection<SharedFormSectionData>(sections, "shared.form-section");
 
   const heroProps = resolveEvChargingHero(hero);
   const wallConnectorProps = resolveEvChargingWallConnector(wallConnector);
@@ -120,6 +123,7 @@ const EvChargingPage = async () => {
   const installationStepsProps = resolveEvChargingInstallationSteps(installationSteps);
   const statsProps = resolveEvChargingStats(stats);
   const faqProps = resolveSharedFaq(faq);
+  const formProps = resolveSharedFormSection(formSection);
   const ctaProps = resolveSharedCtaBanner(ctaBanner);
 
   return (
@@ -240,7 +244,13 @@ const EvChargingPage = async () => {
       )}
 
       {/* Section 11: CTA Banner */}
-      <QuoteSection formType="contact" video="/form-icon-video.mp4" />
+      <UnifiedFormSection
+        resolved={formProps}
+        video={formProps?.videoSrc ?? "/form-icon-video.mp4"}
+        image={formProps?.imageSrc}
+        title={formProps?.title ?? undefined}
+        description={formProps?.description ?? undefined}
+      />
 
       {ctaProps && (
         <GetSolar

@@ -133,6 +133,7 @@ export const getRebatesPage = () =>
       rebates.loanBenefits,
       rebates.eligibilityChecker,
       shared.faq,
+      shared.formSection,
       shared.ctaBanner
     )
   );
@@ -140,7 +141,7 @@ export const getRebatesPage = () =>
 export const getFaqPage = () =>
   getSingleType(
     PAGE_SLUGS.faq,
-    populate(faq.hero, faq.categorizedFaq, shared.ctaBanner)
+    populate(faq.hero, faq.categorizedFaq, shared.formSection, shared.ctaBanner)
   );
 
 export const getCommercialSystemsPage = () =>
@@ -171,6 +172,7 @@ export const getCommercialOffGridPage = () =>
       commercial.offGridHero,
       shared.editorialSection,
       commercial.offGridSolutionsPortfolio,
+      shared.formSection,
       shared.ctaBanner
     )
   );
@@ -183,6 +185,7 @@ export const getResearchDevelopmentPage = () =>
       shared.editorialSection,
       research.energySolutionsSection,
       research.coreAchievementsSection,
+      shared.formSection,
       shared.ctaBanner
     )
   );
@@ -194,6 +197,7 @@ export const getReviewsPage = () =>
       reviews.hero,
       reviews.introSection,
       reviews.testimonialsSection,
+      shared.formSection,
       shared.ctaBanner
     )
   );
@@ -231,7 +235,7 @@ export const getOffGridSolutionsPage = () =>
 export const getBlogPage = () =>
   getSingleType(
     PAGE_SLUGS.blog,
-    populate(blog.hero, shared.categorySection, shared.ctaBanner)
+    populate(blog.hero, shared.categorySection, shared.formSection, shared.ctaBanner)
   );
 
 /* ─── blog-article collection ─── */
@@ -332,7 +336,7 @@ export const getBlogArticle = async (
 export const getPressMediaPage = () =>
   getSingleType(
     PAGE_SLUGS.pressMedia,
-    populate(pressMedia.hero, pressMedia.featuredArticle, pressMedia.latestNewsSection, pressMedia.newsSection, shared.categorySection, shared.ctaBanner)
+    populate(pressMedia.hero, pressMedia.featuredArticle, pressMedia.latestNewsSection, pressMedia.newsSection, shared.categorySection, shared.formSection, shared.ctaBanner)
   );
 
 /* ─── press-article collection ─── */
@@ -422,7 +426,7 @@ export const getPressArticle = async (
 export const getPortfolioPage = () =>
   getSingleType(
     PAGE_SLUGS.portfolio,
-    populate(portfolio.hero, portfolio.filters, shared.categorySection, shared.ctaBanner)
+    populate(portfolio.hero, portfolio.filters, shared.categorySection, shared.formSection, shared.ctaBanner)
   );
 
 /* ─── portfolio-project collection ─── */
@@ -531,6 +535,7 @@ export const getGovernmentRebatesPage = () =>
       batteryRebates.rebateDetailSplit,
       batteryRebates.whatSigningUp,
       shared.faq,
+      shared.formSection,
       shared.ctaBanner
     )
   );
@@ -551,6 +556,7 @@ export const getBatteryProductPage = () =>
       batteryProduct.warrantyCoverage,
       batteryProduct.zeroInterest,
       batteryProduct.homeowners,
+      shared.formSection,
       shared.ctaBanner
     )
   );
@@ -572,6 +578,7 @@ export const getBatteryStoragePage = () =>
       batteryStorage.team,
       batteryStorage.customerStories,
       batteryStorage.faq,
+      shared.formSection,
       batteryStorage.ctaBanner
     )
   );
@@ -588,6 +595,7 @@ export const getSmartHomeBatteryPage = () =>
       smartHomeBattery.timeline,
       smartHomeBattery.brandsGrid,
       smartHomeBattery.installBento,
+      shared.formSection,
       smartHomeBattery.ctaBanner
     )
   );
@@ -605,6 +613,7 @@ export const getBrandsWeCarryPage = () =>
       batteryBrands.cecApproved,
       batteryBrands.whyOurInstaller,
       batteryBrands.faq,
+      shared.formSection,
       batteryBrands.ctaBanner
     )
   );
@@ -642,6 +651,7 @@ export const getEvChargingPage = () =>
       evCharging.installationSteps,
       evCharging.stats,
       evCharging.faq,
+      shared.formSection,
       evCharging.ctaBanner
     )
   );
@@ -672,4 +682,7 @@ export const getPromotionPage = () =>
   );
 
 export const getAboutPage = () =>
-  getSingleType(PAGE_SLUGS.about, populate(about.hero, about.awards));
+  getSingleType(
+    PAGE_SLUGS.about,
+    populate(about.hero, about.awards, shared.formSection)
+  );

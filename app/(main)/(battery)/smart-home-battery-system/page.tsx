@@ -12,6 +12,7 @@ import {
   resolveSmartInstallBento,
   resolveSharedCtaBanner,
 } from "@/lib/strapi/resolvers";
+import { resolveSharedFormSection } from "@/lib/strapi/resolvers/shared";
 import type {
   SmartHomeHeroData,
   SmartHomeGreatFitData,
@@ -20,6 +21,7 @@ import type {
   SmartHomeTimelineData,
   SmartHomeBrandsGridData,
   SmartHomeInstallBentoData,
+  SharedFormSectionData,
 } from "@/lib/strapi/schemas";
 import type {
   BatteryStorageMarqueeData,
@@ -28,7 +30,7 @@ import type { SharedCtaBannerData } from "@/lib/strapi/schemas/commercial";
 
 import HeroSection from "@/reuseables/HeroSection";
 import GetSolar from "@/reuseables/getsolar";
-import QuoteSection from "@/reuseables/QuoteSection";
+import UnifiedFormSection from "@/reuseables/UnifiedFormSection";
 import BatteryMarquee from "@/components/battery/battery-storage/BatteryMarquee";
 import GreatFit from "@/components/battery/smarthome-battery-system/GreatFit";
 import FourPillars from "@/components/battery/smarthome-battery-system/FourPillars";
@@ -56,6 +58,7 @@ const SmartBatterySystemPage = async () => {
   const timeline = findSection<SmartHomeTimelineData>(sections, "smart-home-battery.timeline");
   const brands = findSection<SmartHomeBrandsGridData>(sections, "smart-home-battery.brands-grid");
   const bento = findSection<SmartHomeInstallBentoData>(sections, "smart-home-battery.install-bento");
+  const formSection = findSection<SharedFormSectionData>(sections, "shared.form-section");
   const ctaBanner = findSection<SharedCtaBannerData>(sections, "shared.cta-banner");
 
   const heroProps = resolveSmartHomeHero(hero);
@@ -66,6 +69,7 @@ const SmartBatterySystemPage = async () => {
   const timelineProps = resolveBatteryTimeline(timeline);
   const brandsProps = resolveBatteryBrandsGrid(brands);
   const bentoProps = resolveSmartInstallBento(bento);
+  const formProps = resolveSharedFormSection(formSection);
   const ctaBannerProps = resolveSharedCtaBanner(ctaBanner);
 
   return (
@@ -123,7 +127,13 @@ const SmartBatterySystemPage = async () => {
 
       {bentoProps && <BentoCardsGrid data={bentoProps} />}
 
-      <QuoteSection formType="contact" video="/form-icon-video.mp4" />
+      <UnifiedFormSection
+        resolved={formProps}
+        video={formProps?.videoSrc ?? "/form-icon-video.mp4"}
+        image={formProps?.imageSrc}
+        title={formProps?.title ?? undefined}
+        description={formProps?.description ?? undefined}
+      />
 
       {ctaBannerProps && (
         <GetSolar

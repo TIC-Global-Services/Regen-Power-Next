@@ -9,17 +9,19 @@ import {
   resolveSharedCtaBanner,
   resolveSharedCategorySection,
 } from '@/lib/strapi/resolvers';
+import { resolveSharedFormSection } from '@/lib/strapi/resolvers/shared';
 import type {
   PressMediaHeroData,
   PressMediaLatestNewsSectionData,
   BlogCtaBannerData,
   SharedCategorySectionData,
+  SharedFormSectionData,
 } from '@/lib/strapi/schemas';
 import PressHero from '@/components/press-and-media/PressHero';
 import FeaturedArticle from '@/components/press-and-media/FeaturedArticle';
 import LatestNews from '@/components/press-and-media/LatestNews';
 import NewsGrid from '@/components/press-and-media/NewsGrid';
-import QuoteSection from "@/reuseables/QuoteSection";
+import UnifiedFormSection from "@/reuseables/UnifiedFormSection";
 import GetSolar from '@/reuseables/getsolar';
 import CategorySection from '@/reuseables/CategorySection';
 
@@ -38,10 +40,12 @@ const PressMediaPage = async () => {
   const heroSection = findSection<PressMediaHeroData>(sections, 'press-and-media.hero');
   const latestNewsSection = findSection<PressMediaLatestNewsSectionData>(sections, 'press-and-media.latest-news-section');
   const categorySection = findSection<SharedCategorySectionData>(sections, 'shared.category-section');
+  const formSection = findSection<SharedFormSectionData>(sections, 'shared.form-section');
   const ctaSection = findSection<BlogCtaBannerData>(sections, 'shared.cta-banner');
 
   const heroProps = resolvePressMediaHero(heroSection);
   const categorySectionProps = resolveSharedCategorySection(categorySection);
+  const formProps = resolveSharedFormSection(formSection);
   const ctaProps = resolveSharedCtaBanner(ctaSection);
 
   /* Latest-news heading labels stay CMS-editable; the articles themselves are dynamic. */
@@ -113,7 +117,13 @@ const PressMediaPage = async () => {
 
       {categorySectionProps && <CategorySection resolved={categorySectionProps} />}
 
-      <QuoteSection formType="contact" video="/form-icon-video.mp4" />
+      <UnifiedFormSection
+        resolved={formProps}
+        video={formProps?.videoSrc ?? "/form-icon-video.mp4"}
+        image={formProps?.imageSrc}
+        title={formProps?.title ?? undefined}
+        description={formProps?.description ?? undefined}
+      />
 
       {ctaProps && (
         <GetSolar

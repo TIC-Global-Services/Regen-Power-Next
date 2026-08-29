@@ -35,7 +35,7 @@ import WaysToPaySection from "@/components/solar/deals/WaysToPaySection";
 import WhyMattersSection from "@/components/solar/deals/WhyMattersSection";
 import FaqSection from "@/components/solar/deals/FaqSection";
 import CtaBannerSection from "@/components/solar/deals/CtaBannerSection";
-import QuoteSection from "@/reuseables/QuoteSection";
+import UnifiedFormSection from "@/reuseables/UnifiedFormSection";
 
 export const revalidate = 60;
 
@@ -84,7 +84,13 @@ export default async function SolarDealsPage() {
 
       {faqProps && <FaqSection resolved={faqProps} />}
 
-      <QuoteSection formType="contact" video="/form-icon-video.mp4" />
+      <UnifiedFormSection
+        resolved={formProps}
+        video={formProps?.videoSrc ?? "/form-icon-video.mp4"}
+        image={formProps?.imageSrc}
+        title={formProps?.title ?? undefined}
+        description={formProps?.description ?? undefined}
+      />
 
       {ctaBannerProps && <CtaBannerSection resolved={ctaBannerProps} />}
 

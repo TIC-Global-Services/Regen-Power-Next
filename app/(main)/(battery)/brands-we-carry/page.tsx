@@ -13,6 +13,7 @@ import {
   resolveSharedFaq,
   resolveSharedCtaBanner,
 } from "@/lib/strapi/resolvers";
+import { resolveSharedFormSection } from "@/lib/strapi/resolvers/shared";
 import type {
   BatteryBrandsHeroData,
   BatteryBrandsLongTermBetData,
@@ -24,12 +25,13 @@ import type {
   BatteryBrandsWhyOurInstallerData,
   SharedFaqData,
   SharedCtaBannerData,
+  SharedFormSectionData,
 } from "@/lib/strapi/schemas";
 
 import HeroSection from "@/reuseables/HeroSection";
 import FAQ from "@/reuseables/faq";
 import GetSolar from "@/reuseables/getsolar";
-import QuoteSection from "@/reuseables/QuoteSection";
+import UnifiedFormSection from "@/reuseables/UnifiedFormSection";
 import SpecsTableSection from "@/components/solar/brands/SpecsTableSection";
 
 import BrandLongTermBet from "@/components/battery/brands-wecarry/BrandLongTermBet";
@@ -80,6 +82,7 @@ const BrandsWeCarryPage = async () => {
     "battery-brands.why-our-installer"
   );
   const faq = findSection<SharedFaqData>(sections, "shared.faq");
+  const formSection = findSection<SharedFormSectionData>(sections, "shared.form-section");
   const ctaBanner = findSection<SharedCtaBannerData>(sections, "shared.cta-banner");
 
   const heroProps = resolveBatteryBrandsHero(hero);
@@ -91,6 +94,7 @@ const BrandsWeCarryPage = async () => {
   const cecApprovedProps = resolveCecApproved(cecApproved);
   const whyOurInstallerProps = resolveWhyOurInstaller(whyOurInstaller);
   const faqProps = resolveSharedFaq(faq);
+  const formProps = resolveSharedFormSection(formSection);
   const ctaBannerProps = resolveSharedCtaBanner(ctaBanner);
 
   return (
@@ -171,7 +175,13 @@ const BrandsWeCarryPage = async () => {
         />
       )}
 
-      <QuoteSection formType="contact" video="/form-icon-video.mp4" />
+      <UnifiedFormSection
+        resolved={formProps}
+        video={formProps?.videoSrc ?? "/form-icon-video.mp4"}
+        image={formProps?.imageSrc}
+        title={formProps?.title ?? undefined}
+        description={formProps?.description ?? undefined}
+      />
 
       {ctaBannerProps && (
         <GetSolar

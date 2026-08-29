@@ -8,12 +8,14 @@ import {
   resolveSharedEditorialSection,
   resolveSharedCtaBanner,
 } from '@/lib/strapi/resolvers';
+import { resolveSharedFormSection } from '@/lib/strapi/resolvers/shared';
 import type {
   ResearchDevelopmentHeroData,
   EnergySolutionsSectionData,
   CoreAchievementsSectionData,
   SharedEditorialSectionData,
   SharedCtaBannerData,
+  SharedFormSectionData,
 } from '@/lib/strapi/schemas';
 
 import RDHero from '@/components/research-and-development/RDHero';
@@ -21,7 +23,7 @@ import DrivenByInnovation from '@/components/research-and-development/DrivenByIn
 import EnergySolutions from '@/components/research-and-development/EnergySolutions';
 import CoreAchievements from '@/components/research-and-development/CoreAchievements';
 import CtaSection from '@/reuseables/CtaSection';
-import QuoteSection from "@/reuseables/QuoteSection";
+import UnifiedFormSection from "@/reuseables/UnifiedFormSection";
 
 export const revalidate = 60;
 
@@ -33,12 +35,14 @@ export default async function ResearchAndDevelopmentPage() {
   const editorial = findSection<SharedEditorialSectionData>(sections, 'shared.editorial-section');
   const energySolutions = findSection<EnergySolutionsSectionData>(sections, 'research-and-development.energy-solutions-section');
   const coreAchievements = findSection<CoreAchievementsSectionData>(sections, 'research-and-development.core-achievements-section');
+  const formSection = findSection<SharedFormSectionData>(sections, 'shared.form-section');
   const ctaBanner = findSection<SharedCtaBannerData>(sections, 'shared.cta-banner');
 
   const heroProps = resolveResearchDevelopmentHero(hero);
   const editorialProps = resolveSharedEditorialSection(editorial);
   const energySolutionsProps = resolveEnergySolutionsSection(energySolutions);
   const coreAchievementsProps = resolveCoreAchievementsSection(coreAchievements);
+  const formProps = resolveSharedFormSection(formSection);
   const ctaBannerProps = resolveSharedCtaBanner(ctaBanner);
 
   return (
@@ -51,7 +55,13 @@ export default async function ResearchAndDevelopmentPage() {
 
       {coreAchievementsProps && <CoreAchievements resolved={coreAchievementsProps} />}
 
-      <QuoteSection formType="contact" video="/form-icon-video.mp4" />
+      <UnifiedFormSection
+        resolved={formProps}
+        video={formProps?.videoSrc ?? "/form-icon-video.mp4"}
+        image={formProps?.imageSrc}
+        title={formProps?.title ?? undefined}
+        description={formProps?.description ?? undefined}
+      />
 
       {ctaBannerProps && (
         <CtaSection

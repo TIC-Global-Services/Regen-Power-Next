@@ -14,6 +14,7 @@ import {
   resolveSharedFaq,
   resolveSharedCtaBanner,
 } from "@/lib/strapi/resolvers";
+import { resolveSharedFormSection } from "@/lib/strapi/resolvers/shared";
 import type {
   BatteryRebatesHeroData,
   RebatesStackGridData,
@@ -26,12 +27,13 @@ import type {
   WhatSigningUpData,
   SharedFaqData,
   SharedCtaBannerData,
+  SharedFormSectionData,
 } from "@/lib/strapi/schemas";
 
 import HeroSection from "@/reuseables/HeroSection";
 import FAQ from "@/reuseables/faq";
 import GetSolar from "@/reuseables/getsolar";
-import QuoteSection from "@/reuseables/QuoteSection";
+import UnifiedFormSection from "@/reuseables/UnifiedFormSection";
 
 import RebatesStackGrid from "@/components/battery/government-rebates/RebatesStackGrid";
 import RebateDetailSplit from "@/components/battery/government-rebates/RebateDetailSplit";
@@ -63,6 +65,7 @@ const GovernmentRebatesPage = async () => {
   const rebateDetail = findSection<RebateDetailSplitData>(sections, "battery-rebates.rebate-detail-split");
   const whatSigningUp = findSection<WhatSigningUpData>(sections, "battery-rebates.what-signing-up");
   const faq = findSection<SharedFaqData>(sections, "shared.faq");
+  const formSection = findSection<SharedFormSectionData>(sections, "shared.form-section");
   const ctaBanner = findSection<SharedCtaBannerData>(sections, "shared.cta-banner");
 
   const heroProps = resolveBatteryRebatesHero(hero);
@@ -75,6 +78,7 @@ const GovernmentRebatesPage = async () => {
   const detailProps = resolveRebateDetailSplit(rebateDetail);
   const signingUpProps = resolveWhatSigningUp(whatSigningUp);
   const faqProps = resolveSharedFaq(faq);
+  const formProps = resolveSharedFormSection(formSection);
   const ctaBannerProps = resolveSharedCtaBanner(ctaBanner);
 
   return (
@@ -164,7 +168,13 @@ const GovernmentRebatesPage = async () => {
         />
       )}
 
-      <QuoteSection formType="contact" video="/form-icon-video.mp4" />
+      <UnifiedFormSection
+        resolved={formProps}
+        video={formProps?.videoSrc ?? "/form-icon-video.mp4"}
+        image={formProps?.imageSrc}
+        title={formProps?.title ?? undefined}
+        description={formProps?.description ?? undefined}
+      />
 
       {ctaBannerProps && (
         <div id="quote" className="scroll-mt-20">

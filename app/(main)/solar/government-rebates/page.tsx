@@ -13,6 +13,7 @@ import {
   resolveSharedFaq,
   resolveSharedCtaBanner,
 } from "@/lib/strapi/resolvers";
+import { resolveSharedFormSection } from "@/lib/strapi/resolvers/shared";
 import type {
   RebatesHeroData,
   RebatesRebateProgramsData,
@@ -23,6 +24,7 @@ import type {
   RebatesEligibilityCheckerData,
   RebatesFaqData,
   RebatesCtaBannerData,
+  SharedFormSectionData,
 } from "@/lib/strapi/schemas";
 
 import RebatesHeroSection from "@/components/solar/government-rebates/RebatesHeroSection";
@@ -34,7 +36,7 @@ import LoanBenefitsSection from "@/components/solar/government-rebates/LoanBenef
 import EligibilityCheckerSection from "@/components/solar/government-rebates/EligibilityCheckerSection";
 import FaqSection from "@/components/solar/deals/FaqSection";
 import CtaBannerSection from "@/components/solar/deals/CtaBannerSection";
-import QuoteSection from "@/reuseables/QuoteSection";
+import UnifiedFormSection from "@/reuseables/UnifiedFormSection";
 
 export const revalidate = 60;
 
@@ -60,6 +62,7 @@ export default async function GovernmentRebatesPage() {
   const loanBenefits = findSection<RebatesLoanBenefitsData>(sections, "rebates.loan-benefits");
   const eligibilityChecker = findSection<RebatesEligibilityCheckerData>(sections, "rebates.eligibility-checker");
   const faq = findSection<RebatesFaqData>(sections, "shared.faq");
+  const formSection = findSection<SharedFormSectionData>(sections, "shared.form-section");
   const ctaBanner = findSection<RebatesCtaBannerData>(sections, "shared.cta-banner");
 
   const heroProps = resolveRebatesHero(hero);
@@ -71,6 +74,7 @@ export default async function GovernmentRebatesPage() {
   const eligibilityCheckerProps = resolveRebatesEligibilityChecker(eligibilityChecker);
   const paperworkSectionProps = resolveSharedSplitSection(paperworkSection);
   const faqProps = resolveSharedFaq(faq);
+  const formProps = resolveSharedFormSection(formSection);
   const ctaBannerProps = resolveSharedCtaBanner(ctaBanner);
 
   return (
@@ -94,7 +98,13 @@ export default async function GovernmentRebatesPage() {
 
       {faqProps && <FaqSection resolved={faqProps} />}
 
-      <QuoteSection formType="contact" video="/form-icon-video.mp4" />
+      <UnifiedFormSection
+        resolved={formProps}
+        video={formProps?.videoSrc ?? "/form-icon-video.mp4"}
+        image={formProps?.imageSrc}
+        title={formProps?.title ?? undefined}
+        description={formProps?.description ?? undefined}
+      />
 
       {ctaBannerProps && <CtaBannerSection resolved={ctaBannerProps} />}
 

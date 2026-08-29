@@ -8,17 +8,19 @@ import {
   resolveReviewsCtaBanner,
   resolveTestimonials,
 } from '@/lib/strapi/resolvers';
+import { resolveSharedFormSection } from '@/lib/strapi/resolvers/shared';
 import type {
     ReviewsCtaBannerData,
     ReviewsHeroData,
     ReviewsIntroSectionData,
     ReviewsTestimonialsSectionData,
+    SharedFormSectionData,
 } from '@/lib/strapi/schemas';
 import ReviewsHero from '@/components/reviews/ReviewsHero';
 import ReviewsIntro from '@/components/reviews/ReviewsIntro';
 import TestimonialGrid from '@/components/reviews/TestimonialGrid';
 import CtaSection from '@/reuseables/CtaSection';
-import QuoteSection from "@/reuseables/QuoteSection";
+import UnifiedFormSection from "@/reuseables/UnifiedFormSection";
 
 export const revalidate = 60;
 
@@ -32,11 +34,13 @@ export default async function ReviewsPage() {
     const hero = findSection<ReviewsHeroData>(sections, 'reviews.hero');
     const intro = findSection<ReviewsIntroSectionData>(sections, 'reviews.intro-section');
     const testimonials = findSection<ReviewsTestimonialsSectionData>(sections, 'reviews.testimonials-section');
+    const formSection = findSection<SharedFormSectionData>(sections, 'shared.form-section');
     const ctaBanner = findSection<ReviewsCtaBannerData>(sections, 'shared.cta-banner');
 
     const heroProps = resolveReviewsHero(hero);
     const introProps = resolveReviewsIntroSection(intro);
     const testimonialsProps = resolveReviewsTestimonialsSection(testimonials);
+    const formProps = resolveSharedFormSection(formSection);
     const ctaBannerProps = resolveReviewsCtaBanner(ctaBanner);
 
     /* Header + image tiles come from the section component; review quotes
@@ -76,7 +80,13 @@ export default async function ReviewsPage() {
                 />
             )}
 
-      <QuoteSection formType="contact" video="/form-icon-video.mp4" />
+      <UnifiedFormSection
+        resolved={formProps}
+        video={formProps?.videoSrc ?? "/form-icon-video.mp4"}
+        image={formProps?.imageSrc}
+        title={formProps?.title ?? undefined}
+        description={formProps?.description ?? undefined}
+      />
 
             {ctaBannerProps && (
                 <CtaSection

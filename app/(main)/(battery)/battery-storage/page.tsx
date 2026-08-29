@@ -17,6 +17,7 @@ import {
   resolveSharedFaq,
   resolveSharedCtaBanner,
 } from "@/lib/strapi/resolvers";
+import { resolveSharedFormSection } from "@/lib/strapi/resolvers/shared";
 import type {
   BatteryStorageHeroData,
   BatteryStorageMarqueeData,
@@ -30,6 +31,7 @@ import type {
   BatteryStorageInstallationTimelineData,
   BatteryStorageTeamData,
   BatteryStorageCustomerStoriesData,
+  SharedFormSectionData,
 } from "@/lib/strapi/schemas";
 import type {
   SharedFaqData,
@@ -38,7 +40,7 @@ import type {
 
 import HeroSection from "@/reuseables/HeroSection";
 import GetSolar from "@/reuseables/getsolar";
-import QuoteSection from "@/reuseables/QuoteSection";
+import UnifiedFormSection from "@/reuseables/UnifiedFormSection";
 import BatteryMarquee from "@/components/battery/battery-storage/BatteryMarquee";
 import DebsRebateBanner from "@/components/battery/battery-storage/DebsRebateBanner";
 import BatteryJargon from "@/components/battery/battery-storage/BatteryJargon";
@@ -82,6 +84,7 @@ const BatteryStoragePage = async () => {
   const team = findSection<BatteryStorageTeamData>(sections, "battery-storage.team");
   const stories = findSection<BatteryStorageCustomerStoriesData>(sections, "battery-storage.customer-stories");
   const faq = findSection<SharedFaqData>(sections, "shared.faq");
+  const formSection = findSection<SharedFormSectionData>(sections, "shared.form-section");
   const ctaBanner = findSection<SharedCtaBannerData>(sections, "shared.cta-banner");
 
   const heroProps = resolveBatteryStorageHero(hero);
@@ -97,6 +100,7 @@ const BatteryStoragePage = async () => {
   const teamProps = resolveOneLocalTeam(team);
   const storiesProps = resolveCustomerStories(stories);
   const faqProps = resolveSharedFaq(faq);
+  const formProps = resolveSharedFormSection(formSection);
   const ctaBannerProps = resolveSharedCtaBanner(ctaBanner);
 
   return (
@@ -221,7 +225,13 @@ const BatteryStoragePage = async () => {
         />
       )}
 
-      <QuoteSection formType="contact" video="/form-icon-video.mp4" />
+      <UnifiedFormSection
+        resolved={formProps}
+        video={formProps?.videoSrc ?? "/form-icon-video.mp4"}
+        image={formProps?.imageSrc}
+        title={formProps?.title ?? undefined}
+        description={formProps?.description ?? undefined}
+      />
 
       {ctaBannerProps && (
         <GetSolar
