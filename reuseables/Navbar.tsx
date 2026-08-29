@@ -61,6 +61,12 @@ const Navbar = () => {
   const [expandedMobileItem, setExpandedMobileItem] = useState<number | null>(null);
 
   const pathname = usePathname();
+  const normalizedPathname = (pathname ?? '').split('?')[0].split('#')[0].replace(/\/$/, '') || '/';
+  const isActive = useCallback((href: string) => {
+    const h = href.replace(/\/$/, '') || '/';
+    return normalizedPathname === h || normalizedPathname.startsWith(h + '/');
+  }, [normalizedPathname]);
+  const isGroupActive = useCallback((item: typeof navItems[number]) => isActive(item.href) || !!item.subItems?.some((s) => isActive(s.href)), [isActive]);
   const overlayRef = useRef<HTMLDivElement | null>(null);
   const menuLinksRef = useRef<HTMLUListElement | null>(null);
   const ctaRef = useRef<HTMLDivElement | null>(null);
@@ -252,6 +258,7 @@ const Navbar = () => {
           <ul className="flex items-center text-sm font-medium text-white">
             {navItems.map((item, index) => {
               const isHovered = hoveredIndex === index;
+              const groupActive = isGroupActive(item);
               return (
                 <li
                   key={index}
@@ -261,14 +268,15 @@ const Navbar = () => {
                 >
                   <Link
                     href={item.href}
-                    className="flex items-center gap-1 hover:text-[#8dc63f] transition-colors text-white"
+                    aria-current={groupActive ? 'page' : undefined}
+                    className={`flex items-center gap-1 transition-colors ${groupActive ? 'text-black' : 'text-white hover:text-[#8dc63f]'}`}
                     onClick={() => setHoveredIndex(null)}
                   >
                     {item.name}
                     {item.subItems && (
                       <ChevronDown
                         size={14}
-                        className={`transition-transform duration-300 ${isHovered ? 'rotate-180' : ''}`}
+                        className={`transition-transform duration-300 ${isHovered ? 'rotate-180' : ''} ${groupActive ? 'text-black' : ''}`}
                       />
                     )}
                   </Link>
@@ -283,17 +291,21 @@ const Navbar = () => {
                     >
                       <div className="bg-white rounded-xl shadow-xl overflow-hidden min-w-[200px] border border-gray-100 p-2">
                         <ul className="flex flex-col">
-                          {item.subItems.map((subItem, subIndex) => (
-                            <li key={subIndex}>
-                              <Link
-                                href={subItem.href}
-                                className="block px-4 py-2 text-sm text-gray-700 hover:bg-[#8dc63f]/10 hover:text-[#8dc63f] rounded-lg transition-colors"
-                                onClick={() => setHoveredIndex(null)}
-                              >
-                                {subItem.name}
-                              </Link>
-                            </li>
-                          ))}
+                          {item.subItems.map((subItem, subIndex) => {
+                            const subActive = isActive(subItem.href);
+                            return (
+                              <li key={subIndex}>
+                                <Link
+                                  href={subItem.href}
+                                  aria-current={subActive ? 'page' : undefined}
+                                  className={`block px-4 py-2 text-sm rounded-lg transition-colors ${subActive ? 'bg-[#8dc63f] text-white' : 'text-gray-700 hover:bg-[#8dc63f]/10 hover:text-[#8dc63f]'}`}
+                                  onClick={() => setHoveredIndex(null)}
+                                >
+                                  {subItem.name}
+                                </Link>
+                              </li>
+                            );
+                          })}
                         </ul>
                       </div>
                     </div>
@@ -357,20 +369,22 @@ const Navbar = () => {
             <ul ref={menuLinksRef} className="flex w-full flex-col gap-4">
               {navItems.map((item, index) => {
                 const hasSubItems = !!item.subItems;
+                const groupActive = isGroupActive(item);
                 const isExpanded = expandedMobileItem === index;
                 return (
                   <li key={index} className="w-full flex flex-col gap-1">
                     <div className="flex items-center w-full">
                       <Link
                         href={item.href}
-                        className="text-xl font-medium text-white hover:text-[#8dc63f] transition-colors py-2"
+                        aria-current={groupActive ? 'page' : undefined}
+                        className={`text-xl font-medium transition-colors py-2 ${groupActive ? 'text-black' : 'text-white hover:text-[#8dc63f]'}`}
                         onClick={closeMenuAndHide}
                       >
                         {item.name}
                       </Link>
                       {hasSubItems && (
                         <button
-                          className="ml-1 p-1.5 text-white/60 hover:text-[#8dc63f] transition-colors focus:outline-none cursor-pointer"
+                          className={`ml-1 p-1.5 transition-colors focus:outline-none cursor-pointer ${groupActive ? 'text-black/70' : 'text-white/60 hover:text-[#8dc63f]'}`}
                           onClick={() => setExpandedMobileItem(isExpanded ? null : index)}
                           aria-expanded={isExpanded}
                           aria-controls={`mobile-submenu-${index}`}
@@ -378,7 +392,7 @@ const Navbar = () => {
                         >
                           <ChevronDown
                             size={22}
-                            className={`transition-transform duration-300 ${isExpanded ? 'rotate-180 text-[#8dc63f]' : ''}`}
+                            className={`transition-transform duration-300 ${isExpanded ? 'rotate-180' : ''} ${groupActive ? 'text-black' : isExpanded ? 'text-[#8dc63f]' : ''}`}
                           />
                         </button>
                       )}
@@ -395,17 +409,21 @@ const Navbar = () => {
                         <div className="overflow-hidden">
                           <div className="my-2 h-px w-10 bg-white/25" />
                           <ul className="flex flex-col items-start gap-1 pl-4 pb-2 border-l border-white/10">
-                            {item.subItems?.map((subItem, subIndex) => (
-                              <li key={subIndex}>
-                                <Link
-                                  href={subItem.href}
-                                  className="text-white/80 py-1 block text-base hover:text-white transition-colors"
-                                  onClick={closeMenuAndHide}
-                                >
-                                  {subItem.name}
-                                </Link>
-                              </li>
-                            ))}
+                            {item.subItems?.map((subItem, subIndex) => {
+                              const subActive = isActive(subItem.href);
+                              return (
+                                <li key={subIndex}>
+                                  <Link
+                                    href={subItem.href}
+                                    aria-current={subActive ? 'page' : undefined}
+                                    className={`py-1 block text-base transition-colors ${subActive ? 'text-black font-semibold' : 'text-white/80 hover:text-white'}`}
+                                    onClick={closeMenuAndHide}
+                                  >
+                                    {subItem.name}
+                                  </Link>
+                                </li>
+                              );
+                            })}
                           </ul>
                         </div>
                       </div>
