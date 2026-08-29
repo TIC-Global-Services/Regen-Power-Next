@@ -147,7 +147,15 @@ export default function AboutBackground({
       const progress = scrollable > 0 ? -rect.top / scrollable : 0;
       const clamped = Math.min(1, Math.max(0, progress));
 
+      // Starts a full viewport off-screen right (not already in view) so the
+      // first card slides in the same way every card after it does, instead
+      // of appearing in place and only the rest sliding.
+      const startX = window.innerWidth;
+
       if (clamped < scrubFrac) {
+        // Reset off-screen before handing back to scrub — otherwise the track
+        // freezes wherever it was and keeps showing over the video.
+        if (track) track.style.transform = `translateX(${startX}px)`;
         setPhaseBoth("scrub");
         return;
       }
@@ -155,10 +163,6 @@ export default function AboutBackground({
       if (!track) return;
       const subProgress = scrubFrac < 1 ? (clamped - scrubFrac) / (1 - scrubFrac) : 1;
       const maxX = Math.max(0, track.scrollWidth - window.innerWidth);
-      // Starts a full viewport off-screen right (not already in view) so the
-      // first card slides in the same way every card after it does, instead
-      // of appearing in place and only the rest sliding.
-      const startX = window.innerWidth;
       const x = startX - subProgress * (startX + maxX);
       track.style.transform = `translateX(${x}px)`;
     };
