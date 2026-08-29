@@ -7,15 +7,13 @@ import finalistBadge from "@/assets/finalist.png";
 
 // Extra vertical scroll distance (vh) per card beyond the first — controls
 // how much vertical scrolling it takes to traverse the horizontal track.
-export const VH_PER_CARD = 70;
+export const VH_PER_CARD = 110;
 
 export type HorizontalCardItem = {
   id: string;
   title: string;
   description: string;
   badgeSrc?: string | StaticImageData | null;
-  /** Per-card badge container size — defaults to h-28 w-28 / md:h-64 md:w-64. Overwrite per card as needed. */
-  badgeSizeClass?: string;
 };
 
 export const FALLBACK_ITEMS: HorizontalCardItem[] = [
@@ -24,14 +22,12 @@ export const FALLBACK_ITEMS: HorizontalCardItem[] = [
     title: "Finalist - Smart Installer, Smart Energy Excellence Awards 2026",
     description: "Regen Power is proud to be recognised nationally. Finalist – Smart Installer, Smart Energy Excellence Awards 2026.",
     badgeSrc: finalistBadge,
-    badgeSizeClass: "h-48 w-48",
   },
   {
     id: "02",
     title: "#1 Most Popular Solar Installer in Western Australia and\n#2 Most Popular in Australia by SunWiz Awards 2026",
     description: "Regen Power is proud to be recognised nationally. Finalist – Smart Installer, Smart Energy Excellence Awards 2026.",
     badgeSrc: awardsBadge,
-    badgeSizeClass: "h-64 w-72",
   },
   {
     id: "03",
@@ -67,7 +63,7 @@ const HorizontalCards = forwardRef<
     <div
       ref={ref}
       style={style}
-      className="flex h-full w-max items-center gap-16 px-[10vw] will-change-transform md:gap-24"
+      className="flex h-full w-max items-center gap-50 pr-[15vw] will-change-transform md:gap-70 md:pr-[10vw]"
     >
       {displayItems.map((item, i) => {
         const isTop = i % 2 === 0;
@@ -75,35 +71,29 @@ const HorizontalCards = forwardRef<
         return (
           <div
             key={item.id}
-            className={`flex w-[82vw] flex-shrink-0 flex-col gap-3 md:w-[50vw] ${isTop ? "-translate-y-10 md:-translate-y-16" : "translate-y-10 md:translate-y-16"}`}
+            className={`flex w-[90vw] shrink-0 flex-col gap-3 md:w-[42vw] ${isTop ? "md:self-start md:mt-[10vh]" : "md:self-end md:mb-[10vh]"}`}
           >
-            {/* 2-col grid: text | image — equal text-col width across all cards */}
-            <div className="grid grid-cols-2 items-center gap-4 md:gap-2">
-              <div className={`flex min-w-0 flex-col gap-2 ${textAlign}`}>
-                <h3 className={`whitespace-pre-line text-[2.5rem] font-normal leading-[1] tracking-tight text-[#63B846] ${textAlign}`}>
-                  {item.title}
-                </h3>
-                <p className={`text-xl font-normal leading-tight tracking-tight text-black ${textAlign}`}>
-                  {item.description}
-                </p>
-              </div>
-
-              {/* image col — fixed 50% width; empty when no badge so text col stays equal */}
-              <div className="flex items-center justify-center">
+            {/* stacked: image, then title, then desc — same order every card */}
+            <div className={`flex flex-col items-center gap-3 ${isTop ? "items-start" : "items-end"}`}>
+              <div className="flex h-24 shrink-0 items-center justify-center md:h-40">
                 {item.badgeSrc && (
-                  <div
-                    className={`relative shrink-0 overflow-hidden rounded-xl ${item.badgeSizeClass ?? "h-28 w-28 md:h-64 md:w-64"}`}
-                  >
-                    <Image
-                      src={item.badgeSrc}
-                      alt={item.title}
-                      fill
-                      className="object-contain p-2"
-                      unoptimized
-                    />
-                  </div>
+                  <Image
+                    src={item.badgeSrc}
+                    alt={item.title}
+                    height={160}
+                    width={160}
+                    className="h-full w-auto object-contain"
+                    unoptimized
+                  />
                 )}
               </div>
+
+              <h3 className={`whitespace-pre-line text-2xl font-normal leading-[1.1] tracking-tight text-[#63B846] md:text-[2.5rem] md:leading-none ${textAlign}`}>
+                {item.title}
+              </h3>
+              <p className={`text-sm font-normal leading-tight tracking-tight text-black md:text-xl ${textAlign}`}>
+                {item.description}
+              </p>
             </div>
           </div>
         );

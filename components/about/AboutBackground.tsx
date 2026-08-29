@@ -22,7 +22,7 @@ const LOOP_END = 20;
 // so the page doesn't jump when the phase changes.
 // Note: horizontal length is dynamic from card count (passed via items).
 const SCRUB_LENGTH_VH = 120;
-const VH_PER_CARD = 70;
+const VH_PER_CARD = 110;
 
 type Phase = "intro" | "scrub" | "loop";
 
