@@ -26,6 +26,8 @@ interface IconCardGridProps {
     showHeader?: boolean;
     className?: string;
     footer?: React.ReactNode;
+    /** Scale cards up on mobile (< md). Use for dense grids that feel small on phones. */
+    mobileLarge?: boolean;
 }
 
 const gridCols: Record<IconCardLayout, string> = {
@@ -39,13 +41,13 @@ const variantClass: Record<IconCardVariant, string> = {
     'highlighted': 'bg-[#A0CF44]',
 };
 
-const IconCardView: React.FC<{ card: IconCard; variant: IconCardVariant }> = ({ card, variant }) => {
+const IconCardView: React.FC<{ card: IconCard; variant: IconCardVariant; largeOnMobile?: boolean }> = ({ card, variant, largeOnMobile }) => {
     const cardVariant = card.variant || variant;
     return (
         <div
-            className={`bg-[#EEF6EB] hover:bg-[#EBEBEB] transition-colors duration-300 rounded-[20px] p-6 md:p-5 flex flex-col justify-between h-full`}
+            className={`bg-[#EEF6EB] hover:bg-[#EBEBEB] transition-colors duration-300 rounded-[20px] flex flex-col justify-between h-full ${largeOnMobile ? 'p-8 md:p-5 min-h-[280px] md:min-h-0' : 'p-6 md:p-5'}`}
         >
-            <div className="relative w-12 h-12 md:w-15 p-3  md:h-15 mb-5 flex items-center justify-center bg-white rounded-full">
+            <div className={`relative flex items-center justify-center bg-white rounded-full mb-5 ${largeOnMobile ? 'w-16 h-16 md:w-15 md:h-15 p-4 md:p-3' : 'w-12 h-12 md:w-15 md:h-15 p-3'}`}>
                  <img
                         src={card.icon && card.icon.length > 0 ? card.icon : '/fallback-icon.svg'}
                         alt={card.title}
@@ -55,15 +57,15 @@ const IconCardView: React.FC<{ card: IconCard; variant: IconCardVariant }> = ({ 
                         }}
                     />
             </div>
-            <div className="pt-10">
-                <h3 className="text-xl md:text-[1.75rem] text-black font-normal tracking-tight leading-[1.2] mb-2">
+            <div className={largeOnMobile ? 'pt-6 md:pt-10' : 'pt-10'}>
+                <h3 className={`text-black font-normal tracking-tight leading-[1.2] mb-2 ${largeOnMobile ? 'text-2xl md:text-[1.75rem]' : 'text-xl md:text-[1.75rem]'}`}>
                     {card.title}
                 </h3>
-                <p className="text-base md:text-xl text-black leading-[1.2] tracking-tight font-light">
+                <p className={`text-black leading-[1.2] tracking-tight font-light ${largeOnMobile ? 'text-lg md:text-xl' : 'text-base md:text-xl'}`}>
                     {card.description}
                 </p>
                 {card.specs && (
-                    <p className="text-xs md:text-sm text-black leading-snug tracking-tight font-bold mt-2">
+                    <p className={`text-black leading-snug tracking-tight font-bold mt-2 ${largeOnMobile ? 'text-sm md:text-sm' : 'text-xs md:text-sm'}`}>
                         {card.specs}
                     </p>
                 )}
@@ -82,6 +84,7 @@ const IconCardGrid: React.FC<IconCardGridProps> = ({
     showHeader = true,
     className = '',
     footer,
+    mobileLarge = false,
 }) => {
 
     return (
@@ -108,9 +111,9 @@ const IconCardGrid: React.FC<IconCardGridProps> = ({
                 )}
 
                 {/* Grid layout for all screen sizes */}
-                <div className={`grid grid-cols-1 ${gridCols[layout]} gap-4 md:gap-5`}>
+                <div className={`grid grid-cols-1 ${gridCols[layout]} ${mobileLarge ? 'gap-5 md:gap-5' : 'gap-4 md:gap-5'}`}>
                     {cards.map((card, idx) => (
-                        <IconCardView key={idx} card={card} variant={variant} />
+                        <IconCardView key={idx} card={card} variant={variant} largeOnMobile={mobileLarge} />
                     ))}
                 </div>
 

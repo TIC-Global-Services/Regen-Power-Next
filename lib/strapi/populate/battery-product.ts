@@ -11,7 +11,8 @@ export const howYouUseIt =
   "populate[sections][on][battery-product.how-you-use-it][populate][cards]=true";
 
 export const rightSizing =
-  "populate[sections][on][battery-product.right-sizing][populate][steps][populate][icon]=true";
+  "populate[sections][on][battery-product.right-sizing][populate][steps][populate][icon]=true" +
+  "&populate[sections][on][battery-product.right-sizing][populate][steps][populate][options]=true";
 
 export const ourBrands =
   "populate[sections][on][battery-product.our-brands][populate][brands][populate][logo]=true" +

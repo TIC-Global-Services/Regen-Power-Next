@@ -191,6 +191,7 @@ const OffGridSolutionsPage = async () => {
           cards={iconGrid2.cards as any}
           layout={iconGrid2.layout as any}
           showHeader={iconGrid2.showHeader}
+          mobileLarge
         />
       )}
 

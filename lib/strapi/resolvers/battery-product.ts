@@ -121,10 +121,15 @@ export interface ResolvedRightSizingStepIcon {
   src: string;
   alt: string;
 }
+export interface ResolvedRightSizingOption {
+  label: string;
+  value: string;
+}
 export interface ResolvedRightSizingStep {
   icon: ResolvedRightSizingStepIcon | null;
   title: string;
   placeholder?: string;
+  options?: ResolvedRightSizingOption[];
 }
 export interface ResolvedRightSizing {
   topSubtitle: string;
@@ -146,6 +151,7 @@ export function resolveRightSizing(
       icon: strapiImageData(step.icon),
       title: step.title,
       placeholder: step.placeholder ?? undefined,
+      ...(step.options?.length ? { options: step.options.map((o) => ({ label: o.label, value: o.value })) } : {}),
     })),
     ctaText: data.ctaText ?? undefined,
     ctaHref: data.ctaHref ?? undefined,
