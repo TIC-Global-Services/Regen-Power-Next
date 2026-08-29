@@ -28,6 +28,8 @@ interface IconCardGridProps {
     footer?: React.ReactNode;
     /** Scale cards up on mobile (< md). Use for dense grids that feel small on phones. */
     mobileLarge?: boolean;
+    /** Remove the white circular background behind the icon — icon renders plain. */
+    plainIcon?: boolean;
 }
 
 const gridCols: Record<IconCardLayout, string> = {
@@ -41,14 +43,26 @@ const variantClass: Record<IconCardVariant, string> = {
     'highlighted': 'bg-[#A0CF44]',
 };
 
-const IconCardView: React.FC<{ card: IconCard; variant: IconCardVariant; largeOnMobile?: boolean }> = ({ card, variant, largeOnMobile }) => {
+const IconCardView: React.FC<{ card: IconCard; variant: IconCardVariant; largeOnMobile?: boolean; plainIcon?: boolean }> = ({ card, variant, largeOnMobile, plainIcon }) => {
     const cardVariant = card.variant || variant;
     return (
         <div
-            className={`bg-[#EEF6EB] hover:bg-[#EBEBEB] transition-colors duration-300 rounded-[20px] flex flex-col justify-between h-full ${largeOnMobile ? 'p-8 md:p-5 min-h-[280px] md:min-h-0' : 'p-6 md:p-5'}`}
+            className={`bg-[#EEF6EB] hover:bg-[#EBEBEB] transition-colors duration-300 rounded-[20px] flex flex-col h-full ${largeOnMobile ? 'p-8 md:p-5 min-h-[280px] md:min-h-0' : 'p-6 md:p-5'}`}
         >
-            <div className={`relative flex items-center justify-center bg-white rounded-full mb-5 ${largeOnMobile ? 'w-16 h-16 md:w-15 md:h-15 p-4 md:p-3' : 'w-12 h-12 md:w-15 md:h-15 p-3'}`}>
-                 <img
+            {plainIcon ? (
+                <div className={`relative shrink-0 flex items-center mb-5 ${largeOnMobile ? 'w-16 h-16 md:w-15 md:h-15' : 'w-12 h-12 md:w-15 md:h-15'}`}>
+                    <img
+                        src={card.icon && card.icon.length > 0 ? card.icon : '/fallback-icon.svg'}
+                        alt={card.title}
+                        className="object-contain w-full h-full"
+                        onError={(e) => {
+                            e.currentTarget.src = "/fallback-icon.svg";
+                        }}
+                    />
+                </div>
+            ) : (
+                <div className={`relative flex items-center justify-center bg-white rounded-full mb-5 ${largeOnMobile ? 'w-16 h-16 md:w-15 md:h-15 p-4 md:p-3' : 'w-12 h-12 md:w-15 md:h-15 p-3'}`}>
+                    <img
                         src={card.icon && card.icon.length > 0 ? card.icon : '/fallback-icon.svg'}
                         alt={card.title}
                         className="object-contain"
@@ -56,8 +70,9 @@ const IconCardView: React.FC<{ card: IconCard; variant: IconCardVariant; largeOn
                             e.currentTarget.src = "/fallback-icon.svg";
                         }}
                     />
-            </div>
-            <div className={largeOnMobile ? 'pt-6 md:pt-10' : 'pt-10'}>
+                </div>
+            )}
+            <div className={`flex-1 flex flex-col ${largeOnMobile ? 'pt-6 md:pt-10' : 'pt-10'}`}>
                 <h3 className={`text-black font-normal tracking-tight leading-[1.2] mb-2 ${largeOnMobile ? 'text-2xl md:text-[1.75rem]' : 'text-xl md:text-[1.75rem]'}`}>
                     {card.title}
                 </h3>
@@ -85,6 +100,7 @@ const IconCardGrid: React.FC<IconCardGridProps> = ({
     className = '',
     footer,
     mobileLarge = false,
+    plainIcon = false,
 }) => {
 
     return (
@@ -113,7 +129,7 @@ const IconCardGrid: React.FC<IconCardGridProps> = ({
                 {/* Grid layout for all screen sizes */}
                 <div className={`grid grid-cols-1 ${gridCols[layout]} ${mobileLarge ? 'gap-5 md:gap-5' : 'gap-4 md:gap-5'}`}>
                     {cards.map((card, idx) => (
-                        <IconCardView key={idx} card={card} variant={variant} largeOnMobile={mobileLarge} />
+                        <IconCardView key={idx} card={card} variant={variant} largeOnMobile={mobileLarge} plainIcon={plainIcon} />
                     ))}
                 </div>
 

@@ -234,7 +234,7 @@ const Navbar = () => {
           A transform on an ancestor makes it the containing block for any
           position:fixed descendant (shrinking it to that ancestor's box), so the
           mobile overlay is rendered as a SIBLING below, outside this <header>. */}
-      <header className="fixed top-0 left-0 right-0 z-50 w-full py-6 px-4 md:px-6 transition-all duration-500 data-[hero-chrome=hidden]:pointer-events-none data-[hero-chrome=hidden]:-translate-y-4 data-[hero-chrome=hidden]:opacity-0" data-hero-chrome="visible">
+      <header className="fixed top-0 left-0 right-0 z-50 w-full py-6 transition-all duration-500 data-[hero-chrome=hidden]:pointer-events-none data-[hero-chrome=hidden]:-translate-y-4 data-[hero-chrome=hidden]:opacity-0" data-hero-chrome="visible">
         <div className="px-[5%] md:px-[3%] flex items-center justify-between">
         {/* Logo — swap to the white variant while the dark overlay is open */}
         <Link href="/" className="flex-shrink-0 z-50">

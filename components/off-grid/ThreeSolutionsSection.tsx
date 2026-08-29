@@ -77,7 +77,7 @@ const ThreeSolutionsSection: React.FC<ThreeSolutionsSectionProps> = ({
                 </div>
 
                 {/* Desktop grid */}
-                <div className="hidden lg:grid lg:grid-cols-3 gap-5 px-[3%]">
+                <div className="hidden lg:grid lg:grid-cols-3 gap-5">
                     {solutions.map((sol, idx) => (
                         <SolutionCard key={idx} sol={sol} />
                     ))}
