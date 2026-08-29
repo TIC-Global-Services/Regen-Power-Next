@@ -106,18 +106,25 @@ export interface ResolvedSharedFormSection {
   subtitle: string;
   title: string;
   description: string;
-  image: string | undefined;
+  image: StrapiImageData | null;
+  imageSrc: string | undefined;
+  video: StrapiImageData | null;
+  videoSrc: string | null;
 }
 export function resolveSharedFormSection(
   data: SharedFormSectionData | undefined | null
 ): ResolvedSharedFormSection | null {
   if (!data) return null;
-  const img = data.image ? strapiImageData(data.image) : null;
+  const imageData = data.image ? strapiImageData(data.image) : null;
+  const videoData = data.video ? strapiImageData(data.video) : null;
   return {
     subtitle: data.subtitle ?? "",
     title: data.title ?? "",
     description: data.description ?? "",
-    image: img?.src,
+    image: imageData,
+    imageSrc: imageData?.src,
+    video: videoData,
+    videoSrc: videoData?.src ?? null,
   };
 }
 

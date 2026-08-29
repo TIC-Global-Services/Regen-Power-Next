@@ -12,7 +12,8 @@ export const editorialSection =
   "populate[sections][on][shared.editorial-section][populate][paragraphs]=true";
 
 export const formSection =
-  "populate[sections][on][shared.form-section][populate]=image";
+  "populate[sections][on][shared.form-section][populate][image]=true" +
+  "&populate[sections][on][shared.form-section][populate][video]=true";
 
 export const categorySection =
   "populate[sections][on][shared.category-section][populate][categories][populate][items][populate]=image";

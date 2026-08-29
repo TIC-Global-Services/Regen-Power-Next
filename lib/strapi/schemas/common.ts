@@ -53,6 +53,7 @@ export const SharedFormSectionSchema = z.object({
   title: z.string().nullable(),
   description: z.string().nullable(),
   image: MediaSchema.nullable(),
+  video: MediaSchema.nullable(),
 });
 export type SharedFormSectionData = z.infer<typeof SharedFormSectionSchema>;
 
