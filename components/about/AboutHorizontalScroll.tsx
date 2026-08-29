@@ -63,7 +63,7 @@ const HorizontalCards = forwardRef<
     <div
       ref={ref}
       style={style}
-      className="flex h-full w-max items-center gap-50 pr-[15vw] will-change-transform md:gap-70 md:pr-[10vw]"
+      className="flex h-full w-max items-start pr-[15vw] will-change-transform md:pr-[10vw]"
     >
       {displayItems.map((item, i) => {
         const isTop = i % 2 === 0;
@@ -71,29 +71,31 @@ const HorizontalCards = forwardRef<
         return (
           <div
             key={item.id}
-            className={`flex w-[90vw] shrink-0 flex-col gap-3 md:w-[42vw] ${isTop ? "md:self-start md:mt-[10vh]" : "md:self-end md:mb-[10vh]"}`}
+            className={`flex w-[92vw] shrink-0 flex-col gap-3 md:w-[58vw] ${isTop ? "md:self-start md:mt-[15vh]" : "md:self-end md:mb-[15vh]"}`}
           >
-            {/* stacked: image, then title, then desc — same order every card */}
-            <div className={`flex flex-col items-center gap-3 ${isTop ? "items-start" : "items-end"}`}>
-              <div className="flex h-24 shrink-0 items-center justify-center md:h-40">
+            {/* text on left, image pinned right — same order every card */}
+            <div className="flex items-center gap-4 md:gap-6">
+              <div className={`flex min-w-0 flex-1 flex-col gap-2 ${textAlign}`}>
+                <h3 className={`whitespace-pre-line text-2xl font-normal leading-[1.1] tracking-tight text-[#63B846] md:text-[2.5rem] md:leading-none ${textAlign}`}>
+                  {item.title}
+                </h3>
+                <p className={`text-sm font-normal leading-tight tracking-tight text-black md:text-xl ${textAlign}`}>
+                  {item.description}
+                </p>
+              </div>
+
+              <div className="flex h-24 w-56 shrink-0 items-center justify-center md:h-40 md:w-96">
                 {item.badgeSrc && (
                   <Image
                     src={item.badgeSrc}
                     alt={item.title}
                     height={160}
                     width={160}
-                    className="h-full w-auto object-contain"
+                    className="h-full w-full object-contain"
                     unoptimized
                   />
                 )}
               </div>
-
-              <h3 className={`whitespace-pre-line text-2xl font-normal leading-[1.1] tracking-tight text-[#63B846] md:text-[2.5rem] md:leading-none ${textAlign}`}>
-                {item.title}
-              </h3>
-              <p className={`text-sm font-normal leading-tight tracking-tight text-black md:text-xl ${textAlign}`}>
-                {item.description}
-              </p>
             </div>
           </div>
         );
