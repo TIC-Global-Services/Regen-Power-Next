@@ -44,15 +44,7 @@ export const FALLBACK_ITEMS: HorizontalCardItem[] = [
 // Back-compat alias — AboutBackground previously imported ITEMS directly.
 // Prefer FALLBACK_ITEMS for fallback cases; ITEMS kept so existing imports don't break.
 export const ITEMS = FALLBACK_ITEMS;
-
-// Pure track markup — the scroll listener and translateX math live in
-// AboutBackground so the track can be composited on top of the looping
-// video inside its single pinned viewport instead of owning a second one.
-//
-// Cards alternate top → bottom → top → bottom along the horizontal scroll —
-// NOT a 2-row grid. Each card's translateY lifts tops away from bottoms so
-// they read as a zig-zag chain across the video, not a block grid.
-// Title 2.5rem #63B846, description xl black. Badge is a plain image container.
+``
 
 const HorizontalCards = forwardRef<
   HTMLDivElement,
@@ -63,36 +55,35 @@ const HorizontalCards = forwardRef<
     <div
       ref={ref}
       style={style}
-      className="flex h-full w-max items-center gap-32 pr-[15vw] will-change-transform md:items-start md:gap-0 md:pr-[10vw]"
+      className="flex h-full w-max items-start gap-32 pr-[15vw] will-change-transform lg:gap-40 lg:pr-[10vw]"
     >
       {displayItems.map((item, i) => {
         const isTop = i % 2 === 0;
-        const textAlign = isTop ? "text-left" : "text-right";
         return (
           <div
             key={item.id}
-            className={`flex w-[92vw] shrink-0 flex-col gap-3 md:w-[58vw] ${isTop ? "md:self-start md:mt-[15vh]" : "md:self-end md:mb-[15vh]"}`}
+            className={`flex w-[70vw] shrink-0 flex-col gap-3 lg:w-[38vw] ${isTop ? "self-start mt-[15vh] lg:mt-[15vh]" : "self-end mb-[15vh] lg:mb-[15vh]"}`}
           >
-            {/* mobile: image on top, text below, both pinned to the card's start/end side — desktop: text left, image pinned right */}
-            <div className={`flex flex-col gap-3 md:flex-row md:items-center md:gap-6 ${isTop ? "items-start" : "items-end"}`}>
-              <div className={`order-1 flex h-24 w-56 shrink-0 items-center md:order-2 md:h-40 md:w-96 md:justify-center ${isTop ? "justify-start" : "justify-end"}`}>
+            {/* image on top, title + desc below — everything left-aligned */}
+            <div className="flex flex-col items-start gap-3 lg:gap-6">
+              <div className="flex h-24 w-56 shrink-0 justify-start lg:h-40 lg:w-96">
                 {item.badgeSrc && (
                   <Image
                     src={item.badgeSrc}
                     alt={item.title}
                     height={160}
                     width={160}
-                    className="h-full w-full object-contain"
+                    className="h-full w-full object-contain object-left"
                     unoptimized
                   />
                 )}
               </div>
 
-              <div className={`order-2 flex min-w-0 flex-1 flex-col gap-2 md:order-1 ${textAlign}`}>
-                <h3 className={`whitespace-pre-line text-2xl font-normal leading-[1.1] tracking-tight text-[#63B846] md:text-[2.5rem] md:leading-none ${textAlign}`}>
+              <div className="flex min-w-0 flex-col gap-2 text-left">
+                <h3 className="whitespace-pre-line text-left text-2xl font-normal leading-[1.1] tracking-tight text-[#63B846] lg:text-[2.5rem] lg:leading-none">
                   {item.title}
                 </h3>
-                <p className={`text-sm font-normal leading-tight tracking-tight text-black md:text-xl ${textAlign}`}>
+                <p className="text-left text-sm font-normal leading-tight tracking-tight text-black lg:text-xl">
                   {item.description}
                 </p>
               </div>
