@@ -65,4 +65,4 @@ export const batteryPricing =
   "populate[sections][on][promotion.battery-pricing][populate][backgroundImage]=true" +
   "&populate[sections][on][promotion.battery-pricing][populate][centerImage]=true";
 
-export const contactInfo = "populate[sections][on][promotion.contact-info][populate]=*";
+export const contactInfo = "populate[sections][on][promotion.contact-info][populate][items]=true&populate[sections][on][promotion.contact-info][populate][socials][populate][link]=true";

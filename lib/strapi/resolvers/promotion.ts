@@ -61,6 +61,8 @@ export interface ResolvedPromotionHero {
   batteryImage: string | undefined;
   title: string;
   subtitle: string;
+  mobileTitle: string;
+  mobileSubtitle: string;
   packages: {
     capacity: string;
     originalPrice: number;
@@ -96,6 +98,8 @@ export function resolvePromotionHero(
     batteryImage: srcOrUndefined(data.batteryImage),
     title: heroTitle,
     subtitle: data.subtitle ?? "",
+    mobileTitle: (data as { mobileTitle?: string | null }).mobileTitle ?? "",
+    mobileSubtitle: (data as { mobileSubtitle?: string | null }).mobileSubtitle ?? "",
     packages: (data.packages ?? []).map((p) => ({
       capacity: p.capacity ?? p.name ?? "",
       originalPrice: p.originalPrice ?? 0,
@@ -337,16 +341,11 @@ export interface ResolvedPromotionBatteryPackage {
   centerImage: { url: string | undefined; alt: string } | undefined;
   packages: {
     name: string;
-    capacity: string;
     originalPrice: number;
     finalPrice: number;
-    stateRebate: number;
-    federalRebate: number;
     rebates: { label: string; amount: number }[];
     installationText: string;
-    isFullyInstalled: boolean;
     pricingNote: string;
-    priceNote: string;
     image: string | undefined;
   }[];
 }
@@ -362,17 +361,12 @@ export function resolvePromotionBatteryPackage(
       ? { url: centerSrc, alt: data.centerImageAlt ?? "Battery storage system" }
       : undefined,
     packages: (data.packages ?? []).map((p) => ({
-      name: p.name ?? p.capacity ?? "",
-      capacity: p.capacity ?? p.name ?? "",
+      name: p.name ?? "",
       originalPrice: p.originalPrice ?? 0,
       finalPrice: p.finalPrice ?? 0,
-      stateRebate: p.stateRebate ?? 0,
-      federalRebate: p.federalRebate ?? 0,
       rebates: (p.rebates ?? []).map((r) => ({ label: r.label ?? "", amount: r.amount ?? 0 })),
-      installationText: p.installationText ?? (p.isFullyInstalled ? "Fully Installed" : ""),
-      isFullyInstalled: p.isFullyInstalled ?? true,
-      pricingNote: p.pricingNote ?? p.priceNote ?? "",
-      priceNote: p.priceNote ?? p.pricingNote ?? "",
+      installationText: p.installationText ?? "",
+      pricingNote: p.pricingNote ?? "",
       image: srcOrUndefined(p.image),
     })),
   };
@@ -422,8 +416,8 @@ export function resolvePromotionReadyToBegin(
           })),
           socials: (data.contactDetails.socials ?? []).map((s) => ({
             name: s.name ?? "",
-            link: s.link ?? s.url ?? "",
-            url: s.url ?? s.link ?? "",
+            link: s.link ?? (s as { url?: string }).url ?? "",
+            url: s.link ?? (s as { url?: string }).url ?? "",
           })),
         }
       : null,
@@ -506,8 +500,8 @@ export function resolvePromotionFindOutWhy(
     description: data.description ?? "",
     awards: (data.awards ?? []).map((a) => ({
       image: srcOrUndefined(a.image),
-      description: a.description ?? a.title ?? a.name ?? "",
-      name: a.name ?? a.title ?? "",
+      description: a.description ?? a.name ?? "",
+      name: a.name ?? "",
     })),
     reviews: (data.reviews ?? []).map((r) => ({
       author: r.author ?? "",
@@ -540,13 +534,13 @@ export function resolvePromotionAchievements(
     subtitle: data.subtitle ?? "",
     description: data.description ?? "",
     awards: (data.awards ?? []).map((a) => ({
-      name: a.name ?? a.title ?? "",
+      name: a.name ?? "",
       image: srcOrUndefined(a.image),
     })),
     recognitions: (data.recognitions ?? []).map((r) => ({
       title: r.title ?? "",
       awards: (r.awards ?? []).map((a) => ({
-        name: a.name ?? a.title ?? "",
+        name: a.name ?? "",
         image: srcOrUndefined(a.image),
       })),
     })),
@@ -561,7 +555,7 @@ export function resolvePromotionIndustryRecognition(
     recognitions: (data.recognitions ?? []).map((r) => ({
       title: r.title ?? "",
       awards: (r.awards ?? []).map((a) => ({
-        name: a.name ?? a.title ?? "",
+        name: a.name ?? "",
         image: srcOrUndefined(a.image),
       })),
     })),
@@ -637,9 +631,9 @@ export function resolvePromotionAwardsSection(
   return {
     awards: (data.awards ?? []).map((a, idx) => ({
       id: String(a.id ?? idx),
-      name: a.name ?? a.title ?? "",
+      name: a.name ?? "",
       image: srcOrUndefined(a.image),
-      title: a.description ?? a.title ?? a.name ?? "",
+      title: a.description ?? a.name ?? "",
     })),
   };
 }
@@ -674,13 +668,16 @@ export function deriveMobileContactInfo(
   readyToBegin: ResolvedPromotionReadyToBegin | null,
   contactInfo: PromotionContactInfoData | null | undefined
 ): { title: string; description: string; items: { type: string; label: string; value: string }[]; socials: { name: string; url: string }[] } | null {
-  if (contactInfo && (contactInfo as unknown as { title?: string }).title) {
-    const raw = contactInfo as unknown as { title?: string; description?: string; items?: unknown; socials?: unknown };
+  if (contactInfo?.title || contactInfo?.description || contactInfo?.items?.length || contactInfo?.socials?.length) {
     return {
-      title: raw.title ?? "",
-      description: raw.description ?? "",
-      items: Array.isArray(raw.items) ? (raw.items as { type: string; label: string; value: string }[]) : [],
-      socials: Array.isArray(raw.socials) ? (raw.socials as { name: string; url: string }[]) : [],
+      title: contactInfo.title ?? "",
+      description: contactInfo.description ?? "",
+      items: (contactInfo.items ?? []).map((it) => ({
+        type: it.title?.toLowerCase().includes("mail") ? "email" : it.title?.toLowerCase().includes("phone") || it.title?.toLowerCase().includes("tel") ? "phone" : "address",
+        label: it.title ?? "",
+        value: it.value ?? "",
+      })),
+      socials: (contactInfo.socials ?? []).map((s) => ({ name: s.name ?? "", url: s.link ?? "" })),
     };
   }
   if (!readyToBegin?.contactDetails) return null;
@@ -693,7 +690,7 @@ export function deriveMobileContactInfo(
       label: d.title,
       value: d.value,
     })),
-    socials: cd.socials.map((s) => ({ name: s.name, url: s.link || s.url })),
+    socials: cd.socials.map((s) => ({ name: s.name, url: s.link })),
   };
 }
 
@@ -717,24 +714,16 @@ export function deriveMobileBatteryPricing(
     backgroundImage,
     centerImage: batteryPackage.centerImage?.url,
     items: batteryPackage.packages.map((pkg) => ({
-      title: pkg.capacity || pkg.name,
+      title: pkg.name,
       sections: [
         { type: "price", value: `$${pkg.originalPrice.toLocaleString()}` },
         {
           type: "list",
-          items: [
-            ...(pkg.rebates.length
-              ? pkg.rebates
-              : [
-                  { label: "State Rebate", amount: pkg.stateRebate },
-                  { label: "Federal Rebate", amount: pkg.federalRebate },
-                ].filter((r) => r.amount > 0)
-            ).map((r) => ({ label: r.label, value: r.amount })),
-          ],
+          items: pkg.rebates.map((r) => ({ label: r.label, value: r.amount })),
         },
         { type: "info", value: "Up to $10K loan \n0% interest for 10 years \navailable under rebate scheme" },
         { type: "highlight", title: "Final Pricing", value: `$${pkg.finalPrice.toLocaleString()}` },
-        { type: "text", value: pkg.installationText || "Fully Installed", items: [{ label: pkg.pricingNote || pkg.priceNote }] },
+        { type: "text", value: pkg.installationText || "Fully Installed", items: [{ label: pkg.pricingNote }] },
       ],
     })),
   };

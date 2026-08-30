@@ -89,7 +89,21 @@ const CombinedPromoPage = ({ promotion }: CombinedPromoPageProps) => {
     ? {
         title: promotion.limitedSpots.title || fbLimitedSpot.title,
         cards: promotion.limitedSpots.cards.length
-          ? (promotion.limitedSpots.cards as unknown as typeof fbLimitedSpot.cards)
+          ? promotion.limitedSpots.cards.map((c) => ({
+              type: c.type as typeof fbLimitedSpot.cards[number]["type"],
+              value: c.value,
+              title: c.title,
+              bgImage: c.bgImage ?? undefined,
+              showBadge: c.showBadge,
+              nestedCard: c.nestedCard
+                ? {
+                    type: c.nestedCard.type as NonNullable<typeof fbLimitedSpot.cards[number]["nestedCard"]>["type"],
+                    logoPath: c.nestedCard.logoPath ?? undefined,
+                    imagePath: c.nestedCard.imagePath ?? undefined,
+                    showBadge: c.nestedCard.showBadge,
+                  }
+                : undefined,
+            }))
           : fbLimitedSpot.cards,
       }
     : fbLimitedSpot;
@@ -163,16 +177,11 @@ const CombinedPromoPage = ({ promotion }: CombinedPromoPageProps) => {
         packages: promotion.batteryPackage.packages.length
           ? promotion.batteryPackage.packages.map((p) => ({
               name: p.name,
-              capacity: p.capacity,
               originalPrice: p.originalPrice,
               finalPrice: p.finalPrice,
-              stateRebate: p.stateRebate,
-              federalRebate: p.federalRebate,
               rebates: p.rebates,
               installationText: p.installationText,
-              isFullyInstalled: p.isFullyInstalled,
               pricingNote: p.pricingNote,
-              priceNote: p.priceNote,
               image: p.image ?? '',
             }))
           : fbBatteryPackage.packages,
@@ -194,7 +203,7 @@ const CombinedPromoPage = ({ promotion }: CombinedPromoPageProps) => {
               socials: promotion.readyToBegin.contactDetails.socials.length
                 ? promotion.readyToBegin.contactDetails.socials.map((s) => ({
                     name: s.name,
-                    link: s.link || s.url,
+                    link: s.link || (s as { url?: string }).url || '',
                   }))
                 : fbReadyToBegin.contactDetails.socials,
             }
@@ -299,8 +308,8 @@ const CombinedPromoPage = ({ promotion }: CombinedPromoPageProps) => {
   // ─── Mobile derived / explicit overrides ────────────────────────────────
   const mobileHero = promotion?.hero
     ? {
-        title: promotion.hero.title || fbMobileHero.title,
-        subtitle: promotion.hero.subtitle || fbMobileHero.subtitle,
+        title: promotion.hero.mobileTitle || promotion.hero.title || fbMobileHero.title,
+        subtitle: promotion.hero.mobileSubtitle || promotion.hero.subtitle || fbMobileHero.subtitle,
         highlight: promotion.hero.highlight ?? fbMobileHero.highlight,
         description: promotion.hero.description || fbMobileHero.description,
         cta: promotion.hero.cta ?? fbMobileHero.cta,
@@ -313,7 +322,15 @@ const CombinedPromoPage = ({ promotion }: CombinedPromoPageProps) => {
         title: promotion.limitedSpots.title || fbMobileWhyChooseUs.title,
         titleGreen: promotion.limitedSpots.titleGreen || fbMobileWhyChooseUs.titleGreen,
         cards: promotion.limitedSpots.cards.length
-          ? (promotion.limitedSpots.cards as unknown as typeof fbMobileWhyChooseUs.cards)
+          ? promotion.limitedSpots.cards.map((c) => ({
+              id: String(c.value + c.title).slice(0, 20) || "card",
+              type: c.type as typeof fbMobileWhyChooseUs.cards[number]["type"],
+              value: c.value,
+              title: c.title,
+              bgImage: c.bgImage ?? undefined,
+              icon: c.icon ?? undefined,
+              logoPath: c.logoPath ?? c.nestedCard?.logoPath ?? undefined,
+            }))
           : fbMobileWhyChooseUs.cards,
         ctatext: promotion.limitedSpots.ctaText || (fbMobileWhyChooseUs as { ctatext?: string }).ctatext,
         ctaLink: promotion.limitedSpots.ctaLink || undefined,
@@ -332,7 +349,7 @@ const CombinedPromoPage = ({ promotion }: CombinedPromoPageProps) => {
       promotion?.batteryPricing ?? null,
       promotion?.batteryRebates?.bgImage ?? undefined
     );
-    if (derived) return derived as unknown as typeof fbMobileBatteryPricing;
+    if (derived) return derived as typeof fbMobileBatteryPricing;
     return fbMobileBatteryPricing;
   })();
 
@@ -347,8 +364,8 @@ const CombinedPromoPage = ({ promotion }: CombinedPromoPageProps) => {
 
   const mobileBrands = promotion?.trustedBrands
     ? {
-        title: promotion.trustedBrands.titleGreen || fbMobileBrands.titleGreen,
-        titleGreen: promotion.trustedBrands.title || fbMobileBrands.title,
+        title: promotion.trustedBrands.subtitle || promotion.trustedBrands.titleGreen || fbMobileBrands.title,
+        titleGreen: promotion.trustedBrands.title || fbMobileBrands.titleGreen,
         description: promotion.trustedBrands.description || fbMobileBrands.description,
         brands: promotion.trustedBrands.brands.length
           ? promotion.trustedBrands.brands.map((b) => ({ name: b.name, logo: b.logo ?? '' }))
@@ -365,7 +382,7 @@ const CombinedPromoPage = ({ promotion }: CombinedPromoPageProps) => {
 
   const mobileContactInfo = (() => {
     const derived = deriveMobileContactInfo(promotion?.readyToBegin ?? null, promotion?.contactInfo ?? null);
-    if (derived) return derived as unknown as typeof fbMobileContactInfo;
+    if (derived) return derived as typeof fbMobileContactInfo;
     return fbMobileContactInfo;
   })();
 
