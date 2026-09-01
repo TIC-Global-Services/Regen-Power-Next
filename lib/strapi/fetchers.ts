@@ -28,6 +28,7 @@ import * as pressMedia from "./populate/press-media";
 import * as offGrid from "./populate/off-grid";
 import * as about from "./populate/about";
 import * as promotion from "./populate/promotion";
+import * as footer from "./populate/footer";
 
 const PAGE_SLUGS = {
   solar: "solar-page",
@@ -686,3 +687,17 @@ export const getAboutPage = () =>
     PAGE_SLUGS.about,
     populate(about.hero, about.awards, shared.formSection)
   );
+
+export type FooterResponse = { data: import("./schemas/footer").FooterData | null; meta: Record<string, unknown> };
+
+export const getFooter = async (): Promise<FooterResponse> => {
+  const query = footer.footer;
+  // Footer is a flat single type (no sections wrapper) — fetch directly
+  const { strapiFetch } = await import("./client");
+  try {
+    const res = await strapiFetch<FooterResponse>(`/footer?${query}`);
+    return res;
+  } catch {
+    return { data: null, meta: {} };
+  }
+};

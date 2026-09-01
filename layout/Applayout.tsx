@@ -1,17 +1,23 @@
-import React from 'react';
-import Navbar from '@/reuseables/Navbar';
-import Footer from '@/reuseables/Footer';
+import Navbar from "@/reuseables/Navbar";
+import Footer from "@/reuseables/Footer";
+import { getFooter } from "@/lib/strapi/fetchers";
+import { resolveFooter, fallbackFooter } from "@/lib/strapi/resolvers/footer";
 
-interface AppLayoutProps {
-  children: React.ReactNode;
-}
+export default async function AppLayout({ children }: { children: React.ReactNode }) {
+  let footerData = fallbackFooter();
+  try {
+    const res = await getFooter();
+    const resolved = resolveFooter(res?.data as never);
+    if (resolved) footerData = resolved;
+  } catch {
+    // keep fallback
+  }
 
-export default function AppLayout({ children }: AppLayoutProps) {
   return (
     <>
       <Navbar />
       <main className="flex-1">{children}</main>
-      <Footer />
+      <Footer data={footerData} />
     </>
   );
 }

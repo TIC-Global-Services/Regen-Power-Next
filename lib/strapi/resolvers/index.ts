@@ -498,3 +498,12 @@ export type {
 
 export { resolveAboutHero, resolveAboutAwards } from "./about";
 export type { ResolvedAboutHero, ResolvedAboutAwardCard, ResolvedAboutAwards } from "./about";
+
+export { resolveFooter, fallbackFooter } from "./footer";
+export type {
+  ResolvedFooter,
+  ResolvedFooterLink,
+  ResolvedFooterOffice,
+  ResolvedFooterStateOffice,
+  ResolvedFooterSocialLink,
+} from "./footer";
