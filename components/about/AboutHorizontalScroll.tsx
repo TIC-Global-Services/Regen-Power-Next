@@ -55,18 +55,18 @@ const HorizontalCards = forwardRef<
     <div
       ref={ref}
       style={style}
-      className="flex h-full w-max items-start gap-32 pr-[15vw] will-change-transform lg:gap-40 lg:pr-[10vw]"
+      className="flex h-full w-max items-start gap-32 pr-[15vw] will-change-transform md:gap-36 md:pr-[12vw] lg:gap-40 lg:pr-[10vw]"
     >
       {displayItems.map((item, i) => {
         const isTop = i % 2 === 0;
         return (
           <div
             key={item.id}
-            className={`flex w-[70vw] shrink-0 flex-col gap-3 lg:w-[38vw] ${isTop ? "self-start mt-[15vh] lg:mt-[15vh]" : "self-end mb-[15vh] lg:mb-[15vh]"}`}
+            className={`flex w-[70vw] shrink-0 flex-col gap-3 md:w-[50vw] md:gap-4 lg:w-[38vw] lg:gap-6 ${isTop ? "self-start mt-[15vh]" : "self-end mb-[15vh]"}`}
           >
             {/* image on top, title + desc below — everything left-aligned */}
-            <div className="flex flex-col items-start gap-3 lg:gap-6">
-              <div className="flex h-24 w-56 shrink-0 justify-start lg:h-40 lg:w-96">
+            <div className="flex flex-col items-start gap-3 md:gap-4 lg:gap-6">
+              <div className="flex h-24 w-56 shrink-0 justify-start md:h-36 md:w-80 lg:h-40 lg:w-96">
                 {item.badgeSrc && (
                   <Image
                     src={item.badgeSrc}
@@ -80,10 +80,10 @@ const HorizontalCards = forwardRef<
               </div>
 
               <div className="flex min-w-0 flex-col gap-2 text-left">
-                <h3 className="whitespace-pre-line text-left text-2xl font-normal leading-[1.1] tracking-tight text-[#63B846] lg:text-[2.5rem] lg:leading-none">
+                <h3 className="whitespace-pre-line text-left text-2xl font-normal leading-[1.1] tracking-tight text-[#63B846] md:text-4xl lg:text-[2.5rem] lg:leading-none">
                   {item.title}
                 </h3>
-                <p className="text-left text-sm font-normal leading-tight tracking-tight text-black lg:text-xl">
+                <p className="text-left text-sm font-normal leading-tight tracking-tight text-black md:text-lg lg:text-xl">
                   {item.description}
                 </p>
               </div>

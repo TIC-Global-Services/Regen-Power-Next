@@ -136,7 +136,7 @@ const renderSection = (section: PromotionSection, sectionIdx: number) => {
 // ─── Component ────────────────────────────────────────────────
 
 const BatteryPricing = ({
-  backgroundImage = '/fallback.png',
+  backgroundImage = '/promotion-page/battery_rebates_fallback.png',
   centerImage = '/sig_energy.png',
   items = [
     {
@@ -254,7 +254,7 @@ const BatteryPricing = ({
                     alt="Battery System"
                     className="max-h-full max-w-full object-contain drop-shadow-[0_15px_30px_rgba(255,255,255,0.15)] group-hover:scale-105 transition-transform duration-500"
                     onError={(e) => {
-                      (e.target as HTMLImageElement).src = '/fallback.png';
+                      (e.target as HTMLImageElement).src = '/promotion-page/battery_rebates_fallback.png';
                     }}
                   />
                 </div>

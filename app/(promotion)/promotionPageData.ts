@@ -1,6 +1,6 @@
 export const desktopHeroData = {
-  backgroundImage: "/landing_page_hero.png",
-  batteryImage: "/promotion_battery_fallback.png",
+  backgroundImage: "/promotion-page/landing_page_hero.png",
+  batteryImage: "/promotion-page/promotion_battery_fallback.png",
   title:
     "Double Rebates, Double Savings: WA & Federal Incentives Slash Battery Costs",
   subtitle: "Lock in Pricing Now!",
@@ -44,20 +44,20 @@ export const desktopLimitedSpotData = {
       title: "Years \nEstablished 2003",
       nestedCard: {
         type: "logo" as const,
-        logoPath: "/white_regen_logo.svg",
+        logoPath: "/promotion-page/white_regen_logo.svg",
       },
     },
     {
       type: "image" as const,
       value: "YES",
       title: "We are Local WA Born\nand Bred Company",
-      bgImage: "/perthcity3.png",
+      bgImage: "/promotion-page/perthcity3.png",
     },
     {
       type: "black" as const,
       value: "45K+",
       title: "Solar Installations\nNationwide",
-      bgImage: "/limited_home.png",
+      bgImage: "/promotion-page/limited_home.png",
       showBadge: true,
     },
     {
@@ -66,7 +66,7 @@ export const desktopLimitedSpotData = {
       title: "Number of battery\ninstallations in WA",
       nestedCard: {
         type: "image" as const,
-        imagePath: "/limited_battery.png",
+        imagePath: "/promotion-page/limited_battery.png",
         showBadge: true,
       },
     },
@@ -81,19 +81,19 @@ export const desktopTrustRegenData = {
       title: "Excellent \nCustomer Satisfaction",
       description:
         "We have achieved near five stars overall \nrating for our courteous and efficient\n service.",
-      icon: "/promotion/excellent_logo.svg",
+      icon: "/promotion-page/excellent_logo.svg",
     },
     {
       title: "Best Value Solar \nPackages in Perth",
       description:
         "We sell a wide range of brands. We install \nTop Quality Solar Panels In Perth. Choose\n best solar system for your budget.",
-      icon: "/promotion/best_value-logo.svg",
+      icon: "/promotion-page/best_value-logo.svg",
     },
     {
       title: "WA Born and Bred \nCompany",
       description:
         "We are truly a WA company. Installing\n over 45,000 residential and commercial \nsolar system installations.",
-      icon: "/promotion/wa_born_logo.svg",
+      icon: "/promotion-page/wa_born_logo.svg",
     },
   ],
 };
@@ -102,14 +102,14 @@ export const desktopFreeQuotationData = {
   title: "Get an Obligation Free Quotation",
   noticeText:
     "Due To The Current High Demand For Batteries, We Are Unable To Accept Bookings \nFor Solar-Only Installations At This Time. Bookings Will Only Be Accepted For Solar + Battery or Battery-Only Installations.",
-  videoThumbnail: "/solar_house_render.png",
+  videoThumbnail: "/promotion-page/solar_house_render.png",
   buttonText: "Get Your Free Quote",
 };
 
 export const desktopBatteryRebatesData = {
   title: "Key Points You Should \nKnow",
   subtitle: "Battery Rebate",
-  bgImage: "/battery_rebates_fallback.png",
+  bgImage: "/promotion-page/battery_rebates_fallback.png",
 
   data: [
     // Left Panel — Battery Rebate & Key Points
@@ -191,36 +191,36 @@ export const desktopBrandsData = {
   title: "We Trust & Install",
   subtitle: "The Brands",
   brands: [
-    { name: "alphaess", logo: "/logo/alpha_ess_logo.png" },
-    { name: "byd", logo: "/logo/byd_logo.png" },
-    { name: "GOODWE", logo: "/logo/goodwe_logo.png" },
-    { name: "ISTORE", logo: "/logo/istore_logo.png" },
-    { name: "SIGENERGY", logo: "/logo/sigenergy.png" },
-    { name: "TESLA", logo: "/logo/tesla_logo.png" },
+    { name: "alphaess", logo: "/promotion-page/logos/alpha_ess_logo.png" },
+    { name: "byd", logo: "/promotion-page/logos/byd_logo.png" },
+    { name: "GOODWE", logo: "/promotion-page/logos/goodwe_logo.png" },
+    { name: "ISTORE", logo: "/promotion-page/logos/istore_logo.png" },
+    { name: "SIGENERGY", logo: "/promotion-page/logos/sigenergy.png" },
+    { name: "TESLA", logo: "/promotion-page/logos/tesla_logo.png" },
   ],
   batteries: [
     {
       name: "iStore",
-      image: "/istore_brand.png",
-      logo: "/logo/istore_logo.png",
+      image: "/promotion-page/istore_brand.png",
+      logo: "/promotion-page/logos/istore_logo.png",
     },
     {
       name: "Tesla Powerwall",
-      image: "/tesla.png",
-      logo: "/logo/tesla_logo.png",
+      image: "/promotion-page/tesla.png",
+      logo: "/promotion-page/logos/tesla_logo.png",
     },
     {
       name: "Sigenergy",
-      image: "/sig_energy.png",
-      logo: "/logo/sigenergy.png",
+      image: "/promotion-page/sig_energy.png",
+      logo: "/promotion-page/logos/sigenergy.png",
     },
-    { name: "Goodwe", image: "/goodwe.png", logo: "/logo/goodwe_logo.png" },
+    { name: "Goodwe", image: "/promotion-page/goodwe.png", logo: "/promotion-page/logos/goodwe_logo.png" },
     {
       name: "AlphaESS",
-      image: "/alpha_ess.png",
-      logo: "/logo/alpha_ess_logo.png",
+      image: "/promotion-page/alpha_ess.png",
+      logo: "/promotion-page/logos/alpha_ess_logo.png",
     },
-    { name: "BYD", image: "/byd.png", logo: "/logo/byd_logo.png" },
+    { name: "BYD", image: "/promotion-page/byd.png", logo: "/promotion-page/logos/byd_logo.png" },
   ],
 };
 
@@ -241,16 +241,16 @@ export const desktopHighEnergyData = {
   badges: [
     {
       name: "fas100 Certified",
-      logoPath: "/acheivement/fas100_logo.png",
+      logoPath: "/promotion-page/fas100_logo.png",
     },
-    { name: "Tesla Certified", logoPath: "/acheivement/tesla_certificate.png" },
+    { name: "Tesla Certified", logoPath: "/promotion-page/tesla_certificate.png" },
     {
       name: "best rated batch",
-      logoPath: "/acheivement/best_rated.png",
+      logoPath: "/promotion-page/best_rated.png",
     },
     {
       name: "financialtimes logo",
-      logoPath: "/acheivement/financialtimes_logo.png",
+      logoPath: "/promotion-page/financialtimes_logo.png",
     },
   ],
 };
@@ -258,7 +258,7 @@ export const desktopHighEnergyData = {
 export const desktopBatteryPackageData = {
   title: "Battery Packages",
   centerImage: {
-    url: "/sig_energy.png",
+    url: "/promotion-page/sig_energy.png",
     alt: "Battery storage system",
   },
   packages: [
@@ -272,7 +272,7 @@ export const desktopBatteryPackageData = {
       finalPrice: 10990,
       installationText: "Fully Installed",
       pricingNote: "Price is after the battery rebate",
-      image: "/sig_energy.png",
+      image: "/promotion-page/sig_energy.png",
     },
     {
       name: "16.6kWh Battery",
@@ -284,7 +284,7 @@ export const desktopBatteryPackageData = {
       finalPrice: 12990,
       installationText: "Fully Installed",
       pricingNote: "Price is after the battery rebate",
-      image: "/sig_energy.png",
+      image: "/promotion-page/sig_energy.png",
     },
   ],
 };
@@ -328,36 +328,36 @@ export const desktopSolarFinancingData = {
       title: "10 Years Repayment",
       description:
         "Up to $10,000 interest-free loan available, repayable over 10 years to help cover the cost of a solar battery system.",
-      icon: "/solar-financing/solar-finance-1.svg",
+      icon: "/promotion-page/solar-financing/solar-finance-1.svg",
     },
     {
       title: "10 Years Repayment",
       description:
         "Offered in addition to the WA battery rebate of up to $1,300 – making solar battery storage more affordable than ever.",
-      icon: "/solar-financing/solar-finance-2.svg",
+      icon: "/promotion-page/solar-financing/solar-finance-2.svg",
     },
     {
       title: "0% Interest Scheme",
       description:
         "Eligibility criteria: Must be an owner-occupier, a Synergy residential customer, and install an eligible battery system.",
-      icon: "/solar-financing/solar-finance-3.svg",
+      icon: "/promotion-page/solar-financing/solar-finance-3.svg",
     },
     {
       title: "Owner-Occupiers Eligible",
       description: "Applicants must participate in a Virtual Power Plant (VPP) program approved under the scheme.",
-      icon: "/solar-financing/solar-finance-4.svg",
+      icon: "/promotion-page/solar-financing/solar-finance-4.svg",
     },
     {
       title: "Lower Energy Bills",
       description:
         "Total household income must be under $210,000 per year and standard credit checks will apply.",
-      icon: "/solar-financing/solar-finance-5.svg",
+      icon: "/promotion-page/solar-financing/solar-finance-5.svg",
     },
     {
       title: "Premium Quality Hardware",
       description:
         "No early repayment penalties – enjoy flexibility while contributing to WA’s clean energy future.",
-      icon: "/solar-financing/solar-finance-6.svg",
+      icon: "/promotion-page/solar-financing/solar-finance-6.svg",
     },
   ],
 };
@@ -367,7 +367,7 @@ export const desktopAboutRegenData = {
   subtitle: "About",
   paragraphs:
     "Born and bred in Perth, WA, in 2003 when the market was still learning about rooftop solar PV systems, Regen Power is the pioneer in residential and commercial solar power system and solar panel solutions. We have installed over 45,000 residential rooftop solar systems Australia-wide and led the charge into other countries to start projects with both economic and educational implication in sustainability living.",
-  image: "/assets/home/whychooseus/bussiness_operating.png",
+  image: "/promotion-page/about-regen.png",
 };
 
 export const desktopFindOutWhyData = {
@@ -377,12 +377,12 @@ export const desktopFindOutWhyData = {
     "Regen Power Is Rated 4.9 Stars By The ProductReview.Com.Au Community, Australia's Leading Consumer Review Platform.",
   awards: [
     {
-      image: "/top_rated_logo.png",
+      image: "/promotion-page/top_rated_logo.png",
       description:
         "6-Time ProductReview Award Winner (2021, 2022, 2023, 2024, 2025 & 2026)",
     },
     {
-      image: "/awards/product_review.svg",
+      image: "/promotion-page/awards/product_review.svg",
       description:
         "⭐ 5.0 Stars • 2,684 Reviews",
     },
@@ -418,27 +418,27 @@ export const desktopAchievementsData = {
   awards: [
     {
       name: "ATC Finalist 2014 & 2019",
-      image: "/acheivement/australian_logo.png",
+      image: "/promotion-page/australian_logo.png",
     },
     {
       name: "Rising Stars Winner 2019",
-      image: "/acheivement/rising_stars_logo.png",
+      image: "/promotion-page/rising_stars_logo.png",
     },
     {
       name: "FT High-Growth Company 2020-2023",
-      image: "/acheivement/financialtimes_logo.png",
+      image: "/promotion-page/financialtimes_logo.png",
     },
     {
       name: "Financial Review Fast 100 2020",
-      image: "/acheivement/fas100_logo.png",
+      image: "/promotion-page/fas100_logo.png",
     },
     {
       name: "SEA Ambassador Award",
-      image: "/acheivement/sea_logo.png",
+      image: "/promotion-page/sea_logo.png",
     },
     {
       name: "Belmont Small Business Award Winner",
-      image: "/acheivement/awards_winner.png",
+      image: "/promotion-page/awards_winner.png",
     },
   ],
   recognitions: [
@@ -447,11 +447,11 @@ export const desktopAchievementsData = {
       awards: [
         {
           name: "best-rated",
-          image: "/best-rated-1.png",
+          image: "/promotion-page/best-rated-1.png",
         },
         {
           name: "best-rated#2",
-          image: "/best-rated-2.png",
+          image: "/promotion-page/best-rated-2.png",
         },
       ],
     },
@@ -460,7 +460,7 @@ export const desktopAchievementsData = {
       awards: [
         {
           name: "top-rated-installer",
-          image: "/top-rated-installer.jpg",
+          image: "/promotion-page/top-rated-installer.jpg",
         },
       ],
     },
@@ -469,7 +469,7 @@ export const desktopAchievementsData = {
       awards: [
         {
           name: "google-rating",
-          image: "/acheivement/google_rating.png",
+          image: "/promotion-page/google_rating.png",
         },
       ],
     },
@@ -483,7 +483,7 @@ export const desktopFaqData = {
     "Here Are Your Answers To Some Of The Most Frequently Asked Questions About Battery Rebates And Solar Installations.",
   highlightCard: {
     title: "Contact us now to reserve your place!",
-    bgImage: "/promotion/faq.png",
+    bgImage: "/promotion-page/faq.png",
     items: [
       {
         question: "What is the battery rebate scheme?",
@@ -550,7 +550,7 @@ export const mobileHeroData = {
     label: "See What's Included & Get A Quote",
     href: "#why-regen-power-mobile",
   },
-  backgroundImage: "/landing_page_hero.png",
+  backgroundImage: "/promotion-page/landing_page_hero.png",
 };
 
 export const mobileWhyChooseUsData = {
@@ -564,28 +564,28 @@ export const mobileWhyChooseUsData = {
       type: "nested" as const,
       value: "23",
       title: "Years \nEstablished 2003",
-      logoPath: "/white_regen_logo.svg",
+      logoPath: "/promotion-page/white_regen_logo.svg",
     },
     {
       id: "local",
       type: "image" as const,
       value: "YES",
       title: "We are Local WA Born and Bred Company",
-      bgImage: "/perthcity.png",
+      bgImage: "/promotion-page/perthcity.png",
     },
     {
       id: "installations",
       type: "dark" as const,
       value: "45K",
       title: "Solar Installations \nNationwide",
-      icon: "/globe_fallback.png",
+      icon: "/promotion-page/globe_fallback.png",
     },
     {
       id: "batteries",
       type: "nested-reverse" as const,
       value: "3k+",
       title: "Number of battery\ninstallations in WA",
-      icon: "/battery-promotion.png",
+      icon: "/promotion-page/battery-promotion.png",
     },
   ],
 };
@@ -593,19 +593,19 @@ export const mobileWhyChooseUsData = {
 export const mobileAwardsData = [
   {
     id: "productreview",
-    image: "/awards/award-winner.png",
+    image: "/promotion-page/awards/award-winner.png",
     title: "6 X ProductReview Award Winner 2021, 22, 23, 24, 25, 26",
   },
   {
     id: "bestrated",
-    image: "/awards/best-rated.png",
+    image: "/promotion-page/awards/best-rated.png",
     title: "The Best Rated Installer \nin WA 2026",
   },
 ];
 
 export const mobileBatteryPricingData = {
-  backgroundImage: "/battery_rebates_fallback.png",
-  centerImage: "/sig_energy.png",
+  backgroundImage: "/promotion-page/battery_rebates_fallback.png",
+  centerImage: "/promotion-page/sig_energy.png",
   items: [
     {
       title: "8.3kWh Battery",
@@ -677,36 +677,36 @@ export const mobileBrandsData = {
   description:
     "We carry a wide range of brands from entry-level to premium, ensuring you can customize the solar panel system to your budget.",
   brands: [
-    { name: "AlphaESS", logo: "/logo/alpha_ess_logo.png" },
-    { name: "BYD", logo: "/logo/byd_logo.png" },
-    { name: "GoodWe", logo: "/logo/goodwe_logo.png" },
-    { name: "iStore", logo: "/logo/istore_logo.png" },
-    { name: "Sigenergy", logo: "/logo/sigenergy.png" },
-    { name: "Tesla", logo: "/logo/tesla_logo.png" },
+    { name: "AlphaESS", logo: "/promotion-page/logos/alpha_ess_logo.png" },
+    { name: "BYD", logo: "/promotion-page/logos/byd_logo.png" },
+    { name: "GoodWe", logo: "/promotion-page/logos/goodwe_logo.png" },
+    { name: "iStore", logo: "/promotion-page/logos/istore_logo.png" },
+    { name: "Sigenergy", logo: "/promotion-page/logos/sigenergy.png" },
+    { name: "Tesla", logo: "/promotion-page/logos/tesla_logo.png" },
   ],
   batteries: [
     {
       name: "iStore",
-      image: "/istore_brand.png",
-      logo: "/logo/istore_logo.png",
+      image: "/promotion-page/istore_brand.png",
+      logo: "/promotion-page/logos/istore_logo.png",
     },
     {
       name: "Tesla Powerwall",
-      image: "/tesla.png",
-      logo: "/logo/tesla_logo.png",
+      image: "/promotion-page/tesla.png",
+      logo: "/promotion-page/logos/tesla_logo.png",
     },
     {
       name: "Sigenergy",
-      image: "/sig_energy.png",
-      logo: "/logo/sigenergy.png",
+      image: "/promotion-page/sig_energy.png",
+      logo: "/promotion-page/logos/sigenergy.png",
     },
-    { name: "GoodWe", image: "/goodwe.png", logo: "/logo/goodwe_logo.png" },
+    { name: "GoodWe", image: "/promotion-page/goodwe.png", logo: "/promotion-page/logos/goodwe_logo.png" },
     {
       name: "AlphaESS",
-      image: "/alpha_ess.png",
-      logo: "/logo/alpha_ess_logo.png",
+      image: "/promotion-page/alpha_ess.png",
+      logo: "/promotion-page/logos/alpha_ess_logo.png",
     },
-    { name: "BYD", image: "/byd.png", logo: "/logo/byd_logo.png" },
+    { name: "BYD", image: "/promotion-page/byd.png", logo: "/promotion-page/logos/byd_logo.png" },
   ],
 };
 

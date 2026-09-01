@@ -150,7 +150,7 @@ const Home = async () => {
 
   const awardFallbacks = [atlogo, fast100, eupd, financialtimes, belmont];
   const whyCardImageFallbacks = [productReviewBg, null, businessBg, productReviewRatingBg] as const;
-  const whyCardLogoFallbacks = [productreview, null, null, null] as const;
+  const whyCardLogoFallbacks = [null, null, null, null] as const;
   const whyCardIconFallbacks = [null, null, null, "/star.svg"] as const;
   const expertiseFallbacks = [
     residentialImg,

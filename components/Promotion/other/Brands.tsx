@@ -28,20 +28,20 @@ const Brands = ({
   titleGreen = "We Trust & Install",
   description = "We carry a wide range of brands from entry-level to premium, ensuring you can customize the solar panel system to your budget.",
   brands = [
-    { name: "AlphaESS", logo: "/logo/alpha_ess_logo.png" },
-    { name: "BYD", logo: "/logo/byd_logo.png" },
-    { name: "GoodWe", logo: "/logo/goodwe_logo.png" },
-    { name: "iStore", logo: "/logo/istore_logo.png" },
-    { name: "Sigenergy", logo: "/logo/sigenergy.png" },
-    { name: "Tesla", logo: "/logo/tesla_logo.png" }
+    { name: "AlphaESS", logo: "/promotion-page/logos/alpha_ess_logo.png" },
+    { name: "BYD", logo: "/promotion-page/logos/byd_logo.png" },
+    { name: "GoodWe", logo: "/promotion-page/logos/goodwe_logo.png" },
+    { name: "iStore", logo: "/promotion-page/logos/istore_logo.png" },
+    { name: "Sigenergy", logo: "/promotion-page/logos/sigenergy.png" },
+    { name: "Tesla", logo: "/promotion-page/logos/tesla_logo.png" }
   ],
   batteries = [
-    { name: "iStore", image: "/istore_brand.png", logo: "/logo/istore_logo.png" },
-    { name: "Tesla Powerwall", image: "/tesla.png", logo: "/logo/tesla_logo.png" },
-    { name: "Sigenergy", image: "/sig_energy.png", logo: "/logo/sigenergy.png" },
-    { name: "GoodWe", image: "/goodwe.png", logo: "/logo/goodwe_logo.png" },
-    { name: "AlphaESS", image: "/alpha_ess.png", logo: "/logo/alpha_ess_logo.png" },
-    { name: "BYD", image: "/byd.png", logo: "/logo/byd_logo.png" }
+    { name: "iStore", image: "/istore_brand.png", logo: "/promotion-page/logos/istore_logo.png" },
+    { name: "Tesla Powerwall", image: "/tesla.png", logo: "/promotion-page/logos/tesla_logo.png" },
+    { name: "Sigenergy", image: "/sig_energy.png", logo: "/promotion-page/logos/sigenergy.png" },
+    { name: "GoodWe", image: "/goodwe.png", logo: "/promotion-page/logos/goodwe_logo.png" },
+    { name: "AlphaESS", image: "/alpha_ess.png", logo: "/promotion-page/logos/alpha_ess_logo.png" },
+    { name: "BYD", image: "/byd.png", logo: "/promotion-page/logos/byd_logo.png" }
   ]
 }: BrandsProps) => {
 
@@ -73,7 +73,7 @@ const Brands = ({
                       alt={brand.name}
                       className="max-h-15 max-w-full object-cover"
                       onError={(e) => {
-                        (e.target as HTMLImageElement).src = '/fallback.png';
+                        (e.target as HTMLImageElement).src = '/promotion-page/battery_rebates_fallback.png';
                       }}
                     />
                   </div>
@@ -98,7 +98,7 @@ const Brands = ({
                         alt={battery.name}
                         className="max-h-[140px] md:max-h-[180px] w-auto object-contain hover:scale-105 transition-transform duration-500"
                         onError={(e) => {
-                          (e.target as HTMLImageElement).src = '/fallback.png';
+                          (e.target as HTMLImageElement).src = '/promotion-page/battery_rebates_fallback.png';
                         }}
                       />
                     </div>
@@ -110,7 +110,7 @@ const Brands = ({
                         alt={`${battery.name} Logo`}
                         className="max-h-5 max-w-[80%] object-contain filter grayscale group-hover:grayscale-0"
                         onError={(e) => {
-                          (e.target as HTMLImageElement).src = '/fallback.png';
+                          (e.target as HTMLImageElement).src = '/promotion-page/battery_rebates_fallback.png';
                         }}
                       />
                     </div> */}
