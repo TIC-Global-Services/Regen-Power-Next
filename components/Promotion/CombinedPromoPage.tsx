@@ -116,7 +116,7 @@ const CombinedPromoPage = ({ promotion }: CombinedPromoPageProps) => {
           ? promotion.trustRegen.features.map((f) => ({
               title: f.title,
               description: f.description,
-              icon: f.icon ?? '',
+              icon: f.icon ?? undefined,
             }))
           : fbTrustRegen.features,
       }
@@ -146,13 +146,13 @@ const CombinedPromoPage = ({ promotion }: CombinedPromoPageProps) => {
         title: promotion.trustedBrands.title || fbBrands.title,
         subtitle: promotion.trustedBrands.subtitle || fbBrands.subtitle,
         brands: promotion.trustedBrands.brands.length
-          ? promotion.trustedBrands.brands.map((b) => ({ name: b.name, logo: b.logo ?? '' }))
+          ? promotion.trustedBrands.brands.map((b) => ({ name: b.name, logo: b.logo ?? undefined }))
           : fbBrands.brands,
         batteries: promotion.trustedBrands.batteries.length
           ? promotion.trustedBrands.batteries.map((b) => ({
               name: b.name,
-              image: b.image ?? '',
-              logo: b.logo ?? '',
+              image: b.image ?? undefined,
+              logo: b.logo ?? undefined,
             }))
           : fbBrands.batteries,
       }
@@ -163,7 +163,7 @@ const CombinedPromoPage = ({ promotion }: CombinedPromoPageProps) => {
         title: promotion.highEnergy.title || fbHighEnergy.title,
         bullets: promotion.highEnergy.bullets.length ? promotion.highEnergy.bullets : fbHighEnergy.bullets,
         badges: promotion.highEnergy.badges.length
-          ? promotion.highEnergy.badges.map((b) => ({ name: b.name, logoPath: b.logoPath ?? '' }))
+          ? promotion.highEnergy.badges.map((b) => ({ name: b.name, logoPath: b.logoPath ?? undefined }))
           : fbHighEnergy.badges,
       }
     : fbHighEnergy;

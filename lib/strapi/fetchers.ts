@@ -692,11 +692,15 @@ export type FooterResponse = { data: import("./schemas/footer").FooterData | nul
 
 export const getFooter = async (): Promise<FooterResponse> => {
   const query = footer.footer;
-  // Footer is a flat single type (no sections wrapper) — fetch directly
-  const { strapiFetch } = await import("./client");
+  const { getStrapiURL } = await import("./client");
+  const url = `${getStrapiURL()}/api/footer?${query}`;
   try {
-    const res = await strapiFetch<FooterResponse>(`/footer?${query}`);
-    return res;
+    const res = await fetch(url, {
+      headers: { Accept: "application/json" },
+      next: { revalidate: 60 },
+    });
+    if (!res.ok) return { data: null, meta: {} };
+    return (await res.json()) as FooterResponse;
   } catch {
     return { data: null, meta: {} };
   }

@@ -26,8 +26,7 @@ export const trustedBrands =
   "&populate[sections][on][promotion.trusted-brands][populate][batteries][populate][logo]=true";
 
 export const highEnergy =
-  "populate[sections][on][promotion.high-energy][populate][badges][populate][logo]=true" +
-  "&populate[sections][on][promotion.high-energy][populate][badges][populate][logoPath]=true";
+  "populate[sections][on][promotion.high-energy][populate][badges][populate][logo]=true";
 
 export const batteryPackage =
   "populate[sections][on][promotion.battery-package][populate][centerImage]=true" +
@@ -65,4 +64,6 @@ export const batteryPricing =
   "populate[sections][on][promotion.battery-pricing][populate][backgroundImage]=true" +
   "&populate[sections][on][promotion.battery-pricing][populate][centerImage]=true";
 
-export const contactInfo = "populate[sections][on][promotion.contact-info][populate][items]=true&populate[sections][on][promotion.contact-info][populate][socials][populate][link]=true";
+export const contactInfo =
+  "populate[sections][on][promotion.contact-info][populate][items]=true" +
+  "&populate[sections][on][promotion.contact-info][populate][socials]=true";

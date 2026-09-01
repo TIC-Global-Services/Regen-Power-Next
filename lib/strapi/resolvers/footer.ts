@@ -89,7 +89,8 @@ export function resolveFooter(data: FooterData | null | undefined): ResolvedFoot
       ? data.quickLinks.map((l) => ({ label: l.label, href: l.href }))
       : FALLBACK_QUICK_LINKS.map((l) => ({ label: l.label, href: l.href }));
 
-  const headOffice: ResolvedFooterOffice | null = data.headOffice
+  const fallback = fallbackFooter();
+  const headOffice: ResolvedFooterOffice | null = data.headOffice?.address
     ? {
         address: data.headOffice.address,
         phone: data.headOffice.phone,
@@ -97,14 +98,17 @@ export function resolveFooter(data: FooterData | null | undefined): ResolvedFoot
         email: data.headOffice.email,
         hours: data.headOffice.hours,
       }
-    : null;
+    : fallback.headOffice;
 
-  const stateOffices: ResolvedFooterStateOffice[] = (data.stateOffices ?? []).map((o) => ({
-    state: o.state,
-    address: o.address,
-    phone: o.phone,
-    email: o.email,
-  }));
+  const stateOffices: ResolvedFooterStateOffice[] =
+    data.stateOffices && data.stateOffices.length > 0
+      ? data.stateOffices.map((o) => ({
+          state: o.state,
+          address: o.address,
+          phone: o.phone,
+          email: o.email,
+        }))
+      : fallback.stateOffices;
 
   const socialLinks: ResolvedFooterSocialLink[] =
     data.socialLinks && data.socialLinks.length > 0

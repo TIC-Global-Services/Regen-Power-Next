@@ -5,13 +5,13 @@ import Reveal from '@/reuseables/Reveal';
 
 export interface BrandLogo {
   name: string;
-  logo: string;
+  logo?: string;
 }
 
 export interface BatteryItem {
   name: string;
-  image: string;
-  logo: string;
+  image?: string;
+  logo?: string;
 }
 
 export interface BrandsProps {
@@ -41,10 +41,12 @@ const Brands = ({ data }: { data: BrandsProps }) => {
         {brands.length > 0 && (
           <div className="py-4  bg-[#EEF6EB]/10 mb-12">
             <Marquee speed={30} gap={5} repeat={4} pauseOnHover={false}>
-              {brands.map((brand, idx) => (
+              {brands
+                .filter((b) => !!b.logo)
+                .map((brand, idx) => (
                 <div key={idx} className="flex items-center justify-center px-8 border-r border-[#00000033] h-24 w-44 shrink-0 divide-y md:divide-y-0 lg:divide-x divide-[#00000033]">
                   <img
-                    src={brand.logo}
+                    src={brand.logo!}
                     alt={brand.name}
                     className="h-50 w-auto object-contain  transition-opacity duration-300"
                   />
@@ -64,22 +66,26 @@ const Brands = ({ data }: { data: BrandsProps }) => {
                     className="flex flex-col items-center justify-between p-6 md:p-8 hover:bg-gray-50/50 transition-colors duration-300 min-h-[250px]"
                   >
                     {/* Battery Product Image */}
-                    <div className="w-full flex-1 flex items-center justify-center mb-2">
-                      <img
-                        src={battery.image}
-                        alt={battery.name}
-                        className="max-h-[70dvh] w-auto object-cover hover:scale-105 transition-transform duration-500"
-                      />
-                    </div>
+                    {battery.image ? (
+                      <div className="w-full flex-1 flex items-center justify-center mb-2">
+                        <img
+                          src={battery.image}
+                          alt={battery.name}
+                          className="max-h-[70dvh] w-auto object-cover hover:scale-105 transition-transform duration-500"
+                        />
+                      </div>
+                    ) : null}
 
                     {/* Brand Logo Below Image */}
-                    <div className="h-8 w-28 flex items-center justify-center mt-auto">
-                      <img
-                        src={battery.logo}
-                        alt={`${battery.name} Logo`}
-                        className="max-h-10 max-w-full object-contain"
-                      />
-                    </div>
+                    {battery.logo ? (
+                      <div className="h-8 w-28 flex items-center justify-center mt-auto">
+                        <img
+                          src={battery.logo}
+                          alt={`${battery.name} Logo`}
+                          className="max-h-10 max-w-full object-contain"
+                        />
+                      </div>
+                    ) : null}
                   </div>
                 </Reveal>
 
