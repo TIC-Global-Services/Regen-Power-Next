@@ -132,7 +132,7 @@ export default function CategorizedFaqSection({ resolved }: Props) {
                   type="button"
                   aria-expanded={isOpen}
                   onClick={() => setOpenIndex(isOpen ? -1 : index)}
-                  className="flex w-full items-start justify-between gap-6 py-5 text-left"
+                  className="flex w-full items-start justify-between gap-6 py-5 text-left cursor-pointer"
                 >
                   <span className="text-2xl tracking-tight text-black md:text-[2rem]">
                     {item.question}
