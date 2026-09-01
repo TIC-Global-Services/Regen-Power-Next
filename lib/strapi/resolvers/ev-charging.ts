@@ -25,7 +25,7 @@ export interface ResolvedEvChargingHero {
   mainTitle: string;
   description: string;
   ctaText: string;
-  ctaLink: string;
+  ctaLink?: string;
   isFullScreen?: boolean;
   descriptionColor?: string;
   imageClass?: string;

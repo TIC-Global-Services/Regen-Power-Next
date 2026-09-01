@@ -145,6 +145,7 @@ export const HomeFinancingCardSchema = z.object({
   description: z.string().nullable(),
   image: MediaSchema.nullable(),
   ctaText: z.string().nullable(),
+  ctaLink: z.string().nullable(),
 });
 export type HomeFinancingCardData = z.infer<typeof HomeFinancingCardSchema>;
 

@@ -2,6 +2,7 @@
 
 import React from 'react';
 import Image, { StaticImageData } from 'next/image';
+import Link from 'next/link';
 import CtaButton from '@/reuseables/CtaButton';
 import { SliderDots, SliderArrows, useSnapSlider } from '@/reuseables/MobileSliderControls';
 
@@ -77,8 +78,11 @@ const BatteryRangeGrid = ({ data }: { data: BatteryRangeGridData }) => {
 
 /* ── Sub-components ─────────────────────────────────────── */
 
-const ImageCard = ({ card }: { card: BatteryRangeCard }) => (
-  <div className="relative rounded-[20px] overflow-hidden group cursor-pointer h-full w-full">
+const ImageCard = ({ card }: { card: BatteryRangeCard }) => {
+  const Wrapper: React.ElementType = card.ctaLink ? Link : "div";
+  const wrapperProps = card.ctaLink ? { href: card.ctaLink } : {};
+  return (
+  <Wrapper {...(wrapperProps as any)} className="relative rounded-[20px] overflow-hidden group cursor-pointer h-full w-full block">
     {/* Background image */}
     {card.image && (
       <Image
@@ -100,17 +104,17 @@ const ImageCard = ({ card }: { card: BatteryRangeCard }) => (
       <p className="text-white text-base md:text-lg tracking-tight leading-[1.2] line-clamp-3 capitalize mb-4">
         {card.description}
       </p>
-      {card.ctaText && card.ctaLink && (
+      {card.ctaText && (
         <div>
-          <CtaButton
-            href={card.ctaLink}
-            text={card.ctaText}
-            textColor="text-white"
-          />
+          <span className="inline-flex items-center gap-3 px-1.5 bg-[#63B84666] backdrop-blur-md border border-[#63B846] text-white py-2 md:py-1.5 rounded-full">
+            <span className="pl-4 text-sm tracking-tight whitespace-nowrap">{card.ctaText}</span>
+            <span className="bg-[#63B846] text-black p-2 rounded-full flex items-center justify-center">↗</span>
+          </span>
         </div>
       )}
     </div>
-  </div>
-);
+  </Wrapper>
+  );
+};
 
 export default BatteryRangeGrid;

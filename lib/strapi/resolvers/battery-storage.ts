@@ -21,8 +21,8 @@ export interface ResolvedBatteryStorageHero {
   topSubtitle: string;
   mainTitle: string;
   description: string;
-  ctaText: string;
-  ctaLink: string;
+  ctaText?: string;
+  ctaLink?: string;
   showOverlay: boolean;
 }
 export function resolveBatteryStorageHero(
@@ -36,7 +36,7 @@ export function resolveBatteryStorageHero(
     mainTitle: data.title ?? "",
     description: data.description ?? "",
     ctaText: data.ctaText ?? "Get Your Free Quote",
-    ctaLink: data.ctaLink ?? "#quote",
+    ...(data.ctaLink ? { ctaLink: data.ctaLink } : {}),
     showOverlay: data.showOverlay ?? true,
   };
 }
@@ -67,8 +67,8 @@ export interface ResolvedDebsRebate {
   description: string;
   highlights: ResolvedRebateHighlight[];
   image: string | null;
-  ctaText: string;
-  ctaLink: string;
+  ctaText?: string;
+  ctaLink?: string;
 }
 export function resolveDebsRebate(
   data: BatteryStorageDebsRebateData | undefined
@@ -85,7 +85,7 @@ export function resolveDebsRebate(
     })),
     image: img?.src ?? null,
     ctaText: data.ctaText ?? "Get Your Free Quote",
-    ctaLink: data.ctaLink ?? "/contact",
+    ...(data.ctaLink ? { ctaLink: data.ctaLink } : {}),
   };
 }
 
@@ -151,7 +151,7 @@ export function resolveBatteryBillImpact(
       data.ctaDescription ??
       "Want an estimate for your home? Tell us your address and usage and we'll model it",
     ctaText: data.ctaText ?? "Get a personalised quote",
-    ctaLink: data.ctaLink ?? undefined,
+    ...(data.ctaLink ? { ctaLink: data.ctaLink } : {}),
   };
 }
 
@@ -180,8 +180,8 @@ export function resolveBatteryRangeGrid(
       title: b.title,
       description: b.description ?? undefined,
       image: b.image ? strapiImageData(b.image)?.src ?? null : undefined,
-      ctaText: b.ctaText ?? undefined,
-      ctaLink: b.ctaLink ?? undefined,
+      ...(b.ctaText ? { ctaText: b.ctaText } : {}),
+      ...(b.ctaLink ? { ctaLink: b.ctaLink } : {}),
     })),
   };
 }
@@ -199,8 +199,8 @@ export interface ResolvedBatteryCapacity {
   description: string;
   cards: ResolvedCapacityCard[];
   footerText: string;
-  ctaText: string;
-  ctaLink: string;
+  ctaText?: string;
+  ctaLink?: string;
 }
 export function resolveBatteryCapacity(
   data: BatteryStorageCapacityBlocksData | undefined
@@ -216,8 +216,8 @@ export function resolveBatteryCapacity(
       isPrimary: card.isPrimary ?? false,
     })),
     footerText: data.footerText ?? "",
-    ctaText: data.ctaText ?? "",
-    ctaLink: data.ctaLink ?? "",
+    ...(data.ctaText ? { ctaText: data.ctaText } : {}),
+    ...(data.ctaLink ? { ctaLink: data.ctaLink } : {}),
   };
 }
 
@@ -313,7 +313,7 @@ export interface ResolvedOneLocalTeam {
   title: string;
   cards: ResolvedTrustCard[];
   ctaText: string;
-  ctaLink: string;
+  ctaLink?: string;
 }
 export function resolveOneLocalTeam(
   data: BatteryStorageTeamData | undefined
@@ -327,8 +327,8 @@ export function resolveOneLocalTeam(
       description: card.description,
       image: card.image ? strapiImageData(card.image)?.src ?? null : null,
     })),
-    ctaText: data.ctaText ?? "See Our Customer Reviews",
-    ctaLink: data.ctaLink ?? "/reviews",
+      ...(data.ctaText ? { ctaText: data.ctaText } : { ctaText: "See Our Customer Reviews" }),
+    ...(data.ctaLink ? { ctaLink: data.ctaLink } : { ctaLink: "/reviews" }),
   };
 }
 
@@ -364,7 +364,7 @@ export function resolveCustomerStories(
     centerButton: data.centerButton ?? true,
     centerButtonText:
       data.centerButtonText ?? "View our full portfolio of 113+ installs",
-    centerButtonLink: data.centerButtonLink ?? undefined,
+    ...(data.centerButtonLink ? { centerButtonLink: data.centerButtonLink } : {}),
   };
 }
 

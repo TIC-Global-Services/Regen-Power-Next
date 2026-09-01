@@ -7,6 +7,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import Fade from './fade';
 import CtaButton from './CtaButton';
 import SectionHeader from './SectionHeader';
+import Link from 'next/link';
 import { SliderDots, SliderArrows, useSnapSlider } from './MobileSliderControls';
 
 export interface FeatureCardItem {
@@ -18,6 +19,8 @@ export interface FeatureCardItem {
   textPosition?: 'top' | 'bottom';
   footerTitle?: string;
   footerDescription?: string;
+  /** Card click-through destination (e.g. /blog/[slug]). When set, the card renders as a link. */
+  href?: string;
 }
 
 export interface FeatureCardGridProps {
@@ -158,14 +161,15 @@ const FeatureCardGrid: React.FC<FeatureCardGridProps> = ({
   const renderCard = (card: FeatureCardItem, index: number) => {
     const isActive = !isDesktop || activeIndex === index;
     const widthPx = getCardWidth(index);
+    const hasHref = !!card.href;
 
-    return (
+    const cardInner = (
       <div
         key={index}
-        role="button"
-        tabIndex={0}
+        role={hasHref ? undefined : "button"}
+        tabIndex={hasHref ? -1 : 0}
         onClick={() => handleCardClick(index)}
-        onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') handleCardClick(index); }}
+        onKeyDown={(e) => { if (!hasHref && (e.key === 'Enter' || e.key === ' ')) handleCardClick(index); }}
         onMouseEnter={() => window.innerWidth >= 1024 && setActiveIndex(index)}
         style={{
           width: widthPx ? `${widthPx}px` : undefined,
@@ -231,6 +235,70 @@ const FeatureCardGrid: React.FC<FeatureCardGridProps> = ({
         </div>
       </div>
     );
+    if (hasHref) {
+      return (
+        <Link
+          key={index}
+          href={card.href!}
+          onMouseEnter={() => window.innerWidth >= 1024 && setActiveIndex(index)}
+          onClick={() => handleCardClick(index)}
+          style={{
+            width: widthPx ? `${widthPx}px` : undefined,
+            height: isDesktop && probeH ? `${Math.max(probeH, MIN_HEIGHT)}px` : undefined,
+            transition: 'width 700ms cubic-bezier(0.4,0,0.2,1), height 700ms cubic-bezier(0.4,0,0.2,1)',
+            transform: 'translateZ(0)',
+            WebkitBackfaceVisibility: 'hidden' as any,
+          }}
+          className="relative rounded-[20px] overflow-hidden group flex-none cursor-pointer focus-visible:outline-none min-h-[300px] lg:min-h-[300px] xl:min-h-[460px] flex flex-col w-[75vw] md:w-[45vw] lg:w-full shrink-0 snap-start lg:snap-align-none"
+        >
+            <div className="absolute inset-0 z-0 w-full h-full" style={{ transform: 'translateZ(0)' }}>
+              <Image
+                src={card.image && typeof card.image === 'object' && 'src' in card.image ? card.image.src : typeof card.image === 'string' ? card.image : ''}
+                alt={card.image && typeof card.image === 'object' && 'alt' in card.image ? (card.image.alt || card.title) : card.title}
+                fill
+                className={`object-cover transition-transform duration-700 ${isActive ? 'scale-105' : 'scale-100'} group-hover:scale-105`}
+              />
+              <div className={`absolute inset-0 transition-all duration-700 ease-[cubic-bezier(0.4,0,0.2,1)] bg-gradient-to-b ${isActive ? 'from-black/60 via-black/20 to-black/80' : 'from-black/70 via-black/40 to-black/80'}`} />
+            </div>
+            <div className="relative z-10 flex-1 p-6 lg:p-8 pt-5 flex flex-col">
+              {!isActive && <div className="flex-1" />}
+              <div className={textPanelClasses}>
+                <h4 className={`text-white font-normal tracking-tight transition-all duration-700 ease-[cubic-bezier(0.4,0,0.2,1)] ${isActive ? 'text-xl lg:text-3xl mb-3' : 'text-[1.75rem] lg:text-2xl mb-0'}`}>
+                  {card.title}
+                </h4>
+                {isActive && card.subtitle && (
+                  <p className="text-[#63B846] text-[1.375rem] font-normal tracking-tight leading-tight mb-2 transition-all duration-700 ease-[cubic-bezier(0.4,0,0.2,1)] opacity-100">
+                    {card.subtitle}
+                  </p>
+                )}
+                <p className={`text-white text-sm lg:text-base leading-tight max-w-[85%] tracking-tight transition-all duration-700 ease-[cubic-bezier(0.4,0,0.2,1)] ${isActive ? '' : showDescriptionInactive ? 'mt-1.5' : 'opacity-0 h-0 overflow-hidden m-0'}`}>
+                  {card.description}
+                </p>
+                {isActive && (card.footerTitle || card.footerDescription) && (
+                  <div className="mt-4">
+                    {card.footerTitle && (
+                      <h5 className="text-white font-semibold tracking-tight text-xl mb-0.5 whitespace-nowrap">
+                        {card.footerTitle}
+                      </h5>
+                    )}
+                    {card.footerDescription && (
+                      <p className="text-white text-base tracking-tight ">
+                        {card.footerDescription}
+                      </p>
+                    )}
+                  </div>
+                )}
+              </div>
+              {showReadMore && isActive && (
+                <div className="flex items-end mt-auto pt-3">
+                  <p className="text-[#63B846] flex gap-2 items-center backdrop-blur-md bg-black/40 rounded-xl px-4 py-2">Read more <span className="text-lg"><MoveRight size={20} color='#63B846' strokeWidth={3} /></span></p>
+                </div>
+              )}
+            </div>
+        </Link>
+      );
+    }
+    return cardInner;
   };
 
   return (

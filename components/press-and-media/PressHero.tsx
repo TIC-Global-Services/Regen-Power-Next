@@ -6,8 +6,8 @@ export interface PressHeroProps {
     subtitle: string;
     mainTitle: string;
     description: string;
-    ctaText: string;
-    ctaLink: string;
+    ctaText?: string;
+    ctaLink?: string;
     backgroundImage: StaticImageData | string;
 }
 

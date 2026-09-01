@@ -14,7 +14,7 @@ export interface ResolvedDealsHero {
   title: string;
   description: string;
   ctaText: string;
-  ctaLink: string;
+  ctaLink?: string;
 }
 export function resolveDealsHero(
   data: DealsHeroData | undefined
@@ -27,7 +27,7 @@ export function resolveDealsHero(
     title: data.title ?? "",
     description: data.description ?? "",
     ctaText: data.ctaText ?? "Get My Tailored Quote",
-    ctaLink: data.ctaLink ?? "#quote-form",
+    ...(data.ctaLink ? { ctaLink: data.ctaLink } : {}),
   };
 }
 
@@ -62,7 +62,7 @@ export interface ResolvedDealsGrid {
   title: string;
   description: string | null;
   ctaText: string;
-  ctaLink: string;
+  ctaLink?: string;
   promotions: ResolvedDealsGridPromotion[];
 }
 export function resolveDealsGrid(
@@ -74,7 +74,7 @@ export function resolveDealsGrid(
     title: data.title ?? "",
     description: data.description,
     ctaText: data.ctaText ?? "Get This Bundle Quoted",
-    ctaLink: data.ctaLink ?? "#quote-form",
+    ...(data.ctaLink ? { ctaLink: data.ctaLink } : {}),
     promotions: (data.promotions ?? []).map((p) => ({
       title: p.title,
       description: p.description,

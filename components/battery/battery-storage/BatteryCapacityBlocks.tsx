@@ -17,8 +17,8 @@ export interface BatteryCapacityData {
   description: string;
   cards: CapacityCard[];
   footerText: string;
-  ctaText: string;
-  ctaLink: string;
+  ctaText?: string;
+  ctaLink?: string;
 }
 
 const BatteryCapacityBlocks = ({ data }: { data: BatteryCapacityData }) => {
@@ -100,7 +100,7 @@ const BatteryCapacityBlocks = ({ data }: { data: BatteryCapacityData }) => {
             <p className="text-base md:text-xl text-black font-medium mb-6 max-w-4xl mx-auto capitalize tracking-tight leading-[1.2] whitespace-pre-line">
               {data.footerText}
             </p>
-            <CtaButton href={data.ctaLink} text={data.ctaText} textColor="text-black" />
+            {data.ctaText && data.ctaLink && <CtaButton href={data.ctaLink} text={data.ctaText} textColor="text-black" />}
           </div>
         </div>
       </section>

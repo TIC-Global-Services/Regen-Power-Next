@@ -15,7 +15,7 @@ export default function HeroSection({ resolved }: Props) {
       mainTitle={resolved.mainTitle}
       description={resolved.description}
       ctaText={resolved.ctaText || "Book Energy Assessment"}
-      ctaLink={resolved.ctaLink || "#quote-form"}
+      ctaLink={resolved.ctaLink || undefined}
       subtitleColor="text-white"
       descriptionColor="text-white"
       showOverlay={true}

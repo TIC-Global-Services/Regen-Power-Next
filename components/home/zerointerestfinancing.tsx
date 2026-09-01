@@ -14,6 +14,7 @@ export interface FinancingCard {
   description: string;
   image: StaticImageData | string;
   ctaText?: string;
+  ctaLink?: string;
 }
 
 export interface ZeroInterestFinancingData {
@@ -82,7 +83,7 @@ const ZeroInterestFinancing = ({ data }: ZeroInterestFinancingProps) => {
                     {/* CTA Button — pinned to bottom (desktop cards only; phone/iPad share the single CTA below) */}
                     {card.ctaText && (
                       <div className="mt-6 hidden lg:flex justify-end">
-                        <CtaButton text={card.ctaText} textColor='text-white' />
+                        <CtaButton href={card.ctaLink} text={card.ctaText} textColor='text-white' />
                       </div>
                     )}
                   </div>
@@ -100,7 +101,7 @@ const ZeroInterestFinancing = ({ data }: ZeroInterestFinancingProps) => {
           {/* Fixed CTA under the slider (doesn't scroll with cards) — centered on phone + iPad */}
           {cta?.ctaText && (
             <div className="mt-4 flex justify-center lg:hidden">
-              <CtaButton text={cta?.ctaText ?? 'Check Your Eligibility'} textColor='text-white' />
+              <CtaButton href={cta?.ctaLink} text={cta?.ctaText ?? 'Check Your Eligibility'} textColor='text-white' />
             </div>
           )}
         </div>

@@ -17,7 +17,7 @@ const HeroSection: React.FC<SolarHeroProps> = ({ heroProps }) => {
       mainTitle={heroProps.mainTitle || ""}
       description={heroProps.description || ""}
       ctaText={heroProps.ctaText || "Get My Tailored Quote"}
-      ctaLink={heroProps.ctaLink || "#quote-form"}
+      ctaLink={heroProps.ctaLink || undefined}
       subtitleColor="text-white"
       titleColor="text-[#63B846]"
       descriptionColor="text-white/90"

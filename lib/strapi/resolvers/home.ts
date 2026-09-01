@@ -35,7 +35,7 @@ export interface ResolvedHomeHero {
   mainTitle: string;
   description: string;
   ctaText: string;
-  ctaLink: string;
+  ctaLink?: string;
   isFullScreen?: boolean;
   subtitleColor?: string;
   descriptionColor?: string;
@@ -255,6 +255,7 @@ export interface ResolvedHomeFinancingCard {
   description: string;
   image: string;
   ctaText?: string;
+  ctaLink?: string;
 }
 export interface ResolvedHomeThreeWaysToPay {
   subtitle: string;
@@ -273,6 +274,7 @@ export function resolveHomeThreeWaysToPay(
       description: c.description ?? "",
       image: src(c.image),
       ...(c.ctaText ? { ctaText: c.ctaText } : {}),
+      ...(c.ctaLink ? { ctaLink: c.ctaLink } : {}),
     })),
   };
 }
@@ -403,6 +405,7 @@ export interface ResolvedHomeSmartSolarCard {
   textPosition?: "top" | "bottom";
   footerTitle?: string;
   footerDescription?: string;
+  href?: string;
 }
 export interface ResolvedHomeSmartSolar {
   topSubtitle: string;
@@ -451,6 +454,7 @@ export function resolveSmartSolarCardsFromArticles(
     description: a.description ?? "",
     image: a.image ? src(a.image) : null,
     ...(i % 2 === 0 ? { textPosition: "top" as const } : { textPosition: "bottom" as const }),
+    ...(a.slug ? { href: `/blog/${a.slug}` } : {}),
   }));
 }
 

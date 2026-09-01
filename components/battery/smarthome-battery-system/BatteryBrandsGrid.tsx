@@ -16,7 +16,7 @@ export interface BatteryBrandCard {
   specification: BrandSpecification[];
   showbutton: boolean;
   buttonText: string;
-  buttonLink: string;
+  buttonLink?: string;
 }
 
 export interface BatteryBrandsGridData {

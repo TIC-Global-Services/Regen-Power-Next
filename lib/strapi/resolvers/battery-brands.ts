@@ -20,7 +20,7 @@ export interface ResolvedBatteryBrandsHero {
   mainTitle: string;
   description: string;
   ctaText: string;
-  ctaLink: string;
+  ctaLink?: string;
   showOverlay: boolean;
 }
 export function resolveBatteryBrandsHero(
@@ -34,7 +34,7 @@ export function resolveBatteryBrandsHero(
     mainTitle: data.title ?? "",
     description: data.description ?? "",
     ctaText: data.ctaText ?? "Get Your Free Quote",
-    ctaLink: data.ctaLink ?? "#quote",
+    ...(data.ctaLink ? { ctaLink: data.ctaLink } : {}),
     showOverlay: data.showOverlay ?? true,
   };
 }

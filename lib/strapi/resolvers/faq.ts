@@ -7,7 +7,7 @@ export interface ResolvedFaqHero {
   title: string;
   description: string;
   ctaText: string;
-  ctaLink: string;
+  ctaLink?: string;
 }
 export function resolveFaqHero(
   data: FaqHeroData | undefined
@@ -20,7 +20,7 @@ export function resolveFaqHero(
     title: data.title ?? "",
     description: data.description ?? "",
     ctaText: data.ctaText ?? "Get Your Free Quote",
-    ctaLink: data.ctaLink ?? "#quote-form",
+    ...(data.ctaLink ? { ctaLink: data.ctaLink } : {}),
   };
 }
 

@@ -78,12 +78,12 @@ export interface ResolvedPromotionHero {
     subtitle: string;
     paragraphs: string[];
     ctaText: string;
-    ctaLink: string;
+    ctaLink?: string;
   };
   // mobile extras derived from same hero
   highlight: { prefix: string; value: string; suffix: string } | undefined;
   description: string;
-  cta: { label: string; href: string } | undefined;
+  cta: { label: string; href?: string } | undefined;
 }
 
 export function resolvePromotionHero(
@@ -135,7 +135,7 @@ export function resolvePromotionHero(
       data.ctaLabel || data.sidebar?.ctaText
         ? {
             label: text(data.ctaLabel) || text(data.sidebar?.ctaText),
-            href: text(data.ctaLink) || text(data.sidebar?.ctaLink) || "#quote-form-section-mobile",
+            href: text(data.ctaLink) || text(data.sidebar?.ctaLink) || undefined,
           }
         : undefined,
   };
@@ -162,7 +162,7 @@ export interface ResolvedPromotionLimitedSpots {
   titleGreen: string;
   cards: ResolvedPromotionLimitedSpotCard[];
   ctaText: string;
-  ctaLink: string;
+  ctaLink?: string;
 }
 
 export function resolvePromotionLimitedSpots(
@@ -228,7 +228,7 @@ export interface ResolvedPromotionFreeQuotation {
   videoThumbnail: string | undefined;
   videoUrl: string | undefined;
   buttonText: string;
-  buttonLink: string;
+  buttonLink?: string;
 }
 
 export function resolvePromotionFreeQuotation(
@@ -395,7 +395,7 @@ export interface ResolvedPromotionReadyToBegin {
   noticeHighlight: string;
   contactDetails: ResolvedPromotionContactDetails | null;
   buttonText: string;
-  buttonLink: string;
+  buttonLink?: string;
 }
 
 export function resolvePromotionReadyToBegin(
@@ -580,7 +580,7 @@ export interface ResolvedPromotionFaqHighlightCard {
   bgImage: string | undefined;
   items: ResolvedPromotionFaqHighlight[];
   ctaText: string;
-  ctaLink: string;
+  ctaLink?: string;
 }
 export interface ResolvedPromotionFaqSection {
   title: string;

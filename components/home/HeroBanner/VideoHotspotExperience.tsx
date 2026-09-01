@@ -25,8 +25,8 @@ interface VideoHotspotExperienceProps {
   topSubtitle: React.ReactNode;
   mainTitle: React.ReactNode;
   description: React.ReactNode;
-  ctaText: string;
-  ctaLink: string;
+  ctaText?: string;
+  ctaLink?: string;
   ctaTextColor?: string;
 }
 
@@ -206,7 +206,8 @@ export default function VideoHotspotExperience({
               </div>
             </div>
 
-            {/* CTA Button — uniform green hover + arrow animation */}
+            {/* CTA Button — Strapi-driven */}
+            {ctaText && (
             <div className="flex-shrink-0 pb-2 pointer-events-auto">
               <CtaButton
                 href={ctaLink}
@@ -216,6 +217,7 @@ export default function VideoHotspotExperience({
                 iconTextColor="text-white"
               />
             </div>
+            )}
           </div>
         )}
 

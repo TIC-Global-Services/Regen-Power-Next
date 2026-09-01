@@ -13,8 +13,8 @@ export interface DebsRebateData {
   description: string;
   highlights?: DebsRebateHighlight[];
   image: StaticImageData | string;
-  ctaText: string;
-  ctaLink: string;
+  ctaText?: string;
+  ctaLink?: string;
 }
 
 const DebsRebateBanner = ({ data }: { data: DebsRebateData }) => {
@@ -61,7 +61,7 @@ const DebsRebateBanner = ({ data }: { data: DebsRebateData }) => {
           )}
 
           <div>
-            <CtaButton href={data.ctaLink} text={data.ctaText} textColor="text-black" />
+            {data.ctaText && data.ctaLink && <CtaButton href={data.ctaLink} text={data.ctaText} textColor="text-black" />}
           </div>
         </div>
       </div>

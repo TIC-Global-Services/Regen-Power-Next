@@ -17,6 +17,7 @@ import type { HeroProps } from "@/reuseables/Hero";
 export interface ResolvedSolarHero
   extends Omit<HeroProps, "icon" | "videoFile" | "titleColor"> {
   mediaSrc: string;
+  ctaLink?: string;
 }
 export function resolveSolarHero(
   data: SolarHeroData | undefined
@@ -30,7 +31,7 @@ export function resolveSolarHero(
     mainTitle: data.title ?? "",
     description: data.description ?? "",
     ctaText: data.ctaText ?? "Get Started",
-    ctaLink: data.ctaLink ?? "#quote-form",
+    ...(data.ctaLink ? { ctaLink: data.ctaLink } : {}),
     subtitleColor: "text-white",
     descriptionColor: "text-white",
     showOverlay: true,
@@ -92,7 +93,7 @@ export interface ResolvedSolarBrandsGrid {
   title: string;
   description: string;
   ctaText: string;
-  ctaHref: string;
+  ctaHref?: string;
   brands: ResolvedSolarBrand[];
 }
 export function resolveSolarBrandsGrid(
@@ -191,6 +192,8 @@ export interface ResolvedSolarSizingGuideTable {
   subtitle: string;
   title: string;
   description: string;
+  ctaText?: string;
+  ctaLink?: string;
   labelColumnTitle: string;
   columns: ResolvedSolarSizingColumn[];
   rows: ResolvedSolarSizingRow[];
@@ -204,6 +207,8 @@ export function resolveSolarSizingGuideTable(
     subtitle: data.subtitle ?? "",
     title: data.title ?? "",
     description: data.description ?? "",
+    ...(data.ctaText ? { ctaText: data.ctaText } : {}),
+    ...(data.ctaLink ? { ctaLink: data.ctaLink } : {}),
     labelColumnTitle: data.labelColumnTitle ?? "",
     columns: (data.columns ?? []).map((col) => ({
       title: col.title ?? "",
@@ -262,6 +267,8 @@ export interface ResolvedSolarTimeline {
   description: string;
   consultationTitle: string;
   consultationText: string;
+  ctaText?: string;
+  ctaLink?: string;
   image: StrapiImageData | null;
 }
 export function resolveSolarTimeline(
@@ -274,6 +281,8 @@ export function resolveSolarTimeline(
     description: data.description ?? "",
     consultationTitle: data.consultationTitle ?? "",
     consultationText: data.consultationText ?? "",
+    ...(data.ctaText ? { ctaText: data.ctaText } : {}),
+    ...(data.ctaLink ? { ctaLink: data.ctaLink } : {}),
     image: data.image ? strapiImageData(data.image) : null,
   };
 }

@@ -16,7 +16,7 @@ export default function DealsHeroSection({ resolved }: Props) {
       mainTitle={resolved.title || ""}
       description={resolved.description || ""}
       ctaText={resolved.ctaText || "Get My Tailored Quote"}
-      ctaLink={resolved.ctaLink || "#quote-form"}
+      ctaLink={resolved.ctaLink || undefined}
       subtitleColor="text-white"
       titleColor="text-[#63B846]"
       descriptionColor="text-white/90"

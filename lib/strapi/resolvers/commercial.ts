@@ -22,7 +22,7 @@ export interface ResolvedCommercialSystemsHero {
   mainTitle: string;
   description: string;
   ctaText: string;
-  ctaLink: string;
+  ctaLink?: string;
 }
 export function resolveCommercialSystemsHero(
   data: CommercialSystemsHeroData | undefined
@@ -35,7 +35,7 @@ export function resolveCommercialSystemsHero(
     mainTitle: data.mainTitle ?? "",
     description: data.description ?? "",
     ctaText: data.ctaText ?? "Book Energy Assessment",
-    ctaLink: data.ctaLink ?? "#quote-form",
+    ...(data.ctaLink ? { ctaLink: data.ctaLink } : {}),
   };
 }
 
@@ -69,7 +69,7 @@ export interface ResolvedTier {
   description: string;
   image: StrapiImageData | null;
   ctaText: string;
-  ctaHref: string;
+  ctaHref?: string;
   details: ResolvedTierDetail[];
 }
 export interface ResolvedCommercialSystemsTiersSection {
@@ -194,7 +194,7 @@ export interface ResolvedCommercialSystemsWatchSystemSection {
   image: StrapiImageData | null;
   paragraphs: string[];
   ctaText: string;
-  ctaHref: string;
+  ctaHref?: string;
 }
 export function resolveCommercialSystemsWatchSystemSection(
   data: CommercialSystemsWatchSystemSectionData | undefined
@@ -206,7 +206,7 @@ export function resolveCommercialSystemsWatchSystemSection(
     image: data.image ? strapiImageData(data.image) : null,
     paragraphs: (data.paragraphs ?? []).map((p) => p.text),
     ctaText: data.ctaText ?? "",
-    ctaHref: data.ctaHref ?? "#",
+    ...(data.ctaHref ? { ctaHref: data.ctaHref } : {}),
   };
 }
 
@@ -327,8 +327,8 @@ export interface ResolvedCommercialOffGridHero {
   topSubtitle: string;
   mainTitle: string;
   description: string;
-  ctaText: string;
-  ctaLink: string;
+  ctaText?: string;
+  ctaLink?: string;
 }
 export function resolveCommercialOffGridHero(
   data: CommercialOffGridHeroData | undefined
@@ -341,7 +341,7 @@ export function resolveCommercialOffGridHero(
     mainTitle: data.mainTitle ?? "",
     description: data.description ?? "",
     ctaText: data.ctaText ?? "Request Consultation",
-    ctaLink: data.ctaLink ?? "#quote-form",
+    ...(data.ctaLink ? { ctaLink: data.ctaLink } : {}),
   };
 }
 

@@ -110,6 +110,7 @@ export default function DealsGridSection({ resolved }: Props) {
 
         <div className="flex justify-center">
           {/* <CtaButton text={resolved.ctaText || "Get This Bundle Quoted"} href={resolved.ctaLink} /> */}
+          {resolved.ctaLink && (
           <Link href={resolved.ctaLink}>
             <button className="inline-flex items-center gap-3 bg-[#63B84666] backdrop-blur-md text-black border border-[#63B846] text-white px-1.5 py-1 md:py-1.5 rounded-full hover:bg-[#529a37] transition-all duration-300 group">
               <span className={`pl-4 tracking-tight text-black whitespace-nowrap min-w-0 flex-1`}>
@@ -118,7 +119,9 @@ export default function DealsGridSection({ resolved }: Props) {
               <div className={` bg-[#63B846] text-black p-2 rounded-full shrink-0 group-hover:scale-110 transition-transform duration-300 flex items-center justify-center`}>
                 <ArrowUpRight size={16} strokeWidth={2.5} />
               </div>
-            </button></Link>
+            </button>
+          </Link>
+          )}
         </div>
       </div>
     </section>
