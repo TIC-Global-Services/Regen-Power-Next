@@ -41,7 +41,7 @@ const SolarBrandsGrid: React.FC<SolarBrandsGridProps> = ({ resolved }) => {
           <div className="text-center">
             <Reveal delay={0.3} className="inline-block">
               <CtaButton
-                href={resolved.ctaHref || "#quote-form"}
+                href={resolved.ctaHref || undefined}
                 text={resolved.ctaText}
                 textColor="text-black"
               />

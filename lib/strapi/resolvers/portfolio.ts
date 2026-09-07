@@ -10,7 +10,7 @@ export interface ResolvedPortfolioHero {
   mainTitle: string;
   description: string;
   ctaText: string;
-  ctaLink: string;
+  ctaLink?: string;
   backgroundImage: string;
 }
 export function resolvePortfolioHero(
@@ -23,7 +23,7 @@ export function resolvePortfolioHero(
     mainTitle: data.mainTitle ?? "",
     description: data.description ?? "",
     ctaText: data.ctaText ?? "Get Your Free Quote",
-    ctaLink: data.ctaLink ?? "#quote-form",
+    ...(data.ctaLink ? { ctaLink: data.ctaLink } : {}),
     backgroundImage: img?.src ?? "",
   };
 }

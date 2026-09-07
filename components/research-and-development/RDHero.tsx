@@ -15,7 +15,7 @@ const RDHero = ({ resolved }: Props) => {
       mainTitle={resolved.mainTitle}
       description={resolved.description}
       ctaText={resolved.ctaText || 'Get Your Free Quote'}
-      ctaLink={resolved.ctaLink || '#quote-form'}
+      ctaLink={resolved.ctaLink || undefined}
       subtitleColor="text-white"
       descriptionColor="text-white"
       showOverlay={true}

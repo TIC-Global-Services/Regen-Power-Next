@@ -4,7 +4,7 @@ import Marquee from "@/reuseables/Marquee";
 
 export interface BadgeLogo {
   name: string;
-  logoPath: string;
+  logoPath?: string;
 }
 
 export interface HighEnergyProps {
@@ -91,13 +91,15 @@ const HighEnergy = ({ data }: { data: HighEnergyProps }) => {
         {badges.length > 0 && (
           <div className="py-4">
             <Marquee speed={30} gap={24} repeat={4} pauseOnHover={false}>
-              {badges.map((badge, idx) => (
+              {badges
+                .filter((b) => !!b.logoPath)
+                .map((badge, idx) => (
                 <div
                   key={idx}
                   className="bg-white border border-[#00000033] px-8 py-6 h-[30dvh] shrink-0 flex items-center justify-center shadow-sm hover:shadow-md transition-shadow duration-300"
                 >
                   <img
-                    src={badge.logoPath}
+                    src={badge.logoPath!}
                     alt={badge.name}
                     className="max-h-full max-w-full object-cover h-full"
                   />

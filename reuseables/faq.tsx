@@ -104,7 +104,7 @@ const FAQ = ({
                                     <div key={index} className="border-b-2 border-[#EEF6EB] last:border-b-0">
                                         <button
                                             onClick={() => toggleItem(index)}
-                                            className="w-full py-5 flex justify-between items-center text-left focus:outline-none group "
+                                            className="w-full py-5 flex justify-between items-center text-left focus:outline-none group cursor-pointer"
                                         >
                                             <span className="text-[15px] md:text-xl text-black font-medium pr-8 tracking-tight">
                                                 {item.question}

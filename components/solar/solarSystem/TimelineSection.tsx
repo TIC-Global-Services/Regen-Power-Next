@@ -48,8 +48,8 @@ const TimelineSection: React.FC<TimelineSectionProps> = ({ resolved }) => {
 
               <Reveal className="mt-8">
                 <CtaButton
-                  href="#quote-form"
-                  text="Start With A Free Consultation"
+                  href={resolved.ctaLink}
+                  text={resolved.ctaText ?? "Start With A Free Consultation"}
                   textColor="text-black"
                 />
               </Reveal>

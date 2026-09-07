@@ -12,7 +12,7 @@ export interface EvHeroData {
   mainTitle: string;
   description: string;
   ctaText: string;
-  ctaLink: string;
+  ctaLink?: string;
 }
 
 interface EvHeroProps {

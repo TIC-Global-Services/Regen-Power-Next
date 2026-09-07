@@ -124,6 +124,8 @@ export const SolarSizingGuideTableSchema = z.object({
   subtitle: z.string().nullable(),
   title: z.string().nullable(),
   description: z.string().nullable(),
+  ctaText: z.string().nullable(),
+  ctaLink: z.string().nullable(),
   labelColumnTitle: z.string().nullable(),
   columns: z.array(SolarSizingColumnSchema),
   rows: z.array(SolarSizingRowSchema),
@@ -159,6 +161,8 @@ export const SolarTimelineSchema = z.object({
   description: z.string().nullable(),
   consultationTitle: z.string().nullable(),
   consultationText: z.string().nullable(),
+  ctaText: z.string().nullable(),
+  ctaLink: z.string().nullable(),
   image: MediaSchema.nullable(),
 });
 export type SolarTimelineData = z.infer<typeof SolarTimelineSchema>;

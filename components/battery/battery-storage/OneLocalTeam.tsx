@@ -18,7 +18,7 @@ export interface OneLocalTeamData {
   title: string;
   cards: TrustCard[];
   ctaText: string;
-  ctaLink: string;
+  ctaLink?: string;
 }
 
 const TrustCardItem = ({ card }: { card: TrustCard }) => (

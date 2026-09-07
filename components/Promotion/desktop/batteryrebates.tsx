@@ -109,7 +109,7 @@ const BatteryRebates = ({ data }: { data: BatteryRebatesProps }) => {
     <section className="relative w-full py-20 md:py-20 px-[5%] md:px-[3%] overflow-hidden min-h-screen flex items-start bg-black">
       {/* Background Image */}
       <img
-        src={bgImage || "/battery_rebates_fallback.png"}
+        src={bgImage || "/promotion-page/battery_rebates_fallback.png"}
         alt="Battery Rebates Background"
         className="absolute inset-0 z-0 h-full w-full object-cover object-center"
       />

@@ -14,7 +14,7 @@ export interface ResolvedSharedCtaBanner {
   mainTitle: string;
   description: string;
   buttonText: string;
-  buttonHref: string;
+  buttonHref?: string;
   bgImage: string | undefined;
 }
 export function resolveSharedCtaBanner(
@@ -27,7 +27,7 @@ export function resolveSharedCtaBanner(
     mainTitle: data.mainTitle ?? "",
     description: data.description ?? "",
     buttonText: data.buttonText ?? "",
-    buttonHref: data.buttonHref ?? "#quote-form",
+    ...(data.buttonHref ? { buttonHref: data.buttonHref } : {}),
     bgImage: img?.src,
   };
 }

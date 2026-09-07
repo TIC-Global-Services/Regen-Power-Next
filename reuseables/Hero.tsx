@@ -12,8 +12,8 @@ export interface HeroProps {
     topSubtitle: React.ReactNode;
     mainTitle: React.ReactNode;
     description: React.ReactNode;
-    ctaText: string;
-    ctaLink: string;
+    ctaText?: string;
+    ctaLink?: string;
     isFullScreen?: boolean;
     subtitleColor?: string;
     descriptionColor?: string;
@@ -84,7 +84,8 @@ const Hero: React.FC<HeroProps> = ({
                     </div>
                 </div>
 
-                {/* CTA Button */}
+                {/* CTA Button — Strapi-driven: hidden when CMS doesn't provide it */}
+                {ctaText && (
                 <div className="flex-shrink-0 pb-2">
                     <CtaButton
                         href={ctaLink}
@@ -94,6 +95,7 @@ const Hero: React.FC<HeroProps> = ({
                         iconTextColor="text-white"
                     />
                 </div>
+                )}
             </div>
         </section>
     );

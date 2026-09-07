@@ -9,6 +9,7 @@ export interface HomeownerStory {
   image: StaticImageData | string | null;
   footerTitle?: string;
   footerDescription?: string;
+  href?: string;
 }
 
 export interface HomeownersData {
@@ -17,6 +18,7 @@ export interface HomeownersData {
   showReadMore?: boolean;
   centerButton?: boolean;
   centerButtonText?: string;
+  centerButtonLink?: string;
   stories: HomeownerStory[];
 }
 
@@ -28,6 +30,7 @@ const Homeowners = ({ data }: { data: HomeownersData }) => {
     textPosition: 'top',
     footerTitle: story.footerTitle,
     footerDescription: story.footerDescription,
+    ...(story.href ? { href: story.href } : {}),
   }));
 
   return (
@@ -38,6 +41,7 @@ const Homeowners = ({ data }: { data: HomeownersData }) => {
       showReadMore={data.showReadMore ?? true}
       centerButton={data.centerButton ?? true}
       centerButtonText={data.centerButtonText}
+      centerButtonLink={data.centerButtonLink ?? "/reviews"}
       hideCenterButtonMobile
     />
   );

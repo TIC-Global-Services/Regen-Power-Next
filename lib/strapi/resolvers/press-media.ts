@@ -17,8 +17,8 @@ export interface ResolvedPressMediaHero {
   subtitle: string;
   mainTitle: string;
   description: string;
-  ctaText: string;
-  ctaLink: string;
+  ctaText?: string;
+  ctaLink?: string;
   backgroundImage: string;
 }
 export function resolvePressMediaHero(
@@ -31,7 +31,7 @@ export function resolvePressMediaHero(
     mainTitle: data.mainTitle ?? "",
     description: data.description ?? "",
     ctaText: data.ctaText ?? "Get Your Free Quote",
-    ctaLink: data.ctaLink ?? "#quote-form",
+    ...(data.ctaLink ? { ctaLink: data.ctaLink } : {}),
     backgroundImage: img?.src ?? "",
   };
 }

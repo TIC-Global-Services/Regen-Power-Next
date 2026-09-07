@@ -132,7 +132,7 @@ const RebateDetailSplit: React.FC<{ data?: RebateDetailSplitData }> = ({ data })
                         {data.ctaText && (
                             <div className="mt-2">
                                 <a
-                                    href={data.ctaLink || '#'}
+                                    href={data.ctaLink || undefined}
                                     className="inline-flex items-center gap-2 bg-[#63B846] text-white text-sm font-medium px-6 py-3 rounded-full hover:bg-[#56a33d] transition-colors"
                                 >
                                     {data.ctaText}

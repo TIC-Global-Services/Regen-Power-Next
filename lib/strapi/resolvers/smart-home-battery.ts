@@ -16,8 +16,8 @@ export interface ResolvedSmartHomeHero {
   topSubtitle: string;
   mainTitle: string;
   description: string;
-  ctaText: string;
-  ctaLink: string;
+  ctaText?: string;
+  ctaLink?: string;
   showOverlay: boolean;
 }
 export function resolveSmartHomeHero(
@@ -31,7 +31,7 @@ export function resolveSmartHomeHero(
     mainTitle: data.title ?? "",
     description: data.description ?? "",
     ctaText: data.ctaText ?? "Get Your Free Quote",
-    ctaLink: data.ctaLink ?? "#quote",
+    ...(data.ctaLink ? { ctaLink: data.ctaLink } : {}),
     showOverlay: data.showOverlay ?? true,
   };
 }
@@ -105,8 +105,8 @@ export interface ResolvedSplitSlide {
   title: string;
   mainDescription: string;
   blocks: ResolvedSplitBlock[];
-  ctaText: string;
-  ctaLink: string;
+  ctaText?: string;
+  ctaLink?: string;
   image: string | null;
 }
 export interface ResolvedBatterySplit {
@@ -125,8 +125,8 @@ export function resolveBatterySplit(
         title: b.title,
         description: b.description,
       })),
-      ctaText: slide.ctaText,
-      ctaLink: slide.ctaLink,
+      ...(slide.ctaText ? { ctaText: slide.ctaText } : {}),
+      ...(slide.ctaLink ? { ctaLink: slide.ctaLink } : {}),
       image: slide.image ? strapiImageData(slide.image)?.src ?? null : null,
     })),
   };
@@ -171,7 +171,7 @@ export interface ResolvedBatteryBrandCard {
   specification: ResolvedBrandSpecification[];
   showbutton: boolean;
   buttonText: string;
-  buttonLink: string;
+  buttonLink?: string;
 }
 export interface ResolvedBatteryBrandsGrid {
   topSubtitle: string;

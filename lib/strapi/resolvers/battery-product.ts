@@ -23,8 +23,8 @@ export interface ResolvedBatteryProductHero {
   topSubtitle: string;
   mainTitle: string;
   description: string;
-  ctaText: string;
-  ctaLink: string;
+  ctaText?: string;
+  ctaLink?: string;
   showOverlay: boolean;
 }
 export function resolveBatteryProductHero(
@@ -38,7 +38,7 @@ export function resolveBatteryProductHero(
     mainTitle: data.title ?? "",
     description: data.description ?? "",
     ctaText: data.ctaText ?? "Get Your Free Quote",
-    ctaLink: data.ctaLink ?? "#quote",
+    ...(data.ctaLink ? { ctaLink: data.ctaLink } : {}),
     showOverlay: data.showOverlay ?? true,
   };
 }
@@ -329,8 +329,8 @@ export interface ResolvedZeroInterest {
   summaryText: string;
   topImage: string | null;
   bottomImage: string | null;
-  ctaText: string;
-  ctaLink: string;
+  ctaText?: string;
+  ctaLink?: string;
 }
 export function resolveZeroInterest(
   data: ZeroInterestData | undefined
@@ -352,7 +352,7 @@ export function resolveZeroInterest(
     topImage: data.topImage ? (strapiImageData(data.topImage)?.src ?? null) : null,
     bottomImage: data.bottomImage ? (strapiImageData(data.bottomImage)?.src ?? null) : null,
     ctaText: data.ctaText ?? "",
-    ctaLink: data.ctaLink ?? "#quote",
+    ...(data.ctaLink ? { ctaLink: data.ctaLink } : {}),
   };
 }
 
@@ -364,6 +364,7 @@ export interface ResolvedHomeownerStory {
   image: string | null;
   footerTitle?: string;
   footerDescription?: string;
+  href?: string;
 }
 export interface ResolvedHomeowners {
   topSubtitle: string;
@@ -371,6 +372,7 @@ export interface ResolvedHomeowners {
   showReadMore: boolean;
   centerButton: boolean;
   centerButtonText: string;
+  centerButtonLink?: string;
   stories: ResolvedHomeownerStory[];
 }
 export function resolveHomeowners(
@@ -383,6 +385,7 @@ export function resolveHomeowners(
     showReadMore: data.showReadMore ?? false,
     centerButton: data.centerButton ?? false,
     centerButtonText: data.centerButtonText ?? "",
+    ...(data.centerButtonLink ? { centerButtonLink: data.centerButtonLink } : {}),
     stories: (data.cards ?? []).map((card) => ({
       title: card.title,
       ...(card.description ? { description: card.description } : {}),

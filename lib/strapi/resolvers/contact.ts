@@ -6,7 +6,7 @@ export interface ResolvedContactHero {
   mainTitle: string;
   description: string;
   ctaText: string;
-  ctaLink: string;
+  ctaLink?: string;
   backgroundImage: string;
 }
 export function resolveContactHero(
@@ -19,7 +19,7 @@ export function resolveContactHero(
     mainTitle: data.mainTitle ?? "",
     description: data.description ?? "",
     ctaText: data.ctaText ?? "Get Your Free Quote",
-    ctaLink: data.ctaLink ?? "#quote-form",
+    ...(data.ctaLink ? { ctaLink: data.ctaLink } : {}),
     backgroundImage: img?.src ?? "",
   };
 }

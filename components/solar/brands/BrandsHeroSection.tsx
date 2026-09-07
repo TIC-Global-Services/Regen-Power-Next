@@ -17,7 +17,7 @@ const BrandsHeroSection: React.FC<BrandsHeroSectionProps> = ({ resolved }) => {
         mainTitle={resolved.title ?? ""}
         description={resolved.description ?? ""}
         ctaText={resolved.ctaText ?? ""}
-        ctaLink={resolved.ctaLink ?? "#quote-form"}
+        ctaLink={resolved.ctaLink ?? undefined}
         
         showOverlay={true}
       />

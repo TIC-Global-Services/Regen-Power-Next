@@ -103,10 +103,11 @@ const BatteryProductPage = async () => {
         image: p.image ? strapiImageData(p.image)?.src ?? null : null,
         footerTitle: loc || undefined,
         footerDescription: sizeLabel || (p.postcode ? String(p.postcode) : undefined),
+        href: (p as { slug?: string | null }).slug ? `/commercial/portfolio/${(p as { slug: string }).slug}` : undefined,
       };
     });
     if (homeownersProps) {
-      homeownersProps = { ...homeownersProps, stories };
+      homeownersProps = { ...homeownersProps, stories, centerButtonLink: "/reviews" };
     } else {
       homeownersProps = {
         topSubtitle: "Our portfolio",
@@ -115,6 +116,7 @@ const BatteryProductPage = async () => {
         centerButton: true,
         centerButtonText: "View all projects",
         stories,
+        centerButtonLink: "/reviews",
       };
     }
   }

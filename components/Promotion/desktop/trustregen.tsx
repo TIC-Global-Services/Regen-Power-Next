@@ -8,7 +8,7 @@ import Reveal from "@/reuseables/Reveal";
 export interface TrustFeature {
   title: string;
   description: string;
-  icon: string;
+  icon?: string;
 }
 
 export interface TrustRegenProps {
@@ -51,13 +51,15 @@ const TrustRegen = ({ data }: { data: TrustRegenProps }) => {
                       zIndex: isActive ? 2 : 1,
                     }}
                   >
-                    <div className="mb-6 flex h-24 w-24 items-center justify-center md:h-30 md:w-30">
-                      <img
-                        src={feature.icon}
-                        alt={feature.title}
-                        className="h-full w-full object-contain"
-                      />
-                    </div>
+                    {feature.icon ? (
+                      <div className="mb-6 flex h-24 w-24 items-center justify-center md:h-30 md:w-30">
+                        <img
+                          src={feature.icon}
+                          alt={feature.title}
+                          className="h-full w-full object-contain"
+                        />
+                      </div>
+                    ) : null}
 
                     <h3 className="text-lg md:text-[2.25rem] font-bold text-black leading-[1.2] whitespace-pre-line">
                       {feature.title}
@@ -71,7 +73,7 @@ const TrustRegen = ({ data }: { data: TrustRegenProps }) => {
                       <img
                         src="/dot.svg"
                         alt=""
-                        className="hidden md:block absolute -right-2 bottom-0 h-5 w-5 translate-y-1/2 rounded-full border-[3px] border-white bg-[#63B846]"
+                        className="hidden md:block absolute -right-3 bottom-0 h-5 w-5 translate-y-1/2 rounded-full border-[3px] border-white bg-[#63B846]"
                       />
                     )}
                   </div>

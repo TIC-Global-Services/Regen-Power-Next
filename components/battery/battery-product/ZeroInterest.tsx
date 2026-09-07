@@ -20,8 +20,8 @@ export interface ZeroInterestData {
     summaryText: string;
     topImage: StaticImageData | string | null;
     bottomImage: StaticImageData | string | null;
-    ctaText: string;
-    ctaLink: string;
+    ctaText?: string;
+    ctaLink?: string;
 }
 
 // ─── Component ──────────────────────────────────────────────────────────
@@ -98,7 +98,7 @@ const ZeroInterest: React.FC<{ data: ZeroInterestData }> = ({ data }) => {
                     </div>
                 </div>
                 <div className='flex justify-end mt-10'>
-                    <CtaButton href={data.ctaLink} text={data.ctaText} />
+                    {data.ctaText && data.ctaLink && <CtaButton href={data.ctaLink} text={data.ctaText} />}
                 </div>
             </div>
         </section>

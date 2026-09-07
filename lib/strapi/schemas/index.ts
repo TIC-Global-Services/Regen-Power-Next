@@ -497,3 +497,18 @@ export {
 
 export type { AboutHeroData, AboutAwardCardData, AboutAwardsData } from "./about";
 export { AboutHeroSchema, AboutAwardCardSchema, AboutAwardsSchema } from "./about";
+
+export type {
+  FooterData,
+  FooterQuickLinkData,
+  FooterOfficeData,
+  FooterStateOfficeData,
+  FooterSocialLinkData,
+} from "./footer";
+export {
+  FooterDataSchema,
+  FooterQuickLinkSchema,
+  FooterOfficeSchema,
+  FooterStateOfficeSchema,
+  FooterSocialLinkSchema,
+} from "./footer";

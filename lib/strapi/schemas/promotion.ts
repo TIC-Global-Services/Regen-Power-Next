@@ -37,6 +37,8 @@ export const PromotionHeroSchema = z.object({
   __component: z.literal("promotion.hero"),
   title: z.string().nullable(),
   subtitle: z.string().nullable(),
+  mobileTitle: z.string().nullable().optional(),
+  mobileSubtitle: z.string().nullable().optional(),
   backgroundImage: MediaSchema.nullable(),
   batteryImage: MediaSchema.nullable(),
   packages: z.array(PromotionHeroPackageSchema).nullable(),
@@ -201,16 +203,11 @@ export type PromotionRebateItemData = z.infer<typeof PromotionRebateItemSchema>;
 export const PromotionBatteryPackageItemSchema = z.object({
   id: z.number(),
   name: z.string().nullable(),
-  capacity: z.string().nullable(),
   originalPrice: z.number().nullable(),
   finalPrice: z.number().nullable(),
-  stateRebate: z.number().nullable(),
-  federalRebate: z.number().nullable(),
   rebates: z.array(PromotionRebateItemSchema).nullable().optional(),
   installationText: z.string().nullable(),
-  isFullyInstalled: z.boolean().nullable(),
   pricingNote: z.string().nullable(),
-  priceNote: z.string().nullable().optional(),
   image: MediaSchema.nullable(),
 });
 export type PromotionBatteryPackageItemData = z.infer<typeof PromotionBatteryPackageItemSchema>;
@@ -237,7 +234,6 @@ export const PromotionSocialItemSchema = z.object({
   id: z.number(),
   name: z.string().nullable(),
   link: z.string().nullable(),
-  url: z.string().nullable().optional(),
 });
 export type PromotionSocialItemData = z.infer<typeof PromotionSocialItemSchema>;
 
@@ -301,7 +297,6 @@ export type PromotionAboutRegenData = z.infer<typeof PromotionAboutRegenSchema>;
 export const PromotionAwardItemSchema = z.object({
   id: z.number(),
   name: z.string().nullable().optional(),
-  title: z.string().nullable().optional(),
   image: MediaSchema.nullable(),
   description: z.string().nullable(),
 });
@@ -402,7 +397,7 @@ export const PromotionBatteryPricingSchema = z.object({
   title: z.string().nullable(),
   backgroundImage: MediaSchema.nullable(),
   centerImage: MediaSchema.nullable(),
-  items: z.array(z.object({ id: z.number(), title: z.string().nullable(), sections: z.unknown().nullable() })).nullable(),
+  items: z.array(z.object({ id: z.number(), title: z.string().nullable(), sections: z.array(z.object({ type: z.string().nullable(), title: z.string().nullable().optional(), value: z.union([z.string(), z.number()]).nullable().optional(), items: z.array(z.object({ label: z.string().nullable(), value: z.union([z.string(), z.number()]).nullable().optional(), emphasis: z.string().nullable().optional() })).nullable().optional() })).nullable().optional() })).nullable(),
 });
 export type PromotionBatteryPricingData = z.infer<typeof PromotionBatteryPricingSchema>;
 
@@ -410,7 +405,7 @@ export const PromotionContactInfoSchema = z.object({
   __component: z.literal("promotion.contact-info"),
   title: z.string().nullable(),
   description: z.string().nullable(),
-  items: z.unknown().nullable(),
-  socials: z.unknown().nullable(),
+  items: z.array(PromotionContactDataSchema).nullable(),
+  socials: z.array(PromotionSocialItemSchema).nullable(),
 });
 export type PromotionContactInfoData = z.infer<typeof PromotionContactInfoSchema>;

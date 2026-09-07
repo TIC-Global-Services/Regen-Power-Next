@@ -17,7 +17,7 @@ export interface ResolvedBrandsHero {
   title: string;
   description: string;
   ctaText: string;
-  ctaLink: string;
+  ctaLink?: string;
 }
 export function resolveBrandsHero(
   data: BrandsHeroData | undefined
@@ -30,7 +30,7 @@ export function resolveBrandsHero(
     title: data.title ?? "",
     description: data.description ?? "",
     ctaText: data.ctaText ?? "",
-    ctaLink: data.ctaLink ?? "#quote-form",
+    ...(data.ctaLink ? { ctaLink: data.ctaLink } : {}),
   };
 }
 

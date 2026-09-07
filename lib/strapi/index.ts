@@ -43,10 +43,12 @@ export {
   getHomePage,
   getPromotionPage,
   getAboutPage,
+  getFooter,
 } from "./fetchers";
+export type { FooterResponse } from "./fetchers";
 
 export { populate } from "./populate/index";
-export { solar, brands, deals, shared, rebates, batteryRebates, batteryProduct, batteryStorage, smartHomeBattery, batteryBrands, evCharging, home, faq, commercial, research, reviews, promotion, about } from "./populate/fragments";
+export { solar, brands, deals, shared, rebates, batteryRebates, batteryProduct, batteryStorage, smartHomeBattery, batteryBrands, evCharging, home, faq, commercial, research, reviews, promotion, about, footer } from "./populate/fragments";
 
 // Backward-compat type aliases (used by existing schemas)
 export type {

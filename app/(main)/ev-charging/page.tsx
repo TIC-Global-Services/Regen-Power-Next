@@ -210,6 +210,8 @@ const EvChargingPage = async () => {
           data={{
             ...homeBatteryProps,
             image: homeBatteryProps.image || sigenSetup,
+            ...(homeBatteryProps.ctaText ? { ctaText: homeBatteryProps.ctaText } : {}),
+            ...(homeBatteryProps.ctaLink ? { ctaLink: homeBatteryProps.ctaLink } : {}),
           }}
         />
       )}

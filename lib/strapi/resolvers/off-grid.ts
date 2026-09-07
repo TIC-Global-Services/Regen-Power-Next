@@ -20,7 +20,7 @@ export interface ResolvedOffGridHero {
   mainTitle: string;
   description: string;
   ctaText: string;
-  ctaLink: string;
+  ctaLink?: string;
   backgroundImage: string;
 }
 export function resolveOffGridHero(
@@ -97,7 +97,7 @@ export interface ResolvedThreeSolutionItem {
   description: string;
   image: string;
   ctaText: string;
-  ctaHref: string;
+  ctaHref?: string;
 }
 export interface ResolvedThreeSolutionsSection {
   subtitle: string;
@@ -118,7 +118,7 @@ export function resolveThreeSolutionsSection(
       description: s.description ?? "",
       image: s.image ? strapiImageData(s.image)?.src ?? "" : "",
       ctaText: s.ctaText ?? "Learn More",
-      ctaHref: s.ctaHref ?? "#",
+      ...(s.ctaHref ? { ctaHref: s.ctaHref } : {}),
     })),
   };
 }
@@ -303,7 +303,7 @@ export interface ResolvedOverlayCardGrid {
   overlayOpacity: number;
   badge: string;
   ctaText: string;
-  ctaHref: string;
+  ctaHref?: string;
   cards: ResolvedOverlayCard[];
 }
 

@@ -15,8 +15,8 @@ export interface BatterySplitSlide {
   title: string;
   mainDescription: string;
   blocks: SplitSectionBlock[];
-  ctaText: string;
-  ctaLink: string;
+  ctaText?: string;
+  ctaLink?: string;
   image: StaticImageData | string;
 }
 
@@ -150,7 +150,7 @@ const BatterySplitSection = ({ data }: { data: BatterySplitData }) => {
                       ))}
                     </div>
 
-                    {currentSlide === 0 && (
+                    {slide.ctaText && slide.ctaLink && (
                       <CtaButton
                         href={slide.ctaLink}
                         text={slide.ctaText}

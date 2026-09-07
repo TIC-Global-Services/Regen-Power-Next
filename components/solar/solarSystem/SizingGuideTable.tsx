@@ -52,8 +52,8 @@ const SizingGuideTable: React.FC<SizingGuideTableProps> = ({ resolved }) => {
         <div className="text-center">
           <Reveal delay={0.3} className="inline-block">
             <CtaButton
-              href="#quote-form"
-              text="Get A Sizing Recommendation For My Home"
+              href={resolved.ctaLink}
+              text={resolved.ctaText ?? "Get A Sizing Recommendation For My Home"}
               textColor="text-black"
             />
           </Reveal>

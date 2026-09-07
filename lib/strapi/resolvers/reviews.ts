@@ -13,7 +13,7 @@ export interface ResolvedReviewsHero {
   mainTitle: string;
   description: string;
   ctaText: string;
-  ctaLink: string;
+  ctaLink?: string;
   backgroundImage: string;
 }
 export function resolveReviewsHero(
@@ -26,7 +26,7 @@ export function resolveReviewsHero(
     mainTitle: data.mainTitle ?? "",
     description: data.description ?? "",
     ctaText: data.ctaText ?? "Get Your Free Quote",
-    ctaLink: data.ctaLink ?? "#quote-form",
+    ...(data.ctaLink ? { ctaLink: data.ctaLink } : {}),
     backgroundImage: img?.src ?? "",
   };
 }
@@ -133,7 +133,7 @@ export interface ResolvedReviewsCtaBanner {
   title: string;
   description: string;
   buttonText: string;
-  buttonHref: string;
+  buttonHref?: string;
   bgImage: string | undefined;
 }
 export function resolveReviewsCtaBanner(
@@ -146,7 +146,7 @@ export function resolveReviewsCtaBanner(
     title: data.mainTitle ?? "",
     description: data.description ?? "",
     buttonText: data.buttonText ?? "Get My Free Quote",
-    buttonHref: data.buttonHref ?? "#quote-form",
+    ...(data.buttonHref ? { buttonHref: data.buttonHref } : {}),
     bgImage: img?.src,
   };
 }

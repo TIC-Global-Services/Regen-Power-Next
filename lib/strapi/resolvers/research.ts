@@ -12,7 +12,7 @@ export interface ResolvedResearchDevelopmentHero {
   mainTitle: string;
   description: string;
   ctaText: string;
-  ctaLink: string;
+  ctaLink?: string;
 }
 export function resolveResearchDevelopmentHero(
   data: ResearchDevelopmentHeroData | undefined
@@ -25,7 +25,7 @@ export function resolveResearchDevelopmentHero(
     mainTitle: data.mainTitle ?? "",
     description: data.description ?? "",
     ctaText: data.ctaText ?? "Get Your Free Quote",
-    ctaLink: data.ctaLink ?? "#quote-form",
+    ...(data.ctaLink ? { ctaLink: data.ctaLink } : {}),
   };
 }
 

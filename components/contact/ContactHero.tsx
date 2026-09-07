@@ -7,7 +7,7 @@ export interface ContactHeroProps {
     mainTitle: string;
     description: string;
     ctaText: string;
-    ctaLink: string;
+    ctaLink?: string;
     backgroundImage: StaticImageData | string;
 }
 

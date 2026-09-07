@@ -241,6 +241,7 @@ export const HomeownersSchema = z.object({
   showReadMore: z.boolean().nullable(),
   centerButton: z.boolean().nullable(),
   centerButtonText: z.string().nullable(),
+  centerButtonLink: z.string().nullable(),
   cards: z.array(FeatureCardSchema),
 });
 export type HomeownersData = z.infer<typeof HomeownersSchema>;

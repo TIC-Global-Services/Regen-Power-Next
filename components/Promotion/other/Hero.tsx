@@ -15,7 +15,7 @@ export interface HeroProps {
   description?: string;
   cta?: {
     label: string;
-    href: string;
+    href?: string;
   };
   backgroundImage: string;
   onCtaClick?: (e: React.MouseEvent<HTMLAnchorElement | HTMLButtonElement>) => void;

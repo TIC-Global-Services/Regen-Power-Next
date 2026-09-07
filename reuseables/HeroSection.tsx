@@ -15,8 +15,8 @@ export interface HeroSectionData {
     topSubtitle: React.ReactNode;
     mainTitle: React.ReactNode;
     description: React.ReactNode;
-    ctaText: string;
-    ctaLink: string;
+    ctaText?: string;
+    ctaLink?: string;
     subtitleColor?: string;
     descriptionColor?: string;
     showOverlay?: boolean;
