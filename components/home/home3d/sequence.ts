@@ -1,7 +1,7 @@
-export const FRAME_COUNT = 674;
+export const FRAME_COUNT = 671;
 
 export const FRAME_SRC = (index: number) =>
-  `/sequence/frame_${String(index + 1).padStart(4, "0")}.webp`;
+  `/desktop-sequence/${String(index).padStart(5, "0")}.webp`;
 
 // Native resolution of the exported frames — used to size decode-time
 // downscaling so cached frames never hold more resolution than the device
@@ -11,9 +11,7 @@ export const FRAME_NATIVE_HEIGHT = 1080;
 
 // Mobile-specific sequence: a native portrait export (vs. the desktop set's
 // 16:9 landscape) so phones get a direct crop instead of the heavy cover-crop
-// loss a 16:9 frame takes when fit to a tall viewport. 3 frames shorter than
-// the desktop export (671 vs 674) — negligible against the shared timing
-// ranges below (INTRO/LOOP/SCROLL_START all sit well under 671).
+// loss a 16:9 frame takes when fit to a tall viewport.
 export const MOBILE_FRAME_COUNT = 671;
 
 export const MOBILE_FRAME_SRC = (index: number) =>
