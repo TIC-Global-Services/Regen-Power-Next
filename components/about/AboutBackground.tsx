@@ -43,7 +43,7 @@ export default function AboutBackground({
   items,
   fallbackItems,
 }: AboutBackgroundProps) {
-  const fallbackVideo = "/about/10002.mp4";
+  const fallbackVideo = "/about/10003.mp4";
   const videoSrc = heroVideoSrc || fallbackVideo;
   // Use Strapi items when provided, else local fallbacks from AboutHorizontalScroll
   const displayItems = items && items.length > 0 ? items : fallbackItems;

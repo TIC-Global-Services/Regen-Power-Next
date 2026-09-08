@@ -15,7 +15,7 @@ export const FRAME_NATIVE_HEIGHT = 1080;
 export const MOBILE_FRAME_COUNT = 671;
 
 export const MOBILE_FRAME_SRC = (index: number) =>
-  `/mobile-sequence/frame_${String(index + 1).padStart(4, "0")}.webp`;
+  `/final-mobile-sequence/${String(index).padStart(5, "0")}.webp`;
 
 export const MOBILE_FRAME_NATIVE_WIDTH = 1080;
 export const MOBILE_FRAME_NATIVE_HEIGHT = 1920;
