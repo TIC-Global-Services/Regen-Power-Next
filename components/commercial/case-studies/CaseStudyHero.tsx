@@ -69,7 +69,7 @@ export default function CaseStudyHero({ caseStudy }: Props) {
 
         {/* Action Button: Download Report / Inquire */}
         <div className="flex flex-wrap items-center gap-4">
-          {pdfUrl ? (
+          {pdfUrl && (
             <a
               href={pdfUrl}
               target="_blank"
@@ -81,18 +81,7 @@ export default function CaseStudyHero({ caseStudy }: Props) {
                 <ArrowUpRight className="w-5 h-5" />
               </span>
             </a>
-          ) : (
-            <a
-              href="#quote-form"
-              className="inline-flex items-center gap-3 bg-[#63B846]/40 hover:bg-[#63B846] text-white text-xs sm:text-sm font-medium pl-5 pr-2 py-2 rounded-full backdrop-blur-md border border-[#63B846]/60 transition-all duration-300 group shadow-lg"
-            >
-              <span>Request Project Details</span>
-              <span className="w-7 h-7 rounded-full bg-[#63B846] text-white flex items-center justify-center group-hover:rotate-45 transition-transform duration-300">
-                <ArrowUpRight className="w-4 h-4" />
-              </span>
-            </a>
           )}
-
           {/* <a
             href="#quote-form"
             className="inline-flex items-center gap-2 text-xs sm:text-sm text-white/80 hover:text-white px-5 py-2.5 rounded-full border border-white/20 hover:border-white/40 backdrop-blur-sm transition-colors"

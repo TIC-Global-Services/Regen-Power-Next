@@ -45,7 +45,7 @@ const caseTable: React.FC<caseTableProps> = ({
   return (
     <>
       {/* ── Mobile only: brand/series pill picker + stacked rows (below md) ── */}
-      <div className="md:hidden mt-12 mb-16">
+      <div className="lg:hidden mt-12 mb-16">
         {/* Craftsmanship-style segmented pill track — scrollable, snap, auto-centering */}
         <div
           ref={pillsRef}
@@ -102,7 +102,7 @@ const caseTable: React.FC<caseTableProps> = ({
       </div>
 
       {/* ── Full table — shows on iPad (md+) and desktop; phones get the picker above ── */}
-      <Reveal className="hidden md:block rounded-[24px] mt-16 overflow-x-auto">
+      <Reveal className="hidden lg:block rounded-[24px] mt-16 overflow-x-auto">
         <table className="w-full border-collapse text-center bg-white">
           <thead>
             <tr className="h-[70px] lg:h-[100px]">
