@@ -56,7 +56,7 @@ export default function CaseStudyHero({ caseStudy }: Props) {
         )}
 
         {/* High-Impact Brand Green Title */}
-        <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-[5rem] font-normal uppercase tracking-tight text-[#63B846] leading-[1.04] mb-6">
+        <h1 className="text-4xl sm:text-5xl md:text-6xl  font-normal uppercase tracking-tight text-[#63B846] leading-[1.04] mb-6">
           {title}
         </h1>
 

@@ -73,7 +73,7 @@ export default function CaseStudyNarrative({
               )}
 
               {/* Section Paragraphs */}
-              <div className="space-y-4 text-sm sm:text-base text-neutral-700 leading-relaxed font-normal">
+              <div className="space-y-4 text-sm sm:text-base text-neutral-700 leading-[1.2] font-normal">
                 {paragraphs.map((para, pIdx) => (
                   <p key={pIdx}>{para}</p>
                 ))}

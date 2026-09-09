@@ -12,7 +12,7 @@ export default function CaseStudySpecs({ tables }: Props) {
   if (!tables || tables.length === 0) return null;
 
   return (
-    <section className="px-[5%] md:px-[3%]  pb-20 md:pb-28 bg-white">
+    <section className="px-[5%] md:px-[3%] max-w-5xl pb-20 md:pb-28 bg-white">
       <div className="space-y-12">
         <div>
           <span className="text-xs uppercase tracking-widest text-[#4d7a17] font-semibold">
