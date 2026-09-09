@@ -86,15 +86,54 @@ export const CommercialSystemsIndustriesSectionSchema = z.object({
 });
 export type CommercialSystemsIndustriesSectionData = z.infer<typeof CommercialSystemsIndustriesSectionSchema>;
 
-export const FeatureCardSchema = z.object({
-  id: z.number(),
+export const CaseStudyDetailEntrySchema = z.object({
   title: z.string(),
-  description: z.string(),
-  image: MediaSchema.nullable(),
-  textPosition: z.enum(["top", "bottom"]).nullable(),
-  footerTitle: z.string().nullable(),
-  footerDescription: z.string().nullable(),
+  details: z.string(),
 });
+
+export const CaseStudyTableSchema = z.object({
+  id: z.string().optional(),
+  title: z.string().optional(),
+  headers: z.array(z.string()).optional(),
+  rows: z.array(z.array(z.union([z.string(), z.number()]))),
+});
+
+export const CaseStudyDetailsDataSchema = z.object({
+  slug: z.string().optional(),
+  url: z.string().optional(),
+  card_title: z.string().optional(),
+  card_subtitle: z.string().optional(),
+  location: z.string().optional(),
+  location_details: z.string().optional(),
+  reveal_text: z.string().optional(),
+  pdf_url: z.string().nullable().optional(),
+  casestudydetails: z.array(CaseStudyDetailEntrySchema).optional(),
+  tables: z.array(CaseStudyTableSchema).optional(),
+  images: z.array(z.union([z.string(), z.record(z.string(), z.any())])).optional(),
+}).passthrough();
+export type CaseStudyDetailsData = z.infer<typeof CaseStudyDetailsDataSchema>;
+
+export const FeatureCardSchema = z.object({
+  id: z.number().optional(),
+  title: z.string().nullable().optional(),
+  subtitle: z.string().nullable().optional(),
+  description: z.string().nullable().optional(),
+  image: MediaSchema.nullable().optional(),
+  textPosition: z.enum(["top", "bottom"]).nullable().optional(),
+  footerTitle: z.string().nullable().optional(),
+  footerDescription: z.string().nullable().optional(),
+  details: z.preprocess((val) => {
+    if (typeof val === "string") {
+      try {
+        return JSON.parse(val);
+      } catch {
+        return val;
+      }
+    }
+    return val;
+  }, CaseStudyDetailsDataSchema.nullable().optional()),
+});
+export type FeatureCardData = z.infer<typeof FeatureCardSchema>;
 
 export const CommercialSystemsFeatureCardGridSchema = z.object({
   __component: z.literal("commercial-systems.feature-card-grid"),

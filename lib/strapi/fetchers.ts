@@ -4,8 +4,10 @@ import type { BlogArticleData } from "./schemas/blog";
 import type { PressArticleData } from "./schemas/press-media";
 import type { PortfolioProjectData } from "./schemas/portfolio";
 import type { TestimonialEntryData } from "./schemas/reviews";
+import type { CaseStudyData } from "./schemas/case-study";
 import { populate } from "./populate/index";
 import * as solar from "./populate/solar";
+
 import * as brands from "./populate/brands";
 import * as deals from "./populate/deals";
 import * as shared from "./populate/shared";
@@ -29,6 +31,7 @@ import * as offGrid from "./populate/off-grid";
 import * as about from "./populate/about";
 import * as promotion from "./populate/promotion";
 import * as footer from "./populate/footer";
+import * as caseStudy from "./populate/case-study";
 
 const PAGE_SLUGS = {
   solar: "solar-page",
@@ -515,6 +518,60 @@ export const getLatestPortfolioProjects = async (
   const res = await portfolioProjectsPage(1, limit);
   return Array.isArray(res.data) ? res.data : [];
 };
+
+/* ─── case-study collection (api::case-study.case-study) ─── */
+
+const CASE_STUDIES_PAGE_SIZE = 100;
+
+/** Build the querystring for a page of case-studies using the populate query from populate/case-study.ts. */
+function caseStudiesQuery(page: number, pageSize: number): string {
+  const params = new URLSearchParams();
+  params.set("sort[0]", "createdAt:desc");
+  params.set("pagination[page]", String(page));
+  params.set("pagination[pageSize]", String(pageSize));
+  return `${caseStudy.caseStudyCollection}&${params.toString()}`;
+}
+
+function caseStudiesPage(
+  page: number,
+  pageSize: number
+): Promise<StrapiResponse<CaseStudyData[]>> {
+  return strapiFetch<StrapiResponse<CaseStudyData[]>>(
+    `/case-studies?${caseStudiesQuery(page, pageSize)}`
+  );
+}
+
+/** Fetch all published case-studies at once (paginated server-side, revalidate 60). */
+export const getCaseStudies = async (): Promise<
+  StrapiResponse<CaseStudyData[]>
+> => {
+  const first = await caseStudiesPage(1, CASE_STUDIES_PAGE_SIZE);
+  if (!Array.isArray(first.data)) {
+    return { data: [], meta: first.meta };
+  }
+  const pagination = (first.meta?.pagination ?? {}) as {
+    pageCount?: number;
+    total?: number;
+  };
+  const total = pagination.total ?? first.data.length;
+  const pageCount =
+    pagination.pageCount ?? Math.max(1, Math.ceil(total / CASE_STUDIES_PAGE_SIZE));
+  if (pageCount <= 1) return first;
+
+  const rest = await Promise.all(
+    Array.from({ length: pageCount - 1 }, (_, i) =>
+      caseStudiesPage(i + 2, CASE_STUDIES_PAGE_SIZE)
+    )
+  );
+  return {
+    data: rest.reduce(
+      (acc, r) => (Array.isArray(r.data) ? acc.concat(r.data) : acc),
+      first.data
+    ),
+    meta: first.meta,
+  };
+};
+
 
 export const getContactPage = () =>
   getSingleType(

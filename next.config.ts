@@ -11,6 +11,10 @@ const nextConfig: NextConfig = {
         protocol: "https",
         hostname: new URL(STRAPI_URL).hostname,
       },
+      {
+        protocol: "https",
+        hostname: "regenpower.com",
+      },
     ],
   },
 };

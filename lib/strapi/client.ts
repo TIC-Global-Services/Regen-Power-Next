@@ -28,10 +28,12 @@ export async function strapiFetch<T>(
   init?: RequestInit & { next?: { revalidate?: number; tags?: string[] } },
 ): Promise<T> {
   const url = `${getStrapiURL()}/api${path}`;
+  const token = process.env.STRAPI_API_TOKEN;
   const res = await fetch(url, {
     ...init,
     headers: {
       Accept: "application/json",
+      ...(token ? { Authorization: `Bearer ${token}` } : {}),
       ...(init?.headers || {}),
     },
     next: { revalidate: 60, ...(init?.next || {}) },

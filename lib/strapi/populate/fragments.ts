@@ -19,3 +19,4 @@ export * as commercial from "./commercial";
 export * as research from "./research";
 export * as reviews from "./reviews";
 export * as footer from "./footer";
+export * as caseStudy from "./case-study";

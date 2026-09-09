@@ -353,6 +353,7 @@ export type {
   ResolvedCommercialSystemsComponentsSection,
   ResolvedCommercialSystemsIndustriesSection,
   ResolvedCommercialSystemsFeatureCardGrid,
+  ResolvedFeatureCard,
   ResolvedCommercialSystemsWatchSystemSection,
   ResolvedCommercialSystemsPackagesGrid,
   ResolvedCommercialSystemsProcessFlow,
@@ -507,3 +508,10 @@ export type {
   ResolvedFooterStateOffice,
   ResolvedFooterSocialLink,
 } from "./footer";
+
+export {
+  resolveCaseStudyDetail,
+  resolveCaseStudies,
+  caseStudiesToFeatureCards,
+} from "./case-study";
+

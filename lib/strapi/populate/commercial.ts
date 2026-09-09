@@ -17,7 +17,7 @@ export const systemsIndustriesSection =
   "populate[sections][on][commercial-systems.industries-section][populate][industries][populate]=icon";
 
 export const systemsFeatureCardGrid =
-  "populate[sections][on][commercial-systems.feature-card-grid][populate][cards][populate]=image";
+  "populate[sections][on][commercial-systems.feature-card-grid][populate][cards][populate]=*";
 
 export const systemsWatchSystemSection =
   "populate[sections][on][commercial-systems.watch-system-section][populate][image]=true" +

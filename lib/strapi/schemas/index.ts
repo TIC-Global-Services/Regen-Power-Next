@@ -298,6 +298,8 @@ export type {
   CommercialOffGridHeroData,
   SharedEditorialSectionData,
   CommercialOffGridSolutionsPortfolioData,
+  CaseStudyDetailsData,
+  FeatureCardData,
 } from "./commercial";
 export {
   CommercialSystemsHeroSchema,
@@ -313,6 +315,7 @@ export {
   SharedFaqSchema,
   CommercialSystemsCommercialFormSchema,
   SharedCtaBannerSchema,
+  CaseStudyDetailsDataSchema,
   CommercialOffGridHeroSchema,
   SharedEditorialSectionSchema,
   CommercialOffGridSolutionsPortfolioSchema,
@@ -512,3 +515,15 @@ export {
   FooterStateOfficeSchema,
   FooterSocialLinkSchema,
 } from "./footer";
+
+export type {
+  CaseStudyData,
+  CaseStudyDetailEntryData,
+  CaseStudyTableData,
+} from "./case-study";
+export {
+  CaseStudySchema,
+  CaseStudyDetailEntrySchema,
+  CaseStudyTableSchema,
+} from "./case-study";
+

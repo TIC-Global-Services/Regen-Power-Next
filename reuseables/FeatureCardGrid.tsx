@@ -213,7 +213,7 @@ const FeatureCardGrid: React.FC<FeatureCardGridProps> = ({
 
             {isActive && (card.footerTitle || card.footerDescription) && (
               <div className="mt-4">
-                {card.footerTitle && (
+                {card.footerTitle && card.footerTitle.trim().toLowerCase() !== 'read more' && (
                   <h5 className="text-white font-semibold tracking-tight text-xl mb-0.5 whitespace-nowrap">
                     {card.footerTitle}
                   </h5>

@@ -1,5 +1,4 @@
-import React from "react";
-import { getCommercialSystemsPage } from "@/lib/strapi";
+import { getCommercialSystemsPage, getCaseStudies } from "@/lib/strapi";
 import { findSection } from "@/lib/strapi/section-utils";
 import {
   resolveCommercialSystemsHero,
@@ -15,6 +14,7 @@ import {
   resolveSharedFaq,
   resolveSharedCtaBanner,
   resolveSharedFormSection,
+  resolveCaseStudies,
 } from "@/lib/strapi/resolvers";
 import type {
   CommercialSystemsHeroData,
@@ -49,8 +49,12 @@ import UnifiedFormSection from "@/reuseables/UnifiedFormSection";
 export const revalidate = 60;
 
 export default async function CommercialSystemsPage() {
-  const { data } = await getCommercialSystemsPage();
+  const [{ data }, caseStudiesRes] = await Promise.all([
+    getCommercialSystemsPage().catch(() => ({ data: { sections: [] } })),
+    getCaseStudies().catch(() => ({ data: [], meta: {} })),
+  ]);
   const sections = data.sections ?? [];
+  const caseStudies = resolveCaseStudies(caseStudiesRes?.data);
 
   const hero = findSection<CommercialSystemsHeroData>(sections, "commercial-systems.hero");
   const stats = findSection<CommercialSystemsStatsCardGridData>(sections, "commercial-systems.stats-card-grid");
@@ -93,7 +97,7 @@ export default async function CommercialSystemsPage() {
 
       {industriesProps && <IndustriesSection resolved={industriesProps} />}
 
-      {featureCardsProps && <FeatureCardGridSection resolved={featureCardsProps} />}
+      <FeatureCardGridSection resolved={featureCardsProps} caseStudies={caseStudies} />
 
       {watchSystemProps && <WatchSystemSection resolved={watchSystemProps} />}
 

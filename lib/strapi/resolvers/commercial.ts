@@ -1,5 +1,10 @@
 import { strapiImageData } from "../media";
 import type { StrapiImageData } from "../media";
+import {
+  normalizeCaseStudy,
+  type CaseStudyItem,
+  type RawCaseStudyItem,
+} from "@/utils/case-studies-data";
 import type {
   CommercialSystemsHeroData,
   CommercialSystemsStatsCardGridData,
@@ -156,12 +161,18 @@ export function resolveCommercialSystemsIndustriesSection(
 }
 
 export interface ResolvedFeatureCard {
+  id?: number;
   title: string;
+  subtitle?: string;
+  cardTitle?: string;
+  cardSubTitle?: string;
   description: string;
-  image: StrapiImageData | null;
+  image: StrapiImageData | string | null;
   textPosition: "top" | "bottom";
-  footerTitle: string | undefined;
-  footerDescription: string | undefined;
+  footerTitle?: string;
+  footerDescription?: string;
+  href?: string;
+  details?: CaseStudyItem | null;
 }
 export interface ResolvedCommercialSystemsFeatureCardGrid {
   topSubtitle: string;
@@ -177,14 +188,50 @@ export function resolveCommercialSystemsFeatureCardGrid(
     topSubtitle: data.topSubtitle ?? "",
     title: data.title ?? "",
     bottomSubtitle: data.bottomSubtitle ?? "",
-    cards: (data.cards ?? []).map((c) => ({
-      title: c.title,
-      description: c.description,
-      image: c.image ? strapiImageData(c.image) : null,
-      textPosition: c.textPosition ?? "top",
-      footerTitle: c.footerTitle ?? undefined,
-      footerDescription: c.footerDescription ?? undefined,
-    })),
+    cards: (data.cards ?? []).map((c) => {
+      const details = c.details
+        ? normalizeCaseStudy(c.details as RawCaseStudyItem)
+        : null;
+      const slug = c.details?.slug || details?.slug;
+
+      const cardTitle =
+        (c as any).cardTitle ||
+        c.title ||
+        details?.card_title ||
+        details?.title ||
+        "";
+      const cardSubTitle =
+        (c as any).cardSubTitle ||
+        (c as any).cardSubtitle ||
+        c.subtitle ||
+        details?.card_subtitle ||
+        undefined;
+      const description =
+        c.description || details?.location_details || details?.reveal_text || "";
+      const image = c.image
+        ? strapiImageData(c.image)
+        : details?.showcaseImage || details?.images?.[0] || null;
+      const textPosition = c.textPosition ?? "top";
+      const footerTitle = c.footerTitle || details?.location || undefined;
+      const footerDescription =
+        c.footerDescription || cardSubTitle || undefined;
+      const href = slug ? `/commercial/case-studies/${slug}` : undefined;
+
+      return {
+        id: c.id,
+        title: cardTitle,
+        subtitle: cardSubTitle,
+        cardTitle,
+        cardSubTitle,
+        description,
+        image,
+        textPosition,
+        footerTitle,
+        footerDescription,
+        href,
+        details,
+      };
+    }),
   };
 }
 
