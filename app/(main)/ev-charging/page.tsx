@@ -252,6 +252,7 @@ const EvChargingPage = async () => {
         image={formProps?.imageSrc}
         title={formProps?.title ?? undefined}
         description={formProps?.description ?? undefined}
+        hubspotFormId="d1862f51-6231-4a8e-9278-950e1131cfce"
       />
 
       {ctaProps && (

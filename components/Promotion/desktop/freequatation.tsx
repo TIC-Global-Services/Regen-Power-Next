@@ -3,8 +3,8 @@
 import React, { useState } from 'react';
 import Fade from '@/reuseables/fade';
 import Image from 'next/image';
-import CtaButton from '@/reuseables/CtaButton';
-import { Play, Calculator } from 'lucide-react';
+import { Play } from 'lucide-react';
+import HubspotForm from '@/reuseables/HubspotForm';
 
 export interface FreeQuotationProps {
   title: string;
@@ -14,13 +14,11 @@ export interface FreeQuotationProps {
   buttonText: string;
 }
 
-const FreeQuotation = ({ data }: { data: FreeQuotationProps }) => {
-  const [isPlaying, setIsPlaying] = useState(false);
+// Default form (used by /solar-system-perth when no formId override is passed).
+const DEFAULT_HUBSPOT_FORM_ID = '5ca75069-69da-4015-b63c-2fff558ff814';
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    alert('Thank you for your submission! We will contact you shortly.');
-  };
+const FreeQuotation = ({ data, formId }: { data: FreeQuotationProps; formId?: string }) => {
+  const [isPlaying, setIsPlaying] = useState(false);
 
   // Split title: "Get an Obligation Free Quotation" -> "Get An Obligation" and "Free Quotation"
   const titleText = data.title || "Get an Obligation Free Quotation";
@@ -110,77 +108,12 @@ const FreeQuotation = ({ data }: { data: FreeQuotationProps }) => {
               </div>
             </div>
 
-            {/* Right side: Contact Form */}
+            {/* Right side: HubSpot Contact Form */}
             <div className="lg:col-span-5 lg:pl-4">
-              <form onSubmit={handleSubmit} className="space-y-6">
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  <div className="flex flex-col border-b border-gray-300 focus-within:border-[#63B846] pb-2 transition-colors duration-300">
-                    <label className="text-gray-900 text-sm md:text-base font-semibold mb-1">First Name*</label>
-                    <input
-                      type="text"
-                      required
-                      className="w-full bg-transparent text-gray-800 focus:outline-none py-1 text-sm md:text-base text-black"
-                    />
-                  </div>
-                  <div className="flex flex-col border-b border-gray-300 focus-within:border-[#63B846] pb-2 transition-colors duration-300">
-                    <label className="text-gray-900 text-sm md:text-base font-semibold mb-1">Last Name*</label>
-                    <input
-                      type="text"
-                      required
-                      className="w-full bg-transparent text-gray-800 focus:outline-none py-1 text-sm md:text-base text-black"
-                    />
-                  </div>
-                </div>
-
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  <div className="flex flex-col border-b border-gray-300 focus-within:border-[#63B846] pb-2 transition-colors duration-300">
-                    <label className="text-gray-900 text-sm md:text-base font-semibold mb-1">Email*</label>
-                    <input
-                      type="email"
-                      required
-                      className="w-full bg-transparent text-gray-800 focus:outline-none py-1 text-sm md:text-base text-black"
-                    />
-                  </div>
-                  <div className="flex flex-col border-b border-gray-300 focus-within:border-[#63B846] pb-2 transition-colors duration-300">
-                    <label className="text-gray-900 text-sm md:text-base font-semibold mb-1">Phone Number*</label>
-                    <input
-                      type="tel"
-                      required
-                      className="w-full bg-transparent text-gray-800 focus:outline-none py-1 text-sm md:text-base text-black"
-                    />
-                  </div>
-                </div>
-
-                <div className="flex flex-col border-b border-gray-300 focus-within:border-[#63B846] pb-2 transition-colors duration-300">
-                  <label className="text-gray-900 text-sm md:text-base font-semibold mb-1">Installation Address*</label>
-                  <input
-                    type="text"
-                    required
-                    className="w-full bg-transparent text-gray-800 focus:outline-none py-1 text-sm md:text-base text-black"
-                  />
-                </div>
-
-                <div className="flex flex-col border-b border-gray-300 focus-within:border-[#63B846] pb-2 transition-colors duration-300">
-                  <label className="text-gray-900 text-sm md:text-base font-semibold mb-1">Message</label>
-                  <textarea
-                    rows={1}
-                    className="w-full bg-transparent text-gray-800 focus:outline-none py-1 text-sm md:text-base text-black resize-none"
-                  />
-                </div>
-
-                <div className="flex justify-center pt-4">
-                  <CtaButton
-                    type="submit"
-                    text={data.buttonText}
-                    icon={Calculator}
-                    bgClass="bg-[#BEE5B2] border-0"
-                    hoverClass="hover:bg-[#A9D89D]"
-                    textColor="text-black font-semibold"
-                    iconBgClass="bg-[#63B846]"
-                    iconTextColor="text-black"
-                  />
-                </div>
-              </form>
+              <HubspotForm
+                formId={formId || DEFAULT_HUBSPOT_FORM_ID}
+                targetId="hubspot-free-quotation-form"
+              />
             </div>
           </div>
         </div>

@@ -189,6 +189,7 @@ const BatteryProductPage = async () => {
         image={formProps?.imageSrc}
         title={formProps?.title ?? undefined}
         description={formProps?.description ?? undefined}
+        hubspotFormId="c9e5b59a-7594-4796-9ee7-950722692d0b"
       />
 
       {ctaBannerProps && (

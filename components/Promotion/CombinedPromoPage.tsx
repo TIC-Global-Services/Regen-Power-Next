@@ -62,9 +62,10 @@ import {
 
 export interface CombinedPromoPageProps {
   promotion?: ResolvedPromotionPage | null;
+  hubspotFormId?: string;
 }
 
-const CombinedPromoPage = ({ promotion }: CombinedPromoPageProps) => {
+const CombinedPromoPage = ({ promotion, hubspotFormId }: CombinedPromoPageProps) => {
   // ─── Resolve desktop props (Strapi if present, fallback otherwise) ───────
   const hero = promotion?.hero
     ? {
@@ -401,7 +402,7 @@ const CombinedPromoPage = ({ promotion }: CombinedPromoPageProps) => {
         <LimitedSpot data={limitedSpot} />
         <TrustRegen data={trustRegen} />
         <div id="quote-form-section">
-          <FreeQuotation data={freeQuotation} />
+          <FreeQuotation data={freeQuotation} formId={hubspotFormId} />
         </div>
         <BatteryRebates data={batteryRebates} />
         <DesktopBrands data={brands} />
@@ -457,6 +458,7 @@ const CombinedPromoPage = ({ promotion }: CombinedPromoPageProps) => {
             title={mobileQuoteForm.title}
             noticeText={mobileQuoteForm.noticeText}
             buttonText={mobileQuoteForm.buttonText}
+            formId={hubspotFormId}
           />
         </div>
 

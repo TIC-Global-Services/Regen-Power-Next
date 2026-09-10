@@ -90,6 +90,7 @@ export default async function SolarDealsPage() {
         image={formProps?.imageSrc}
         title={formProps?.title ?? undefined}
         description={formProps?.description ?? undefined}
+        hubspotFormId="8da0d931-e481-4e7a-bb0e-9bdf0afe5522"
       />
 
       {ctaBannerProps && <CtaBannerSection resolved={ctaBannerProps} />}

@@ -7,6 +7,7 @@ import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { ArrowRight } from "lucide-react";
 import SectionHeader from "@/reuseables/SectionHeader";
+import HubspotForm from "@/reuseables/HubspotForm";
 import type { ResolvedSharedFormSection } from "@/lib/strapi/resolvers/shared";
 
 type Props = {
@@ -16,6 +17,7 @@ type Props = {
   image?: string | StaticImageData | null;
   video?: string | null;
   hubspotSrc?: string | null;
+  hubspotFormId?: string | null;
   resolved?: ResolvedSharedFormSection | null;
   id?: string;
   className?: string;
@@ -29,8 +31,12 @@ const placeholderSchema = z.object({
 });
 type PlaceholderData = z.infer<typeof placeholderSchema>;
 
+// General site-wide HubSpot form — used by any page that doesn't pass its own hubspotFormId
+// (homepage + all other non-LP website pages).
+const DEFAULT_HUBSPOT_FORM_ID = "561cc960-ed96-4778-b55b-7d6fb2c8a873";
+
 export default function UnifiedFormSection({
-  title, subtitle, description, image, video, hubspotSrc, resolved, id = "quote-form", className = "",
+  title, subtitle, description, image, video, hubspotSrc, hubspotFormId, resolved, id = "quote-form", className = "",
 }: Props) {
   const t = resolved?.title ?? title ?? "";
   const sub = resolved?.subtitle ?? subtitle ?? "";
@@ -41,6 +47,7 @@ export default function UnifiedFormSection({
   // HubSpot priority: hubspotSrc prop → NEXT_PUBLIC_HUBSPOT_IFRAME_SRC env → placeholder form.
   const envHubspot = process.env.NEXT_PUBLIC_HUBSPOT_IFRAME_SRC?.trim() || null;
   const activeHubspot = (hubspotSrc?.trim() || null) ?? envHubspot;
+  const activeFormId = hubspotFormId || (!activeHubspot ? DEFAULT_HUBSPOT_FORM_ID : null);
 
   const { register, handleSubmit, formState: { errors, isSubmitting } } = useForm<PlaceholderData>({
     resolver: zodResolver(placeholderSchema),
@@ -79,7 +86,9 @@ export default function UnifiedFormSection({
           {/* Right: FORM card */}
           <div className="lg:col-span-7">
             <div className="bg-[#EEF6EB] rounded-[32px] p-6 md:p-10 shadow-sm border border-[#63B846]/10">
-              {activeHubspot ? (
+              {activeFormId ? (
+                <HubspotForm formId={activeFormId} targetId={`${id}-hubspot`} />
+              ) : activeHubspot ? (
                 <iframe
                   title="Contact form"
                   src={activeHubspot}
