@@ -50,6 +50,7 @@ const QuoteForm = ({
             <HubspotForm
               formId={formId || DEFAULT_HUBSPOT_FORM_ID}
               targetId="hubspot-quote-form-mobile"
+              minHeight={460}
             />
           </div>
         </div>

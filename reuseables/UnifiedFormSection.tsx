@@ -87,7 +87,7 @@ export default function UnifiedFormSection({
           <div className="lg:col-span-7">
             <div className="bg-[#EEF6EB] rounded-[32px] p-6 md:p-10 shadow-sm border border-[#63B846]/10">
               {activeFormId ? (
-                <HubspotForm formId={activeFormId} targetId={`${id}-hubspot`} />
+                <HubspotForm formId={activeFormId} targetId={`${id}-hubspot`} minHeight={520} />
               ) : activeHubspot ? (
                 <iframe
                   title="Contact form"

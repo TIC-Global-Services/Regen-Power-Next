@@ -113,6 +113,7 @@ const FreeQuotation = ({ data, formId }: { data: FreeQuotationProps; formId?: st
               <HubspotForm
                 formId={formId || DEFAULT_HUBSPOT_FORM_ID}
                 targetId="hubspot-free-quotation-form"
+                minHeight={480}
               />
             </div>
           </div>
