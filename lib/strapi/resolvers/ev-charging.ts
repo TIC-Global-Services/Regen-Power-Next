@@ -37,7 +37,7 @@ export function resolveEvChargingHero(
   if (!data) return null;
   return {
     mediaSrc: src(data.backgroundImage),
-    mediaType: "image",
+    mediaType: "video",
     topSubtitle: data.subtitle ?? "",
     mainTitle: data.title ?? "",
     description: data.description ?? "",

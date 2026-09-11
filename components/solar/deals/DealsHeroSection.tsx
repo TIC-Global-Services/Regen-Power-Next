@@ -11,7 +11,7 @@ export default function DealsHeroSection({ resolved }: Props) {
   return (
     <Hero
       mediaSrc={resolved.mediaSrc || fallback}
-      mediaType="image"
+      mediaType="video"
       topSubtitle={resolved.subtitle || ""}
       mainTitle={resolved.title || ""}
       description={resolved.description || ""}
@@ -21,7 +21,7 @@ export default function DealsHeroSection({ resolved }: Props) {
       titleColor="text-[#63B846]"
       descriptionColor="text-white/90"
       showOverlay={true}
-      heightClass="h-[600px]"
+      heightClass="h-screen"
     />
   );
 }
