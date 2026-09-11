@@ -1,65 +1,154 @@
-import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { notFound } from 'next/navigation';
-import { getBlogArticle, getBlogArticles, getLatestBlogArticles } from '@/lib/strapi';
-import { resolveBlogArticle, resolveLatestBlogItems } from '@/lib/strapi/resolvers';
+import {
+  getBlogArticle,
+  getBlogArticles,
+  getLatestBlogArticles,
+  getPressArticle,
+  getPressArticles,
+} from '@/lib/strapi';
+import {
+  resolveBlogArticle,
+  resolveLatestBlogItems,
+  resolvePressArticle,
+  resolveLatestPressItems,
+} from '@/lib/strapi/resolvers';
 import GetSolar from '@/reuseables/getsolar';
 
 export const revalidate = 60;
 
-interface BlogArticlePageProps {
+interface ArticlePageProps {
   params: Promise<{ slug: string }>;
 }
 
-/** How many items the "Latest Blogs" sidebar shows. */
-const LATEST_BLOGS_COUNT = 5;
+/** How many items the sidebar shows. */
+const LATEST_COUNT = 5;
 
 export async function generateStaticParams() {
-  const { data } = await getBlogArticles();
-  const articles = Array.isArray(data) ? data : [];
-  return articles
-    .map((a) => a.slug)
-    .filter((slug): slug is string => Boolean(slug))
-    .map((slug) => ({ slug }));
-}
-
-export async function generateMetadata({ params }: BlogArticlePageProps) {
-  const { slug } = await params;
-  const article = await getBlogArticle(slug);
-  const resolved = resolveBlogArticle(article);
-  if (!resolved) return { title: 'Article not found' };
-  return {
-    title: resolved.title,
-    description: resolved.description || undefined,
-  };
-}
-
-const BlogArticlePage = async ({ params }: BlogArticlePageProps) => {
-  const { slug } = await params;
-  const [article, latest] = await Promise.all([
-    getBlogArticle(slug),
-    getLatestBlogArticles(LATEST_BLOGS_COUNT + 1),
+  const [{ data: blogArticles }, { data: pressArticles }] = await Promise.all([
+    getBlogArticles(),
+    getPressArticles(),
   ]);
-  const resolved = resolveBlogArticle(article);
 
-  if (!resolved) notFound();
+  const slugs = new Set<string>();
+  for (const a of Array.isArray(blogArticles) ? blogArticles : []) {
+    if (a.slug) slugs.add(a.slug);
+  }
+  for (const a of Array.isArray(pressArticles) ? pressArticles : []) {
+    if (a.slug) slugs.add(a.slug);
+  }
 
-  // Most recent articles for the sidebar, excluding the one being read.
-  const latestItems = resolveLatestBlogItems(latest)
-    .filter((item) => item.href !== `/blog/${resolved.slug}`)
-    .slice(0, LATEST_BLOGS_COUNT);
+  return [...slugs].map((slug) => ({ slug }));
+}
 
-  const formatDate = (value: string) =>
-    value
-      ? new Date(value).toLocaleDateString('en-AU', {
-          day: 'numeric',
-          month: 'short',
-          year: 'numeric',
-        })
-      : null;
+export async function generateMetadata({ params }: ArticlePageProps) {
+  const { slug } = await params;
 
-  const publishedDate = formatDate(resolved.publishedAt);
+  const blogArticle = resolveBlogArticle(await getBlogArticle(slug));
+  if (blogArticle) {
+    return {
+      title: blogArticle.title,
+      description: blogArticle.description || undefined,
+    };
+  }
+
+  const pressArticle = resolvePressArticle(await getPressArticle(slug));
+  if (pressArticle) {
+    return {
+      title: pressArticle.title,
+      description: pressArticle.description || undefined,
+    };
+  }
+
+  return { title: 'Article not found' };
+}
+
+const ArticlePage = async ({ params }: ArticlePageProps) => {
+  const { slug } = await params;
+
+  // Blog articles take priority over press/media articles when a slug matches both.
+  const blogArticle = resolveBlogArticle(await getBlogArticle(slug));
+
+  if (blogArticle) {
+    const latest = await getLatestBlogArticles(LATEST_COUNT + 1);
+    const latestItems = resolveLatestBlogItems(latest)
+      .filter((item) => item.href !== `/${blogArticle.slug}`)
+      .slice(0, LATEST_COUNT);
+
+    return (
+      <ArticleLayout
+        article={blogArticle}
+        latestItems={latestItems}
+        backHref="/blog"
+        backLabel="Back to blog"
+        sidebarTitle="Latest Blogs"
+        viewAllHref="/blog"
+        viewAllLabel="View all blogs"
+      />
+    );
+  }
+
+  const pressArticle = resolvePressArticle(await getPressArticle(slug));
+
+  if (pressArticle) {
+    const { data: allPress } = await getPressArticles();
+    const latestItems = resolveLatestPressItems(allPress)
+      .filter((item) => item.href !== `/${pressArticle.slug}`)
+      .slice(0, LATEST_COUNT);
+
+    return (
+      <ArticleLayout
+        article={pressArticle}
+        latestItems={latestItems}
+        backHref="/press-media"
+        backLabel="Back to press & media"
+        sidebarTitle="Latest News"
+        viewAllHref="/press-media"
+        viewAllLabel="View all news"
+      />
+    );
+  }
+
+  notFound();
+};
+
+interface ArticleLayoutProps {
+  article: {
+    title: string;
+    description: string;
+    content: string;
+    categories: { key: string; label: string }[];
+    image: string;
+    publishedAt: string;
+  };
+  latestItems: { title: string; href: string; image: string; publishedAt: string }[];
+  backHref: string;
+  backLabel: string;
+  sidebarTitle: string;
+  viewAllHref: string;
+  viewAllLabel: string;
+}
+
+const formatDate = (value: string) =>
+  value
+    ? new Date(value).toLocaleDateString('en-AU', {
+        day: 'numeric',
+        month: 'short',
+        year: 'numeric',
+      })
+    : null;
+
+const ArticleLayout = ({
+  article,
+  latestItems,
+  backHref,
+  backLabel,
+  sidebarTitle,
+  viewAllHref,
+  viewAllLabel,
+}: ArticleLayoutProps) => {
+  const publishedDate = formatDate(article.publishedAt);
 
   return (
     <div className="bg-white min-h-screen text-black">
@@ -68,15 +157,15 @@ const BlogArticlePage = async ({ params }: BlogArticlePageProps) => {
           {/* ── Article ── */}
           <article className="w-full min-w-0 max-w-3xl">
             <Link
-              href="/blog"
+              href={backHref}
               className="inline-flex items-center gap-2 text-sm text-black/60 hover:text-black transition-colors mb-8"
             >
-              &larr; Back to blog
+              &larr; {backLabel}
             </Link>
 
-            {resolved.categories.length > 0 && (
+            {article.categories.length > 0 && (
               <div className="flex flex-wrap gap-2 mb-4">
-                {resolved.categories.map((cat) => (
+                {article.categories.map((cat) => (
                   <span
                     key={cat.key}
                     className="text-xs font-medium uppercase tracking-wide px-3 py-1 rounded-full bg-[#E5EFD5] text-[#4d7a17]"
@@ -88,12 +177,12 @@ const BlogArticlePage = async ({ params }: BlogArticlePageProps) => {
             )}
 
             <h1 className="text-3xl md:text-5xl font-normal tracking-tight leading-tight mb-4">
-              {resolved.title}
+              {article.title}
             </h1>
 
-            {resolved.description && (
+            {article.description && (
               <p className="text-lg text-black/70 leading-relaxed mb-6">
-                {resolved.description}
+                {article.description}
               </p>
             )}
 
@@ -101,11 +190,11 @@ const BlogArticlePage = async ({ params }: BlogArticlePageProps) => {
               <p className="text-sm text-black/50 mb-8">{publishedDate}</p>
             )}
 
-            {resolved.image && (
+            {article.image && (
               <div className="relative w-full h-[280px] md:h-[440px] rounded-[20px] overflow-hidden bg-[#E5EFD5] mb-10">
                 <Image
-                  src={resolved.image}
-                  alt={resolved.title}
+                  src={article.image}
+                  alt={article.title}
                   fill
                   className="object-cover"
                   preload
@@ -113,20 +202,20 @@ const BlogArticlePage = async ({ params }: BlogArticlePageProps) => {
               </div>
             )}
 
-            {resolved.content && (
+            {article.content && (
               <div
                 className="article-content text-base md:text-lg leading-relaxed text-black/80 space-y-4 [&_h1]:text-3xl [&_h2]:text-2xl [&_h3]:text-xl [&_h2,&_h3]:font-medium [&_h2,&_h3]:mt-8 [&_h2,&_h3]:mb-3 [&_p]:mb-4 [&_ul]:list-disc [&_ul]:pl-6 [&_ul]:mb-4 [&_ol]:list-decimal [&_ol]:pl-6 [&_ol]:mb-4 [&_a]:text-[#4d7a17] [&_a]:underline [&_img]:rounded-xl [&_img]:my-6 [&_blockquote]:border-l-4 [&_blockquote]:border-[#A0CF44] [&_blockquote]:pl-4 [&_blockquote]:italic [&_strong]:font-semibold"
-                dangerouslySetInnerHTML={{ __html: resolved.content }}
+                dangerouslySetInnerHTML={{ __html: article.content }}
               />
             )}
           </article>
 
-          {/* ── Latest Blogs sidebar (desktop only) ── */}
+          {/* ── Latest items sidebar (desktop only) ── */}
           {latestItems.length > 0 && (
             <aside className="hidden lg:block w-[300px] xl:w-[340px] shrink-0">
               <div className="sticky top-28">
                 <h2 className="text-lg font-medium tracking-tight mb-2">
-                  Latest Blogs
+                  {sidebarTitle}
                 </h2>
                 <ul className="flex flex-col">
                   {latestItems.map((item) => {
@@ -164,10 +253,10 @@ const BlogArticlePage = async ({ params }: BlogArticlePageProps) => {
                   })}
                 </ul>
                 <Link
-                  href="/blog"
+                  href={viewAllHref}
                   className="inline-flex items-center gap-1.5 mt-4 px-3 py-1.5 -mx-3 text-sm font-medium text-[#4d7a17] tracking-tight rounded-full hover:bg-[#E5EFD5] transition-colors"
                 >
-                  View all blogs &rarr;
+                  {viewAllLabel} &rarr;
                 </Link>
               </div>
             </aside>
@@ -186,4 +275,4 @@ const BlogArticlePage = async ({ params }: BlogArticlePageProps) => {
   );
 };
 
-export default BlogArticlePage;
+export default ArticlePage;

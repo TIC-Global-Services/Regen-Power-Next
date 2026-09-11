@@ -454,7 +454,7 @@ export function resolveSmartSolarCardsFromArticles(
     description: a.description ?? "",
     image: a.image ? src(a.image) : null,
     ...(i % 2 === 0 ? { textPosition: "top" as const } : { textPosition: "bottom" as const }),
-    ...(a.slug ? { href: `/blog/${a.slug}` } : {}),
+    ...(a.slug ? { href: `/${a.slug}` } : {}),
   }));
 }
 

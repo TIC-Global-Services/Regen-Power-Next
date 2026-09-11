@@ -160,7 +160,7 @@ export function resolveBlogArticles(
       imagePosition: "right",
       categoryKey: categoryKeys[0] ?? "",
       categoryKeys,
-      href: a.slug ? `/blog/${a.slug}` : "#",
+      href: a.slug ? `/${a.slug}` : "#",
     };
   });
 
@@ -225,7 +225,7 @@ export function resolveLatestBlogItems(
   if (!Array.isArray(articles)) return [];
   return articles.map((a) => ({
     title: a.title ?? "",
-    href: a.slug ? `/blog/${a.slug}` : "#",
+    href: a.slug ? `/${a.slug}` : "#",
     image: a.image ? strapiImageData(a.image)?.src ?? "" : "",
     publishedAt: a.publishedAt ?? "",
   }));

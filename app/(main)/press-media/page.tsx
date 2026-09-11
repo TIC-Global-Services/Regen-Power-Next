@@ -67,7 +67,7 @@ const PressMediaPage = async () => {
         image: (featured.image && strapiImageData(featured.image)?.src) || '/FeaturedArticle_fallback.png',
         title: featured.title ?? '',
         description: featured.description ?? '',
-        href: featured.slug ? `/press-media/${featured.slug}` : '#',
+        href: featured.slug ? `/${featured.slug}` : '#',
       }
     : null;
 
@@ -75,7 +75,7 @@ const PressMediaPage = async () => {
     title: a.title ?? '',
     description: a.description ?? '',
     image: (a.image && strapiImageData(a.image)?.src) || '/fallback.png',
-    href: a.slug ? `/press-media/${a.slug}` : '#',
+    href: a.slug ? `/${a.slug}` : '#',
   }));
 
   const newsProps = resolvePressArticles(gridArticles);

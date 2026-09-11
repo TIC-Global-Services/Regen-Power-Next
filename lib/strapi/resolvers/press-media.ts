@@ -140,9 +140,9 @@ export interface ResolvedPressCollection {
   cards: ResolvedPressCard[];
 }
 
-/** "/press-media/<slug>" — or "#" when the article has no slug. */
+/** "/<slug>" — or "#" when the article has no slug. */
 function pressArticleHref(a: PressArticleData): string {
-  return a.slug ? `/press-media/${a.slug}` : "#";
+  return a.slug ? `/${a.slug}` : "#";
 }
 
 export function resolvePressArticles(
