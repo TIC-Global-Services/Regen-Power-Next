@@ -94,7 +94,7 @@ export function resolvePortfolioProjects(
       id: p.id,
       title: p.title ?? "",
       slug: p.slug ?? "",
-      link: p.slug ? `/portfolio/${p.slug}` : "",
+      link: p.slug ? `/commercial/portfolio/${p.slug}` : "",
       image: p.image ? strapiImageData(p.image)?.src ?? "" : "",
       categories,
       filters,
