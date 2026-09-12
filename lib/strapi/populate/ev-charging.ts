@@ -9,7 +9,8 @@ export const chargerProducts =
   "populate[sections][on][ev-charging.charger-products][populate][products][populate][image]=true";
 
 export const installerBrands =
-  "populate[sections][on][ev-charging.installer-brands][populate][brands][populate][logo]=true";
+  "populate[sections][on][ev-charging.installer-brands][populate][brands][populate][logo]=true" +
+  "&populate[sections][on][ev-charging.installer-brands][populate][brands][populate][specs]=true";
 
 export const benefitCards =
   "populate[sections][on][ev-charging.benefit-cards][populate][benefits][populate][image]=true";

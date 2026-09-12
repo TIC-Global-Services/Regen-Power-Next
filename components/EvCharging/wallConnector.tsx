@@ -18,7 +18,24 @@ interface WallConnectorProps {
   data: WallConnectorData;
 }
 
+const MARKDOWN_IMAGE_RE = /!\[([^\]]*)\]\(([^)]+)\)/;
+
+// The CMS `description` field is markdown-ish plain text that can embed a
+// single ![alt](url) image inline — strip it out and render it as a real
+// <img>, then render the rest of the string as text underneath.
+const parseDescription = (text: string) => {
+  const match = text.match(MARKDOWN_IMAGE_RE);
+  if (!match) return { imageAlt: null, imageSrc: null, text: text.trim() };
+  const [full, alt, src] = match;
+  return {
+    imageAlt: alt || null,
+    imageSrc: src,
+    text: text.replace(full, "").trim(),
+  };
+};
+
 const WallConnector = ({ data }: WallConnectorProps) => {
+  const description = parseDescription(data.description);
   return (
     <Fade>
       <section className="bg-white overflow-hidden w-full relative">
@@ -29,7 +46,7 @@ const WallConnector = ({ data }: WallConnectorProps) => {
         */}
         <div className="grid grid-cols-1 lg:grid-cols-2 lg:grid-rows-[auto_1fr] min-h-[50vh] lg:min-h-screen">
           {/* Header — title + subtitle */}
-          <div className="order-1 px-[5%] md:px-[3%] pt-10 pb-7 md:pt-14 md:pb-10 lg:pt-24 lg:pb-6 lg:pr-[3%] flex flex-col justify-center">
+          <div className="order-1 px-[5%] md:px-[3%] pt-10 pb-7 md:pt-14 md:pb-10 lg:pt-24 lg:pb-6 lg:pr-[3%] flex flex-col justify-start">
             <Reveal>
               <div className="leading-[0.85]">
                 <h2 className="text-2xl md:text-4xl font-medium text-black tracking-tight mb-2">
@@ -65,12 +82,19 @@ const WallConnector = ({ data }: WallConnectorProps) => {
           </Reveal>
 
           {/* Content — description + specs (full-width text on phone/iPad) */}
-          <div className="order-3 px-[5%] md:px-[3%] py-10 lg:pt-6 lg:pb-24 lg:pr-[3%] flex flex-col justify-center">
+          <div className="order-3 px-[5%] md:px-[3%] py-10 lg:pt-6 lg:pb-24 lg:pr-[3%] flex flex-col justify-end">
             <Reveal>
               <div className="flex flex-col gap-5 mt-0 lg:mt-5">
                 <div>
+                  {description.imageSrc && (
+                    <img
+                      src={description.imageSrc}
+                      alt={description.imageAlt || ""}
+                      className="mb-4 h-24 w-auto object-contain"
+                    />
+                  )}
                   <p className="text-[15px] md:text-lg text-black leading-[1.2] tracking-tight max-w-none lg:max-w-[540px]">
-                    {data.description}
+                    {description.text}
                   </p>
                 </div>
                 <div>

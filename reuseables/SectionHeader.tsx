@@ -47,7 +47,7 @@ const SectionHeader: React.FC<SectionHeaderProps> = ({
       </Reveal>
       {description && (
         <Fade delay={0.2}>
-          <p className={` ${descClass} text-base leading-tight tracking-tight max-w-3xl `}>
+          <p className={` ${descClass} text-base leading-tight tracking-tight max-w-3xl mx-auto`}>
             {description}
           </p>
         </Fade>

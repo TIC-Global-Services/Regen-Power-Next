@@ -3,14 +3,17 @@
 import React from 'react';
 import Image, { StaticImageData } from 'next/image';
 import Fade from '@/reuseables/fade';
-import Reveal from '@/reuseables/Reveal';
+import CtaButton from '@/reuseables/CtaButton';
+import { SliderDots, SliderArrows, useSnapSlider } from '@/reuseables/MobileSliderControls';
 
 export interface InstallerBrand {
   name: string;
   logo: StaticImageData | string;
   title: string;
   description: string;
-  specs?: string;
+  specs: string[];
+  ctaText?: string;
+  ctaLink?: string;
 }
 
 export interface TrustedInstallerData {
@@ -25,6 +28,8 @@ interface TrustedInstallerProps {
 }
 
 const TrustedInstaller = ({ data }: TrustedInstallerProps) => {
+  const { trackRef, sync, active, canPrev, canNext, goTo, next, prev } = useSnapSlider(data.brands.length);
+
   return (
     <Fade>
       <section className="py-16 md:py-24 bg-white">
@@ -44,42 +49,77 @@ const TrustedInstaller = ({ data }: TrustedInstallerProps) => {
             </p>
           </div>
 
-          {/* Cards Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-6">
+          {/* Carousel — one brand card at a time, all breakpoints */}
+          <div
+            ref={trackRef}
+            onScroll={sync}
+            className="flex overflow-x-auto snap-x snap-mandatory gap-6 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]"
+          >
             {data.brands.map((brand, index) => {
-              const colSpan = index % 4 === 0 || index % 4 === 3 ? 'lg:col-span-8' : 'lg:col-span-4';
+              const specs = brand.specs;
               return (
-                <Reveal key={index} delay={index * 0.1} className={colSpan}>
-                  <div className="bg-[#EEF6EB] rounded-[24px] p-8 md:p-10 flex flex-col items-start justify-between min-h-[340px] md:min-h-[380px] h-full hover:shadow-md transition-shadow duration-300">
-                    {/* Top: Logo — self-start pins the box left; object-left pins the image left inside the box */}
-                    <div className="relative self-start w-[70%] h-full mb-8">
+                <div
+                  key={index}
+                  className="relative snap-start shrink-0 w-full bg-[#EEF6EB] rounded-[24px] md:rounded-[32px] p-8 md:p-12 lg:p-16 overflow-hidden"
+                >
+                  <div className="flex flex-col lg:flex-row lg:items-center gap-8 lg:gap-16">
+                    {/* Logo */}
+                    <div className="relative w-full max-w-[320px]  h-70 mx-auto lg:mx-0 shrink-0">
                       <Image
                         src={brand.logo}
                         alt={`${brand.name} logo`}
                         fill
-                        className="object-contain object-left"
+                        className="object-contain object-center lg:object-left"
                       />
                     </div>
 
-                    {/* Bottom: Text Content — items-start + text-left */}
-                    <div className="flex flex-col items-start gap-2 mt-auto w-full text-left">
-                      <h3 className="text-xl md:text-[1.875rem] font-medium text-black tracking-tight leading-snug text-left">
+                    {/* Content */}
+                    <div className="flex flex-col gap-4 text-left flex-1">
+                      <h3 className="text-2xl md:text-4xl font-medium text-black tracking-tight leading-tight">
                         {brand.title}
                       </h3>
-                      <p className="text-sm md:text-lg text-black max-w-2xl leading-[1.2] tracking-tight text-left">
+                      <p className="text-sm md:text-lg text-black leading-[1.3] tracking-tight max-w-3xl">
                         {brand.description}
                       </p>
-                      {/* {brand.specs && (
-                        <p className="text-xs md:text-sm font-semibold text-black/80 mt-2 tracking-wide">
-                          {brand.specs}
-                        </p>
-                      )} */}
+                      {specs.length > 0 && (
+                        <ul className="flex flex-col gap-1.5 mt-1">
+                          {specs.map((spec, specIndex) => (
+                            <li
+                              key={specIndex}
+                              className="text-sm md:text-lg font-bold text-black tracking-tight leading-[1.2] list-disc list-inside marker:text-[#63B846]"
+                            >
+                              {spec}
+                            </li>
+                          ))}
+                        </ul>
+                      )}
+                      {brand.ctaText && (
+                        <CtaButton
+                          text={brand.ctaText}
+                          href={brand.ctaLink}
+                          bgClass="bg-[#63B846]/55 backdrop-blur-md"
+                          className="capitalize mt-2 self-start"
+                        />
+                      )}
                     </div>
                   </div>
-                </Reveal>
+
+                  {/* Prev/next controls */}
+                  {data.brands.length > 1 && (
+                    <SliderArrows
+                      canPrev={canPrev}
+                      canNext={canNext}
+                      onPrev={prev}
+                      onNext={next}
+                      className="mt-8 lg:mt-0 lg:absolute lg:bottom-8 lg:right-8"
+                    />
+                  )}
+                </div>
               );
             })}
           </div>
+
+          <SliderDots count={data.brands.length} active={active} onSelect={goTo} className="mt-6" />
         </div>
       </section>
     </Fade>

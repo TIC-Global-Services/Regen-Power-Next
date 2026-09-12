@@ -90,21 +90,26 @@ const CombinedPromoPage = ({ promotion, hubspotFormId }: CombinedPromoPageProps)
     ? {
         title: promotion.limitedSpots.title || fbLimitedSpot.title,
         cards: promotion.limitedSpots.cards.length
-          ? promotion.limitedSpots.cards.map((c) => ({
-              type: c.type as typeof fbLimitedSpot.cards[number]["type"],
-              value: c.value,
-              title: c.title,
-              bgImage: c.bgImage ?? undefined,
-              showBadge: c.showBadge,
-              nestedCard: c.nestedCard
-                ? {
-                    type: c.nestedCard.type as NonNullable<typeof fbLimitedSpot.cards[number]["nestedCard"]>["type"],
-                    logoPath: c.nestedCard.logoPath ?? undefined,
-                    imagePath: c.nestedCard.imagePath ?? undefined,
-                    showBadge: c.nestedCard.showBadge,
-                  }
-                : undefined,
-            }))
+          ? promotion.limitedSpots.cards.map((c, idx) => {
+              const fb = fbLimitedSpot.cards[idx];
+              return {
+                type: (c.type as typeof fbLimitedSpot.cards[number]["type"]) || fb?.type,
+                value: c.value || fb?.value,
+                title: c.title || fb?.title,
+                bgImage: c.bgImage ?? fb?.bgImage,
+                showBadge: c.showBadge ?? fb?.showBadge,
+                nestedCard: c.nestedCard
+                  ? {
+                      type:
+                        (c.nestedCard.type as NonNullable<typeof fbLimitedSpot.cards[number]["nestedCard"]>["type"]) ||
+                        fb?.nestedCard?.type,
+                      logoPath: c.nestedCard.logoPath ?? fb?.nestedCard?.logoPath,
+                      imagePath: c.nestedCard.imagePath ?? fb?.nestedCard?.imagePath,
+                      showBadge: c.nestedCard.showBadge ?? fb?.nestedCard?.showBadge,
+                    }
+                  : fb?.nestedCard,
+              };
+            })
           : fbLimitedSpot.cards,
       }
     : fbLimitedSpot;
@@ -318,20 +323,44 @@ const CombinedPromoPage = ({ promotion, hubspotFormId }: CombinedPromoPageProps)
       }
     : fbMobileHero;
 
+  // Desktop card `type` vocabulary ('text' | 'image' | 'black' | 'nested') doesn't
+  // match mobile's ('nested' | 'image' | 'dark' | 'nested-reverse') — e.g. desktop
+  // "black" (45K installations card) has no mobile case, so it must be translated
+  // rather than passed through, or WhyChooseUs silently renders nothing for it.
+  const desktopToMobileCardType = (
+    desktopType: string | null | undefined,
+    nestedCardType: string | null | undefined
+  ): typeof fbMobileWhyChooseUs.cards[number]["type"] | undefined => {
+    switch (desktopType) {
+      case "black":
+        return "dark";
+      case "image":
+        return "image";
+      case "nested":
+      case "text":
+        return nestedCardType === "image" ? "nested-reverse" : "nested";
+      default:
+        return undefined;
+    }
+  };
+
   const mobileWhyChooseUs = promotion?.limitedSpots
     ? {
         title: promotion.limitedSpots.title || fbMobileWhyChooseUs.title,
         titleGreen: promotion.limitedSpots.titleGreen || fbMobileWhyChooseUs.titleGreen,
         cards: promotion.limitedSpots.cards.length
-          ? promotion.limitedSpots.cards.map((c) => ({
-              id: String(c.value + c.title).slice(0, 20) || "card",
-              type: c.type as typeof fbMobileWhyChooseUs.cards[number]["type"],
-              value: c.value,
-              title: c.title,
-              bgImage: c.bgImage ?? undefined,
-              icon: c.icon ?? undefined,
-              logoPath: c.logoPath ?? c.nestedCard?.logoPath ?? undefined,
-            }))
+          ? promotion.limitedSpots.cards.map((c, idx) => {
+              const fb = fbMobileWhyChooseUs.cards[idx];
+              return {
+                id: String(c.value + c.title).slice(0, 20) || fb?.id || "card",
+                type: desktopToMobileCardType(c.type, c.nestedCard?.type) || fb?.type || "nested",
+                value: c.value || fb?.value,
+                title: c.title || fb?.title,
+                bgImage: c.bgImage ?? fb?.bgImage,
+                icon: c.icon ?? c.nestedCard?.imagePath ?? fb?.icon,
+                logoPath: c.logoPath ?? c.nestedCard?.logoPath ?? fb?.logoPath,
+              };
+            })
           : fbMobileWhyChooseUs.cards,
         ctatext: promotion.limitedSpots.ctaText || (fbMobileWhyChooseUs as { ctatext?: string }).ctatext,
         ctaLink: promotion.limitedSpots.ctaLink || undefined,

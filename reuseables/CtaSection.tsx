@@ -19,7 +19,7 @@ const CtaSection: React.FC<CtaSectionProps> = ({
     title,
     description,
     buttonText = 'Get My Free Quote',
-    buttonHref = undefined,
+    buttonHref = "#quote-form",
     bgImage,
     overlayClass,
     minHeightClass = 'min-h-[500px] md:min-h-[560px]',

@@ -5,8 +5,8 @@ export interface Testimonial {
     location: string;
     name: string;
     quote: string;
-    /** Display label for third-party attribution, e.g. "Google" */
-    source?: string | null;
+    /** Source slug for logo attribution — null for first-party (website) */
+    source?: "google" | "productreview" | null;
     /** 1–5; stars render only when present */
     rating?: number | null;
 }
@@ -107,17 +107,19 @@ const TestimonialGrid: React.FC<TestimonialGridProps> = ({
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-5 md:gap-6">
                 {items.map((item, idx) => {
+                    const delay = (idx % 3) * 0.1;
                     if (item.type === 'image') {
                         return (
                             <div key={`img-${idx}`} className="md:col-span-2 h-full">
                                 <TestimonialImageCard
                                     image={item.image}
                                     imageAlt={item.alt}
+                                    delay={delay}
                                 />
                             </div>
                         );
                     }
-                    return <TestimonialCard key={`${item.data.name}-${idx}`} {...item.data} />;
+                    return <TestimonialCard key={`${item.data.name}-${idx}`} {...item.data} delay={delay} />;
                 })}
             </div>
         </section>

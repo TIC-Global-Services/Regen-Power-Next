@@ -4,6 +4,7 @@ import React from 'react';
 import Image, { StaticImageData } from 'next/image';
 import Fade from '@/reuseables/fade';
 import Reveal from '@/reuseables/Reveal';
+import CtaButton from '@/reuseables/CtaButton';
 
 export interface UnderOneRoofCard {
   title: string;
@@ -16,6 +17,10 @@ export interface UnderOneRoofData {
   subtitle: string;
   title: React.ReactNode;
   description: string;
+  primaryCtaText?: string;
+  primaryCtaLink?: string;
+  secondaryCtaText?: string;
+  secondaryCtaLink?: string;
   cards: UnderOneRoofCard[];
 }
 
@@ -45,6 +50,26 @@ const UnderOneRoof = ({ data }: UnderOneRoofProps) => {
                 {data.description}
               </p>
             </Reveal>
+            {(data.primaryCtaText || data.secondaryCtaText) && (
+              <Reveal delay={0.2}>
+                <div className="flex flex-wrap items-center gap-3">
+                  {data.primaryCtaText && (
+                    <CtaButton
+                      text={data.primaryCtaText}
+                      href={data.primaryCtaLink}
+                      bgClass="bg-[#63B846]/55 backdrop-blur-md"
+                    />
+                  )}
+                  {data.secondaryCtaText && (
+                    <CtaButton
+                      text={data.secondaryCtaText}
+                      href={data.secondaryCtaLink}
+                      bgClass="bg-[#63B846]/55 backdrop-blur-md"
+                    />
+                  )}
+                </div>
+              </Reveal>
+            )}
           </div>
 
           {/* Right Column — Cards Grid */}

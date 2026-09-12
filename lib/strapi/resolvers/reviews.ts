@@ -53,8 +53,8 @@ export type ResolvedTestimonialRow = {
     location: string;
     name: string;
     quote: string;
-    /** Display label for third-party attribution, e.g. "Google" — null for first-party */
-    source: string | null;
+    /** Raw source slug ("google" | "productreview") for logo attribution — null for first-party (website) */
+    source: "google" | "productreview" | null;
     rating: number | null;
   };
 };
@@ -96,11 +96,6 @@ export function resolveReviewsTestimonialsSection(
 
 /* ─── testimonial collection → grid items ─── */
 
-const SOURCE_LABELS: Record<string, string> = {
-  google: "Google",
-  productreview: "ProductReview.com.au",
-};
-
 /**
  * Map published testimonial collection entries onto grid items.
  * Entries missing a name or quote are skipped.
@@ -118,8 +113,8 @@ export function resolveTestimonials(
         name: entry.name,
         quote: entry.quote,
         source:
-          entry.source && SOURCE_LABELS[entry.source]
-            ? SOURCE_LABELS[entry.source]
+          entry.source === "google" || entry.source === "productreview"
+            ? entry.source
             : null,
         rating: entry.rating ?? null,
       },

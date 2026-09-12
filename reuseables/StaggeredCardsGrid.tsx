@@ -151,7 +151,6 @@ const StaggeredCardsGrid: React.FC<StaggeredCardsGridProps> = ({
                   item={item}
                   cardWidthClass={cardWidthClass}
                   cardHeightClass={cardHeightClass}
-                  animate={false}
                 />
               </div>
             ))}

@@ -108,7 +108,9 @@ export interface ResolvedEvChargingInstallerBrand {
   logo: string;
   title: string;
   description: string;
-  specs?: string;
+  specs: string[];
+  ctaText?: string;
+  ctaLink?: string;
 }
 export interface ResolvedEvChargingInstallerBrands {
   subtitle: string;
@@ -116,6 +118,7 @@ export interface ResolvedEvChargingInstallerBrands {
   description: string;
   brands: ResolvedEvChargingInstallerBrand[];
 }
+
 export function resolveEvChargingInstallerBrands(
   data: EvChargingInstallerBrandsData | undefined | null
 ): ResolvedEvChargingInstallerBrands | null {
@@ -129,7 +132,9 @@ export function resolveEvChargingInstallerBrands(
       logo: src(b.logo),
       title: b.cardTitle ?? "",
       description: b.description ?? "",
-      ...(b.specs ? { specs: b.specs } : {}),
+      specs: (b.specs ?? []).map((s) => s.label),
+      ctaText: b.ctaText ?? undefined,
+      ctaLink: b.ctaLink ?? undefined,
     })),
   };
 }
@@ -200,6 +205,10 @@ export interface ResolvedEvChargingFeatureCards {
   subtitle: string;
   title: string;
   description: string;
+  primaryCtaText?: string;
+  primaryCtaLink?: string;
+  secondaryCtaText?: string;
+  secondaryCtaLink?: string;
   cards: ResolvedEvChargingFeatureCard[];
 }
 export function resolveEvChargingFeatureCards(
@@ -214,6 +223,10 @@ export function resolveEvChargingFeatureCards(
     subtitle: data.subtitle ?? "",
     title: data.title ?? "",
     description: data.description ?? "",
+    primaryCtaText: data.primaryCtaText ?? undefined,
+    primaryCtaLink: data.primaryCtaLink ?? undefined,
+    secondaryCtaText: data.secondaryCtaText ?? undefined,
+    secondaryCtaLink: data.secondaryCtaLink ?? undefined,
     cards: (data.cards ?? []).map((c) => {
       const im = img(c.image);
       return {

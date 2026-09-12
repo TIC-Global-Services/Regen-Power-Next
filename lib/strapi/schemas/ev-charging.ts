@@ -86,7 +86,9 @@ export const EvChargingInstallerBrandSchema = z.object({
   logo: MediaSchema.nullable(),
   cardTitle: z.string().nullable(),
   description: z.string().nullable(),
-  specs: z.string().nullable(),
+  specs: z.array(EvChargingSpecSchema),
+  ctaText: z.string().nullable(),
+  ctaLink: z.string().nullable(),
 });
 export type EvChargingInstallerBrandData = z.infer<
   typeof EvChargingInstallerBrandSchema
@@ -157,6 +159,10 @@ export const EvChargingFeatureCardsSchema = z.object({
   subtitle: z.string().nullable(),
   title: z.string().nullable(),
   description: z.string().nullable(),
+  primaryCtaText: z.string().nullable(),
+  primaryCtaLink: z.string().nullable(),
+  secondaryCtaText: z.string().nullable(),
+  secondaryCtaLink: z.string().nullable(),
   cards: z.array(EvChargingFeatureCardSchema),
 });
 export type EvChargingFeatureCardsData = z.infer<
