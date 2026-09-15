@@ -180,9 +180,9 @@ export default function Footer({ data }: FooterProps) {
             ) : null}
           </div>
 
-          <p className="text-center md:text-right">
+          {/* <p className="text-center md:text-right">
             {f.creditLabel} <span className="text-[#8dc63f]">{f.creditName}</span>
-          </p>
+          </p> */}
         </div>
       </div>
     </footer>
