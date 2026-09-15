@@ -1,9 +1,9 @@
 'use client';
 
 import React from 'react';
-import WorldMap, { MapMarker } from '@/reuseables/WorldMap';
+import WorldMap, { MapMarker, MapBounds } from '@/reuseables/WorldMap';
 
-export interface LocationMapProps {
+export interface AusMapProps {
     subtitle?: string;
     title?: string;
     markers?: MapMarker[];
@@ -62,7 +62,21 @@ const defaultMarkers: MapMarker[] = [
     },
 ];
 
-const LocationMap: React.FC<LocationMapProps> = ({
+/**
+ * Calibrated against `public/aus-map.png` (2655x2238, dot silhouette spans
+ * px 184-2470 horizontally / 56-2104 vertically) by projecting the mainland's
+ * known geographic extremes (Steep Point, Cape Byron, Cape York, Tasmania's
+ * South East Cape) through their measured pixel bounding box. If you swap
+ * the map image, re-calibrate.
+ */
+const AUS_MAP_BOUNDS: MapBounds = {
+    north: -9.78,
+    south: -45.8,
+    west: 109.89,
+    east: 156.91,
+};
+
+const AusMap: React.FC<AusMapProps> = ({
     subtitle = 'Our',
     title = 'Locations',
     markers = defaultMarkers,
@@ -72,8 +86,12 @@ const LocationMap: React.FC<LocationMapProps> = ({
             subtitle={subtitle}
             title={title}
             markers={markers}
+            mapImage="/aus-map.png"
+            mapBounds={AUS_MAP_BOUNDS}
+            mapMaxWidth="max-w-2xl"
+            autoCycle
         />
     );
 };
 
-export default LocationMap;
+export default AusMap;

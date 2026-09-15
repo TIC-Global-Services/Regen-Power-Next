@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import Image, { StaticImageData } from 'next/image';
 import { MapPin } from 'lucide-react';
 
@@ -76,6 +76,18 @@ export interface WorldMapProps {
      * Opt-in per usage — pages whose pins span the whole world can omit it.
      */
     focusMarkers?: boolean | { x: number; y: number; w: number; h: number };
+    /**
+     * Caps how wide the map itself renders (the header/section still spans
+     * `max-w-7xl`). Pass a Tailwind max-width class, e.g. `max-w-xl` — the
+     * map is centered within it. Omit for full-width (existing behavior).
+     */
+    mapMaxWidth?: string;
+    /**
+     * Auto-opens each marker's card one at a time, 5s apart. Paused while a
+     * card is hovered (or tapped open on touch), resuming from there once
+     * released. Off by default — opt in per usage.
+     */
+    autoCycle?: boolean;
 }
 
 /** Keyless Google Maps embed — `output=embed` requires no API key. */
@@ -97,11 +109,34 @@ const WorldMap: React.FC<WorldMapProps> = ({
     showHeader = true,
     className = '',
     focusMarkers = false,
+    mapMaxWidth,
+    autoCycle = false,
 }) => {
-    const [activeMarker, setActiveMarker] = useState<string | null>(null);
+    const [activeMarker, setActiveMarker] = useState<string | null>(
+        () => (autoCycle ? markers[0]?.name ?? null : null),
+    );
     // Markers whose map iframe has been shown — kept mounted so re-hovering
     // is instant instead of reloading the embed every time.
     const [loadedMaps, setLoadedMaps] = useState<string[]>([]);
+
+    // Auto-cycles the active (open) card through markers one at a time.
+    // Paused while the user is hovering/has tapped a card open; resumes
+    // (from wherever it left off) once they leave.
+    const [autoPaused, setAutoPaused] = useState(false);
+    const autoIndexRef = useRef(0);
+
+    const advanceAuto = () => {
+        if (!autoCycle || markers.length === 0) return;
+        autoIndexRef.current = (autoIndexRef.current + 1) % markers.length;
+        setActiveMarker(markers[autoIndexRef.current].name);
+    };
+
+    useEffect(() => {
+        if (!autoCycle || autoPaused || markers.length <= 1) return;
+        const id = setInterval(advanceAuto, 5000);
+        return () => clearInterval(id);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [autoCycle, autoPaused, markers]);
 
     // Crop window (percentages of the map image) used below `lg` when
     // `focusMarkers` is set. w === h keeps the image's aspect ratio, so the
@@ -141,7 +176,16 @@ const WorldMap: React.FC<WorldMapProps> = ({
     }, [activeMarker, loadedMaps]);
 
     const handleMarkerClick = (markerName: string) => {
-        setActiveMarker((prev) => (prev === markerName ? null : markerName));
+        const closing = activeMarker === markerName;
+        setActiveMarker(closing ? null : markerName);
+        if (!closing) {
+            const idx = markers.findIndex((m) => m.name === markerName);
+            if (idx !== -1) autoIndexRef.current = idx;
+        }
+        // Tapping a card open pauses auto-cycling; tapping the open one
+        // closed resumes it (mobile has no hover to drive pause/resume).
+        if (closing) advanceAuto();
+        setAutoPaused(!closing);
     };
 
     // Keep the container's aspect ratio equal to the image's so the image is
@@ -171,7 +215,7 @@ const WorldMap: React.FC<WorldMapProps> = ({
                 )}
 
                 <div
-                    className="relative w-full"
+                    className={`relative w-full ${mapMaxWidth ? `${mapMaxWidth} mx-auto` : ''}`}
                     style={{ aspectRatio: ratio }}
                     onClick={() => setActiveMarker(null)}
                 >
@@ -244,8 +288,24 @@ const WorldMap: React.FC<WorldMapProps> = ({
                                 key={marker.name}
                                 className={`absolute z-10 ${isActive ? 'z-30' : ''}`}
                                 style={{ top: `${top}%`, left: `${left}%` }}
-                                onMouseEnter={canHover ? () => setActiveMarker(marker.name) : undefined}
-                                onMouseLeave={canHover ? () => setActiveMarker((prev) => (prev === marker.name ? null : prev)) : undefined}
+                                onMouseEnter={
+                                    canHover
+                                        ? () => {
+                                              const idx = markers.findIndex((m) => m.name === marker.name);
+                                              if (idx !== -1) autoIndexRef.current = idx;
+                                              setAutoPaused(true);
+                                              setActiveMarker(marker.name);
+                                          }
+                                        : undefined
+                                }
+                                onMouseLeave={
+                                    canHover
+                                        ? () => {
+                                              advanceAuto();
+                                              setAutoPaused(false);
+                                          }
+                                        : undefined
+                                }
                                 onClick={(e) => {
                                     e.stopPropagation();
                                     handleMarkerClick(marker.name);
@@ -258,7 +318,7 @@ const WorldMap: React.FC<WorldMapProps> = ({
                                 {/* Info card — hover on desktop, tap on mobile */}
                                 {(marker.address || marker.phone || marker.email || marker.mapsUrl) && (
                                     <div
-                                        className={`absolute ${cardBelow ? 'top-full pt-2 md:pt-3' : 'bottom-full mb-2 md:mb-3'} z-10 w-48 max-w-[62vw] md:w-72 md:max-w-[75vw] rounded-lg md:rounded-xl bg-white p-2 md:p-3 text-left shadow-[0_8px_30px_rgba(0,0,0,0.12)] ring-1 ring-black/5 transition-all duration-200 ${cardPosition} ${isActive
+                                        className={`absolute ${cardBelow ? 'top-full pt-2 md:pt-3' : 'bottom-full mb-2 md:mb-3'} z-10 w-48 max-w-[62vw] md:w-72 md:max-w-[75vw] rounded-lg md:rounded-xl border border-white/40 bg-white/25 p-2 md:p-3 text-left shadow-[0_8px_30px_rgba(0,0,0,0.18)] backdrop-blur-xl backdrop-saturate-150 transition-all duration-200 ${cardPosition} ${isActive
                                             ? 'pointer-events-auto opacity-100 translate-y-0'
                                             : 'pointer-events-none opacity-0 translate-y-1'
                                             }`}
@@ -314,11 +374,11 @@ const WorldMap: React.FC<WorldMapProps> = ({
                                 <MapPin
                                     size={36}
                                     strokeWidth={2.5}
-                                    className={`transition-transform duration-200 ${isActive ? 'scale-125' : ''} fill-[#63B846] text-[#63B846]`}
+                                    className={`transition-transform cursor-pointer duration-200 ${isActive ? 'scale-125' : ''} fill-[#63B846] text-[#63B846]`}
                                 />
                                 {/* Desktop: always visible | Mobile: only when tapped */}
                                 <span
-                                    className={`absolute ${labelClasses} text-sm md:text-base font-semibold text-black whitespace-nowrap transition-opacity duration-200
+                                    className={`absolute ${labelClasses} whitespace-nowrap rounded-full cursor-pointer bg-white px-2.5 py-1 text-sm md:text-base font-semibold text-black shadow-[0_2px_10px_rgba(0,0,0,0.12)] ring-1 ring-black/5 transition-opacity duration-200
                                         ${isActive ? 'opacity-100' : 'opacity-0 md:opacity-100'}
                                         ${isActive ? 'pointer-events-auto' : 'pointer-events-none md:pointer-events-auto'}`}
                                 >

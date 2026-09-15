@@ -14,6 +14,7 @@ export type HorizontalCardItem = {
   title: string;
   description: string;
   badgeSrc?: string | StaticImageData | null;
+  year?: string | number | null;
 };
 
 export const FALLBACK_ITEMS: HorizontalCardItem[] = [
@@ -22,22 +23,26 @@ export const FALLBACK_ITEMS: HorizontalCardItem[] = [
     title: "Finalist - Smart Installer, Smart Energy Excellence Awards 2026",
     description: "Regen Power is proud to be recognised nationally. Finalist – Smart Installer, Smart Energy Excellence Awards 2026.",
     badgeSrc: finalistBadge,
+    year: "2026",
   },
   {
     id: "02",
     title: "#1 Most Popular Solar Installer in Western Australia and\n#2 Most Popular in Australia by SunWiz Awards 2026",
     description: "Regen Power is proud to be recognised nationally. Finalist – Smart Installer, Smart Energy Excellence Awards 2026.",
     badgeSrc: awardsBadge,
+    year: "2026",
   },
   {
     id: "03",
     title: "Finalist - Smart Installer, Smart Energy Excellence Awards 2026",
     description: "Regen Power is proud to be recognised nationally. Finalist – Smart Installer, Smart Energy Excellence Awards 2026.",
+    year: "2026",
   },
   {
     id: "04",
     title: "ProductReview.com.au Awards Winner 2026",
     description: "Regen Power has won the ProductReview.com.au Award in the Solar Installer Category for the sixth year in a row year (2021, 2022, 2023, 2024, 2025 & 2026). The award is given to the solar company that earned the highest 5-star rating in the calendar year 2025.",
+    year: "2026",
   },
 ];
 
@@ -62,11 +67,13 @@ const HorizontalCards = forwardRef<
         return (
           <div
             key={item.id}
-            className={`flex w-[70vw] shrink-0 flex-col gap-3 md:w-[50vw] md:gap-4 lg:w-[38vw] lg:gap-6 ${isTop ? "self-start mt-[15vh]" : "self-end mb-[15vh]"}`}
+            className={`flex w-[150vw] shrink-0 flex-col gap-3 px-4  sm:px-0  md:gap-4 lg:w-[48vw] lg:gap-16 ${isTop ? "self-start mt-[15vh]" : "self-end mb-[10vh]"}`}
           >
-            {/* image on top, title + desc below — everything left-aligned */}
-            <div className="flex flex-col items-start gap-3 md:gap-4 lg:gap-6">
-              <div className="flex h-24 w-56 shrink-0 justify-start md:h-36 md:w-80 lg:h-40 lg:w-96">
+            {/* image on top, title + desc below — everything left-aligned.
+                Badge box has a fixed, responsive size (object-contain inside
+                it) so the source image's own dimensions never drive layout. */}
+            <div className="flex items-center gap-3 md:gap-4 lg:gap-10">
+              <div className="flex h-[50dvw] w-[50dvw] shrink-0 justify-start sm:h-20 sm:w-20 md:h-28 md:w-28 lg:h-40 lg:w-40">
                 {item.badgeSrc && (
                   <Image
                     src={item.badgeSrc}

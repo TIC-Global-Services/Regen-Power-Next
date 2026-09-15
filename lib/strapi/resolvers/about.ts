@@ -24,6 +24,7 @@ export interface ResolvedAboutAwardCard {
   description: string;
   badgeSrc: string | null;
   badgeSizeClass?: string;
+  year?: string | number | null;
 }
 export interface ResolvedAboutAwards {
   cards: ResolvedAboutAwardCard[];
@@ -37,6 +38,7 @@ export function resolveAboutAwards(data: AboutAwardsData | undefined | null): Re
       description: c.description ?? "",
       badgeSrc: c.badge ? src(c.badge) : null,
       ...(c.badgeSizeClass ? { badgeSizeClass: c.badgeSizeClass } : {}),
+      ...(c.year != null ? { year: c.year } : {}),
     })),
   };
 }

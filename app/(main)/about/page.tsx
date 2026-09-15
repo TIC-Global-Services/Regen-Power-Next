@@ -48,6 +48,7 @@ export default async function AboutPage() {
         description: c.description || FALLBACK_ITEMS[i % FALLBACK_ITEMS.length]?.description || "",
         ...(c.badgeSrc ? { badgeSrc: c.badgeSrc } : {}),
         ...(c.badgeSizeClass ? { badgeSizeClass: c.badgeSizeClass } : {}),
+        year: c.year ?? FALLBACK_ITEMS[i % FALLBACK_ITEMS.length]?.year ?? null,
       }))
     : undefined;
 

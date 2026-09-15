@@ -6,7 +6,7 @@ import type { ContactHeroData, SharedFormSectionData } from '@/lib/strapi/schema
 
 import ContactHero from '@/components/contact/ContactHero';
 import UnifiedFormSection from '@/reuseables/UnifiedFormSection';
-import LocationMap from '@/components/contact/LocationMap';
+import AusMap from '@/components/contact/AusMap';
 
 export const revalidate = 60;
 
@@ -41,7 +41,7 @@ const ContactPage = async () => {
         hubspotFormId="15ff881e-c877-4158-b63d-597a5f07991f"
       />
 
-      <LocationMap />
+      <AusMap />
     </div>
   );
 };

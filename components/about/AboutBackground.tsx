@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { LoadingScreen } from "./LoadingScreen";
 import HorizontalCards, { type HorizontalCardItem } from "./AboutHorizontalScroll";
 import { getLenis } from "@/utils/lenisBridge";
@@ -46,7 +46,12 @@ export default function AboutBackground({
   const fallbackVideo = "/about/10003.mp4";
   const videoSrc = heroVideoSrc || fallbackVideo;
   // Use Strapi items when provided, else local fallbacks from AboutHorizontalScroll
-  const displayItems = items && items.length > 0 ? items : fallbackItems;
+  const sourceItems = items && items.length > 0 ? items : fallbackItems;
+  // Shown in reverse: the last award (e.g. most recent year) scrolls in first.
+  const displayItems = useMemo(
+    () => (sourceItems ? [...sourceItems].reverse() : sourceItems),
+    [sourceItems],
+  );
   const effectiveCount = displayItems?.length ?? 0;
   const horizontalLengthVh = Math.max(0, (effectiveCount - 1) * VH_PER_CARD);
   const totalExtraVh = SCRUB_LENGTH_VH + horizontalLengthVh;
@@ -55,12 +60,18 @@ export default function AboutBackground({
   const videoRef = useRef<HTMLVideoElement>(null);
   const titleRef = useRef<HTMLDivElement>(null);
   const trackRef = useRef<HTMLDivElement>(null);
+  const yearWrapRef = useRef<HTMLDivElement>(null);
   const phaseRef = useRef<Phase>("intro");
   const onLoopStartRef = useRef(onLoopStart);
   onLoopStartRef.current = onLoopStart;
 
   const [phase, setPhase] = useState<Phase>("intro");
   const [ready, setReady] = useState(false);
+  const [activeYear, setActiveYear] = useState<string | number | null>(
+    () => displayItems?.[0]?.year ?? null,
+  );
+  const activeYearRef = useRef(activeYear);
+  activeYearRef.current = activeYear;
 
   const setPhaseBoth = (p: Phase) => {
     phaseRef.current = p;
@@ -165,6 +176,26 @@ export default function AboutBackground({
       const maxX = Math.max(0, track.scrollWidth - window.innerWidth);
       const x = startX - subProgress * (startX + maxX);
       track.style.transform = `translateX(${x}px)`;
+
+      // Every card gets equal scroll distance (VH_PER_CARD), so subProgress
+      // maps directly to "how many cards traversed" — from that, which
+      // single card (top or bottom — they alternate) is centered right now,
+      // and its own year.
+      if (effectiveCount > 0 && displayItems) {
+        const itemsTraversed = subProgress * Math.max(0, effectiveCount - 1);
+        // Switch late (not at the 50/50 crossover) so the year only updates
+        // once the next card has fully arrived on screen, not while it's
+        // still sliding in.
+        const SWITCH_POINT = 0.98;
+        const lower = Math.floor(itemsTraversed);
+        const frac = itemsTraversed - lower;
+        const itemIndex = Math.min(
+          effectiveCount - 1,
+          Math.max(0, frac >= SWITCH_POINT ? lower + 1 : lower),
+        );
+        const year = displayItems[itemIndex]?.year ?? null;
+        if (year !== activeYearRef.current) setActiveYear(year);
+      }
     };
 
     const onScroll = () => {
@@ -185,7 +216,7 @@ export default function AboutBackground({
       window.removeEventListener("resize", onScroll);
       if (scheduledRaf !== null) cancelAnimationFrame(scheduledRaf);
     };
-  }, [phase, scrubFrac]);
+  }, [phase, scrubFrac, displayItems, effectiveCount]);
 
   // intercept scroll intent during the idle loop and hand over to scrub
   useEffect(() => {
@@ -325,6 +356,33 @@ export default function AboutBackground({
         >
           <HorizontalCards ref={trackRef} style={{ transform: "translateX(100vw)" }} items={displayItems} />
         </div>
+
+        {/* Award-year divider — pinned dead center, never travels with the
+            card track, always visible (with its lines) throughout the loop
+            phase. Sits ABOVE the card track (z-20 > track's z-10). */}
+        {activeYear != null && (
+          <div
+            ref={yearWrapRef}
+            className={`pointer-events-none absolute inset-0 z-20 flex items-center justify-center transition-opacity duration-500 ${
+              phase === "loop" ? "opacity-100" : "opacity-0"
+            }`}
+          >
+            <div className="flex items-center gap-2 sm:gap-4 md:gap-6 lg:gap-8">
+              <span className="h-px w-8 shrink-0 bg-[#63B846]/60 sm:w-16 md:w-32 lg:w-48" />
+              <span
+                key={String(activeYear)}
+                className="whitespace-nowrap text-3xl font-bold tracking-tight text-[#63B846] sm:text-5xl md:text-6xl"
+                style={{
+                  animation: "year-fade 0.5s cubic-bezier(0.16,1,0.3,1)",
+                  textShadow: "0 1px 16px rgba(255,255,255,0.9)",
+                }}
+              >
+                {activeYear}
+              </span>
+              <span className="h-px w-8 shrink-0 bg-[#63B846]/60 sm:w-16 md:w-32 lg:w-48" />
+            </div>
+          </div>
+        )}
 
         {/* Section header — matches project SectionHeader: green title, black desc */}
         <div

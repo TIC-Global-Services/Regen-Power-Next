@@ -15,6 +15,7 @@ export const AboutAwardCardSchema = z.object({
   description: z.string().nullable(),
   badge: MediaSchema.nullable(),
   badgeSizeClass: z.string().nullable(),
+  year: z.union([z.string(), z.number()]).nullable().optional(),
 });
 export type AboutAwardCardData = z.infer<typeof AboutAwardCardSchema>;
 
