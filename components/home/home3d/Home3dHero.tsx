@@ -652,7 +652,7 @@ export default function Home3dHero({
               ref={loaderVideoRef}
               className="absolute inset-0 h-full w-full object-cover"
               style={{ transform: "scale(1.4)", transformOrigin: "center center" }}
-              src="/loader-new.mp4"
+              src="/solar-loader.mp4"
               autoPlay
               muted
               playsInline
