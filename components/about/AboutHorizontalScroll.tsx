@@ -49,7 +49,6 @@ export const FALLBACK_ITEMS: HorizontalCardItem[] = [
 // Back-compat alias — AboutBackground previously imported ITEMS directly.
 // Prefer FALLBACK_ITEMS for fallback cases; ITEMS kept so existing imports don't break.
 export const ITEMS = FALLBACK_ITEMS;
-``
 
 const HorizontalCards = forwardRef<
   HTMLDivElement,
@@ -86,11 +85,11 @@ const HorizontalCards = forwardRef<
                 )}
               </div>
 
-              <div className="flex min-w-0 flex-col gap-2 text-left">
-                <h3 className="whitespace-pre-line text-left text-2xl font-normal leading-[1.1] tracking-tight text-[#63B846] md:text-4xl lg:text-[2.5rem] lg:leading-none">
+              <div className="flex min-w-0 flex-col gap-4 text-left">
+                <h3 className="whitespace-pre-line text-left text-2xl font-normal leading-[1.1] tracking-tight  md:text-4xl lg:text-[2.5rem] lg:leading-none">
                   {item.title}
                 </h3>
-                <p className="text-left text-sm font-normal leading-tight tracking-tight text-black md:text-lg lg:text-xl">
+                <p className="text-left text-sm font-normal leading-tight tracking-tight text-gray-600 md:text-lg lg:text-xl">
                   {item.description}
                 </p>
               </div>

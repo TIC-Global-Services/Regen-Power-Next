@@ -114,9 +114,9 @@ const PortfolioFilters: React.FC<PortfolioFiltersProps> = ({
       <div className="max-w-6xl mx-auto">
         {/* Filter row */}
         <div className="flex flex-wrap items-center gap-3">
-          <Dropdown label="By Industry" options={industries} value={industry} onChange={handleIndustry} />
+          <Dropdown label="By Category" options={industries} value={industry} onChange={handleIndustry} />
           <Dropdown label="By System Size" options={systemSizes} value={size} onChange={handleSize} />
-          <Dropdown label="By Location" options={locations} value={location} onChange={handleLocation} />
+          {/* <Dropdown label="By Location" options={locations} value={location} onChange={handleLocation} /> */}
 
           {/* Search input */}
           <div className="relative flex-1 min-w-[200px]">
