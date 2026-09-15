@@ -15,15 +15,6 @@ const mapsQuery = (address: string) =>
 
 const defaultMarkers: MapMarker[] = [
     {
-        name: 'Dubai (HQ)',
-        lat: 25.1972,
-        lng: 55.3211,
-        address: 'Meydan Grandstand, 6th Floor, Meydan Road, Nad Al Sheba, Dubai, U.A.E',
-        phone: '+971 50 661 7630',
-        email: 'support@regenpowersolutions.ae',
-        mapsUrl: mapsQuery('Meydan Grandstand, Nad Al Sheba, Dubai, U.A.E'),
-    },
-    {
         name: 'Perth',
         lat: -32.08, // Catalano Circuit, Canning Vale
         lng: 115.9,
@@ -81,9 +72,6 @@ const LocationMap: React.FC<LocationMapProps> = ({
             subtitle={subtitle}
             title={title}
             markers={markers}
-            // Small screens: zoom into the Dubai → Australia office band.
-            // Window verified to contain all six offices with label room.
-            focusMarkers={{ x: 56, y: 34, w: 44, h: 44 }}
         />
     );
 };

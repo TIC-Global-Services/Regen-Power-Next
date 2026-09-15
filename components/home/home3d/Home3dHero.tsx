@@ -150,6 +150,12 @@ export default function Home3dHero({
   const [loadedCount, setLoadedCount] = useState(0);
   const [ready, setReady] = useState(false);
   const [hideLoader, setHideLoader] = useState(false);
+  const [videoEnded, setVideoEnded] = useState(false);
+  const [loaderPct, setLoaderPct] = useState(0);
+  const loaderVideoRef = useRef<HTMLVideoElement>(null);
+  const loadedCountRef = useRef(0);
+  const LOADER_MIN_RATE = 0.35;
+  const LOADER_MAX_RATE = 2.5;
   const [phase, setPhase] = useState<Phase>("intro");
   // Hero chrome (overlay + navbar): visible during intro/loop, hidden during scrub,
   // visible again at the very end of the 500vh sequence.
@@ -228,10 +234,37 @@ export default function Home3dHero({
   }, [seq]);
 
   useEffect(() => {
-    if (!ready) return;
+    loadedCountRef.current = loadedCount;
+  }, [loadedCount]);
+
+  // Keeps the loader video's pace matched to background frame-decode
+  // progress: slows down when decoding is lagging behind the video's
+  // natural timeline, speeds up when decoding is ahead, so the video
+  // finishes roughly when the hero is actually ready to show.
+  useEffect(() => {
+    if (hideLoader) return;
+    const coreCount = Math.min(CORE_FRAME_END, seq.frameCount - 1) + 1;
+    const id = window.setInterval(() => {
+      const video = loaderVideoRef.current;
+      if (!video || !video.duration || Number.isNaN(video.duration)) return;
+      const frameProgress = Math.min(1, loadedCountRef.current / coreCount);
+      const videoProgress = video.currentTime / video.duration;
+      const diff = frameProgress - videoProgress;
+      video.playbackRate = Math.min(
+        LOADER_MAX_RATE,
+        Math.max(LOADER_MIN_RATE, 1 + diff * 3),
+      );
+    }, 200);
+    return () => window.clearInterval(id);
+  }, [hideLoader, seq.frameCount]);
+
+  // Hero only reveals once the loader video has fully played through
+  // (and frame decode is done, so it doesn't reveal a blank canvas).
+  useEffect(() => {
+    if (!ready || !videoEnded) return;
     const t = window.setTimeout(() => setHideLoader(true), 700);
     return () => window.clearTimeout(t);
-  }, [ready]);
+  }, [ready, videoEnded]);
 
   // canvas sizing + WebGL renderer setup
   useEffect(() => {
@@ -601,11 +634,51 @@ export default function Home3dHero({
           </div>
         )}
 
+        {/* Old schematic-scan loader — swapped for full-screen video loader below.
         {!hideLoader && (
           <LoadingScreen
             progress={loadedCount / (Math.min(CORE_FRAME_END, seq.frameCount - 1) + 1)}
             fadeOut={ready}
           />
+        )}
+        */}
+        {!hideLoader && (
+          <div
+            className={`absolute inset-0 z-40 overflow-hidden bg-black transition-opacity duration-700 ${
+              ready && videoEnded ? "opacity-0" : "opacity-100"
+            }`}
+          >
+            <video
+              ref={loaderVideoRef}
+              className="absolute inset-0 h-full w-full object-cover"
+              style={{ transform: "scale(1.4)", transformOrigin: "center center" }}
+              src="/loader-new.mp4"
+              autoPlay
+              muted
+              playsInline
+              preload="auto"
+              onLoadedMetadata={(e) => {
+                if (e.currentTarget.paused) e.currentTarget.play().catch(() => {});
+              }}
+              onTimeUpdate={(e) => {
+                const v = e.currentTarget;
+                const pct = v.duration > 0 ? (v.currentTime / v.duration) * 100 : 0;
+                setLoaderPct(Math.min(100, Math.max(0, Math.round(pct))));
+              }}
+              onEnded={() => {
+                setVideoEnded(true);
+                setLoaderPct(100);
+              }}
+            />
+            <div className="absolute inset-x-0 bottom-16 z-10 flex flex-col items-center gap-2 md:bottom-24">
+              <span className="font-mono text-6xl font-light leading-none tracking-tight text-white sm:text-8xl">
+                {loaderPct}%
+              </span>
+              <span className="text-xs font-medium tracking-[0.4em] text-white/70 uppercase animate-pulse">
+                Loading
+              </span>
+            </div>
+          </div>
         )}
       </div>
     </div>

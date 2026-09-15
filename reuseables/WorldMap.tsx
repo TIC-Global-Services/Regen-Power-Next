@@ -3,7 +3,6 @@
 import React, { useEffect, useState } from 'react';
 import Image, { StaticImageData } from 'next/image';
 import { MapPin } from 'lucide-react';
-import worldMap from '@/assets/contact/map.png';
 
 /** Geographic lat/lng bounds of the map image's edges, used to project markers. */
 export interface MapBounds {
@@ -14,18 +13,17 @@ export interface MapBounds {
 }
 
 /**
- * Calibrated against `assets/contact/map.png` (1024x678) by least-squares
- * fitting identifiable landmarks (Australia, Madagascar, Iceland, New Zealand,
- * Fiji, New Caledonia). Residuals are < 4px at full image resolution.
- *
- * NOTE: this map is NOT plain equirectangular — it has a ~1.24x vertical
- * stretch, which these bounds absorb. If you swap the map image, re-calibrate.
+ * Calibrated against `public/map-australia-made-dot-detailed-map-australia-made-dot-vector-illustration-115902526.webp`
+ * (800x800, dot silhouette spans px 18-783 horizontally / 73-750 vertically)
+ * by fitting known city coordinates (Perth, Adelaide, Melbourne, Sydney,
+ * Brisbane) against their pixel positions in the dot map. If you swap the map
+ * image, re-calibrate.
  */
 const DEFAULT_BOUNDS: MapBounds = {
-    north: 102.58,
-    south: -86.44,
-    west: -165.84,
-    east: 189.23,
+    north: -7.15,
+    south: -46.08,
+    west: 112.2,
+    east: 154.53,
 };
 
 export interface MapMarker {
@@ -59,8 +57,9 @@ export interface WorldMapProps {
     mapImage?: StaticImageData | string;
     /**
      * Only used when `mapImage` is a URL string. When a StaticImageData is used
-     * (the default) the ratio is derived from the image itself, so marker
-     * percentages always line up with the picture.
+     * the ratio is derived from the image itself, so marker percentages always
+     * line up with the picture. Defaults to 1/1, matching the default
+     * Australia dot map — override if you pass a different URL image.
      */
     aspectRatio?: string;
     /** Override only if you supply a different map image. */
@@ -91,7 +90,7 @@ const WorldMap: React.FC<WorldMapProps> = ({
     title,
     subtitle,
     markers,
-    mapImage = worldMap,
+    mapImage = '/map-australia-made-dot-detailed-map-australia-made-dot-vector-illustration-115902526.webp',
     aspectRatio,
     mapBounds = DEFAULT_BOUNDS,
     titleColor = 'green',
@@ -149,7 +148,7 @@ const WorldMap: React.FC<WorldMapProps> = ({
     // never letterboxed by object-contain — otherwise marker % positions drift.
     const ratio =
         typeof mapImage === 'string'
-            ? (aspectRatio ?? '16 / 9')
+            ? (aspectRatio ?? '1 / 1')
             : `${mapImage.width} / ${mapImage.height}`;
 
     return (
@@ -234,10 +233,10 @@ const WorldMap: React.FC<WorldMapProps> = ({
                         // Label placement — use 'top' when a right-extending label
                         // would collide with a neighbouring marker.
                         const labelClasses = {
-                            right: 'left-6 top-1/2 -translate-y-1/2',
-                            left: 'right-6 top-1/2 -translate-y-1/2',
-                            top: 'bottom-full left-1/2 -translate-x-1/2 mb-0.5',
-                            bottom: 'top-full left-1/2 -translate-x-1/2 mt-0.5',
+                            right: 'left-10 top-1/2 -translate-y-1/2',
+                            left: 'right-10 top-1/2 -translate-y-1/2',
+                            top: 'bottom-full left-1/2 -translate-x-1/2 mb-1',
+                            bottom: 'top-full left-1/2 -translate-x-1/2 mt-1',
                         }[marker.labelPosition ?? 'right'];
 
                         return (
@@ -313,13 +312,13 @@ const WorldMap: React.FC<WorldMapProps> = ({
                                 )}
 
                                 <MapPin
-                                    size={18}
+                                    size={36}
                                     strokeWidth={2.5}
-                                    className={`transition-transform duration-200 ${isActive ? 'scale-125' : ''} fill-[#A0CF44] text-[#A0CF44]`}
+                                    className={`transition-transform duration-200 ${isActive ? 'scale-125' : ''} fill-[#63B846] text-[#63B846]`}
                                 />
                                 {/* Desktop: always visible | Mobile: only when tapped */}
                                 <span
-                                    className={`absolute ${labelClasses} text-xs md:text-sm font-medium text-black whitespace-nowrap transition-opacity duration-200
+                                    className={`absolute ${labelClasses} text-sm md:text-base font-semibold text-black whitespace-nowrap transition-opacity duration-200
                                         ${isActive ? 'opacity-100' : 'opacity-0 md:opacity-100'}
                                         ${isActive ? 'pointer-events-auto' : 'pointer-events-none md:pointer-events-auto'}`}
                                 >
