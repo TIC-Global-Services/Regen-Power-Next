@@ -240,6 +240,7 @@ export type {
 
 export {
   resolveEvChargingHero,
+  resolveEvChargingStatsAndIntro,
   resolveEvChargingWallConnector,
   resolveEvChargingChargerProducts,
   resolveEvChargingInstallerBrands,
@@ -251,6 +252,7 @@ export {
 } from "./ev-charging";
 export type {
   ResolvedEvChargingHero,
+  ResolvedEvChargingStatsAndIntro,
   ResolvedEvChargingWallConnector,
   ResolvedEvChargingChargerProducts,
   ResolvedEvChargingChargerProduct,
@@ -345,6 +347,7 @@ export {
   resolveCommercialSystemsCommercialForm,
   resolveCommercialOffGridHero,
   resolveCommercialOffGridSolutionsPortfolio,
+  resolveCommercialOffGridOurProcess,
 } from "./commercial";
 export type {
   ResolvedCommercialSystemsHero,
@@ -361,6 +364,7 @@ export type {
   ResolvedCommercialSystemsCommercialForm,
   ResolvedCommercialOffGridHero,
   ResolvedCommercialOffGridSolutionsPortfolio,
+  ResolvedCommercialOffGridOurProcess,
 } from "./commercial";
 
 export {

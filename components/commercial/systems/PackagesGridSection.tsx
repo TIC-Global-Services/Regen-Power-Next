@@ -20,6 +20,8 @@ export default function PackagesGridSection({ resolved }: Props) {
           label: item.label,
           value: item.value,
         })),
+        ctaText: pkg.ctaText,
+        ctaHref: pkg.ctaHref,
       }))}
     />
   );

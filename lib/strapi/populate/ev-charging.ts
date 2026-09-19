@@ -1,6 +1,9 @@
 export const hero =
   "populate[sections][on][ev-charging.hero][populate]=backgroundImage";
 
+export const statsAndIntro =
+  "populate[sections][on][ev-charging.stats-and-intro][populate][tickerItems]=true";
+
 export const wallConnector =
   "populate[sections][on][ev-charging.wall-connector][populate][specs]=true" +
   "&populate[sections][on][ev-charging.wall-connector][populate][image]=true";

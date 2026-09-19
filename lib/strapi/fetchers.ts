@@ -174,8 +174,11 @@ export const getCommercialOffGridPage = () =>
     PAGE_SLUGS.commercialOffGrid,
     populate(
       commercial.offGridHero,
+      commercial.systemsStatsCardGrid,
+      commercial.systemsPackagesGrid,
       shared.editorialSection,
       commercial.offGridSolutionsPortfolio,
+      commercial.offGridOurProcess,
       shared.formSection,
       shared.ctaBanner
     )
@@ -700,6 +703,7 @@ export const getEvChargingPage = () =>
     PAGE_SLUGS.evCharging,
     populate(
       evCharging.hero,
+      evCharging.statsAndIntro,
       evCharging.wallConnector,
       evCharging.chargerProducts,
       evCharging.installerBrands,

@@ -32,9 +32,19 @@ const variantClass: Record<CardVariant, string> = {
     'dark': 'bg-[#3B3B33] text-white',
 };
 
-const TextCardView: React.FC<{ card: TextCard; mobileScroll?: boolean; isHovered?: boolean; onMouseEnter?: () => void; onMouseLeave?: () => void; tabletOrder?: string }> = ({ card, mobileScroll, isHovered, onMouseEnter, onMouseLeave, tabletOrder }) => {
+const TextCardView: React.FC<{ card: TextCard; mobileScroll?: boolean; isHovered?: boolean; onMouseEnter?: () => void; onMouseLeave?: () => void; tabletOrder?: string; boldSpecs?: boolean }> = ({ card, mobileScroll, isHovered, onMouseEnter, onMouseLeave, tabletOrder, boldSpecs = true }) => {
     const isDark = card.variant === 'dark' || isHovered;
     const titleLines = card.title.split('\n');
+    const specsEl = card.specs && (
+        <p className={`text-sm lg:text-base leading-[1.2] tracking-tight max-w-md ${boldSpecs ? 'font-bold mb-1' : ''} ${isDark ? (boldSpecs ? 'text-white' : 'text-white/80') : (boldSpecs ? 'text-black' : 'text-black/80')}`}>
+            {card.specs}
+        </p>
+    );
+    const descriptionEl = (
+        <p className={`text-sm lg:text-base leading-[1.2] tracking-tight max-w-md ${isDark ? 'text-white/80' : 'text-black/80'}`}>
+            {card.description}
+        </p>
+    );
     return (
         <div
             className={`${isHovered ? 'bg-[#3B3B33] text-white' : variantClass[card.variant]} rounded-2xl p-6 flex flex-col justify-between gap-5 aspect-[4/3] overflow-hidden transition-colors duration-300 ${mobileScroll ? 'shrink-0 w-[60vw] snap-start md:w-auto' : ''} ${tabletOrder ?? ''}`}
@@ -47,13 +57,16 @@ const TextCardView: React.FC<{ card: TextCard; mobileScroll?: boolean; isHovered
                 ))}
             </h3>
             <div>
-                <p className={`text-sm lg:text-base leading-[1.2] tracking-tight max-w-md ${isDark ? 'text-white/80' : 'text-black/80'}`}>
-                    {card.description}
-                </p>
-                {card.specs && (
-                    <p className={`text-sm lg:text-base leading-[1.2] tracking-tight max-w-md ${isDark ? 'text-white/80' : 'text-black/80'}`}>
-                        {card.specs}
-                    </p>
+                {boldSpecs ? (
+                    <>
+                        {specsEl}
+                        {descriptionEl}
+                    </>
+                ) : (
+                    <>
+                        {descriptionEl}
+                        {specsEl}
+                    </>
                 )}
             </div>
         </div>
@@ -90,6 +103,8 @@ export interface SolutionsPortfolioProps {
     mobileScroll?: boolean;
     /** Index of the card that should appear hovered by default. Defaults to 4 (second row, second card in a 3-col grid). */
     defaultHoveredIndex?: number;
+    /** When true (default), a text card's `specs` renders bold above the description. Set false for long sentence-style specs where bold-above would look heavy. */
+    boldSpecs?: boolean;
 }
 
 const gridCols: Record<CardLayout, string> = {
@@ -115,6 +130,7 @@ const SolutionsPortfolio: React.FC<SolutionsPortfolioProps> = ({
     className = '',
     mobileScroll = false,
     defaultHoveredIndex = 4,
+    boldSpecs = true,
 }) => {
     const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
     const activeIndex = hoveredIndex !== null ? hoveredIndex : defaultHoveredIndex;
@@ -172,7 +188,7 @@ const SolutionsPortfolio: React.FC<SolutionsPortfolioProps> = ({
                         if (card.type === 'image') {
                             return <ImageCardView key={index} card={card} mobileScroll={mobileScroll} tabletOrder={tabletOrder} {...hoverProps} />;
                         }
-                        return <TextCardView key={index} card={card} mobileScroll={mobileScroll} tabletOrder={tabletOrder} {...hoverProps} />;
+                        return <TextCardView key={index} card={card} mobileScroll={mobileScroll} tabletOrder={tabletOrder} boldSpecs={boldSpecs} {...hoverProps} />;
                     })}
                 </div>
 

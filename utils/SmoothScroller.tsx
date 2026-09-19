@@ -16,16 +16,37 @@ const SmoothScroller = ({ children }: LenisProviderProps) => {
 
   useEffect(() => {
     if (lenisRef.current) {
+      const hash = window.location.hash?.slice(1);
+      const target = hash ? document.getElementById(hash) : null;
+
       // Lenis owns the scroll position — reset it to the top on every
-      // route change so pages (e.g. a blog article) don't open mid-scroll.
-      lenisRef.current.scrollTo(0, { immediate: true });
-      window.scrollTo(0, 0);
+      // route change so pages (e.g. a blog article) don't open mid-scroll,
+      // unless the URL carries a hash, in which case Lenis has to be the
+      // one to scroll to it (native scrollIntoView gets fought by Lenis's
+      // own raf loop and never sticks).
+      if (target) {
+        lenisRef.current.scrollTo(target, { immediate: true });
+      } else {
+        lenisRef.current.scrollTo(0, { immediate: true });
+        window.scrollTo(0, 0);
+      }
       setTimeout(() => {
         lenisRef.current?.resize();
         ScrollTrigger.refresh();
       }, 100);
     }
   }, [pathname]);
+
+  useEffect(() => {
+    const handleHashChange = () => {
+      const hash = window.location.hash?.slice(1);
+      if (!hash || !lenisRef.current) return;
+      const target = document.getElementById(hash);
+      if (target) lenisRef.current.scrollTo(target);
+    };
+    window.addEventListener("hashchange", handleHashChange);
+    return () => window.removeEventListener("hashchange", handleHashChange);
+  }, []);
 
   useEffect(() => {
     gsap.registerPlugin(ScrollTrigger);

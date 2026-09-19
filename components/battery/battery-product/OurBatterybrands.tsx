@@ -114,7 +114,7 @@ const OurBatterybrands: React.FC<{ data?: OurBatteryBrandsData }> = ({ data }) =
     if (!brands || count === 0) return null;
 
     return (
-        <section className="w-full px-[5%] md:px-[3%] py-12 md:py-20 bg-white">
+        <section id='brands' className="w-full px-[5%] md:px-[3%] py-12 md:py-20 bg-white">
             {/* ── Mobile + Tablet: slider (image card on top, text card below) ── */}
             <div className="lg:hidden">
                 <div

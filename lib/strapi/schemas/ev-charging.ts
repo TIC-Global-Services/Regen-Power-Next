@@ -42,6 +42,21 @@ export const EvChargingHeroSchema = z.object({
 });
 export type EvChargingHeroData = z.infer<typeof EvChargingHeroSchema>;
 
+// ─── Stats and Intro (ticker only — EV page uses ticker, not editorial text) ─
+
+export const EvChargingTickerItemSchema = z.object({
+  id: z.number(),
+  text: z.string(),
+});
+
+export const EvChargingStatsAndIntroSchema = z.object({
+  __component: z.literal("ev-charging.stats-and-intro"),
+  tickerItems: z.array(EvChargingTickerItemSchema),
+});
+export type EvChargingStatsAndIntroData = z.infer<
+  typeof EvChargingStatsAndIntroSchema
+>;
+
 // ─── Wall Connector ───────────────────────────────────────────────────
 
 export const EvChargingWallConnectorSchema = z.object({

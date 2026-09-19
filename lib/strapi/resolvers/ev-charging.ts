@@ -1,6 +1,7 @@
 import { strapiImageData } from "../media";
 import type {
   EvChargingHeroData,
+  EvChargingStatsAndIntroData,
   EvChargingWallConnectorData,
   EvChargingChargerProductsData,
   EvChargingInstallerBrandsData,
@@ -46,6 +47,20 @@ export function resolveEvChargingHero(
     descriptionColor: "text-white",
     imageClass: "object-cover object-bottom",
     showOverlay: data.showOverlay ?? true,
+  };
+}
+
+// ─── Stats and Intro (ticker only) ─────────────────────────────────────
+
+export interface ResolvedEvChargingStatsAndIntro {
+  tickerTexts: string[];
+}
+export function resolveEvChargingStatsAndIntro(
+  data: EvChargingStatsAndIntroData | undefined | null
+): ResolvedEvChargingStatsAndIntro | null {
+  if (!data) return null;
+  return {
+    tickerTexts: (data.tickerItems ?? []).map((t) => t.text),
   };
 }
 

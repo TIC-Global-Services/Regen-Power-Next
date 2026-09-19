@@ -19,6 +19,7 @@ import type {
   CommercialSystemsCommercialFormData,
   CommercialOffGridHeroData,
   CommercialOffGridSolutionsPortfolioData,
+  CommercialOffGridOurProcessData,
 } from "../schemas/commercial";
 
 export interface ResolvedCommercialSystemsHero {
@@ -266,6 +267,8 @@ export interface ResolvedCommercialPackage {
   desc: string;
   bgClass: string;
   items: ResolvedCommercialPackageItem[];
+  ctaText?: string;
+  ctaHref?: string;
 }
 export interface ResolvedCommercialSystemsPackagesGrid {
   subtitle: string;
@@ -289,6 +292,8 @@ export function resolveCommercialSystemsPackagesGrid(
         label: item.label,
         value: item.value,
       })),
+      ...(pkg.ctaText ? { ctaText: pkg.ctaText } : {}),
+      ...(pkg.ctaHref ? { ctaHref: pkg.ctaHref } : {}),
     })),
   };
 }
@@ -429,5 +434,32 @@ export function resolveCommercialOffGridSolutionsPortfolio(
         specs: c.specs ?? undefined,
       };
     }),
+  };
+}
+
+export interface ResolvedCommercialOffGridProcessStep {
+  number: string;
+  title: string;
+  description: string;
+  image: string;
+}
+export interface ResolvedCommercialOffGridOurProcess {
+  subtitle: string;
+  title: string;
+  steps: ResolvedCommercialOffGridProcessStep[];
+}
+export function resolveCommercialOffGridOurProcess(
+  data: CommercialOffGridOurProcessData | undefined
+): ResolvedCommercialOffGridOurProcess | null {
+  if (!data) return null;
+  return {
+    subtitle: data.subtitle ?? "",
+    title: data.title ?? "",
+    steps: (data.steps ?? []).map((s) => ({
+      number: s.number,
+      title: s.title,
+      description: s.description,
+      image: s.image ? strapiImageData(s.image)?.src ?? "" : "",
+    })),
   };
 }

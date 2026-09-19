@@ -298,6 +298,7 @@ export type {
   CommercialOffGridHeroData,
   SharedEditorialSectionData,
   CommercialOffGridSolutionsPortfolioData,
+  CommercialOffGridOurProcessData,
   CaseStudyDetailsData,
   FeatureCardData,
 } from "./commercial";
@@ -319,6 +320,7 @@ export {
   CommercialOffGridHeroSchema,
   SharedEditorialSectionSchema,
   CommercialOffGridSolutionsPortfolioSchema,
+  CommercialOffGridOurProcessSchema,
 } from "./commercial";
 
 export type {
@@ -385,6 +387,7 @@ export {
 
 export type {
   EvChargingHeroData,
+  EvChargingStatsAndIntroData,
   EvChargingWallConnectorData,
   EvChargingChargerProductsData,
   EvChargingChargerProductData,
@@ -402,6 +405,7 @@ export type {
 } from "./ev-charging";
 export {
   EvChargingHeroSchema,
+  EvChargingStatsAndIntroSchema,
   EvChargingWallConnectorSchema,
   EvChargingChargerProductsSchema,
   EvChargingChargerProductSchema,

@@ -167,6 +167,8 @@ export const PackageSchema = z.object({
   desc: z.string(),
   bgClass: z.string(),
   items: z.array(PackageItemSchema),
+  ctaText: z.string().nullable().optional(),
+  ctaHref: z.string().nullable().optional(),
 });
 
 export const CommercialSystemsPackagesGridSchema = z.object({
@@ -281,3 +283,19 @@ export const CommercialOffGridSolutionsPortfolioSchema = z.object({
   cards: z.array(PortfolioCardSchema),
 });
 export type CommercialOffGridSolutionsPortfolioData = z.infer<typeof CommercialOffGridSolutionsPortfolioSchema>;
+
+export const CommercialOffGridProcessStepSchema = z.object({
+  id: z.number(),
+  number: z.string(),
+  title: z.string(),
+  description: z.string(),
+  image: MediaSchema.nullable(),
+});
+
+export const CommercialOffGridOurProcessSchema = z.object({
+  __component: z.literal("commercial-off-grid.our-process"),
+  subtitle: z.string().nullable(),
+  title: z.string().nullable(),
+  steps: z.array(CommercialOffGridProcessStepSchema),
+});
+export type CommercialOffGridOurProcessData = z.infer<typeof CommercialOffGridOurProcessSchema>;

@@ -1,6 +1,7 @@
 import React from 'react';
 import Reveal from '@/reuseables/Reveal';
 import SectionHeader from '@/reuseables/SectionHeader';
+import CtaButton from '@/reuseables/CtaButton';
 
 interface PackageItem {
   label: string;
@@ -12,6 +13,8 @@ interface Package {
   desc: string;
   bgClass: string;
   items: PackageItem[];
+  ctaText?: string;
+  ctaHref?: string;
 }
 
 interface PackagesGridProps {
@@ -55,21 +58,23 @@ const PackagesGrid: React.FC<PackagesGridProps> = ({
         />
 
         {/* 3-Column Card Layout */}
-        <div className="grid grid-cols-1 w-full lg:grid-cols-3 gap-4 lg:justify-center lg:items-start">
-          {packages.map((pkg, idx) => (
+        <div className="grid grid-cols-1 w-full lg:grid-cols-3 gap-4 lg:justify-center lg:items-stretch">
+          {packages.map((pkg, idx) => {
+            const isHighlight = pkg.bgClass.includes('A0CF44');
+            return (
             <Reveal
               key={idx}
               delay={idx * 0.1}
-              className={`rounded-[20px] p-8 md:p-10 flex flex-col justify-between transition-all duration-300 w-full  min-h-[380px] lg:h-[540px] overflow-hidden mx-auto
-                bg-[#EEF6EB] hover:bg-[#A0CF44]
+              className={`rounded-[20px] p-8 md:p-10 flex flex-col justify-between transition-all duration-300 hover:brightness-95 w-full h-full min-h-[380px] overflow-hidden mx-auto
+                ${pkg.bgClass || 'bg-[#EEF6EB]'}
               `}
             >
               {/* Title & Desc */}
               <div className="mb-6">
-                <h3 className="text-3xl md:text-[2.5rem] mb-1 tracking-tight max-w-xs">
+                <h3 className="text-3xl md:text-[2.5rem] mb-1 tracking-tight">
                   {pkg.title}
                 </h3>
-                <p className={`text-sm md:text-base leading-tight text-black max-w-xs`}>
+                <p className={`text-sm md:text-base leading-tight text-black`}>
                   {pkg.desc}
                 </p>
               </div>
@@ -88,8 +93,22 @@ const PackagesGrid: React.FC<PackagesGridProps> = ({
                 ))}
               </div>
 
+              {pkg.ctaText && pkg.ctaHref && (
+                <CtaButton
+                  href={pkg.ctaHref}
+                  text={pkg.ctaText}
+                  className="mt-6 capitalize self-start"
+                  iconBgClass="bg-black"
+                  iconTextColor="text-white"
+                  {...(isHighlight
+                    ? { bgClass: 'bg-white', borderClass: 'border border-white', hoverClass: 'hover:bg-white/90' }
+                    : {})}
+                />
+              )}
+
             </Reveal>
-          ))}
+            );
+          })}
         </div>
 
       </div>

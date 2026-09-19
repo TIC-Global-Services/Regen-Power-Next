@@ -40,3 +40,6 @@ export const offGridHero =
 
 export const offGridSolutionsPortfolio =
   "populate[sections][on][commercial-off-grid.solutions-portfolio][populate][cards][populate]=image";
+
+export const offGridOurProcess =
+  "populate[sections][on][commercial-off-grid.our-process][populate][steps][populate][image]=true";

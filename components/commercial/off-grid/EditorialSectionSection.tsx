@@ -17,7 +17,8 @@ export default function EditorialSectionSection({ resolved }: Props) {
       }))}
       align={resolved.align}
       subtitleClass="text-lg md:text-2xl text-black font-normal"
-      paragraphsClass="text-left max-w-5xl"
+      titleClass="text-3xl md:text-6xl"
+      paragraphsClass="text-center max-w-5xl mx-auto"
       revealEffect
     />
   );

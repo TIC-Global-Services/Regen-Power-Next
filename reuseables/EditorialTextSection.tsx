@@ -166,7 +166,7 @@ const EditorialTextSection: React.FC<EditorialTextSectionProps> = ({
       >
         <div className="w-full lg:px-16">
           {headerSection}
-          <div className={`text-lg md:text-3xl font-light leading-tight tracking-tight mt-8 lg:ml-16 lg:max-w-6xl ${paragraphsClass || (align === 'left' ? 'text-left' : align === 'right' ? 'text-right' : 'text-center')}`}>
+          <div className={`text-lg md:text-3xl font-light leading-tight tracking-tight mt-8 ${align === 'center' ? '' : 'lg:ml-16'} lg:max-w-6xl ${paragraphsClass || (align === 'left' ? 'text-left' : align === 'right' ? 'text-right' : 'text-center mx-auto')}`}>
             {paragraphs.map(renderParagraph)}
           </div>
         </div>

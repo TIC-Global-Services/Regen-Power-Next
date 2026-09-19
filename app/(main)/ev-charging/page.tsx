@@ -3,6 +3,7 @@ import { getEvChargingPage } from "@/lib/strapi";
 import { findSection } from "@/lib/strapi/section-utils";
 import {
   resolveEvChargingHero,
+  resolveEvChargingStatsAndIntro,
   resolveEvChargingWallConnector,
   resolveEvChargingChargerProducts,
   resolveEvChargingInstallerBrands,
@@ -17,6 +18,7 @@ import {
 import { resolveSharedFormSection } from "@/lib/strapi/resolvers/shared";
 import type {
   EvChargingHeroData,
+  EvChargingStatsAndIntroData,
   EvChargingWallConnectorData,
   EvChargingChargerProductsData,
   EvChargingInstallerBrandsData,
@@ -31,6 +33,7 @@ import type {
 } from "@/lib/strapi/schemas";
 import EvHero from "@/components/EvCharging/hero";
 import type { EvHeroData } from "@/components/EvCharging/hero";
+import StatsTicker from "@/components/EvCharging/StatsTicker";
 import WallConnector from "@/components/EvCharging/wallConnector";
 import type { WallConnectorData } from "@/components/EvCharging/wallConnector";
 import OneCharger from "@/components/EvCharging/OneCharger";
@@ -77,6 +80,10 @@ const EvChargingPage = async () => {
   const sections = data.sections ?? [];
 
   const hero = findSection<EvChargingHeroData>(sections, "ev-charging.hero");
+  const statsAndIntro = findSection<EvChargingStatsAndIntroData>(
+    sections,
+    "ev-charging.stats-and-intro"
+  );
   const wallConnector = findSection<EvChargingWallConnectorData>(
     sections,
     "ev-charging.wall-connector"
@@ -114,6 +121,7 @@ const EvChargingPage = async () => {
   const formSection = findSection<SharedFormSectionData>(sections, "shared.form-section");
 
   const heroProps = resolveEvChargingHero(hero);
+  const statsAndIntroProps = resolveEvChargingStatsAndIntro(statsAndIntro);
   const wallConnectorProps = resolveEvChargingWallConnector(wallConnector);
   const chargerProductsProps = resolveEvChargingChargerProducts(chargerProducts);
   const installerBrandsProps = resolveEvChargingInstallerBrands(installerBrands);
@@ -137,6 +145,9 @@ const EvChargingPage = async () => {
           }}
         />
       )}
+
+      {/* Stats Ticker */}
+      {statsAndIntroProps && <StatsTicker items={statsAndIntroProps.tickerTexts} />}
 
       {/* Section 2: Wall Connector */}
       {wallConnectorProps && (
