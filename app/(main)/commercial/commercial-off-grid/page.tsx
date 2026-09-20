@@ -5,17 +5,23 @@ import {
   resolveCommercialOffGridHero,
   resolveCommercialOffGridSolutionsPortfolio,
   resolveCommercialOffGridOurProcess,
+  resolveCommercialOffGridWhyRegen,
+  resolveCommercialOffGridImageSplitCta,
   resolveCommercialSystemsStatsCardGrid,
   resolveCommercialSystemsPackagesGrid,
   resolveSharedEditorialSection,
+  resolveSharedFaq,
   resolveSharedCtaBanner,
 } from "@/lib/strapi/resolvers";
 import { resolveSharedFormSection } from "@/lib/strapi/resolvers/shared";
 import type {
   CommercialOffGridHeroData,
   SharedEditorialSectionData,
+  SharedFaqData,
   CommercialOffGridSolutionsPortfolioData,
   CommercialOffGridOurProcessData,
+  CommercialOffGridWhyRegenData,
+  CommercialOffGridImageSplitCtaData,
   CommercialSystemsStatsCardGridData,
   CommercialSystemsPackagesGridData,
   SharedCtaBannerData,
@@ -26,8 +32,11 @@ import HeroSection from "@/components/commercial/off-grid/HeroSection";
 import EditorialSection from "@/components/commercial/off-grid/EditorialSectionSection";
 import SolutionsPortfolioSection from "@/components/commercial/off-grid/SolutionsPortfolioSection";
 import OurProcessSection from "@/components/commercial/off-grid/OurProcessSection";
+import WhyRegenSection from "@/components/commercial/off-grid/WhyRegenSection";
+import ImageSplitCtaSection from "@/components/commercial/off-grid/ImageSplitCtaSection";
 import StatsCardGridSection from "@/components/commercial/systems/StatsCardGridSection";
 import PackagesGridSection from "@/components/commercial/systems/PackagesGridSection";
+import FaqSection from "@/components/commercial/systems/FaqSection";
 import CtaBannerSection from "@/components/commercial/off-grid/CtaBannerSection";
 import UnifiedFormSection from "@/reuseables/UnifiedFormSection";
 
@@ -43,6 +52,9 @@ export default async function CommercialOffGridPage() {
   const editorial = findSection<SharedEditorialSectionData>(sections, "shared.editorial-section");
   const portfolios = findSections<CommercialOffGridSolutionsPortfolioData>(sections, "commercial-off-grid.solutions-portfolio");
   const ourProcess = findSection<CommercialOffGridOurProcessData>(sections, "commercial-off-grid.our-process");
+  const imageSplitCta = findSection<CommercialOffGridImageSplitCtaData>(sections, "commercial-off-grid.image-split-cta");
+  const whyRegen = findSection<CommercialOffGridWhyRegenData>(sections, "commercial-off-grid.why-regen");
+  const faq = findSection<SharedFaqData>(sections, "shared.faq");
   const formSection = findSection<SharedFormSectionData>(sections, "shared.form-section");
   const ctaBanner = findSection<SharedCtaBannerData>(sections, "shared.cta-banner");
 
@@ -56,6 +68,9 @@ export default async function CommercialOffGridPage() {
     .map((p) => resolveCommercialOffGridSolutionsPortfolio(p))
     .filter((p): p is NonNullable<typeof p> => p !== null);
   const ourProcessProps = resolveCommercialOffGridOurProcess(ourProcess);
+  const whyRegenProps = resolveCommercialOffGridWhyRegen(whyRegen);
+  const imageSplitCtaProps = resolveCommercialOffGridImageSplitCta(imageSplitCta);
+  const faqProps = resolveSharedFaq(faq);
   const formProps = resolveSharedFormSection(formSection);
   const ctaBannerProps = resolveSharedCtaBanner(ctaBanner);
 
@@ -77,7 +92,13 @@ export default async function CommercialOffGridPage() {
         <PackagesGridSection key={idx} resolved={p} />
       ))}
 
+      {whyRegenProps && <WhyRegenSection resolved={whyRegenProps} />}
+
       {ourProcessProps && <OurProcessSection resolved={ourProcessProps} />}
+
+      {imageSplitCtaProps && <ImageSplitCtaSection resolved={imageSplitCtaProps} />}
+
+      {faqProps && <FaqSection resolved={faqProps} />}
 
       <UnifiedFormSection
         resolved={formProps}

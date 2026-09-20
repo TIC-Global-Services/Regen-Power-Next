@@ -299,3 +299,30 @@ export const CommercialOffGridOurProcessSchema = z.object({
   steps: z.array(CommercialOffGridProcessStepSchema),
 });
 export type CommercialOffGridOurProcessData = z.infer<typeof CommercialOffGridOurProcessSchema>;
+
+export const CommercialOffGridWhyRegenCardSchema = z.object({
+  id: z.number(),
+  type: z.enum(["text", "dots"]),
+  title: z.string().nullable(),
+  description: z.string().nullable(),
+});
+
+export const CommercialOffGridWhyRegenSchema = z.object({
+  __component: z.literal("commercial-off-grid.why-regen"),
+  subtitle: z.string().nullable(),
+  title: z.string().nullable(),
+  description: z.string().nullable(),
+  cards: z.array(CommercialOffGridWhyRegenCardSchema),
+});
+export type CommercialOffGridWhyRegenData = z.infer<typeof CommercialOffGridWhyRegenSchema>;
+
+export const CommercialOffGridImageSplitCtaSchema = z.object({
+  __component: z.literal("commercial-off-grid.image-split-cta"),
+  title: z.string().nullable(),
+  subtitle: z.string().nullable(),
+  description: z.string().nullable(),
+  ctaText: z.string().nullable(),
+  ctaHref: z.string().nullable(),
+  image: MediaSchema.nullable(),
+});
+export type CommercialOffGridImageSplitCtaData = z.infer<typeof CommercialOffGridImageSplitCtaSchema>;

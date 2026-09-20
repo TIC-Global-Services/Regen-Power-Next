@@ -179,6 +179,9 @@ export const getCommercialOffGridPage = () =>
       shared.editorialSection,
       commercial.offGridSolutionsPortfolio,
       commercial.offGridOurProcess,
+      commercial.offGridWhyRegen,
+      commercial.offGridImageSplitCta,
+      shared.faq,
       shared.formSection,
       shared.ctaBanner
     )

@@ -43,3 +43,9 @@ export const offGridSolutionsPortfolio =
 
 export const offGridOurProcess =
   "populate[sections][on][commercial-off-grid.our-process][populate][steps][populate][image]=true";
+
+export const offGridWhyRegen =
+  "populate[sections][on][commercial-off-grid.why-regen][populate][cards]=true";
+
+export const offGridImageSplitCta =
+  "populate[sections][on][commercial-off-grid.image-split-cta][populate]=image";

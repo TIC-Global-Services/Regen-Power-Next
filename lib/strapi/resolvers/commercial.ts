@@ -20,6 +20,8 @@ import type {
   CommercialOffGridHeroData,
   CommercialOffGridSolutionsPortfolioData,
   CommercialOffGridOurProcessData,
+  CommercialOffGridWhyRegenData,
+  CommercialOffGridImageSplitCtaData,
 } from "../schemas/commercial";
 
 export interface ResolvedCommercialSystemsHero {
@@ -461,5 +463,57 @@ export function resolveCommercialOffGridOurProcess(
       description: s.description,
       image: s.image ? strapiImageData(s.image)?.src ?? "" : "",
     })),
+  };
+}
+
+export interface ResolvedCommercialOffGridWhyRegenCard {
+  type: "text" | "dots";
+  title: string;
+  description: string;
+}
+export interface ResolvedCommercialOffGridWhyRegen {
+  subtitle: string;
+  title: string;
+  description: string;
+  cards: ResolvedCommercialOffGridWhyRegenCard[];
+}
+export function resolveCommercialOffGridWhyRegen(
+  data: CommercialOffGridWhyRegenData | undefined
+): ResolvedCommercialOffGridWhyRegen | null {
+  if (!data) return null;
+  return {
+    subtitle: data.subtitle ?? "",
+    title: data.title ?? "",
+    description: data.description ?? "",
+    cards: (data.cards ?? []).map((c) => ({
+      type: c.type,
+      title: c.title ?? "",
+      description: c.description ?? "",
+    })),
+  };
+}
+
+export interface ResolvedCommercialOffGridImageSplitCta {
+  title: string;
+  subtitle: string;
+  description: string;
+  ctaText?: string;
+  ctaHref?: string;
+  image: string;
+  imageAlt: string;
+}
+export function resolveCommercialOffGridImageSplitCta(
+  data: CommercialOffGridImageSplitCtaData | undefined
+): ResolvedCommercialOffGridImageSplitCta | null {
+  if (!data) return null;
+  const img = data.image ? strapiImageData(data.image) : null;
+  return {
+    title: data.title ?? "",
+    subtitle: data.subtitle ?? "",
+    description: data.description ?? "",
+    ...(data.ctaText ? { ctaText: data.ctaText } : {}),
+    ...(data.ctaHref ? { ctaHref: data.ctaHref } : {}),
+    image: img?.src ?? "",
+    imageAlt: img?.alt ?? "",
   };
 }

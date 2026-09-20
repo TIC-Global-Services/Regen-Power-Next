@@ -299,6 +299,8 @@ export type {
   SharedEditorialSectionData,
   CommercialOffGridSolutionsPortfolioData,
   CommercialOffGridOurProcessData,
+  CommercialOffGridWhyRegenData,
+  CommercialOffGridImageSplitCtaData,
   CaseStudyDetailsData,
   FeatureCardData,
 } from "./commercial";
@@ -321,6 +323,8 @@ export {
   SharedEditorialSectionSchema,
   CommercialOffGridSolutionsPortfolioSchema,
   CommercialOffGridOurProcessSchema,
+  CommercialOffGridWhyRegenSchema,
+  CommercialOffGridImageSplitCtaSchema,
 } from "./commercial";
 
 export type {
