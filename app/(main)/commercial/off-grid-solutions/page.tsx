@@ -3,6 +3,7 @@ import { getOffGridSolutionsPage } from '@/lib/strapi';
 import { findSection, findSections } from '@/lib/strapi/section-utils';
 import {
   resolveOffGridHero,
+  resolveEvChargingStatsAndIntro,
   resolveStatsCardGrid,
   resolveSolutionsPortfolio,
   resolveThreeSolutionsSection,
@@ -19,6 +20,7 @@ import {
 } from '@/lib/strapi/resolvers';
 import type {
   OffGridHeroData,
+  EvChargingStatsAndIntroData,
   SolutionsPortfolioData,
   ThreeSolutionsSectionData,
   IconCardGridData,
@@ -41,7 +43,7 @@ import ThreeSolutionsSection from '@/components/off-grid/ThreeSolutionsSection';
 import IconCardGrid from '@/reuseables/IconCardGrid';
 import HybridGenDetailSection from '@/components/off-grid/HybridGenDetailSection';
 import EditorialTextSection from '@/reuseables/EditorialTextSection';
-import WorldMap, { type MapMarker } from '@/reuseables/WorldMap';
+import WorldMap, { type MapBounds, type MapMarker } from '@/reuseables/WorldMap';
 
 /**
  * Real-world coordinates per CMS marker name — mapped the same way as the
@@ -54,13 +56,16 @@ const MARKER_COORDS: Record<
     { lat: number; lng: number; labelPosition?: MapMarker['labelPosition'] }
 > = {
     india: { lat: 20.5937, lng: 78.9629 },
-    maldives: { lat: 3.2028, lng: 73.2207, labelPosition: 'left' }, // right label collides with Sri Lanka
+    maldives: { lat: 3.2028, lng: 73.2207, labelPosition: 'bottom' }, // right label collides with Sri Lanka; left label clips at the map's west edge
     'sri lanka': { lat: 5, lng: 80.7718 }, 
     vietnam: { lat: 14.0583, lng: 108.2772 },
     singapore: { lat: 1.3521, lng: 103.8198, labelPosition: 'bottom' }, // tight SE-Asia cluster
     indonesia: { lat: -0.7893, lng: 113.9213 },
     australia: { lat: -25.2744, lng: 133.7751 },
 };
+
+/** Geographic edges of `public/asia-pacific-map.png` (dot map, 2160x1848) — re-calibrate if the image is swapped. */
+const ASIA_PACIFIC_MAP_BOUNDS: MapBounds = { north: 32, south: -45, west: 65, east: 155 };
 
 /** Attach coordinates to any CMS marker whose name matches the table above. */
 const withCoordinates = (markers: MapMarker[]): MapMarker[] =>
@@ -73,6 +78,7 @@ import AcquaSmartSection from '@/components/off-grid/AcquaSmartSection';
 import OffGridStory from '@/components/off-grid/OffGridStory';
 import OverlayCardGrid from '@/reuseables/OverlayCardGrid';
 import UnifiedFormSection from '@/reuseables/UnifiedFormSection';
+import StatsTicker from '@/components/EvCharging/StatsTicker';
 import FAQ from '@/reuseables/faq';
 import getValidMediaSrc from '@/utils/getValidsrc';
 
@@ -83,6 +89,7 @@ const OffGridSolutionsPage = async () => {
   const sections = data.sections ?? [];
 
   const hero = resolveOffGridHero(findSection<OffGridHeroData>(sections, 'off-grid.hero'));
+  const ticker = resolveEvChargingStatsAndIntro(findSection<EvChargingStatsAndIntroData>(sections, 'ev-charging.stats-and-intro'));
   const stats = resolveStatsCardGrid(findSection<CommercialSystemsStatsCardGridData>(sections, 'commercial-systems.stats-card-grid'));
   const portfolio = resolveSolutionsPortfolio(findSection<SolutionsPortfolioData>(sections, 'off-grid.solutions-portfolio'));
   const solutions = resolveThreeSolutionsSection(findSection<ThreeSolutionsSectionData>(sections, 'off-grid.three-solutions-section'));
@@ -124,6 +131,8 @@ const OffGridSolutionsPage = async () => {
         ctaLink={hero?.ctaLink}
         backgroundImage={validBackgroundImage}
       />
+
+      {ticker && <StatsTicker items={ticker.tickerTexts} />}
 
       {stats && (
         <StatsCardGrid
@@ -218,8 +227,10 @@ const OffGridSolutionsPage = async () => {
         <WorldMap
           title={worldMap.title}
           markers={withCoordinates(worldMap.markers)}
-          titleColor="black"
-          focusMarkers
+          mapImage="/asia-pacific-map.png"
+          aspectRatio="2160 / 1848"
+          mapBounds={ASIA_PACIFIC_MAP_BOUNDS}
+          mapMaxWidth="max-w-5xl"
         />
       )}
 

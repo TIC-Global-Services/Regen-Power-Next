@@ -226,6 +226,7 @@ export const getOffGridSolutionsPage = () =>
     PAGE_SLUGS.offGridSolutions,
     populate(
       offGrid.hero,
+      evCharging.statsAndIntro,
       offGrid.statsCardGrid,
       offGrid.solutionsPortfolio,
       offGrid.threeSolutionsSection,
