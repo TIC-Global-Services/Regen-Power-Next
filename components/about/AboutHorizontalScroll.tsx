@@ -66,7 +66,7 @@ const HorizontalCards = forwardRef<
         return (
           <div
             key={item.id}
-            className={`flex w-[150vw] shrink-0 flex-col gap-3 px-4  sm:px-0  md:gap-4 lg:w-[48vw] lg:gap-16 ${isTop ? "self-start mt-[15vh]" : "self-end mb-[10vh]"}`}
+            className={`flex w-[150vw] shrink-0 flex-col gap-3 px-4  sm:px-0  md:gap-4 lg:w-[60vw] lg:gap-16 ${isTop ? "self-start mt-[15vh]" : "self-end mb-[10vh]"}`}
           >
             {/* image on top, title + desc below — everything left-aligned.
                 Badge box has a fixed, responsive size (object-contain inside
