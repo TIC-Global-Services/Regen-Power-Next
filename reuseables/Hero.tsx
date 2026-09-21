@@ -9,6 +9,9 @@ export interface HeroProps {
     mediaSrc: string | StaticImageData;
     videoFile?: string;
     mediaType?: 'image' | 'video';
+    /** Optional small-screen background; below md it replaces mediaSrc. */
+    mobileMediaSrc?: string | StaticImageData;
+    mobileMediaType?: 'image' | 'video';
     topSubtitle: React.ReactNode;
     mainTitle: React.ReactNode;
     description: React.ReactNode;
@@ -24,10 +27,40 @@ export interface HeroProps {
     heightClass?: string;
     icon?: LucideIcon;
 }
+const renderMedia = (
+    src: string | StaticImageData,
+    type: 'image' | 'video',
+    imageClass: string,
+) => {
+    const url = typeof src === 'string' ? src : src.src;
+    if (type === 'video') {
+        return (
+            <video
+                src={url}
+                className="w-full h-full object-cover"
+                autoPlay
+                loop
+                muted
+                playsInline
+                preload="metadata"
+            />
+        );
+    }
+    return (
+        <img
+            src={url}
+            alt="Hero Background"
+            className={`absolute inset-0 w-full h-full ${imageClass}`}
+        />
+    );
+};
+
 const Hero: React.FC<HeroProps> = ({
     mediaSrc,
     videoFile,
     mediaType = 'image',
+    mobileMediaSrc,
+    mobileMediaType = 'image',
     topSubtitle,
     mainTitle,
     description,
@@ -48,22 +81,14 @@ const Hero: React.FC<HeroProps> = ({
         <section className={`relative w-full flex flex-col justify-end pb-12 md:pb-10 ${height}`}>
             {mediaSrc && (
                 <div className="absolute inset-0 z-0">
-                    {mediaType === 'video' ? (
-                        <video
-                            src={typeof mediaSrc === 'string' ? mediaSrc : mediaSrc.src}
-                            className="w-full h-full object-cover"
-                            autoPlay
-                            loop
-                            muted
-                            playsInline
-                        />
-                    ) : (
-                        <img
-                            src={typeof mediaSrc === 'string' ? mediaSrc : mediaSrc.src}
-                            alt="Hero Background"
-                            className={`absolute inset-0 w-full h-full ${imageClass}`}
-                        />
+                    {mobileMediaSrc && (
+                        <div className="absolute inset-0 md:hidden">
+                            {renderMedia(mobileMediaSrc, mobileMediaType, imageClass)}
+                        </div>
                     )}
+                    <div className={mobileMediaSrc ? 'absolute inset-0 hidden md:block' : 'absolute inset-0'}>
+                        {renderMedia(mediaSrc, mediaType, imageClass)}
+                    </div>
                     {showOverlay && (
                         <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
                     )}

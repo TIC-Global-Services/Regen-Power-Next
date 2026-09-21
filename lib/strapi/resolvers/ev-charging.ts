@@ -22,6 +22,8 @@ const src = (media: { url?: string } | null | undefined): string =>
 export interface ResolvedEvChargingHero {
   mediaSrc: string;
   mediaType: "image" | "video";
+  mobileMediaSrc?: string;
+  mobileMediaType?: "image" | "video";
   topSubtitle: string;
   mainTitle: string;
   description: string;
@@ -36,9 +38,18 @@ export function resolveEvChargingHero(
   data: EvChargingHeroData | undefined | null
 ): ResolvedEvChargingHero | null {
   if (!data) return null;
+  const mobileSrc = src(data.mobileBackgroundImage);
   return {
     mediaSrc: src(data.backgroundImage),
     mediaType: "video",
+    ...(mobileSrc
+      ? {
+          mobileMediaSrc: mobileSrc,
+          mobileMediaType: data.mobileBackgroundImage?.mime.startsWith("video/")
+            ? ("video" as const)
+            : ("image" as const),
+        }
+      : {}),
     topSubtitle: data.subtitle ?? "",
     mainTitle: data.title ?? "",
     description: data.description ?? "",

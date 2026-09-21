@@ -36,6 +36,7 @@ export const EvChargingHeroSchema = z.object({
   title: z.string().nullable(),
   description: z.string().nullable(),
   backgroundImage: MediaSchema.nullable(),
+  mobileBackgroundImage: MediaSchema.nullable().optional(),
   buttonText: z.string().nullable(),
   buttonLink: z.string().nullable(),
   showOverlay: z.boolean().nullable(),

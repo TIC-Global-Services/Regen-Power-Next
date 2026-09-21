@@ -170,6 +170,10 @@ const nextConfig: NextConfig = {
         protocol: "https",
         hostname: "regenpower.com",
       },
+      {
+        protocol:"http",
+        hostname:"187.53.140.216"
+      }
     ],
   },
 };

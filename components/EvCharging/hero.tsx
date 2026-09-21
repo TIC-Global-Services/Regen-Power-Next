@@ -5,6 +5,8 @@ import { StaticImageData } from 'next/image';
 export interface EvHeroData {
   mediaSrc: StaticImageData | string;
   mediaType: "image" | "video";
+  mobileMediaSrc?: StaticImageData | string;
+  mobileMediaType?: "image" | "video";
   isFullScreen?: boolean;
   descriptionColor?: string;
   imageClass?: string;
@@ -24,6 +26,8 @@ const EvHero = ({ data }: EvHeroProps) => {
     <Hero
       mediaSrc={data.mediaSrc}
       mediaType={data.mediaType}
+      mobileMediaSrc={data.mobileMediaSrc}
+      mobileMediaType={data.mobileMediaType}
       isFullScreen={data.isFullScreen}
       descriptionColor={data.descriptionColor ?? 'text-white'}
       imageClass={data.imageClass ?? 'object-cover object-bottom'}
