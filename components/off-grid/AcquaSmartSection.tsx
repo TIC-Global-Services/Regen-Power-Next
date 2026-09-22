@@ -71,7 +71,7 @@ const   AcquaSmartSection: React.FC<AcquaSmartSectionProps> = ({
                         <p className="text-lg md:text-2xl text-black font-light leading-none tracking-tight mb-1">
                             {subtitle}
                         </p>
-                        <h2 className="text-4xl md:text-6xl lg:text-[4.5rem] text-[#63B846] font-normal tracking-tighter leading-none mb-6">
+                        <h2 className="text-4xl md:text-6xl lg:text-[3.5rem] text-[#63B846] font-normal tracking-tighter leading-none mb-6">
                             {title}
                         </h2>
                         <p className="text-sm md:text-base text-black leading-[1.2] tracking-tight">
