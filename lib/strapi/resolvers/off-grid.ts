@@ -208,8 +208,11 @@ export function resolveWorldMap(
 export interface ResolvedMicrogridSpecTable {
   subtitle: string;
   title: string;
+  description: string;
   headers: { col1: string; col2: string };
   tableContent: { value: string; description: string }[];
+  industriesTitle: string;
+  industries: { application: string; description: string }[];
 }
 export function resolveMicrogridSpecTable(
   data: MicrogridSpecTableData | undefined
@@ -218,10 +221,16 @@ export function resolveMicrogridSpecTable(
   return {
     subtitle: data.subtitle ?? "",
     title: data.title ?? "",
+    description: data.description ?? "",
     headers: data.headers ?? { col1: "Field", col2: "Detail" },
     tableContent: (data.tableContent ?? []).map((t) => ({
       value: t.value,
       description: t.description,
+    })),
+    industriesTitle: data.industriesTitle ?? "",
+    industries: (data.industries ?? []).map((i) => ({
+      application: i.application,
+      description: i.description,
     })),
   };
 }

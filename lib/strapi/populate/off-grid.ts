@@ -23,7 +23,8 @@ export const worldMap =
 
 export const microgridSpecTable =
   "populate[sections][on][off-grid.microgrid-spec-table][populate][headers]=true" +
-  "&populate[sections][on][off-grid.microgrid-spec-table][populate][tableContent]=true";
+  "&populate[sections][on][off-grid.microgrid-spec-table][populate][tableContent]=true" +
+  "&populate[sections][on][off-grid.microgrid-spec-table][populate][industries]=true";
 
 export const acquaSmartSection =
   "populate[sections][on][off-grid.acqua-smart-section][populate][image]=true" +

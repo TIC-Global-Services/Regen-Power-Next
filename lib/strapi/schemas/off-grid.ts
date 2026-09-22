@@ -96,12 +96,21 @@ export const TableContentSchema = z.object({
   description: z.string(),
 });
 
+export const MicrogridIndustryItemSchema = z.object({
+  id: z.number(),
+  application: z.string(),
+  description: z.string(),
+});
+
 export const MicrogridSpecTableSchema = z.object({
   __component: z.literal("off-grid.microgrid-spec-table"),
   subtitle: z.string().nullable(),
   title: z.string().nullable(),
+  description: z.string().nullable(),
   headers: MicrogridTableHeaderSchema.nullable(),
   tableContent: z.array(TableContentSchema),
+  industriesTitle: z.string().nullable(),
+  industries: z.array(MicrogridIndustryItemSchema),
 });
 export type MicrogridSpecTableData = z.infer<typeof MicrogridSpecTableSchema>;
 

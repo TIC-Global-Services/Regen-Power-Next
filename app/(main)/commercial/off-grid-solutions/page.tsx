@@ -102,7 +102,6 @@ const OffGridSolutionsPage = async () => {
 
   const editorials = findSections<SharedEditorialSectionData>(sections, 'shared.editorial-section');
   const editorial1 = resolveSharedEditorialSection(editorials[0]);
-  const editorial2 = resolveSharedEditorialSection(editorials[1]);
 
   const specTable = resolveMicrogridSpecTable(findSection<MicrogridSpecTableData>(sections, 'off-grid.microgrid-spec-table'));
   const worldMap = resolveWorldMap(findSection<WorldMapData>(sections, 'off-grid.world-map'));
@@ -206,20 +205,15 @@ const OffGridSolutionsPage = async () => {
         />
       )}
 
-      {editorial2 && (
-        <EditorialTextSection
-          subtitle={editorial2.subtitle}
-          title={editorial2.title}
-          paragraphs={editorial2.paragraphs}
-          align="left"
-          revealEffect
-        />
-      )}
-
       {specTable && (
         <MicrogridSpecTable
+          subtitle={specTable.subtitle}
+          title={specTable.title}
+          description={specTable.description}
           headers={specTable.headers}
           tableContent={specTable.tableContent}
+          industriesTitle={specTable.industriesTitle}
+          industries={specTable.industries}
         />
       )}
 
