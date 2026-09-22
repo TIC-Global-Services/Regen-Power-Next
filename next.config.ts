@@ -1,7 +1,7 @@
 import type { NextConfig } from "next";
 
 const STRAPI_URL =
-  process.env.STRAPI_URL || "https://regen-cms.theinternetcompany.one/";
+  process.env.STRAPI_URL || "https://strapi.regenpower.com";
 
 const nextConfig: NextConfig = {
   async redirects() {

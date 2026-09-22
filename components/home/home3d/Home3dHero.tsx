@@ -356,6 +356,34 @@ export default function Home3dHero({
     return () => cancelAnimationFrame(raf);
   }, [phase]);
 
+  // Pre-warm a small window of scroll-range frames while still idling in the
+  // loop phase, so the first scroll doesn't have to decode a big batch of
+  // never-before-fetched frames all at once (see ensureScrollWindow below) —
+  // that burst, right at the intro/loop -> scroll hand-off, was the other
+  // half of the perceived hitch. Marking them in scrollLoadedRef up front
+  // means ensureScrollWindow's own loop just skips them later.
+  const prewarmedRef = useRef(false);
+  useEffect(() => {
+    if (phase !== "loop" || prewarmedRef.current) return;
+    const decodeFrame = decodeFrameRef.current;
+    if (!decodeFrame) return;
+    prewarmedRef.current = true;
+
+    const PREWARM_COUNT = 24;
+    const start = CORE_FRAME_END + 1;
+    const end = Math.min(seq.frameCount - 1, start + PREWARM_COUNT - 1);
+    const loaded = scrollLoadedRef.current;
+    const inFlight = scrollInFlightRef.current;
+    for (let i = start; i <= end; i++) {
+      if (loaded.has(i) || inFlight.has(i)) continue;
+      inFlight.add(i);
+      decodeFrame(i).then(() => {
+        inFlight.delete(i);
+        loaded.add(i);
+      });
+    }
+  }, [phase, seq]);
+
   // detect scroll intent during intro/loop
   // Regen blocks native scroll with preventDefault during intro/loop.
   // With Lenis active (SmoothScroller), preventDefault fights the virtual
@@ -571,13 +599,24 @@ export default function Home3dHero({
 
   // After the sticky track expands (phase intro→scroll), tell ScrollTrigger below
   // to re-measure — otherwise FeatureExplorer's pin start is stale.
+  // Double-rAF'd: ScrollTrigger.refresh() forces a synchronous full-page
+  // reflow, and doing that on the SAME frame as the first scroll-driven draw
+  // (applyProgress, scheduled by the takeover's own onScroll() call) made the
+  // hand-off from intro/loop into scroll feel like a hitch. Pushing it one
+  // extra frame out lets that first draw paint before the reflow runs.
   useEffect(() => {
     if (phase !== "scroll") return;
-    const raf = requestAnimationFrame(() => {
-      getLenis()?.resize();
-      ScrollTrigger.refresh();
+    let raf2 = 0;
+    const raf1 = requestAnimationFrame(() => {
+      raf2 = requestAnimationFrame(() => {
+        getLenis()?.resize();
+        ScrollTrigger.refresh();
+      });
     });
-    return () => cancelAnimationFrame(raf);
+    return () => {
+      cancelAnimationFrame(raf1);
+      cancelAnimationFrame(raf2);
+    };
   }, [phase]);
 
   return (
@@ -652,7 +691,7 @@ export default function Home3dHero({
               ref={loaderVideoRef}
               className="absolute inset-0 h-full w-full object-cover"
               style={{ transform: "scale(1.4)", transformOrigin: "center center" }}
-              src="/solar-loader.mp4"
+              src="/new-solar-loader.mp4"
               autoPlay
               muted
               playsInline
