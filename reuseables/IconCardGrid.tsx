@@ -30,6 +30,14 @@ interface IconCardGridProps {
     mobileLarge?: boolean;
     /** Remove the white circular background behind the icon — icon renders plain. */
     plainIcon?: boolean;
+    /**
+     * Render as a nested subsection of whatever precedes it (e.g. a detail
+     * section) instead of a standalone page section: no top padding, a
+     * smaller left-aligned header with a top divider instead of the big
+     * centered display heading, so it reads as "part of the thing above" not
+     * a new section.
+     */
+    subsection?: boolean;
 }
 
 const gridCols: Record<IconCardLayout, string> = {
@@ -101,29 +109,50 @@ const IconCardGrid: React.FC<IconCardGridProps> = ({
     footer,
     mobileLarge = false,
     plainIcon = false,
+    subsection = false,
 }) => {
 
     return (
-        <section className={`py-10 md:py-24 bg-white ${className}`}>
+        <section className={`${subsection ? ' pt-10 pb-10 md:pb-24' : 'py-10 md:py-24'} bg-white ${className}`}>
             <div className="px-[5%] md:px-[3%]">
                 {showHeader && (subtitle || title || description) && (
-                    <div className="text-center mb-12 md:mb-16">
-                        {subtitle && (
-                            <p className="text-lg md:text-[2.125rem] text-black font-light tracking-tight leading-none">
-                                {subtitle}
-                            </p>
-                        )}
-                        {title && (
-                            <h2 className="text-4xl md:text-6xl lg:text-[3.5rem] text-[#63B846] font-normal tracking-tighter leading-none">
-                                {title}
-                            </h2>
-                        )}
-                        {description && (
-                            <p className="text-sm md:text-base text-black leading-[1.2] mt-4 md:max-w-4xl mx-auto">
-                                {description}
-                            </p>
-                        )}
-                    </div>
+                    subsection ? (
+                        <div className="text-left md:text-center md:mx-auto mb-10 md:mb-12  pt-8 md:pt-10 max-w-3xl">
+                            {subtitle && (
+                                <p className="text-xs md:text-sm text-black/50 font-medium uppercase tracking-wide mb-2">
+                                    {subtitle}
+                                </p>
+                            )}
+                            {title && (
+                                <h3 className="text-2xl md:text-4xl text-[#63B846] font-medium tracking-tight leading-tight mb-3">
+                                    {title}
+                                </h3>
+                            )}
+                            {description && (
+                                <p className="text-sm md:text-base text-black/75 leading-[1.3]">
+                                    {description}
+                                </p>
+                            )}
+                        </div>
+                    ) : (
+                        <div className="text-center mb-12 md:mb-16">
+                            {subtitle && (
+                                <p className="text-lg md:text-[2.125rem] text-black font-light tracking-tight leading-none">
+                                    {subtitle}
+                                </p>
+                            )}
+                            {title && (
+                                <h2 className="text-4xl md:text-6xl lg:text-[3.5rem] text-[#63B846] font-normal tracking-tighter leading-none">
+                                    {title}
+                                </h2>
+                            )}
+                            {description && (
+                                <p className="text-sm md:text-base text-black leading-[1.2] mt-4 md:max-w-4xl mx-auto">
+                                    {description}
+                                </p>
+                            )}
+                        </div>
+                    )
                 )}
 
                 {/* Grid layout for all screen sizes */}

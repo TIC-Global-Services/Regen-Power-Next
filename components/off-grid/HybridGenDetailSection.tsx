@@ -22,7 +22,7 @@ const HybridGenDetailSection: React.FC<HybridGenDetailSectionProps> = ({
     const paragraphs = description ? description.split('\n').filter(Boolean) : [];
 
     return (
-        <section className="py-16 lg:py-24 bg-white">
+        <section className="pt-16 lg:pt-24  bg-white">
             <div className="px-[5%] lg:px-[3%] mx-auto">
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-center ">
                     <div className="relative w-full aspect-square md:aspect-[16/9] rounded-[24px] overflow-hidden lg:hidden">
@@ -62,7 +62,7 @@ const HybridGenDetailSection: React.FC<HybridGenDetailSectionProps> = ({
                         ))}
                     </div>
 
-                    <div className="relative w-full aspect-square rounded-[24px] overflow-hidden hidden lg:block">
+                    <div className="relative w-full aspect-4/3 rounded-[24px] overflow-hidden hidden lg:block">
                         <img
                             src={image || '/fallback.png'}
                             alt={imageAlt ?? ''}

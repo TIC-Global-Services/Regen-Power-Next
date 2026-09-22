@@ -168,28 +168,36 @@ const OffGridSolutionsPage = async () => {
         />
       )}
 
-      {hybridGen && (
-        <HybridGenDetailSection
-          logo={hybridGen.logo}
-          image={hybridGen.image}
-          subtitle={hybridGen.subtitle}
-          title={hybridGen.title}
-          description={hybridGen.description}
-          patentText={hybridGen.patentText}
-        />
-      )}
+      {/* HybridGEN detail + its "problem it solves" technical cards render as
+          one continuous block — the cards are a subsection of HybridGEN, not
+          a new page section, so there's no bg/section break between them. */}
+      {(hybridGen || iconGrid2) && (
+        <div className="bg-white">
+          {hybridGen && (
+            <HybridGenDetailSection
+              logo={hybridGen.logo}
+              image={hybridGen.image}
+              subtitle={hybridGen.subtitle}
+              title={hybridGen.title}
+              description={hybridGen.description}
+              patentText={hybridGen.patentText}
+            />
+          )}
 
-      {iconGrid2 && (
-        <IconCardGrid
-          subtitle={iconGrid2.subtitle}
-          title={iconGrid2.title}
-          description={iconGrid2.description}
-          cards={iconGrid2.cards as any}
-          layout={iconGrid2.layout as any}
-          showHeader={iconGrid2.showHeader}
-          mobileLarge
-          plainIcon
-        />
+          {iconGrid2 && (
+            <IconCardGrid
+              subtitle={iconGrid2.subtitle}
+              title={iconGrid2.title}
+              description={iconGrid2.description}
+              cards={iconGrid2.cards as any}
+              layout={iconGrid2.layout as any}
+              showHeader={iconGrid2.showHeader}
+              mobileLarge
+              plainIcon
+              subsection
+            />
+          )}
+        </div>
       )}
 
       {specTable && (
