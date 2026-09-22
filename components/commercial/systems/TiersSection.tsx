@@ -87,13 +87,13 @@ export default function TiersSection({ resolved }: Props) {
                   ))}
                 </div>
 
-                {/* <div>
+                <div>
                   <CtaButton
                     href={tiers[activeIndex].ctaHref}
                     text={tiers[activeIndex].ctaText}
                     textColor="text-black"
                   />
-                </div> */}
+                </div>
               </motion.div>
             </AnimatePresence>
 
