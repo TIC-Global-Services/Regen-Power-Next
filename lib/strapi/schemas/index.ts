@@ -305,6 +305,7 @@ export type {
   CommercialOffGridOurProcessData,
   CommercialOffGridWhyRegenData,
   CommercialOffGridImageSplitCtaData,
+  CommercialOffGridCompetitorAnalysisData,
   CaseStudyDetailsData,
   FeatureCardData,
 } from "./commercial";
@@ -329,6 +330,7 @@ export {
   CommercialOffGridOurProcessSchema,
   CommercialOffGridWhyRegenSchema,
   CommercialOffGridImageSplitCtaSchema,
+  CommercialOffGridCompetitorAnalysisSchema,
 } from "./commercial";
 
 export type {

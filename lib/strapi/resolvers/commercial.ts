@@ -22,6 +22,7 @@ import type {
   CommercialOffGridOurProcessData,
   CommercialOffGridWhyRegenData,
   CommercialOffGridImageSplitCtaData,
+  CommercialOffGridCompetitorAnalysisData,
 } from "../schemas/commercial";
 
 export interface ResolvedCommercialSystemsHero {
@@ -116,6 +117,7 @@ export function resolveCommercialSystemsTiersSection(
 export interface ResolvedComponentItem {
   letter: string;
   title: string;
+  description?: string;
 }
 export interface ResolvedCommercialSystemsComponentsSection {
   subtitle: string;
@@ -136,6 +138,7 @@ export function resolveCommercialSystemsComponentsSection(
     items: (data.items ?? []).map((item) => ({
       letter: item.letter,
       title: item.title,
+      ...(item.description ? { description: item.description } : {}),
     })),
   };
 }
@@ -281,11 +284,13 @@ export interface ResolvedCommercialSystemsPackagesGrid {
   title: string;
   description: string;
   packages: ResolvedCommercialPackage[];
+  notes?: string[];
 }
 export function resolveCommercialSystemsPackagesGrid(
   data: CommercialSystemsPackagesGridData | undefined
 ): ResolvedCommercialSystemsPackagesGrid | null {
   if (!data) return null;
+  const notes = (data.notes ?? []).map((n) => n.text).filter(Boolean);
   return {
     subtitle: data.subtitle ?? "",
     title: data.title ?? "",
@@ -301,6 +306,7 @@ export function resolveCommercialSystemsPackagesGrid(
       ...(pkg.ctaText ? { ctaText: pkg.ctaText } : {}),
       ...(pkg.ctaHref ? { ctaHref: pkg.ctaHref } : {}),
     })),
+    ...(notes.length ? { notes } : {}),
   };
 }
 
@@ -519,5 +525,34 @@ export function resolveCommercialOffGridImageSplitCta(
     ...(data.ctaHref ? { ctaHref: data.ctaHref } : {}),
     image: img?.src ?? "",
     imageAlt: img?.alt ?? "",
+  };
+}
+
+export interface ResolvedCompetitorRow {
+  competitor: string;
+  positioning: string;
+  doWell: string;
+  misses: string;
+}
+export interface ResolvedCommercialOffGridCompetitorAnalysis {
+  subtitle: string;
+  title: string;
+  description: string;
+  rows: ResolvedCompetitorRow[];
+}
+export function resolveCommercialOffGridCompetitorAnalysis(
+  data: CommercialOffGridCompetitorAnalysisData | undefined
+): ResolvedCommercialOffGridCompetitorAnalysis | null {
+  if (!data) return null;
+  return {
+    subtitle: data.subtitle ?? "",
+    title: data.title ?? "",
+    description: data.description ?? "",
+    rows: (data.rows ?? []).map((r) => ({
+      competitor: r.competitor,
+      positioning: r.positioning,
+      doWell: r.doWell,
+      misses: r.misses,
+    })),
   };
 }

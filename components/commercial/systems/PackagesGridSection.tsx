@@ -23,6 +23,7 @@ export default function PackagesGridSection({ resolved }: Props) {
         ctaText: pkg.ctaText,
         ctaHref: pkg.ctaHref,
       }))}
+      notes={resolved.notes}
     />
   );
 }

@@ -43,19 +43,26 @@ export default function ComponentsSection({ resolved }: Props) {
           </div>
 
           <div className="relative z-10 mt-auto p-5">
-            <div className="grid grid-cols-3 gap-3 ">
+            <div className="grid grid-cols-1 gap-3">
               {items.map((item, idx) => (
                 <Reveal
                   key={idx}
                   delay={idx * 0.08}
-                  className="bg-white/10 backdrop-blur-md border border-white/15 rounded-2xl p-4 hover:bg-white/20 transition-colors duration-300 min-h-[120px] flex flex-col justify-between"
+                  className="bg-white/10 backdrop-blur-md border border-white/15 rounded-2xl p-4 hover:bg-white/20 transition-colors duration-300 flex flex-col gap-2"
                 >
-                  <span className="text-white text-2xl font-normal leading-none tracking-tight">
-                    {item.letter}
-                  </span>
-                  <h3 className="text-white text-xs font-light leading-snug tracking-tight">
-                    {item.title}
-                  </h3>
+                  <div className="flex items-baseline gap-3">
+                    <span className="text-white text-2xl font-normal leading-none tracking-tight">
+                      {item.letter}
+                    </span>
+                    <h3 className="text-white text-sm font-light leading-snug tracking-tight">
+                      {item.title}
+                    </h3>
+                  </div>
+                  {item.description && (
+                    <p className="text-white/75 text-xs font-light leading-snug tracking-tight">
+                      {item.description}
+                    </p>
+                  )}
                 </Reveal>
               ))}
             </div>
@@ -89,20 +96,25 @@ export default function ComponentsSection({ resolved }: Props) {
             </Fade>
           </div>
 
-          <div className="relative z-10 mt-auto p-10 lg:pt-30">
-            <div className="grid grid-cols-3 gap-4 max-w-4xl justify-end lg:justify-start">
+          <div className="relative z-10 mt-auto p-10 lg:pt-16">
+            <div className="grid grid-cols-3 gap-4 max-w-5xl">
               {items.map((item, idx) => (
                 <Reveal
                   key={idx}
                   delay={idx * 0.08}
-                  className="bg-white/10 backdrop-blur-md border pb-20 border-white/15 rounded-lg hover:bg-white/20 transition-colors duration-300 flex flex-col justify-start  px-3 py-2"
+                  className="bg-white/10 backdrop-blur-md border border-white/15 rounded-lg hover:bg-white/20 transition-colors duration-300 flex flex-col items-start gap-2 px-5 py-5 min-h-[190px]"
                 >
-                  <span className="text-white text-[3.5rem] font-normal leading-none tracking-tight">
+                  <span className="text-white text-[2.75rem] font-normal leading-none tracking-tight">
                     {item.letter}
                   </span>
-                  <h3 className="text-white text-[1.375rem] text-center font-light leading-snug max-w-sm tracking-tight mt-4 whitespace-pre-line">
+                  <h3 className="text-white text-lg font-light leading-snug tracking-tight whitespace-pre-line">
                     {item.title}
                   </h3>
+                  {item.description && (
+                    <p className="text-white/75 text-sm font-light leading-snug tracking-tight">
+                      {item.description}
+                    </p>
+                  )}
                 </Reveal>
               ))}
             </div>

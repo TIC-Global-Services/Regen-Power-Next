@@ -24,7 +24,8 @@ export const systemsWatchSystemSection =
   "&populate[sections][on][commercial-systems.watch-system-section][populate][paragraphs]=true";
 
 export const systemsPackagesGrid =
-  "populate[sections][on][commercial-systems.packages-grid][populate][packages][populate][items]=true";
+  "populate[sections][on][commercial-systems.packages-grid][populate][packages][populate][items]=true" +
+  "&populate[sections][on][commercial-systems.packages-grid][populate][notes]=true";
 
 export const systemsProcessFlow =
   "populate[sections][on][commercial-systems.process-flow][populate][steps][populate]=image";

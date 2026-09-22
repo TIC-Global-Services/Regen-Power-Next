@@ -9,7 +9,7 @@ interface Props {
   resolved: ResolvedCommercialOffGridWhyRegen;
 }
 
-export default function WhyRegenSection({ resolved }: Props) {
+export default function WhereMarket({ resolved }: Props) {
   if (resolved.cards.length === 0) return null;
 
   return (

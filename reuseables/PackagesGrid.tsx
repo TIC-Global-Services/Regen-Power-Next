@@ -22,6 +22,7 @@ interface PackagesGridProps {
   title: string;
   description?: string;
   packages: Package[];
+  notes?: string[];
   className?: string;
 }
 
@@ -30,6 +31,7 @@ const PackagesGrid: React.FC<PackagesGridProps> = ({
   title,
   description,
   packages,
+  notes,
   className = ''
 }) => {
   return (
@@ -71,7 +73,7 @@ const PackagesGrid: React.FC<PackagesGridProps> = ({
             >
               {/* Title & Desc */}
               <div className="mb-6">
-                <h3 className="text-3xl md:text-[2.5rem] mb-1 tracking-tight">
+                <h3 className="text-3xl md:text-[2.5rem] mb-3 tracking-tight">
                   {pkg.title}
                 </h3>
                 <p className={`text-sm md:text-base leading-tight text-black`}>
@@ -110,6 +112,19 @@ const PackagesGrid: React.FC<PackagesGridProps> = ({
             );
           })}
         </div>
+
+        {notes && notes.length > 0 && (
+          <div className="mt-12 md:mt-16 max-w-6xl mx-auto space-y-4">
+            {notes.map((note, idx) => (
+              <p
+                key={idx}
+                className="text-center text-sm md:text-lg leading-relaxed text-black/70 font-light tracking-tight"
+              >
+                {note}
+              </p>
+            ))}
+          </div>
+        )}
 
       </div>
     </section>

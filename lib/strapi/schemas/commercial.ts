@@ -59,6 +59,7 @@ export const ComponentItemSchema = z.object({
   id: z.number(),
   letter: z.string(),
   title: z.string(),
+  description: z.string().nullable().optional(),
 });
 
 export const CommercialSystemsComponentsSectionSchema = z.object({
@@ -178,6 +179,7 @@ export const CommercialSystemsPackagesGridSchema = z.object({
   title: z.string().nullable(),
   description: z.string().nullable(),
   packages: z.array(PackageSchema),
+  notes: z.array(TextBlockSchema).nullable().optional(),
 });
 export type CommercialSystemsPackagesGridData = z.infer<typeof CommercialSystemsPackagesGridSchema>;
 
@@ -327,3 +329,20 @@ export const CommercialOffGridImageSplitCtaSchema = z.object({
   image: MediaSchema.nullable(),
 });
 export type CommercialOffGridImageSplitCtaData = z.infer<typeof CommercialOffGridImageSplitCtaSchema>;
+
+export const CompetitorRowSchema = z.object({
+  id: z.number(),
+  competitor: z.string(),
+  positioning: z.string(),
+  doWell: z.string(),
+  misses: z.string(),
+});
+
+export const CommercialOffGridCompetitorAnalysisSchema = z.object({
+  __component: z.literal("commercial-off-grid.competitor-analysis"),
+  subtitle: z.string().nullable(),
+  title: z.string().nullable(),
+  description: z.string().nullable(),
+  rows: z.array(CompetitorRowSchema),
+});
+export type CommercialOffGridCompetitorAnalysisData = z.infer<typeof CommercialOffGridCompetitorAnalysisSchema>;

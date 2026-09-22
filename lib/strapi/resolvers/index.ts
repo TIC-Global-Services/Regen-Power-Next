@@ -352,6 +352,7 @@ export {
   resolveCommercialOffGridOurProcess,
   resolveCommercialOffGridWhyRegen,
   resolveCommercialOffGridImageSplitCta,
+  resolveCommercialOffGridCompetitorAnalysis,
 } from "./commercial";
 export type {
   ResolvedCommercialSystemsHero,
@@ -371,6 +372,8 @@ export type {
   ResolvedCommercialOffGridOurProcess,
   ResolvedCommercialOffGridWhyRegen,
   ResolvedCommercialOffGridImageSplitCta,
+  ResolvedCommercialOffGridCompetitorAnalysis,
+  ResolvedCompetitorRow,
 } from "./commercial";
 
 export {
