@@ -35,6 +35,7 @@ export const ThreeSolutionItemSchema = z.object({
   id: z.number(),
   title: z.string().nullable(),
   description: z.string().nullable(),
+  bestFor: z.string().nullable(),
   image: MediaSchema.nullable(),
   ctaText: z.string().nullable(),
   ctaHref: z.string().nullable(),

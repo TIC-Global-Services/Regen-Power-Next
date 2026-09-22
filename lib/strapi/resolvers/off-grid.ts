@@ -95,6 +95,7 @@ export function resolveSolutionsPortfolio(
 export interface ResolvedThreeSolutionItem {
   title: string;
   description: string;
+  bestFor: string;
   image: string;
   ctaText: string;
   ctaHref?: string;
@@ -116,6 +117,7 @@ export function resolveThreeSolutionsSection(
     solutions: (data.solutions ?? []).map((s) => ({
       title: s.title ?? "",
       description: s.description ?? "",
+      bestFor: s.bestFor ?? "",
       image: s.image ? strapiImageData(s.image)?.src ?? "" : "",
       ctaText: s.ctaText ?? "Learn More",
       ...(s.ctaHref ? { ctaHref: s.ctaHref } : {}),

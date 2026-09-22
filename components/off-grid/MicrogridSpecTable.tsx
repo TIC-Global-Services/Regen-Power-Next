@@ -92,8 +92,8 @@ const MicrogridSpecTable: React.FC<MicrogridSpecTableProps> = ({
                                 Microgrid spec table
                             </h3>
                         )}
-                        <div className="max-w-4xl w-full rounded-[20px] overflow-hidden border border-[#A0CF44]/30">
-                            <div className="grid grid-cols-1 sm:grid-cols-[minmax(0,1fr)_minmax(0,2fr)] bg-[#A0CF44]">
+                        <div className="max-w-4xl w-full rounded-none sm:rounded-[20px] overflow-visible sm:overflow-hidden border-0 sm:border sm:border-[#A0CF44]/30">
+                            <div className="hidden sm:grid sm:grid-cols-[minmax(0,1fr)_minmax(0,2fr)] bg-[#A0CF44]">
                                 <div className="p-4 md:p-5 text-black font-medium text-base md:text-lg tracking-tight border-r border-black/20">
                                     {headers.col1}
                                 </div>
@@ -101,19 +101,21 @@ const MicrogridSpecTable: React.FC<MicrogridSpecTableProps> = ({
                                     {headers.col2}
                                 </div>
                             </div>
-                            {tableContent.map((row, idx) => (
-                                <div
-                                    key={idx}
-                                    className="group grid grid-cols-1 sm:grid-cols-[minmax(0,1fr)_minmax(0,2fr)] bg-[#EEF6EB] border-t border-[#A0CF44]/30 transition-colors duration-300 hover:bg-[#A0CF44]"
-                                >
-                                    <div className="p-4 md:p-5 text-black text-base md:text-lg font-semibold tracking-tight sm:border-r border-black/10 transition-colors duration-300">
-                                        {row.value}
+                            <div className="flex flex-col gap-4 sm:gap-0">
+                                {tableContent.map((row, idx) => (
+                                    <div
+                                        key={idx}
+                                        className={`group rounded-2xl sm:rounded-none grid grid-cols-1 sm:grid-cols-[minmax(0,1fr)_minmax(0,2fr)] bg-[#EEF6EB] transition-colors duration-300 hover:bg-[#A0CF44] ${idx > 0 ? 'sm:border-t' : ''} border-[#A0CF44]/30`}
+                                    >
+                                        <div className="p-5 sm:p-4 md:p-5 sm:pb-4 pb-1 text-black text-base md:text-lg font-semibold tracking-tight sm:border-r border-black/10 transition-colors duration-300">
+                                            {row.value}
+                                        </div>
+                                        <div className="px-5 pb-5 sm:p-4 md:p-5 pt-0 sm:pt-4 md:pt-5 text-black/85 text-sm md:text-[15px] tracking-tight leading-snug transition-colors duration-300 group-hover:text-black/85">
+                                            {row.description}
+                                        </div>
                                     </div>
-                                    <div className="p-4 md:p-5 text-black/85 text-sm md:text-[15px] tracking-tight leading-snug transition-colors duration-300 group-hover:text-black/85">
-                                        {row.description}
-                                    </div>
-                                </div>
-                            ))}
+                                ))}
+                            </div>
                         </div>
                     </div>
                 )}

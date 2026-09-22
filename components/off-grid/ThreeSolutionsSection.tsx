@@ -7,6 +7,7 @@ import { SliderDots, SliderArrows, useSnapSlider } from '@/reuseables/MobileSlid
 interface Solution {
     title: string;
     description: string;
+    bestFor?: string;
     image: string;
     ctaText?: string;
     ctaHref?: string;
@@ -30,6 +31,7 @@ const SolutionCard: React.FC<{ sol: Solution }> = ({ sol }) => (
             }}
         />
         <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-black/10" />
+        <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/10 to-transparent" />
         <div className="absolute inset-0 p-6 lg:p-8 flex flex-col">
             <h3 className="text-2xl lg:text-[1.75rem] text-white font-normal tracking-tight leading-tight mb-3">
                 {sol.title}
@@ -37,6 +39,16 @@ const SolutionCard: React.FC<{ sol: Solution }> = ({ sol }) => (
             <p className="text-sm lg:text-lg text-white/90 leading-[1.2] tracking-tight font-light max-w-[90%]">
                 {sol.description}
             </p>
+            {sol.bestFor && (
+                <div className="mt-auto pt-4">
+                    <p className="text-xs lg:text-sm text-white/60 uppercase tracking-wide mb-1">
+                        Best for
+                    </p>
+                    <p className="text-sm lg:text-base text-white font-medium leading-snug tracking-tight">
+                        {sol.bestFor}
+                    </p>
+                </div>
+            )}
             {/* <div className="mt-auto">
                 {sol.ctaText && (
                     <CtaButton
