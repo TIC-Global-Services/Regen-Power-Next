@@ -1,5 +1,6 @@
 export {
   MediaSchema,
+  SeoSchema,
   ParagraphSchema,
   FaqItemSchema,
   SharedFormSectionSchema,
@@ -7,6 +8,7 @@ export {
   SharedCategorySchema,
   SharedCategoryItemSchema,
 } from "./common";
+export type { SeoData } from "./common";
 export type {
   SharedFormSectionData,
   SharedCategorySectionData,
@@ -221,6 +223,7 @@ export type {
   SmartHomeBrandCardData,
   SmartHomeBrandSpecData,
   SmartHomeInstallBentoData,
+  SmartHomeCompatibilityMatrixData,
   SmartHomeInstallBlockData,
   SmartHomeTextItemData,
   SmartHomePillarCardData,
@@ -238,6 +241,7 @@ export {
   SmartHomeBrandCardSchema,
   SmartHomeBrandSpecSchema,
   SmartHomeInstallBentoSchema,
+  SmartHomeCompatibilityMatrixSchema,
   SmartHomeInstallBlockSchema,
   SmartHomeTextItemSchema,
   SmartHomePillarCardSchema,

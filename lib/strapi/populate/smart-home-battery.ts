@@ -15,6 +15,9 @@ export const splitSection =
   "populate[sections][on][smart-home-battery.split-section][populate][slides][populate][blocks]=true" +
   "&populate[sections][on][smart-home-battery.split-section][populate][slides][populate][image]=true";
 
+export const compatibilityMatrix =
+  "populate[sections][on][smart-home-battery.compatibility-matrix][populate][rows][populate][cells]=true";
+
 export const timeline =
   "populate[sections][on][smart-home-battery.timeline][populate][events]=true";
 

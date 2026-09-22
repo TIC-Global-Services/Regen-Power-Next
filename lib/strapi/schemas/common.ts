@@ -29,6 +29,31 @@ export const MediaSchema = z.object({
   publishedAt: z.string().nullable().optional(),
 });
 
+/** shared.seo — attached to blog-article / press-article (and possibly other) entries */
+export const SeoSchema = z.object({
+  id: z.number(),
+  metaTitle: z.string().nullable(),
+  metaDescription: z.string().nullable(),
+  keywords: z.string().nullable(),
+  canonicalURL: z.string().nullable(),
+  metaRobots: z.string().nullable(),
+  schemaType: z.string().nullable(),
+  structuredData: z.record(z.string(), z.unknown()).nullable().optional(),
+  ogTitle: z.string().nullable(),
+  ogDescription: z.string().nullable(),
+  ogType: z.string().nullable(),
+  ogUrl: z.string().nullable(),
+  twitterCard: z.string().nullable(),
+  twitterTitle: z.string().nullable(),
+  twitterDescription: z.string().nullable(),
+  twitterSite: z.string().nullable(),
+  twitterCreator: z.string().nullable(),
+  metaImage: MediaSchema.nullable(),
+  ogImage: MediaSchema.nullable(),
+  twitterImage: MediaSchema.nullable(),
+});
+export type SeoData = z.infer<typeof SeoSchema>;
+
 export const ParagraphSchema = z.object({
   id: z.number(),
   text: z.string(),

@@ -10,6 +10,7 @@ import {
   resolveBatteryTimeline,
   resolveBatteryBrandsGrid,
   resolveSmartInstallBento,
+  resolveSmartHomeCompatibilityMatrix,
   resolveSharedCtaBanner,
 } from "@/lib/strapi/resolvers";
 import { resolveSharedFormSection } from "@/lib/strapi/resolvers/shared";
@@ -21,6 +22,7 @@ import type {
   SmartHomeTimelineData,
   SmartHomeBrandsGridData,
   SmartHomeInstallBentoData,
+  SmartHomeCompatibilityMatrixData,
   SharedFormSectionData,
 } from "@/lib/strapi/schemas";
 import type {
@@ -36,6 +38,7 @@ import GreatFit from "@/components/battery/smarthome-battery-system/GreatFit";
 import FourPillars from "@/components/battery/smarthome-battery-system/FourPillars";
 import BatterySplitSection from "@/components/battery/smarthome-battery-system/BatterySplitSection";
 import BatteryTimeline from "@/components/battery/smarthome-battery-system/BatteryTimeline";
+import CompatibilityMatrix from "@/components/battery/smarthome-battery-system/CompatibilityMatrix";
 import BatteryBrandsGrid from "@/components/battery/smarthome-battery-system/BatteryBrandsGrid";
 import BentoCardsGrid from "@/reuseables/BentoCardsGrid";
 
@@ -55,6 +58,7 @@ const SmartBatterySystemPage = async () => {
   const greatFit = findSection<SmartHomeGreatFitData>(sections, "smart-home-battery.great-fit");
   const pillars = findSection<SmartHomeFourPillarsData>(sections, "smart-home-battery.four-pillars");
   const split = findSection<SmartHomeSplitSectionData>(sections, "smart-home-battery.split-section");
+  const compatibilityMatrix = findSection<SmartHomeCompatibilityMatrixData>(sections, "smart-home-battery.compatibility-matrix");
   const timeline = findSection<SmartHomeTimelineData>(sections, "smart-home-battery.timeline");
   const brands = findSection<SmartHomeBrandsGridData>(sections, "smart-home-battery.brands-grid");
   const bento = findSection<SmartHomeInstallBentoData>(sections, "smart-home-battery.install-bento");
@@ -66,6 +70,7 @@ const SmartBatterySystemPage = async () => {
   const greatFitProps = resolveSmartHomeGreatFit(greatFit);
   const pillarsProps = resolveFourPillars(pillars);
   const splitProps = resolveBatterySplit(split);
+  const compatibilityMatrixProps = resolveSmartHomeCompatibilityMatrix(compatibilityMatrix);
   const timelineProps = resolveBatteryTimeline(timeline);
   const brandsProps = resolveBatteryBrandsGrid(brands);
   const bentoProps = resolveSmartInstallBento(bento);
@@ -120,6 +125,9 @@ const SmartBatterySystemPage = async () => {
           }}
         />
       )}
+
+
+      {compatibilityMatrixProps && <CompatibilityMatrix data={compatibilityMatrixProps} />}
 
       {timelineProps && <BatteryTimeline data={timelineProps} />}
 

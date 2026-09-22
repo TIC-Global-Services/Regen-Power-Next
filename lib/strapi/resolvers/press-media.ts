@@ -12,6 +12,7 @@ import {
   normalizeCategoryKey,
   normalizeCategoryLabel,
 } from "./blog";
+import { resolveSeo, type ResolvedSeo } from "./shared";
 
 export interface ResolvedPressMediaHero {
   subtitle: string;
@@ -206,6 +207,8 @@ export interface ResolvedPressArticle {
   categories: ResolvedPressArticleCategory[];
   image: string;
   publishedAt: string;
+  updatedAt: string;
+  seo: ResolvedSeo | null;
 }
 
 export function resolvePressArticle(
@@ -226,6 +229,8 @@ export function resolvePressArticle(
     categories,
     image: article.image ? strapiImageData(article.image)?.src ?? "" : "",
     publishedAt: article.publishedAt ?? "",
+    updatedAt: article.updatedAt ?? article.publishedAt ?? "",
+    seo: resolveSeo(article.seo),
   };
 }
 

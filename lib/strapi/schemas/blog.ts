@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { MediaSchema } from "./common";
+import { MediaSchema, SeoSchema } from "./common";
 
 export const BlogHeroSchema = z.object({
   __component: z.literal("blog.hero"),
@@ -43,6 +43,7 @@ export const BlogArticleSchema = z.object({
   createdAt: z.string().nullable().optional(),
   updatedAt: z.string().nullable().optional(),
   publishedAt: z.string().nullable().optional(),
+  seo: SeoSchema.nullable().optional(),
 });
 export type BlogArticleData = z.infer<typeof BlogArticleSchema>;
 

@@ -164,3 +164,30 @@ export const SmartHomeInstallBentoSchema = z.object({
 export type SmartHomeInstallBentoData = z.infer<
   typeof SmartHomeInstallBentoSchema
 >;
+
+// ─── Compatibility Matrix ───────────────────────────────────────────────
+
+export const CompatibilityCellSchema = z.object({
+  id: z.number(),
+  level: z.enum(["full", "partial", "limited", "none"]),
+  label: z.string().nullable(),
+});
+
+export const CompatibilityRowSchema = z.object({
+  id: z.number(),
+  battery: z.string(),
+  cells: z.array(CompatibilityCellSchema),
+});
+
+export const SmartHomeCompatibilityMatrixSchema = z.object({
+  __component: z.literal("smart-home-battery.compatibility-matrix"),
+  subtitle: z.string().nullable(),
+  title: z.string().nullable(),
+  description: z.string().nullable(),
+  columns: z.array(z.string()),
+  rows: z.array(CompatibilityRowSchema),
+  footerText: z.string().nullable(),
+});
+export type SmartHomeCompatibilityMatrixData = z.infer<
+  typeof SmartHomeCompatibilityMatrixSchema
+>;

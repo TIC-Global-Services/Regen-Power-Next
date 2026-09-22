@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import { notFound } from 'next/navigation';
+import type { Metadata } from 'next';
 import {
   getBlogArticle,
   getBlogArticles,
@@ -14,6 +15,7 @@ import {
   resolvePressArticle,
   resolveLatestPressItems,
 } from '@/lib/strapi/resolvers';
+import type { ResolvedSeo } from '@/lib/strapi/resolvers/shared';
 import GetSolar from '@/reuseables/getsolar';
 
 export const revalidate = 60;
@@ -42,23 +44,71 @@ export async function generateStaticParams() {
   return [...slugs].map((slug) => ({ slug }));
 }
 
-export async function generateMetadata({ params }: ArticlePageProps) {
+/** Build a full Next.js Metadata object from an article + its (optional) shared.seo data. */
+function buildArticleMetadata(article: {
+  title: string;
+  slug: string;
+  description: string;
+  image: string;
+  publishedAt: string;
+  updatedAt: string;
+  seo: ResolvedSeo | null;
+}): Metadata {
+  const seo = article.seo;
+  const title = seo?.metaTitle || article.title;
+  const description = seo?.metaDescription || article.description || undefined;
+  const ogTitle = seo?.ogTitle || title;
+  const ogDescription = seo?.ogDescription || description;
+  const ogImage = seo?.ogImage || article.image || undefined;
+  const twitterTitle = seo?.twitterTitle || title;
+  const twitterDescription = seo?.twitterDescription || description;
+  const twitterImage = seo?.twitterImage || article.image || undefined;
+  const validCardTypes = ['summary', 'summary_large_image', 'app', 'player'] as const;
+  const twitterCard =
+    (validCardTypes as readonly string[]).includes(seo?.twitterCard ?? '')
+      ? (seo!.twitterCard as (typeof validCardTypes)[number])
+      : twitterImage
+      ? 'summary_large_image'
+      : 'summary';
+
+  return {
+    title,
+    description,
+    keywords: seo?.keywords || undefined,
+    ...(seo?.canonicalURL ? { alternates: { canonical: seo.canonicalURL } } : {}),
+    ...(seo?.metaRobots ? { robots: seo.metaRobots } : {}),
+    openGraph: {
+      title: ogTitle,
+      description: ogDescription,
+      type: (seo?.ogType as 'article' | undefined) || 'article',
+      ...(article.publishedAt ? { publishedTime: article.publishedAt } : {}),
+      ...(article.updatedAt ? { modifiedTime: article.updatedAt } : {}),
+      ...(ogImage ? { images: [{ url: ogImage }] } : {}),
+    },
+    twitter: {
+      card: twitterCard,
+      title: twitterTitle,
+      description: twitterDescription,
+      ...(twitterImage ? { images: [twitterImage] } : {}),
+      ...(seo?.twitterSite ? { site: seo.twitterSite } : {}),
+      ...(seo?.twitterCreator ? { creator: seo.twitterCreator } : {}),
+    },
+  };
+}
+
+export async function generateMetadata({
+  params,
+}: ArticlePageProps): Promise<Metadata> {
   const { slug } = await params;
 
   const blogArticle = resolveBlogArticle(await getBlogArticle(slug));
   if (blogArticle) {
-    return {
-      title: blogArticle.title,
-      description: blogArticle.description || undefined,
-    };
+    return buildArticleMetadata(blogArticle);
   }
 
   const pressArticle = resolvePressArticle(await getPressArticle(slug));
   if (pressArticle) {
-    return {
-      title: pressArticle.title,
-      description: pressArticle.description || undefined,
-    };
+    return buildArticleMetadata(pressArticle);
   }
 
   return { title: 'Article not found' };
@@ -77,15 +127,18 @@ const ArticlePage = async ({ params }: ArticlePageProps) => {
       .slice(0, LATEST_COUNT);
 
     return (
-      <ArticleLayout
-        article={blogArticle}
-        latestItems={latestItems}
-        backHref="/blog"
-        backLabel="Back to blog"
-        sidebarTitle="Latest Blogs"
-        viewAllHref="/blog"
-        viewAllLabel="View all blogs"
-      />
+      <>
+        <StructuredData data={blogArticle.seo?.structuredData} />
+        <ArticleLayout
+          article={blogArticle}
+          latestItems={latestItems}
+          backHref="/blog"
+          backLabel="Back to blog"
+          sidebarTitle="Latest Blogs"
+          viewAllHref="/blog"
+          viewAllLabel="View all blogs"
+        />
+      </>
     );
   }
 
@@ -98,19 +151,34 @@ const ArticlePage = async ({ params }: ArticlePageProps) => {
       .slice(0, LATEST_COUNT);
 
     return (
-      <ArticleLayout
-        article={pressArticle}
-        latestItems={latestItems}
-        backHref="/press-media"
-        backLabel="Back to press & media"
-        sidebarTitle="Latest News"
-        viewAllHref="/press-media"
-        viewAllLabel="View all news"
-      />
+      <>
+        <StructuredData data={pressArticle.seo?.structuredData} />
+        <ArticleLayout
+          article={pressArticle}
+          latestItems={latestItems}
+          backHref="/press-media"
+          backLabel="Back to press & media"
+          sidebarTitle="Latest News"
+          viewAllHref="/press-media"
+          viewAllLabel="View all news"
+        />
+      </>
     );
   }
 
   notFound();
+};
+
+/** Renders a `shared.seo.structuredData` JSON-LD blob, if present. */
+const StructuredData = ({ data }: { data?: Record<string, unknown> }) => {
+  if (!data) return null;
+  return (
+    <script
+      type="application/ld+json"
+      // eslint-disable-next-line react/no-danger
+      dangerouslySetInnerHTML={{ __html: JSON.stringify(data) }}
+    />
+  );
 };
 
 interface ArticleLayoutProps {

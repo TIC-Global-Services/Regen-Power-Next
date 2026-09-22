@@ -277,6 +277,7 @@ export {
   resolveBatteryTimeline,
   resolveBatteryBrandsGrid,
   resolveSmartInstallBento,
+  resolveSmartHomeCompatibilityMatrix,
 } from "./smart-home-battery";
 export type {
   ResolvedSmartHomeHero,
@@ -292,6 +293,7 @@ export type {
   ResolvedBatteryBrandCard,
   ResolvedBrandSpecification,
   ResolvedSmartInstallBento,
+  ResolvedSmartHomeCompatibilityMatrix,
   ResolvedInstallBentoBlock,
 } from "./smart-home-battery";
 

@@ -7,6 +7,7 @@ import type {
   DealsSplitSectionData,
   SharedFormSectionData,
   SharedCategorySectionData,
+  SeoData,
 } from "../schemas";
 
 export interface ResolvedSharedCtaBanner {
@@ -157,5 +158,59 @@ export function resolveSharedCategorySection(
         image: item.image ? strapiImageData(item.image)?.src : undefined,
       })),
     })),
+  };
+}
+
+/* ─── shared.seo (blog-article / press-article) ─── */
+
+export interface ResolvedSeo {
+  metaTitle?: string;
+  metaDescription?: string;
+  keywords?: string;
+  canonicalURL?: string;
+  metaRobots?: string;
+  ogTitle?: string;
+  ogDescription?: string;
+  ogType?: string;
+  ogUrl?: string;
+  ogImage?: string;
+  twitterCard?: string;
+  twitterTitle?: string;
+  twitterDescription?: string;
+  twitterSite?: string;
+  twitterCreator?: string;
+  twitterImage?: string;
+  structuredData?: Record<string, unknown>;
+}
+
+export function resolveSeo(
+  data: SeoData | undefined | null
+): ResolvedSeo | null {
+  if (!data) return null;
+  const ogImage = data.ogImage ? strapiImageData(data.ogImage)?.src : undefined;
+  const twitterImage = data.twitterImage
+    ? strapiImageData(data.twitterImage)?.src
+    : undefined;
+  const metaImage = data.metaImage ? strapiImageData(data.metaImage)?.src : undefined;
+  return {
+    ...(data.metaTitle ? { metaTitle: data.metaTitle } : {}),
+    ...(data.metaDescription ? { metaDescription: data.metaDescription } : {}),
+    ...(data.keywords ? { keywords: data.keywords } : {}),
+    ...(data.canonicalURL ? { canonicalURL: data.canonicalURL } : {}),
+    ...(data.metaRobots ? { metaRobots: data.metaRobots } : {}),
+    ...(data.ogTitle ? { ogTitle: data.ogTitle } : {}),
+    ...(data.ogDescription ? { ogDescription: data.ogDescription } : {}),
+    ...(data.ogType ? { ogType: data.ogType } : {}),
+    ...(data.ogUrl ? { ogUrl: data.ogUrl } : {}),
+    ...(ogImage || metaImage ? { ogImage: ogImage ?? metaImage } : {}),
+    ...(data.twitterCard ? { twitterCard: data.twitterCard } : {}),
+    ...(data.twitterTitle ? { twitterTitle: data.twitterTitle } : {}),
+    ...(data.twitterDescription
+      ? { twitterDescription: data.twitterDescription }
+      : {}),
+    ...(data.twitterSite ? { twitterSite: data.twitterSite } : {}),
+    ...(data.twitterCreator ? { twitterCreator: data.twitterCreator } : {}),
+    ...(twitterImage || metaImage ? { twitterImage: twitterImage ?? metaImage } : {}),
+    ...(data.structuredData ? { structuredData: data.structuredData } : {}),
   };
 }

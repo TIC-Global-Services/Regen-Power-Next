@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { MediaSchema } from "./common";
+import { MediaSchema, SeoSchema } from "./common";
 
 export const PressMediaHeroSchema = z.object({
   __component: z.literal("press-and-media.hero"),
@@ -78,5 +78,6 @@ export const PressArticleSchema = z.object({
   createdAt: z.string().nullable().optional(),
   updatedAt: z.string().nullable().optional(),
   publishedAt: z.string().nullable().optional(),
+  seo: SeoSchema.nullable().optional(),
 });
 export type PressArticleData = z.infer<typeof PressArticleSchema>;

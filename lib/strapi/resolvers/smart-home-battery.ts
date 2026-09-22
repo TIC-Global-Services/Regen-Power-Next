@@ -7,6 +7,7 @@ import type {
   SmartHomeInstallBentoData,
   SmartHomeSplitSectionData,
   SmartHomeTimelineData,
+  SmartHomeCompatibilityMatrixData,
 } from "../schemas/smart-home-battery";
 
 // ─── Hero → HeroSectionData ─────────────────────────────────────────────
@@ -223,5 +224,43 @@ export function resolveSmartInstallBento(
       title: b.title,
       description: b.description,
     })),
+  };
+}
+
+// ─── Compatibility Matrix ────────────────────────────────────────────────
+
+export interface ResolvedCompatibilityCell {
+  level: "full" | "partial" | "limited" | "none";
+  label: string;
+}
+export interface ResolvedCompatibilityRow {
+  battery: string;
+  cells: ResolvedCompatibilityCell[];
+}
+export interface ResolvedSmartHomeCompatibilityMatrix {
+  subtitle: string;
+  title: string;
+  description: string;
+  columns: string[];
+  rows: ResolvedCompatibilityRow[];
+  footerText: string;
+}
+export function resolveSmartHomeCompatibilityMatrix(
+  data: SmartHomeCompatibilityMatrixData | undefined
+): ResolvedSmartHomeCompatibilityMatrix | null {
+  if (!data) return null;
+  return {
+    subtitle: data.subtitle ?? "",
+    title: data.title ?? "",
+    description: data.description ?? "",
+    columns: data.columns ?? [],
+    rows: (data.rows ?? []).map((row) => ({
+      battery: row.battery,
+      cells: (row.cells ?? []).map((cell) => ({
+        level: cell.level,
+        label: cell.label ?? "",
+      })),
+    })),
+    footerText: data.footerText ?? "",
   };
 }

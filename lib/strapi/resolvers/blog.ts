@@ -4,6 +4,7 @@ import type {
   BlogCategoryFilterData,
   BlogArticleData,
 } from "../schemas/blog";
+import { resolveSeo, type ResolvedSeo } from "./shared";
 
 export interface ResolvedBlogHero {
   subtitle: string;
@@ -186,6 +187,8 @@ export interface ResolvedBlogArticle {
   categories: ResolvedBlogArticleCategory[];
   image: string;
   publishedAt: string;
+  updatedAt: string;
+  seo: ResolvedSeo | null;
 }
 
 export function resolveBlogArticle(
@@ -206,6 +209,8 @@ export function resolveBlogArticle(
     categories,
     image: article.image ? strapiImageData(article.image)?.src ?? "" : "",
     publishedAt: article.publishedAt ?? "",
+    updatedAt: article.updatedAt ?? article.publishedAt ?? "",
+    seo: resolveSeo(article.seo),
   };
 }
 

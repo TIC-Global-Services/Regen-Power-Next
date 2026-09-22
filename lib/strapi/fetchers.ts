@@ -320,7 +320,9 @@ function blogArticleQuery(slug: string): string {
   params.set("fields[3]", "categories");
   params.set("fields[4]", "content");
   params.set("fields[5]", "publishedAt");
+  params.set("fields[6]", "updatedAt");
   params.set("populate[image]", "true");
+  params.set("populate[seo][populate]", "*");
   return params.toString();
 }
 
@@ -418,7 +420,9 @@ function pressArticleQuery(slug: string): string {
   params.set("fields[3]", "categories");
   params.set("fields[4]", "content");
   params.set("fields[5]", "publishedAt");
+  params.set("fields[6]", "updatedAt");
   params.set("populate[image]", "true");
+  params.set("populate[seo][populate]", "*");
   return params.toString();
 }
 
@@ -657,6 +661,7 @@ export const getSmartHomeBatteryPage = () =>
       smartHomeBattery.greatFit,
       smartHomeBattery.fourPillars,
       smartHomeBattery.splitSection,
+      smartHomeBattery.compatibilityMatrix,
       smartHomeBattery.timeline,
       smartHomeBattery.brandsGrid,
       smartHomeBattery.installBento,

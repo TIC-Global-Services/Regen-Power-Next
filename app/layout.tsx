@@ -21,6 +21,7 @@ const aeonik = localFont({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://regenpower.com"),
   title: "Regen power",
   description: "Regen power let power your life",
 };
