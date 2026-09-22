@@ -88,7 +88,7 @@ const SolutionCardGrid: React.FC<solutionCardGridProps> = ({
     const { trackRef, sync, active, canPrev, canNext, goTo, next, prev } = useSnapSlider(cards.length);
 
     return (
-        <section className={`py-10 md:py-24 bg-white ${className}`}>
+        <section id='lifestyle-blocks' className={`py-10 md:py-24 bg-white ${className}`}>
             <div className="px-[5%] md:px-[3%]">
                 {showHeader && (subtitle || title || description) && (
                     <div className="text-left md:text-center mb-12 md:mb-16">

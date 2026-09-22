@@ -43,7 +43,7 @@ const MicrogridSpecTable: React.FC<MicrogridSpecTableProps> = ({
     const [activeTab, setActiveTab] = useState<Tab>('table');
 
     return (
-        <section className="py-16 md:py-24 bg-white">
+        <section id='microgrid-spec' className="scroll-mt-24 py-16 md:py-24 bg-white">
             <div className="px-[5%] md:px-[3%]">
                 <SectionHeader
                     subtitle={subtitle}

@@ -1,5 +1,6 @@
 'use client';
 import React, { useState } from 'react';
+import Link from 'next/link';
 import Image, { StaticImageData } from 'next/image';
 import gridDots from '@/assets/commercial-off-grid/gridDots.png';
 import { SliderArrows, SliderDots, useSnapSlider } from './MobileSliderControls';
@@ -9,6 +10,8 @@ export type CardLayout = 3 | 4 | 6;
 
 interface BaseCard {
     variant: CardVariant;
+    /** When set, the whole card becomes a link (e.g. an in-page anchor like "#hybrid-gen"). */
+    href?: string;
 }
 
 export interface TextCard extends BaseCard {
@@ -42,12 +45,9 @@ const TextCardView: React.FC<{ card: TextCard; mobileScroll?: boolean; isHovered
             {card.description}
         </p>
     );
-    return (
-        <div
-            className={`${isHovered ? HOVER_BG : BASE_BG} rounded-2xl p-6 flex flex-col justify-between gap-5 aspect-[4/3] overflow-hidden transition-colors duration-300 ${mobileScroll ? 'shrink-0 w-[60vw] snap-start md:w-auto' : ''} ${tabletOrder ?? ''}`}
-            onMouseEnter={onMouseEnter}
-            onMouseLeave={onMouseLeave}
-        >
+    const rootClass = `${isHovered ? HOVER_BG : BASE_BG} rounded-2xl p-6 flex flex-col justify-between gap-5 aspect-[4/3] overflow-hidden transition-colors duration-300 ${card.href ? 'cursor-pointer' : ''} ${mobileScroll ? 'shrink-0 w-[60vw] snap-start md:w-auto' : ''} ${tabletOrder ?? ''}`;
+    const content = (
+        <>
             <h3 className="text-2xl md:text-[2.5rem] lg:text-[3.125rem] font-normal tracking-tight leading-[1] text-[#63B846]">
                 {titleLines.map((line, i) => (
                     <span key={i} className="block">{line}</span>
@@ -66,16 +66,27 @@ const TextCardView: React.FC<{ card: TextCard; mobileScroll?: boolean; isHovered
                     </>
                 )}
             </div>
+        </>
+    );
+
+    if (card.href) {
+        return (
+            <Link href={card.href} className={rootClass} onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave}>
+                {content}
+            </Link>
+        );
+    }
+
+    return (
+        <div className={rootClass} onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave}>
+            {content}
         </div>
     );
 };
 
-const ImageCardView: React.FC<{ card: ImageCard; mobileScroll?: boolean; isHovered?: boolean; onMouseEnter?: () => void; onMouseLeave?: () => void; tabletOrder?: string }> = ({ card, mobileScroll, isHovered, onMouseEnter, onMouseLeave, tabletOrder }) => (
-    <div
-        className={`${isHovered ? HOVER_BG : BASE_BG} rounded-2xl p-6 md:p-8 flex items-center justify-center aspect-[4/3] overflow-hidden transition-colors duration-300 ${mobileScroll ? 'shrink-0 w-[60vw] snap-start md:w-auto' : ''} ${tabletOrder ?? ''}`}
-        onMouseEnter={onMouseEnter}
-        onMouseLeave={onMouseLeave}
-    >
+const ImageCardView: React.FC<{ card: ImageCard; mobileScroll?: boolean; isHovered?: boolean; onMouseEnter?: () => void; onMouseLeave?: () => void; tabletOrder?: string }> = ({ card, mobileScroll, isHovered, onMouseEnter, onMouseLeave, tabletOrder }) => {
+    const rootClass = `${isHovered ? HOVER_BG : BASE_BG} rounded-2xl p-6 md:p-8 flex items-center justify-center aspect-[4/3] overflow-hidden transition-colors duration-300 ${card.href ? 'cursor-pointer' : ''} ${mobileScroll ? 'shrink-0 w-[60vw] snap-start md:w-auto' : ''} ${tabletOrder ?? ''}`;
+    const content = (
         <div className="relative w-32 h-32 md:w-40 md:h-40">
             <Image
                 src={card.image || gridDots}
@@ -85,8 +96,22 @@ const ImageCardView: React.FC<{ card: ImageCard; mobileScroll?: boolean; isHover
                 sizes="160px"
             />
         </div>
-    </div>
-);
+    );
+
+    if (card.href) {
+        return (
+            <Link href={card.href} className={rootClass} onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave}>
+                {content}
+            </Link>
+        );
+    }
+
+    return (
+        <div className={rootClass} onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave}>
+            {content}
+        </div>
+    );
+};
 
 export interface SolutionsPortfolioProps {
     subtitle?: string;

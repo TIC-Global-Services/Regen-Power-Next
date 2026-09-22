@@ -70,6 +70,31 @@ const withCoordinates = (markers: MapMarker[]): MapMarker[] =>
         const coords = MARKER_COORDS[m.name?.trim().toLowerCase() ?? ''];
         return coords ? { ...m, ...coords } : m;
     });
+
+/** solutions-portfolio card title -> in-page anchor of the section it summarises. */
+const PORTFOLIO_ANCHORS: { match: string; href: string }[] = [
+    { match: 'remote homes lifestyle blocks', href: '#lifestyle-blocks' },
+    { match: 'farms stations agribusiness', href: '#hybrid-gen' },
+    { match: 'mining telecom resorts', href: '#microgrid-spec' },
+    { match: 'remote communities infrastructure', href: '#aquasmart' },
+];
+
+const normalizePortfolioTitle = (title?: string): string =>
+    (title ?? '')
+        .replace(/[\n,&]/g, ' ')
+        .replace(/\s+/g, ' ')
+        .trim()
+        .toLowerCase();
+
+/** Makes each text card in the off-grid solutions-portfolio a clickable link
+ * to the page section it summarises, matched by (normalized) title. */
+const withPortfolioAnchors = (cards: PortfolioCard[]): PortfolioCard[] =>
+    cards.map((card) => {
+        if (card.type !== 'text') return card;
+        const normalized = normalizePortfolioTitle(card.title);
+        const anchor = PORTFOLIO_ANCHORS.find((a) => normalized.includes(a.match));
+        return anchor ? { ...card, href: anchor.href } : card;
+    });
 import MicrogridSpecTable from '@/components/off-grid/MicrogridSpecTable';
 import AcquaSmartSection from '@/components/off-grid/AcquaSmartSection';
 import OffGridStory from '@/components/off-grid/OffGridStory';
@@ -142,7 +167,7 @@ const OffGridSolutionsPage = async () => {
           subtitle={portfolio.subtitle}
           title={portfolio.title}
           description={portfolio.description}
-          cards={portfolio.cards as PortfolioCard[]}
+          cards={withPortfolioAnchors(portfolio.cards as PortfolioCard[])}
           layout={6}
           mobileScroll
           boldSpecs={false}
@@ -150,12 +175,14 @@ const OffGridSolutionsPage = async () => {
       )}
 
       {solutions && (
-        <ThreeSolutionsSection
-          subtitle={solutions.subtitle}
-          title={solutions.title}
-          description={solutions.description}
-          solutions={solutions.solutions}
-        />
+        <div id="lifestyle-blocks" className="scroll-mt-24">
+          <ThreeSolutionsSection
+            subtitle={solutions.subtitle}
+            title={solutions.title}
+            description={solutions.description}
+            solutions={solutions.solutions}
+          />
+        </div>
       )}
 
       {iconGrid1 && (
@@ -172,7 +199,7 @@ const OffGridSolutionsPage = async () => {
           one continuous block — the cards are a subsection of HybridGEN, not
           a new page section, so there's no bg/section break between them. */}
       {(hybridGen || iconGrid2) && (
-        <div className="bg-white">
+        <div id="hybrid-gen" className="scroll-mt-24 bg-white">
           {hybridGen && (
             <HybridGenDetailSection
               logo={hybridGen.logo}

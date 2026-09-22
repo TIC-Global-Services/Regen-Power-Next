@@ -57,7 +57,7 @@ const   AcquaSmartSection: React.FC<AcquaSmartSectionProps> = ({
     const visibleCards = cards.slice(page * perPage, page * perPage + perPage);
 
     return (
-        <section className="py-16 md:py-24 bg-white">
+        <section id='aquasmart' className="scroll-mt-24 py-16 md:py-24 bg-white">
             <div className="px-[5%] md:px-[3%] mx-auto">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-16 items-center mb-12 md:mb-10">
                     <div className="relative w-full aspect-square lg:aspect-[6/5] rounded-[24px] overflow-hidden">
