@@ -14,7 +14,6 @@ import {
   resolveAcquaSmartSection,
   resolveOffGridStory,
   resolveOverlayCardGrid,
-  resolveSharedEditorialSection,
   resolveSharedFaq,
   resolveSharedFormSection,
 } from '@/lib/strapi/resolvers';
@@ -31,7 +30,6 @@ import type {
   OffGridStoryData,
   OverlayCardGridData,
   CommercialSystemsStatsCardGridData,
-  SharedEditorialSectionData,
   SharedFaqData,
   SharedFormSectionData,
 } from '@/lib/strapi/schemas';
@@ -42,7 +40,6 @@ import SolutionsPortfolio, { type PortfolioCard } from '@/reuseables/SolutionsPo
 import ThreeSolutionsSection from '@/components/off-grid/ThreeSolutionsSection';
 import IconCardGrid from '@/reuseables/IconCardGrid';
 import HybridGenDetailSection from '@/components/off-grid/HybridGenDetailSection';
-import EditorialTextSection from '@/reuseables/EditorialTextSection';
 import WorldMap, { type MapBounds, type MapMarker } from '@/reuseables/WorldMap';
 
 /**
@@ -99,9 +96,6 @@ const OffGridSolutionsPage = async () => {
   const iconGrid2 = resolveIconCardGrid(iconGrids[1]);
 
   const hybridGen = resolveHybridGenDetail(findSection<HybridGenDetailData>(sections, 'off-grid.hybrid-gen-detail'));
-
-  const editorials = findSections<SharedEditorialSectionData>(sections, 'shared.editorial-section');
-  const editorial1 = resolveSharedEditorialSection(editorials[0]);
 
   const specTable = resolveMicrogridSpecTable(findSection<MicrogridSpecTableData>(sections, 'off-grid.microgrid-spec-table'));
   const worldMap = resolveWorldMap(findSection<WorldMapData>(sections, 'off-grid.world-map'));
@@ -185,18 +179,11 @@ const OffGridSolutionsPage = async () => {
         />
       )}
 
-      {editorial1 && (
-        <EditorialTextSection
-          subtitle={editorial1.subtitle}
-          title={editorial1.title}
-          paragraphs={editorial1.paragraphs}
-          align="left"
-          revealEffect
-        />
-      )}
-
       {iconGrid2 && (
         <IconCardGrid
+          subtitle={iconGrid2.subtitle}
+          title={iconGrid2.title}
+          description={iconGrid2.description}
           cards={iconGrid2.cards as any}
           layout={iconGrid2.layout as any}
           showHeader={iconGrid2.showHeader}

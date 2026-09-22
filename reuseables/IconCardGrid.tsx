@@ -114,7 +114,7 @@ const IconCardGrid: React.FC<IconCardGridProps> = ({
                             </p>
                         )}
                         {title && (
-                            <h2 className="text-4xl md:text-6xl lg:text-[5rem] text-[#63B846] font-normal tracking-tighter leading-none">
+                            <h2 className="text-4xl md:text-6xl lg:text-[3.5rem] text-[#63B846] font-normal tracking-tighter leading-none">
                                 {title}
                             </h2>
                         )}
