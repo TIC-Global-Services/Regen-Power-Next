@@ -40,6 +40,8 @@ export interface ResolvedBlogCard {
   categoryKeys?: string[];
   /** link target for the card */
   href?: string;
+  /** ISO date the article was published — powers the year filter */
+  publishedAt?: string;
 }
 export interface ResolvedBlogCategoryFilter {
   subtitle: string;
@@ -249,6 +251,7 @@ export function resolveBlogArticles(
       categoryKey: categoryKeys[0] ?? "",
       categoryKeys,
       href: a.slug ? `/${a.slug}` : "#",
+      publishedAt: a.publishedAt ?? undefined,
     };
   });
 

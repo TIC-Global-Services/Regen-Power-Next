@@ -15,6 +15,8 @@ export interface BlogCardData {
     categoryKeys?: string[];
     /** link target for the article */
     href?: string;
+    /** ISO date — used for year filtering, not rendered by this card */
+    publishedAt?: string;
 }
 
 export type BlogCardVariant = 'text' | 'image';

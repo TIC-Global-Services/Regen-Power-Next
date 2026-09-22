@@ -1,7 +1,7 @@
 'use client';
 
-import React, { useState } from 'react';
-import { Search, X } from 'lucide-react';
+import React, { useEffect, useRef, useState } from 'react';
+import { Search, X, SlidersHorizontal, Check } from 'lucide-react';
 import BlogCard, { BlogCardData } from './BlogCard';
 import CategoryFilter, { CategoryOption } from './CategoryFilter';
 import FadeSwap from '@/reuseables/FadeSwap';
@@ -33,6 +33,9 @@ function getPageNumbers(current: number, total: number): (number | 'ellipsis')[]
     return pages;
 }
 
+const ALL_YEARS = 'all';
+const ALL_SORT = 'newest';
+
 const BlogGrid: React.FC<BlogGridProps> = ({
     categories,
     defaultCategory,
@@ -41,6 +44,30 @@ const BlogGrid: React.FC<BlogGridProps> = ({
     const [activeCategory, setActiveCategory] = useState<string>(defaultCategory ?? categories[0]?.value ?? '');
     const [currentPage, setCurrentPage] = useState<number>(1);
     const [query, setQuery] = useState<string>('');
+    const [activeYear, setActiveYear] = useState<string>(ALL_YEARS);
+    const [sortOrder, setSortOrder] = useState<'newest' | 'oldest'>(ALL_SORT);
+    const [filterOpen, setFilterOpen] = useState(false);
+    const filterRef = useRef<HTMLDivElement>(null);
+
+    // Years present in the data, newest first — drives the year filter options.
+    const years = Array.from(
+        new Set(
+            cards
+                .map((c) => (c.publishedAt ? new Date(c.publishedAt).getFullYear() : null))
+                .filter((y): y is number => y !== null)
+        )
+    ).sort((a, b) => b - a);
+
+    useEffect(() => {
+        if (!filterOpen) return;
+        const onClick = (e: MouseEvent) => {
+            if (filterRef.current && !filterRef.current.contains(e.target as Node)) {
+                setFilterOpen(false);
+            }
+        };
+        document.addEventListener('mousedown', onClick);
+        return () => document.removeEventListener('mousedown', onClick);
+    }, [filterOpen]);
 
     const handleCategoryChange = (cat: string) => {
         setActiveCategory(cat);
@@ -52,18 +79,42 @@ const BlogGrid: React.FC<BlogGridProps> = ({
         setCurrentPage(1);
     };
 
-    // Filter cards by the active category ('all' shows everything) AND the
-    // search query (matched against title + description, case-insensitive).
+    const handleYearChange = (year: string) => {
+        setActiveYear(year);
+        setCurrentPage(1);
+    };
+
+    const handleSortChange = (order: 'newest' | 'oldest') => {
+        setSortOrder(order);
+        setCurrentPage(1);
+    };
+
+    const activeFilterCount = (activeYear !== ALL_YEARS ? 1 : 0) + (sortOrder !== ALL_SORT ? 1 : 0);
+
+    const clearFilters = () => {
+        setActiveYear(ALL_YEARS);
+        setSortOrder(ALL_SORT);
+        setCurrentPage(1);
+    };
+
+    // Filter cards by category ('all' shows everything), the year filter, and
+    // the search query (matched against title + description, case-insensitive).
     // Category matching uses all of a card's categories, not just the first.
     const q = query.trim().toLowerCase();
     const filteredCards = (activeCategory && activeCategory !== 'all'
         ? cards.filter((c) => c.categoryKeys?.includes(activeCategory) ?? c.categoryKey === activeCategory)
         : cards
     ).filter((c) =>
-        !q ||
-        c.title.toLowerCase().includes(q) ||
-        c.description.toLowerCase().includes(q)
-    );
+        (!q ||
+            c.title.toLowerCase().includes(q) ||
+            c.description.toLowerCase().includes(q)) &&
+        (activeYear === ALL_YEARS ||
+            (c.publishedAt && new Date(c.publishedAt).getFullYear() === Number(activeYear)))
+    ).sort((a, b) => {
+        if (!a.publishedAt || !b.publishedAt) return 0;
+        const diff = new Date(a.publishedAt).getTime() - new Date(b.publishedAt).getTime();
+        return sortOrder === 'newest' ? -diff : diff;
+    });
 
     /* Pagination math */
     const totalPages = Math.max(1, Math.ceil(filteredCards.length / ITEMS_PER_PAGE));
@@ -98,8 +149,8 @@ const BlogGrid: React.FC<BlogGridProps> = ({
                 onChange={handleCategoryChange}
             />
 
-            {/* Search */}
-            <div className="max-w-7xl mx-auto flex justify-center pb-6">
+            {/* Search + filter */}
+            <div className="max-w-7xl mx-auto flex justify-center items-start gap-3 pb-6">
                 <div className="relative w-full max-w-md">
                     <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-black/40 pointer-events-none" />
                     <input
@@ -121,6 +172,89 @@ const BlogGrid: React.FC<BlogGridProps> = ({
                         </button>
                     )}
                 </div>
+
+                {/* Filter — year + sort */}
+                <div className="relative shrink-0" ref={filterRef}>
+                    <button
+                        type="button"
+                        onClick={() => setFilterOpen((v) => !v)}
+                        aria-expanded={filterOpen}
+                        aria-label="Filter articles"
+                        className={`relative flex items-center gap-2 rounded-full border py-2.5 px-4 text-sm md:text-base tracking-tight transition cursor-pointer ${filterOpen || activeFilterCount > 0
+                                ? 'border-[#A0CF44] bg-[#F3F8EA] text-black'
+                                : 'border-black/10 bg-white text-black/70 hover:border-black/20'
+                            }`}
+                    >
+                        <SlidersHorizontal className="w-4 h-4" />
+                        <span className="hidden sm:inline">Filter</span>
+                        {activeFilterCount > 0 && (
+                            <span className="flex items-center justify-center w-4 h-4 rounded-full bg-[#A0CF44] text-white text-[10px] font-semibold">
+                                {activeFilterCount}
+                            </span>
+                        )}
+                    </button>
+
+                    {filterOpen && (
+                        <div className="absolute right-0 z-20 mt-2 w-64 rounded-2xl border border-black/10 bg-white p-4 shadow-lg">
+                            <div className="flex items-center justify-between mb-3">
+                                <p className="text-sm font-medium tracking-tight">Filters</p>
+                                {activeFilterCount > 0 && (
+                                    <button
+                                        type="button"
+                                        onClick={clearFilters}
+                                        className="text-xs font-medium text-[#4d7a17] hover:underline cursor-pointer"
+                                    >
+                                        Clear
+                                    </button>
+                                )}
+                            </div>
+
+                            {years.length > 0 && (
+                                <div className="mb-4">
+                                    <p className="text-xs font-medium text-black/50 uppercase tracking-wide mb-2">Year</p>
+                                    <div className="flex flex-col gap-1">
+                                        <button
+                                            type="button"
+                                            onClick={() => handleYearChange(ALL_YEARS)}
+                                            className="flex items-center justify-between px-2 py-1.5 rounded-lg text-sm text-left hover:bg-[#F3F8EA] transition-colors cursor-pointer"
+                                        >
+                                            All years
+                                            {activeYear === ALL_YEARS && <Check className="w-4 h-4 text-[#4d7a17]" />}
+                                        </button>
+                                        {years.map((year) => (
+                                            <button
+                                                key={year}
+                                                type="button"
+                                                onClick={() => handleYearChange(String(year))}
+                                                className="flex items-center justify-between px-2 py-1.5 rounded-lg text-sm text-left hover:bg-[#F3F8EA] transition-colors cursor-pointer"
+                                            >
+                                                {year}
+                                                {activeYear === String(year) && <Check className="w-4 h-4 text-[#4d7a17]" />}
+                                            </button>
+                                        ))}
+                                    </div>
+                                </div>
+                            )}
+
+                            <div>
+                                <p className="text-xs font-medium text-black/50 uppercase tracking-wide mb-2">Sort by</p>
+                                <div className="flex flex-col gap-1">
+                                    {(['newest', 'oldest'] as const).map((order) => (
+                                        <button
+                                            key={order}
+                                            type="button"
+                                            onClick={() => handleSortChange(order)}
+                                            className="flex items-center justify-between px-2 py-1.5 rounded-lg text-sm text-left capitalize hover:bg-[#F3F8EA] transition-colors cursor-pointer"
+                                        >
+                                            {order}
+                                            {sortOrder === order && <Check className="w-4 h-4 text-[#4d7a17]" />}
+                                        </button>
+                                    ))}
+                                </div>
+                            </div>
+                        </div>
+                    )}
+                </div>
             </div>
 
             {/* Results count — one article per row, so it matches the rows rendered */}
@@ -130,23 +264,27 @@ const BlogGrid: React.FC<BlogGridProps> = ({
                     {q && (
                         <> for &ldquo;{query.trim()}&rdquo;</>
                     )}
+                    {activeYear !== ALL_YEARS && <> from {activeYear}</>}
                 </p>
             </div>
 
-            <FadeSwap swapKey={`${activeCategory}|${safePage}`}>
+            <FadeSwap swapKey={`${activeCategory}|${activeYear}|${sortOrder}|${safePage}`}>
               <div className="flex flex-col gap-5 md:gap-6 max-w-7xl mx-auto">
                 {rows.length === 0 ? (
                     <div className="text-center py-16 tracking-tight">
                         <p className="text-black/60">
-                            No articles match {q ? <>your search for &ldquo;{query.trim()}&rdquo;</> : 'the current category'}.
+                            No articles match {q ? <>your search for &ldquo;{query.trim()}&rdquo;</> : 'the current filters'}.
                         </p>
-                        {q && (
+                        {(q || activeYear !== ALL_YEARS) && (
                             <button
                                 type="button"
-                                onClick={() => handleSearchChange('')}
+                                onClick={() => {
+                                    handleSearchChange('');
+                                    clearFilters();
+                                }}
                                 className="mt-3 text-sm font-medium text-[#4d7a17] hover:underline cursor-pointer"
                             >
-                                Clear search
+                                Clear search &amp; filters
                             </button>
                         )}
                     </div>
