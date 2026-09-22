@@ -9,6 +9,7 @@ import type {
 import {
   ALL_CATEGORIES_KEY,
   cleanDescription,
+  cleanArticleContent,
   normalizeCategoryKey,
   normalizeCategoryLabel,
 } from "./blog";
@@ -224,8 +225,8 @@ export function resolvePressArticle(
   return {
     title: article.title ?? "",
     slug: article.slug ?? "",
-    description: article.description ?? "",
-    content: article.content ?? "",
+    description: cleanDescription(article.description ?? "", Number.MAX_SAFE_INTEGER),
+    content: cleanArticleContent(article.content ?? ""),
     categories,
     image: article.image ? strapiImageData(article.image)?.src ?? "" : "",
     publishedAt: article.publishedAt ?? "",

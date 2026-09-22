@@ -115,6 +115,93 @@ export function cleanDescription(raw: string, max = 200): string {
   return text.length > max ? `${text.slice(0, max).trimEnd()}…` : text;
 }
 
+/** "title=\"a\" link=\"b\"" → { title: "a", link: "b" } — used to parse WordPress shortcode attributes. */
+function parseShortcodeAttrs(raw: string): Record<string, string> {
+  const attrs: Record<string, string> = {};
+  const re = /(\w+)\s*=\s*"([^"]*)"/g;
+  let m: RegExpExecArray | null;
+  while ((m = re.exec(raw))) {
+    attrs[m[1]] = m[2];
+  }
+  return attrs;
+}
+
+/**
+ * Old WordPress content still carries un-rendered shortcodes (`[caption]`,
+ * `[button]`, `[gallery]`, `[ico]`, `[youtube]`, `[call_to_action]`,
+ * `[video]`) — WordPress used to expand these server-side, but the migrated
+ * `content` field kept the raw markup. Converts the ones with a sensible
+ * HTML equivalent, and strips the rest (WP `[gallery]` references old
+ * numeric attachment IDs we have no mapping for, so it can't be rebuilt).
+ */
+export function cleanArticleContent(raw: string): string {
+  let html = raw;
+
+  // [caption ...]<img .../> Caption text[/caption] → <figure><img/><figcaption>
+  html = html.replace(
+    /\[caption[^\]]*\]\s*(<img[^>]*\/?>)\s*([\s\S]*?)\[\/caption\]/g,
+    (_match, img: string, caption: string) =>
+      `<figure class="wp-caption">${img}${
+        caption.trim() ? `<figcaption>${caption.trim()}</figcaption>` : ""
+      }</figure>`
+  );
+
+  // [button title="..." link="..." ...] → real link styled as a button
+  html = html.replace(/\[button([^\]]*)\]/g, (_match, attrRaw: string) => {
+    const { title, link } = parseShortcodeAttrs(attrRaw);
+    if (!link) return "";
+    return `<p><a href="${link}" target="_blank" rel="noopener noreferrer" class="wp-shortcode-button">${
+      title || link
+    }</a></p>`;
+  });
+
+  // [youtube video="ID" width=".." height=".."] → responsive embed
+  html = html.replace(/\[youtube([^\]]*)\]/g, (_match, attrRaw: string) => {
+    const { video } = parseShortcodeAttrs(attrRaw);
+    if (!video) return "";
+    return `<div class="wp-video-embed"><iframe src="https://www.youtube.com/embed/${video}" title="YouTube video" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe></div>`;
+  });
+
+  // [video mp4="url" ...][/video] → real <video> element
+  html = html.replace(
+    /\[video([^\]]*)\]\[\/video\]/g,
+    (_match, attrRaw: string) => {
+      const { mp4 } = parseShortcodeAttrs(attrRaw);
+      if (!mp4) return "";
+      return `<video controls class="wp-video" src="${mp4}"></video>`;
+    }
+  );
+
+  // [call_to_action image="..." title="..." btn_title="..." btn_link="..."] → CTA block
+  html = html.replace(
+    /\[call_to_action([^\]]*)\]/g,
+    (_match, attrRaw: string) => {
+      const { image, title, btn_title, btn_link } = parseShortcodeAttrs(attrRaw);
+      if (!btn_link) return "";
+      return `<div class="wp-cta">${
+        image ? `<img src="${image}" alt="" />` : ""
+      }${title ? `<p class="wp-cta-title">${title}</p>` : ""}<a href="${btn_link}" target="_blank" rel="noopener noreferrer" class="wp-shortcode-button">${
+        btn_title || "Learn more"
+      }</a></div>`;
+    }
+  );
+
+  // [gallery ...] and [ico ...] — no HTML equivalent we can rebuild from the
+  // data we have (gallery references old WP attachment IDs; ico is a
+  // decorative font-icon), so drop them rather than leave raw brackets.
+  html = html.replace(/\[gallery[^\]]*\]/g, "");
+  html = html.replace(/\[ico[^\]]*\]/g, "");
+
+  // Safety net: any other un-rendered shortcode from this set that slipped
+  // through the specific patterns above (e.g. slightly different attrs).
+  html = html.replace(
+    /\[\/?(?:caption|button|gallery|ico|youtube|call_to_action|video)(?:[^\]]*)\]/g,
+    ""
+  );
+
+  return html;
+}
+
 export interface ResolvedBlogCategoryOption {
   label: string;
   value: string;
@@ -204,8 +291,8 @@ export function resolveBlogArticle(
   return {
     title: article.title ?? "",
     slug: article.slug ?? "",
-    description: article.description ?? "",
-    content: article.content ?? "",
+    description: cleanDescription(article.description ?? "", Number.MAX_SAFE_INTEGER),
+    content: cleanArticleContent(article.content ?? ""),
     categories,
     image: article.image ? strapiImageData(article.image)?.src ?? "" : "",
     publishedAt: article.publishedAt ?? "",

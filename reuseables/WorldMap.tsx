@@ -101,6 +101,7 @@ const mapEmbedSrc = (marker: MapMarker) =>
 const WorldMap: React.FC<WorldMapProps> = ({
     title,
     subtitle,
+    
     markers,
     mapImage = '/map-australia-made-dot-detailed-map-australia-made-dot-vector-illustration-115902526.webp',
     aspectRatio,
