@@ -5,6 +5,8 @@ import SectionHeader from '@/reuseables/SectionHeader';
 export interface StatItem {
     value: string;
     label: string;
+    /** Optional detail paragraph — flips into view on hover (desktop), shown plainly under the label on mobile/tablet. */
+    body?: string;
 }
 
 export interface StatsCardGridProps {
@@ -61,7 +63,7 @@ const StatsCardGrid: React.FC<StatsCardGridProps> = ({
                         return (
                             <div
                                 key={idx}
-                                className="relative h-75 rounded-[20px] overflow-hidden"
+                                className="relative min-h-75 h-auto rounded-[20px] overflow-hidden"
                             >
                                 <Image
                                     src={cardBackground}
@@ -69,63 +71,59 @@ const StatsCardGrid: React.FC<StatsCardGridProps> = ({
                                     fill
                                     className="object-cover"
                                 />
-                                <div className="absolute left-5 right-5 bottom-6">
+                                <div className="absolute inset-x-5 bottom-6">
                                     <div className="text-[2.5rem] font-normal tracking-tighter leading-none mb-2 text-black">
                                         {stat.value}
                                     </div>
                                     <p className="text-base tracking-tight font-light text-black">
                                         {stat.label}
                                     </p>
+                                    {stat.body && (
+                                        <p className="text-sm tracking-tight font-light text-black/80 leading-snug mt-2">
+                                            {stat.body}
+                                        </p>
+                                    )}
                                 </div>
                             </div>
                         );
                     })}
                 </div>
 
-                {/* ── Desktop layout: side-by-side staggered heights ── */}
-                <div className="relative max-w-5xl mx-auto h-[50dvh] hidden lg:block mt-14">
-                    {/* Card backgrounds */}
-                    <div className="absolute inset-0 flex items-start gap-6">
-                        {stats.map((stat, idx) => {
-                            const heightClass = 'h-full';
-                            return (
-                                <div
-                                    key={idx}
-                                    className={`relative flex-1 h-full rounded-[20px] overflow-hidden`}
-                                >
-                                    <Image
-                                        src={cardBackground}
-                                        alt=""
-                                        fill
-                                        className="object-cover"
-                                    />
-                                </div>
-                            );
-                        })}
-                    </div>
-
-                    {/* Text overlays */}
-                    <div className="absolute inset-0 flex items-start gap-6 pointer-events-none">
-                        {stats.map((stat, idx) => (
+                {/* ── Desktop layout: side-by-side cards; ones with body content
+                     flip on hover to reveal it, others behave as before ── */}
+                <div className="items-stretch gap-6 max-w-5xl mx-auto h-[50dvh] hidden lg:flex mt-14">
+                    {stats.map((stat, idx) => (
+                        <div key={idx} className="group flex-1 h-full [perspective:1200px]">
                             <div
-                                key={idx}
-                                className="flex-1 relative h-full"
+                                className={`relative w-full h-full rounded-[20px] transition-transform duration-700 [transform-style:preserve-3d] ${stat.body ? 'group-hover:[transform:rotateY(180deg)]' : ''}`}
                             >
-                                <div
-                                    className={`absolute left-7 right-7 bottom-10`}
-                                >
-                                    <div className={`text-5xl mb-3 lg:text-[2.825rem] font-normal tracking-tighter leading-none`}>
-                                        {stat.value}
+                                {/* Front */}
+                                <div className="absolute inset-0 rounded-[20px] overflow-hidden [backface-visibility:hidden]">
+                                    <Image src={cardBackground} alt="" fill className="object-cover" />
+                                    <div className="absolute left-7 right-7 bottom-10">
+                                        <div className="text-5xl mb-3 lg:text-[2.825rem] font-normal tracking-tighter leading-none">
+                                            {stat.value}
+                                        </div>
+                                        <p className="text-base tracking-tight font-light w-full">
+                                            {stat.label}
+                                        </p>
                                     </div>
-                                    <p
-                                        className={`text-base tracking-tight font-light w-full `}
-                                    >
-                                        {stat.label}
-                                    </p>
                                 </div>
+
+                                {/* Back — only exists (and only flips into view) when body content is set */}
+                                {stat.body && (
+                                    <div className="absolute inset-0 rounded-[20px] overflow-hidden bg-[#1c1c1a] p-7 flex flex-col justify-center [backface-visibility:hidden] [transform:rotateY(180deg)]">
+                                        <p className="text-white/60 text-sm uppercase tracking-wide mb-2">
+                                            {stat.label}
+                                        </p>
+                                        <p className="text-white text-lg leading-snug tracking-tight font-light">
+                                            {stat.body}
+                                        </p>
+                                    </div>
+                                )}
                             </div>
-                        ))}
-                    </div>
+                        </div>
+                    ))}
                 </div>
             </div>
         </section>

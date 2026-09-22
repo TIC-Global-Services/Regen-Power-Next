@@ -16,6 +16,7 @@ export const StatItemSchema = z.object({
   id: z.number(),
   value: z.string(),
   label: z.string(),
+  body: z.string().nullable().optional(),
 });
 
 export const CommercialSystemsStatsCardGridSchema = z.object({

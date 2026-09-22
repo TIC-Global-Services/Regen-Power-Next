@@ -41,8 +41,8 @@ const SolutionCard: React.FC<{ sol: Solution }> = ({ sol }) => (
             </p>
             {sol.bestFor && (
                 <div className="mt-auto pt-4">
-                    <p className="text-xs lg:text-sm text-white/60 uppercase tracking-wide mb-1">
-                        Best for
+                    <p className="text-xs lg:text-sm text-[#63B846] uppercase tracking-wide mb-1">
+                        Best for:
                     </p>
                     <p className="text-sm lg:text-base text-white font-medium leading-snug tracking-tight">
                         {sol.bestFor}

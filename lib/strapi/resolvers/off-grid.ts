@@ -43,7 +43,7 @@ export interface ResolvedStatsCardGrid {
   title: string;
   description: string;
   cardBackground: string;
-  stats: { value: string; label: string }[];
+  stats: { value: string; label: string; body?: string }[];
 }
 export function resolveStatsCardGrid(
   data: CommercialSystemsStatsCardGridData | undefined
@@ -55,7 +55,11 @@ export function resolveStatsCardGrid(
     title: data.title ?? "",
     description: data.description ?? "",
     cardBackground: img?.src ?? "",
-    stats: (data.stats ?? []).map((s) => ({ value: s.value, label: s.label })),
+    stats: (data.stats ?? []).map((s) => ({
+      value: s.value,
+      label: s.label,
+      ...(s.body ? { body: s.body } : {}),
+    })),
   };
 }
 
