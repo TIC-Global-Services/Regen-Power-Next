@@ -19,12 +19,12 @@ const nextConfig: NextConfig = {
       // Legacy regenpower.com URLs — preserve SEO/backlinks on relaunch.
       {
         source: "/about-solar",
-        destination: "/solar",
+        destination: "/solar/solar-system",
         permanent: true,
       },
       {
         source: "/about-solar/how-solar-power-works",
-        destination: "/solar",
+        destination: "/solar/solar-system",
         permanent: true,
       },
       {
@@ -44,7 +44,7 @@ const nextConfig: NextConfig = {
       },
       {
         source: "/residential-solar-perth",
-        destination: "/solar",
+        destination: "/solar/solar-system",
         permanent: true,
       },
       {

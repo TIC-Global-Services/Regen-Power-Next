@@ -11,9 +11,9 @@ import CtaButton from './CtaButton';
 const navItems = [
   {
     name: 'Solar System',
-    href: '/solar',
+    href: '/solar/solar-system',
     subItems: [
-      { name: 'Solar System', href: '/solar' },
+      { name: 'Solar System', href: '/solar/solar-system' },
       { name: 'Brand we carry', href: '/solar/brands' },
       { name: 'Solar Deals', href: '/solar/deals' },
       { name: 'Government rebates', href: '/solar/government-rebates' },
