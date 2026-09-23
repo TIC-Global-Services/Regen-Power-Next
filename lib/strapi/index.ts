@@ -43,6 +43,7 @@ export {
   getEvChargingPage,
   getHomePage,
   getPromotionPage,
+  getPromotionPageBySlug,
   getAboutPage,
   getFooter,
 } from "./fetchers";

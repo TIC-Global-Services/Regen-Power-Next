@@ -5,6 +5,7 @@ import {
   resolveReviewsHero,
   resolveReviewsIntroSection,
   resolveReviewsTestimonialsSection,
+  resolveReviewsAwardsSection,
   resolveReviewsCtaBanner,
   resolveTestimonials,
 } from '@/lib/strapi/resolvers';
@@ -14,10 +15,12 @@ import type {
     ReviewsHeroData,
     ReviewsIntroSectionData,
     ReviewsTestimonialsSectionData,
+    ReviewsAwardsSectionData,
     SharedFormSectionData,
 } from '@/lib/strapi/schemas';
 import ReviewsHero from '@/components/reviews/ReviewsHero';
 import ReviewsIntro from '@/components/reviews/ReviewsIntro';
+import AwardsSection from '@/components/reviews/AwardsSection';
 import TestimonialGrid from '@/components/reviews/TestimonialGrid';
 import CtaSection from '@/reuseables/CtaSection';
 import UnifiedFormSection from "@/reuseables/UnifiedFormSection";
@@ -34,12 +37,14 @@ export default async function ReviewsPage() {
     const hero = findSection<ReviewsHeroData>(sections, 'reviews.hero');
     const intro = findSection<ReviewsIntroSectionData>(sections, 'reviews.intro-section');
     const testimonials = findSection<ReviewsTestimonialsSectionData>(sections, 'reviews.testimonials-section');
+    const awardsSection = findSection<ReviewsAwardsSectionData>(sections, 'reviews.awards-section');
     const formSection = findSection<SharedFormSectionData>(sections, 'shared.form-section');
     const ctaBanner = findSection<ReviewsCtaBannerData>(sections, 'shared.cta-banner');
 
     const heroProps = resolveReviewsHero(hero);
     const introProps = resolveReviewsIntroSection(intro);
     const testimonialsProps = resolveReviewsTestimonialsSection(testimonials);
+    const awardsProps = resolveReviewsAwardsSection(awardsSection);
     const formProps = resolveSharedFormSection(formSection);
     const ctaBannerProps = resolveReviewsCtaBanner(ctaBanner);
 
@@ -70,6 +75,8 @@ export default async function ReviewsPage() {
                     description={introProps.description}
                 />
             )}
+
+            {awardsProps && <AwardsSection awards={awardsProps.awards} />}
 
             {testimonialsProps && (
                 <TestimonialGrid

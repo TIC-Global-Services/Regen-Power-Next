@@ -6,3 +6,6 @@ export const introSection =
 
 export const testimonialsSection =
   "populate[sections][on][reviews.testimonials-section][populate][cards][populate]=image";
+
+export const awardsSection =
+  "populate[sections][on][reviews.awards-section][populate][awards][populate]=image";

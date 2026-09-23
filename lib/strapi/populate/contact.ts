@@ -3,3 +3,6 @@ export const hero =
 
 export const quoteForm =
   "populate[sections][on][contact.contact-form-section][populate]=*";
+
+export const locationsMap =
+  "populate[sections][on][contact.locations-map][populate][locations]=true";

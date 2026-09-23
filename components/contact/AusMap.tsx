@@ -172,6 +172,7 @@ const AusMap: React.FC<AusMapProps> = ({
                                                     text="Get Directions"
                                                     textColor="text-black"
                                                     className="capitalize w-full justify-center"
+                                                    target="_blank"
                                                 />
                                             )}
                                         </Reveal>

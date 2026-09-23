@@ -50,3 +50,6 @@ export const offGridWhyRegen =
 
 export const offGridImageSplitCta =
   "populate[sections][on][commercial-off-grid.image-split-cta][populate]=image";
+
+export const offGridCompetitorAnalysis =
+  "populate[sections][on][commercial-off-grid.competitor-analysis][populate][rows]=true";

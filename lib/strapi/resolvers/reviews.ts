@@ -4,6 +4,7 @@ import type {
   ReviewsHeroData,
   ReviewsIntroSectionData,
   ReviewsTestimonialsSectionData,
+  ReviewsAwardsSectionData,
   ReviewsCtaBannerData,
   TestimonialEntryData,
 } from "../schemas/reviews";
@@ -91,6 +92,25 @@ export function resolveReviewsTestimonialsSection(
     subtitle: data.subtitle ?? undefined,
     title: data.title ?? undefined,
     imageCards,
+  };
+}
+
+export interface ResolvedReviewsAward {
+  image: string;
+  description: string;
+}
+export interface ResolvedReviewsAwardsSection {
+  awards: ResolvedReviewsAward[];
+}
+export function resolveReviewsAwardsSection(
+  data: ReviewsAwardsSectionData | undefined
+): ResolvedReviewsAwardsSection | null {
+  if (!data) return null;
+  return {
+    awards: (data.awards ?? []).map((a) => ({
+      image: a.image ? strapiImageData(a.image)?.src ?? "" : "",
+      description: a.description ?? "",
+    })),
   };
 }
 

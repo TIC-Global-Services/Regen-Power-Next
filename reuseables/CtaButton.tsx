@@ -23,6 +23,10 @@ interface CtaButtonProps {
   textClass?: string;
   /** Additive utility classes appended after the label size (e.g. `whitespace-normal`). */
   buttonTextClass?: string;
+  /** Anchor `target`, e.g. `"_blank"` to open an external link (like a maps URL) in a new tab. Ignored for tel:/mailto: links. */
+  target?: string;
+  /** Anchor `rel` — defaults to `"noopener noreferrer"` whenever `target="_blank"` is set. */
+  rel?: string;
 }
 
 const CtaButton: React.FC<CtaButtonProps> = ({
@@ -41,6 +45,8 @@ const CtaButton: React.FC<CtaButtonProps> = ({
   disabled = false,
   textClass = 'text-sm ',
   buttonTextClass = '',
+  target,
+  rel,
 }) => {
   const hasIcon = !!Icon;
   const content = (
@@ -71,7 +77,12 @@ const CtaButton: React.FC<CtaButtonProps> = ({
 
   if (href) {
     return (
-      <Link href={href} onClick={onClick as React.MouseEventHandler<HTMLAnchorElement>} className={combinedClasses}>
+      <Link
+        href={href}
+        onClick={onClick as React.MouseEventHandler<HTMLAnchorElement>}
+        className={combinedClasses}
+        {...(target ? { target, rel: rel ?? (target === '_blank' ? 'noopener noreferrer' : undefined) } : {})}
+      >
         {content}
       </Link>
     );

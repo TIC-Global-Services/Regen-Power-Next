@@ -181,6 +181,7 @@ export const getCommercialOffGridPage = () =>
       commercial.offGridOurProcess,
       commercial.offGridWhyRegen,
       commercial.offGridImageSplitCta,
+      commercial.offGridCompetitorAnalysis,
       shared.faq,
       shared.formSection,
       shared.ctaBanner
@@ -587,7 +588,7 @@ export const getCaseStudies = async (): Promise<
 export const getContactPage = () =>
   getSingleType(
     PAGE_SLUGS.contact,
-    populate(contact.hero, contact.quoteForm, shared.formSection)
+    populate(contact.hero, contact.quoteForm, contact.locationsMap, shared.formSection)
   );
 
 export const getGovernmentRebatesPage = () =>
@@ -751,6 +752,46 @@ export const getPromotionPage = () =>
       promotion.contactInfo
     )
   );
+
+/**
+ * Per-route promotion page — a separate collection type (`promo-pages`,
+ * API id chosen to avoid a pluralName collision with the original
+ * `promotion-page` single type) with one entry per route, each entry
+ * carrying its own `slug` + `hubspotFormId` alongside the same shared
+ * `sections` content. Returns the same `{ sections: [...] }` shape as
+ * `getPromotionPage()`, plus `slug`/`hubspotFormId` at the top level.
+ */
+export const getPromotionPageBySlug = async (
+  slug: string
+): Promise<StrapiResponse<StrapiSingleTypePage & { slug?: string; hubspotFormId?: string }>> => {
+  const query = new URLSearchParams();
+  query.set("filters[slug][$eq]", slug);
+  const populateQuery = populate(
+    promotion.hero,
+    promotion.limitedSpots,
+    promotion.trustRegen,
+    promotion.freeQuotation,
+    promotion.batteryRebates,
+    promotion.trustedBrands,
+    promotion.highEnergy,
+    promotion.batteryPackage,
+    promotion.readyToBegin,
+    promotion.solarFinancing,
+    promotion.aboutRegen,
+    promotion.findOutWhy,
+    promotion.achievements,
+    promotion.industryRecognition,
+    promotion.faqSection,
+    promotion.awardsSection,
+    promotion.batteryPricing,
+    promotion.contactInfo
+  );
+  const res = await strapiFetch<
+    StrapiResponse<(StrapiSingleTypePage & { slug?: string; hubspotFormId?: string })[]>
+  >(`/promo-pages?${query.toString()}&${populateQuery}`);
+  const entry = Array.isArray(res.data) ? res.data[0] : undefined;
+  return { data: entry ?? { id: 0, documentId: "", createdAt: "", updatedAt: "", publishedAt: null, sections: [] }, meta: res.meta };
+};
 
 export const getAboutPage = () =>
   getSingleType(

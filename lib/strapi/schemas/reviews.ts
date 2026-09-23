@@ -41,6 +41,19 @@ export const ReviewsTestimonialsSectionSchema = z.object({
 });
 export type ReviewsTestimonialsSectionData = z.infer<typeof ReviewsTestimonialsSectionSchema>;
 
+export const ReviewsAwardItemSchema = z.object({
+  id: z.number(),
+  image: MediaSchema.nullable(),
+  description: z.string().nullable(),
+});
+export type ReviewsAwardItemData = z.infer<typeof ReviewsAwardItemSchema>;
+
+export const ReviewsAwardsSectionSchema = z.object({
+  __component: z.literal("reviews.awards-section"),
+  awards: z.array(ReviewsAwardItemSchema),
+});
+export type ReviewsAwardsSectionData = z.infer<typeof ReviewsAwardsSectionSchema>;
+
 export const ReviewsCtaBannerSchema = z.object({
   __component: z.literal("shared.cta-banner"),
   subtitle: z.string().nullable(),

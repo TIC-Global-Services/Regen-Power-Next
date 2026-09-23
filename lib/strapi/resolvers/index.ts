@@ -391,12 +391,15 @@ export {
   resolveReviewsHero,
   resolveReviewsIntroSection,
   resolveReviewsTestimonialsSection,
+  resolveReviewsAwardsSection,
   resolveReviewsCtaBanner,
   resolveTestimonials,
 } from "./reviews";
 export type {
   ResolvedReviewsHero,
   ResolvedReviewsIntroSection,
+  ResolvedReviewsAwardsSection,
+  ResolvedReviewsAward,
   ResolvedGridItem,
 } from "./reviews";
 
