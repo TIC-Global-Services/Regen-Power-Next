@@ -361,8 +361,8 @@ export {
   TestimonialEntrySchema,
 } from "./reviews";
 
-export type { ContactHeroData, ContactFormSectionData } from "./contact";
-export { ContactHeroSchema, ContactFormSectionSchema } from "./contact";
+export type { ContactHeroData, ContactFormSectionData, ContactLocationsMapData } from "./contact";
+export { ContactHeroSchema, ContactFormSectionSchema, ContactLocationsMapSchema } from "./contact";
 
 export type { BlogHeroData, BlogCategoryFilterData, BlogCtaBannerData } from "./blog";
 export { BlogHeroSchema, BlogCategoryFilterSchema, BlogCtaBannerSchema } from "./blog";

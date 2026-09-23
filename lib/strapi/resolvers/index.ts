@@ -400,8 +400,8 @@ export type {
   ResolvedGridItem,
 } from "./reviews";
 
-export { resolveContactHero, resolveContactFormSection } from "./contact";
-export type { ResolvedContactHero, ResolvedContactFormSection } from "./contact";
+export { resolveContactHero, resolveContactFormSection, resolveContactLocationsMap } from "./contact";
+export type { ResolvedContactHero, ResolvedContactFormSection, ResolvedContactLocationsMap, ResolvedOfficeLocation } from "./contact";
 
 export {
   resolveBlogHero,

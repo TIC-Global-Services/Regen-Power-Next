@@ -19,3 +19,24 @@ export const ContactFormSectionSchema = z.object({
   description: z.string().nullable(),
 });
 export type ContactFormSectionData = z.infer<typeof ContactFormSectionSchema>;
+
+export const OfficeLocationSchema = z.object({
+  id: z.number(),
+  name: z.string(),
+  lat: z.number(),
+  lng: z.number(),
+  address: z.string().nullable().optional(),
+  phone: z.string().nullable().optional(),
+  email: z.string().nullable().optional(),
+  mapsUrl: z.string().nullable().optional(),
+  labelPosition: z.enum(["top", "right", "bottom", "left"]).nullable().optional(),
+});
+
+/** Matches the `contact.locations-map` component in Strapi. */
+export const ContactLocationsMapSchema = z.object({
+  __component: z.literal("contact.locations-map"),
+  subtitle: z.string().nullable(),
+  title: z.string().nullable(),
+  locations: z.array(OfficeLocationSchema),
+});
+export type ContactLocationsMapData = z.infer<typeof ContactLocationsMapSchema>;

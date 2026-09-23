@@ -1,7 +1,10 @@
 'use client';
 
 import React from 'react';
+import { MapPin } from 'lucide-react';
 import WorldMap, { MapMarker, MapBounds } from '@/reuseables/WorldMap';
+import Reveal from '@/reuseables/Reveal';
+import CtaButton from '@/reuseables/CtaButton';
 
 export interface AusMapProps {
     subtitle?: string;
@@ -76,21 +79,110 @@ const AUS_MAP_BOUNDS: MapBounds = {
     east: 156.91,
 };
 
+/** Chunk locations into a staggered pyramid: rows of 3, then 2, repeating — row of 2 centers itself between the row above purely through flex centering. */
+function staggeredRows<T>(items: T[]): T[][] {
+    const pattern = [3, 2];
+    const rows: T[][] = [];
+    let i = 0;
+    let p = 0;
+    while (i < items.length) {
+        const size = pattern[p % pattern.length];
+        rows.push(items.slice(i, i + size));
+        i += size;
+        p += 1;
+    }
+    return rows;
+}
+
 const AusMap: React.FC<AusMapProps> = ({
     subtitle = 'Our',
     title = 'Locations',
     markers = defaultMarkers,
 }) => {
+    const rows = staggeredRows(markers);
+
     return (
-        <WorldMap
-            subtitle={subtitle}
-            title={title}
-            markers={markers}
-            mapImage="/aus-map.png"
-            mapBounds={AUS_MAP_BOUNDS}
-            mapMaxWidth="max-w-2xl"
-            autoCycle
-        />
+        <div>
+            <WorldMap
+                subtitle={subtitle}
+                title={title}
+                markers={markers}
+                mapImage="/aus-map.png"
+                mapBounds={AUS_MAP_BOUNDS}
+                mapMaxWidth="max-w-2xl"
+                autoCycle
+            />
+
+            {/* Explicit location list — same offices as the map pins, spelled out
+                for readers who'd rather scan text than hover/tap markers. Laid out
+                as a staggered pyramid: 3 cards, then 2 centered beneath them. */}
+            {markers.length > 0 && (
+                <div className="px-[5%] md:px-[3%] pb-16 md:pb-24 -mt-8 md:-mt-12">
+                    <div className="max-w-5xl mx-auto flex flex-col items-center gap-5 md:gap-6">
+                        {rows.map((row, rowIdx) => (
+                            <div
+                                key={rowIdx}
+                                className="w-full flex flex-wrap justify-center gap-5 md:gap-6"
+                            >
+                                {row.map((marker, colIdx) => {
+                                    const idx = rowIdx * 3 + colIdx; // stagger delay stays stable across rows
+                                    return (
+                                        <Reveal
+                                            key={marker.name}
+                                            delay={idx * 0.08}
+                                            className="group w-full sm:w-[45%] lg:w-[30%] rounded-3xl border border-black/10 bg-[#F7FAF2] p-6 md:p-7 transition-all duration-300 hover:-translate-y-1.5 hover:border-[#A0CF44] hover:shadow-xl hover:shadow-[#A0CF44]/15"
+                                        >
+                                            <div className="flex items-center gap-2.5 mb-3">
+                                                <span className="flex items-center justify-center w-9 h-9 rounded-full bg-[#63B846]/15 text-[#4d7a17] shrink-0 transition-all duration-300 group-hover:bg-[#63B846] group-hover:text-white group-hover:scale-110">
+                                                    <MapPin size={18} strokeWidth={2.25} />
+                                                </span>
+                                                <h3 className="text-2xl md:text-[1.75rem] font-medium tracking-tight text-black leading-none">
+                                                    {marker.name}
+                                                </h3>
+                                            </div>
+
+                                            {marker.address && (
+                                                <p className="text-sm text-black/75 leading-snug tracking-tight mb-3 min-h-[2.5em]">
+                                                    {marker.address}
+                                                </p>
+                                            )}
+
+                                            <div className="flex flex-col gap-1 text-sm mb-5">
+                                                {marker.phone && (
+                                                    <a
+                                                        href={`tel:${marker.phone.replace(/[^+\d]/g, '')}`}
+                                                        className="text-black/70 hover:text-black transition-colors"
+                                                    >
+                                                        Tel: {marker.phone}
+                                                    </a>
+                                                )}
+                                                {marker.email && (
+                                                    <a
+                                                        href={`mailto:${marker.email}`}
+                                                        className="text-black/70 hover:text-black transition-colors"
+                                                    >
+                                                        {marker.email}
+                                                    </a>
+                                                )}
+                                            </div>
+
+                                            {marker.mapsUrl && (
+                                                <CtaButton
+                                                    href={marker.mapsUrl}
+                                                    text="Get Directions"
+                                                    textColor="text-black"
+                                                    className="capitalize w-full justify-center"
+                                                />
+                                            )}
+                                        </Reveal>
+                                    );
+                                })}
+                            </div>
+                        ))}
+                    </div>
+                </div>
+            )}
+        </div>
     );
 };
 

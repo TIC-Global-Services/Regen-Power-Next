@@ -1,8 +1,8 @@
 import React from 'react';
 import { getContactPage } from '@/lib/strapi';
 import { findSection } from '@/lib/strapi/section-utils';
-import { resolveContactHero, resolveSharedFormSection } from '@/lib/strapi/resolvers';
-import type { ContactHeroData, SharedFormSectionData } from '@/lib/strapi/schemas';
+import { resolveContactHero, resolveSharedFormSection, resolveContactLocationsMap } from '@/lib/strapi/resolvers';
+import type { ContactHeroData, SharedFormSectionData, ContactLocationsMapData } from '@/lib/strapi/schemas';
 
 import ContactHero from '@/components/contact/ContactHero';
 import UnifiedFormSection from '@/reuseables/UnifiedFormSection';
@@ -18,6 +18,8 @@ const ContactPage = async () => {
   const heroProps = resolveContactHero(hero);
   const formSection = findSection<SharedFormSectionData>(sections, 'shared.form-section');
   const formProps = resolveSharedFormSection(formSection);
+  const locationsMap = findSection<ContactLocationsMapData>(sections, 'contact.locations-map');
+  const locationsMapProps = resolveContactLocationsMap(locationsMap);
 
   return (
     <div className="bg-white min-h-screen text-black">
@@ -42,7 +44,11 @@ const ContactPage = async () => {
       />
       
 
-      <AusMap />
+      <AusMap
+        subtitle={locationsMapProps?.subtitle || undefined}
+        title={locationsMapProps?.title || undefined}
+        markers={locationsMapProps?.locations.length ? locationsMapProps.locations : undefined}
+      />
     </div>
   );
 };
