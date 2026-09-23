@@ -33,8 +33,26 @@ function getPageNumbers(current: number, total: number): (number | 'ellipsis')[]
     return pages;
 }
 
-const ALL_YEARS = 'all';
 const ALL_SORT = 'newest';
+/** Years are grouped into fixed 3-year windows anchored to the newest year present, e.g. 2026-2024, 2023-2021. Selecting a whole window is the filter — there's no per-year drill-down. */
+const YEAR_GROUP_SIZE = 3;
+
+interface YearGroup {
+    label: string;
+    start: number;
+    end: number;
+}
+
+/** Build calendar windows of YEAR_GROUP_SIZE years, anchored to `anchor`, covering every year down to the oldest present. */
+function groupYears(years: number[], anchor: number): YearGroup[] {
+    const oldest = Math.min(...years);
+    const groups: YearGroup[] = [];
+    for (let start = anchor; start >= oldest; start -= YEAR_GROUP_SIZE) {
+        const end = start - (YEAR_GROUP_SIZE - 1);
+        groups.push({ label: `${start}-${end}`, start, end });
+    }
+    return groups;
+}
 
 const BlogGrid: React.FC<BlogGridProps> = ({
     categories,
@@ -44,7 +62,7 @@ const BlogGrid: React.FC<BlogGridProps> = ({
     const [activeCategory, setActiveCategory] = useState<string>(defaultCategory ?? categories[0]?.value ?? '');
     const [currentPage, setCurrentPage] = useState<number>(1);
     const [query, setQuery] = useState<string>('');
-    const [activeYear, setActiveYear] = useState<string>(ALL_YEARS);
+    const [activeYearGroup, setActiveYearGroup] = useState<YearGroup | null>(null);
     const [sortOrder, setSortOrder] = useState<'newest' | 'oldest'>(ALL_SORT);
     const [filterOpen, setFilterOpen] = useState(false);
     const filterRef = useRef<HTMLDivElement>(null);
@@ -57,6 +75,7 @@ const BlogGrid: React.FC<BlogGridProps> = ({
                 .filter((y): y is number => y !== null)
         )
     ).sort((a, b) => b - a);
+    const yearGroups = years.length > 0 ? groupYears(years, years[0]) : [];
 
     useEffect(() => {
         if (!filterOpen) return;
@@ -79,9 +98,10 @@ const BlogGrid: React.FC<BlogGridProps> = ({
         setCurrentPage(1);
     };
 
-    const handleYearChange = (year: string) => {
-        setActiveYear(year);
+    const handleYearGroupChange = (group: YearGroup | null) => {
+        setActiveYearGroup(group);
         setCurrentPage(1);
+        setFilterOpen(false);
     };
 
     const handleSortChange = (order: 'newest' | 'oldest') => {
@@ -89,10 +109,10 @@ const BlogGrid: React.FC<BlogGridProps> = ({
         setCurrentPage(1);
     };
 
-    const activeFilterCount = (activeYear !== ALL_YEARS ? 1 : 0) + (sortOrder !== ALL_SORT ? 1 : 0);
+    const activeFilterCount = (activeYearGroup ? 1 : 0) + (sortOrder !== ALL_SORT ? 1 : 0);
 
     const clearFilters = () => {
-        setActiveYear(ALL_YEARS);
+        setActiveYearGroup(null);
         setSortOrder(ALL_SORT);
         setCurrentPage(1);
     };
@@ -108,8 +128,12 @@ const BlogGrid: React.FC<BlogGridProps> = ({
         (!q ||
             c.title.toLowerCase().includes(q) ||
             c.description.toLowerCase().includes(q)) &&
-        (activeYear === ALL_YEARS ||
-            (c.publishedAt && new Date(c.publishedAt).getFullYear() === Number(activeYear)))
+        (!activeYearGroup ||
+            (c.publishedAt &&
+                (() => {
+                    const y = new Date(c.publishedAt).getFullYear();
+                    return y >= activeYearGroup.end && y <= activeYearGroup.start;
+                })()))
     ).sort((a, b) => {
         if (!a.publishedAt || !b.publishedAt) return 0;
         const diff = new Date(a.publishedAt).getTime() - new Date(b.publishedAt).getTime();
@@ -209,27 +233,27 @@ const BlogGrid: React.FC<BlogGridProps> = ({
                                 )}
                             </div>
 
-                            {years.length > 0 && (
+                            {yearGroups.length > 0 && (
                                 <div className="mb-4">
                                     <p className="text-xs font-medium text-black/50 uppercase tracking-wide mb-2">Year</p>
                                     <div className="flex flex-col gap-1">
                                         <button
                                             type="button"
-                                            onClick={() => handleYearChange(ALL_YEARS)}
+                                            onClick={() => handleYearGroupChange(null)}
                                             className="flex items-center justify-between px-2 py-1.5 rounded-lg text-sm text-left hover:bg-[#F3F8EA] transition-colors cursor-pointer"
                                         >
                                             All years
-                                            {activeYear === ALL_YEARS && <Check className="w-4 h-4 text-[#4d7a17]" />}
+                                            {!activeYearGroup && <Check className="w-4 h-4 text-[#4d7a17]" />}
                                         </button>
-                                        {years.map((year) => (
+                                        {yearGroups.map((group) => (
                                             <button
-                                                key={year}
+                                                key={group.label}
                                                 type="button"
-                                                onClick={() => handleYearChange(String(year))}
+                                                onClick={() => handleYearGroupChange(group)}
                                                 className="flex items-center justify-between px-2 py-1.5 rounded-lg text-sm text-left hover:bg-[#F3F8EA] transition-colors cursor-pointer"
                                             >
-                                                {year}
-                                                {activeYear === String(year) && <Check className="w-4 h-4 text-[#4d7a17]" />}
+                                                {group.label}
+                                                {activeYearGroup?.label === group.label && <Check className="w-4 h-4 text-[#4d7a17]" />}
                                             </button>
                                         ))}
                                     </div>
@@ -264,18 +288,18 @@ const BlogGrid: React.FC<BlogGridProps> = ({
                     {q && (
                         <> for &ldquo;{query.trim()}&rdquo;</>
                     )}
-                    {activeYear !== ALL_YEARS && <> from {activeYear}</>}
+                    {activeYearGroup && <> from {activeYearGroup.label}</>}
                 </p>
             </div>
 
-            <FadeSwap swapKey={`${activeCategory}|${activeYear}|${sortOrder}|${safePage}`}>
+            <FadeSwap swapKey={`${activeCategory}|${activeYearGroup?.label ?? 'all'}|${sortOrder}|${safePage}`}>
               <div className="flex flex-col gap-5 md:gap-6 max-w-7xl mx-auto">
                 {rows.length === 0 ? (
                     <div className="text-center py-16 tracking-tight">
                         <p className="text-black/60">
                             No articles match {q ? <>your search for &ldquo;{query.trim()}&rdquo;</> : 'the current filters'}.
                         </p>
-                        {(q || activeYear !== ALL_YEARS) && (
+                        {(q || activeYearGroup) && (
                             <button
                                 type="button"
                                 onClick={() => {
