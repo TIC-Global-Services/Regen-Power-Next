@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useCallback } from 'react';
+import React from 'react';
 import { ChevronDown, Search, X } from 'lucide-react';
 
 /* ─── Types ─── */
@@ -10,17 +10,22 @@ export interface FilterDropdownOption {
   value: string;
 }
 
+export interface PortfolioFilterValues {
+  industry: string | null;
+  size: string | null;
+  location: string | null;
+  search: string;
+}
+
 export interface PortfolioFiltersProps {
   industries: FilterDropdownOption[];
   systemSizes: FilterDropdownOption[];
   locations: FilterDropdownOption[];
   searchPlaceholder?: string;
-  onFilterChange?: (filters: {
-    industry: string | null;
-    size: string | null;
-    location: string | null;
-    search: string;
-  }) => void;
+  values: PortfolioFilterValues;
+  /** Overrides the computed size chip label — used when the active size filter (e.g. from a deep link) spans more than one dropdown bucket and so has no single matching option. */
+  sizeLabelOverride?: string | null;
+  onChange: (patch: Partial<PortfolioFilterValues>) => void;
 }
 
 /* ─── Dropdown sub-component ─── */
@@ -77,34 +82,19 @@ const PortfolioFilters: React.FC<PortfolioFiltersProps> = ({
   systemSizes,
   locations,
   searchPlaceholder = 'Search',
-  onFilterChange,
+  values,
+  sizeLabelOverride,
+  onChange,
 }) => {
-  const [industry, setIndustry] = useState<string | null>(null);
-  const [size, setSize] = useState<string | null>(null);
-  const [location, setLocation] = useState<string | null>(null);
-  const [search, setSearch] = useState('');
+  const { industry, size, location, search } = values;
 
-  /** Emit the full filter state on every change */
-  const emit = useCallback(
-    (next: Partial<{ industry: string | null; size: string | null; location: string | null; search: string }>) => {
-      const merged = {
-        industry: next.industry !== undefined ? next.industry : industry,
-        size: next.size !== undefined ? next.size : size,
-        location: next.location !== undefined ? next.location : location,
-        search: next.search !== undefined ? next.search : search,
-      };
-      onFilterChange?.(merged);
-    },
-    [industry, size, location, search, onFilterChange],
-  );
-
-  const handleIndustry = useCallback((v: string | null) => { setIndustry(v); emit({ industry: v }); }, [emit]);
-  const handleSize = useCallback((v: string | null) => { setSize(v); emit({ size: v }); }, [emit]);
-  const handleLocation = useCallback((v: string | null) => { setLocation(v); emit({ location: v }); }, [emit]);
-  const handleSearch = useCallback((v: string) => { setSearch(v); emit({ search: v }); }, [emit]);
+  const handleIndustry = (v: string | null) => onChange({ industry: v });
+  const handleSize = (v: string | null) => onChange({ size: v });
+  const handleLocation = (v: string | null) => onChange({ location: v });
+  const handleSearch = (v: string) => onChange({ search: v });
 
   const industryLabel = industries.find((o) => o.value === industry)?.label;
-  const sizeLabel = systemSizes.find((o) => o.value === size)?.label;
+  const sizeLabel = sizeLabelOverride ?? systemSizes.find((o) => o.value === size)?.label;
   const locationLabel = locations.find((o) => o.value === location)?.label;
 
   const hasActiveFilters = !!(industryLabel || sizeLabel || locationLabel);

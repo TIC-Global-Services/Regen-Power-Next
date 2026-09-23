@@ -98,7 +98,7 @@ export default function TiersSection({ resolved }: Props) {
             </AnimatePresence>
 
             {/* Prev / Next */}
-            <div className="flex gap-3  lg:mt-10">
+            <div className="flex gap-3 mt-6 lg:mt-10">
               <button
                 onClick={handlePrev}
                 aria-label="Previous tier"

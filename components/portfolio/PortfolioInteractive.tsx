@@ -2,7 +2,8 @@
 
 import React, { useState, useMemo, useCallback, useEffect } from 'react';
 import type { PortfolioItem } from '@/utils/portfolio.model';
-import PortfolioFilters from './PortfolioFilters';
+import { resolveSizeSlugsFromQuery, formatSizeQueryLabel, resolveExactSlug } from '@/utils/portfolio.model';
+import PortfolioFilters, { type PortfolioFilterValues } from './PortfolioFilters';
 import PortfolioHoverRow from './PortfolioHoverRow';
 import { PortfolioCard } from './PortfolioCard';
 
@@ -30,14 +31,15 @@ export interface PortfolioInteractiveProps {
 
 interface FilterState {
   industry: string | null;
-  size: string | null;
+  /** One or more size-bucket slugs, OR'd together — a deep link like ?size=30-100kw can span multiple dropdown buckets. */
+  size: string[];
   location: string | null;
   search: string;
 }
 
 const INITIAL_FILTERS: FilterState = {
   industry: null,
-  size: null,
+  size: [],
   location: null,
   search: '',
 };
@@ -58,7 +60,7 @@ function matchesSearch(item: PortfolioItem, query: string): boolean {
 /** Check whether a portfolio item passes all active filters */
 function passesFilters(item: PortfolioItem, filters: FilterState): boolean {
   if (filters.industry && !item.filters.includes(filters.industry)) return false;
-  if (filters.size && !item.filters.includes(filters.size)) return false;
+  if (filters.size.length > 0 && !filters.size.some((s) => item.filters.includes(s))) return false;
   if (filters.location && item.state !== filters.location) return false;
   if (filters.search && !matchesSearch(item, filters.search)) return false;
   return true;
@@ -95,6 +97,8 @@ const PortfolioInteractive: React.FC<PortfolioInteractiveProps> = ({
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage, setItemsPerPage] = useState(ITEMS_PER_PAGE);
   const [rowSize, setRowSize] = useState(ROW_SIZE_DESKTOP);
+  /** Label for a deep-linked size filter that spans more than one dropdown bucket (e.g. ?size=30-100kw). Cleared as soon as the user touches the dropdown themselves. */
+  const [sizeLabelOverride, setSizeLabelOverride] = useState<string | null>(null);
 
   useEffect(() => {
     const handleResize = () => {
@@ -108,10 +112,49 @@ const PortfolioInteractive: React.FC<PortfolioInteractiveProps> = ({
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
-  /* Reset to page 1 when filters change */
+  /* Apply filters from the URL query string on load — e.g. a tier CTA linking to
+     /commercial/portfolio?size=30-100kw from another page. */
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const patch: Partial<FilterState> = {};
+
+    const rawSize = params.get('size');
+    if (rawSize) {
+      const slugs = resolveSizeSlugsFromQuery(rawSize);
+      if (slugs.length > 0) {
+        patch.size = slugs;
+        if (slugs.length > 1) setSizeLabelOverride(formatSizeQueryLabel(rawSize));
+      }
+    }
+
+    const rawIndustry = params.get('industry') ?? params.get('category');
+    if (rawIndustry) {
+      const match = resolveExactSlug(rawIndustry, industries.map((o) => ({ label: o.label, slug: o.value })));
+      if (match) patch.industry = match;
+    }
+
+    const rawLocation = params.get('location') ?? params.get('state');
+    if (rawLocation) {
+      const match = resolveExactSlug(rawLocation, locations.map((o) => ({ label: o.label, slug: o.value })));
+      if (match) patch.location = match;
+    }
+
+    if (Object.keys(patch).length > 0) {
+      setFilters((prev) => ({ ...prev, ...patch }));
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  /* Reset to page 1 when filters change; any explicit dropdown interaction drops the multi-bucket URL label. */
   const handleFilterChange = useCallback(
-    (next: { industry: string | null; size: string | null; location: string | null; search: string }) => {
-      setFilters(next);
+    (patch: Partial<PortfolioFilterValues>) => {
+      if (patch.size !== undefined) setSizeLabelOverride(null);
+      setFilters((prev) => ({
+        industry: patch.industry !== undefined ? patch.industry : prev.industry,
+        size: patch.size !== undefined ? (patch.size ? [patch.size] : []) : prev.size,
+        location: patch.location !== undefined ? patch.location : prev.location,
+        search: patch.search !== undefined ? patch.search : prev.search,
+      }));
       setCurrentPage(1);
     },
     [],
@@ -146,7 +189,14 @@ const PortfolioInteractive: React.FC<PortfolioInteractiveProps> = ({
         industries={industries}
         systemSizes={systemSizes}
         locations={locations}
-        onFilterChange={handleFilterChange}
+        values={{
+          industry: filters.industry,
+          size: filters.size.length === 1 ? filters.size[0] : null,
+          location: filters.location,
+          search: filters.search,
+        }}
+        sizeLabelOverride={sizeLabelOverride}
+        onChange={handleFilterChange}
       />
 
       {/* Results count */}
