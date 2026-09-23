@@ -207,6 +207,7 @@ export const getReviewsPage = () =>
     populate(
       reviews.hero,
       reviews.introSection,
+      reviews.awardsSection,
       reviews.testimonialsSection,
       shared.formSection,
       shared.ctaBanner
