@@ -95,3 +95,42 @@ body {
     transform: translateY(0);
   }
 }
+
+/* ── Blog article — imported HTML tables (no borders, fixed inline widths) ── */
+.article-content table {
+  width: 100% !important;
+  max-width: 100%;
+  height: auto !important;
+  margin: 1.5rem 0;
+  border-collapse: collapse;
+  font-size: 0.9375rem;
+  line-height: 1.5;
+}
+.article-content table th,
+.article-content table td {
+  border: 1px solid rgb(0 0 0 / 0.2);
+  padding: 0.625rem 0.875rem;
+  text-align: left;
+  vertical-align: top;
+}
+.article-content table th {
+  background: #eef6eb;
+  font-weight: 600;
+}
+.article-content table tbody tr:nth-child(even) td {
+  background: rgb(0 0 0 / 0.02);
+}
+.article-content table p {
+  margin-bottom: 0;
+}
+/* Small screens: let wide tables scroll sideways instead of overflowing the page. */
+@media (max-width: 767px) {
+  .article-content table {
+    display: block;
+    overflow-x: auto;
+  }
+  .article-content table th,
+  .article-content table td {
+    min-width: 7rem;
+  }
+}

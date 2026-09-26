@@ -11,6 +11,7 @@ import {
   resolveSolarSizingGuideTable,
   resolveSolarPackages,
   resolveSolarTimeline,
+  resolveSolarWhyRegenPower,
   resolveSolarEngineeringItems,
   resolveSharedFaq,
   resolveSharedFormSection,
@@ -26,6 +27,7 @@ import type {
   SolarSizingGuideTableData,
   SolarPackagesData,
   SolarTimelineData,
+  SolarWhyRegenPowerData,
   SolarEngineeringItemsData,
   SharedFaqData,
   SharedFormSectionData,
@@ -41,6 +43,7 @@ import SpecsRowCards from "@/components/solar/solarSystem/SpecsRowCards";
 import SizingGuideTable from "@/components/solar/solarSystem/SizingGuideTable";
 import SolarPackages from "@/components/solar/solarSystem/SolarPackages";
 import TimelineSection from "@/components/solar/solarSystem/TimelineSection";
+import WhyRegenPower from "@/components/solar/solarSystem/WhyRegenPower";
 import EngineeringCustomizations from "@/components/solar/solarSystem/EngineeringCustomizations";
 
 import FAQ from "@/reuseables/faq";
@@ -62,6 +65,7 @@ const SolarPage = async () => {
   const sizing = findSection<SolarSizingGuideTableData>(sections, "solar.sizing-guide-table");
   const packages = findSection<SolarPackagesData>(sections, "solar.packages");
   const timeline = findSection<SolarTimelineData>(sections, "solar.timeline");
+  const whyRegen = findSection<SolarWhyRegenPowerData>(sections, "solar.why-regen-power");
   const engineering = findSection<SolarEngineeringItemsData>(sections, "solar.engineering-items");
   const faq = findSection<SharedFaqData>(sections, "shared.faq");
   const form = findSection<SharedFormSectionData>(sections, "shared.form-section");
@@ -76,6 +80,7 @@ const SolarPage = async () => {
   const sizingProps = resolveSolarSizingGuideTable(sizing);
   const packagesProps = resolveSolarPackages(packages);
   const timelineProps = resolveSolarTimeline(timeline);
+  const whyRegenProps = resolveSolarWhyRegenPower(whyRegen);
   const engineeringProps = resolveSolarEngineeringItems(engineering);
   const faqProps = resolveSharedFaq(faq);
   const formProps = resolveSharedFormSection(form);
@@ -85,13 +90,14 @@ const SolarPage = async () => {
     <div className="bg-white min-h-screen text-black">
       {heroProps && <HeroSection heroProps={heroProps} />}
       {statsProps && <SolarStatsAndIntro resolved={statsProps} />}
-      {processProps && <SolarProcessFlow resolved={processProps} />}
+      {processProps && <SolarProcessFlow resolved={processProps} />} 
       {brandsProps && <SolarBrandsGrid resolved={brandsProps} />}
       {invertersProps && <InverterSlider resolved={invertersProps} />}
       {specsProps && <SpecsRowCards resolved={specsProps} />}
       {sizingProps && <SizingGuideTable resolved={sizingProps} />}
       {packagesProps && <SolarPackages resolved={packagesProps} />}
       {timelineProps && <TimelineSection resolved={timelineProps} />}
+      {whyRegenProps && <WhyRegenPower resolved={whyRegenProps} />}
       {engineeringProps && <EngineeringCustomizations resolved={engineeringProps} />}
 
       {faqProps && (

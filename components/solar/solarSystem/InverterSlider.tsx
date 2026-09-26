@@ -11,6 +11,13 @@ interface InverterSliderProps {
   resolved: ResolvedSolarInverterSlider;
 }
 
+// Desktop columns by card count, so a 6th card doesn't leave a lone card on a second row.
+const LG_COLS: Record<number, string> = {
+  3: "lg:grid-cols-3",
+  4: "lg:grid-cols-4",
+  6: "lg:grid-cols-3",
+};
+
 const InverterSlider: React.FC<InverterSliderProps> = ({ resolved }) => {
   const slides = resolved.inverters;
   const [activeTab, setActiveTab] = useState(0);
@@ -92,7 +99,9 @@ const InverterSlider: React.FC<InverterSliderProps> = ({ resolved }) => {
 
           <FadeSwap
             swapKey={activeTab}
-            className="relative z-30 grid grid-cols-2 lg:grid-cols-5 justify-items-center gap-2 md:gap-4 mt-auto"
+            className={`relative z-30 grid grid-cols-2 ${
+              LG_COLS[slides[activeTab].infoCards.length] ?? "lg:grid-cols-5"
+            } justify-items-center gap-2 md:gap-4 mt-auto`}
           >
             {slides[activeTab].infoCards.length > 0 ? (
               slides[activeTab].infoCards.map((card, idx, arr) => (
@@ -104,10 +113,10 @@ const InverterSlider: React.FC<InverterSliderProps> = ({ resolved }) => {
                       : ""
                   }`}
                 >
-                  <h4 className="text-black md:text-white text-xl md:text-[1.375rem] capitalize tracking-tight">
+                  <h4 className="text-black md:text-white md:text-lg capitalize tracking-tight">
                     {card.label}
                   </h4>
-                  <p className="text-black md:text-white text-sm leading-[1.2]">{card.text}</p>
+                  <p className="text-black md:text-white text-sm md:text-xl leading-[1.2]">{card.text}</p>
                 </div>
               ))
             ) : (

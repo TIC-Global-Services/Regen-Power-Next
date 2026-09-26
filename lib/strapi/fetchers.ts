@@ -31,6 +31,7 @@ import * as offGrid from "./populate/off-grid";
 import * as about from "./populate/about";
 import * as promotion from "./populate/promotion";
 import * as footer from "./populate/footer";
+import * as navbar from "./populate/navbar";
 import * as caseStudy from "./populate/case-study";
 
 const PAGE_SLUGS = {
@@ -83,6 +84,7 @@ export const getSolarPage = () =>
       solar.sizingGuideTable,
       solar.packages,
       solar.timeline,
+      solar.whyRegenPower,
       solar.engineeringItems,
       shared.faq,
       shared.formSection,
@@ -813,6 +815,23 @@ export const getFooter = async (): Promise<FooterResponse> => {
     });
     if (!res.ok) return { data: null, meta: {} };
     return (await res.json()) as FooterResponse;
+  } catch {
+    return { data: null, meta: {} };
+  }
+};
+
+export type NavbarResponse = { data: import("./schemas/navbar").NavbarData | null; meta: Record<string, unknown> };
+
+export const getNavbar = async (): Promise<NavbarResponse> => {
+  const { getStrapiURL } = await import("./client");
+  const url = `${getStrapiURL()}/api/navbar?${navbar.navbar}`;
+  try {
+    const res = await fetch(url, {
+      headers: { Accept: "application/json" },
+      next: { revalidate: 60 },
+    });
+    if (!res.ok) return { data: null, meta: {} };
+    return (await res.json()) as NavbarResponse;
   } catch {
     return { data: null, meta: {} };
   }

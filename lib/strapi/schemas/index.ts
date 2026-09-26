@@ -25,6 +25,7 @@ export type {
   SolarSizingGuideTableData,
   SolarPackagesData,
   SolarTimelineData,
+  SolarWhyRegenPowerData,
   SolarEngineeringItemsData,
 } from "./solar";
 export {
@@ -37,6 +38,7 @@ export {
   SolarSizingGuideTableSchema,
   SolarPackagesSchema,
   SolarTimelineSchema,
+  SolarWhyRegenPowerSchema,
   SolarEngineeringItemsSchema,
 } from "./solar";
 
@@ -533,6 +535,9 @@ export {
   FooterStateOfficeSchema,
   FooterSocialLinkSchema,
 } from "./footer";
+
+export type { NavbarData, NavbarItemData, NavbarSubItemData } from "./navbar";
+export { NavbarDataSchema, NavbarItemSchema, NavbarSubItemSchema } from "./navbar";
 
 export type {
   CaseStudyData,

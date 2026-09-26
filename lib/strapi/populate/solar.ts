@@ -27,7 +27,13 @@ export const packages =
   "populate[sections][on][solar.packages][populate][packages][populate]=features";
 
 export const timeline =
-  "populate[sections][on][solar.timeline][populate]=image";
+  "populate[sections][on][solar.timeline][populate][image]=true" +
+  "&populate[sections][on][solar.timeline][populate][steps]=true";
+
+export const whyRegenPower =
+  "populate[sections][on][solar.why-regen-power][populate][paragraphs]=true" +
+  "&populate[sections][on][solar.why-regen-power][populate][stats][populate]=logo" +
+  "&populate[sections][on][solar.why-regen-power][populate][awards]=true";
 
 export const engineeringItems =
   "populate[sections][on][solar.engineering-items][populate][items]=true";

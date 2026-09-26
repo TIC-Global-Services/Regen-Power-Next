@@ -13,6 +13,8 @@ interface CtaButtonProps {
   className?: string;
   onClick?: (e: React.MouseEvent<HTMLAnchorElement | HTMLButtonElement>) => void;
   icon?: LucideIcon | null;
+  /** Which side the icon chip sits on. Defaults to the right. */
+  iconPosition?: 'left' | 'right';
   iconBgClass?: string;
   iconTextColor?: string;
   disabled?: boolean;
@@ -40,6 +42,7 @@ const CtaButton: React.FC<CtaButtonProps> = ({
   className = 'capitalize',
   onClick,
   icon: Icon = ArrowUpRight,
+  iconPosition = 'right',
   iconBgClass = 'bg-[#63B846]',
   iconTextColor = 'text-black',
   disabled = false,
@@ -49,17 +52,20 @@ const CtaButton: React.FC<CtaButtonProps> = ({
   rel,
 }) => {
   const hasIcon = !!Icon;
+  const iconLeft = hasIcon && iconPosition === 'left';
+  const iconChip = hasIcon && Icon && (
+    /* Icon chip: turns black w/ white glyph when the button is hovered — hidden when icon={null} */
+    <div className={`${iconBgClass} ${iconTextColor} group-hover:bg-black group-hover:text-white p-2 rounded-full shrink-0 group-hover:scale-110 transition-all duration-300 flex items-center justify-center`}>
+      <Icon size={16} strokeWidth={2.5} />
+    </div>
+  );
   const content = (
     <>
-      <span className={`${hasIcon ? 'pl-4' : 'px-1'} ${textClass} tracking-tight whitespace-nowrap min-w-0 flex-1 ${buttonTextClass}`}>
+      {iconLeft && iconChip}
+      <span className={`${hasIcon ? (iconLeft ? 'pr-4' : 'pl-4') : 'px-1'} ${textClass} tracking-tight whitespace-nowrap min-w-0 flex-1 ${buttonTextClass}`}>
         {text}
       </span>
-      {/* Icon chip: turns black w/ white glyph when the button is hovered — hidden when icon={null} */}
-      {hasIcon && (
-        <div className={`${iconBgClass} ${iconTextColor} group-hover:bg-black group-hover:text-white p-2 rounded-full shrink-0 group-hover:scale-110 transition-all duration-300 flex items-center justify-center`}>
-          <Icon size={16} strokeWidth={2.5} />
-        </div>
-      )}
+      {!iconLeft && iconChip}
     </>
   );
 

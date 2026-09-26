@@ -93,6 +93,11 @@ export const RebatesEligibilityCheckerSchema = z.object({
   badge: z.string().nullable(),
   title: z.string().nullable(),
   description: z.string().nullable(),
+  submitButtonText: z.string().nullable().optional(),
+  retryButtonText: z.string().nullable().optional(),
+  yesLabel: z.string().nullable().optional(),
+  noLabel: z.string().nullable().optional(),
+  resultLabel: z.string().nullable().optional(),
   questions: z.array(RebatesEligibilityQuestionSchema),
   results: z.array(RebatesEligibilityResultSchema),
 });

@@ -8,6 +8,8 @@ export const HomeAwardLogoSchema = z.object({
   id: z.number(),
   src: MediaSchema.nullable(),
   alt: z.string().nullable(),
+  width: z.number().nullable().optional(),
+  height: z.number().nullable().optional(),
 });
 export type HomeAwardLogoData = z.infer<typeof HomeAwardLogoSchema>;
 
@@ -83,6 +85,7 @@ export const HomeExpertiseItemSchema = z.object({
   image: MediaSchema.nullable(),
   icon: MediaSchema.nullable(),
   textColor: z.string().nullable(),
+  link: z.string().nullable().optional(),
 });
 export type HomeExpertiseItemData = z.infer<typeof HomeExpertiseItemSchema>;
 

@@ -69,6 +69,9 @@ export function resolveHomeHero(
 export interface ResolvedHomeAwardLogo {
   src: string;
   alt: string;
+  /** Logo box size in px (from Strapi); undefined lets the component use its default. */
+  width?: number;
+  height?: number;
 }
 export interface ResolvedHomeAwards {
   title: string;
@@ -83,6 +86,8 @@ export function resolveHomeAwards(
     logos: (data.logos ?? []).map((l) => ({
       src: src(l.src),
       alt: l.alt ?? "",
+      width: l.width ?? undefined,
+      height: l.height ?? undefined,
     })),
   };
 }
@@ -159,6 +164,7 @@ export interface ResolvedHomeExpertiseItem {
   image: string;
   icon: string;
   textColor: string;
+  link: string | null;
 }
 export interface ResolvedHomeExpertise {
   subtitle: string;
@@ -166,6 +172,14 @@ export interface ResolvedHomeExpertise {
   bgImage: string;
   items: ResolvedHomeExpertiseItem[];
 }
+// Used only while the Strapi `link` field is absent (undefined); an editor clearing it (null/"") means "no link".
+const FALLBACK_EXPERTISE_LINKS = [
+  "/solar/solar-system",
+  "/battery/battery-storage",
+  "/commercial/commercial-off-grid",
+  "/ev-charging",
+];
+
 export function resolveHomeExpertise(
   data: HomeExpertiseData | undefined | null
 ): ResolvedHomeExpertise | null {
@@ -174,11 +188,13 @@ export function resolveHomeExpertise(
     subtitle: data.subtitle ?? "",
     accentTitle: data.accentTitle ?? "",
     bgImage: src(data.bgImage),
-    items: (data.items ?? []).map((item) => ({
+    items: (data.items ?? []).map((item, index) => ({
       title: item.title,
       image: src(item.image),
       icon: src(item.icon),
       textColor: item.textColor ?? "text-black",
+      link:
+        (item.link === undefined ? FALLBACK_EXPERTISE_LINKS[index] : item.link?.trim()) || null,
     })),
   };
 }

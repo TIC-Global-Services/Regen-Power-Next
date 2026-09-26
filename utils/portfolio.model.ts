@@ -22,6 +22,7 @@ export interface PortfolioFilterOption {
 
 export const PORTFOLIO_CATEGORY_FILTERS: PortfolioFilterOption[] = [
   { label: 'All',           slug: '*' },
+  { label: 'Solar',         slug: 'solar' },
   { label: 'EV Charger',    slug: 'ev-charger' },
   { label: '3 - 10kW',      slug: '3-10-kw' },
   { label: '10 - 30 kW',    slug: '10-30-kw' },
@@ -38,6 +39,7 @@ export const PORTFOLIO_CATEGORY_FILTERS: PortfolioFilterOption[] = [
 
 /** "By Industry" dropdown — non-size category types */
 export const PORTFOLIO_INDUSTRY_FILTERS: PortfolioFilterOption[] = [
+  { label: 'Solar',         slug: 'solar' },
   { label: 'Storage',       slug: 'storage' },
   { label: 'EV Charger',    slug: 'ev-charger' },
   { label: 'Off Grid',      slug: 'off-grid' },

@@ -4,58 +4,18 @@ import React, { useState, useEffect, useRef, useCallback } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { ChevronDown } from 'lucide-react';
+import { ChevronDown, Phone } from 'lucide-react';
 import gsap from 'gsap';
 import CtaButton from './CtaButton';
+import type { ResolvedNavbar, ResolvedNavItem } from '@/lib/strapi/resolvers/navbar';
 
-const navItems = [
-  {
-    name: 'Solar System',
-    href: '/solar/solar-system',
-    subItems: [
-      { name: 'Solar System', href: '/solar/solar-system' },
-      { name: 'Brand we carry', href: '/solar/brands' },
-      { name: 'Solar Deals', href: '/solar/deals' },
-      { name: 'Government rebates', href: '/solar/government-rebates' },
-      { name: 'Faq', href: '/solar/faq' },
-    ],
-  },
-  {
-    name: 'Battery Storage',
-    href: '/battery/battery-storage',
-    subItems: [
-      { name: 'Battery Storage', href: '/battery/battery-storage' },
-      { name: 'Battery Product', href: '/battery/battery-product' },
-      { name: 'Smart Home Battery System', href: '/battery/smart-home-battery-system' },
-      { name: 'Government Rebates', href: '/battery/government-rebates' },
-      { name: 'Brands We Carry', href: '/battery/brands-we-carry' },
-    ],
-  },
-  { name: 'EV Charging', href: '/ev-charging' },
-  {
-    name: 'Commercial & Off Grid',
-    href: '/commercial/commercial-off-grid',
-    subItems: [
-      { name: 'Commercial & Off Grid', href: '/commercial/commercial-off-grid' },
-      { name: 'Commercial Systems & Case Studies', href: '/commercial/case-studies' },
-      { name: 'Off-Grid Solutions', href: '/commercial/off-grid-solutions' },
-      { name: 'Research & Development', href: '/commercial/research-and-development' },
-      { name: 'Portfolio', href: '/commercial/portfolio' },
-    ]
-  },
-  { name: 'About Us', href: '/about' },
-  { name: 'Reviews', href: '/reviews' },
-  { name: 'Press & Media', 
-    href: '/press-media',
-    subItems :[
-      { name: 'Blogs', href: '/blog' },
-      { name: 'Press Releases', href: '/press-media' },
-      ]
-   },
-   { name: 'Contact Us', href: '/contact' },
-];
+type NavItem = ResolvedNavItem;
 
-const Navbar = () => {
+const linkProps = (newTab: boolean) =>
+  newTab ? ({ target: '_blank', rel: 'noopener noreferrer' } as const) : {};
+
+const Navbar = ({ data }: { data: ResolvedNavbar }) => {
+  const navItems = data.items;
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
   const [expandedMobileItem, setExpandedMobileItem] = useState<number | null>(null);
@@ -66,7 +26,7 @@ const Navbar = () => {
     const h = href.replace(/\/$/, '') || '/';
     return normalizedPathname === h || normalizedPathname.startsWith(h + '/');
   }, [normalizedPathname]);
-  const isGroupActive = useCallback((item: typeof navItems[number]) => isActive(item.href) || !!item.subItems?.some((s) => isActive(s.href)), [isActive]);
+  const isGroupActive = useCallback((item: NavItem) => isActive(item.href) || !!item.subItems?.some((s) => isActive(s.href)), [isActive]);
   const overlayRef = useRef<HTMLDivElement | null>(null);
   const menuLinksRef = useRef<HTMLUListElement | null>(null);
   const ctaRef = useRef<HTMLDivElement | null>(null);
@@ -218,35 +178,19 @@ const Navbar = () => {
     return () => window.removeEventListener('keydown', onKeyDown);
   }, [isMobileMenuOpen, closeMenu]);
 
-  // Sync header chrome with the 3D hero pin: fades out during the scrub so the
-  // full-bleed image breathes edge-to-edge, fades back at the very end.
-  // Hero writes document.documentElement.dataset.heroChrome = "visible"|"hidden".
-  useEffect(() => {
-    const header = document.querySelector("header[data-hero-chrome]") as HTMLElement | null;
-    if (!header) return;
-    const obs = new MutationObserver(() => {
-      const v = document.documentElement.dataset.heroChrome ?? "visible";
-      header.dataset.heroChrome = v;
-    });
-    // Initialize from current value (hero may have mounted first)
-    header.dataset.heroChrome = document.documentElement.dataset.heroChrome ?? "visible";
-    obs.observe(document.documentElement, { attributes: true, attributeFilter: ["data-hero-chrome"] });
-    return () => obs.disconnect();
-  }, []);
-
   return (
     <>
-      {/* Fixed header — NOTE: the hide-on-scroll uses a transform (translate-y).
-          A transform on an ancestor makes it the containing block for any
-          position:fixed descendant (shrinking it to that ancestor's box), so the
-          mobile overlay is rendered as a SIBLING below, outside this <header>. */}
-      <header className="fixed top-0 left-0 right-0 z-50 w-full py-6 transition-all duration-500 data-[hero-chrome=hidden]:pointer-events-none data-[hero-chrome=hidden]:-translate-y-4 data-[hero-chrome=hidden]:opacity-0" data-hero-chrome="visible">
+      {/* Fixed header — keep it free of transforms: a transform on an ancestor
+          makes it the containing block for any position:fixed descendant
+          (shrinking it to that ancestor's box), so the mobile overlay is
+          rendered as a SIBLING below, outside this <header>. */}
+      <header className="fixed top-0 left-0 right-0 z-50 w-full py-6 transition-all duration-500">
         <div className="px-[5%] md:px-[3%] flex items-center justify-between">
         {/* Logo — swap to the white variant while the dark overlay is open */}
-        <Link href="/" className="flex-shrink-0 z-50">
+        <Link href={data.logoHref} className="flex-shrink-0 z-50">
           <Image
-            src={isMobileMenuOpen ? "/regen_logo_footer.png" : "/regen_logo_nav.png"}
-            alt="Regen Power"
+            src={isMobileMenuOpen ? data.logoLightSrc : data.logoSrc}
+            alt={data.logoAlt}
             width={180}
             height={60}
             className="h-14 w-auto object-contain"
@@ -268,6 +212,7 @@ const Navbar = () => {
                 >
                   <Link
                     href={item.href}
+                    {...linkProps(item.newTab)}
                     aria-current={groupActive ? 'page' : undefined}
                     className={`flex items-center gap-1 transition-colors ${groupActive ? 'text-black' : 'text-white hover:text-[#8dc63f]'}`}
                     onClick={() => setHoveredIndex(null)}
@@ -297,6 +242,7 @@ const Navbar = () => {
                               <li key={subIndex}>
                                 <Link
                                   href={subItem.href}
+                                  {...linkProps(subItem.newTab)}
                                   aria-current={subActive ? 'page' : undefined}
                                   className={`block px-4 py-2 text-sm rounded-lg transition-colors ${subActive ? 'bg-[#8dc63f] text-white' : 'text-gray-700 hover:bg-[#8dc63f]/10 hover:text-[#8dc63f]'}`}
                                   onClick={() => setHoveredIndex(null)}
@@ -317,14 +263,18 @@ const Navbar = () => {
         </nav>
 
         {/* Speak to Us Button (Desktop) — opens device dialer */}
-        <div className="hidden xl:flex">
-          <CtaButton
-            href="tel:+61894563491"
-            text="Speak to Us"
-            textColor="text-white"
-            iconTextColor="text-white"
-          />
-        </div>
+        {data.cta && (
+          <div className="hidden xl:flex">
+            <CtaButton
+              href={data.cta.href}
+              text={data.cta.text}
+              icon={Phone}
+              iconPosition="left"
+              textColor="text-white"
+              iconTextColor="text-white"
+            />
+          </div>
+        )}
 
         {/* Mobile Menu Toggle */}
         <button
@@ -376,6 +326,7 @@ const Navbar = () => {
                     <div className="flex items-center w-full">
                       <Link
                         href={item.href}
+                        {...linkProps(item.newTab)}
                         aria-current={groupActive ? 'page' : undefined}
                         className={`text-xl font-medium transition-colors py-2 ${groupActive ? 'text-black' : 'text-white hover:text-[#8dc63f]'}`}
                         onClick={closeMenuAndHide}
@@ -415,6 +366,7 @@ const Navbar = () => {
                                 <li key={subIndex}>
                                   <Link
                                     href={subItem.href}
+                                    {...linkProps(subItem.newTab)}
                                     aria-current={subActive ? 'page' : undefined}
                                     className={`py-1 block text-base transition-colors ${subActive ? 'text-black font-semibold' : 'text-white/80 hover:text-white'}`}
                                     onClick={closeMenuAndHide}
@@ -435,9 +387,12 @@ const Navbar = () => {
 
             {/* CTA — opens device dialer */}
             <div ref={ctaRef} className="mt-10 w-full max-w-md mx-auto flex justify-center">
+              {data.cta && (
               <CtaButton
-                href="tel:+61894563491"
-                text="Speak to Us"
+                href={data.cta.href}
+                text={data.cta.text}
+                icon={Phone}
+                iconPosition="left"
                 textColor="text-white"
                 bgClass="bg-[#8dc63f]"
                 borderClass="border border-[#7ebd35]"
@@ -445,6 +400,7 @@ const Navbar = () => {
                 className="w-40 justify-between"
                 onClick={closeMenuAndHide}
               />
+              )}
             </div>
           </div>
         </div>

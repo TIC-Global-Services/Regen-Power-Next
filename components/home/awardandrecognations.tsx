@@ -12,7 +12,15 @@ import Marquee from '@/reuseables/Marquee';
 export interface AwardLogoItem {
   src: StaticImageData | string;
   alt: string;
+  /** Logo box size in px; the image is fit inside it (object-contain). */
+  width?: number;
+  height?: number;
 }
+
+const DEFAULT_LOGO_WIDTH = 160;
+const DEFAULT_LOGO_HEIGHT = 80;
+/** Mobile shows logos larger than the desktop marquee — same box, scaled up. */
+const MOBILE_LOGO_SCALE = 1.5;
 
 export interface AwardAndRecognationsData {
   title: string;
@@ -42,8 +50,11 @@ const AwardAndRecognations = ({ data }: AwardAndRecognationsProps) => {
                 className="flex items-center justify-center h-44 w-60 shrink-0"
               >
                 <div
-                  className={`relative ${index === 2 ? 'h-44 w-40' : index === 3 ? 'h-20 w-48' : 'h-20 w-40'
-                    }`}
+                  className="relative"
+                  style={{
+                    width: logo.width ?? DEFAULT_LOGO_WIDTH,
+                    height: logo.height ?? DEFAULT_LOGO_HEIGHT,
+                  }}
                 >
                   <Image src={logo.src} alt={logo.alt} fill className="object-contain" />
                 </div>
@@ -52,12 +63,13 @@ const AwardAndRecognations = ({ data }: AwardAndRecognationsProps) => {
           </Marquee>
         </div>
 
-        {/* Mobile View - Swiper Marquee */}
+        {/* Mobile View - Swiper. Under 480px one logo is shown at a time (large, never cut by the
+            viewport edge); from 480px the centered logo is enlarged with its neighbours fully visible. */}
         <div className="md:hidden w-full relative">
           <Swiper
             modules={[Autoplay]}
-            spaceBetween={30}
-            slidesPerView={2}
+            spaceBetween={16}
+            slidesPerView={1}
             breakpoints={{
               480: { slidesPerView: 3 },
             }}
@@ -67,9 +79,7 @@ const AwardAndRecognations = ({ data }: AwardAndRecognationsProps) => {
               delay: 2500,
               disableOnInteraction: false,
             }}
-            onSlideChange={(swiper: SwiperType) => {
-              setActiveRealIndex(swiper.realIndex);
-            }}
+            onSlideChange={(swiper: SwiperType) => setActiveRealIndex(swiper.realIndex)}
             className="awards-swiper py-8"
           >
             {data.logos.map((logo, index) => {
@@ -77,13 +87,21 @@ const AwardAndRecognations = ({ data }: AwardAndRecognationsProps) => {
               return (
                 <SwiperSlide key={index} className="flex justify-center items-center">
                   <div
-                    className={`relative w-full h-24 transition-all duration-700 ease-in-out flex justify-center items-center ${isActive ? 'scale-125 opacity-100 z-10' : 'scale-90 opacity-60 grayscale'
-                      }`}
+                    style={{
+                      width: `min(${(logo.width ?? DEFAULT_LOGO_WIDTH) * MOBILE_LOGO_SCALE}px, 100%)`,
+                      height: (logo.height ?? DEFAULT_LOGO_HEIGHT) * MOBILE_LOGO_SCALE,
+                    }}
+                    className={`relative mx-auto transition-all duration-700 ease-in-out ${
+                      isActive
+                        ? 'min-[480px]:scale-[1.4] min-[480px]:z-10'
+                        : 'min-[480px]:scale-90 min-[480px]:opacity-60 min-[480px]:grayscale'
+                    }`}
                   >
                     <Image
                       src={logo.src}
                       alt={logo.alt}
                       fill
+                      sizes="(max-width: 480px) 90vw, 33vw"
                       className="object-contain"
                     />
                   </div>

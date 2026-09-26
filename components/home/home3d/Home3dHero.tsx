@@ -157,8 +157,8 @@ export default function Home3dHero({
   const LOADER_MIN_RATE = 0.35;
   const LOADER_MAX_RATE = 2.5;
   const [phase, setPhase] = useState<Phase>("intro");
-  // Hero chrome (overlay + navbar): visible during intro/loop, hidden during scrub,
-  // visible again at the very end of the 500vh sequence.
+  // Hero overlay chrome: visible during intro/loop, hidden during scrub,
+  // visible again at the very end of the 500vh sequence. (The navbar stays visible throughout.)
   const [heroChromeVisible, setHeroChromeVisibleState] = useState(true);
   const heroChromeVisibleRef = useRef(true);
 
@@ -166,14 +166,7 @@ export default function Home3dHero({
     if (heroChromeVisibleRef.current === v) return;
     heroChromeVisibleRef.current = v;
     setHeroChromeVisibleState(v);
-    if (typeof document !== "undefined") {
-      document.documentElement.dataset.heroChrome = v ? "visible" : "hidden";
-    }
   };
-
-  // Keep document dataset in sync on mount (navbar MutationObserver reads it)
-  // and ensure visible before scroll starts.
-  // eslint-disable-next-line react-hooks/exhaustive-deps
 
   const setPhaseBoth = (p: Phase) => {
     phaseRef.current = p;
@@ -581,14 +574,6 @@ export default function Home3dHero({
     };
   }, [phase, seq]);
 
-  // Sync initial chrome state to the document so Navbar picks it up even before first scroll
-  useEffect(() => {
-    document.documentElement.dataset.heroChrome = heroChromeVisibleRef.current ? "visible" : "hidden";
-    return () => {
-      document.documentElement.dataset.heroChrome = "visible";
-    };
-  }, []);
-
   // Always full runway from mount — conditional `100vh → 500vh` on takeover
   // (regen-3d's standalone page) janks ScrollTrigger below: FeatureExplorer's
   // `pin:true` measures its `top top` trigger at 100vh, then the track jumps
@@ -689,7 +674,7 @@ export default function Home3dHero({
           >
             <video
               ref={loaderVideoRef}
-              className="absolute inset-0 h-full w-full object-cover"
+              className="absolute inset-0 h-full w-full object-cover object-[67%_center] md:object-center"
               style={{ transform: "scale(1.4)", transformOrigin: "center center" }}
               src="/new-solar-loader.mp4"
               autoPlay

@@ -8,6 +8,7 @@ export {
   resolveSolarSizingGuideTable,
   resolveSolarPackages,
   resolveSolarTimeline,
+  resolveSolarWhyRegenPower,
   resolveSolarEngineeringItems,
 } from "./solar";
 export type {
@@ -20,6 +21,8 @@ export type {
   ResolvedSolarSizingGuideTable,
   ResolvedSolarPackages,
   ResolvedSolarTimeline,
+  ResolvedSolarWhyRegenPower,
+  ResolvedSolarWhyRegenStat,
   ResolvedSolarEngineeringItems,
 } from "./solar";
 
@@ -517,6 +520,9 @@ export { resolveAboutHero, resolveAboutAwards } from "./about";
 export type { ResolvedAboutHero, ResolvedAboutAwardCard, ResolvedAboutAwards } from "./about";
 
 export { resolveFooter, fallbackFooter } from "./footer";
+
+export { resolveNavbar, fallbackNavbar, NAVBAR_MAX_ITEMS, NAVBAR_MAX_SUB_ITEMS } from "./navbar";
+export type { ResolvedNavbar, ResolvedNavItem, ResolvedNavSubItem } from "./navbar";
 export type {
   ResolvedFooter,
   ResolvedFooterLink,

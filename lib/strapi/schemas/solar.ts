@@ -154,8 +154,16 @@ export const SolarPackagesSchema = z.object({
 });
 export type SolarPackagesData = z.infer<typeof SolarPackagesSchema>;
 
+export const SolarTimelineStepSchema = z.object({
+  id: z.number(),
+  title: z.string(),
+  description: z.string(),
+});
+
 export const SolarTimelineSchema = z.object({
   __component: z.literal("solar.timeline"),
+  badge: z.string().nullable().optional(),
+  steps: z.array(SolarTimelineStepSchema).nullable().optional(),
   subtitle: z.string().nullable(),
   title: z.string().nullable(),
   description: z.string().nullable(),
@@ -166,6 +174,29 @@ export const SolarTimelineSchema = z.object({
   image: MediaSchema.nullable(),
 });
 export type SolarTimelineData = z.infer<typeof SolarTimelineSchema>;
+
+export const SolarWhyRegenStatSchema = z.object({
+  id: z.number(),
+  value: z.string(),
+  label: z.string(),
+  logo: MediaSchema.nullable().optional(),
+});
+
+export const SolarWhyRegenAwardSchema = z.object({
+  id: z.number(),
+  text: z.string(),
+});
+
+export const SolarWhyRegenPowerSchema = z.object({
+  __component: z.literal("solar.why-regen-power"),
+  badge: z.string().nullable(),
+  title: z.string().nullable(),
+  paragraphs: z.array(ParagraphSchema).nullable().optional(),
+  stats: z.array(SolarWhyRegenStatSchema).nullable().optional(),
+  awardsTitle: z.string().nullable(),
+  awards: z.array(SolarWhyRegenAwardSchema).nullable().optional(),
+});
+export type SolarWhyRegenPowerData = z.infer<typeof SolarWhyRegenPowerSchema>;
 
 export const SolarEngineeringItemSchema = z.object({
   id: z.number(),

@@ -159,6 +159,11 @@ export interface ResolvedRebatesEligibilityChecker {
   badge: string;
   title: string;
   description: string;
+  submitButtonText: string;
+  retryButtonText: string;
+  yesLabel: string;
+  noLabel: string;
+  resultLabel: string;
   questions: ResolvedRebatesEligibilityQuestion[];
   results: ResolvedRebatesEligibilityResult[];
 }
@@ -170,6 +175,11 @@ export function resolveRebatesEligibilityChecker(
     badge: data.badge ?? "",
     title: data.title ?? "",
     description: data.description ?? "",
+    submitButtonText: data.submitButtonText || "Submit",
+    retryButtonText: data.retryButtonText || "Try Again",
+    yesLabel: data.yesLabel || "Yes",
+    noLabel: data.noLabel || "No",
+    resultLabel: data.resultLabel || "Eligibility Result",
     questions: (data.questions ?? []).map((q) => ({
       id: q.id,
       question: q.question,

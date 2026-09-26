@@ -138,7 +138,7 @@ export default function EligibilityCheckerSection({ resolved }: Props) {
                               : "border-black/25 bg-white/70 text-black hover:border-[#63B846]"
                               }`}
                           >
-                            {option === "yes" ? "Yes" : "No"}
+                            {option === "yes" ? resolved.yesLabel : resolved.noLabel}
                           </button>
                         );
                       })}
@@ -154,7 +154,7 @@ export default function EligibilityCheckerSection({ resolved }: Props) {
               )}
 
               <CtaButton
-                text="Submit"
+                text={resolved.submitButtonText}
                 onClick={() => onSubmit()}
                 textColor="text-black"
               />
@@ -183,7 +183,7 @@ export default function EligibilityCheckerSection({ resolved }: Props) {
                 </div>
 
                 <p className="text-sm uppercase tracking-[0.18em] text-black/45">
-                  Eligibility Result
+                  {resolved.resultLabel}
                 </p>
                 <h3 className="mt-3 text-3xl tracking-tight text-black md:text-4xl">
                   {notEligibleResult?.title ?? "You Are Not Eligible"}
@@ -212,7 +212,7 @@ export default function EligibilityCheckerSection({ resolved }: Props) {
                       d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"
                     />
                   </svg>
-                  Try Again
+                  {resolved.retryButtonText}
                 </button>
               </div>
             </div>
@@ -221,7 +221,7 @@ export default function EligibilityCheckerSection({ resolved }: Props) {
 
         {activeResult && result !== "not-eligible" && (
           <div className="mt-10 rounded-[32px] border border-[#DCE8D8] bg-[#F7FBF5] p-8 md:p-10">
-            <p className="text-sm uppercase tracking-[0.18em] text-black/45">Eligibility Result</p>
+            <p className="text-sm uppercase tracking-[0.18em] text-black/45">{resolved.resultLabel}</p>
             <h3 className="mt-3 text-3xl tracking-tight text-black md:text-4xl">
               {activeResult.title}
             </h3>

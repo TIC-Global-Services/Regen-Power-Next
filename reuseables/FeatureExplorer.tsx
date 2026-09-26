@@ -6,6 +6,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { useGSAP } from '@gsap/react';
+import { SliderArrows } from './MobileSliderControls';
 
 if (typeof window !== 'undefined') {
     gsap.registerPlugin(ScrollTrigger);
@@ -51,32 +52,43 @@ const FeatureExplorer: React.FC<FeatureExplorerProps> = ({
     const touchStartX = useRef(0);
     const touchStartY = useRef(0);
 
-    // Scroll progress drives the active index via GSAP ScrollTrigger
+    // Desktop only: scroll progress drives the active index via a pinned ScrollTrigger.
+    // Below lg the section is normal flow and the arrow controls change the card.
     useGSAP(() => {
-        ScrollTrigger.create({
-            trigger: sectionRef.current,
-            start: "top top",
-            end: `+=${features.length * 100}%`,
-            pin: true,
-            anticipatePin: 1,
-            scrub: true,
-            onUpdate: (self) => {
-                const progress = self.progress;
-                const newIndex = Math.min(
-                    features.length - 1,
-                    Math.floor(progress * features.length)
-                );
-                setActiveIndex((prev) => {
-                    if (prev !== newIndex) {
-                        setScrollDirection(newIndex > prev ? 'right' : 'left');
-                        prevIndexRef.current = prev;
-                        return newIndex;
-                    }
-                    return prev;
-                });
-            }
+        const mm = gsap.matchMedia();
+        mm.add("(min-width: 1024px)", () => {
+            ScrollTrigger.create({
+                trigger: sectionRef.current,
+                start: "top top",
+                end: `+=${features.length * 100}%`,
+                pin: true,
+                anticipatePin: 1,
+                scrub: true,
+                onUpdate: (self) => {
+                    const progress = self.progress;
+                    const newIndex = Math.min(
+                        features.length - 1,
+                        Math.floor(progress * features.length)
+                    );
+                    setActiveIndex((prev) => {
+                        if (prev !== newIndex) {
+                            setScrollDirection(newIndex > prev ? 'right' : 'left');
+                            prevIndexRef.current = prev;
+                            return newIndex;
+                        }
+                        return prev;
+                    });
+                }
+            });
         });
+        return () => mm.revert();
     }, { scope: sectionRef, dependencies: [features.length] });
+
+    const goToIndex = useCallback((idx: number) => {
+        setScrollDirection(idx > prevIndexRef.current ? 'right' : 'left');
+        prevIndexRef.current = idx;
+        setActiveIndex(idx);
+    }, []);
 
     // Touch handlers for mobile swipe fallback
     const handleTouchStart = useCallback((e: React.TouchEvent) => {
@@ -107,21 +119,21 @@ const FeatureExplorer: React.FC<FeatureExplorerProps> = ({
     return (
         <section
             ref={sectionRef}
-            className={`h-screen overflow-hidden ${className}`}
+            className={`py-8 lg:py-0 lg:h-screen lg:overflow-hidden ${className}`}
             onTouchStart={handleTouchStart}
             onTouchEnd={handleTouchEnd}
         >
-            <div className="h-full">
-                <div className="grid grid-cols-1 lg:grid-cols-12 items-center h-full">
+            <div className="lg:h-full">
+                <div className="grid grid-cols-1 lg:grid-cols-12 items-center lg:h-full pt-[14%] md:pt-0">
 
                     {/* Left Column (Content & Navigation) */}
-                    <div className="lg:col-span-6 flex flex-col justify-around px-[5%] lg:px-[3%] h-full order-2 lg:order-1">
+                    <div className="lg:col-span-6 flex flex-col justify-around px-[5%] lg:px-[3%] pt-5 lg:pt-0 lg:h-full order-2 lg:order-1">
 
                         {/* Header */}
                         <div className="flex flex-col hidden lg:block">
                             {/* {renderTagIcon()} */}
                             <div className="mb-8 leading-[0.9]">
-                                <h2 className="text-3xl leading-none lg:text-[2.125rem] font-medium text-black tracking-tight">
+                                <h2 className="text-xl leading-none lg:text-[2.125rem] font-medium text-black tracking-tight">
                                     {titleNormal}
                                 </h2>
                                 <p
@@ -134,7 +146,7 @@ const FeatureExplorer: React.FC<FeatureExplorerProps> = ({
                         </div>
 
                         {/* Dynamic feature display and nav controls */}
-                        <div className="min-h-[260px] flex flex-col justify-between max-lg:justify-start max-lg:gap-5">
+                        <div className=" md:min-h-[260px] flex flex-col justify-between max-lg:justify-start max-lg:gap-5">
                             <AnimatePresence mode="wait">
                                 <motion.div
                                     key={activeIndex}
@@ -142,13 +154,13 @@ const FeatureExplorer: React.FC<FeatureExplorerProps> = ({
                                     animate={{ opacity: 1, x: 0 }}
                                     exit={{ opacity: 0, x: scrollDirection === 'right' ? -30 : 30 }}
                                     transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
-                                    className="flex-grow max-lg:grow-0 h-[200px] lg:h-auto"
+                                    className="flex-grow max-lg:grow-0  lg:h-auto"
                                 >
                                     <div className="flex items-center gap-4 mb-4">
-                                        <span className="text-[4rem] md:text-[4.5rem] lg:text-[6rem] font-normal text-black/90 leading-none tracking-tighter select-none">
+                                        <span className="text-[3.25rem] md:text-[4.5rem] lg:text-[6rem] font-normal text-black/90 leading-none tracking-tighter select-none">
                                             0{activeIndex + 1}
                                         </span>
-                                        <h3 className="text-xl md:text-2xl whitespace-pre-line lg:text-[2.5rem] font-medium text-black leading-none pt-1 max-w-sm">
+                                        <h3 className="text-lg md:text-2xl whitespace-pre-line lg:text-[2.5rem] font-medium text-black leading-none pt-1 max-w-sm">
                                             {activeFeature.title}
                                         </h3>
                                     </div>
@@ -158,30 +170,36 @@ const FeatureExplorer: React.FC<FeatureExplorerProps> = ({
                                 </motion.div>
                             </AnimatePresence>
 
-                            {/* Dot indicators */}
-                            <div className="flex items-center gap-3 ">
-                                {features.map((_, idx) => (
-                                    <button
-                                        key={idx}
-                                        onClick={() => {
-                                            setScrollDirection(idx > activeIndex ? 'right' : 'left');
-                                            setActiveIndex(idx);
-                                        }}
-                                        className="relative cursor-pointer focus:outline-none"
-                                        aria-label={`Go to feature ${idx + 1}`}
-                                    >
-                                        <span
-                                            className={`block rounded-full transition-all duration-300 ${idx === activeIndex
-                                                ? 'w-8 h-2'
-                                                : 'w-2 h-2 bg-black/20 hover:bg-black/40'
-                                                }`}
-                                            style={idx === activeIndex ? { backgroundColor: accentColor } : undefined}
-                                        />
-                                    </button>
-                                ))}
-                                <span className="ml-3 text-xs text-black/40 select-none hidden lg:inline">
-                                    Scroll to explore
-                                </span>
+                            {/* Dot indicators (+ arrow controls on mobile) */}
+                            <div className="flex items-center justify-between gap-3 lg:justify-start">
+                                <div className="flex items-center gap-3">
+                                    {features.map((_, idx) => (
+                                        <button
+                                            key={idx}
+                                            onClick={() => goToIndex(idx)}
+                                            className="relative cursor-pointer focus:outline-none"
+                                            aria-label={`Go to feature ${idx + 1}`}
+                                        >
+                                            <span
+                                                className={`block rounded-full transition-all duration-300 ${idx === activeIndex
+                                                    ? 'w-8 h-2'
+                                                    : 'w-2 h-2 bg-black/20 hover:bg-black/40'
+                                                    }`}
+                                                style={idx === activeIndex ? { backgroundColor: accentColor } : undefined}
+                                            />
+                                        </button>
+                                    ))}
+                                    <span className="ml-3 text-xs text-black/40 select-none hidden lg:inline">
+                                        Scroll to explore
+                                    </span>
+                                </div>
+                                <SliderArrows
+                                    canPrev={activeIndex > 0}
+                                    canNext={activeIndex < features.length - 1}
+                                    onPrev={() => goToIndex(activeIndex - 1)}
+                                    onNext={() => goToIndex(activeIndex + 1)}
+                                    className="lg:hidden"
+                                />
                             </div>
                         </div>
 
@@ -189,21 +207,21 @@ const FeatureExplorer: React.FC<FeatureExplorerProps> = ({
 
                     {/* Right Column (Media + Pins) */}
                     <div className="lg:col-span-6 order-1 lg:order-2">
-                        <div className="flex flex-col lg:hidden py-5 px-[5%] lg:px-[3%]">
+                        <div className="flex flex-col lg:hidden pb-4 px-[5%]">
                             {/* {renderTagIcon()} */}
                             <div className="leading-[0.9]">
-                                <h2 className="text-2xl leading-none lg:text-[2.125rem] font-medium text-black tracking-tight">
+                                <h2 className="text-xl leading-none lg:text-[2.125rem] font-medium text-black tracking-tight">
                                     {titleNormal}
                                 </h2>
                                 <p
-                                    className="font-light text-[3.750rem] lg:text-[5rem] tracking-tighter leading-none"
+                                    className="font-light text-[2.25rem] min-[360px]:text-[2.5rem] min-[400px]:text-[2.75rem] tracking-tighter leading-none mt-1"
                                     style={{ color: accentColor }}
                                 >
                                     {titleAccent}
                                 </p>
                             </div>
                         </div>
-                        <div className="relative w-[90%] aspect-square mx-auto mt-4 rounded-2xl overflow-hidden lg:w-full lg:min-h-screen lg:mx-0 lg:mt-0 lg:rounded-none">
+                        <div className="relative w-[90%] aspect-square mx-auto rounded-2xl overflow-hidden lg:w-full lg:min-h-screen lg:mx-0 lg:mt-0 lg:rounded-none">
 
                             {/* Media Content */}
                             {activeFeature.mediaType === 'video' && activeFeature.mediaSrc ? (

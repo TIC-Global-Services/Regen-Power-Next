@@ -2,6 +2,7 @@
 
 import React from 'react';
 import Image, { StaticImageData } from 'next/image';
+import Link from 'next/link';
 import Reveal from '@/reuseables/Reveal';
 import { SliderDots, SliderArrows, useSnapSlider } from '@/reuseables/MobileSliderControls';
 
@@ -10,6 +11,7 @@ export interface ExpertiseItem {
   image: StaticImageData | string;
   icon: StaticImageData | string;
   textColor: string;
+  link?: string | null;
 }
 
 export interface ExpertiseData {
@@ -60,15 +62,11 @@ const Expertise = ({ data }: ExpertiseProps) => {
             className="flex overflow-x-auto items-stretch lg:grid lg:snap-none lg:grid-cols-4 gap-4 md:gap-6 px-[5%] md:px-[0%] pt-4 pb-6 lg:pb-0 scrollbar-hide"
             style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
           >
-            {data.items.map((item, index) => (
-              <Reveal
-                key={index}
-                delay={index * 0.1}
-                className="min-w-[60vw] md:min-w-[45vw] lg:min-w-0 snap-center shrink-0 flex flex-col h-auto"
-              >
-                <div
-                  className={`bg-[#f0f6ec] rounded-[20px] p-6 lg:p-8 flex flex-col w-full h-[420px] md:h-[480px] lg:h-[58dvh] hover:bg-[#8dc63f] shadow-2xl hover:-translate-y-2 transition-transform duration-300 group`}
-                >
+            {data.items.map((item, index) => {
+              const cardClass =
+                'bg-[#f0f6ec] rounded-[20px] p-6 lg:p-8 flex flex-col w-full h-[420px] md:h-[480px] lg:h-[58dvh] hover:bg-[#8dc63f] shadow-2xl hover:-translate-y-2 transition-transform duration-300 group';
+              const cardBody = (
+                <>
                   {/* 3D Image Container */}
                   <div className="relative w-full h-[90%] flex justify-end items-end overflow-visible md:ml-6">
                     <div className="relative w-[90%] h-full transform group-hover:scale-105 transition-transform duration-500">
@@ -90,9 +88,25 @@ const Expertise = ({ data }: ExpertiseProps) => {
                       {item.title}
                     </h3>
                   </div>
-                </div>
-              </Reveal>
-            ))}
+                </>
+              );
+
+              return (
+                <Reveal
+                  key={index}
+                  delay={index * 0.1}
+                  className="min-w-[60vw] md:min-w-[45vw] lg:min-w-0 snap-center shrink-0 flex flex-col h-auto"
+                >
+                  {item.link ? (
+                    <Link href={item.link} className={cardClass}>
+                      {cardBody}
+                    </Link>
+                  ) : (
+                    <div className={cardClass}>{cardBody}</div>
+                  )}
+                </Reveal>
+              );
+            })}
           </div>
 
           {/* Mobile controls — same dots/arrows as the other native sliders.

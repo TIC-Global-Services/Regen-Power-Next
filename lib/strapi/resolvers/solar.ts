@@ -10,6 +10,7 @@ import type {
   SolarSizingGuideTableData,
   SolarPackagesData,
   SolarTimelineData,
+  SolarWhyRegenPowerData,
   SolarEngineeringItemsData,
 } from "../schemas/solar";
 import type { HeroProps } from "@/reuseables/Hero";
@@ -261,7 +262,48 @@ export function resolveSolarPackages(
   };
 }
 
+export interface ResolvedSolarTimelineStep {
+  title: string;
+  description: string;
+}
+
+// Used while Strapi has no `steps` for the timeline (or is unreachable).
+const FALLBACK_TIMELINE_STEPS: ResolvedSolarTimelineStep[] = [
+  {
+    title: "Free Consultation",
+    description:
+      "A 15-minute call with a Regen energy advisor. We review your bill, household setup, and goals. No pressure, no sales script.",
+  },
+  {
+    title: "Site Assessment",
+    description:
+      "A CEC-accredited designer visits your home (or uses satellite + phase confirmation) to check roof orientation, shade, switchboard, and meter. Takes about 45 minutes.",
+  },
+  {
+    title: "Custom System Design",
+    description:
+      "We design a system specifically for your roof, household, and plans — including battery-readiness if relevant. You receive a detailed quote with panel layout, component specs, and total investment.",
+  },
+  {
+    title: "Paperwork And Rebates",
+    description:
+      "We handle all Synergy / Western Power applications, DEBS feed-in registration, and federal STC rebate paperwork. The rebate is applied upfront as a discount — no forms for you to file.",
+  },
+  {
+    title: "Installation Day",
+    description:
+      "Our in-house crew of CEC-accredited electricians installs your system in 6–8 hours for a typical residential job. You'll be back on power (off-grid) by the afternoon.",
+  },
+  {
+    title: "Switch-On And Monitoring",
+    description:
+      "Once Western Power approves your meter reconfiguration (typically 2–10 business days), we help you activate the monitoring app and explain how to read your production, consumption, and savings.",
+  },
+];
+
 export interface ResolvedSolarTimeline {
+  badge: string;
+  steps: ResolvedSolarTimelineStep[];
   subtitle: string;
   title: string;
   description: string;
@@ -276,6 +318,11 @@ export function resolveSolarTimeline(
 ): ResolvedSolarTimeline | null {
   if (!data) return null;
   return {
+    badge: data.badge || "Your Solar Journey",
+    steps:
+      data.steps && data.steps.length > 0
+        ? data.steps.map((s) => ({ title: s.title, description: s.description }))
+        : FALLBACK_TIMELINE_STEPS,
     subtitle: data.subtitle ?? "",
     title: data.title ?? "",
     description: data.description ?? "",
@@ -284,6 +331,40 @@ export function resolveSolarTimeline(
     ...(data.ctaText ? { ctaText: data.ctaText } : {}),
     ...(data.ctaLink ? { ctaLink: data.ctaLink } : {}),
     image: data.image ? strapiImageData(data.image) : null,
+  };
+}
+
+export interface ResolvedSolarWhyRegenStat {
+  value: string;
+  label: string;
+  logo: StrapiImageData | null;
+}
+export interface ResolvedSolarWhyRegenPower {
+  badge: string;
+  title: string;
+  paragraphs: { text: string; isSecondary: boolean }[];
+  stats: ResolvedSolarWhyRegenStat[];
+  awardsTitle: string;
+  awards: string[];
+}
+export function resolveSolarWhyRegenPower(
+  data: SolarWhyRegenPowerData | undefined
+): ResolvedSolarWhyRegenPower | null {
+  if (!data) return null;
+  return {
+    badge: data.badge ?? "",
+    title: data.title ?? "",
+    paragraphs: (data.paragraphs ?? []).map((p) => ({
+      text: p.text,
+      isSecondary: p.isSecondary,
+    })),
+    stats: (data.stats ?? []).map((s) => ({
+      value: s.value,
+      label: s.label,
+      logo: s.logo ? strapiImageData(s.logo) : null,
+    })),
+    awardsTitle: data.awardsTitle ?? "",
+    awards: (data.awards ?? []).map((a) => a.text),
   };
 }
 
