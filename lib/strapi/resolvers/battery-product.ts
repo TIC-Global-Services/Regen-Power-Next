@@ -217,8 +217,10 @@ export interface ResolvedCompatibleProducts {
   title: string;
   description?: string;
   leftTitle: string;
+  leftDescription?: string;
   leftItems: string[];
   rightTitle: string;
+  rightDescription?: string;
   rightItems: string[];
 }
 export function resolveCompatibleProducts(
@@ -230,8 +232,10 @@ export function resolveCompatibleProducts(
     title: data.title ?? "",
     description: data.description ?? undefined,
     leftTitle: data.leftTitle ?? "",
+    leftDescription: data.leftDescription || undefined,
     leftItems: (data.leftItems ?? []).map((i) => i.text ?? ""),
     rightTitle: data.rightTitle ?? "",
+    rightDescription: data.rightDescription || undefined,
     rightItems: (data.rightItems ?? []).map((i) => i.text ?? ""),
   };
 }

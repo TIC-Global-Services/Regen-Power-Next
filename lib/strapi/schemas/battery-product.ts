@@ -160,6 +160,8 @@ export const CompatibleProductsSchema = z.object({
   leftItems: z.array(SharedTextItemSchema),
   rightTitle: z.string().nullable(),
   rightItems: z.array(SharedTextItemSchema),
+  leftDescription: z.string().nullable().optional(),
+  rightDescription: z.string().nullable().optional(),
 });
 export type CompatibleProductsData = z.infer<typeof CompatibleProductsSchema>;
 

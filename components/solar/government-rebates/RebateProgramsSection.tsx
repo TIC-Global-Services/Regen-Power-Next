@@ -7,7 +7,7 @@ import MissingImage from "@/reuseables/MissingImage";
 import type { ResolvedRebatesRebatePrograms } from "@/lib/strapi/resolvers/rebates";
 import { ChevronDown } from "lucide-react";
 
-const CYCLE_DURATION = 5000; // ms per card
+const CYCLE_DURATION = 8000; // ms per card
 
 interface Props {
   resolved: ResolvedRebatesRebatePrograms;
@@ -85,10 +85,9 @@ export default function RebateProgramsSection({ resolved }: Props) {
               key={program.label}
               type="button"
               onClick={() => handleManualClick(index)}
-              onMouseEnter={() => handleManualClick(index)}
               className={`relative overflow-hidden text-left transition-all duration-500 ease-in-out ${isActive
                 ? "bg-[#A6D63F] flex-[1.5_1_0%] pt-8 px-6 pb-10 aspect-square"
-                : `bg-[#F3F7F1] flex-1 pt-6 pb-4 px-5 aspect-square ${!isLast ? "border-r border-[#DCE8D8]" : ""} hover:bg-[#EEF6EB]`
+                : `bg-[#F3F7F1] flex-1 pt-6 pb-4 px-5 aspect-square cursor-pointer ${!isLast ? "border-r border-[#DCE8D8]" : ""}`
                 }`}
             >
               {/* Progress bar on active card */}

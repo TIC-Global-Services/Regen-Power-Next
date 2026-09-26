@@ -200,6 +200,8 @@ export const BatteryStorageGreatFitSchema = z.object({
   goodFitItems: z.array(BatteryStorageTextItemSchema),
   conversationTitle: z.string().nullable(),
   conversationItems: z.array(BatteryStorageTextItemSchema),
+  leftDescription: z.string().nullable().optional(),
+  rightDescription: z.string().nullable().optional(),
 });
 export type BatteryStorageGreatFitData = z.infer<
   typeof BatteryStorageGreatFitSchema

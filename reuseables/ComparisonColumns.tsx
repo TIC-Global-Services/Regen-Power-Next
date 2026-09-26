@@ -15,10 +15,14 @@ import { Check, X, Minus, LucideIcon } from 'lucide-react';
 export interface ComparisonColumn {
   /** Title of the left column (e.g. "Good Fit"). */
   leftTitle: string;
+  /** Optional lead-in line shown under the left column title. */
+  leftDescription?: string;
   /** Items for the left column. */
   leftItems: string[];
   /** Title of the right column (e.g. "Worth A Conversation First"). */
   rightTitle: string;
+  /** Optional lead-in line shown under the right column title. */
+  rightDescription?: string;
   /** Items for the right column. */
   rightItems: string[];
 }
@@ -76,9 +80,14 @@ const ComparisonColumns: React.FC<ComparisonColumnsProps> = ({
         <div className="flex flex-col md:flex-row justify-center items-stretch gap-4 lg:gap-8">
           {/* Left Column */}
           <div className="bg-[#63B846] w-full min-h-[478px] md:w-[400px] md:min-h-[460px] max-w-full rounded-[20px] p-8 flex flex-col">
-            <h4 className="text-2xl font-medium mb-6 text-center text-black">
+            <h4 className={`text-2xl font-medium text-center text-black ${data.leftDescription ? 'mb-3' : 'mb-6'}`}>
               {data.leftTitle}
             </h4>
+            {data.leftDescription && (
+              <p className="mb-6 text-center text-base leading-[1.2] tracking-tight text-black">
+                {data.leftDescription}
+              </p>
+            )}
             <ul className="space-y-8 flex-1 flex flex-col justify-center">
               {data.leftItems.map((item, idx) => (
                 <li key={idx} className="flex items-start gap-4">
@@ -95,9 +104,14 @@ const ComparisonColumns: React.FC<ComparisonColumnsProps> = ({
 
           {/* Right Column */}
           <div className="bg-[#EEF6EB] w-full min-h-[478px] md:w-[400px] md:min-h-[460px] max-w-full rounded-[20px] p-8 flex flex-col">
-            <h4 className="text-2xl font-medium mb-6 text-center text-black">
+            <h4 className={`text-2xl font-medium text-center text-black ${data.rightDescription ? 'mb-3' : 'mb-6'}`}>
               {data.rightTitle}
             </h4>
+            {data.rightDescription && (
+              <p className="mb-6 text-center text-base leading-[1.2] tracking-tight text-black">
+                {data.rightDescription}
+              </p>
+            )}
             <ul className="space-y-8 flex-1 flex flex-col justify-center">
               {data.rightItems.map((item, idx) => (
                 <li key={idx} className="flex items-start gap-4">

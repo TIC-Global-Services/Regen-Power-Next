@@ -47,8 +47,10 @@ export interface ResolvedSmartHomeGreatFit {
   title: string;
   description?: string;
   leftTitle: string;
+  leftDescription?: string;
   leftItems: string[];
   rightTitle: string;
+  rightDescription?: string;
   rightItems: string[];
 }
 export function resolveSmartHomeGreatFit(
@@ -60,8 +62,10 @@ export function resolveSmartHomeGreatFit(
     title: data.title ?? "",
     description: data.description ?? undefined,
     leftTitle: data.goodFitTitle ?? "Good Fit",
+    leftDescription: data.leftDescription || undefined,
     leftItems: (data.goodFitItems ?? []).map((i) => i.text),
     rightTitle: data.conversationTitle ?? "Worth A Conversation First",
+    rightDescription: data.rightDescription || undefined,
     rightItems: (data.conversationItems ?? []).map((i) => i.text),
   };
 }

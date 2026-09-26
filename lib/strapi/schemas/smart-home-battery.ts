@@ -106,6 +106,8 @@ export const SmartHomeGreatFitSchema = z.object({
   goodFitItems: z.array(SmartHomeTextItemSchema),
   conversationTitle: z.string().nullable(),
   conversationItems: z.array(SmartHomeTextItemSchema),
+  leftDescription: z.string().nullable().optional(),
+  rightDescription: z.string().nullable().optional(),
 });
 export type SmartHomeGreatFitData = z.infer<typeof SmartHomeGreatFitSchema>;
 
