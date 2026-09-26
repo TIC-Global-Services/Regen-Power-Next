@@ -48,6 +48,32 @@ const SmoothScroller = ({ children }: LenisProviderProps) => {
     return () => window.removeEventListener("hashchange", handleHashChange);
   }, []);
 
+  // `hashchange` never fires when the URL already carries the clicked hash, so a
+  // second click on the same "#quote-form" link did nothing. Handle same-page
+  // hash links on click instead (capture phase, before Next's Link navigates).
+  useEffect(() => {
+    const onClick = (e: MouseEvent) => {
+      if (e.defaultPrevented || e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+      const anchor = (e.target as Element | null)?.closest?.("a[href]") as HTMLAnchorElement | null;
+      if (!anchor || (anchor.target && anchor.target !== "_self")) return;
+
+      const url = new URL(anchor.href, window.location.href);
+      if (url.origin !== window.location.origin || url.pathname !== window.location.pathname) return;
+      if (url.hash.length < 2) return;
+
+      const target = document.getElementById(decodeURIComponent(url.hash.slice(1)));
+      if (!target || !lenisRef.current) return;
+
+      e.preventDefault();
+      lenisRef.current.scrollTo(target);
+      if (url.hash !== window.location.hash) {
+        history.pushState(null, "", url.pathname + url.search + url.hash);
+      }
+    };
+    document.addEventListener("click", onClick, true);
+    return () => document.removeEventListener("click", onClick, true);
+  }, []);
+
   useEffect(() => {
     gsap.registerPlugin(ScrollTrigger);
 
